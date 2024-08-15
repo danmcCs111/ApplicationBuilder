@@ -18,25 +18,33 @@ import org.xml.sax.SAXException;
 import ApplicationBuilder.LoggingMessages;
 
 /**
+ * single instance for now
  * use initWidgetReader to read saved widget xml design
  * TODO allow for a reload?
  */
 public class WidgetReader {
 	
 	private static WidgetReader widgetReader = null;
+	private static ArrayList<WidgetCreatorProperty> widgetCreatorProperties = null; 
+	
+	public static ArrayList<WidgetCreatorProperty> getWidgetCreatorProperties()
+	{
+		initWidgetReader();
+		return widgetCreatorProperties;
+	}
 	
 	private WidgetReader()
 	{
 		readWidgetBuilder();
 	}
 	
-	public static void initWidgetReader()
+	private static void initWidgetReader()
 	{
 		if(widgetReader == null)
 			widgetReader = new WidgetReader();
 	}
 	
-	public static void readWidgetBuilder()
+	private static void readWidgetBuilder()
 	{
 		File f = new File("src\\ApplicationBuilder\\data\\WidgetBuild.xml");
 		DocumentBuilderFactory dbFact = DocumentBuilderFactory.newInstance();
@@ -49,14 +57,14 @@ public class WidgetReader {
 			
 			NodeList nl = e.getChildNodes();
 			LoggingMessages.printOut("" + nl.getLength());
-			generateWidgetCreatorPropertyList(nl, null);
+			widgetCreatorProperties = generateWidgetCreatorPropertyList(nl, null);
 			
 		} catch (ParserConfigurationException | SAXException | IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public static ArrayList<WidgetCreatorProperty> generateWidgetCreatorPropertyList(NodeList nl, String parentId)
+	private static ArrayList<WidgetCreatorProperty> generateWidgetCreatorPropertyList(NodeList nl, String parentId)
 	{
 		ArrayList<WidgetCreatorProperty> widgetCreatorProperties = new ArrayList<WidgetCreatorProperty>();
 		
@@ -89,7 +97,7 @@ public class WidgetReader {
 		return widgetCreatorProperties;
 	}
 	
-	public static WidgetCreatorProperty generateWidgetCreatorProperty(Node node, String parentNode)
+	private static WidgetCreatorProperty generateWidgetCreatorProperty(Node node, String parentNode)
 	{
 		ArrayList<String> attributes = new ArrayList<String>();
 		

@@ -49,6 +49,11 @@ public class WidgetCreatorProperty {
 		this.refId = refId;
 	}
 	
+	public boolean isThisParentRef(String parentRef)
+	{
+		return refId.equals(parentRef);
+	}
+	
 	private void splitAttributeNameAndValue(String attribute)
 	{
 		String [] ss = attribute.split("=");

@@ -35,6 +35,7 @@ import Properties.LauncherProperties;
 import Properties.PropertiesFileLoader;
 import Properties.WidgetTextProperties;
 import WidgetUtility.WidgetCreator;
+import WidgetUtility.WidgetCreatorProperty;
 import WidgetUtility.WidgetReader;
 
 /**
@@ -64,10 +65,12 @@ public class CommandLauncherWindow extends JFrame {
 	private JButton selectedButton;
 	private String selectedName;
 	
+	private ArrayList<WidgetCreatorProperty> widgetCreatorProperties;
+	
 	
 	public CommandLauncherWindow()
 	{
-		WidgetReader.initWidgetReader();//TODO new feature 
+		widgetCreatorProperties = WidgetReader.getWidgetCreatorProperties();//TODO new feature 
 		
 		int winHeight = LauncherProperties.WINDOW_HEIGHT.getPropertiesValueAsInt();
 		
