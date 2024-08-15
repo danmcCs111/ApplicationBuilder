@@ -2,6 +2,7 @@ package WidgetUtility;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -64,10 +65,9 @@ public class WidgetReader {
 			for(int i = 0; i < nl.getLength(); i++)
 			{
 				Node n = nl.item(i);
-				String nodeName = nl.item(i).getNodeName();
+				String nodeName = n.getNodeName();
 				if(nodeName.equals("#text"))//ignore
 					continue;
-				LoggingMessages.printOut("Component: " + nodeName);
 				printNodeAttributes(n);
 				NodeList nl2 = n.getChildNodes();
 				if(n.getChildNodes() != null)
@@ -78,17 +78,20 @@ public class WidgetReader {
 		}
 	}
 	
-	public static void printNodeAttributes(Node n)
+	public static WidgetCreatorProperty printNodeAttributes(Node n)
 	{
+		ArrayList<String> attributes = new ArrayList<String>();
+		
 		NamedNodeMap nnMap = n.getAttributes();
 		if(nnMap == null)
 		{
 			LoggingMessages.printOut("null, Continue...");
-			return;
+			return null;
 		}
 		for(int j = 0;  j < nnMap.getLength(); j++)
 		{
-			LoggingMessages.printOut("\t Attribute: " + nnMap.item(j).toString());
+			attributes.add(nnMap.item(j).toString());
 		}
+		return new WidgetCreatorProperty(n.getNodeName(), attributes);
 	}
 }
