@@ -10,20 +10,29 @@ public enum WidgetComponentType {
 	MENU_ITEM("MenuItem", "createMenuItem"),
 	BUTTON("Button", "createButton"),
 	BUTTON_ARRAY("ButtonArray", "createButtonArray"),
+	LABEL("Label", "createLabel"),
+	COLLECTION("Collection", ""),
 	SYSTEM_TRAY("SystemTray", "createSystemTray");
 	
 	private String 
 		componentLabel, 
 		creatorMethodStr;
 	private Method creatorMethod;
+	private int counter = 0;
 	
 	private static Method [] creatorMethods = WidgetCreator.class.getDeclaredMethods();
+	public static String ID_SPLIT = "#";
 	
 	private WidgetComponentType(String componentLabel, String creatorMethodStr)
 	{
 		this.componentLabel = componentLabel;
 		this.creatorMethodStr = creatorMethodStr;
 //		this.creatorMethod = getWidgetCreatorMethod();
+	}
+	
+	public String getNextCounterId()
+	{
+		return getLabelStr() + ID_SPLIT + counter++;
 	}
 	
 	public String getLabelStr()

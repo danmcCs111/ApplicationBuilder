@@ -46,20 +46,20 @@ public class WidgetReader {
 			Document document = dc.parse(f);
 			Element e = document.getDocumentElement();
 			e.normalize();
-			Node n = e.getFirstChild();
-			printNodeAttributes(n);
 			
 			NodeList nl = e.getChildNodes();
 			LoggingMessages.printOut("" + nl.getLength());
-			printNodeList(nl);
+			generateWidgetCreatorPropertyList(nl, null);
 			
 		} catch (ParserConfigurationException | SAXException | IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public static void printNodeList(NodeList nl)
+	public static ArrayList<WidgetCreatorProperty> generateWidgetCreatorPropertyList(NodeList nl, String parentId)
 	{
+		ArrayList<WidgetCreatorProperty> widgetCreatorProperties = new ArrayList<WidgetCreatorProperty>();
+		
 		if(nl != null)
 		{
 			for(int i = 0; i < nl.getLength(); i++)
@@ -68,21 +68,32 @@ public class WidgetReader {
 				String nodeName = n.getNodeName();
 				if(nodeName.equals("#text"))//ignore
 					continue;
-				printNodeAttributes(n);
+				WidgetCreatorProperty wcProperty = generateWidgetCreatorProperty(n, parentId);
+				if(wcProperty != null)
+					widgetCreatorProperties.add(wcProperty);
 				NodeList nl2 = n.getChildNodes();
 				if(n.getChildNodes() != null)
 				{
-					printNodeList(nl2);
+					String counterId = null;
+					if(n != null)
+					{
+						String nodeStr = n.getNodeName().split(WidgetComponentType.ID_SPLIT)[0];
+						WidgetComponentType wcType = WidgetComponentType.getWidgetComponentType(nodeStr);
+						counterId = wcType.getNextCounterId();
+						wcProperty.setRefId(counterId);
+					}
+					generateWidgetCreatorPropertyList(nl2, counterId);
 				}
 			}
 		}
+		return widgetCreatorProperties;
 	}
 	
-	public static WidgetCreatorProperty printNodeAttributes(Node n)
+	public static WidgetCreatorProperty generateWidgetCreatorProperty(Node node, String parentNode)
 	{
 		ArrayList<String> attributes = new ArrayList<String>();
 		
-		NamedNodeMap nnMap = n.getAttributes();
+		NamedNodeMap nnMap = node.getAttributes();
 		if(nnMap == null)
 		{
 			LoggingMessages.printOut("null, Continue...");
@@ -92,6 +103,8 @@ public class WidgetReader {
 		{
 			attributes.add(nnMap.item(j).toString());
 		}
-		return new WidgetCreatorProperty(n.getNodeName(), attributes);
+		String counterId = parentNode;
+		
+		return new WidgetCreatorProperty(node.getNodeName(), attributes, counterId);
 	}
 }
