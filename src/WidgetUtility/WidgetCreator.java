@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,14 +21,17 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import ActionListeners.ChannelActionListener;
 import ActionListeners.CloseActionListener;
 import ApplicationBuilder.CommandLauncherWindow;
 import Properties.LauncherProperties;
 
-public interface WidgetCreator {
+public class WidgetCreator implements WidgetCreationOptions {
 
 	public static JPanel createNavigationPanel(JButton navPanel)
 	{
@@ -195,6 +199,66 @@ public interface WidgetCreator {
 			}
 		}
 		return retB;
+	}
+
+	@Override
+	public JFrame createFrame() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public JPanel createPanel() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public JScrollPane createScrollPane() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public JMenuBar createMenuOption() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MenuItem createMenuItem() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public JButton createButton() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<JButton> createButtonArray() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public JLabel createLabel() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<?> createCollection() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public SystemTray createSystemTray() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

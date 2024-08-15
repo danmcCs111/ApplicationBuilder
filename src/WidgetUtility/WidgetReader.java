@@ -25,7 +25,7 @@ import ApplicationBuilder.LoggingMessages;
 public class WidgetReader {
 	
 	private static WidgetReader widgetReader = null;
-	private static ArrayList<WidgetCreatorProperty> widgetCreatorProperties = null; 
+	private static ArrayList<WidgetCreatorProperty> widgetCreatorProperties = new ArrayList<WidgetCreatorProperty>(); 
 	
 	public static ArrayList<WidgetCreatorProperty> getWidgetCreatorProperties()
 	{
@@ -66,8 +66,6 @@ public class WidgetReader {
 	
 	private static ArrayList<WidgetCreatorProperty> generateWidgetCreatorPropertyList(NodeList nl, String parentId)
 	{
-		ArrayList<WidgetCreatorProperty> widgetCreatorProperties = new ArrayList<WidgetCreatorProperty>();
-		
 		if(nl != null)
 		{
 			for(int i = 0; i < nl.getLength(); i++)

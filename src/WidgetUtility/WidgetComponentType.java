@@ -5,19 +5,18 @@ import java.lang.reflect.Method;
 public enum WidgetComponentType {
 	FRAME("Frame", "createFrame"),
 	PANEL("Panel", "createPanel"),
-	SCROLL_PANE("ScrollPane", "createScollPane"),
+	SCROLL_PANE("ScrollPane", "createScrollPane"),
 	MENU_OPTION("MenuOption", "createMenuOption"),
 	MENU_ITEM("MenuItem", "createMenuItem"),
 	BUTTON("Button", "createButton"),
 	BUTTON_ARRAY("ButtonArray", "createButtonArray"),
 	LABEL("Label", "createLabel"),
-	COLLECTION("Collection", ""),
+	COLLECTION("Collection", "createCollection"),
 	SYSTEM_TRAY("SystemTray", "createSystemTray");
 	
 	private String 
 		componentLabel, 
 		creatorMethodStr;
-	private Method creatorMethod;
 	private int counter = 0;
 	
 	private static Method [] creatorMethods = WidgetCreator.class.getDeclaredMethods();
@@ -42,7 +41,7 @@ public enum WidgetComponentType {
 	
 	public Method getCreatorMethod()
 	{
-		return creatorMethod;
+		return getWidgetCreatorMethod();
 	}
 	
 	public static WidgetComponentType getWidgetComponentType(String text)

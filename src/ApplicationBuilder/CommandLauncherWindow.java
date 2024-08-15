@@ -70,7 +70,8 @@ public class CommandLauncherWindow extends JFrame {
 	
 	public CommandLauncherWindow()
 	{
-		widgetCreatorProperties = WidgetReader.getWidgetCreatorProperties();//TODO new feature 
+//		widgetCreatorProperties = WidgetReader.getWidgetCreatorProperties();//TODO new feature 
+		new CommandBuildController();
 		
 		int winHeight = LauncherProperties.WINDOW_HEIGHT.getPropertiesValueAsInt();
 		
