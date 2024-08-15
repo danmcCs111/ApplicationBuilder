@@ -18,22 +18,21 @@
 		</Button>
 		<Button text="&gt;" lay="EAST" ActionListener="NavigationButtonActionListener" type="Direction.FORWARD">
 		</Button>
+		
+		<MenuOption text="File">
+			<MenuItem text="Reload" ActionListener="ReloadActionListener">
+			</MenuItem >
+			<MenuItem text="MinimizeToSystemTray" ActionListener="MinimizeActionListener">
+			</MenuItem >
+			<MenuItem text="Exit" ActionListener="ExitActionListener">
+			</MenuItem >
+		</MenuOption>
+		
+		<SystemTray text="Video Launcher">
+			<MenuItem text="Open">
+			</MenuItem>
+			<MenuItem text="Close">
+			</MenuItem>
+		</SystemTray>
 	</Frame>
-
-	<MenuOption text="File">
-		<MenuItem text="Reload" ActionListener="ReloadActionListener">
-		</MenuItem >
-		<MenuItem text="MinimizeToSystemTray" ActionListener="MinimizeActionListener">
-		</MenuItem >
-		<MenuItem text="Exit" ActionListener="ExitActionListener">
-		</MenuItem >
-	</MenuOption>
-
-	<SystemTray text="Video Launcher">
-		<MenuItem text="Open">
-		</MenuItem>
-		<MenuItem text="Close">
-		</MenuItem>
-	</SystemTray>
-
 </ButtonBuild>
