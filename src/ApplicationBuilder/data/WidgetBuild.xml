@@ -1,0 +1,39 @@
+<ButtonBuild>
+	<Frame layout="BorderLayout" Title="Video Launcher" WindowHeight="600" WindowWidth="250" WindowLocationX="150" WindowLocationY="150">
+		<Panel layout="BorderLayout" lay="CENTER">
+			<ScrollPane lay="NORTH">
+				<Panel>
+					<Collection ArrayProcessingExt="" Path="">
+						<Label id="title" color_foreground="100,50,150" color_background="190,190,190">
+						</Label>
+						<ButtonArray id="channels">
+						</ButtonArray>
+						<Button text="Close Video">
+						</Button>
+					</Collection>
+				</Panel>
+			</ScrollPane>
+		</Panel>
+		<Button text="&lt;" lay="WEST" ActionListener="NavigationButtonActionListener" type="Direction.BACKWARD">
+		</Button>
+		<Button text="&gt;" lay="EAST" ActionListener="NavigationButtonActionListener" type="Direction.FORWARD">
+		</Button>
+	</Frame>
+
+	<MenuOption text="File">
+		<MenuItem text="Reload" ActionListener="ReloadActionListener">
+		</MenuItem >
+		<MenuItem text="MinimizeToSystemTray" ActionListener="MinimizeActionListener">
+		</MenuItem >
+		<MenuItem text="Exit" ActionListener="ExitActionListener">
+		</MenuItem >
+	</MenuOption>
+
+	<SystemTray text="Video Launcher">
+		<MenuItem text="Open">
+		</MenuItem>
+		<MenuItem text="Close">
+		</MenuItem>
+	</SystemTray>
+
+</ButtonBuild>
