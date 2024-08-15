@@ -1,5 +1,5 @@
 <ButtonBuild>
-	<Frame layout="BorderLayout" Title="Video Launcher" WindowHeight="600" WindowWidth="250" WindowLocationX="150" WindowLocationY="150">
+	<Frame layout="BorderLayout" text="Video Launcher" WindowHeight="600" WindowWidth="250" WindowLocationX="150" WindowLocationY="150">
 		<Panel layout="BorderLayout" lay="CENTER">
 			<ScrollPane lay="NORTH">
 				<Panel>

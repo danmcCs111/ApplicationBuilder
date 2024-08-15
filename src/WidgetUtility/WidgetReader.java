@@ -64,7 +64,10 @@ public class WidgetReader {
 			for(int i = 0; i < nl.getLength(); i++)
 			{
 				Node n = nl.item(i);
-				LoggingMessages.printOut(nl.item(i).toString());
+				String nodeName = nl.item(i).getNodeName();
+				if(nodeName.equals("#text"))//ignore
+					continue;
+				LoggingMessages.printOut("Component: " + nodeName);
 				printNodeAttributes(n);
 				NodeList nl2 = n.getChildNodes();
 				if(n.getChildNodes() != null)
@@ -85,7 +88,7 @@ public class WidgetReader {
 		}
 		for(int j = 0;  j < nnMap.getLength(); j++)
 		{
-			LoggingMessages.printOut(nnMap.item(j).toString());
+			LoggingMessages.printOut("\t Attribute: " + nnMap.item(j).toString());
 		}
 	}
 }
