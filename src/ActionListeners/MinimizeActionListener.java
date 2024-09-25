@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import ApplicationBuilder.ClosePopupMenu;
 import ApplicationBuilder.CommandLauncherWindow;
 import ApplicationBuilder.OpenPopupMenu;
+import Properties.LauncherProperties;
 import Properties.WidgetTextProperties;
 import WidgetUtility.WidgetCreator;
 
@@ -36,7 +37,7 @@ public class MinimizeActionListener implements ActionListener{
 				? WidgetTextProperties.SYSTEM_TRAY_LABEL.getPropertiesValue()
 				: selectedName;
 		PopupMenu popMenu = WidgetCreator.buildPopupMenu(miO, miC);
-		clWindow.setTrayIcon(WidgetCreator.getTrayIcon(clWindow, trayText, popMenu));
+		WidgetCreator.setTrayIconOnSystemTray(WidgetCreator.buildTrayIcon(clWindow, trayText, popMenu, LauncherProperties.ICON.getPropertiesValue()));
 		clWindow.setVisible(false);
 		clWindow.setExtendedState(JFrame.NORMAL);
 	}

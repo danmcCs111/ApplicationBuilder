@@ -31,7 +31,7 @@ public class CommandLauncher {
 		return false;
 	}
 	
-	public static void closeRokuVideo()
+	public static void closeProcess()
 	{
 		destroyRunningProcess();
 	}

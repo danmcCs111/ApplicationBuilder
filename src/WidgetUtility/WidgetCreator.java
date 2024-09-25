@@ -1,5 +1,6 @@
 package WidgetUtility;
 
+import java.awt.AWTException;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -48,7 +49,7 @@ public class WidgetCreator implements WidgetCreationOptions {
 		JButton b = new JButton();
 		
 		b.setName(title);
-		b.setText(titleCreatorWithStrip(title, filter));
+		b.setText(createTitleStripped(title, filter));
 		
 		return b;
 	}
@@ -95,7 +96,7 @@ public class WidgetCreator implements WidgetCreationOptions {
 		return frame;
 	}
 	
-	public static String titleCreatorWithStrip(String buttonTitle, String stripStr)
+	public static String createTitleStripped(String buttonTitle, String stripStr)
 	{
 		String replstr = "";
 		if(stripStr == null || stripStr.equals(""))
@@ -120,12 +121,12 @@ public class WidgetCreator implements WidgetCreationOptions {
 	
 	public static void setupTaskbar(JFrame frame)
 	{
-		frame.setIconImage(getTaskbarIcon());
+		frame.setIconImage(buildTaskbarIcon(LauncherProperties.ICON.getPropertiesValue()));
 	}
 	
-	public static Image getTaskbarIcon()
+	public static Image buildTaskbarIcon(String path)
 	{
-		File file = new File(LauncherProperties.ICON.getPropertiesValue());
+		File file = new File(path);
 		BufferedImage img = null;
 		try {
 			img = ImageIO.read(file);
@@ -135,11 +136,11 @@ public class WidgetCreator implements WidgetCreationOptions {
 		return img;
 	}
 	
-	public static TrayIcon getTrayIcon(JFrame frame, String selectedTitle, PopupMenu trayPopupMenu)
+	public static TrayIcon buildTrayIcon(JFrame frame, String selectedTitle, PopupMenu trayPopupMenu, String path)
 	{
 		TrayIcon retIcon = null;
 		try {
-			File file = new File(LauncherProperties.ICON.getPropertiesValue());//use location from .bat script
+			File file = new File(path);//use location from .bat script
 			BufferedImage img = ImageIO.read(file);
 			
 			final TrayIcon trayIcon = new TrayIcon(img, selectedTitle, trayPopupMenu);
@@ -199,6 +200,22 @@ public class WidgetCreator implements WidgetCreationOptions {
 			}
 		}
 		return retB;
+	}
+	
+	public static void setTrayIconOnSystemTray(TrayIcon trayIcon)
+	{
+		SystemTray systemTray = SystemTray.getSystemTray();
+		try {
+			systemTray.add(trayIcon);
+		} catch (AWTException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static TrayIcon getSystemTrayTrayIcon()
+	{
+		SystemTray systemTray = SystemTray.getSystemTray();
+		return systemTray.getTrayIcons()[0];
 	}
 
 	@Override

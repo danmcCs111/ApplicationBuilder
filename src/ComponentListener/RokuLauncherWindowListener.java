@@ -22,6 +22,6 @@ public class RokuLauncherWindowListener extends WindowAdapter
 
 	@Override
 	public void windowClosing(WindowEvent e) {
-		CommandLauncher.closeRokuVideo();
+		CommandLauncher.closeProcess();
 	}
 }

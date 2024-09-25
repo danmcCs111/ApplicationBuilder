@@ -22,7 +22,7 @@ public class CloseActionListener implements ActionListener{
 			rlWindow.getSelectedButton().setBackground(
 					ChannelActionListener.getChannelButtonDefaultColor());
 		}
-		CommandLauncher.closeRokuVideo();
+		CommandLauncher.closeProcess();
 		rlWindow.setSelectedButtonAndText(null, null);
 		rlWindow.getChannelPanel().repaint();
 	}

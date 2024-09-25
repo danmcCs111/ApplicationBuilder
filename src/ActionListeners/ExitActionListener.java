@@ -11,7 +11,7 @@ public class ExitActionListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		CommandLauncher.closeRokuVideo();
+		CommandLauncher.closeProcess();
 		System.exit(0);
 		LoggingMessages.printOut(WidgetTextProperties.MENU_OPTION_EXIT.getPropertiesValue());		
 	}

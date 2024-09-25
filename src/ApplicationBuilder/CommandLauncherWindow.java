@@ -36,7 +36,6 @@ import Properties.PropertiesFileLoader;
 import Properties.WidgetTextProperties;
 import WidgetUtility.WidgetCreator;
 import WidgetUtility.WidgetCreatorProperty;
-import WidgetUtility.WidgetReader;
 
 /**
  * Launcher window
@@ -117,17 +116,6 @@ public class CommandLauncherWindow extends JFrame {
 	public String getSelectedName()
 	{
 		return selectedName;
-	}
-	
-	public void setTrayIcon(TrayIcon trayIcon)
-	{
-		SystemTray systemTray = SystemTray.getSystemTray();
-		try {
-			systemTray.add(trayIcon);
-			this.launcherTrayIcon = trayIcon;
-		} catch (AWTException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	public void setSelectedButtonAndText(JButton selectedButton, String text)
@@ -291,7 +279,7 @@ public class CommandLauncherWindow extends JFrame {
 		        return s2.length() - s1.length();
 		    }
 		});
-		String lenStr = WidgetCreator.titleCreatorWithStrip(cloneList.get(0), filter);
+		String lenStr = WidgetCreator.createTitleStripped(cloneList.get(0), filter);
 		JButton b = WidgetCreator.findButton(getChannelPanel().getComponents(), lenStr);
 		
 		

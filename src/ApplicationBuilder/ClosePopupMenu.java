@@ -7,7 +7,7 @@ public class ClosePopupMenu implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		CommandLauncher.closeRokuVideo();
+		CommandLauncher.closeProcess();
 		System.exit(0);
 	}
 }
