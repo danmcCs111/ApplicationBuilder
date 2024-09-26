@@ -105,8 +105,8 @@ public class BuilderWindow extends JFrame {
 		this.add(innerPanel2, BorderLayout.CENTER);
 		
 		
-		//setup open details button
-		openDetails = new JButton("Open Details");
+		//setup add Property button
+		openDetails = new JButton("Add Property");
 		this.add(openDetails, BorderLayout.SOUTH);
 		openDetails.setEnabled(false);
 
