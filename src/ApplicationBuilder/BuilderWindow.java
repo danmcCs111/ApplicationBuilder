@@ -11,7 +11,7 @@ public class BuilderWindow extends JFrame {
 	
 	public BuilderWindow()
 	{
-		new CommandBuildController(SOURCE_FILE);
+		new WidgetBuildController(SOURCE_FILE);
 		
 //		addMenuButtons();
 		

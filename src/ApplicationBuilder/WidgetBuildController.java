@@ -7,12 +7,12 @@ import WidgetUtility.WidgetComponentType;
 import WidgetUtility.WidgetCreatorProperty;
 import WidgetUtility.WidgetReader;
 
-public class CommandBuildController {
+public class WidgetBuildController {
 	
 	private ArrayList<WidgetCreatorProperty> widgetCreatorProperties;
 	private String sourceFile;
 	
-	public CommandBuildController(String sourceFile)
+	public WidgetBuildController(String sourceFile)
 	{
 		this.sourceFile = sourceFile;
 		readProperties();
