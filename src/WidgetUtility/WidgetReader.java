@@ -27,26 +27,26 @@ public class WidgetReader {
 	private static WidgetReader widgetReader = null;
 	private static ArrayList<WidgetCreatorProperty> widgetCreatorProperties = new ArrayList<WidgetCreatorProperty>(); 
 	
-	public static ArrayList<WidgetCreatorProperty> getWidgetCreatorProperties()
+	public static ArrayList<WidgetCreatorProperty> getWidgetCreatorProperties(String sourceFile)
 	{
-		initWidgetReader();
+		initWidgetReader(sourceFile);
 		return widgetCreatorProperties;
 	}
 	
-	private WidgetReader()
+	private WidgetReader(String sourceFile)
 	{
-		readWidgetBuilder();
+		readWidgetBuilder(sourceFile);
 	}
 	
-	private static void initWidgetReader()
+	private static void initWidgetReader(String sourceFile)
 	{
 		if(widgetReader == null)
-			widgetReader = new WidgetReader();
+			widgetReader = new WidgetReader(sourceFile);
 	}
 	
-	private static void readWidgetBuilder()
+	private static void readWidgetBuilder(String sourceFile)
 	{
-		File f = new File("src\\ApplicationBuilder\\data\\WidgetBuild.xml");
+		File f = new File(sourceFile);
 		DocumentBuilderFactory dbFact = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dc;
 		try {

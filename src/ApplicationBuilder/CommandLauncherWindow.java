@@ -1,11 +1,9 @@
 package ApplicationBuilder;
 
-import java.awt.AWTException;
 import java.awt.BorderLayout;
 import java.awt.FontMetrics;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
-import java.awt.SystemTray;
 import java.awt.TrayIcon;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -35,7 +33,6 @@ import Properties.LauncherProperties;
 import Properties.PropertiesFileLoader;
 import Properties.WidgetTextProperties;
 import WidgetUtility.WidgetCreator;
-import WidgetUtility.WidgetCreatorProperty;
 
 /**
  * Launcher window
@@ -64,14 +61,8 @@ public class CommandLauncherWindow extends JFrame {
 	private JButton selectedButton;
 	private String selectedName;
 	
-	private ArrayList<WidgetCreatorProperty> widgetCreatorProperties;
-	
-	
 	public CommandLauncherWindow()
 	{
-//		widgetCreatorProperties = WidgetReader.getWidgetCreatorProperties();//TODO new feature 
-		new CommandBuildController();
-		
 		int winHeight = LauncherProperties.WINDOW_HEIGHT.getPropertiesValueAsInt();
 		
 		addMenuButtons();

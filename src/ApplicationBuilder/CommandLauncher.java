@@ -6,14 +6,14 @@ import java.lang.ProcessHandle;
 import javax.swing.SwingUtilities;
 
 public class CommandLauncher {
-	private static Process rokuChannelProcess = null;
+	private static Process runningProcess = null;
 	
 	public static void executeProcess(String ...args)
 	{
 		try {
 			destroyRunningProcess();
 			ProcessBuilder pb = new ProcessBuilder(args);
-			rokuChannelProcess = pb.start();
+			runningProcess = pb.start();
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -22,10 +22,10 @@ public class CommandLauncher {
 	
 	public static boolean destroyRunningProcess()
 	{
-		if(rokuChannelProcess != null)
+		if(runningProcess != null)
 		{
-			rokuChannelProcess.destroy();
-			rokuChannelProcess.descendants().forEach(ProcessHandle::destroy);
+			runningProcess.destroy();
+			runningProcess.descendants().forEach(ProcessHandle::destroy);
 			return true;
 		}
 		return false;
@@ -39,7 +39,7 @@ public class CommandLauncher {
 	public static void main(String [] args)
 	{
 		SwingUtilities.invokeLater(() -> {
-			 CommandLauncherWindow window = new CommandLauncherWindow();
+			 BuilderWindow window = new BuilderWindow();
 		        window.setVisible(true);
 		});
 	}

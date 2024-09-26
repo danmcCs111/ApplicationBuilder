@@ -10,10 +10,20 @@ import WidgetUtility.WidgetReader;
 public class CommandBuildController {
 	
 	private ArrayList<WidgetCreatorProperty> widgetCreatorProperties;
+	private String sourceFile;
 	
-	public CommandBuildController()
+	public CommandBuildController(String sourceFile)
 	{
-		widgetCreatorProperties = WidgetReader.getWidgetCreatorProperties();//TODO new feature
+		this.sourceFile = sourceFile;
+		readProperties();
+	}
+	
+	/**
+	 * read the properties of the source file passed during construction
+	 */
+	public void readProperties()
+	{
+		widgetCreatorProperties = WidgetReader.getWidgetCreatorProperties(sourceFile);//TODO new feature
 		
 		for(WidgetCreatorProperty wcProp : widgetCreatorProperties)
 		{
