@@ -21,6 +21,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import WidgetComponents.ParameterEditor;
+
 public class BuilderWindow extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -86,11 +88,18 @@ public class BuilderWindow extends JFrame {
 			JList jl = new JList(methods.toArray());
 			listOfComponentMethods.put(c, jl);
 			jl.addListSelectionListener(new ListSelectionListener() {
-				
 				@Override
 				public void valueChanged(ListSelectionEvent e) {
-					ListSelectionModel lsm = jl.getSelectionModel();
-					openDetails.setEnabled(!lsm.isSelectionEmpty());
+					if(!e.getValueIsAdjusting())
+					{
+						ListSelectionModel lsm = jl.getSelectionModel();
+						if(!lsm.isSelectionEmpty())
+						{
+							LoggingMessages.printOut(jl.getSelectedValue().toString());
+							ParameterEditor.parseMethodParamsToList(jl.getSelectedValue().toString());
+						}
+						openDetails.setEnabled(!lsm.isSelectionEmpty());
+					}
 				}
 			});
 		}

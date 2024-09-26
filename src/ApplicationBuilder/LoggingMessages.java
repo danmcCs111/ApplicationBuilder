@@ -4,9 +4,12 @@ import java.nio.file.Paths;
 
 public class LoggingMessages {
 	
-	public static void printOut(String out)
+	public static void printOut(String ... out)
 	{
-		System.out.println(out);
+		for(String s : out)
+		{
+			System.out.println(s);
+		}
 	}
 	
 	public static void printFileNotFound(String filename)
