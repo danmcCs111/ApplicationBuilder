@@ -1,8 +1,8 @@
 package ApplicationBuilder;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 
 import javax.swing.JButton;
@@ -69,6 +69,17 @@ public class BuilderWindow extends JFrame {
 			for (Method m : c.getMethods())
 			{
 				String methodName = m.getName();
+				String paramName = " [";
+				for (int i =0; i < m.getParameterCount(); i++)
+				{
+					Parameter p = m.getParameters()[i];
+					paramName += p.toString();
+					if(m.getParameterCount() > i+1)
+					{
+						paramName += ", ";
+					}
+				}
+				methodName += paramName + "]";
 				if(methodName.startsWith(methodPrefixFilter))
 				{
 					if(settersAndClass.containsKey(methodName))
