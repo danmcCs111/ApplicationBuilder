@@ -1,6 +1,15 @@
 package ApplicationBuilder;
 
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import Properties.WidgetTextProperties;
 
@@ -35,6 +44,46 @@ public class BuilderWindow extends JFrame {
 		
 		this.setSize(480, 640);
 		
+		HashMap<String, ArrayList<String>> settersAndClass = generateMethodApiList("set");
+		
+		for(String methodStr : settersAndClass.keySet())
+		{
+			LoggingMessages.printOut(methodStr + ": " + settersAndClass.get(methodStr).toString());
+		}
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
+	public HashMap<String, ArrayList<String>> generateMethodApiList(String methodPrefixFilter)
+	{
+		HashMap<String, ArrayList<String>> settersAndClass = new HashMap<String, ArrayList<String>>();
+		ArrayList<Class<?>> classes = new ArrayList<Class<?>>();
+		classes.add(JFrame.class);
+		classes.add(JPanel.class);
+		classes.add(JButton.class);
+		classes.add(JTextField.class);
+		classes.add(JLabel.class);
+		
+		for(Class<?> c : classes)
+		{
+			for (Method m : c.getMethods())
+			{
+				String methodName = m.getName();
+				if(methodName.startsWith(methodPrefixFilter))
+				{
+					if(settersAndClass.containsKey(methodName))
+					{
+						settersAndClass.get(methodName).add(c.getName());
+					}
+					else
+					{
+						ArrayList<String> tmp = new ArrayList<String>();
+						tmp.add(c.getName());
+						settersAndClass.put(methodName, tmp);
+					}
+				}
+			}
+		}
+		return settersAndClass;
 	}
 }
