@@ -45,10 +45,17 @@ public class BuilderWindow extends JFrame {
 		this.setSize(480, 640);
 		
 		HashMap<String, ArrayList<String>> settersAndClass = generateMethodApiList("set");
-		
 		for(String methodStr : settersAndClass.keySet())
 		{
-			LoggingMessages.printOut(methodStr + ": " + settersAndClass.get(methodStr).toString());
+			LoggingMessages.printOut(settersAndClass.get(methodStr).toString() + ": " + methodStr);
+		}
+		
+		
+		HashMap<String, ArrayList<String>> classesAndSetters = generateClassesMethodApiList("set");
+		for(String classStr : classesAndSetters.keySet())
+		{
+			for(String s : classesAndSetters.get(classStr))
+				LoggingMessages.printOut(classStr + ": " + s.toString());
 		}
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -96,5 +103,48 @@ public class BuilderWindow extends JFrame {
 			}
 		}
 		return settersAndClass;
+	}
+	
+	public HashMap<String, ArrayList<String>> generateClassesMethodApiList(String methodPrefixFilter)
+	{
+		ArrayList<Class<?>> classes = new ArrayList<Class<?>>();
+		classes.add(JFrame.class);
+		classes.add(JPanel.class);
+		classes.add(JButton.class);
+		classes.add(JTextField.class);
+		classes.add(JLabel.class);
+		
+		HashMap<String, ArrayList<String>> classMethods = new HashMap<String, ArrayList<String>>();
+		
+		for(Class<?> c : classes)
+		{
+			String classNameKey = c.getName();
+			ArrayList<String> tmp = new ArrayList<String>();
+			classMethods.put(classNameKey, tmp);
+			
+			for (Method m : c.getMethods())
+			{
+				String methodName = m.getName();
+				String paramName = " [";
+				for (int i =0; i < m.getParameterCount(); i++)
+				{
+					Parameter p = m.getParameters()[i];
+					paramName += p.toString();
+					if(m.getParameterCount() > i+1)
+					{
+						paramName += ", ";
+					}
+				}
+				methodName += paramName + "]";
+				if(methodName.startsWith(methodPrefixFilter))
+				{
+					if(classMethods.containsKey(classNameKey))
+					{
+						classMethods.get(classNameKey).add(methodName);
+					}
+				}
+			}
+		}
+		return classMethods;
 	}
 }
