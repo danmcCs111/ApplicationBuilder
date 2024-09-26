@@ -23,6 +23,17 @@ public class BuilderWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private static final String SOURCE_FILE = "src\\ApplicationBuilder\\data\\WidgetBuild.xml";
 	
+	private static final ArrayList<Class<?>> COMPONENT_CLASSES = new ArrayList<Class<?>>();
+	static {
+		COMPONENT_CLASSES.add(JFrame.class);
+		COMPONENT_CLASSES.add(JPanel.class);
+		COMPONENT_CLASSES.add(JButton.class);
+		COMPONENT_CLASSES.add(JTextField.class);
+		COMPONENT_CLASSES.add(JLabel.class);
+		COMPONENT_CLASSES.add(JScrollPane.class);
+		COMPONENT_CLASSES.add(JComboBox.class);
+	}
+	
 	private HashMap<String, JList<?>> listOfComponentMethods = new HashMap<String, JList<?>>();
 	private JScrollPane scrPane = null;
 	private JPanel innerPanel2 = new JPanel();
@@ -91,16 +102,9 @@ public class BuilderWindow extends JFrame {
 	
 	public HashMap<String, ArrayList<String>> generateClassesMethodApiList(String methodPrefixFilter)
 	{
-		ArrayList<Class<?>> classes = new ArrayList<Class<?>>();
-		classes.add(JFrame.class);
-		classes.add(JPanel.class);
-		classes.add(JButton.class);
-		classes.add(JTextField.class);
-		classes.add(JLabel.class);
-		
 		HashMap<String, ArrayList<String>> classMethods = new HashMap<String, ArrayList<String>>();
 		
-		for(Class<?> c : classes)
+		for(Class<?> c : COMPONENT_CLASSES)
 		{
 			String classNameKey = c.getName();
 			ArrayList<String> tmp = new ArrayList<String>();
