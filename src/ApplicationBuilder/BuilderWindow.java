@@ -17,6 +17,9 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 public class BuilderWindow extends JFrame {
 
@@ -38,22 +41,27 @@ public class BuilderWindow extends JFrame {
 	private JScrollPane scrPane = null;
 	private JPanel innerPanel2 = new JPanel();
 	private JList<?> componentMethods = null;
+	private JButton openDetails;
 	
 	public BuilderWindow()
 	{
 		new WidgetBuildController(SOURCE_FILE);
 		
 		setTitle("ApplicationBuilder");
-		setLocation(150, 150);
+		setLocation(250, 250);
 		
+		//discover a list of methods available to adjust for our available list of components
 		HashMap<String, ArrayList<String>> classesAndSetters = generateClassesMethodApiList("set");
 		ArrayList<String> tmp = new ArrayList<String>(classesAndSetters.keySet());
+		Collections.sort(tmp);
 		String [] selections = tmp.toArray(new String [tmp.size()]);
 		for(String classStr : classesAndSetters.keySet())
 		{
 			for(String s : classesAndSetters.get(classStr))
 				LoggingMessages.printOut(classStr + ": " + s.toString());
 		}
+		
+		//setup combo box of component classes to build
 		JComboBox<String> classSelection = new JComboBox<String>(selections);
 		classSelection.addActionListener(new ActionListener() {
 			@Override
@@ -70,12 +78,21 @@ public class BuilderWindow extends JFrame {
 		});
 		classSelection.setVisible(true);
 		
-		
+		//setup methods list from selected drop down component
 		for (String c : classesAndSetters.keySet())
 		{
 			ArrayList<String> methods =	classesAndSetters.get(c);
 			Collections.sort(methods);//Sort list...
-			listOfComponentMethods.put(c, new JList(methods.toArray()));
+			JList jl = new JList(methods.toArray());
+			listOfComponentMethods.put(c, jl);
+			jl.addListSelectionListener(new ListSelectionListener() {
+				
+				@Override
+				public void valueChanged(ListSelectionEvent e) {
+					ListSelectionModel lsm = jl.getSelectionModel();
+					openDetails.setEnabled(!lsm.isSelectionEmpty());
+				}
+			});
 		}
 		componentMethods = listOfComponentMethods.get(classSelection.getSelectedItem());
 		LoggingMessages.printOut("Method output for class: " + classSelection.getSelectedItem().toString());
@@ -86,6 +103,12 @@ public class BuilderWindow extends JFrame {
 		innerPanel2.add(scrPane, BorderLayout.CENTER);
 		this.setLayout(bl);
 		this.add(innerPanel2, BorderLayout.CENTER);
+		
+		
+		//setup open details button
+		openDetails = new JButton("Open Details");
+		this.add(openDetails, BorderLayout.SOUTH);
+		openDetails.setEnabled(false);
 
 		
 		this.add(classSelection, BorderLayout.NORTH);
