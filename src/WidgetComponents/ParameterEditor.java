@@ -6,4 +6,5 @@ public interface ParameterEditor {
 
 	public Component getComponentEditor();
 	public String getComponentXMLOutput();
+	public boolean isType(String parameterValueType);
 }

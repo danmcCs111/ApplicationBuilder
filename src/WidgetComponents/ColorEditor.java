@@ -16,4 +16,10 @@ public class ColorEditor implements ParameterEditor{
 		return null;
 	}
 
+	@Override
+	public boolean isType(String parameterValueType) {
+		// TODO Auto-generated method stub
+		return parameterValueType.toLowerCase().equals("java.awt.color");
+	}
+
 }

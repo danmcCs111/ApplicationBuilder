@@ -123,8 +123,12 @@ public class BuilderWindow extends JFrame {
 				if(!lsm.isSelectionEmpty())
 				{
 					LoggingMessages.printOut(componentMethods.getSelectedValue().toString());
-					ParameterEditorParser.parseMethodParamsToList(componentMethods.getSelectedValue().toString());
-					ParameterEditorParser.launchEditor();
+					ArrayList<String> methodParams = ParameterEditorParser.parseMethodParamsToList(componentMethods.getSelectedValue().toString());
+					ParameterEditorParser.launchEditor(methodParams.get(0));
+					for(String s : methodParams.subList(1, methodParams.size()))
+					{
+						ParameterEditorParser.getParameterEditor(s);
+					}
 				}
 				openDetails.setEnabled(false);
 			}

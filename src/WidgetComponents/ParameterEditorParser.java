@@ -7,13 +7,13 @@ import ApplicationBuilder.LoggingMessages;
 
 public class ParameterEditorParser {
 	
-	private static final HashMap<String, ParameterEditor> editorTypes = new HashMap<String, ParameterEditor>();
+	private static final ArrayList<ParameterEditor> editorTypes = new ArrayList<ParameterEditor>();
 	static {
-		editorTypes.put("boolean", new BooleanEditor());
-		editorTypes.put("int", new IntegerEditor());
-		editorTypes.put("java.awt.Color", new ColorEditor());
-		editorTypes.put("java.lang.String", new StringEditor());
-		editorTypes.put("float", new FloatEditor());
+		editorTypes.add(new BooleanEditor());
+		editorTypes.add(new IntegerEditor());
+		editorTypes.add(new ColorEditor());
+		editorTypes.add(new StringEditor());
+		editorTypes.add(new FloatEditor());
 	}
 
 	public ParameterEditorParser()
@@ -26,8 +26,9 @@ public class ParameterEditorParser {
 		ArrayList<String> methodParams = new ArrayList<String>();
 		
 		String [] tmp = methodText.split("\\[");
-//		String methodName = tmp[0].trim;
+		String methodName = tmp[0].trim();
 		String methodParam = tmp[1].split("\\]")[0];
+		methodParams.add(methodName);
 		
 		String [] tmps = methodParam.split(",");
 		for(String s : tmps)
@@ -41,8 +42,21 @@ public class ParameterEditorParser {
 		return methodParams;
 	}
 	
-	public static void launchEditor()
+	public static ParameterEditor getParameterEditor(String param)
 	{
-		new EditParameterFrame();
+		for(ParameterEditor p : editorTypes)
+		{
+			if (p.isType(param))
+			{
+				LoggingMessages.printOut("found editor: " + p.getClass().getName());
+				return p;
+			}
+		}
+		return null;
+	}
+	
+	public static void launchEditor(String methodName)
+	{
+		new EditParameterFrame(methodName);
 	}
 }
