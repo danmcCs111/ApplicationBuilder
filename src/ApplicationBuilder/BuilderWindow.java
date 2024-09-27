@@ -24,11 +24,11 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import WidgetComponents.IntegerEditor;
+import ActionListeners.ComponentComboBoxActionListener;
 import WidgetComponents.ParameterEditor;
 import WidgetComponents.ParameterEditorParser;
 
-public class BuilderWindow extends JFrame {
+public class BuilderWindow extends RedrawableFrame {
 
 	private static final long serialVersionUID = 1L;
 	private static final String SOURCE_FILE = "src\\ApplicationBuilder\\data\\WidgetBuild.xml";
@@ -49,6 +49,7 @@ public class BuilderWindow extends JFrame {
 	private HashMap<String, JList<?>> listOfComponentMethods = new HashMap<String, JList<?>>();
 	private JScrollPane scrPane = null;
 	private JPanel innerPanel2 = new JPanel();
+	private JComboBox<String> classSelection;
 	private JList<?> componentMethods = null;
 	private JButton openDetails;
 	private ArrayList<String> detailsOpenList = new ArrayList<String>();
@@ -72,20 +73,8 @@ public class BuilderWindow extends JFrame {
 		}
 		
 		//setup combo box of component classes to build
-		JComboBox<String> classSelection = new JComboBox<String>(selections);
-		classSelection.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				clearInnerPanels();
-				componentMethods = listOfComponentMethods.get(classSelection.getSelectedItem());
-				scrPane = new JScrollPane(componentMethods);
-				innerPanel2.add(scrPane, BorderLayout.CENTER);
-				BuilderWindow.this.add(innerPanel2, BorderLayout.CENTER);
-				
-				LoggingMessages.printOut("Method output for class: " + classSelection.getSelectedItem().toString());
-				BuilderWindow.this.paintComponents(BuilderWindow.this.getGraphics());
-			}
-		});
+		classSelection = new JComboBox<String>(selections);
+		classSelection.addActionListener(new ComponentComboBoxActionListener(this));
 		classSelection.setVisible(true);
 		
 		//setup methods list from selected drop down component
@@ -167,11 +156,23 @@ public class BuilderWindow extends JFrame {
 		this.setSize(WINDOW_SIZE.width, WINDOW_SIZE.height);
 	}
 	
-	private void clearInnerPanels()
+	@Override
+	public void clearInnerPanels()
 	{
 		innerPanel2.removeAll();
 		scrPane.removeAll();
 		this.remove(innerPanel2);
+	}
+	
+	@Override
+	public void rebuildInnerPanels() {
+		componentMethods = listOfComponentMethods.get(classSelection.getSelectedItem());
+		scrPane = new JScrollPane(componentMethods);
+		innerPanel2.add(scrPane, BorderLayout.CENTER);
+		BuilderWindow.this.add(innerPanel2, BorderLayout.CENTER);
+		
+		LoggingMessages.printOut("Method output for class: " + classSelection.getSelectedItem().toString());
+		BuilderWindow.this.paintComponents(BuilderWindow.this.getGraphics());
 	}
 	
 //	public HashMap<String, JList<?>> filterMethods(HashMap<String, JList<?>> classesAndMethods, 

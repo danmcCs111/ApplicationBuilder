@@ -8,7 +8,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-public class ApplicationLayoutEditor extends JFrame{
+import ActionListeners.OpenParameterEditorActionListener;
+
+public class ApplicationLayoutEditor extends RedrawableFrame{
 
 	private static final long serialVersionUID = 1L;
 	private static final String TITLE = "Application Layout Editor";
@@ -33,15 +35,20 @@ public class ApplicationLayoutEditor extends JFrame{
 	{
 		//setup add Property button
 		openParameterButton = new JButton("Add Widget");
-		openParameterButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				BuilderWindow bw = new BuilderWindow();
-				bw.setVisible(true);
-			}
-		});
+		openParameterButton.addActionListener(new OpenParameterEditorActionListener());
 		this.add(openParameterButton, BorderLayout.SOUTH);
+	}
+
+	@Override
+	public void clearInnerPanels() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void rebuildInnerPanels() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
