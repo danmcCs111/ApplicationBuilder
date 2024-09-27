@@ -2,12 +2,14 @@ package WidgetComponents;
 
 import java.awt.Component;
 
-public class StringEditor implements ParameterEditor{
+import javax.swing.JTextField;
+
+public class StringEditor extends ParameterEditor{
 
 	@Override
 	public Component getComponentEditor() {
-		// TODO Auto-generated method stub
-		return null;
+		JTextField textField = new JTextField();
+		return textField;
 	}
 
 	@Override
@@ -19,7 +21,7 @@ public class StringEditor implements ParameterEditor{
 	@Override
 	public boolean isType(String parameterValueType) {
 		// TODO Auto-generated method stub
-		return parameterValueType.toLowerCase().equals("java.util.string");
+		return parameterValueType.toLowerCase().equals("java.lang.string");
 	}
 
 }

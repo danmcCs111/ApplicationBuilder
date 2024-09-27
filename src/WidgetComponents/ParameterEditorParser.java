@@ -3,6 +3,8 @@ package WidgetComponents;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.JFrame;
+
 import ApplicationBuilder.LoggingMessages;
 
 public class ParameterEditorParser {
@@ -55,8 +57,8 @@ public class ParameterEditorParser {
 		return null;
 	}
 	
-	public static void launchEditor(String methodName)
+	public static JFrame launchEditor(String methodName)
 	{
-		new EditParameterFrame(methodName);
+		return new EditParameterFrame(methodName);
 	}
 }

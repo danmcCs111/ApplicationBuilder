@@ -2,12 +2,17 @@ package WidgetComponents;
 
 import java.awt.Component;
 
-public class BooleanEditor implements ParameterEditor{
+import javax.swing.JComboBox;
+
+public class BooleanEditor extends ParameterEditor{
 
 	@Override
 	public Component getComponentEditor() {
-		// TODO Auto-generated method stub
-		return null;
+		JComboBox<String> trueOrFalse = new JComboBox<String>();
+		trueOrFalse.addItem("");
+		trueOrFalse.addItem("true");
+		trueOrFalse.addItem("false");
+		return trueOrFalse;
 	}
 
 	@Override

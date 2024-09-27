@@ -1,7 +1,9 @@
 package ApplicationBuilder;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.Method;
@@ -22,6 +24,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import WidgetComponents.IntegerEditor;
+import WidgetComponents.ParameterEditor;
 import WidgetComponents.ParameterEditorParser;
 
 public class BuilderWindow extends JFrame {
@@ -88,7 +92,10 @@ public class BuilderWindow extends JFrame {
 		for (String c : classesAndSetters.keySet())
 		{
 			ArrayList<String> methods =	classesAndSetters.get(c);
+//			filterMethods(listOfComponentMethods, );
+			
 			Collections.sort(methods);//Sort list...
+//			filterMethods(methods, getCapableMethodParams());
 			JList jl = new JList(methods.toArray());
 			listOfComponentMethods.put(c, jl);
 			jl.addListSelectionListener(new ListSelectionListener() {
@@ -97,7 +104,6 @@ public class BuilderWindow extends JFrame {
 					if(!e.getValueIsAdjusting())
 					{
 						ListSelectionModel lsm = jl.getSelectionModel();
-						
 						openDetails.setEnabled(!lsm.isSelectionEmpty() && 
 								!detailsOpenList.contains(jl.getSelectedValue()));
 					}
@@ -127,11 +133,29 @@ public class BuilderWindow extends JFrame {
 				{
 					LoggingMessages.printOut(componentMethods.getSelectedValue().toString());
 					ArrayList<String> methodParams = ParameterEditorParser.parseMethodParamsToList(componentMethods.getSelectedValue().toString());
-					ParameterEditorParser.launchEditor(methodParams.get(0));
+					JFrame editorFrame = ParameterEditorParser.launchEditor(methodParams.get(0));
+					int count = 0;
+					JPanel innerPanel = new JPanel();
+//					GridLayout gl = new GridLayout(0, 2);
+					GridLayout gl = new GridLayout(0, 1);
+					innerPanel.setLayout(gl);
+					
 					for(String s : methodParams.subList(1, methodParams.size()))
 					{
-						ParameterEditorParser.getParameterEditor(s);
+						ParameterEditor pe = ParameterEditorParser.getParameterEditor(s);
+						if(pe != null )
+						{
+							Component c = pe.getComponentEditor();
+							if(c != null)
+							{
+//								JLabel l = pe.getFieldLabel("arg" + count + ":");
+//								innerPanel.add(l);
+								innerPanel.add(c);
+								count++;
+							}
+						}
 					}
+					editorFrame.add(innerPanel, BorderLayout.NORTH);
 				}
 				openDetails.setEnabled(false);
 			}
@@ -149,6 +173,33 @@ public class BuilderWindow extends JFrame {
 		scrPane.removeAll();
 		this.remove(innerPanel2);
 	}
+	
+//	public HashMap<String, JList<?>> filterMethods(HashMap<String, JList<?>> classesAndMethods, 
+//			ArrayList<String> capableMethodParams)
+//	{
+//		for(String sc : classesAndMethods.keySet())
+//		{
+//			ArrayList<String> methods = new ArrayList<String>();
+//			JList jl = classesAndMethods.get(sc);
+//			LoggingMessages.printOut(jl.getComponentCount() + " is component count");
+//		}
+//		return classesAndMethods;
+//	}
+	
+//	/*
+//	 * TODO replace
+//	*/
+//	public ArrayList<String> getCapableMethodParams()
+//	{
+//		ArrayList<String> capableMethodParams = new ArrayList<String>();
+//		capableMethodParams.add("boolean");
+//		capableMethodParams.add("java.lang.string");
+//		capableMethodParams.add("int");
+//		capableMethodParams.add("float");
+//		capableMethodParams.add("double");
+//		capableMethodParams.add("java.awt.color");
+//		return capableMethodParams;
+//	}
 	
 	public HashMap<String, ArrayList<String>> generateClassesMethodApiList(String methodPrefixFilter)
 	{

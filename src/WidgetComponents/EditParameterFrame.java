@@ -9,7 +9,7 @@ public class EditParameterFrame extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	private static final Dimension WINDOW_LOCATION = new Dimension(350, 150);
-	private static final Dimension WINDOW_SIZE = new Dimension(450, 250);
+	private static final Dimension WINDOW_SIZE = new Dimension(650, 550);
 	private static final String TITLE_NAME_PREFIX = "Add method: ";
 	
 	public EditParameterFrame(String methodName)

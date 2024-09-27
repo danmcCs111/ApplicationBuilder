@@ -5,7 +5,7 @@ import java.awt.Component;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
-public class FloatEditor extends ParameterEditor{
+public class DoubleEditor extends ParameterEditor{
 
 	private static final int SPINNER_LIMIT = 1000000;
 	private static final int SPINNER_INTERVAL = 1;
@@ -28,7 +28,7 @@ public class FloatEditor extends ParameterEditor{
 	@Override
 	public boolean isType(String parameterValueType) {
 		// TODO Auto-generated method stub
-		return parameterValueType.toLowerCase().equals("float");
+		return parameterValueType.toLowerCase().equals("double");
 	}
 
 }

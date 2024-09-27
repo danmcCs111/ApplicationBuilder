@@ -2,12 +2,14 @@ package WidgetComponents;
 
 import java.awt.Component;
 
-public class ColorEditor implements ParameterEditor{
+import javax.swing.JColorChooser;
+
+public class ColorEditor extends ParameterEditor{
 
 	@Override
 	public Component getComponentEditor() {
-		// TODO Auto-generated method stub
-		return null;
+		JColorChooser jcc = new JColorChooser();
+		return jcc;
 	}
 
 	@Override

@@ -1,13 +1,19 @@
 package WidgetComponents;
 
 import java.awt.Component;
+import java.awt.Dimension;
 
-public class IntegerEditor implements ParameterEditor{
+import javax.swing.JSpinner;
 
+public class IntegerEditor extends ParameterEditor{
+
+	private static final Dimension SPINNER_SIZE = new Dimension(50, 50);
+	
 	@Override
 	public Component getComponentEditor() {
-		// TODO Auto-generated method stub
-		return null;
+		JSpinner js = new JSpinner();
+		js.setSize(SPINNER_SIZE.width, SPINNER_SIZE.height);
+		return js;
 	}
 
 	@Override
