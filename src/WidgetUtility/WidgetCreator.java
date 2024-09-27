@@ -4,7 +4,6 @@ import java.awt.AWTException;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
@@ -20,17 +19,11 @@ import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
-import ActionListeners.ChannelActionListener;
-import ActionListeners.CloseActionListener;
-import ApplicationBuilder.CommandLauncherWindow;
-import Properties.LauncherProperties;
 
 public class WidgetCreator implements WidgetCreationOptions {
 
@@ -57,37 +50,6 @@ public class WidgetCreator implements WidgetCreationOptions {
 	public static JButton createButton(String title)
 	{
 		return createButtonWithStrip(title, "");
-	}
-	
-	public static JButton createChannelButton(String title, 
-			ChannelActionListener cListener, 
-			CommandLauncherWindow rlWindow)
-	{
-		String filter = rlWindow.getVideos().get(rlWindow.getVideosListPos()).getVideoStripFilter();
-		JButton b = WidgetCreator.createButtonWithStrip(title, filter);
-		b.addActionListener(cListener);
-		return b;
-	}
-	
-	public static JButton createCloseButton(CommandLauncherWindow rlWindow, String title)
-	{
-		JButton b = WidgetCreator.createButton(title);
-		b.addActionListener(new CloseActionListener(rlWindow));
-		return b;
-	}
-	
-	public static JDialog createDialog(CommandLauncherWindow frame)
-	{
-		JDialog jDialog = new JDialog(frame);
-		JButton b = createButton("OK");
-		JButton b2 = createButton("Cancel");
-		JPanel jp = new JPanel(new GridBagLayout());
-		jp.add(b);
-		jp.add(b2);
-		jDialog.add(jp);
-		jDialog.setVisible(true);
-		jDialog.pack();
-		return jDialog;
 	}
 	
 	public static JFrame createFrame(String title)
@@ -117,11 +79,6 @@ public class WidgetCreator implements WidgetCreationOptions {
 		selButton = curButton;
 		
 		c.repaint();
-	}
-	
-	public static void setupTaskbar(JFrame frame)
-	{
-		frame.setIconImage(buildTaskbarIcon(LauncherProperties.ICON.getPropertiesValue()));
 	}
 	
 	public static Image buildTaskbarIcon(String path)

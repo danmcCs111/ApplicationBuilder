@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public interface WidgetCreatorRef {
 	
-	private static Method [] getDeclaredMethods()
+	public static Method [] getDeclaredMethods()
 	{
 		return WidgetCreator.class.getDeclaredMethods();
 	}
@@ -40,7 +40,7 @@ public interface WidgetCreatorRef {
 		return comps;
 	}
 	
-	private static Method getMethodMatching(String methodName)
+	public static Method getMethodMatching(String methodName)
 	{
 		Method method = null;
 		

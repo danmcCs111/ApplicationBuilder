@@ -21,7 +21,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import WidgetComponents.ParameterEditor;
+import WidgetComponents.ParameterEditorParser;
 
 public class BuilderWindow extends JFrame {
 
@@ -44,6 +44,7 @@ public class BuilderWindow extends JFrame {
 	private JPanel innerPanel2 = new JPanel();
 	private JList<?> componentMethods = null;
 	private JButton openDetails;
+	private ArrayList<String> detailsOpenList = new ArrayList<String>();
 	
 	public BuilderWindow()
 	{
@@ -93,12 +94,9 @@ public class BuilderWindow extends JFrame {
 					if(!e.getValueIsAdjusting())
 					{
 						ListSelectionModel lsm = jl.getSelectionModel();
-						if(!lsm.isSelectionEmpty())
-						{
-							LoggingMessages.printOut(jl.getSelectedValue().toString());
-							ParameterEditor.parseMethodParamsToList(jl.getSelectedValue().toString());
-						}
-						openDetails.setEnabled(!lsm.isSelectionEmpty());
+						
+						openDetails.setEnabled(!lsm.isSelectionEmpty() && 
+								!detailsOpenList.contains(jl.getSelectedValue()));
 					}
 				}
 			});
@@ -117,6 +115,20 @@ public class BuilderWindow extends JFrame {
 		//setup add Property button
 		openDetails = new JButton("Add Property");
 		this.add(openDetails, BorderLayout.SOUTH);
+		openDetails.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ListSelectionModel lsm = componentMethods.getSelectionModel();
+				if(!lsm.isSelectionEmpty())
+				{
+					LoggingMessages.printOut(componentMethods.getSelectedValue().toString());
+					ParameterEditorParser.parseMethodParamsToList(componentMethods.getSelectedValue().toString());
+					ParameterEditorParser.launchEditor();
+				}
+				openDetails.setEnabled(false);
+			}
+		});
 		openDetails.setEnabled(false);
 
 		

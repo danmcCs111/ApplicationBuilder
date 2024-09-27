@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
-import ApplicationBuilder.LoggingMessages;
-
 public class PropertiesFileLoader {
 	
 	private static final HashMap<Paths, HashMap<String,String>> PROPERTIES = 
@@ -16,7 +14,6 @@ public class PropertiesFileLoader {
 		try {
 			readLauncherProperties();
 		} catch (FileNotFoundException e) {
-			LoggingMessages.printFileNotFound(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -54,7 +51,6 @@ public class PropertiesFileLoader {
 		try {
 			readLauncherProperties();
 		} catch (FileNotFoundException e) {
-			LoggingMessages.printFileNotFound(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -78,7 +74,6 @@ public class PropertiesFileLoader {
 					props.put(ss[0], ss[1]);
 			}
 		} catch (FileNotFoundException e) {
-			LoggingMessages.printFileNotFound(e.getMessage());
 			e.printStackTrace();
 		}
 		return props;
