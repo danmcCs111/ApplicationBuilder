@@ -1,11 +1,7 @@
 package ApplicationBuilder;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
@@ -25,8 +21,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import ActionListeners.ComponentComboBoxActionListener;
-import WidgetComponents.ParameterEditor;
-import WidgetComponents.ParameterEditorParser;
+import ActionListeners.OpenDetailsActionListener;
 
 public class BuilderWindow extends RedrawableFrame {
 
@@ -81,10 +76,8 @@ public class BuilderWindow extends RedrawableFrame {
 		for (String c : classesAndSetters.keySet())
 		{
 			ArrayList<String> methods =	classesAndSetters.get(c);
-//			filterMethods(listOfComponentMethods, );
 			
 			Collections.sort(methods);//Sort list...
-//			filterMethods(methods, getCapableMethodParams());
 			JList jl = new JList(methods.toArray());
 			listOfComponentMethods.put(c, jl);
 			jl.addListSelectionListener(new ListSelectionListener() {
@@ -113,42 +106,7 @@ public class BuilderWindow extends RedrawableFrame {
 		//setup add Property button
 		openDetails = new JButton("Add Property");
 		this.add(openDetails, BorderLayout.SOUTH);
-		openDetails.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ListSelectionModel lsm = componentMethods.getSelectionModel();
-				if(!lsm.isSelectionEmpty())
-				{
-					LoggingMessages.printOut(componentMethods.getSelectedValue().toString());
-					ArrayList<String> methodParams = ParameterEditorParser.parseMethodParamsToList(componentMethods.getSelectedValue().toString());
-					JFrame editorFrame = ParameterEditorParser.launchEditor(methodParams.get(0));
-					int count = 0;
-					JPanel innerPanel = new JPanel();
-//					GridLayout gl = new GridLayout(0, 2);
-					GridLayout gl = new GridLayout(0, 1);
-					innerPanel.setLayout(gl);
-					
-					for(String s : methodParams.subList(1, methodParams.size()))
-					{
-						ParameterEditor pe = ParameterEditorParser.getParameterEditor(s);
-						if(pe != null )
-						{
-							Component c = pe.getComponentEditor();
-							if(c != null)
-							{
-//								JLabel l = pe.getFieldLabel("arg" + count + ":");
-//								innerPanel.add(l);
-								innerPanel.add(c);
-								count++;
-							}
-						}
-					}
-					editorFrame.add(innerPanel, BorderLayout.NORTH);
-				}
-				openDetails.setEnabled(false);
-			}
-		});
+		openDetails.addActionListener(new OpenDetailsActionListener(openDetails, componentMethods));
 		openDetails.setEnabled(false);
 
 		
