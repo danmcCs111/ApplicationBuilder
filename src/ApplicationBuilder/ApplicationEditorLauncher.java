@@ -7,7 +7,7 @@ public class ApplicationEditorLauncher {
 	public static void main(String [] args)
 	{
 		SwingUtilities.invokeLater(() -> {
-			 BuilderWindow window = new BuilderWindow();
+			ApplicationLayoutEditor window = new ApplicationLayoutEditor();
 		        window.setVisible(true);
 		});
 	}

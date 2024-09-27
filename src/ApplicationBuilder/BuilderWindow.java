@@ -1,6 +1,7 @@
 package ApplicationBuilder;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.Method;
@@ -27,7 +28,9 @@ public class BuilderWindow extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private static final String SOURCE_FILE = "src\\ApplicationBuilder\\data\\WidgetBuild.xml";
-	
+	private static final String TITLE = "Application Parameter Editor";
+	private static final Dimension WINDOW_LOCATION = new Dimension(250, 250);
+	private static final Dimension WINDOW_SIZE = new Dimension(480, 640);
 	private static final ArrayList<Class<?>> COMPONENT_CLASSES = new ArrayList<Class<?>>();
 	static {
 		COMPONENT_CLASSES.add(JFrame.class);
@@ -50,8 +53,8 @@ public class BuilderWindow extends JFrame {
 	{
 		new WidgetBuildController(SOURCE_FILE);
 		
-		setTitle("ApplicationBuilder");
-		setLocation(250, 250);
+		setTitle(TITLE);
+		setLocation(WINDOW_LOCATION.width, WINDOW_LOCATION.height);
 		
 		//discover a list of methods available to adjust for our available list of components
 		HashMap<String, ArrayList<String>> classesAndSetters = generateClassesMethodApiList("set");
@@ -137,8 +140,7 @@ public class BuilderWindow extends JFrame {
 
 		
 		this.add(classSelection, BorderLayout.NORTH);
-		this.setSize(480, 640);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setSize(WINDOW_SIZE.width, WINDOW_SIZE.height);
 	}
 	
 	private void clearInnerPanels()
