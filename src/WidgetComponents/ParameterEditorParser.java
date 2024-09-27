@@ -59,6 +59,8 @@ public class ParameterEditorParser {
 	
 	public static JFrame launchEditor(String methodName)
 	{
-		return new EditParameterFrame(methodName);
+		EditParameterFrame pFrame = new EditParameterFrame(methodName);
+		pFrame.addSaveAndCancelButtons();
+		return pFrame;
 	}
 }
