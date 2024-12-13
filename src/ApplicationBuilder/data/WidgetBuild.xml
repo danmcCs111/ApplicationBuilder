@@ -1,37 +1,37 @@
 <ButtonBuild>
-	<Frame layout="BorderLayout" text="Video Launcher" WindowHeight="600" WindowWidth="250" WindowLocationX="150" WindowLocationY="150">
-		<Panel layout="BorderLayout" lay="CENTER">
+	<Frame setLayout="BorderLayout" setText="Video Launcher" setSize="600, 250" setLocation="150,150">
+		<Panel setLayout="BorderLayout" lay="CENTER">
 			<ScrollPane lay="NORTH">
 				<Panel>
 					<Collection ArrayProcessingExt="" Path="">
-						<Label id="title" color_foreground="100,50,150" color_background="190,190,190">
+						<Label setName="title" setForeground="100,50,150" setBackground="190,190,190">
 						</Label>
-						<ButtonArray id="channels">
+						<ButtonArray setName="channels">
 						</ButtonArray>
-						<Button text="Close Video">
+						<Button setText="Close Video">
 						</Button>
 					</Collection>
 				</Panel>
 			</ScrollPane>
 		</Panel>
-		<Button text="&lt;" lay="WEST" ActionListener="NavigationButtonActionListener" type="Direction.BACKWARD">
+		<Button setText="&lt;" setLayoutApply="WEST" setActionListener="NavigationButtonActionListener" setActionListenerSubType="Direction.BACKWARD">
 		</Button>
-		<Button text="&gt;" lay="EAST" ActionListener="NavigationButtonActionListener" type="Direction.FORWARD">
+		<Button setText="&gt;" setLayoutApply="EAST" setActionListener="NavigationButtonActionListener" setActionListenerSubType="Direction.FORWARD">
 		</Button>
 		
-		<MenuOption text="File">
-			<MenuItem text="Reload" ActionListener="ReloadActionListener">
+		<MenuOption setText="File">
+			<MenuItem setText="Reload" setActionListener="ReloadActionListener">
 			</MenuItem >
-			<MenuItem text="MinimizeToSystemTray" ActionListener="MinimizeActionListener">
+			<MenuItem setText="MinimizeToSystemTray" setActionListener="MinimizeActionListener">
 			</MenuItem >
-			<MenuItem text="Exit" ActionListener="ExitActionListener">
+			<MenuItem setText="Exit" setActionListener="ExitActionListener">
 			</MenuItem >
 		</MenuOption>
 		
-		<SystemTray text="Video Launcher">
-			<MenuItem text="Open">
+		<SystemTray setText="Video Launcher">
+			<MenuItem setText="Open">
 			</MenuItem>
-			<MenuItem text="Close">
+			<MenuItem setText="Close">
 			</MenuItem>
 		</SystemTray>
 	</Frame>
