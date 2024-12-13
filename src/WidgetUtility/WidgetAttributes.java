@@ -11,6 +11,7 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -32,6 +33,7 @@ public class WidgetAttributes {
 		COMPONENT_CLASSES.add(JScrollPane.class);
 		COMPONENT_CLASSES.add(JComboBox.class);
 		COMPONENT_CLASSES.add(JComponent.class);
+		COMPONENT_CLASSES.add(JMenuItem.class);
 		initialLoad();
 	}
 	
@@ -41,7 +43,12 @@ public class WidgetAttributes {
 		ClassAndSetters tmp = ClassTypeHandler.getClassAndSetters(classTypeHandler);
 		for(String p : params)
 		{
-			LoggingMessages.printOut("method :"  + method + ": " + p);
+			String setter = null; 
+			if(tmp != null)
+			{
+				setter = tmp.getSetter(method);
+			}
+			LoggingMessages.printOut("Setter: " + setter + "| method :"  + method + ": " + p);
 		}
 	}
 	

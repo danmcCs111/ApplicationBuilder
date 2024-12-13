@@ -30,6 +30,18 @@ public class ClassAndSetters {
 		return this.setters;
 	}
 	
+	public String getSetter(String method)
+	{
+		for(String s : this.setters)
+		{
+			if(s.startsWith(method))
+			{
+				return s;
+			}
+		}
+		return null;
+	}
+	
 	public void printSetters()
 	{
 		for(String s : this.setters)
