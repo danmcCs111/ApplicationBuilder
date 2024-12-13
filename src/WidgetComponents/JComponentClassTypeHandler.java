@@ -15,4 +15,15 @@ public class JComponentClassTypeHandler implements ClassTypeHandler {
 	{
 		return this.jComponent;
 	}
+
+	@Override
+	public void applyAttribute(String method, String... params) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Class<?> getClassType() {
+		return this.getJComponent().getClass();
+	}
 }

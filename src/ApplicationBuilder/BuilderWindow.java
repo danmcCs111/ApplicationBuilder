@@ -7,6 +7,7 @@ import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -23,6 +24,8 @@ import javax.swing.event.ListSelectionListener;
 
 import ActionListeners.ComponentComboBoxActionListener;
 import ActionListeners.OpenDetailsActionListener;
+import ClassDefintions.ClassAndSetters;
+import WidgetUtility.WidgetAttributes;
 
 public class BuilderWindow extends RedrawableFrame {
 
@@ -30,17 +33,7 @@ public class BuilderWindow extends RedrawableFrame {
 	private static final String TITLE = "Application Parameter Editor";
 	private static final Dimension WINDOW_LOCATION = new Dimension(250, 250);
 	private static final Dimension WINDOW_SIZE = new Dimension(480, 640);
-	private static final ArrayList<Class<?>> COMPONENT_CLASSES = new ArrayList<Class<?>>();
-	static {
-		COMPONENT_CLASSES.add(JFrame.class);
-		COMPONENT_CLASSES.add(JPanel.class);
-		COMPONENT_CLASSES.add(JButton.class);
-		COMPONENT_CLASSES.add(JTextField.class);
-		COMPONENT_CLASSES.add(JLabel.class);
-		COMPONENT_CLASSES.add(JScrollPane.class);
-		COMPONENT_CLASSES.add(JComboBox.class);
-		COMPONENT_CLASSES.add(JComponent.class);
-	}
+	
 	
 	private HashMap<String, JList<?>> listOfComponentMethods = new HashMap<String, JList<?>>();
 	private JScrollPane scrPane = null;
@@ -52,33 +45,35 @@ public class BuilderWindow extends RedrawableFrame {
 	
 	public BuilderWindow()
 	{
-		
 		setTitle(TITLE);
 		setLocation(WINDOW_LOCATION.width, WINDOW_LOCATION.height);
 		
-		//discover a list of methods available to adjust for our available list of components
-		HashMap<String, ArrayList<String>> classesAndSetters = generateClassesMethodApiList("set");
-		ArrayList<String> tmp = new ArrayList<String>(classesAndSetters.keySet());
-		Collections.sort(tmp);
-		String [] selections = tmp.toArray(new String [tmp.size()]);
-		for(String classStr : classesAndSetters.keySet())
+		
+		ArrayList<ClassAndSetters> classAndSetters = WidgetAttributes.getClassAndSetters();
+		List<String> comboKeySetClasses = new ArrayList<String>();
+		HashMap<String, ArrayList<String>> comboKeyAndSetClasses = new HashMap<String, ArrayList<String>>();
+		
+		for(ClassAndSetters cs : classAndSetters)
 		{
-			for(String s : classesAndSetters.get(classStr))
-				LoggingMessages.printOut(classStr + ": " + s.toString());
+			String comboClassStr = cs.getClazz().toString();
+			comboKeySetClasses.add(comboClassStr);
+			comboKeyAndSetClasses.put(comboClassStr, cs.getSetters());
 		}
 		
+		Collections.sort(comboKeySetClasses);
+		
 		//setup combo box of component classes to build
-		classSelection = new JComboBox<String>(selections);
+		classSelection = new JComboBox<String>(comboKeySetClasses.toArray(new String[]{}));
 		classSelection.addActionListener(new ComponentComboBoxActionListener(this));
 		classSelection.setVisible(true);
 		
 		//setup methods list from selected drop down component
-		for (String c : classesAndSetters.keySet())
+		for (String c : comboKeySetClasses)
 		{
-			ArrayList<String> methods =	classesAndSetters.get(c);
+			ArrayList<String> methods =	comboKeyAndSetClasses.get(c);
 			
 			Collections.sort(methods);//Sort list...
-			JList jl = new JList(methods.toArray());
+			JList<String> jl = new JList<String>(methods.toArray(new String[] {}));
 			listOfComponentMethods.put(c, jl);
 			jl.addListSelectionListener(new ListSelectionListener() {
 				@Override
@@ -160,39 +155,5 @@ public class BuilderWindow extends RedrawableFrame {
 //		return capableMethodParams;
 //	}
 	
-	public HashMap<String, ArrayList<String>> generateClassesMethodApiList(String methodPrefixFilter)
-	{
-		HashMap<String, ArrayList<String>> classMethods = new HashMap<String, ArrayList<String>>();
-		
-		for(Class<?> c : COMPONENT_CLASSES)
-		{
-			String classNameKey = c.getName();
-			ArrayList<String> tmp = new ArrayList<String>();
-			classMethods.put(classNameKey, tmp);
-			
-			for (Method m : c.getMethods())
-			{
-				String methodName = m.getName();
-				String paramName = " [";
-				for (int i =0; i < m.getParameterCount(); i++)
-				{
-					Parameter p = m.getParameters()[i];
-					paramName += p.toString();
-					if(m.getParameterCount() > i+1)
-					{
-						paramName += ", ";
-					}
-				}
-				methodName += paramName + "]";
-				if(methodName.startsWith(methodPrefixFilter))
-				{
-					if(classMethods.containsKey(classNameKey))
-					{
-						classMethods.get(classNameKey).add(methodName);
-					}
-				}
-			}
-		}
-		return classMethods;
-	}
+	
 }

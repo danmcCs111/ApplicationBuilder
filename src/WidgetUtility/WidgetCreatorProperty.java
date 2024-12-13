@@ -8,6 +8,7 @@ import javax.swing.JComponent;
 import org.w3c.dom.Node;
 
 import ApplicationBuilder.LoggingMessages;
+import WidgetComponents.ClassTypeHandler;
 
 public class WidgetCreatorProperty {
 
@@ -31,6 +32,11 @@ public class WidgetCreatorProperty {
 
 	public WidgetComponent getComponentType() {
 		return WidgetComponent.getWidgetComponent(this.component);
+	}
+	
+	public ClassTypeHandler getClassType()
+	{
+		return getComponentType().getComponentClassType();
 	}
 
 	public ArrayList<String> getSettings() {

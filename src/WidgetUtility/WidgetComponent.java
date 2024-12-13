@@ -34,6 +34,7 @@ public class WidgetComponent {
 		return this.componentLabel;
 	}
 	
+	
 	public static WidgetComponent getWidgetComponent(String text)
 	{
 		LoggingMessages.printOut(text);

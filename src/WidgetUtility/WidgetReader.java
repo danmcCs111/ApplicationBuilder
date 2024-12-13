@@ -30,6 +30,14 @@ public class WidgetReader {
 	public static ArrayList<WidgetCreatorProperty> getWidgetCreatorProperties(String sourceFile)
 	{
 		initWidgetReader(sourceFile);
+		for(WidgetCreatorProperty wcp : widgetCreatorProperties)
+		{
+			for(String s : wcp.getSettingsNameAndValue().keySet())
+			{
+				String val = wcp.getSettingsNameAndValue().get(s);
+				WidgetAttributes.setAttribute(wcp.getClassType(), s, val);
+			}
+		}
 		return widgetCreatorProperties;
 	}
 	
