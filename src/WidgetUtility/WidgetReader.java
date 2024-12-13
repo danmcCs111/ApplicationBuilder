@@ -83,8 +83,8 @@ public class WidgetReader {
 					String counterId = null;
 					if(n != null)
 					{
-						String nodeStr = n.getNodeName().split(WidgetComponentType.ID_SPLIT)[0];
-						WidgetComponentType wcType = WidgetComponentType.getWidgetComponentType(nodeStr);
+						String nodeStr = n.getNodeName().split(WidgetComponent.ID_SPLIT)[0];
+						WidgetComponent wcType = WidgetComponent.getWidgetComponent(nodeStr);
 						counterId = wcType.getNextCounterId();
 						wcProperty.setRefId(counterId);
 					}

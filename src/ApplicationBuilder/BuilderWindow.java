@@ -26,7 +26,6 @@ import ActionListeners.OpenDetailsActionListener;
 public class BuilderWindow extends RedrawableFrame {
 
 	private static final long serialVersionUID = 1L;
-	private static final String SOURCE_FILE = "src\\ApplicationBuilder\\data\\WidgetBuild.xml";
 	private static final String TITLE = "Application Parameter Editor";
 	private static final Dimension WINDOW_LOCATION = new Dimension(250, 250);
 	private static final Dimension WINDOW_SIZE = new Dimension(480, 640);
@@ -51,7 +50,6 @@ public class BuilderWindow extends RedrawableFrame {
 	
 	public BuilderWindow()
 	{
-		new WidgetBuildController(SOURCE_FILE);
 		
 		setTitle(TITLE);
 		setLocation(WINDOW_LOCATION.width, WINDOW_LOCATION.height);

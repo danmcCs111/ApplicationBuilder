@@ -3,7 +3,9 @@ package ApplicationBuilder;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
-import WidgetUtility.WidgetComponentType;
+import javax.swing.JComponent;
+
+import WidgetUtility.WidgetComponent;
 import WidgetUtility.WidgetCreatorProperty;
 import WidgetUtility.WidgetReader;
 
@@ -27,9 +29,7 @@ public class WidgetBuildController {
 		
 		for(WidgetCreatorProperty wcProp : widgetCreatorProperties)
 		{
-			WidgetComponentType wcType = wcProp.getComponentType();
-			Method m = wcType.getCreatorMethod();
-			LoggingMessages.printOut("creator property method: " + m.getName());
+			WidgetComponent wcType = wcProp.getComponentType();
 		}
 	}
 }

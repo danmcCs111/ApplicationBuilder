@@ -1,38 +1,38 @@
-<ButtonBuild>
-	<Frame setLayout="BorderLayout" setText="Video Launcher" setSize="600, 250" setLocation="150,150">
-		<Panel setLayout="BorderLayout" lay="CENTER">
-			<ScrollPane lay="NORTH">
-				<Panel>
+<JButtonBuild>
+	<JFrame setLayout="BorderLayout" setText="Video Launcher" setSize="600, 250" setLocation="150,150">
+		<JPanel setLayout="BorderLayout" setLayoutApply="CENTER">
+			<JScrollPane setLayoutApply="NORTH">
+				<JPanel>
 					<Collection ArrayProcessingExt="" Path="">
-						<Label setName="title" setForeground="100,50,150" setBackground="190,190,190">
-						</Label>
-						<ButtonArray setName="channels">
-						</ButtonArray>
-						<Button setText="Close Video">
-						</Button>
+						<JLabel setName="title" setForeground="100,50,150" setBackground="190,190,190">
+						</JLabel>
+						<JButtonArray setName="channels">
+						</JButtonArray>
+						<JButton setText="Close Video">
+						</JButton>
 					</Collection>
-				</Panel>
-			</ScrollPane>
-		</Panel>
-		<Button setText="&lt;" setLayoutApply="WEST" setActionListener="NavigationButtonActionListener" setActionListenerSubType="Direction.BACKWARD">
-		</Button>
-		<Button setText="&gt;" setLayoutApply="EAST" setActionListener="NavigationButtonActionListener" setActionListenerSubType="Direction.FORWARD">
-		</Button>
+				</JPanel>
+			</JScrollPane>
+		</JPanel>
+		<JButton setText="&lt;" setLayoutApply="WEST" setActionListener="NavigationButtonActionListener" setActionListenerSubType="Direction.BACKWARD">
+		</JButton>
+		<JButton setText="&gt;" setLayoutApply="EAST" setActionListener="NavigationButtonActionListener" setActionListenerSubType="Direction.FORWARD">
+		</JButton>
 		
 		<MenuOption setText="File">
-			<MenuItem setText="Reload" setActionListener="ReloadActionListener">
-			</MenuItem >
-			<MenuItem setText="MinimizeToSystemTray" setActionListener="MinimizeActionListener">
-			</MenuItem >
-			<MenuItem setText="Exit" setActionListener="ExitActionListener">
-			</MenuItem >
+			<JMenuItem setText="Reload" setActionListener="ReloadActionListener">
+			</JMenuItem >
+			<JMenuItem setText="MinimizeToSystemTray" setActionListener="MinimizeActionListener">
+			</JMenuItem >
+			<JMenuItem setText="Exit" setActionListener="ExitActionListener">
+			</JMenuItem >
 		</MenuOption>
 		
 		<SystemTray setText="Video Launcher">
-			<MenuItem setText="Open">
-			</MenuItem>
-			<MenuItem setText="Close">
-			</MenuItem>
+			<JMenuItem setText="Open">
+			</JMenuItem>
+			<JMenuItem setText="Close">
+			</JMenuItem>
 		</SystemTray>
-	</Frame>
-</ButtonBuild>
+	</JFrame>
+</JButtonBuild>
