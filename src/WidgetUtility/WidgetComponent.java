@@ -6,6 +6,10 @@ import java.awt.SystemTray;
 import javax.swing.JComponent;
 
 import ApplicationBuilder.LoggingMessages;
+import WidgetComponents.ClassTypeHandler;
+import WidgetComponents.ComponentClassTypeHandler;
+import WidgetComponents.JComponentClassTypeHandler;
+import WidgetComponents.SystemTrayClassTypeHandler;
 
 public class WidgetComponent {
 	
@@ -19,22 +23,6 @@ public class WidgetComponent {
 	
 	
 	public static String ID_SPLIT = "#";
-	
-	private WidgetComponent(String componentLabel, JComponent jComponent)
-	{
-		this.componentLabel = componentLabel;
-		this.jComponent = jComponent;
-	}
-	private WidgetComponent(String componentLabel, Component component)
-	{
-		this.componentLabel = componentLabel;
-		this.component = component;
-	}
-	private WidgetComponent(String componentLabel, SystemTray systemTray)
-	{
-		this.componentLabel = componentLabel;
-		this.systemTray = systemTray;
-	}
 	
 	public String getNextCounterId()
 	{
@@ -91,4 +79,57 @@ public class WidgetComponent {
 		return null;
 	}
 	
+	public ClassTypeHandler getComponentClassType()
+	{
+		ClassTypeHandler c = null;
+		Object o = getComponentObject();
+		
+		if (o instanceof JComponent)
+		{
+			c = new JComponentClassTypeHandler(o);
+		}
+		else if(o instanceof Component)
+		{
+			c = new ComponentClassTypeHandler(o);
+		}
+		
+		else if(o instanceof SystemTray)
+		{
+			c = new SystemTrayClassTypeHandler(o);
+		}
+		return c;
+	}
+	private Object getComponentObject()
+	{
+		Object o = null;
+		if(jComponent != null)
+		{
+			o = jComponent;
+		}
+		else if (component != null)
+		{
+			o = component;
+		}
+		else if (systemTray != null)
+		{
+			o = systemTray;
+		}
+		return o;
+	}
+	
+	private WidgetComponent(String componentLabel, JComponent jComponent)
+	{
+		this.componentLabel = componentLabel;
+		this.jComponent = jComponent;
+	}
+	private WidgetComponent(String componentLabel, Component component)
+	{
+		this.componentLabel = componentLabel;
+		this.component = component;
+	}
+	private WidgetComponent(String componentLabel, SystemTray systemTray)
+	{
+		this.componentLabel = componentLabel;
+		this.systemTray = systemTray;
+	}
 }

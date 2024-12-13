@@ -10,6 +10,7 @@ import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -38,6 +39,7 @@ public class BuilderWindow extends RedrawableFrame {
 		COMPONENT_CLASSES.add(JLabel.class);
 		COMPONENT_CLASSES.add(JScrollPane.class);
 		COMPONENT_CLASSES.add(JComboBox.class);
+		COMPONENT_CLASSES.add(JComponent.class);
 	}
 	
 	private HashMap<String, JList<?>> listOfComponentMethods = new HashMap<String, JList<?>>();
