@@ -2,8 +2,6 @@ package ApplicationBuilder;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -11,13 +9,9 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -127,33 +121,5 @@ public class BuilderWindow extends RedrawableFrame {
 		LoggingMessages.printOut("Method output for class: " + classSelection.getSelectedItem().toString());
 		BuilderWindow.this.paintComponents(BuilderWindow.this.getGraphics());
 	}
-	
-//	public HashMap<String, JList<?>> filterMethods(HashMap<String, JList<?>> classesAndMethods, 
-//			ArrayList<String> capableMethodParams)
-//	{
-//		for(String sc : classesAndMethods.keySet())
-//		{
-//			ArrayList<String> methods = new ArrayList<String>();
-//			JList jl = classesAndMethods.get(sc);
-//			LoggingMessages.printOut(jl.getComponentCount() + " is component count");
-//		}
-//		return classesAndMethods;
-//	}
-	
-//	/*
-//	 * TODO replace
-//	*/
-//	public ArrayList<String> getCapableMethodParams()
-//	{
-//		ArrayList<String> capableMethodParams = new ArrayList<String>();
-//		capableMethodParams.add("boolean");
-//		capableMethodParams.add("java.lang.string");
-//		capableMethodParams.add("int");
-//		capableMethodParams.add("float");
-//		capableMethodParams.add("double");
-//		capableMethodParams.add("java.awt.color");
-//		return capableMethodParams;
-//	}
-	
 	
 }

@@ -2,11 +2,6 @@ package WidgetUtility;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import javax.swing.JComponent;
-
-import org.w3c.dom.Node;
-
 import ApplicationBuilder.LoggingMessages;
 import WidgetComponents.ClassTypeHandler;
 
