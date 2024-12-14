@@ -14,17 +14,17 @@
 				</JPanel>
 			</JScrollPane>
 		</JPanel>
-		<JButton setText="&lt;" setLayoutApply="WEST" setActionListener="NavigationButtonActionListener" setActionListenerSubType="Direction.BACKWARD">
+		<JButton setText="&lt;" setLayoutApply="WEST" addActionListener="NavigationButtonActionListener" addActionListenerSubType="Direction.BACKWARD">
 		</JButton>
-		<JButton setText="&gt;" setLayoutApply="EAST" setActionListener="NavigationButtonActionListener" setActionListenerSubType="Direction.FORWARD">
+		<JButton setText="&gt;" setLayoutApply="EAST" addActionListener="NavigationButtonActionListener" addActionListenerSubType="Direction.FORWARD">
 		</JButton>
 		
 		<MenuOption setText="File">
-			<JMenuItem setText="Reload" setActionListener="ReloadActionListener">
+			<JMenuItem setText="Reload" addActionListener="ReloadActionListener">
 			</JMenuItem >
-			<JMenuItem setText="MinimizeToSystemTray" setActionListener="MinimizeActionListener">
+			<JMenuItem setText="MinimizeToSystemTray" addActionListener="MinimizeActionListener">
 			</JMenuItem >
-			<JMenuItem setText="Exit" setActionListener="ExitActionListener">
+			<JMenuItem setText="Exit" addActionListener="ExitActionListener">
 			</JMenuItem >
 		</MenuOption>
 		

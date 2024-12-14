@@ -82,24 +82,34 @@ public class WidgetAttributes {
 	private static void initialLoad()
 	{
 		//discover a list of methods available to adjust for our available list of components
-		HashMap<String, ArrayList<String>> tmpClassesAndSetters = generateClassesMethodApiList("set");
+		HashMap<String, ArrayList<String>> tmpClassesAndSetters = new HashMap<String, ArrayList<String>>();
+		String [] methodsPrefix = new String [] {"set", "add"};
+		for(Class<?> componentClass : COMPONENT_CLASSES)
+		{
+			String classKey = componentClass.getName();
+			for(String prefix : methodsPrefix)
+			{
+				if(tmpClassesAndSetters.containsKey(classKey))
+				{
+					tmpClassesAndSetters.get(classKey).addAll(generateClassesMethodApiList(componentClass, prefix));
+				}
+				else
+				{
+					tmpClassesAndSetters.put(classKey, generateClassesMethodApiList(componentClass, prefix));
+				}
+			}
+		}
 		for(String classStr : tmpClassesAndSetters.keySet())
 		{
 			WidgetAttributes.addClassAndSetters(new ClassAndSetters(classStr, tmpClassesAndSetters.get(classStr)));
 		}
 	}
 	
-	private static HashMap<String, ArrayList<String>> generateClassesMethodApiList(String methodPrefixFilter)
+	private static ArrayList<String> generateClassesMethodApiList(Class<?> componentClass, String methodPrefixFilter)
 	{
-		HashMap<String, ArrayList<String>> classMethods = new HashMap<String, ArrayList<String>>();
+		ArrayList<String> classMethods = new ArrayList<String>();
 		
-		for(Class<?> c : COMPONENT_CLASSES)
-		{
-			String classNameKey = c.getName();
-			ArrayList<String> tmp = new ArrayList<String>();
-			classMethods.put(classNameKey, tmp);
-			
-			for (Method m : c.getMethods())
+			for (Method m : componentClass.getMethods())
 			{
 				String methodName = m.getName();
 				String paramName = " [";
@@ -115,13 +125,9 @@ public class WidgetAttributes {
 				methodName += paramName + "]";
 				if(methodName.startsWith(methodPrefixFilter))
 				{
-					if(classMethods.containsKey(classNameKey))
-					{
-						classMethods.get(classNameKey).add(methodName);
-					}
+					classMethods.add(methodName);
 				}
 			}
-		}
 		return classMethods;
 	}
 }
