@@ -22,14 +22,27 @@ public class ParameterEditorParser {
 		
 	}
 	
+	/**
+	 * @param methodText
+	 * @return method name and parameters
+	 */
 	public static ArrayList<String> parseMethodParamsToList(String methodText)
+	{
+		return parseMethodParamsToList(methodText, false);
+	}
+	/**
+	 * @param methodText
+	 * @return parameters and method name if given false flag
+	 */
+	public static ArrayList<String> parseMethodParamsToList(String methodText, boolean paramsOnly)
 	{
 		ArrayList<String> methodParams = new ArrayList<String>();
 		
 		String [] tmp = methodText.split("\\[");
 		String methodName = tmp[0].trim();
 		String methodParam = tmp[1].split("\\]")[0];
-		methodParams.add(methodName);
+		if(!paramsOnly)
+			methodParams.add(methodName);
 		
 		String [] tmps = methodParam.split(",");
 		for(String s : tmps)

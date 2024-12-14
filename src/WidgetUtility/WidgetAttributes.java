@@ -18,12 +18,14 @@ import javax.swing.JTextField;
 
 import ApplicationBuilder.LoggingMessages;
 import ClassDefintions.ClassAndSetters;
+import ClassDefintions.ClassTextAdapter;
 import WidgetComponents.ClassTypeHandler;
 
 public class WidgetAttributes {
 	
-	private static final ArrayList<Class<?>> COMPONENT_CLASSES = new ArrayList<Class<?>>();
 	private static ArrayList<ClassAndSetters> classesAndSetters = new ArrayList<ClassAndSetters>();
+	private static final String [] METHODS_PREFIX = new String [] {"set", "add"};
+	private static final ArrayList<Class<?>> COMPONENT_CLASSES = new ArrayList<Class<?>>();
 	static {
 		COMPONENT_CLASSES.add(JFrame.class);
 		COMPONENT_CLASSES.add(JPanel.class);
@@ -47,6 +49,10 @@ public class WidgetAttributes {
 			if(tmp != null)
 			{
 				setter = tmp.getSetter(method);
+				if(setter != null)
+				{
+					ClassTextAdapter.functionCall(tmp.getClazz(), setter, method, params);
+				}
 			}
 			LoggingMessages.printOut("Setter: " + setter + "| method :"  + method + ": " + p);
 		}
@@ -83,11 +89,11 @@ public class WidgetAttributes {
 	{
 		//discover a list of methods available to adjust for our available list of components
 		HashMap<String, ArrayList<String>> tmpClassesAndSetters = new HashMap<String, ArrayList<String>>();
-		String [] methodsPrefix = new String [] {"set", "add"};
+		
 		for(Class<?> componentClass : COMPONENT_CLASSES)
 		{
 			String classKey = componentClass.getName();
-			for(String prefix : methodsPrefix)
+			for(String prefix : METHODS_PREFIX)
 			{
 				if(tmpClassesAndSetters.containsKey(classKey))
 				{
@@ -109,25 +115,25 @@ public class WidgetAttributes {
 	{
 		ArrayList<String> classMethods = new ArrayList<String>();
 		
-			for (Method m : componentClass.getMethods())
+		for (Method m : componentClass.getMethods())
+		{
+			String methodName = m.getName();
+			String paramName = " [";
+			for (int i =0; i < m.getParameterCount(); i++)
 			{
-				String methodName = m.getName();
-				String paramName = " [";
-				for (int i =0; i < m.getParameterCount(); i++)
+				Parameter p = m.getParameters()[i];
+				paramName += p.toString();
+				if(m.getParameterCount() > i+1)
 				{
-					Parameter p = m.getParameters()[i];
-					paramName += p.toString();
-					if(m.getParameterCount() > i+1)
-					{
-						paramName += ", ";
-					}
-				}
-				methodName += paramName + "]";
-				if(methodName.startsWith(methodPrefixFilter))
-				{
-					classMethods.add(methodName);
+					paramName += ", ";
 				}
 			}
+			methodName += paramName + "]";
+			if(methodName.startsWith(methodPrefixFilter))
+			{
+				classMethods.add(methodName);
+			}
+		}
 		return classMethods;
 	}
 }
