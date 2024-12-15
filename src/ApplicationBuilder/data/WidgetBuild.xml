@@ -1,5 +1,5 @@
 <JButtonBuild>
-	<JFrame setLayout="BorderLayout" setText="Video Launcher" setSize="600, 250" setLocation="150,150">
+	<JFrame setLayout="BorderLayout" setTitle="Video Launcher" setSize="600, 250" setLocation="150,150">
 		<JPanel setLayout="BorderLayout" extendedLayoutApplyParent="CENTER">
 			<JScrollPane extendedLayoutApplyParent="NORTH">
 				<JPanel>
