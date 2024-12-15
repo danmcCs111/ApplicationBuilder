@@ -2,6 +2,9 @@ package ActionListeners;
 
 import java.awt.event.ActionListener;
 
+/**
+ * TODO Placeholder for loading from configuration file?
+ */
 public enum ActionListenersRegistered {
 
 	ComponentComboBoxActionListener(ComponentComboBoxActionListener.class, "ComponentComboBoxActionListener"),
