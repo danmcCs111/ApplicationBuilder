@@ -3,7 +3,7 @@ package ActionListeners;
 import java.awt.event.ActionListener;
 
 /**
- * TODO Placeholder for loading from configuration file?
+ * TODO Placeholder for loading from configuration file? or directory?
  */
 public enum ActionListenersRegistered {
 
