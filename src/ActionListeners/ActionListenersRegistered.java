@@ -27,7 +27,7 @@ public enum ActionListenersRegistered {
 		return this.classXmlText;
 	}
 	
-	public ActionListenersRegistered getActionListener(String classXmlText)
+	public static ActionListenersRegistered getActionListener(String classXmlText)
 	{
 		ActionListenersRegistered retVal = null;
 		for(ActionListenersRegistered alr : ActionListenersRegistered.values())
