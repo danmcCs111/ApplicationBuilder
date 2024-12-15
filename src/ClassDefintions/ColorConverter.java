@@ -14,4 +14,9 @@ public class ColorConverter implements StringToObjectConverter{
 	public int numberOfArgs() {
 		return 3;
 	}
+
+	@Override
+	public Object conversionCall(String... args) {
+		return getColor(args[0], args[1], args[2]);
+	}
 }

@@ -10,4 +10,9 @@ public class IntConverter implements StringToObjectConverter {
 	public int numberOfArgs() {
 		return 1;
 	}
+
+	@Override
+	public Object conversionCall(String... args) {
+		return getInt(args[0]);
+	}
 }

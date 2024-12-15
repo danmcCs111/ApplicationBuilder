@@ -14,4 +14,9 @@ public class PointConverter implements StringToObjectConverter{
 	public int numberOfArgs() {
 		return 2;
 	}
+
+	@Override
+	public Object conversionCall(String... args) {
+		return getPoint(args[0], args[1]);
+	}
 }

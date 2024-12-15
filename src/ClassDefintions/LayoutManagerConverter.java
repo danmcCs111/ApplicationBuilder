@@ -30,4 +30,9 @@ public class LayoutManagerConverter implements StringToObjectConverter {
 	public int numberOfArgs() {
 		return 1;
 	}
+
+	@Override
+	public Object conversionCall(String... args) {
+		return getLayoutManager(args[0]);
+	}
 }

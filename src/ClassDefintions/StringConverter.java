@@ -11,4 +11,9 @@ public class StringConverter implements StringToObjectConverter {
 	public int numberOfArgs() {
 		return 1;
 	}
+
+	@Override
+	public Object conversionCall(String... args) {
+		return getString(args[0]);
+	}
 }
