@@ -9,4 +9,8 @@ public class LoggingMessages {
 			System.out.println(s);
 		}
 	}
+	public static void printNewLine()
+	{
+		System.out.println();
+	}
 }

@@ -21,4 +21,9 @@ public class ActionListenerConverter implements StringToObjectConverter {
 		}
 		return al;
 	}
+
+	@Override
+	public int numberOfArgs() {
+		return 1;
+	}
 }

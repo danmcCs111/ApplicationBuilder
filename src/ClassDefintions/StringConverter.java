@@ -6,4 +6,9 @@ public class StringConverter implements StringToObjectConverter {
 	{
 		return arg0;
 	}
+
+	@Override
+	public int numberOfArgs() {
+		return 1;
+	}
 }

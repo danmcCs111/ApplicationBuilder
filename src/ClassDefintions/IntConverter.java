@@ -5,4 +5,9 @@ public class IntConverter implements StringToObjectConverter {
 	{
 		return Integer.parseInt(arg0);
 	}
+
+	@Override
+	public int numberOfArgs() {
+		return 1;
+	}
 }

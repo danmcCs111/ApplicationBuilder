@@ -43,19 +43,16 @@ public class WidgetAttributes {
 	public static void setAttribute(ClassTypeHandler classTypeHandler, String method, String ... params)
 	{
 		ClassAndSetters tmp = ClassTypeHandler.getClassAndSetters(classTypeHandler);
-		for(String p : params)
+		String setter = null; 
+		if(tmp != null)
 		{
-			String setter = null; 
-			if(tmp != null)
+			setter = tmp.getSetter(method);
+			if(setter != null)
 			{
-				setter = tmp.getSetter(method);
-				if(setter != null)
-				{
-					ClassTextAdapter.functionCall(tmp.getClazz(), setter, method, params);
-				}
+				ClassTextAdapter.functionCall(tmp.getClazz(), setter, method, params);
 			}
-			LoggingMessages.printOut("Setter: " + setter + "| method :"  + method + ": " + p);
 		}
+		LoggingMessages.printOut("Setter: " + setter + "| method :"  + method + ": " + params);
 	}
 	
 	public static void setAttribute(ClassTypeHandler classTypeHandler, String method, String params)

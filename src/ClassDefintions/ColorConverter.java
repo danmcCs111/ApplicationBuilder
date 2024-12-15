@@ -9,4 +9,9 @@ public class ColorConverter implements StringToObjectConverter{
 		Color color = new Color(Integer.parseInt(arg0), Integer.parseInt(arg1), Integer.parseInt(arg2));
 		return color;
 	}
+
+	@Override
+	public int numberOfArgs() {
+		return 3;
+	}
 }

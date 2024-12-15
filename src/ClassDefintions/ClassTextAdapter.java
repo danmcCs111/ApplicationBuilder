@@ -11,12 +11,17 @@ public class ClassTextAdapter {
 	public static void functionCall(Class<?> component, String methodDefintion, String method, String ...params)
 	{
 		List<String> paramDefList = parseParameterListFromMethodDefintion(methodDefintion);
+		int count = 0;
 		for(String p : paramDefList)
 		{
-			LoggingMessages.printOut("param: " + p);
-			LoggingMessages.printOut("int name: " + int.class.getName());
-			LoggingMessages.printOut("method definition: " + p);
-			LoggingMessages.printOut("converter: " + ParamTypes.getParamType(p).getConverter().getClass().getName());
+			StringToObjectConverter stringToObjectConverter = ParamTypes.getParamType(p).getConverter();
+			LoggingMessages.printOut("converter: " + stringToObjectConverter.getClass().getName());
+			for(int i = 0; i < stringToObjectConverter.numberOfArgs(); i++)
+			{
+				LoggingMessages.printOut("param: " + params[count + i]);
+			}
+			LoggingMessages.printNewLine();
+			count++;
 		}
 		
 	}

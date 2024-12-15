@@ -9,4 +9,9 @@ public class PointConverter implements StringToObjectConverter{
 		p.setLocation(Integer.parseInt(arg0), Integer.parseInt(arg1));
 		return p;
 	}
+
+	@Override
+	public int numberOfArgs() {
+		return 2;
+	}
 }

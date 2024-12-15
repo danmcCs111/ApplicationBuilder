@@ -25,4 +25,9 @@ public class LayoutManagerConverter implements StringToObjectConverter {
 		
 		return lm;
 	}
+
+	@Override
+	public int numberOfArgs() {
+		return 1;
+	}
 }
