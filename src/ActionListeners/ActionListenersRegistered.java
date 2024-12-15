@@ -7,14 +7,14 @@ import java.awt.event.ActionListener;
  */
 public enum ActionListenersRegistered {
 
-	ComponentComboBoxActionListener(ComponentComboBoxActionListener.class, "ComponentComboBoxActionListener"),
-	OpenDetailsActionListener(OpenDetailsActionListener.class, "OpenDetailsActionListener"),
-	OpenParameterEditorActionListener(OpenParameterEditorActionListener.class, "OpenParameterEditorActionListener"),
-	MinimizeActionListener(MinimizeActionListener.class, "MinimizeActionListener"),
-	NavigationButtonActionListener(NavigationButtonActionListener.class, "NavigationButtonActionListener"),
-	ReloadActionListener(ReloadActionListener.class, "ReloadActionListener"),
-	ExitActionListener(ExitActionListener.class, "ExitActionListener"),
-	LaunchActionListener(LaunchActionListener.class, "LaunchActionListener");
+	ComponentComboBoxActionListener(ComponentComboBoxActionListener.class, ComponentComboBoxActionListener.class.getName()),
+	OpenDetailsActionListener(OpenDetailsActionListener.class, OpenDetailsActionListener.class.getName()),
+	OpenParameterEditorActionListener(OpenParameterEditorActionListener.class, OpenParameterEditorActionListener.class.getName()),
+	MinimizeActionListener(MinimizeActionListener.class, MinimizeActionListener.class.getName()),
+	NavigationButtonActionListener(NavigationButtonActionListener.class, NavigationButtonActionListener.class.getName()),
+	ReloadActionListener(ReloadActionListener.class, ReloadActionListener.class.getName()),
+	ExitActionListener(ExitActionListener.class, ExitActionListener.class.getName()),
+	LaunchActionListener(LaunchActionListener.class, LaunchActionListener.class.getName());
 	
 	private Class<? extends ActionListener> clazz;
 	private String classXmlText;
@@ -40,7 +40,7 @@ public enum ActionListenersRegistered {
 		ActionListenersRegistered retVal = null;
 		for(ActionListenersRegistered alr : ActionListenersRegistered.values())
 		{
-			if(alr.getClassXmlText().equals(classXmlText))
+			if(alr.getClassXmlText().endsWith(classXmlText))
 			{
 				retVal = alr;
 				break;
