@@ -23,7 +23,6 @@ public class ClassTextAdapter {
 			LoggingMessages.printNewLine();
 			count++;
 		}
-		
 	}
 	
 	private static List<String> parseParameterListFromMethodDefintion(String methodDefintion)
