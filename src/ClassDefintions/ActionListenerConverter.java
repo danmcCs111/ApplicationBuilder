@@ -34,4 +34,10 @@ public class ActionListenerConverter implements StringToObjectConverter {
 	public Object conversionCall(String... args) {
 		return getActionListener(args[0]);
 	}
+	
+	@Override
+	public String toString()
+	{
+		return ActionListenerConverter.class.toString();
+	}
 }

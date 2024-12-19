@@ -54,7 +54,7 @@ public class WidgetComponent {
 	
 	public static WidgetComponent getWidgetComponent(String text, String packagePrefix)
 	{
-		Class<?>c = null;
+		Class <?> c = null;
 		Object o = null;
 		try {
 			c = Class.forName(packagePrefix + text);

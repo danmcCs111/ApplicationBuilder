@@ -19,4 +19,10 @@ public class ColorConverter implements StringToObjectConverter{
 	public Object conversionCall(String... args) {
 		return getColor(args[0], args[1], args[2]);
 	}
+	
+	@Override
+	public String toString()
+	{
+		return ColorConverter.class.toString();
+	}
 }

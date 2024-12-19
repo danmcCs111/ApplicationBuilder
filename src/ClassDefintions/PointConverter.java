@@ -19,4 +19,10 @@ public class PointConverter implements StringToObjectConverter{
 	public Object conversionCall(String... args) {
 		return getPoint(args[0], args[1]);
 	}
+	
+	@Override
+	public String toString()
+	{
+		return PointConverter.class.toString();
+	}
 }

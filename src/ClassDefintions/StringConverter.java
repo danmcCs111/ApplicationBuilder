@@ -16,4 +16,10 @@ public class StringConverter implements StringToObjectConverter {
 	public Object conversionCall(String... args) {
 		return getString(args[0]);
 	}
+	
+	@Override
+	public String toString()
+	{
+		return StringConverter.class.toString();
+	}
 }

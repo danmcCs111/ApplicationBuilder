@@ -35,4 +35,10 @@ public class LayoutManagerConverter implements StringToObjectConverter {
 	public Object conversionCall(String... args) {
 		return getLayoutManager(args[0]);
 	}
+	
+	@Override
+	public String toString()
+	{
+		return LayoutManagerConverter.class.toString();
+	}
 }

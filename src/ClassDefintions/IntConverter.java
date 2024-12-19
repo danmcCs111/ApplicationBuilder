@@ -15,4 +15,10 @@ public class IntConverter implements StringToObjectConverter {
 	public Object conversionCall(String... args) {
 		return getInt(args[0]);
 	}
+	
+	@Override
+	public String toString()
+	{
+		return IntConverter.class.toString();
+	}
 }

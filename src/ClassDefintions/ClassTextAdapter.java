@@ -1,31 +1,45 @@
 package ClassDefintions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ApplicationBuilder.LoggingMessages;
 import Params.ParamTypes;
+import Params.XmlToWidgetGenerator;
 import WidgetComponents.ParameterEditorParser;
 
 public class ClassTextAdapter {
 	
-	public static void functionCall(Class<?> component, String methodDefintion, String method, String ...params)
+	public static void functionCall(Class<?> component, String methodDefintion, String method, String ... params)
 	{
-		List<String> paramDefList = parseParameterListFromMethodDefintion(methodDefintion);
+		XmlToWidgetGenerator methodParams = null;
+		ArrayList<String> paramDefList = parseParameterListFromMethodDefintion(methodDefintion);
 		int count = 0;
 		for(String p : paramDefList)
 		{
 			StringToObjectConverter stringToObjectConverter = ParamTypes.getParamType(p).getConverter();
-			LoggingMessages.printOut("converter: " + stringToObjectConverter.getClass().getName());
+			List<String> argParams = new ArrayList<String>();
 			for(int i = 0; i < stringToObjectConverter.numberOfArgs(); i++)
 			{
-				LoggingMessages.printOut("param: " + params[count + i]);
+				argParams.add(params[count + i]);
 			}
-			LoggingMessages.printNewLine();
+			if(methodParams == null)
+			{
+				methodParams = new XmlToWidgetGenerator(stringToObjectConverter, method, argParams);
+			}
+			else
+			{
+				methodParams.addNextParams(stringToObjectConverter, argParams);
+			}
 			count++;
 		}
+		
+		LoggingMessages.printOut(method);
+		LoggingMessages.printOut(methodParams.toString());
+		LoggingMessages.printNewLine();
 	}
 	
-	private static List<String> parseParameterListFromMethodDefintion(String methodDefintion)
+	private static ArrayList<String> parseParameterListFromMethodDefintion(String methodDefintion)
 	{
 		return ParameterEditorParser.parseMethodParamsToList(methodDefintion, true);
 	}
