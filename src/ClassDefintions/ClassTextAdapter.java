@@ -10,7 +10,7 @@ import WidgetComponents.ParameterEditorParser;
 
 public class ClassTextAdapter {
 	
-	public static void functionCall(Class<?> component, String methodDefintion, String method, String ... params)
+	public static XmlToWidgetGenerator functionCall(Class<?> component, String methodDefintion, String method, String ... params)
 	{
 		XmlToWidgetGenerator methodParams = null;
 		ArrayList<String> paramDefList = parseParameterListFromMethodDefintion(methodDefintion);
@@ -37,6 +37,8 @@ public class ClassTextAdapter {
 		LoggingMessages.printOut(method);
 		LoggingMessages.printOut(methodParams.toString());
 		LoggingMessages.printNewLine();
+		
+		return methodParams;
 	}
 	
 	private static ArrayList<String> parseParameterListFromMethodDefintion(String methodDefintion)

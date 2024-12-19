@@ -25,6 +25,7 @@ public class XmlToWidgetGenerator {
 		this.paramsList.add(params);
 	}
 	
+	@Override
 	public String toString()
 	{
 		StringBuilder sb = new StringBuilder();

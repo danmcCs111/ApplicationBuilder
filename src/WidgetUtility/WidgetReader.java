@@ -84,7 +84,10 @@ public class WidgetReader {
 					continue;
 				WidgetCreatorProperty wcProperty = generateWidgetCreatorProperty(n, parentId);
 				if(wcProperty != null)
+				{
 					widgetCreatorProperties.add(wcProperty);
+					LoggingMessages.printOut(wcProperty.toString());
+				}
 				NodeList nl2 = n.getChildNodes();
 				if(n.getChildNodes() != null)
 				{
@@ -94,7 +97,7 @@ public class WidgetReader {
 						String nodeStr = n.getNodeName().split(WidgetComponent.ID_SPLIT)[0];
 						WidgetComponent wcType = WidgetComponent.getWidgetComponent(nodeStr);
 						counterId = wcType.getNextCounterId();
-						wcProperty.setRefId(counterId);
+//						wcProperty.setRefId(counterId);
 					}
 					generateWidgetCreatorPropertyList(nl2, counterId);
 				}
