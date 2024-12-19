@@ -3,6 +3,7 @@ package WidgetUtility;
 import java.util.ArrayList;
 import java.util.HashMap;
 import ApplicationBuilder.LoggingMessages;
+import Params.XmlToWidgetGenerator;
 import WidgetComponents.ClassTypeHandler;
 
 public class WidgetCreatorProperty {
@@ -11,6 +12,7 @@ public class WidgetCreatorProperty {
 	private String parentNodeText;
 	private ArrayList<String> settings;
 	private String refId;
+	private XmlToWidgetGenerator xmlToWidgetGenerator;
 	
 	private static final String ID_POSTFIX = "#";
 	private static int postfixCounter = 0;
@@ -53,6 +55,11 @@ public class WidgetCreatorProperty {
 	public boolean isThisParentRef(String parentRef) {
 		return refId.equals(parentRef);
 	}
+	
+	public void setXmlToWidgetGenerator(XmlToWidgetGenerator xmlToWidgetGenerator)
+	{
+		this.xmlToWidgetGenerator = xmlToWidgetGenerator;
+	}
 
 	private void splitAttributeNameAndValue(String attribute) {
 		String[] ss = attribute.split("=");
@@ -71,7 +78,13 @@ public class WidgetCreatorProperty {
 		out.append("RefID: " + this.refId + " ");
 		out.append("ParentNodeID: " + this.parentNodeText + " ");
 		if(this.settings != null && this.settings.size() > 0)
-			out.append(LoggingMessages.combine(settings));
+		{
+			out.append(LoggingMessages.combine(settings) + " ");
+		}
+		if(xmlToWidgetGenerator != null)
+		{
+			out.append("| ***XML Generator Object*** -> " + xmlToWidgetGenerator.toString() + " ");
+		}
 		return out.toString();
 	}
 }

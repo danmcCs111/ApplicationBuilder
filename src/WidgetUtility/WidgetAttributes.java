@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import ApplicationBuilder.LoggingMessages;
 import ClassDefintions.ClassAndSetters;
 import ClassDefintions.ClassTextAdapter;
+import Params.XmlToWidgetGenerator;
 import WidgetComponents.ClassTypeHandler;
 
 public class WidgetAttributes {
@@ -40,8 +41,9 @@ public class WidgetAttributes {
 	}
 	
 
-	public static void setAttribute(ClassTypeHandler classTypeHandler, String method, String ... params)
+	public static XmlToWidgetGenerator setAttribute(ClassTypeHandler classTypeHandler, String method, String ... params)
 	{
+		XmlToWidgetGenerator xmlToWidgetGenerator = null;
 		ClassAndSetters tmp = ClassTypeHandler.getClassAndSetters(classTypeHandler);
 		String setter = null; 
 		if(tmp != null)
@@ -49,13 +51,13 @@ public class WidgetAttributes {
 			setter = tmp.getSetter(method);
 			if(setter != null)
 			{
-				ClassTextAdapter.functionCall(tmp.getClazz(), setter, method, params);
+				xmlToWidgetGenerator = ClassTextAdapter.functionCall(tmp.getClazz(), setter, method, params);
 			}
 		}
-		LoggingMessages.printOut("Setter: " + setter + "| method :"  + method + ": " + params);
+		return xmlToWidgetGenerator;
 	}
 	
-	public static void setAttribute(ClassTypeHandler classTypeHandler, String method, String params)
+	public static XmlToWidgetGenerator setAttribute(ClassTypeHandler classTypeHandler, String method, String params)
 	{
 		List<String> paramList = new ArrayList<String>();
 		
@@ -69,7 +71,7 @@ public class WidgetAttributes {
 			//TODO setAttribute
 			paramList.add(arg);
 		}
-		setAttribute(classTypeHandler, method,  paramList.toArray(new String []{}));
+		return setAttribute(classTypeHandler, method,  paramList.toArray(new String []{}));
 	}
 	
 	public static void addClassAndSetters(ClassAndSetters classAndSetters)

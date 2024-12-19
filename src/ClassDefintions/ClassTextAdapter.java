@@ -34,10 +34,6 @@ public class ClassTextAdapter {
 			count++;
 		}
 		
-		LoggingMessages.printOut(method);
-		LoggingMessages.printOut(methodParams.toString());
-		LoggingMessages.printNewLine();
-		
 		return methodParams;
 	}
 	

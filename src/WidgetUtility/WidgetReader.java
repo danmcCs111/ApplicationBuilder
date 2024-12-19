@@ -16,6 +16,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import ApplicationBuilder.LoggingMessages;
+import Params.XmlToWidgetGenerator;
 
 /**
  * single instance for now
@@ -35,7 +36,9 @@ public class WidgetReader {
 			for(String s : wcp.getSettingsNameAndValue().keySet())
 			{
 				String val = wcp.getSettingsNameAndValue().get(s);
-				WidgetAttributes.setAttribute(wcp.getClassType(), s, val);
+				XmlToWidgetGenerator xmlToWidgetGenerator = WidgetAttributes.setAttribute(wcp.getClassType(), s, val);
+				wcp.setXmlToWidgetGenerator(xmlToWidgetGenerator);
+				LoggingMessages.printOut(wcp.toString());
 			}
 		}
 		return widgetCreatorProperties;
@@ -86,7 +89,6 @@ public class WidgetReader {
 				if(wcProperty != null)
 				{
 					widgetCreatorProperties.add(wcProperty);
-					LoggingMessages.printOut(wcProperty.toString());
 				}
 				NodeList nl2 = n.getChildNodes();
 				if(n.getChildNodes() != null)
