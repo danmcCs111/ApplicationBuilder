@@ -2,7 +2,7 @@
 
 /** 
 ** TODO
-** combine ClassTextAdapter.java & WidgetAttributes.java & WidgetCreatorProperty.java & WidgetReader.java
+** support extended attributes in xml
 **/
 
 
