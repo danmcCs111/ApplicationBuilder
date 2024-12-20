@@ -21,6 +21,8 @@ import ClassDefintions.ClassAndSetters;
 import ClassDefintions.ClassTextAdapter;
 import Params.XmlToWidgetGenerator;
 import WidgetComponents.ClassTypeHandler;
+import WidgetExtensions.ExtendedActionListenerSubType;
+import WidgetExtensions.ExtendedLayoutApplyParent;
 
 public class WidgetAttributes {
 	
@@ -42,33 +44,31 @@ public class WidgetAttributes {
 	private static final HashMap<Class<?>, String []> EXTENDED_METHODS = new HashMap<Class<?>, String []>();
 	static {
 		EXTENDED_METHODS.put(JFrame.class, new String [] {
-				"extendedLayoutApplyParent [java.lang.String arg0]"
+				ExtendedLayoutApplyParent.getMethodDefinition()
 		});
 		EXTENDED_METHODS.put(JPanel.class, new String [] {
-				"extendedLayoutApplyParent [java.lang.String arg0]"
+				ExtendedLayoutApplyParent.getMethodDefinition()
 		});
 		EXTENDED_METHODS.put(JButton.class, new String [] {
-				"extendedLayoutApplyParent [java.lang.String arg0]",
-				"extendedActionListenerSubType [java.lang.String arg0]"
+				ExtendedLayoutApplyParent.getMethodDefinition(),
+				ExtendedActionListenerSubType.getMethodDefinition()
 		});
 		EXTENDED_METHODS.put(JTextField.class, new String [] {
-				"extendedLayoutApplyParent [java.lang.String arg0]"
+				ExtendedLayoutApplyParent.getMethodDefinition()
 		});
 		EXTENDED_METHODS.put(JScrollPane.class, new String [] {
-				"extendedLayoutApplyParent [java.lang.String arg0]"
+				ExtendedLayoutApplyParent.getMethodDefinition()
 		});
 		EXTENDED_METHODS.put(JComboBox.class, new String [] {
-				"extendedLayoutApplyParent [java.lang.String arg0]"
+				ExtendedLayoutApplyParent.getMethodDefinition()
 		});
 		EXTENDED_METHODS.put(JComponent.class, new String [] {
-				"extendedLayoutApplyParent [java.lang.String arg0]"
+				ExtendedLayoutApplyParent.getMethodDefinition()
 		});
 		EXTENDED_METHODS.put(JMenuItem.class, new String [] {
-				"extendedLayoutApplyParent [java.lang.String arg0]"
+				ExtendedLayoutApplyParent.getMethodDefinition()
 		});
-		
 	}
-	
 	static {
 		initialLoad();
 	}
