@@ -36,6 +36,9 @@ public class ParameterEditorParser {
 	 */
 	public static ArrayList<String> parseMethodParamsToList(String methodText, boolean paramsOnly)
 	{
+		//show method def
+		LoggingMessages.printOut(methodText);
+		
 		ArrayList<String> methodParams = new ArrayList<String>();
 		
 		String [] tmp = methodText.split("\\[");

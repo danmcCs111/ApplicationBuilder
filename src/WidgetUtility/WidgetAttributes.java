@@ -5,6 +5,7 @@ import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -16,7 +17,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import ApplicationBuilder.LoggingMessages;
 import ClassDefintions.ClassAndSetters;
 import ClassDefintions.ClassTextAdapter;
 import Params.XmlToWidgetGenerator;
@@ -37,6 +37,39 @@ public class WidgetAttributes {
 		COMPONENT_CLASSES.add(JComboBox.class);
 		COMPONENT_CLASSES.add(JComponent.class);
 		COMPONENT_CLASSES.add(JMenuItem.class);
+	}
+	//TODO replace :(
+	private static final HashMap<Class<?>, String []> EXTENDED_METHODS = new HashMap<Class<?>, String []>();
+	static {
+		EXTENDED_METHODS.put(JFrame.class, new String [] {
+				"extendedLayoutApplyParent [java.lang.String arg0]"
+		});
+		EXTENDED_METHODS.put(JPanel.class, new String [] {
+				"extendedLayoutApplyParent [java.lang.String arg0]"
+		});
+		EXTENDED_METHODS.put(JButton.class, new String [] {
+				"extendedLayoutApplyParent [java.lang.String arg0]",
+				"extendedActionListenerSubType [java.lang.String arg0]"
+		});
+		EXTENDED_METHODS.put(JTextField.class, new String [] {
+				"extendedLayoutApplyParent [java.lang.String arg0]"
+		});
+		EXTENDED_METHODS.put(JScrollPane.class, new String [] {
+				"extendedLayoutApplyParent [java.lang.String arg0]"
+		});
+		EXTENDED_METHODS.put(JComboBox.class, new String [] {
+				"extendedLayoutApplyParent [java.lang.String arg0]"
+		});
+		EXTENDED_METHODS.put(JComponent.class, new String [] {
+				"extendedLayoutApplyParent [java.lang.String arg0]"
+		});
+		EXTENDED_METHODS.put(JMenuItem.class, new String [] {
+				"extendedLayoutApplyParent [java.lang.String arg0]"
+		});
+		
+	}
+	
+	static {
 		initialLoad();
 	}
 	
@@ -106,7 +139,13 @@ public class WidgetAttributes {
 		}
 		for(String classStr : tmpClassesAndSetters.keySet())
 		{
-			WidgetAttributes.addClassAndSetters(new ClassAndSetters(classStr, tmpClassesAndSetters.get(classStr)));
+			ClassAndSetters cs = new ClassAndSetters(classStr, tmpClassesAndSetters.get(classStr));
+			Set<Class<?>> exList = EXTENDED_METHODS.keySet();
+			if(exList.contains(cs.getClazz()))
+			{
+				cs.addExtendedSetters(EXTENDED_METHODS.get(cs.getClazz()));
+			}
+			WidgetAttributes.addClassAndSetters(cs);
 		}
 	}
 	
