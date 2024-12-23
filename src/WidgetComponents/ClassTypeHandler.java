@@ -4,8 +4,8 @@ import ApplicationBuilder.LoggingMessages;
 import ClassDefintions.ClassAndSetters;
 import WidgetUtility.WidgetAttributes;
 
-public interface ClassTypeHandler {
-
+public interface ClassTypeHandler 
+{
 	public abstract void applyAttribute(String method, String ... params);
 	public abstract Class<?> getClassType();
 	

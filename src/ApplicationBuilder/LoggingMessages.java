@@ -3,8 +3,8 @@ package ApplicationBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoggingMessages {
-	
+public class LoggingMessages 
+{
 	public static void printOut(String ... out)
 	{
 		System.out.println(combine(out));

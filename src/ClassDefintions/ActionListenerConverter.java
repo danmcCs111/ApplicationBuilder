@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 import ActionListeners.ActionListenersRegistered;
 import ApplicationBuilder.LoggingMessages;
 
-public class ActionListenerConverter implements StringToObjectConverter {
-	
+public class ActionListenerConverter implements StringToObjectConverter 
+{
 	public static ActionListener getActionListener(String arg0)
 	{
 		ActionListenersRegistered alr = ActionListenersRegistered.getActionListener(arg0);
@@ -26,12 +26,14 @@ public class ActionListenerConverter implements StringToObjectConverter {
 	}
 
 	@Override
-	public int numberOfArgs() {
+	public int numberOfArgs() 
+	{
 		return 1;
 	}
 
 	@Override
-	public Object conversionCall(String... args) {
+	public Object conversionCall(String... args) 
+	{
 		return getActionListener(args[0]);
 	}
 	

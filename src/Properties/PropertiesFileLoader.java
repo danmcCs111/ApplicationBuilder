@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class PropertiesFileLoader {
-	
+public class PropertiesFileLoader
+{
 	private static final HashMap<Paths, HashMap<String,String>> PROPERTIES = 
 			new HashMap<Paths, HashMap<String, String>>();
 	static {

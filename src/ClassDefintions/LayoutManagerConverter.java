@@ -5,8 +5,8 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
 
-public class LayoutManagerConverter implements StringToObjectConverter {
-
+public class LayoutManagerConverter implements StringToObjectConverter 
+{
 	public static LayoutManager getLayoutManager(String arg0)
 	{
 		LayoutManager lm = null;
@@ -27,12 +27,14 @@ public class LayoutManagerConverter implements StringToObjectConverter {
 	}
 
 	@Override
-	public int numberOfArgs() {
+	public int numberOfArgs() 
+	{
 		return 1;
 	}
 
 	@Override
-	public Object conversionCall(String... args) {
+	public Object conversionCall(String... args) 
+	{
 		return getLayoutManager(args[0]);
 	}
 	

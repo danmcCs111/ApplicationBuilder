@@ -1,5 +1,6 @@
 package ActionListeners;
 
-public interface ActionListenerSubType {
+public interface ActionListenerSubType 
+{
 
 }

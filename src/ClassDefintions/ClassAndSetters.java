@@ -6,11 +6,12 @@ import java.util.List;
 
 import ApplicationBuilder.LoggingMessages;
 
-public class ClassAndSetters {
-
+public class ClassAndSetters 
+{
 	private Class<?> clazz = null;
-	private ArrayList<String> setters = null;
-	private ArrayList<String> extendedSetters = new ArrayList<String>();
+	private ArrayList<String> 
+		setters = null,
+		extendedSetters = new ArrayList<String>();
 	
 	public ClassAndSetters(String classStr, ArrayList<String> setters)
 	{

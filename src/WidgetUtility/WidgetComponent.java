@@ -11,8 +11,8 @@ import WidgetComponents.ComponentClassTypeHandler;
 import WidgetComponents.JComponentClassTypeHandler;
 import WidgetComponents.SystemTrayClassTypeHandler;
 
-public class WidgetComponent {
-	
+public class WidgetComponent 
+{
 	private String 
 		componentLabel;
 	private static int counter = 0;

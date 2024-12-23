@@ -17,8 +17,8 @@ import ApplicationBuilder.LoggingMessages;
 import WidgetComponents.ParameterEditor;
 import WidgetComponents.ParameterEditorParser;
 
-public class OpenDetailsActionListener implements ActionListener{
-
+public class OpenDetailsActionListener implements ActionListener
+{
 	private JButton openDetails;
 	private JList<?> componentMethods;
 	
@@ -29,7 +29,8 @@ public class OpenDetailsActionListener implements ActionListener{
 	}
 	
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) 
+	{
 		ListSelectionModel lsm = componentMethods.getSelectionModel();
 		if(!lsm.isSelectionEmpty())
 		{

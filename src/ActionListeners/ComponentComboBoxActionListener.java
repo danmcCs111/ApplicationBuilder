@@ -6,8 +6,8 @@ import java.awt.event.ActionListener;
 
 import ApplicationBuilder.RedrawableFrame;
 
-public class ComponentComboBoxActionListener implements ActionListener {
-	
+public class ComponentComboBoxActionListener implements ActionListener 
+{
 	private RedrawableFrame redrawFrame;
 	
 	public ComponentComboBoxActionListener(RedrawableFrame redrawFrame)

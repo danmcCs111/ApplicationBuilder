@@ -1,5 +1,6 @@
 package WidgetUtility;
 
-public class ButtonCreator {
+public class ButtonCreator 
+{
 
 }

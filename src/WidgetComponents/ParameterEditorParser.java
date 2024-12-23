@@ -6,8 +6,8 @@ import javax.swing.JFrame;
 
 import ApplicationBuilder.LoggingMessages;
 
-public class ParameterEditorParser {
-	
+public class ParameterEditorParser 
+{
 	private static final ArrayList<ParameterEditor> editorTypes = new ArrayList<ParameterEditor>();
 	static {
 		editorTypes.add(new BooleanEditor());

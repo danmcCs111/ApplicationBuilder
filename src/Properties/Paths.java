@@ -1,7 +1,7 @@
 package Properties;
 
-public enum Paths {
-	
+public enum Paths 
+{
 	WIDGET_TEXT(new String [] {".\\src\\ApplicationBuilder\\data\\WidgetText.properties", 
 	".\\ApplicationBuilder\\data\\WidgetText.properties"}),
 	LAUNCHER(new String [] {".\\src\\ApplicationBuilder\\data\\Launcher.properties", 

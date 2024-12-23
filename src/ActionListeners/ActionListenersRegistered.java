@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 /**
  * TODO Placeholder for loading from configuration file? or directory?
  */
-public enum ActionListenersRegistered {
-
+public enum ActionListenersRegistered 
+{
 	ComponentComboBoxActionListener(ComponentComboBoxActionListener.class, ComponentComboBoxActionListener.class.getName()),
 	OpenDetailsActionListener(OpenDetailsActionListener.class, OpenDetailsActionListener.class.getName()),
 	OpenParameterEditorActionListener(OpenParameterEditorActionListener.class, OpenParameterEditorActionListener.class.getName()),

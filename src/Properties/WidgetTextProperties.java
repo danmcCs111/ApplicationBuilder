@@ -1,6 +1,7 @@
 package Properties;
 
-public enum WidgetTextProperties implements Properties{
+public enum WidgetTextProperties implements Properties
+{
 	APPLICATION_TITLE("application_title"),
 	HIGHLIGHT_COLOR("highlight_color"),
 	TITLE_COLOR_FOREGROUND("title_color_foreground"),
@@ -25,11 +26,13 @@ public enum WidgetTextProperties implements Properties{
 	}
 	
 	@Override
-	public Paths getPath() {
+	public Paths getPath() 
+	{
 		return path;
 	}
 	@Override
-	public String getProperty(){
+	public String getProperty()
+	{
 		return this.property;
 	}
 }

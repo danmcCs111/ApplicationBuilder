@@ -23,8 +23,8 @@ import Params.XmlToWidgetGenerator;
  * use initWidgetReader to read saved widget xml design
  * TODO allow for a reload?
  */
-public class WidgetReader {
-	
+public class WidgetReader 
+{
 	private static WidgetReader widgetReader = null;
 	private static ArrayList<WidgetCreatorProperty> widgetCreatorProperties = new ArrayList<WidgetCreatorProperty>(); 
 	

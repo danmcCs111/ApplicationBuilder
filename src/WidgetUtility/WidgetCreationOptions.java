@@ -11,8 +11,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-public interface WidgetCreationOptions {
-
+public interface WidgetCreationOptions 
+{
 	public abstract JFrame createFrame();
 	public abstract JPanel createPanel();
 	public abstract JScrollPane createScrollPane();

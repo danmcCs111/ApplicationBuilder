@@ -6,8 +6,8 @@ import java.util.List;
 import ApplicationBuilder.LoggingMessages;
 import ClassDefintions.StringToObjectConverter;
 
-public class XmlToWidgetGenerator {
-
+public class XmlToWidgetGenerator 
+{
 	private ArrayList<StringToObjectConverter> stringToObjectConverterList = new ArrayList<StringToObjectConverter>();
 	private String method;
 	private ArrayList<List<String>> paramsList = new ArrayList<List<String>>();

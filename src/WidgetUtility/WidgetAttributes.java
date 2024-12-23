@@ -24,8 +24,8 @@ import WidgetComponents.ClassTypeHandler;
 import WidgetExtensions.ExtendedActionListenerSubType;
 import WidgetExtensions.ExtendedLayoutApplyParent;
 
-public class WidgetAttributes {
-	
+public class WidgetAttributes 
+{
 	private static ArrayList<ClassAndSetters> classesAndSetters = new ArrayList<ClassAndSetters>();
 	private static final String [] METHODS_PREFIX = new String [] {"set", "add"};
 	private static final ArrayList<Class<?>> COMPONENT_CLASSES = new ArrayList<Class<?>>();
@@ -122,6 +122,7 @@ public class WidgetAttributes {
 		//discover a list of methods available to adjust for our available list of components
 		HashMap<String, ArrayList<String>> tmpClassesAndSetters = new HashMap<String, ArrayList<String>>();
 		
+		//add standard library methods
 		for(Class<?> componentClass : COMPONENT_CLASSES)
 		{
 			String classKey = componentClass.getName();
@@ -137,6 +138,7 @@ public class WidgetAttributes {
 				}
 			}
 		}
+		//add extended methods
 		for(String classStr : tmpClassesAndSetters.keySet())
 		{
 			ClassAndSetters cs = new ClassAndSetters(classStr, tmpClassesAndSetters.get(classStr));

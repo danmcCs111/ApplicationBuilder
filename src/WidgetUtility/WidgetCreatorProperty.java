@@ -6,12 +6,13 @@ import ApplicationBuilder.LoggingMessages;
 import Params.XmlToWidgetGenerator;
 import WidgetComponents.ClassTypeHandler;
 
-public class WidgetCreatorProperty {
-
-	private String component;
-	private String parentNodeText;
+public class WidgetCreatorProperty 
+{
+	private String 
+		component,
+		parentNodeText,
+		refId;
 	private ArrayList<String> settings;
-	private String refId;
 	private XmlToWidgetGenerator xmlToWidgetGenerator;
 	
 	private static final String ID_POSTFIX = "#";
@@ -19,7 +20,8 @@ public class WidgetCreatorProperty {
 
 	private HashMap<String, String> settingsNameAndValue = new HashMap<String, String>();
 
-	public WidgetCreatorProperty(String component, ArrayList<String> settings, String parentNodeText) {
+	public WidgetCreatorProperty(String component, ArrayList<String> settings, String parentNodeText) 
+	{
 		this.component = component;
 		this.settings = settings;
 		for (String s : settings)
@@ -30,7 +32,8 @@ public class WidgetCreatorProperty {
 		this.parentNodeText = parentNodeText;
 	}
 
-	public WidgetComponent getComponentType() {
+	public WidgetComponent getComponentType() 
+	{
 		return WidgetComponent.getWidgetComponent(this.component);
 	}
 	
@@ -39,11 +42,13 @@ public class WidgetCreatorProperty {
 		return getComponentType().getComponentClassType();
 	}
 
-	public ArrayList<String> getSettings() {
+	public ArrayList<String> getSettings() 
+	{
 		return this.settings;
 	}
 
-	public HashMap<String, String> getSettingsNameAndValue() {
+	public HashMap<String, String> getSettingsNameAndValue() 
+	{
 		return this.settingsNameAndValue;
 	}
 
@@ -65,8 +70,8 @@ public class WidgetCreatorProperty {
 		String[] ss = attribute.split("=");
 		settingsNameAndValue.put(ss[0], ss[1]);
 	}
-	private void setRefId(String component) {
-		
+	private void setRefId(String component) 
+	{
 		String postfix = ID_POSTFIX + postfixCounter++;
 		this.refId = component + postfix;
 	}

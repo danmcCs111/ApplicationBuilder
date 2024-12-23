@@ -2,8 +2,8 @@ package ApplicationBuilder;
 
 import javax.swing.SwingUtilities;
 
-public class ApplicationEditorLauncher {
-	
+public class ApplicationEditorLauncher 
+{
 	private static final String SOURCE_FILE = "src\\ApplicationBuilder\\data\\WidgetBuild.xml";
 	
 	public static void main(String [] args)

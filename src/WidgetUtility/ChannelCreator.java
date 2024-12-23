@@ -1,6 +1,7 @@
 package WidgetUtility;
 
-public class ChannelCreator extends ButtonCreator{
+public class ChannelCreator extends ButtonCreator
+{
 	
 	public ChannelCreator(String [] args)
 	{

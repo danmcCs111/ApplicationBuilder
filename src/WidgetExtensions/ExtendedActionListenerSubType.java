@@ -1,16 +1,15 @@
 package WidgetExtensions;
 
 import java.awt.event.ActionListener;
-
 import javax.swing.JComponent;
-
 import ActionListeners.ActionListenersRegistered;
 
-public class ExtendedActionListenerSubType {
-	
+public class ExtendedActionListenerSubType 
+{
 	private static final String METHOD_DEF = "extendedActionListenerSubType [java.lang.String arg0]";
 
-	public static String getMethodDefinition() {
+	public static String getMethodDefinition() 
+	{
 		return METHOD_DEF;
 	}
 	
@@ -26,7 +25,5 @@ public class ExtendedActionListenerSubType {
 		{
 			ActionListenersRegistered alr = ActionListenersRegistered.getActionListener(al.getClass().getName());
 		}
-		
 	}
-	
 }

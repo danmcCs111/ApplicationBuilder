@@ -25,8 +25,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-public class WidgetCreator implements WidgetCreationOptions {
-
+public class WidgetCreator implements WidgetCreationOptions 
+{
 	public static JPanel createNavigationPanel(JButton navPanel)
 	{
 		JPanel buttonPanel = new JPanel();

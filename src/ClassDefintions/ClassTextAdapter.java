@@ -7,8 +7,8 @@ import Params.ParamTypes;
 import Params.XmlToWidgetGenerator;
 import WidgetComponents.ParameterEditorParser;
 
-public class ClassTextAdapter {
-	
+public class ClassTextAdapter 
+{
 	public static XmlToWidgetGenerator functionCall(Class<?> component, String methodDefintion, String method, String ... params)
 	{
 		XmlToWidgetGenerator methodParams = null;

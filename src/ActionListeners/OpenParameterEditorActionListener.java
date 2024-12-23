@@ -5,16 +5,18 @@ import java.awt.event.ActionListener;
 
 import ApplicationBuilder.BuilderWindow;
 
-public class OpenParameterEditorActionListener implements ActionListener {
-
+public class OpenParameterEditorActionListener implements ActionListener 
+{
 	private BuilderWindow builderWindow; 
 	
 	public OpenParameterEditorActionListener()
 	{
+		
 	}
 	
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) 
+	{
 		if(builderWindow == null )
 		{
 			builderWindow = new BuilderWindow();

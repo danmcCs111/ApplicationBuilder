@@ -2,8 +2,8 @@ package WidgetComponents;
 
 import javax.swing.JComponent;
 
-public class JComponentClassTypeHandler implements ClassTypeHandler {
-
+public class JComponentClassTypeHandler implements ClassTypeHandler 
+{
 	private JComponent jComponent = null;
 	
 	public  JComponentClassTypeHandler(Object o)
@@ -17,13 +17,14 @@ public class JComponentClassTypeHandler implements ClassTypeHandler {
 	}
 
 	@Override
-	public void applyAttribute(String method, String... params) {
+	public void applyAttribute(String method, String... params) 
+	{
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
-	public Class<?> getClassType() {
+	public Class<?> getClassType() 
+	{
 		return this.getJComponent().getClass();
 	}
 }

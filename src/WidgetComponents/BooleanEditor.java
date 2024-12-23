@@ -4,8 +4,8 @@ import java.awt.Component;
 
 import javax.swing.JComboBox;
 
-public class BooleanEditor extends ParameterEditor{
-
+public class BooleanEditor extends ParameterEditor
+{
 	@Override
 	public Component getComponentEditor() {
 		JComboBox<String> trueOrFalse = new JComboBox<String>();
@@ -16,13 +16,15 @@ public class BooleanEditor extends ParameterEditor{
 	}
 
 	@Override
-	public String getComponentXMLOutput() {
+	public String getComponentXMLOutput() 
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean isType(String parameterValueType) {
+	public boolean isType(String parameterValueType) 
+	{
 		// TODO Auto-generated method stub
 		return parameterValueType.toLowerCase().equals("boolean");
 	}

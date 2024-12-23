@@ -1,7 +1,7 @@
 package WidgetComponents;
 
-public class SystemTrayClassTypeHandler implements ClassTypeHandler {
-
+public class SystemTrayClassTypeHandler implements ClassTypeHandler 
+{
 	private java.awt.SystemTray systemTray = null;
 	
 	public SystemTrayClassTypeHandler (Object o)
@@ -15,13 +15,14 @@ public class SystemTrayClassTypeHandler implements ClassTypeHandler {
 	}
 
 	@Override
-	public void applyAttribute(String method, String... params) {
+	public void applyAttribute(String method, String... params) 
+	{
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
-	public Class<?> getClassType() {
+	public Class<?> getClassType() 
+	{
 		return this.getSystemTray().getClass();
 	}
 }

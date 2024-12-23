@@ -1,5 +1,6 @@
 package ActionListeners;
 
-public class Direction implements ActionListenerSubType {
+public class Direction implements ActionListenerSubType 
+{
 
 }

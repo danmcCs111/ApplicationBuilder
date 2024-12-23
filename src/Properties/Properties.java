@@ -2,8 +2,8 @@ package Properties;
 
 import java.awt.Color;
 
-public interface Properties {
-	
+public interface Properties 
+{
 	public abstract Paths getPath();
 	public abstract String getProperty();
 	

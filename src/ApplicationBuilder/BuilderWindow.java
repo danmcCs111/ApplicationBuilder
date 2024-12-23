@@ -21,12 +21,13 @@ import ActionListeners.OpenDetailsActionListener;
 import ClassDefintions.ClassAndSetters;
 import WidgetUtility.WidgetAttributes;
 
-public class BuilderWindow extends RedrawableFrame {
-
+public class BuilderWindow extends RedrawableFrame 
+{
 	private static final long serialVersionUID = 1L;
 	private static final String TITLE = "Application Parameter Editor";
-	private static final Dimension WINDOW_LOCATION = new Dimension(250, 250);
-	private static final Dimension WINDOW_SIZE = new Dimension(480, 640);
+	private static final Dimension 
+		WINDOW_LOCATION = new Dimension(250, 250),
+		WINDOW_SIZE = new Dimension(480, 640);
 	
 	
 	private HashMap<String, JList<?>> listOfComponentMethods = new HashMap<String, JList<?>>();
@@ -112,7 +113,8 @@ public class BuilderWindow extends RedrawableFrame {
 	}
 	
 	@Override
-	public void rebuildInnerPanels() {
+	public void rebuildInnerPanels() 
+	{
 		componentMethods = listOfComponentMethods.get(classSelection.getSelectedItem());
 		scrPane = new JScrollPane(componentMethods);
 		innerPanel2.add(scrPane, BorderLayout.CENTER);

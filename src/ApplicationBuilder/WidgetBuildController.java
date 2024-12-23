@@ -7,8 +7,8 @@ import WidgetUtility.WidgetComponent;
 import WidgetUtility.WidgetCreatorProperty;
 import WidgetUtility.WidgetReader;
 
-public class WidgetBuildController {
-	
+public class WidgetBuildController 
+{
 	private ArrayList<WidgetCreatorProperty> widgetCreatorProperties;
 	private String sourceFile;
 	

@@ -5,8 +5,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
-public interface WidgetCreatorRef {
-	
+public interface WidgetCreatorRef 
+{
 	public static Method [] getDeclaredMethods()
 	{
 		return WidgetCreator.class.getDeclaredMethods();
