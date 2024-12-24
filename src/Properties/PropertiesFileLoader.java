@@ -55,10 +55,10 @@ public class PropertiesFileLoader
 		}
 	}
 	
-	public static HashMap<String,String> readProperties(String location, String delimter)
+	public static HashMap<String,String> readProperties(String filenameAndPath, String delimter)
 	{
 		HashMap<String,String> props = new HashMap<String,String>();
-		File file = new File(location);
+		File file = new File(filenameAndPath);
 		Scanner sc;
 		
 		if(!file.exists())
