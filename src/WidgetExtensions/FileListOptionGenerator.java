@@ -10,7 +10,7 @@ import Properties.PropertiesFileLoader;
 
 public class FileListOptionGenerator 
 {
-	List<JComponent> components = new ArrayList<JComponent>();
+	private List<JComponent> components = new ArrayList<JComponent>();
 	
 	/**
 	 * @param path (the directory to collect)
