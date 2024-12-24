@@ -2,7 +2,7 @@ package WidgetExtensions;
 
 import ActionListeners.NavigationButtonActionListener;
 
-public enum Direction implements ActionListenerIntExtension 
+public enum Direction implements ActionListenerExtension 
 {
 	BACKWARD(-1),
 	FORWARD(1);
@@ -60,8 +60,15 @@ public enum Direction implements ActionListenerIntExtension
 	}
 
 	@Override
-	public int actionListenerEvent() 
+	public void actionListenerEvent() 
 	{
-		return getIndexDirectionNext();
+		NavigationButtonActionListener.setCurPosition(getIndexDirectionNext());
 	}
+
+	@Override
+	public void applyActionListenerExtensionAttribute(String attribute) 
+	{
+		NavigationButtonActionListener.addActionListenerExtension(getTypeFromString(attribute));
+	}
+
 }

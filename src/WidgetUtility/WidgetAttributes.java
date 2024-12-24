@@ -22,6 +22,7 @@ import ClassDefintions.ClassTextAdapter;
 import Params.XmlToWidgetGenerator;
 import WidgetComponents.ClassTypeHandler;
 import WidgetExtensions.ExtendedActionListenerSubType;
+import WidgetExtensions.ExtendedActionListenerSubTypeAttribute;
 import WidgetExtensions.ExtendedLayoutApplyParent;
 
 public class WidgetAttributes 
@@ -51,7 +52,8 @@ public class WidgetAttributes
 		});
 		EXTENDED_METHODS.put(JButton.class, new String [] {
 				ExtendedLayoutApplyParent.getMethodDefinition(),
-				ExtendedActionListenerSubType.getMethodDefinition()
+				ExtendedActionListenerSubType.getMethodDefinition(),
+				ExtendedActionListenerSubTypeAttribute.getMethodDefinition()
 		});
 		EXTENDED_METHODS.put(JTextField.class, new String [] {
 				ExtendedLayoutApplyParent.getMethodDefinition()

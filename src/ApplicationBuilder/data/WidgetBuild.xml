@@ -1,4 +1,4 @@
-<JButtonBuild>
+<JButtonBuild>	
 	<JFrame setLayout="BorderLayout" setTitle="Video Launcher" setSize="600, 250" setLocation="150,150">
 		<JPanel setLayout="BorderLayout" extendedLayoutApplyParent="CENTER">
 			<JScrollPane extendedLayoutApplyParent="NORTH">
@@ -14,9 +14,9 @@
 				</JPanel>
 			</JScrollPane>
 		</JPanel>
-		<JButton setText="&lt;" extendedLayoutApplyParent="WEST" addActionListener="NavigationButtonActionListener" extendedActionListenerSubType="Direction.BACKWARD">
+		<JButton setText="&lt;" extendedLayoutApplyParent="WEST" addActionListener="NavigationButtonActionListener" extendedActionListenerSubType="WidgetExtensions.Direction" extendedActionListenerSubTypeAttribute="BACKWARD">
 		</JButton>
-		<JButton setText="&gt;" extendedLayoutApplyParent="EAST" addActionListener="NavigationButtonActionListener" extendedActionListenerSubType="Direction.FORWARD">
+		<JButton setText="&gt;" extendedLayoutApplyParent="EAST" addActionListener="NavigationButtonActionListener" extendedActionListenerSubType="WidgetExtensions.Direction" extendedActionListenerSubTypeAttribute="FORWARD">
 		</JButton>
 		
 		<MenuOption setText="File">

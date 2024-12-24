@@ -14,11 +14,11 @@ public class ClassTextAdapter
 		XmlToWidgetGenerator methodParams = null;
 		ArrayList<String> paramDefList = parseParameterListFromMethodDefintion(methodDefintion);
 		int count = 0;
-		for(String p : paramDefList)
+		for(String p : paramDefList)//loop through the method definition params
 		{
 			StringToObjectConverter stringToObjectConverter = ParamTypes.getParamType(p).getConverter();
 			List<String> argParams = new ArrayList<String>();
-			for(int i = 0; i < stringToObjectConverter.numberOfArgs(); i++)
+			for(int i = 0; i < stringToObjectConverter.numberOfArgs(); i++)//loop through the xml args per method def param
 			{
 				argParams.add(params[count + i]);
 			}

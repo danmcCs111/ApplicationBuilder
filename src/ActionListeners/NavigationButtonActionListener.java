@@ -2,7 +2,10 @@ package ActionListeners;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
+import WidgetExtensions.ActionListenerExtension;
 import WidgetExtensions.Direction;
 
 public class NavigationButtonActionListener implements ActionListener, ActionListenerSubTypeExtension 
@@ -10,6 +13,7 @@ public class NavigationButtonActionListener implements ActionListener, ActionLis
 	private static int 
 		curPosition = 0, 
 		lastIndex = 0;
+	private static List<ActionListenerExtension> actionListenerExtensions = new ArrayList<ActionListenerExtension>();
 	
 	private Direction direction = null;
 	
@@ -39,11 +43,16 @@ public class NavigationButtonActionListener implements ActionListener, ActionLis
 	}
 	
 	@Override
-	public void setActionListenerSubTypeExtension(Class<?> clazz, String type) 
+	public void setActionListenerSubTypeExtension(Class<?> clazz, String attr) 
 	{
 		if(clazz.getName().equals(Direction.class.getName()))
 		{
-			direction = Direction.getTypeFromString(type);
+			direction = Direction.getTypeFromString(attr);
 		}
+	}
+	
+	public static void addActionListenerExtension(ActionListenerExtension ale)
+	{
+		actionListenerExtensions.add(ale);
 	}
 }
