@@ -12,6 +12,11 @@ public class FileListOptionGenerator
 {
 	List<JComponent> components = new ArrayList<JComponent>();
 	
+	/**
+	 * @param path (the directory to collect)
+	 * @param filter (the filename extension filter)
+	 * @param componentType (which widget type to load list of files into)
+	 */
 	public FileListOptionGenerator(String path, String filter, Class<?> componentType)
 	{
 		if(componentType.getName().equals(JButton.class.getName()))
