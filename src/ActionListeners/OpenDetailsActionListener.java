@@ -37,7 +37,7 @@ public class OpenDetailsActionListener implements ActionListener
 			LoggingMessages.printOut(componentMethods.getSelectedValue().toString());
 			ArrayList<String> methodParams = ParameterEditorParser.parseMethodParamsToList(componentMethods.getSelectedValue().toString());
 			JFrame editorFrame = ParameterEditorParser.launchEditor(methodParams.get(0));
-			int count = 0;
+//			int count = 0;
 			JPanel innerPanel = new JPanel();
 //			GridLayout gl = new GridLayout(0, 2);
 			GridLayout gl = new GridLayout(0, 1);
@@ -54,7 +54,7 @@ public class OpenDetailsActionListener implements ActionListener
 //						JLabel l = pe.getFieldLabel("arg" + count + ":");
 //						innerPanel.add(l);
 						innerPanel.add(c);
-						count++;
+//						count++;
 					}
 				}
 			}

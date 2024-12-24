@@ -1,6 +1,7 @@
 package ActionListeners;
 
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 /**
  * TODO Placeholder for loading from configuration file? or directory?
@@ -33,6 +34,12 @@ public enum ActionListenersRegistered
 	public String getClassXmlText()
 	{
 		return this.classXmlText;
+	}
+	
+	public boolean acceptsActionListenerSubType()
+	{
+		boolean isAl = Arrays.asList(clazz.getDeclaredClasses()).contains(ActionListenerSubTypeExtension.class);
+		return isAl;
 	}
 	
 	public static ActionListenersRegistered getActionListener(String classXmlText)

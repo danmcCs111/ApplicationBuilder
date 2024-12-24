@@ -2,7 +2,10 @@ package WidgetExtensions;
 
 import java.awt.event.ActionListener;
 import javax.swing.JComponent;
+
+import ActionListeners.ActionListenerSubTypeExtension;
 import ActionListeners.ActionListenersRegistered;
+import ApplicationBuilder.LoggingMessages;
 
 public class ExtendedActionListenerSubType 
 {
@@ -24,6 +27,11 @@ public class ExtendedActionListenerSubType
 		for(ActionListener al : actionListener)
 		{
 			ActionListenersRegistered alr = ActionListenersRegistered.getActionListener(al.getClass().getName());
+			if(alr.acceptsActionListenerSubType())
+			{
+				ActionListenerSubTypeExtension ale = (ActionListenerSubTypeExtension) al;
+				LoggingMessages.printOut("ActionListener subtype: " + ale);
+			}
 		}
 	}
 }
