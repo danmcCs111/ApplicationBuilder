@@ -23,9 +23,9 @@ public class WidgetBuildController
 	 */
 	public void readProperties()
 	{
-		widgetCreatorProperties = WidgetReader.getWidgetCreatorProperties(sourceFile);//TODO new feature
+		widgetCreatorProperties = WidgetReader.getWidgetCreatorProperties(sourceFile);
 		
-		for(WidgetCreatorProperty wcProp : widgetCreatorProperties)
+		for(WidgetCreatorProperty wcProp : widgetCreatorProperties)//TODO 
 		{
 			WidgetComponent wcType = wcProp.getComponentType();
 		}

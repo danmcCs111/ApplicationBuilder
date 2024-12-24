@@ -1,13 +1,15 @@
 package WidgetExtensions;
 
-import javax.swing.JComponent;
+import java.util.ArrayList;
+import java.util.List;
 
-public class JButtonArray extends JComponent
+/**
+ * Holds a collection of JButtons of variable generated size
+ */
+public class JButtonArray extends Collection
 {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-
+	
+	private List<JButtonVariableOption> jButtonOptions = new ArrayList<JButtonVariableOption>();
+	
 }
