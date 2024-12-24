@@ -14,7 +14,7 @@ public class UrlToValueReader
 	public static String parse(String filenameAndPath)
 	{
 		String value = null;
-		PropertiesFileLoader.readProperties(filenameAndPath, "=");
+		value = PropertiesFileLoader.readProperties(filenameAndPath, "=").get("URL");
 		return value;
 	}
 	
