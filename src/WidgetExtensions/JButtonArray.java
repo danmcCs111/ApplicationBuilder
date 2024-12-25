@@ -28,16 +28,20 @@ public class JButtonArray extends Collection
 	
 	public void applyToParentComponent(JComponent parentComponent)
 	{
-		for(JButton button : jButtons)
-		{
-			parentComponent.add(button);
-		}
+		applyToParentComponent(parentComponent, null);
 	}
 	public void applyToParentComponent(JComponent parentComponent, Object constraints)
 	{
 		for(JButton button : jButtons)
 		{
-			parentComponent.add(button, constraints);
+			if(constraints != null)
+			{
+				parentComponent.add(button, constraints);
+			}
+			else
+			{
+				parentComponent.add(button);
+			}
 		}
 	}
 	
