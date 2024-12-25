@@ -9,7 +9,7 @@ import javax.swing.JComponent;
 /**
  * Holds a collection of JButtons of variable generated size
  */
-public class JButtonArray extends Collection
+public class JButtonArray extends JComponent
 {
 	private static final long serialVersionUID = 1L;
 	

@@ -1,6 +1,6 @@
 package WidgetExtensions;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.JComponent;
@@ -12,11 +12,7 @@ public class Collection extends JComponent
 {
 	private static final long serialVersionUID = 1L;
 	
-	public List<VariableOptionBase> variableOptions = new ArrayList<VariableOptionBase>();
+	public HashMap<String, List<JComponent>> collectionNameAndList = new HashMap<String, List<JComponent>>();
 	
-	public void setVariableOptions(List<VariableOptionBase> variableOptions)
-	{
-		this.variableOptions = variableOptions;
-	}
 	
 }
