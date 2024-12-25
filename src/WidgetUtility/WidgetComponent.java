@@ -13,9 +13,9 @@ import WidgetComponents.SystemTrayClassTypeHandler;
 
 public class WidgetComponent 
 {
-	private String 
-		componentLabel;
 	private static int counter = 0;
+
+	private String componentLabel;
 	
 	private JComponent jComponent = null;
 	private Component component = null;
@@ -34,10 +34,8 @@ public class WidgetComponent
 		return this.componentLabel;
 	}
 	
-	
 	public static WidgetComponent getWidgetComponent(String text)
 	{
-		LoggingMessages.printOut(text);
 		String [] packagePrefixes = new String [] {"java.awt.", "WidgetExtensions.", "javax.swing."};
 		for(String packPre : packagePrefixes)
 		{

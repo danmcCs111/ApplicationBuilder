@@ -4,7 +4,7 @@ public class ExtendedAttributeStringParam
 {
 	public static final String METHOD_ARG_DEF = " [java.lang.String arg0]";
 	
-	public static  String getMethodDefinition(Class<? extends ExtendedAttributeStringParam> clazz) 
+	public static String getMethodDefinition(Class<? extends ExtendedAttributeStringParam> clazz) 
 	{
 		String [] className = clazz.getName().split("\\.");
 		String methodDef = className[className.length-1];

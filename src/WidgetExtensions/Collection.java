@@ -14,5 +14,4 @@ public class Collection extends JComponent
 	
 	public HashMap<String, List<JComponent>> collectionNameAndList = new HashMap<String, List<JComponent>>();
 	
-	
 }

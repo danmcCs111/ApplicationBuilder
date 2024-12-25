@@ -70,7 +70,6 @@ public class WidgetReader
 			e.normalize();
 			
 			NodeList nl = e.getChildNodes();
-			LoggingMessages.printOut("" + nl.getLength());
 			widgetCreatorProperties = generateWidgetCreatorPropertyList(nl, null);
 			
 		} catch (ParserConfigurationException | SAXException | IOException e) {
