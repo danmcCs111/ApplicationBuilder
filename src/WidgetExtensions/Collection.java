@@ -1,5 +1,7 @@
 package WidgetExtensions;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,4 +16,15 @@ public class Collection extends JComponent
 	
 	public HashMap<String, List<JComponent>> collectionNameAndList = new HashMap<String, List<JComponent>>();
 	
+	public void addJComponent(String collectionName, JComponent component)
+	{
+		if(collectionNameAndList.containsKey(collectionName))
+		{
+			collectionNameAndList.get(collectionName).add(component);
+		}
+		else
+		{
+			collectionNameAndList.put(collectionName, Arrays.asList(component));
+		}
+	}
 }
