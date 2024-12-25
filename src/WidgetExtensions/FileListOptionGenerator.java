@@ -1,5 +1,6 @@
 package WidgetExtensions;
 
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,15 +11,14 @@ import Properties.PropertiesFileLoader;
 
 public class FileListOptionGenerator 
 {
-	private List<JComponent> components = new ArrayList<JComponent>();
-	
 	/**
 	 * @param path (the directory to collect)
 	 * @param filter (the filename extension filter)
 	 * @param componentType (which widget type to load list of files into)
 	 */
-	public FileListOptionGenerator(String path, String filter, Class<?> componentType)
+	public static List<JComponent> getComponents(String path, String filter, Class<?> componentType)
 	{
+		List<JComponent> components = new ArrayList<JComponent>();
 		if(componentType.getName().equals(JButton.class.getName()))
 		{
 			ArrayList<String> fileNames = PropertiesFileLoader.getOSFileList(path, filter);
@@ -28,6 +28,18 @@ public class FileListOptionGenerator
 				button.setText(fileName);
 				button.setName(UrlToValueReader.parse(fileName, path));
 				components.add(button);
+			}
+		}
+		return components;
+	}
+	
+	public static void addActionListenerToAll(ActionListener actionListener, List<JComponent> components)
+	{
+		for(JComponent component : components)
+		{
+			if(component instanceof JButton)
+			{
+				((JButton)component).addActionListener(actionListener);
 			}
 		}
 	}
