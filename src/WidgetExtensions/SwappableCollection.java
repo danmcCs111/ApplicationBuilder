@@ -1,6 +1,5 @@
 package WidgetExtensions;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -10,10 +9,11 @@ import javax.swing.JComponent;
 /**
  * Holds a variable number of Components
  */
-public class Collection extends JComponent
+public class SwappableCollection extends JComponent
 {
 	private static final long serialVersionUID = 1L;
-	
+
+	//conceptually holding a collection of components to be swapped/redrawn
 	public HashMap<String, List<JComponent>> collectionNameAndList = new HashMap<String, List<JComponent>>();
 	
 	public void addJComponent(String collectionName, JComponent component)

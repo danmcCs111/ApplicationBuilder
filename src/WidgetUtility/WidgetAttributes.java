@@ -21,7 +21,7 @@ import ClassDefintions.ClassAndSetters;
 import ClassDefintions.ClassTextAdapter;
 import Params.XmlToWidgetGenerator;
 import WidgetComponents.ClassTypeHandler;
-import WidgetExtensions.Collection;
+import WidgetExtensions.SwappableCollection;
 import WidgetExtensions.ExtendedActionListenerSubType;
 import WidgetExtensions.ExtendedActionListenerSubTypeAttribute;
 import WidgetExtensions.ExtendedArrayProcessingPath;
@@ -72,7 +72,7 @@ public class WidgetAttributes
 		EXTENDED_METHODS.put(JMenuItem.class, new String [] {
 				ExtendedLayoutApplyParent.getMethodDefinition(ExtendedLayoutApplyParent.class)
 		});
-		EXTENDED_METHODS.put(Collection.class, new String [] {
+		EXTENDED_METHODS.put(SwappableCollection.class, new String [] {
 				ExtendedArrayProcessingPath.getMethodDefinition(ExtendedArrayProcessingPath.class)
 		});
 	}
