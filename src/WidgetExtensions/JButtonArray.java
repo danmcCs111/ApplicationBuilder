@@ -15,7 +15,7 @@ public class JButtonArray extends JComponent
 	
 	private List<JButton> jButtons = new ArrayList<JButton>();
 	
-	public JButtonArray(String path, String filter)
+	public void addJButtons(String path, String filter)
 	{
 		for(JComponent comp : FileListOptionGenerator.getComponents(path, filter, JButton.class))
 		{

@@ -37,7 +37,7 @@ public class ParameterEditorParser
 	public static ArrayList<String> parseMethodParamsToList(String methodText, boolean paramsOnly)
 	{
 		//show method def
-		LoggingMessages.printOut(methodText);
+		LoggingMessages.printOut("parseMethod text: " + methodText);
 		
 		ArrayList<String> methodParams = new ArrayList<String>();
 		

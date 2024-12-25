@@ -7,15 +7,8 @@ import ActionListeners.ActionListenerSubTypeExtension;
 import ActionListeners.ActionListenersRegistered;
 import ApplicationBuilder.LoggingMessages;
 
-public class ExtendedActionListenerSubType 
+public class ExtendedActionListenerSubType extends ExtendedAttributeStringParam
 {
-	private static final String METHOD_DEF = "extendedActionListenerSubType [java.lang.String arg0]";
-
-	public static String getMethodDefinition() 
-	{
-		return METHOD_DEF;
-	}
-	
 	public static void applyMethod(JComponent component, String listenerSubType)
 	{
 		ActionListener [] al = component.getListeners(ActionListener.class);
