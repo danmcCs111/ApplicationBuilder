@@ -1,5 +1,6 @@
 package WidgetUtility;
 
+import java.awt.SystemTray;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
@@ -27,6 +28,8 @@ import WidgetExtensions.ExtendedActionListenerSubTypeAttribute;
 import WidgetExtensions.ExtendedArrayProcessingPath;
 import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetExtensions.ExtendedLayoutApplyParent;
+import WidgetExtensions.JButtonArray;
+import WidgetExtensions.MenuOption;
 
 public class WidgetAttributes 
 {
@@ -43,6 +46,11 @@ public class WidgetAttributes
 		COMPONENT_CLASSES.add(JComboBox.class);
 		COMPONENT_CLASSES.add(JComponent.class);
 		COMPONENT_CLASSES.add(JMenuItem.class);
+		
+		COMPONENT_CLASSES.add(SystemTray.class);
+		COMPONENT_CLASSES.add(SwappableCollection.class);
+		COMPONENT_CLASSES.add(JButtonArray.class);
+		COMPONENT_CLASSES.add(MenuOption.class);
 	}
 	//TODO replace :(
 	private static final HashMap<Class<?>, String []> EXTENDED_METHODS = new HashMap<Class<?>, String []>();
