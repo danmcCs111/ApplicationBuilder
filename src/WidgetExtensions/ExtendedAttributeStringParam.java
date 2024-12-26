@@ -1,6 +1,6 @@
 package WidgetExtensions;
 
-public class ExtendedAttributeStringParam 
+public interface ExtendedAttributeStringParam 
 {
 	public static final String METHOD_ARG_DEF = " [java.lang.String arg0]";
 	
@@ -14,5 +14,5 @@ public class ExtendedAttributeStringParam
 		
 		return methodDef;
 	}
-
+	
 }

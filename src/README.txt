@@ -2,7 +2,7 @@
 
 /** 
 ** TODO
-** complete collection xml tag in java code file
+** support extended attributes in xml
 **/
 
 

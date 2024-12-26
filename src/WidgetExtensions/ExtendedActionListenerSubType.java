@@ -7,7 +7,7 @@ import ActionListeners.ActionListenerSubTypeExtension;
 import ActionListeners.ActionListenersRegistered;
 import ApplicationBuilder.LoggingMessages;
 
-public class ExtendedActionListenerSubType extends ExtendedAttributeStringParam
+public class ExtendedActionListenerSubType implements ExtendedAttributeStringParam
 {
 	public static void applyMethod(JComponent component, String listenerSubType)
 	{

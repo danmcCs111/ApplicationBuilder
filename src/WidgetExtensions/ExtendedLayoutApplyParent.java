@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-public class ExtendedLayoutApplyParent extends ExtendedAttributeStringParam
+public class ExtendedLayoutApplyParent implements ExtendedAttributeStringParam
 {
 	//TODO cleanup
 	public static void applyMethod(JComponent parentComponent, Component component, String layoutApplyParent)
