@@ -15,4 +15,6 @@ public interface ExtendedAttributeStringParam
 		return methodDef;
 	}
 	
+	public abstract void applyMethod(String arg0);
+	
 }

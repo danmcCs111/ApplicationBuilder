@@ -1,29 +1,41 @@
 package WidgetExtensions;
 
-import java.awt.event.ActionListener;
-import javax.swing.JComponent;
-
 import ActionListeners.ActionListenerSubTypeExtension;
-import ActionListeners.ActionListenersRegistered;
-import ApplicationBuilder.LoggingMessages;
 
 public class ExtendedActionListenerSubType implements ExtendedAttributeStringParam
 {
-	public static void applyMethod(JComponent component, String listenerSubType)
+	private ActionListenerSubTypeExtension actionListenerExtension;
+	private ExtendedActionListenerSubTypeAttribute subTypeAttribute;
+	
+	public ExtendedActionListenerSubType(ActionListenerSubTypeExtension ale, ExtendedActionListenerSubTypeAttribute subTypeAttribute)
 	{
-		ActionListener [] al = component.getListeners(ActionListener.class);
-		applySubTypeActionListener(al, listenerSubType);
+		this.actionListenerExtension = ale;
+		this.subTypeAttribute = subTypeAttribute;
 	}
 	
-	private static void applySubTypeActionListener(ActionListener [] actionListener, String listenerSubType)
+	@Override
+	public void applyMethod(String arg0)
 	{
-		for(ActionListener al : actionListener)
-		{
-			ActionListenersRegistered alr = ActionListenersRegistered.getActionListener(al.getClass().getName());
-			if(alr.acceptsActionListenerSubType())
-			{
-				ActionListenerSubTypeExtension ale = (ActionListenerSubTypeExtension) al;
-			}
+		try {
+			Class<?> clazz = Class.forName(arg0);
+			actionListenerExtension.setActionListenerSubTypeExtension(clazz, subTypeAttribute.getSubTypeAttribute());
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+//		ActionListener [] al = component.getListeners(ActionListener.class);
+//		applySubTypeActionListener(al, listenerSubType);
 	}
+	
+//	private static void applySubTypeActionListener(ActionListener [] actionListener, String listenerSubType)
+//	{
+//		for(ActionListener al : actionListener)
+//		{
+//			ActionListenersRegistered alr = ActionListenersRegistered.getActionListener(al.getClass().getName());
+//			if(alr.acceptsActionListenerSubType())
+//			{
+//				ActionListenerSubTypeExtension ale = (ActionListenerSubTypeExtension) al;
+//			}
+//		}
+//	}
 }

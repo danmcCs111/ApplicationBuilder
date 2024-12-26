@@ -2,9 +2,15 @@ package WidgetExtensions;
 
 public class ExtendedActionListenerSubTypeAttribute implements ExtendedAttributeStringParam
 {
-	public static void applyMethod(ActionListenerExtension extension, String listenerSubTypeAttribute)
+	private String subTypeAttribute = null;
+	@Override
+	public void applyMethod(String arg0)
 	{
-		extension.applyActionListenerExtensionAttribute(listenerSubTypeAttribute);
+		this.subTypeAttribute = arg0;
 	}
 	
+	public String getSubTypeAttribute()
+	{
+		return this.subTypeAttribute;
+	}
 }

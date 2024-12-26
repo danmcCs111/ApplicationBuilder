@@ -1,6 +1,5 @@
 package WidgetComponents;
 
-import ApplicationBuilder.LoggingMessages;
 import ClassDefintions.ClassAndSetters;
 import WidgetUtility.WidgetAttributes;
 
@@ -22,4 +21,5 @@ public interface ClassTypeHandler
 		}
 		return tmp;
 	}
+	
 }

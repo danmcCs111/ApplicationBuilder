@@ -1,31 +1,28 @@
 package WidgetExtensions;
 
-import java.awt.Component;
-
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import ClassDefintions.ClassAndSetters;
+import WidgetComponents.ClassTypeHandler;
+import WidgetUtility.WidgetComponent;
 
 public class ExtendedLayoutApplyParent implements ExtendedAttributeStringParam
 {
-	//TODO cleanup
-	public static void applyMethod(JComponent parentComponent, Component component, String layoutApplyParent)
+	private WidgetComponent parentComponent;
+	private WidgetComponent component;
+	
+	public ExtendedLayoutApplyParent(WidgetComponent parent, WidgetComponent component)
 	{
-		if(parentComponent instanceof JPanel)
-		{
-			((JPanel) parentComponent).add(component, layoutApplyParent);
-		}
-		else if(parentComponent instanceof JScrollPane)
-		{
-			((JScrollPane) parentComponent).add(component, layoutApplyParent);
-		}
+		this.parentComponent = parent;
+		this.component = component;
 	}
-	public static void applyMethod(Component parentComponent, Component component, String layoutApplyParent)
+	
+	@Override
+	public void applyMethod(String layoutApplyParent)
 	{
-		if(parentComponent instanceof JFrame)
-		{
-			((JFrame) parentComponent).add(component, layoutApplyParent);
-		}
+		ClassTypeHandler cthP = parentComponent.getComponentClassType();
+		ClassAndSetters csP = ClassTypeHandler.getClassAndSetters(cthP);
+		
+		ClassTypeHandler cthC = component.getComponentClassType();
+		ClassAndSetters csC = ClassTypeHandler.getClassAndSetters(cthC);
+		
 	}
 }

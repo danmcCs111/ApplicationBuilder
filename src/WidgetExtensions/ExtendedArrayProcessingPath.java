@@ -2,13 +2,14 @@ package WidgetExtensions;
 
 public class ExtendedArrayProcessingPath implements ExtendedAttributeStringParam
 {
-	public static void applyMethod(String path)
+	@Override
+	public void applyMethod(String path)
 	{
 		String [] paths = null;
 		//TODO
-		if(path.contains(","))
+		if(path.contains(";"))//TODO use semi colon on listed
 		{
-			paths = path.split(",");
+			paths = path.split(";");
 		}
 		else
 		{
