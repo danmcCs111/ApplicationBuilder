@@ -92,7 +92,7 @@ public class WidgetCreatorProperty
 		if(xmlToWidgetGenerators != null && !xmlToWidgetGenerators.isEmpty())
 		{
 			for(XmlToWidgetGenerator xg : xmlToWidgetGenerators)
-				out.append("| ***XML Generator Object*** -> " + xg.toString() + " ");
+				out.append("| \n ***XML Generator Object*** -> " + xg.toString() + " ");
 		}
 		return out.toString();
 	}
