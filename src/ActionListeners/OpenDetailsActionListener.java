@@ -34,7 +34,6 @@ public class OpenDetailsActionListener implements ActionListener
 		ListSelectionModel lsm = componentMethods.getSelectionModel();
 		if(!lsm.isSelectionEmpty())
 		{
-			LoggingMessages.printOut(componentMethods.getSelectedValue().toString());
 			ArrayList<String> methodParams = ParameterEditorParser.parseMethodParamsToList(componentMethods.getSelectedValue().toString());
 			JFrame editorFrame = ParameterEditorParser.launchEditor(methodParams.get(0));
 //			int count = 0;

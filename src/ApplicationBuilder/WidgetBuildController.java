@@ -25,9 +25,13 @@ public class WidgetBuildController
 	{
 		widgetCreatorProperties = WidgetReader.getWidgetCreatorProperties(sourceFile);
 		
+		LoggingMessages.printOut("**Widget Creator Properties**");
+		
 		for(WidgetCreatorProperty wcProp : widgetCreatorProperties)//TODO 
 		{
 			WidgetComponent wcType = wcProp.getComponentType();
+			LoggingMessages.printOut(wcProp.toString());
+			LoggingMessages.printNewLine();
 		}
 	}
 }

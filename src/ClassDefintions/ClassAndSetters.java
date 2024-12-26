@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import ApplicationBuilder.LoggingMessages;
-
 public class ClassAndSetters 
 {
 	private Class<?> clazz = null;
@@ -69,13 +67,5 @@ public class ClassAndSetters
 			}
 		}
 		return null;
-	}
-	
-	public void printSetters()
-	{
-		for(String s : this.setters)
-		{
-			LoggingMessages.printOut(this.clazz.toString() + ": " + s);
-		}
 	}
 }

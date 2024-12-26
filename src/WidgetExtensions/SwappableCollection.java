@@ -7,7 +7,7 @@ import java.util.List;
 import javax.swing.JComponent;
 
 /**
- * Holds a variable number of Components
+ * Holds a variable number of Components and controls/rebuilds child JComponents
  */
 public class SwappableCollection extends JComponent
 {
@@ -27,4 +27,5 @@ public class SwappableCollection extends JComponent
 			collectionNameAndList.put(collectionName, Arrays.asList(component));
 		}
 	}
+	
 }

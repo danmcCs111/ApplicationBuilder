@@ -23,7 +23,6 @@ public class ExtendedActionListenerSubType implements ExtendedAttributeStringPar
 			if(alr.acceptsActionListenerSubType())
 			{
 				ActionListenerSubTypeExtension ale = (ActionListenerSubTypeExtension) al;
-				LoggingMessages.printOut("ActionListener subtype: " + ale);
 			}
 		}
 	}

@@ -17,7 +17,6 @@ public interface ClassTypeHandler
 		{
 			if(cs.getClazz().toString().equals(c.toString()))
 			{
-				LoggingMessages.printOut(cs.getClazz() + "" );
 				tmp = cs;
 			}
 		}

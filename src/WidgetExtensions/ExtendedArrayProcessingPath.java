@@ -1,6 +1,5 @@
 package WidgetExtensions;
 
-
 public class ExtendedArrayProcessingPath implements ExtendedAttributeStringParam
 {
 	public static void applyMethod(String path)

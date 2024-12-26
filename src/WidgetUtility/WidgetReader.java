@@ -37,11 +37,7 @@ public class WidgetReader
 			{
 				String val = wcp.getSettingsNameAndValue().get(s);
 				XmlToWidgetGenerator xmlToWidgetGenerator = WidgetAttributes.setAttribute(wcp.getClassType(), s, val);
-				wcp.setXmlToWidgetGenerator(xmlToWidgetGenerator);
-				
-				//Print to console
-				LoggingMessages.printOut(wcp.toString());
-				LoggingMessages.printNewLine();
+				wcp.addXmlToWidgetGenerator(xmlToWidgetGenerator);
 			}
 		}
 		return widgetCreatorProperties;
