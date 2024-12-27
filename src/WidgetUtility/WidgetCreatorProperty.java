@@ -63,6 +63,7 @@ public class WidgetCreatorProperty
 				}
 			}
 		}
+		LoggingMessages.printOut("Create new Instance: " + instance);
 		return instance;
 	}
 
