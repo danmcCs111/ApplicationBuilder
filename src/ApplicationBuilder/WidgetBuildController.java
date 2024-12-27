@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import WidgetUtility.WidgetComponent;
 import WidgetUtility.WidgetCreatorProperty;
+import WidgetUtility.WidgetGenerator;
 import WidgetUtility.WidgetReader;
 
 public class WidgetBuildController 
@@ -33,5 +34,6 @@ public class WidgetBuildController
 			LoggingMessages.printOut(wcProp.toString());
 			LoggingMessages.printNewLine();
 		}
+		new WidgetGenerator(widgetCreatorProperties);
 	}
 }

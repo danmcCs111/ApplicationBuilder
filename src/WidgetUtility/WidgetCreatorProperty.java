@@ -11,6 +11,7 @@ import WidgetComponents.ClassTypeHandler;
 public class WidgetCreatorProperty 
 {
 	private String 
+		className,
 		component,
 		parentNodeText,
 		refId;
@@ -23,15 +24,16 @@ public class WidgetCreatorProperty
 
 	private HashMap<String, String> settingsNameAndValue = new HashMap<String, String>();
 
-	public WidgetCreatorProperty(String component, ArrayList<String> settings, String parentNodeText) 
+	public WidgetCreatorProperty(String componentName, ArrayList<String> settings, String parentNodeText) 
 	{
-		this.component = component;
+		className = WidgetAttributes.getClassNameString(componentName);
+		this.component = componentName;
 		this.settings = settings;
 		for (String s : settings)
 		{
 			splitAttributeNameAndValue(s);
 		}
-		this.setRefId(component);
+		this.setRefId(componentName);
 		this.parentNodeText = parentNodeText;
 	}
 	
@@ -40,7 +42,7 @@ public class WidgetCreatorProperty
 		if(instance == null)
 		{
 			try {
-				Class<?> c = Class.forName(component);
+				Class<?> c = Class.forName(className);
 				instance = c.newInstance();
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block

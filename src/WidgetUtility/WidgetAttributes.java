@@ -133,6 +133,20 @@ public class WidgetAttributes
 		return classesAndSetters;
 	}
 	
+	public static String getClassNameString(String classNameSuffix)
+	{
+		String packageName = "";
+		for(Class<?> c : COMPONENT_CLASSES)
+		{
+			if(c.getName().endsWith(classNameSuffix))
+			{
+				packageName = c.getPackageName();
+				break;
+			}
+		}
+		return packageName + "." + classNameSuffix;
+	}
+	
 	private static void initialLoad()
 	{
 		//discover a list of methods available to adjust for our available list of components

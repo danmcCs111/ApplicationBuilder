@@ -29,28 +29,31 @@ public class XmlToWidgetGenerator
 	
 	public void generate(Object o)
 	{
+		Object [] os = new Object [stringToObjectConverterList.size()];
+		Class<?> [] cs = new Class<?> [stringToObjectConverterList.size()];
 		for(int i = 0; i < stringToObjectConverterList.size(); i++)
 		{
 			List<String> params = paramsList.get(i);
 			StringToObjectConverter sc = stringToObjectConverterList.get(i);
-			Object o2 = sc.conversionCall(params.toArray(new String [] {}));
-			
-			try {
-				Method m = o.getClass().getMethod(method, o.getClass());
-				m.invoke(o, o2);
-			} catch (NoSuchMethodException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SecurityException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			os[i]=sc.conversionCall(params.toArray(new String [] {}));
+			cs[i]=sc.getDefinitionClass();
+		}
+		
+		try {
+			Method m = o.getClass().getMethod(method, cs);
+			m.invoke(o, os);
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	

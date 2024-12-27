@@ -43,4 +43,10 @@ public class LayoutManagerConverter implements StringToObjectConverter
 	{
 		return LayoutManagerConverter.class.toString();
 	}
+
+	@Override
+	public Class<?> getDefinitionClass() 
+	{
+		return LayoutManager.class;
+	}
 }

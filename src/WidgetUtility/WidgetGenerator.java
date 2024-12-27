@@ -2,6 +2,7 @@ package WidgetUtility;
 
 import java.util.List;
 
+import ApplicationBuilder.LoggingMessages;
 import Params.XmlToWidgetGenerator;
 
 public class WidgetGenerator 
@@ -14,6 +15,7 @@ public class WidgetGenerator
 			List<XmlToWidgetGenerator> generators = w.getXmlToWidgetGenerators();
 			for(XmlToWidgetGenerator g : generators)
 			{
+				LoggingMessages.printOut(g.toString());
 				g.generate(o);
 			}
 		}

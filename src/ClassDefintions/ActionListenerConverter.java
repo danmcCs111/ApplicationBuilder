@@ -42,4 +42,10 @@ public class ActionListenerConverter implements StringToObjectConverter
 	{
 		return ActionListenerConverter.class.toString();
 	}
+
+	@Override
+	public Class<?> getDefinitionClass() 
+	{
+		return ActionListener.class;
+	}
 }

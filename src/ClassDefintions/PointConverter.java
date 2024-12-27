@@ -28,4 +28,10 @@ public class PointConverter implements StringToObjectConverter
 	{
 		return PointConverter.class.toString();
 	}
+
+	@Override
+	public Class<?> getDefinitionClass() 
+	{
+		return Point.class;
+	}
 }

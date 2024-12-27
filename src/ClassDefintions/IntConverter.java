@@ -24,4 +24,10 @@ public class IntConverter implements StringToObjectConverter
 	{
 		return IntConverter.class.toString();
 	}
+
+	@Override
+	public Class<?> getDefinitionClass() 
+	{
+		return int.class;
+	}
 }

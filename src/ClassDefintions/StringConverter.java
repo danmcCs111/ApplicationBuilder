@@ -19,4 +19,10 @@ public class StringConverter implements StringToObjectConverter
 	{
 		return StringConverter.class.toString();
 	}
+
+	@Override
+	public Class<?> getDefinitionClass() 
+	{
+		return String.class;
+	}
 }

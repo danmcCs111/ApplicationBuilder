@@ -27,4 +27,10 @@ public class ColorConverter implements StringToObjectConverter
 	{
 		return ColorConverter.class.toString();
 	}
+
+	@Override
+	public Class<?> getDefinitionClass() 
+	{
+		return Color.class;
+	}
 }
