@@ -69,16 +69,10 @@ public class PropertiesFileLoader
 			sc = new Scanner(file);
 			while (sc.hasNextLine()) {
 				String s = sc.nextLine();
-				String [] ss = s.split(delimter);
-				if(ss.length >= 2)
+				String [] ss = s.split(delimter, 2);
+				if(ss.length == 2)
 				{
-					String urlVal = "";
-					for(int i = 1; i <ss.length; i++)
-					{
-						urlVal += ss[i] + "=";
-					}
-					urlVal = urlVal.substring(0,urlVal.length()-1);
-					props.put(ss[0], urlVal);
+					props.put(ss[0], ss[1]);
 				}
 			}
 		} catch (FileNotFoundException e) {
