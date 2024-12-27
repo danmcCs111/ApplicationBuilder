@@ -7,18 +7,17 @@ import java.util.List;
 
 import ApplicationBuilder.LoggingMessages;
 import ClassDefintions.StringToObjectConverter;
-import WidgetExtensions.ExtendedAttributeStringParam;
 
 public class XmlToWidgetGenerator 
 {
-	private String method;
+	private String methodName;
 	private ArrayList<StringToObjectConverter> stringToObjectConverterList = new ArrayList<StringToObjectConverter>();
 	private ArrayList<List<String>> paramsList = new ArrayList<List<String>>();
 	
-	public XmlToWidgetGenerator(StringToObjectConverter stringToObjectConverter, String method, List<String> params)
+	public XmlToWidgetGenerator(StringToObjectConverter stringToObjectConverter, String methodName, List<String> params)
 	{
 		this.stringToObjectConverterList.add(stringToObjectConverter);
-		this.method = method;
+		this.methodName = methodName;
 		this.paramsList.add(params);
 	}
 	
@@ -26,6 +25,11 @@ public class XmlToWidgetGenerator
 	{
 		this.stringToObjectConverterList.add(stringToObjectConverter);
 		this.paramsList.add(params);
+	}
+	
+	public String getMethodName()
+	{
+		return this.methodName;
 	}
 	
 	public void generate(Object o)
@@ -41,10 +45,10 @@ public class XmlToWidgetGenerator
 		}
 		
 		try {
-			Method m = o.getClass().getMethod(method, cs);
+			Method m = o.getClass().getMethod(methodName, cs);
 			m.invoke(o, os);
 		} catch (NoSuchMethodException e) {
-			generateExtended(o, method, cs, os);
+			generateExtended(o, methodName, cs, os);
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -95,7 +99,7 @@ public class XmlToWidgetGenerator
 	{
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append("Method: " + method + " ");
+		sb.append("Method: " + methodName + " ");
 		sb.append(LoggingMessages.combine(paramsList) + " ");
 		sb.append(LoggingMessages.combine(stringToObjectConverterList));
 		
