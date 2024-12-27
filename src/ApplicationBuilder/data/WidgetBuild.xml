@@ -3,7 +3,7 @@
 		<JPanel setLayout="BorderLayout" extendedLayoutApplyParent="CENTER">
 			<JScrollPane extendedLayoutApplyParent="NORTH">
 				<JPanel>
-					<SwappableCollection extendedArrayProcessingPath=".\ApplicationBuilder\Roku Channels:*.url; .\ApplicationBuilder\Youtube Channels:*.url">
+					<SwappableCollection extendedArrayProcessingPath=".\ApplicationBuilder\Roku Channels:.url; .\ApplicationBuilder\Youtube Channels:.url">
 						<JLabel setName="title" setForeground="100,50,150" setBackground="190,190,190">
 						</JLabel>
 						<JButtonArray setName="channels">

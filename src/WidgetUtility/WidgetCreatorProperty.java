@@ -14,6 +14,7 @@ public class WidgetCreatorProperty
 		component,
 		parentNodeText,
 		refId;
+	private Object instance;
 	private ArrayList<String> settings;
 	private List<XmlToWidgetGenerator> xmlToWidgetGenerators = new ArrayList<XmlToWidgetGenerator>();
 	
@@ -32,6 +33,27 @@ public class WidgetCreatorProperty
 		}
 		this.setRefId(component);
 		this.parentNodeText = parentNodeText;
+	}
+	
+	public Object getInstance()
+	{
+		if(instance == null)
+		{
+			try {
+				Class<?> c = Class.forName(component);
+				instance = c.newInstance();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InstantiationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return instance;
 	}
 
 	public WidgetComponent getComponentType() 
@@ -67,6 +89,11 @@ public class WidgetCreatorProperty
 	{
 		if(xmlToWidgetGenerator != null)
 			xmlToWidgetGenerators.add(xmlToWidgetGenerator);
+	}
+	
+	public List<XmlToWidgetGenerator> getXmlToWidgetGenerators()
+	{
+		return this.xmlToWidgetGenerators;
 	}
 
 	private void splitAttributeNameAndValue(String attribute) {

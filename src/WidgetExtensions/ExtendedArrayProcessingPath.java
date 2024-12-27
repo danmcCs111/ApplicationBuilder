@@ -13,16 +13,10 @@ public class ExtendedArrayProcessingPath implements ExtendedAttributeStringParam
 {
 	private HashMap<String, List<String>> pathAndFileList = new HashMap<String, List<String>>();
 	
-	public ExtendedArrayProcessingPath()
-	{
-		
-	}
-	
 	@Override
 	public void applyMethod(String path)
 	{
 		String [] paths = null;
-		//TODO
 		if(path.contains(";"))
 		{
 			paths = path.split(";");
@@ -41,4 +35,10 @@ public class ExtendedArrayProcessingPath implements ExtendedAttributeStringParam
 			pathAndFileList.put(p, PropertiesFileLoader.getOSFileList(p, f));
 		}
 	}
+	
+	public HashMap<String, List<String>> getPathAndFileList()
+	{
+		return this.pathAndFileList;
+	}
+	
 }

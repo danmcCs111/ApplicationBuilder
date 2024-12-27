@@ -1,5 +1,7 @@
 package Params;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +25,33 @@ public class XmlToWidgetGenerator
 	{
 		this.stringToObjectConverterList.add(stringToObjectConverter);
 		this.paramsList.add(params);
+	}
+	
+	public void generate(Object o)
+	{
+		for(int i = 0; i < stringToObjectConverterList.size(); i++)
+		{
+			List<String> params = paramsList.get(i);
+			StringToObjectConverter sc = stringToObjectConverterList.get(i);
+			Object o2 = sc.conversionCall(params.toArray(new String [] {}));
+			
+			try {
+				Method m = o.getClass().getMethod(method, o.getClass());
+				m.invoke(o, o2);
+			} catch (NoSuchMethodException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	@Override

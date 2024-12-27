@@ -14,7 +14,15 @@ public class SwappableCollection extends JComponent
 	private static final long serialVersionUID = 1L;
 
 	//conceptually holding a collection of components to be swapped/redrawn
-	public HashMap<String, List<JComponent>> collectionNameAndList = new HashMap<String, List<JComponent>>();
+	private HashMap<String, List<JComponent>> collectionNameAndList = new HashMap<String, List<JComponent>>();
+	private ExtendedArrayProcessingPath extendedArrayProcessingPath;
+	String [] collectionName;
+	
+//	public SwappableCollection(ExtendedArrayProcessingPath eap)
+//	{
+//		this.extendedArrayProcessingPath = eap;
+//		collectionName = this.extendedArrayProcessingPath.getPathAndFileList().keySet().toArray(new String [] {});
+//	}
 	
 	public void addJComponent(String collectionName, JComponent component)
 	{
@@ -26,6 +34,11 @@ public class SwappableCollection extends JComponent
 		{
 			collectionNameAndList.put(collectionName, Arrays.asList(component));
 		}
+	}
+	
+	public HashMap<String, List<String>> getCollectionNameAndList()
+	{
+		return this.extendedArrayProcessingPath.getPathAndFileList();
 	}
 	
 }
