@@ -70,8 +70,16 @@ public class PropertiesFileLoader
 			while (sc.hasNextLine()) {
 				String s = sc.nextLine();
 				String [] ss = s.split(delimter);
-				if(ss.length == 2)
-					props.put(ss[0], ss[1]);
+				if(ss.length >= 2)
+				{
+					String urlVal = "";
+					for(int i = 1; i <ss.length; i++)
+					{
+						urlVal += ss[i] + "=";
+					}
+					urlVal = urlVal.substring(0,urlVal.length()-1);
+					props.put(ss[0], urlVal);
+				}
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
