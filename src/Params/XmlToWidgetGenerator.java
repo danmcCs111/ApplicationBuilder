@@ -7,11 +7,12 @@ import java.util.List;
 
 import ApplicationBuilder.LoggingMessages;
 import ClassDefintions.StringToObjectConverter;
+import WidgetExtensions.ExtendedAttributeStringParam;
 
 public class XmlToWidgetGenerator 
 {
-	private ArrayList<StringToObjectConverter> stringToObjectConverterList = new ArrayList<StringToObjectConverter>();
 	private String method;
+	private ArrayList<StringToObjectConverter> stringToObjectConverterList = new ArrayList<StringToObjectConverter>();
 	private ArrayList<List<String>> paramsList = new ArrayList<List<String>>();
 	
 	public XmlToWidgetGenerator(StringToObjectConverter stringToObjectConverter, String method, List<String> params)
@@ -43,8 +44,7 @@ public class XmlToWidgetGenerator
 			Method m = o.getClass().getMethod(method, cs);
 			m.invoke(o, os);
 		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			generateExtended(o, method, cs, os);
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -55,6 +55,39 @@ public class XmlToWidgetGenerator
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	private void generateExtended(Object o, String method, Class<?> [] cs, Object [] os)
+	{
+		LoggingMessages.printOut("|TODO| -> Generate Extended");
+//		Method m;
+//		method = method.substring(0, 1).toUpperCase() + method.substring(1);
+//		try {
+//			
+//			Class<? extends ExtendedAttributeStringParam> c = (Class<? extends ExtendedAttributeStringParam>) 
+//					Class.forName("WidgetExtensions" + "." + method);
+//			Object tmp = c.newInstance();
+//			m = tmp.getClass().getMethod("applyMethod", cs);
+//			m.invoke(o, os);
+//		} catch (NoSuchMethodException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (SecurityException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IllegalAccessException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (InvocationTargetException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (ClassNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (InstantiationException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 	
 	@Override

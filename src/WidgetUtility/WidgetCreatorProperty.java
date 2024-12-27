@@ -1,5 +1,6 @@
 package WidgetUtility;
 
+import java.awt.SystemTray;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,18 +42,25 @@ public class WidgetCreatorProperty
 	{
 		if(instance == null)
 		{
-			try {
-				Class<?> c = Class.forName(className);
-				instance = c.newInstance();
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			if(className.endsWith("SystemTray"))
+			{
+				instance = SystemTray.getSystemTray();
+			}
+			else
+			{
+				try {
+					Class<?> c = Class.forName(className);
+					instance = c.newInstance();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InstantiationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 		return instance;
