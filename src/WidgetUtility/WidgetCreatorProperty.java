@@ -11,6 +11,9 @@ import WidgetComponents.ClassTypeHandler;
 
 public class WidgetCreatorProperty 
 {
+	private static final String ID_POSTFIX = "#";
+	private static int postfixCounter = 0;
+	
 	private String 
 		className,
 		component,
@@ -19,10 +22,6 @@ public class WidgetCreatorProperty
 	private Object instance;
 	private ArrayList<String> settings;
 	private List<XmlToWidgetGenerator> xmlToWidgetGenerators = new ArrayList<XmlToWidgetGenerator>();
-	
-	private static final String ID_POSTFIX = "#";
-	private static int postfixCounter = 0;
-
 	private HashMap<String, String> settingsNameAndValue = new HashMap<String, String>();
 
 	public WidgetCreatorProperty(String componentName, ArrayList<String> settings, String parentNodeText) 

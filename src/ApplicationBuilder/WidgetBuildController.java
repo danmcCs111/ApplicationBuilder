@@ -1,9 +1,6 @@
 package ApplicationBuilder;
 
 import java.util.ArrayList;
-
-
-import WidgetUtility.WidgetComponent;
 import WidgetUtility.WidgetCreatorProperty;
 import WidgetUtility.WidgetGenerator;
 import WidgetUtility.WidgetReader;

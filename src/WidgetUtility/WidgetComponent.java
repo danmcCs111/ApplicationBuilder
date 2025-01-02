@@ -13,6 +13,7 @@ import WidgetComponents.SystemTrayClassTypeHandler;
 
 public class WidgetComponent 
 {
+	public static final String ID_SPLIT = "#";
 	private static int counter = 0;
 
 	private String componentLabel;
@@ -21,8 +22,6 @@ public class WidgetComponent
 	private Component component = null;
 	private SystemTray systemTray = null;
 	
-	
-	public static String ID_SPLIT = "#";
 	
 	public String getNextCounterId()
 	{

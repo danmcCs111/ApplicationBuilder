@@ -14,6 +14,7 @@ public class ClassTextAdapter
 		XmlToWidgetGenerator methodParams = null;
 		ArrayList<String> paramDefList = parseParameterListFromMethodDefintion(methodDefintion);
 		int count = 0;
+		
 		for(String p : paramDefList)//loop through the method definition params
 		{
 			StringToObjectConverter stringToObjectConverter = ParamTypes.getParamType(p).getConverter();
