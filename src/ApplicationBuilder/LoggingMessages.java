@@ -3,8 +3,11 @@ package ApplicationBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoggingMessages 
+public interface LoggingMessages 
 {
+	
+	public static final String COMBINE_DELIMITER=", ";
+	
 	public static void printOut(String ... out)
 	{
 		System.out.println(combine(out));
@@ -32,9 +35,9 @@ public class LoggingMessages
 		StringBuffer sb = new StringBuffer();
 		for(Object s : out)
 		{
-			sb.append(s.toString() + ", ");
+			sb.append(s.toString() + COMBINE_DELIMITER);
 		}
-		return (String) sb.subSequence(0, sb.length()-2);
+		return (String) sb.subSequence(0, sb.length() - COMBINE_DELIMITER.length());
 	}
 	public static String combine(List<?> out)
 	{

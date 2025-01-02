@@ -30,7 +30,7 @@ public class WidgetBuildController
 		
 		for(WidgetCreatorProperty wcProp : widgetCreatorProperties)//TODO 
 		{
-			WidgetComponent wcType = wcProp.getComponentType();
+//			WidgetComponent wcType = wcProp.getComponentType();
 			LoggingMessages.printOut(wcProp.toString());
 			LoggingMessages.printNewLine();
 		}
