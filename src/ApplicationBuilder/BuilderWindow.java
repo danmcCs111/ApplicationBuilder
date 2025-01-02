@@ -2,6 +2,14 @@ package ApplicationBuilder;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.datatransfer.DataFlavor;
+import java.io.BufferedInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.StringReader;
+import java.io.Writer;
+import java.nio.CharBuffer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -9,10 +17,12 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.TransferHandler;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -117,7 +127,7 @@ public class BuilderWindow extends RedrawableFrame
 	{
 		componentMethods = listOfComponentMethods.get(classSelection.getSelectedItem());
 		scrPane = new JScrollPane(componentMethods);
-		innerPanel2.add(scrPane, BorderLayout.CENTER);
+		innerPanel2.add(scrPane, BorderLayout.CENTER);innerPanel2.setOpaque(rootPaneCheckingEnabled);
 		BuilderWindow.this.add(innerPanel2, BorderLayout.CENTER);
 		
 		LoggingMessages.printOut("Method output for class: " + classSelection.getSelectedItem().toString());
