@@ -40,8 +40,8 @@ public class WidgetBuildController
 		LoggingMessages.printOut("-->Widget Generation<--");
 		generate(widgetCreatorProperties);
 		
-//		JFrame frame = (JFrame) widgetCreatorProperties.get(0).getInstance();
-//		frame.setVisible(true);
+		JFrame frame = (JFrame) widgetCreatorProperties.get(0).getInstance();
+		frame.setVisible(true);
 	}
 	
 	public List<WidgetCreatorProperty> getWidgetCreationProperties()

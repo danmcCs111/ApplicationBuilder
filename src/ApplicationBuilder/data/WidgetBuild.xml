@@ -14,9 +14,9 @@
 				</JPanel>
 			</JScrollPane>
 		</JPanel>
-		<JButton setText="&lt;" extendedLayoutApplyParent="West" addActionListener="NavigationButtonActionListener" extendedActionListenerSubType="WidgetExtensions.Direction" extendedActionListenerSubTypeAttribute="BACKWARD">
+		<JButton setText="&lt;" extendedLayoutApplyParent="West" addActionListener="NavigationButtonActionListener" extendedActionListenerSubType="WidgetExtensions.Direction@BACKWARD" extendedActionListenerConnectedComponent="WidgetExtensions.SwappableCollection">
 		</JButton>
-		<JButton setText="&gt;" extendedLayoutApplyParent="East" addActionListener="NavigationButtonActionListener" extendedActionListenerSubType="WidgetExtensions.Direction" extendedActionListenerSubTypeAttribute="FORWARD">
+		<JButton setText="&gt;" extendedLayoutApplyParent="East" addActionListener="NavigationButtonActionListener" extendedActionListenerSubType="WidgetExtensions.Direction@FORWARD" extendedActionListenerConnectedComponent="WidgetExtensions.SwappableCollection">
 		</JButton>
 		
 		<MenuOption setText="File">
