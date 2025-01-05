@@ -80,12 +80,12 @@ public class XmlToWidgetGenerator
 				os[i]=sc.conversionCall(params.toArray(new String [] {}));
 				cs[i]=sc.getDefinitionClass();
 			}
-			cs[cs.length-2] = WidgetCreatorProperty.class;
-			os[os.length-2] = widgetProperties;
 			
-			cs[cs.length-1] = WidgetBuildController.class;
-			os[os.length-1] = widgetBuildController;
+			cs[cs.length-2] = WidgetBuildController.class;
+			os[os.length-2] = widgetBuildController;
 			
+			cs[cs.length-1] = WidgetCreatorProperty.class;
+			os[os.length-1] = widgetProperties;
 			
 			Object tmp = extendedAttr.newInstance();
 			
