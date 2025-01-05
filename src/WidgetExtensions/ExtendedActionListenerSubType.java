@@ -9,6 +9,5 @@ public class ExtendedActionListenerSubType implements ExtendedAttributeStringPar
 	@Override
 	public void applyMethod(String arg0, WidgetBuildController wbc, WidgetCreatorProperty widgetProperties) {
 		// TODO Auto-generated method stub
-		
 	}
 }

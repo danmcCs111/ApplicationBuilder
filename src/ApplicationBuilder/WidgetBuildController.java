@@ -40,6 +40,11 @@ public class WidgetBuildController
 		generate(widgetCreatorProperties);
 	}
 	
+	public List<WidgetCreatorProperty> getWidgetCreationProperties()
+	{
+		return this.widgetCreatorProperties;
+	}
+	
 	private void generate (List<WidgetCreatorProperty> widgets)
 	{
 		for(WidgetCreatorProperty w : widgets)
@@ -52,7 +57,7 @@ public class WidgetBuildController
 				if(c != null)
 				{
 					String parent = w.getParentRef();
-					WidgetCreatorProperty wc = findRef(parent, widgets);
+					WidgetCreatorProperty wc = findRef(parent);
 					Object parentObj = wc.getInstance();
 					LoggingMessages.printOut("Extended Class: " + c.toString() + " **PARENT CLASS**: " + parentObj);
 					g.generateExtended(c, this, w);
@@ -82,9 +87,9 @@ public class WidgetBuildController
 		return c;
 	}
 	
-	public static WidgetCreatorProperty findRef(String ref, List<WidgetCreatorProperty> widgets)
+	public WidgetCreatorProperty findRef(String ref)
 	{
-		for(WidgetCreatorProperty wcp : widgets)
+		for(WidgetCreatorProperty wcp : getWidgetCreationProperties())
 		{
 			if(wcp.isThisParentRef(ref))
 			{
