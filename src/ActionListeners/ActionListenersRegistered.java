@@ -8,22 +8,22 @@ import java.util.Arrays;
  */
 public enum ActionListenersRegistered 
 {
-	ComponentComboBoxActionListener(ComponentComboBoxActionListener.class, ComponentComboBoxActionListener.class.getName()),
-	OpenDetailsActionListener(OpenDetailsActionListener.class, OpenDetailsActionListener.class.getName()),
-	OpenParameterEditorActionListener(OpenParameterEditorActionListener.class, OpenParameterEditorActionListener.class.getName()),
-	MinimizeActionListener(MinimizeActionListener.class, MinimizeActionListener.class.getName()),
-	NavigationButtonActionListener(NavigationButtonActionListener.class, NavigationButtonActionListener.class.getName()),
-	ReloadActionListener(ReloadActionListener.class, ReloadActionListener.class.getName()),
-	ExitActionListener(ExitActionListener.class, ExitActionListener.class.getName()),
-	LaunchActionListener(LaunchActionListener.class, LaunchActionListener.class.getName());
+	ComponentComboBoxActionListener(ComponentComboBoxActionListener.class),
+	OpenDetailsActionListener(OpenDetailsActionListener.class),
+	OpenParameterEditorActionListener(OpenParameterEditorActionListener.class),
+	MinimizeActionListener(MinimizeActionListener.class),
+	NavigationButtonActionListener(NavigationButtonActionListener.class),
+	ReloadActionListener(ReloadActionListener.class),
+	ExitActionListener(ExitActionListener.class),
+	LaunchActionListener(LaunchActionListener.class);
 	
 	private Class<? extends ActionListener> clazz;
 	private String classXmlText;
 	
-	private ActionListenersRegistered (Class<? extends ActionListener> clazz, String classXmlText)
+	private ActionListenersRegistered (Class<? extends ActionListener> clazz)
 	{
 		this.clazz = clazz;
-		this.classXmlText = classXmlText;
+		this.classXmlText = clazz.getName();
 	}
 	
 	public Class<? extends ActionListener> getClazz()

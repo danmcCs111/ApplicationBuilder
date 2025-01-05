@@ -2,7 +2,7 @@
 
 /** 
 ** TODO
-** add Action listener processing
+** support extended attributes in xml
 **/
 
 
