@@ -1,5 +1,7 @@
 package WidgetExtensions;
 
+import javax.swing.JComponent;
+
 import ApplicationBuilder.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
@@ -19,5 +21,17 @@ public interface ExtendedAttributeStringParam
 	}
 	
 	public abstract void applyMethod(String arg0, WidgetBuildController wbc, WidgetCreatorProperty widgetProperties);
+	
+	public static JComponent findComponent(WidgetBuildController wbc, Class<?> clazz)
+	{
+		for(WidgetCreatorProperty wcp : wbc.getWidgetCreationProperties())
+		{
+			if(wcp.getInstance().getClass().equals(clazz))
+			{
+				return (JComponent) wcp.getInstance();
+			}
+		}
+		return null;
+	}
 	
 }

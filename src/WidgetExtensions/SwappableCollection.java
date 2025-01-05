@@ -10,14 +10,13 @@ import javax.swing.JPanel;
 /**
  * Holds a variable number of Components and controls/rebuilds child JComponents
  */
-public class SwappableCollection extends JPanel 
+public class SwappableCollection extends JPanel implements ExtendedStringCollection
 {
 	private static final long serialVersionUID = 1L;
 
 	//conceptually holding a collection of components to be swapped/redrawn
 	private HashMap<String, List<JComponent>> collectionNameAndList = new HashMap<String, List<JComponent>>();
-	private ExtendedArrayProcessingPath extendedArrayProcessingPath;
-	String [] collectionName;
+	private HashMap<String, List<String>> pathAndFileList = new HashMap<String, List<String>>();
 	
 	public void addJComponent(String collectionName, JComponent component)
 	{
@@ -31,9 +30,16 @@ public class SwappableCollection extends JPanel
 		}
 	}
 	
-	public HashMap<String, List<String>> getCollectionNameAndList()
+	@Override
+	public HashMap<String, List<String>> getPathAndFileList() 
 	{
-		return this.extendedArrayProcessingPath.getPathAndFileList();
+		return this.pathAndFileList;
+	}
+
+	@Override
+	public void setPathAndFileList(HashMap<String, List<String>> pathAndFileList) 
+	{
+		this.pathAndFileList = pathAndFileList;
 	}
 	
 }

@@ -41,7 +41,7 @@ public class FileListOptionGenerator
 			{
 				JButton button = new JButton();
 				button.setText(fileName);
-				button.setName(UrlToValueReader.parse(fileName, path));
+//				button.setName(UrlToValueReader.parse(fileName, path));
 				components.add(button);
 			}
 		}

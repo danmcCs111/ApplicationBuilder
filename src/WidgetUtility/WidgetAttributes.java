@@ -29,6 +29,7 @@ import WidgetExtensions.ExtendedArrayProcessingPath;
 import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetExtensions.ExtendedLayoutApplyParent;
 import WidgetExtensions.ExtendedSetViewportView;
+import WidgetExtensions.ExtendedSwappableHolder;
 import WidgetExtensions.JButtonArray;
 import WidgetExtensions.MenuOption;
 
@@ -90,11 +91,13 @@ public class WidgetAttributes
 		//EXTENDED WIDGETS
 		EXTENDED_METHODS.put(SwappableCollection.class, new String [] {
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedArrayProcessingPath.class)
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedArrayProcessingPath.class),
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedSetViewportView.class)
 		});
 		EXTENDED_METHODS.put(JButtonArray.class, new String [] {
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedArrayProcessingPath.class)
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedArrayProcessingPath.class),
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedSwappableHolder.class)
 		});
 		EXTENDED_METHODS.put(MenuOption.class, new String [] {
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),

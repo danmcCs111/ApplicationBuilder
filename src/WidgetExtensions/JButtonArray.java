@@ -11,6 +11,8 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 import ApplicationBuilder.LoggingMessages;
+import ApplicationBuilder.WidgetBuildController;
+import WidgetUtility.WidgetCreatorProperty;
 
 /**
  * Holds a collection of JButtons of variable generated size

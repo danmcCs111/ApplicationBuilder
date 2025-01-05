@@ -8,21 +8,16 @@ import ApplicationBuilder.WidgetBuildController;
 import Properties.PropertiesFileLoader;
 import WidgetUtility.WidgetCreatorProperty;
 
-/**
- * ; -> seperate paths
- * : -> give path filter
- */
 public class ExtendedArrayProcessingPath implements ExtendedAttributeStringParam
 {
 	private static final String 
 		PATHS_DELIMITER = ";",
 		PATH_FILTER_DELIMITER = "@";
 	
-	private HashMap<String, List<String>> pathAndFileList = new HashMap<String, List<String>>();
-	
 	@Override
 	public void applyMethod(String path, WidgetBuildController wbc, WidgetCreatorProperty widgetProperties)
 	{
+		HashMap<String, List<String>> pathAndFileList = new HashMap<String, List<String>>();
 		String [] paths = null;
 		if(path.contains(PATHS_DELIMITER))
 		{
@@ -42,11 +37,8 @@ public class ExtendedArrayProcessingPath implements ExtendedAttributeStringParam
 			
 			pathAndFileList.put(p, PropertiesFileLoader.getOSFileList(p, f));
 		}
-	}
-	
-	public HashMap<String, List<String>> getPathAndFileList()
-	{
-		return this.pathAndFileList;
+		SwappableCollection sc = (SwappableCollection) ExtendedAttributeStringParam.findComponent(wbc, SwappableCollection.class);
+		sc.setPathAndFileList(pathAndFileList);
 	}
 	
 }
