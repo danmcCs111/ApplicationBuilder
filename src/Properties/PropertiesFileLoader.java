@@ -94,6 +94,7 @@ public class PropertiesFileLoader
 			if(f.getName().contains(filter))
 			{
 				files.add(f.getName());
+				LoggingMessages.printOut(f.getName());
 			}
 		}
 		return files;

@@ -1,8 +1,10 @@
 package ApplicationBuilder;
 
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 
 import Params.XmlToWidgetGenerator;
@@ -42,6 +44,25 @@ public class WidgetBuildController
 		
 		JFrame frame = (JFrame) widgetCreatorProperties.get(0).getInstance();
 		frame.setVisible(true);
+		
+		printComponents((JComponent) frame.getComponent(0));
+		
+	}
+	
+	private static void printComponents(JComponent frame)
+	{
+		for(Component c : frame.getComponents())
+		{
+			LoggingMessages.printOut(c.toString());
+			if(c instanceof JComponent)
+			{
+				Component [] cs = ((JComponent)c).getComponents();
+				if(cs.length > 0)
+				{
+					printComponents(((JComponent)c));
+				}
+			}
+		}
 	}
 	
 	public List<WidgetCreatorProperty> getWidgetCreationProperties()

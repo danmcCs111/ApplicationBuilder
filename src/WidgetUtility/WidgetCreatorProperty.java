@@ -61,8 +61,8 @@ public class WidgetCreatorProperty
 					e.printStackTrace();
 				}
 			}
+			LoggingMessages.printOut("Create new Instance: " + instance);
 		}
-		LoggingMessages.printOut("Create new Instance: " + instance);
 		return instance;
 	}
 

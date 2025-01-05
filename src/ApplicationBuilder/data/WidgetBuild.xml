@@ -1,18 +1,20 @@
 <Build>	
-	<JFrame setLayout="BorderLayout" setTitle="Video Launcher" setSize="600, 250" setLocation="150,150">
+	<JFrame setLayout="BorderLayout" setTitle="Video Launcher" setSize="350, 550" setLocation="150,150">
 		<JPanel setLayout="BorderLayout" extendedLayoutApplyParent="Center">
 			<JScrollPane extendedLayoutApplyParent="North">
-				<JPanel extendedLayoutApplyParent="">
-					<SwappableCollection extendedArrayProcessingPath=".\src\ApplicationBuilder\Roku Channels@.url; .\src\ApplicationBuilder\Youtube Channels@.url">
-						<JLabel setName="title" extendedLayoutApplyParent="" setForeground="100,50,150" setBackground="190,190,190">
+				<JPanel extendedSetViewportView="">
+				
+					<SwappableCollection setLayout="GridLayout" extendedLayoutApplyParent="" extendedArrayProcessingPath=".\src\ApplicationBuilder\Roku Channels@.url; .\src\ApplicationBuilder\Youtube Channels@.url">
+						<JLabel setText="TODO" setName="title" setForeground="100,50,150" setBackground="190,190,190" setHorizontalAlignment="0" extendedLayoutApplyParent="">
 						</JLabel>
-						<JButtonArray setName="channels">
+						<JButtonArray setName="channels" extendedLayoutApplyParent="">
 						</JButtonArray>
-						<JButton setText="Close Video">
+						<JButton setText="Close Video" extendedLayoutApplyParent="">
 						</JButton>
 					</SwappableCollection>
+					
 				</JPanel>
-			</JScrollPane>
+			</JScrollPane>		
 		</JPanel>
 		<JButton setText="&lt;" extendedLayoutApplyParent="West" addActionListener="NavigationButtonActionListener" extendedActionListenerSubType="WidgetExtensions.Direction@BACKWARD" extendedActionListenerConnectedComponent="WidgetExtensions.SwappableCollection">
 		</JButton>

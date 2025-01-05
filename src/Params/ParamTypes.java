@@ -1,6 +1,7 @@
 package Params;
 
 import ClassDefintions.ActionListenerConverter;
+import ClassDefintions.BooleanConverter;
 import ClassDefintions.ColorConverter;
 import ClassDefintions.IntConverter;
 import ClassDefintions.LayoutManagerConverter;
@@ -10,20 +11,21 @@ import ClassDefintions.StringToObjectConverter;
 
 public enum ParamTypes 
 {
-	String(new StringConverter(), String.class.getName()),
-	Int(new IntConverter(), int.class.getName()),
-	Color(new ColorConverter(), java.awt.Color.class.getName()),
-	LayoutManager(new LayoutManagerConverter(), java.awt.LayoutManager.class.getName()),
-	Point(new PointConverter(), java.awt.Point.class.getName()),
-	ActionListener(new ActionListenerConverter(), java.awt.event.ActionListener.class.getName());
+	String(new StringConverter()),
+	Int(new IntConverter()),
+	Color(new ColorConverter()),
+	LayoutManager(new LayoutManagerConverter()),
+	Point(new PointConverter()),
+	Boolean(new BooleanConverter()),
+	ActionListener(new ActionListenerConverter());
 	
 	private StringToObjectConverter converter;
 	private String defintionName;
 	
-	private ParamTypes(StringToObjectConverter converter, String defintionName)
+	private ParamTypes(StringToObjectConverter converter)
 	{
 		this.converter = converter;
-		this.defintionName = defintionName;
+		this.defintionName = converter.getDefinitionClass().getName();
 	}
 	
 	public String getDefinitionName()

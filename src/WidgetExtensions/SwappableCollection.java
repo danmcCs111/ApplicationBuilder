@@ -5,11 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.JComponent;
+import javax.swing.JPanel;
 
 /**
  * Holds a variable number of Components and controls/rebuilds child JComponents
  */
-public class SwappableCollection extends JComponent 
+public class SwappableCollection extends JPanel 
 {
 	private static final long serialVersionUID = 1L;
 

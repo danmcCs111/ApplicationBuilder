@@ -1,6 +1,7 @@
 package WidgetExtensions;
 
-import java.awt.Container;
+import java.awt.event.HierarchyEvent;
+import java.awt.event.HierarchyListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +9,8 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+
+import ApplicationBuilder.LoggingMessages;
 
 /**
  * Holds a collection of JButtons of variable generated size
@@ -20,17 +23,18 @@ public class JButtonArray extends JPanel
 	private List<JButton> jButtons = new ArrayList<JButton>();
 	private HashMap<String, List<String>> collectionNameAndList = new HashMap<String, List<String>>();
 	
-	/**
-	 * SwappableCollection is parent so built before JButtonArray
-	 */
+	
 	public JButtonArray()
 	{
-		Container parent = this.getParent();
-		if(parent instanceof SwappableCollection)
-		{
-			SwappableCollection sc = (SwappableCollection) parent;
-			this.collectionNameAndList = sc.getCollectionNameAndList();
-		}
+		this.addHierarchyListener(new HierarchyListener() {
+			
+			@Override
+			public void hierarchyChanged(HierarchyEvent e) {
+				LoggingMessages.printOut("JBUTTON ARRAY ADDED");
+				
+			}
+		});
+		
 	}
 	
 	public void addJButtons(String path, List<String> listOf)

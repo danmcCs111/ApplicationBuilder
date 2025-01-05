@@ -14,9 +14,9 @@ public class LayoutManagerConverter implements StringToObjectConverter
 		{
 			lm = new BorderLayout();
 		}
-		else if("GridLayout".equals(arg0))
+		else if("GridLayout".equals(arg0))//TODO
 		{
-			lm = new GridLayout();
+			lm = new GridLayout(0,1);
 		}
 		else if("FlowLayout".equals(arg0))
 		{

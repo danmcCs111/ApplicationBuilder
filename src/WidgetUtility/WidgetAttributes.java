@@ -28,6 +28,7 @@ import WidgetExtensions.ExtendedActionListenerSubType;
 import WidgetExtensions.ExtendedArrayProcessingPath;
 import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetExtensions.ExtendedLayoutApplyParent;
+import WidgetExtensions.ExtendedSetViewportView;
 import WidgetExtensions.JButtonArray;
 import WidgetExtensions.MenuOption;
 
@@ -59,7 +60,8 @@ public class WidgetAttributes
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class)
 		});
 		EXTENDED_METHODS.put(JPanel.class, new String [] {
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class)
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedSetViewportView.class)
 		});
 		EXTENDED_METHODS.put(JButton.class, new String [] {
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),
@@ -67,6 +69,9 @@ public class WidgetAttributes
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedActionListenerConnectedComponent.class)
 		});
 		EXTENDED_METHODS.put(JTextField.class, new String [] {
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class)
+		});
+		EXTENDED_METHODS.put(JLabel.class, new String [] {
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class)
 		});
 		EXTENDED_METHODS.put(JScrollPane.class, new String [] {
@@ -81,9 +86,21 @@ public class WidgetAttributes
 		EXTENDED_METHODS.put(JMenuItem.class, new String [] {
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class)
 		});
+		
+		//EXTENDED WIDGETS
 		EXTENDED_METHODS.put(SwappableCollection.class, new String [] {
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedArrayProcessingPath.class)
 		});
+		EXTENDED_METHODS.put(JButtonArray.class, new String [] {
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedArrayProcessingPath.class)
+		});
+		EXTENDED_METHODS.put(MenuOption.class, new String [] {
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedArrayProcessingPath.class)
+		});
+		
 	}
 	static {
 		initialLoad();
@@ -92,6 +109,8 @@ public class WidgetAttributes
 
 	public static XmlToWidgetGenerator setAttribute(ClassTypeHandler classTypeHandler, String method, String ... params)
 	{
+		JScrollPane pane = new JScrollPane();
+		pane.setVisible(false);
 		XmlToWidgetGenerator xmlToWidgetGenerator = null;
 		ClassAndSetters tmp = ClassTypeHandler.getClassAndSetters(classTypeHandler);
 		String setter = null; 
