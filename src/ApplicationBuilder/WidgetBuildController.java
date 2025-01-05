@@ -3,6 +3,8 @@ package ApplicationBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JFrame;
+
 import Params.XmlToWidgetGenerator;
 import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetUtility.WidgetCreatorProperty;
@@ -30,7 +32,6 @@ public class WidgetBuildController
 		
 		for(WidgetCreatorProperty wcProp : widgetCreatorProperties)//TODO 
 		{
-//			WidgetComponent wcType = wcProp.getComponentType();
 			LoggingMessages.printOut(wcProp.toString());
 			LoggingMessages.printNewLine();
 		}
@@ -38,6 +39,9 @@ public class WidgetBuildController
 		LoggingMessages.printNewLine();
 		LoggingMessages.printOut("-->Widget Generation<--");
 		generate(widgetCreatorProperties);
+		
+//		JFrame frame = (JFrame) widgetCreatorProperties.get(0).getInstance();
+//		frame.setVisible(true);
 	}
 	
 	public List<WidgetCreatorProperty> getWidgetCreationProperties()

@@ -2,9 +2,9 @@
 	<JFrame setLayout="BorderLayout" setTitle="Video Launcher" setSize="600, 250" setLocation="150,150">
 		<JPanel setLayout="BorderLayout" extendedLayoutApplyParent="Center">
 			<JScrollPane extendedLayoutApplyParent="North">
-				<JPanel>
-					<SwappableCollection extendedArrayProcessingPath=".\ApplicationBuilder\Roku Channels:.url; .\ApplicationBuilder\Youtube Channels:.url">
-						<JLabel setName="title" setForeground="100,50,150" setBackground="190,190,190">
+				<JPanel extendedLayoutApplyParent="">
+					<SwappableCollection extendedArrayProcessingPath=".\src\ApplicationBuilder\Roku Channels@.url; .\src\ApplicationBuilder\Youtube Channels@.url">
+						<JLabel setName="title" extendedLayoutApplyParent="" setForeground="100,50,150" setBackground="190,190,190">
 						</JLabel>
 						<JButtonArray setName="channels">
 						</JButtonArray>
@@ -20,18 +20,18 @@
 		</JButton>
 		
 		<MenuOption setText="File">
-			<JMenuItem setText="Reload" addActionListener="ReloadActionListener">
+			<JMenuItem setText="Reload" extendedLayoutApplyParent="" addActionListener="ReloadActionListener">
 			</JMenuItem >
-			<JMenuItem setText="MinimizeToSystemTray" addActionListener="MinimizeActionListener">
+			<JMenuItem setText="MinimizeToSystemTray" extendedLayoutApplyParent="" addActionListener="MinimizeActionListener">
 			</JMenuItem >
-			<JMenuItem setText="Exit" addActionListener="ExitActionListener">
+			<JMenuItem setText="Exit" extendedLayoutApplyParent="" addActionListener="ExitActionListener">
 			</JMenuItem >
 		</MenuOption>
 		
 		<SystemTray setText="Video Launcher">
-			<JMenuItem setText="Open">
+			<JMenuItem setText="Open" >
 			</JMenuItem>
-			<JMenuItem setText="Close">
+			<JMenuItem setText="Close" >
 			</JMenuItem>
 		</SystemTray>
 	</JFrame>

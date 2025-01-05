@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import ApplicationBuilder.LoggingMessages;
+
 public class PropertiesFileLoader
 {
 	private static final HashMap<Paths, HashMap<String,String>> PROPERTIES = 
@@ -84,6 +86,7 @@ public class PropertiesFileLoader
 	public static ArrayList<String> getOSFileList(String dir, String filter) 
 	{
 		ArrayList<String> files = new ArrayList<String>();
+		LoggingMessages.printOut(dir);
 		File [] fs = new File(dir).listFiles();
 		
 		for (File f : fs)
