@@ -31,7 +31,7 @@ public class ExtendedActionListenerSubType implements ExtendedAttributeStringPar
 		}
 	}
 	
-	private static ActionListenerSubTypeExtension getActionListener(WidgetCreatorProperty widgetProperties)
+	public static ActionListenerSubTypeExtension getActionListener(WidgetCreatorProperty widgetProperties)
 	{
 		Object inst = widgetProperties.getInstance();
 		//TODO supporting AbstractButton

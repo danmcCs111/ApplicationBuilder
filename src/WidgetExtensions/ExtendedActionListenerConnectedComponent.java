@@ -2,6 +2,7 @@ package WidgetExtensions;
 
 import javax.swing.JComponent;
 
+import ActionListeners.ActionListenerSubTypeExtension;
 import ApplicationBuilder.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
@@ -14,7 +15,7 @@ public class ExtendedActionListenerConnectedComponent implements ExtendedAttribu
 		try {
 			Class<?> clazz = Class.forName(arg0);
 			JComponent connectedComp = findComponent(wbc, clazz);
-			
+			ActionListenerSubTypeExtension ale = ExtendedActionListenerSubType.getActionListener(widgetProperties);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -25,7 +26,7 @@ public class ExtendedActionListenerConnectedComponent implements ExtendedAttribu
 	{
 		for(WidgetCreatorProperty wcp : wbc.getWidgetCreationProperties())
 		{
-			if(wcp.getClassType().equals(clazz))
+			if(wcp.getInstance().getClass().equals(clazz))
 			{
 				return (JComponent) wcp.getInstance();
 			}
