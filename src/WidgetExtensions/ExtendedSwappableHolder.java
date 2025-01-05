@@ -19,6 +19,7 @@ public class ExtendedSwappableHolder implements ExtendedAttributeStringParam
 		for(String key : pathAndFileList.keySet())
 		{
 			buttonArray.addJButtons(key, pathAndFileList.get(key));
+			break;//Just load the first
 		}
 	}
 

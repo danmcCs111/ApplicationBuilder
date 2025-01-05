@@ -1,7 +1,7 @@
 <Build>	
-	<JFrame setLayout="BorderLayout" setTitle="Video Launcher" setSize="350, 550" setLocation="150,150">
+	<JFrame setLayout="BorderLayout" setTitle="Video Launcher" setSize="750, 550" setLocation="150,150">
 		<JPanel setLayout="BorderLayout" extendedLayoutApplyParent="Center">
-			<JScrollPane extendedLayoutApplyParent="Center">
+			<JScrollPane extendedLayoutApplyParent="North">
 				
 					<SwappableCollection setName="swapVideos" setLayout="BorderLayout" extendedSetViewportView="" extendedArrayProcessingPath=".\src\ApplicationBuilder\Roku Channels@.url; .\src\ApplicationBuilder\Youtube Channels@.url">
 						<JLabel setText="TODO" setName="title" setForeground="100,50,150" setBackground="190,190,190" setHorizontalAlignment="0" extendedLayoutApplyParent="North">
@@ -14,10 +14,15 @@
 					
 			</JScrollPane>		
 		</JPanel>
-		<JButton setText="&lt;" extendedLayoutApplyParent="West" addActionListener="NavigationButtonActionListener" extendedActionListenerSubType="WidgetExtensions.Direction@BACKWARD" extendedActionListenerConnectedComponent="WidgetExtensions.SwappableCollection">
+		<JPanel setLayout="BorderLayout" extendedLayoutApplyParent="West">
+		<JButton setText="&lt;" extendedLayoutApplyParent="North" addActionListener="NavigationButtonActionListener" extendedActionListenerSubType="WidgetExtensions.Direction@BACKWARD" extendedActionListenerConnectedComponent="WidgetExtensions.SwappableCollection">
 		</JButton>
-		<JButton setText="&gt;" extendedLayoutApplyParent="East" addActionListener="NavigationButtonActionListener" extendedActionListenerSubType="WidgetExtensions.Direction@FORWARD" extendedActionListenerConnectedComponent="WidgetExtensions.SwappableCollection">
+		</JPanel>
+		
+		<JPanel setLayout="BorderLayout" extendedLayoutApplyParent="East">
+		<JButton setText="&gt;" extendedLayoutApplyParent="North" addActionListener="NavigationButtonActionListener" extendedActionListenerSubType="WidgetExtensions.Direction@FORWARD" extendedActionListenerConnectedComponent="WidgetExtensions.SwappableCollection">
 		</JButton>
+		</JPanel>
 		
 		<MenuOption setText="File">
 			<JMenuItem setText="Reload" extendedLayoutApplyParent="" addActionListener="ReloadActionListener">
