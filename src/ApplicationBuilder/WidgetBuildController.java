@@ -22,7 +22,7 @@ public class WidgetBuildController
 	/**
 	 * read the properties of the source file passed during construction
 	 */
-	public void readProperties()
+	private void readProperties()
 	{
 		widgetCreatorProperties = WidgetReader.getWidgetCreatorProperties(sourceFile);
 		
@@ -55,7 +55,7 @@ public class WidgetBuildController
 					WidgetCreatorProperty wc = findRef(parent, widgets);
 					Object parentObj = wc.getInstance();
 					LoggingMessages.printOut("Extended Class: " + c.toString() + " **PARENT CLASS**: " + parentObj);
-					g.generateExtended(c, w);
+					g.generateExtended(c, this, w);
 				}
 				else
 				{
@@ -82,7 +82,7 @@ public class WidgetBuildController
 		return c;
 	}
 	
-	private static WidgetCreatorProperty findRef(String ref, List<WidgetCreatorProperty> widgets)
+	public static WidgetCreatorProperty findRef(String ref, List<WidgetCreatorProperty> widgets)
 	{
 		for(WidgetCreatorProperty wcp : widgets)
 		{

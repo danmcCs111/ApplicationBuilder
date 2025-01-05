@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ApplicationBuilder.LoggingMessages;
+import ApplicationBuilder.WidgetBuildController;
 import ClassDefintions.StringToObjectConverter;
 import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetUtility.WidgetCreatorProperty;
@@ -63,13 +64,15 @@ public class XmlToWidgetGenerator
 		}
 	}
 	
-	public void generateExtended(Class<? extends ExtendedAttributeStringParam> extendedAttr, WidgetCreatorProperty widgetProperties)
+	public void generateExtended(Class<? extends ExtendedAttributeStringParam> extendedAttr, 
+			WidgetBuildController widgetBuildController, 
+			WidgetCreatorProperty widgetProperties)
 	{
 		LoggingMessages.printOut("|TODO| -> Generate Extended");
 		Method m;
 		try {
-			Object [] os = new Object [stringToObjectConverterList.size() + 1];
-			Class<?> [] cs = new Class<?> [stringToObjectConverterList.size() + 1];
+			Object [] os = new Object [stringToObjectConverterList.size() + 2];
+			Class<?> [] cs = new Class<?> [stringToObjectConverterList.size() + 2];
 			for(int i = 0; i < stringToObjectConverterList.size(); i++)
 			{
 				List<String> params = paramsList.get(i);
@@ -77,8 +80,12 @@ public class XmlToWidgetGenerator
 				os[i]=sc.conversionCall(params.toArray(new String [] {}));
 				cs[i]=sc.getDefinitionClass();
 			}
-			cs[cs.length-1] = WidgetCreatorProperty.class;
-			os[os.length-1] = widgetProperties;
+			cs[cs.length-2] = WidgetCreatorProperty.class;
+			os[os.length-2] = widgetProperties;
+			
+			cs[cs.length-1] = WidgetBuildController.class;
+			os[os.length-1] = widgetBuildController;
+			
 			
 			Object tmp = extendedAttr.newInstance();
 			

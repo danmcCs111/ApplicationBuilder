@@ -1,5 +1,6 @@
 package WidgetExtensions;
 
+import ApplicationBuilder.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
 public interface ExtendedAttributeStringParam 
@@ -17,6 +18,6 @@ public interface ExtendedAttributeStringParam
 		return methodDef;
 	}
 	
-	public abstract void applyMethod(String arg0, WidgetCreatorProperty widgetProperties);
+	public abstract void applyMethod(String arg0, WidgetBuildController wbc, WidgetCreatorProperty widgetProperties);
 	
 }

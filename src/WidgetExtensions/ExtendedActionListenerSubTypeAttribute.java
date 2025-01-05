@@ -1,19 +1,14 @@
 package WidgetExtensions;
 
+import ApplicationBuilder.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
 public class ExtendedActionListenerSubTypeAttribute implements ExtendedAttributeStringParam
 {
-	private String subTypeAttribute = null;
-	
+
 	@Override
-	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties)
-	{
-		this.subTypeAttribute = arg0;
-	}
-	
-	public String getSubTypeAttribute()
-	{
-		return this.subTypeAttribute;
+	public void applyMethod(String arg0, WidgetBuildController wbc, WidgetCreatorProperty widgetProperties) {
+		// TODO Auto-generated method stub
+		
 	}
 }
