@@ -8,7 +8,6 @@ import java.util.List;
 import ApplicationBuilder.LoggingMessages;
 import ClassDefintions.StringToObjectConverter;
 import WidgetExtensions.ExtendedAttributeStringParam;
-import WidgetExtensions.ExtendedLayoutApplyParent;
 import WidgetUtility.WidgetCreatorProperty;
 
 public class XmlToWidgetGenerator 
