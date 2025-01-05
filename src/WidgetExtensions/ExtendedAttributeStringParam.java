@@ -1,5 +1,7 @@
 package WidgetExtensions;
 
+import WidgetUtility.WidgetCreatorProperty;
+
 public interface ExtendedAttributeStringParam 
 {
 	public static final String METHOD_ARG_DEF = " [java.lang.String arg0]";
@@ -15,6 +17,6 @@ public interface ExtendedAttributeStringParam
 		return methodDef;
 	}
 	
-	public abstract void applyMethod(String arg0);
+	public abstract void applyMethod(String arg0, WidgetCreatorProperty widgetProperties);
 	
 }

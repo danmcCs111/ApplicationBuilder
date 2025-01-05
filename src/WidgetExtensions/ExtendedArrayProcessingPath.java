@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import Properties.PropertiesFileLoader;
+import WidgetUtility.WidgetCreatorProperty;
 
 /**
  * ; -> seperate paths
@@ -14,7 +15,7 @@ public class ExtendedArrayProcessingPath implements ExtendedAttributeStringParam
 	private HashMap<String, List<String>> pathAndFileList = new HashMap<String, List<String>>();
 	
 	@Override
-	public void applyMethod(String path)
+	public void applyMethod(String path, WidgetCreatorProperty widgetProperties)
 	{
 		String [] paths = null;
 		if(path.contains(";"))

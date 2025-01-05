@@ -7,6 +7,9 @@ import java.util.List;
 
 import ApplicationBuilder.LoggingMessages;
 import ClassDefintions.StringToObjectConverter;
+import WidgetExtensions.ExtendedAttributeStringParam;
+import WidgetExtensions.ExtendedLayoutApplyParent;
+import WidgetUtility.WidgetCreatorProperty;
 
 public class XmlToWidgetGenerator 
 {
@@ -48,7 +51,7 @@ public class XmlToWidgetGenerator
 			Method m = o.getClass().getMethod(methodName, cs);
 			m.invoke(o, os);
 		} catch (NoSuchMethodException e) {
-			generateExtended(o, methodName, cs, os);
+//			generateExtended(o, cs, os);
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -61,37 +64,43 @@ public class XmlToWidgetGenerator
 		}
 	}
 	
-	private void generateExtended(Object o, String method, Class<?> [] cs, Object [] os)
+	public void generateExtended(Class<? extends ExtendedAttributeStringParam> extendedAttr, WidgetCreatorProperty widgetProperties)
 	{
 		LoggingMessages.printOut("|TODO| -> Generate Extended");
-//		Method m;
-//		method = method.substring(0, 1).toUpperCase() + method.substring(1);
-//		try {
-//			
-//			Class<? extends ExtendedAttributeStringParam> c = (Class<? extends ExtendedAttributeStringParam>) 
-//					Class.forName("WidgetExtensions" + "." + method);
-//			Object tmp = c.newInstance();
-//			m = tmp.getClass().getMethod("applyMethod", cs);
-//			m.invoke(o, os);
-//		} catch (NoSuchMethodException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (SecurityException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (IllegalAccessException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (InvocationTargetException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (ClassNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (InstantiationException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		Method m;
+		try {
+			Object [] os = new Object [stringToObjectConverterList.size() + 1];
+			Class<?> [] cs = new Class<?> [stringToObjectConverterList.size() + 1];
+			for(int i = 0; i < stringToObjectConverterList.size(); i++)
+			{
+				List<String> params = paramsList.get(i);
+				StringToObjectConverter sc = stringToObjectConverterList.get(i);
+				os[i]=sc.conversionCall(params.toArray(new String [] {}));
+				cs[i]=sc.getDefinitionClass();
+			}
+			cs[cs.length-1] = WidgetCreatorProperty.class;
+			os[os.length-1] = widgetProperties;
+			
+			Object tmp = extendedAttr.newInstance();
+			
+			m = tmp.getClass().getMethod("applyMethod", cs);
+			m.invoke(tmp, os);
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@Override

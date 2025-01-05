@@ -16,12 +16,14 @@ public class WidgetGenerator
 			List<XmlToWidgetGenerator> generators = w.getXmlToWidgetGenerators();
 			for(XmlToWidgetGenerator g : generators)
 			{
-				Class<?> c = getExtendedAttribute(g.getMethodName());
+				Class<? extends ExtendedAttributeStringParam> c = getExtendedAttribute(g.getMethodName());
 				if(c != null)
 				{
 					String parent = w.getParentRef();
 					WidgetCreatorProperty wc = findRef(parent, widgets);
-					LoggingMessages.printOut("Extended Class: " + c.toString() + " **PARENT CLASS**: " + wc.getInstance());
+					Object parentObj = wc.getInstance();
+					LoggingMessages.printOut("Extended Class: " + c.toString() + " **PARENT CLASS**: " + parentObj);
+					g.generateExtended(c, w);
 				}
 				else
 				{
