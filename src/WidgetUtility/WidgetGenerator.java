@@ -19,7 +19,9 @@ public class WidgetGenerator
 				Class<?> c = getExtendedAttribute(g.getMethodName());
 				if(c != null)
 				{
-					LoggingMessages.printOut("Extended Class: " + c.toString());
+					String parent = w.getParentRef();
+					WidgetCreatorProperty wc = findRef(parent, widgets);
+					LoggingMessages.printOut("Extended Class: " + c.toString() + " **PARENT CLASS**: " + wc.getInstance());
 				}
 				else
 				{
@@ -44,5 +46,17 @@ public class WidgetGenerator
 			//return null
 		}
 		return c;
+	}
+	
+	private static WidgetCreatorProperty findRef(String ref, List<WidgetCreatorProperty> widgets)
+	{
+		for(WidgetCreatorProperty wcp : widgets)
+		{
+			if(wcp.isThisParentRef(ref))
+			{
+				return wcp;
+			}
+		}
+		return null;
 	}
 }
