@@ -1,5 +1,6 @@
 <Build>	
 	<JFrame setLayout="BorderLayout" setTitle="Video Launcher" setSize="750, 550" setLocation="150,150">
+	
 		<JPanel setLayout="BorderLayout" extendedLayoutApplyParent="Center">
 			<JScrollPane extendedLayoutApplyParent="North">
 				
@@ -14,6 +15,7 @@
 					
 			</JScrollPane>		
 		</JPanel>
+		
 		<JPanel setLayout="BorderLayout" extendedLayoutApplyParent="West">
 		<JButton setText="&lt;" extendedLayoutApplyParent="North" addActionListener="NavigationButtonActionListener" extendedActionListenerSubType="WidgetExtensions.Direction@BACKWARD" extendedActionListenerConnectedComponent="WidgetExtensions.SwappableCollection">
 		</JButton>
@@ -39,5 +41,6 @@
 			<JMenuItem setText="Close" >
 			</JMenuItem>
 		</SystemTray>
+		
 	</JFrame>
 </Build>

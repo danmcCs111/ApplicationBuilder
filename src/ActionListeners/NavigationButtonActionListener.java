@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import ApplicationBuilder.LoggingMessages;
 import WidgetExtensions.ActionListenerExtension;
 import WidgetExtensions.Direction;
 
@@ -39,6 +40,7 @@ public class NavigationButtonActionListener implements ActionListener, ActionLis
 	public void actionPerformed(ActionEvent e) 
 	{
 		curPosition = direction.getIndexDirectionNext();
+		LoggingMessages.printOut(curPosition + "");
 		//TODO action on component
 	}
 	

@@ -1,18 +1,11 @@
 package WidgetExtensions;
 
-import java.awt.event.HierarchyEvent;
-import java.awt.event.HierarchyListener;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
-
-import ApplicationBuilder.LoggingMessages;
-import ApplicationBuilder.WidgetBuildController;
-import WidgetUtility.WidgetCreatorProperty;
 
 /**
  * Holds a collection of JButtons of variable generated size
@@ -23,21 +16,6 @@ public class JButtonArray extends JPanel
 	private static final long serialVersionUID = 1L;
 	
 	private List<JButton> jButtons = new ArrayList<JButton>();
-	private HashMap<String, List<String>> collectionNameAndList = new HashMap<String, List<String>>();
-	
-	
-	public JButtonArray()
-	{
-		this.addHierarchyListener(new HierarchyListener() {
-			
-			@Override
-			public void hierarchyChanged(HierarchyEvent e) {
-				LoggingMessages.printOut("JBUTTON ARRAY ADDED");
-				
-			}
-		});
-		
-	}
 	
 	public void addJButtons(String path, List<String> listOf)
 	{
