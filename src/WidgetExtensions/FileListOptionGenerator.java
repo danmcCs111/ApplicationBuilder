@@ -35,7 +35,7 @@ public class FileListOptionGenerator
 	public static List<JComponent> buildComponents(String path, List<String> fileNames, Class<?> componentType)
 	{
 		List<JComponent> components = new ArrayList<JComponent>();
-		if(componentType.getName().equals(JButton.class.getName()))
+		if(componentType.equals(JButton.class))
 		{
 			for(String fileName: fileNames)
 			{
