@@ -25,6 +25,7 @@ import ClassDefintions.ClassTextAdapter;
 import Params.XmlToWidgetGenerator;
 import WidgetComponents.ClassTypeHandler;
 import WidgetExtensions.SwappableCollection;
+import WidgetExtensions.ExtendedActionListenerArray;
 import WidgetExtensions.ExtendedActionListenerConnectedComponent;
 import WidgetExtensions.ExtendedActionListenerSubType;
 import WidgetExtensions.ExtendedArrayProcessingPath;
@@ -109,7 +110,9 @@ public class WidgetAttributes
 		EXTENDED_METHODS.put(JButtonArray.class, new String [] {
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedArrayProcessingPath.class),
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedSwappableHolder.class)
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedSwappableHolder.class),
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedActionListenerArray.class)
+				
 		});
 		EXTENDED_METHODS.put(MenuOption.class, new String [] {
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),

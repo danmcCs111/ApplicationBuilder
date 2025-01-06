@@ -1,5 +1,6 @@
 package WidgetExtensions;
 
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,11 +12,12 @@ import javax.swing.JPanel;
  * Holds a collection of JButtons of variable generated size
  * Builds a list of Buttons
  */
-public class JButtonArray extends JPanel
+public class JButtonArray extends JPanel implements ArrayActionListener
 {
 	private static final long serialVersionUID = 1L;
 	
 	private List<JButton> jButtons = new ArrayList<JButton>();
+	private ActionListener actionListener = null;
 	
 	public void addJButtons(String path, List<String> listOf)
 	{
@@ -27,6 +29,7 @@ public class JButtonArray extends JPanel
 				this.add(comp);
 			}
 		}
+		addActionListeners();
 	}
 	
 	public void clearJButtons()
@@ -49,6 +52,24 @@ public class JButtonArray extends JPanel
 			else
 			{
 				parentComponent.add(button);
+			}
+		}
+	}
+
+	@Override
+	public void addActionListener(ActionListener actionListener) 
+	{
+		this.actionListener = actionListener;
+		addActionListeners();
+	}
+	
+	private void addActionListeners()
+	{
+		if(this.actionListener != null)
+		{
+			for(JButton button : this.jButtons)
+			{
+				button.addActionListener(actionListener);
 			}
 		}
 	}
