@@ -19,7 +19,7 @@ public class FileListOptionGenerator
 	public static List<JComponent> buildComponents(String path, String filter, Class<?> componentType)
 	{
 		List<JComponent> components = new ArrayList<JComponent>();
-		if(componentType.getName().equals(JButton.class.getName()))
+		if(componentType.equals(JButton.class))
 		{
 			ArrayList<String> fileNames = PropertiesFileLoader.getOSFileList(path, filter);
 			for(String fileName: fileNames)
