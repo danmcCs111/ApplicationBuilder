@@ -7,7 +7,10 @@ import Properties.PropertiesFileLoader;
 
 public class UrlToValueReader 
 {
-	private static final String URL_DELIMITER = "=";
+	private static final String 
+		URL_DELIMITER = "=",
+		URL_KEY = "URL";
+	
 	
 	public static String parse(String filename, String path)
 	{
@@ -17,8 +20,7 @@ public class UrlToValueReader
 	public static String parse(String filenameAndPath)
 	{
 		String value = null;
-		LoggingMessages.printOut(filenameAndPath);
-		value = PropertiesFileLoader.readProperties(filenameAndPath, URL_DELIMITER).get("URL");
+		value = PropertiesFileLoader.readProperties(filenameAndPath, URL_DELIMITER).get(URL_KEY);
 		return value;
 	}
 	
