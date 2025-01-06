@@ -47,7 +47,7 @@ public class NavigationButtonActionListener implements ActionListener, ActionLis
 	@Override
 	public void setActionListenerSubTypeExtension(Class<?> clazz, String attr) 
 	{
-		if(clazz.getName().equals(Direction.class.getName()))
+		if(clazz.equals(Direction.class))
 		{
 			direction = Direction.getTypeFromString(attr);
 		}

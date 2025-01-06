@@ -13,7 +13,6 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
 
-import ApplicationBuilder.LoggingMessages;
 import WidgetComponents.ParameterEditor;
 import WidgetComponents.ParameterEditorParser;
 
