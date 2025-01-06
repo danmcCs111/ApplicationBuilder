@@ -1,6 +1,8 @@
 package WidgetExtensions;
 
 import javax.swing.JComponent;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 import ActionListeners.ActionListenerSubTypeExtension;
 import ApplicationBuilder.WidgetBuildController;
@@ -19,6 +21,8 @@ public class ExtendedActionListenerConnectedComponent implements ExtendedAttribu
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		JMenu menu = new JMenu();
+		JMenuItem menuItem = new JMenuItem();
 	}
 	
 }

@@ -26,14 +26,16 @@
 		</JButton>
 		</JPanel>
 		
-		<MenuOption setText="File">
-			<JMenuItem setText="Reload" extendedLayoutApplyParent="" addActionListener="ReloadActionListener">
-			</JMenuItem >
-			<JMenuItem setText="MinimizeToSystemTray" extendedLayoutApplyParent="" addActionListener="MinimizeActionListener">
-			</JMenuItem >
-			<JMenuItem setText="Exit" extendedLayoutApplyParent="" addActionListener="ExitActionListener">
-			</JMenuItem >
-		</MenuOption>
+		<JMenuBar extendedSetJMenuBarParent="">
+			<JMenu setText="File" extendedLayoutApplyParent="">
+				<JMenuItem setText="Reload" extendedLayoutApplyParent="" addActionListener="ReloadActionListener">
+				</JMenuItem >
+				<JMenuItem setText="MinimizeToSystemTray" extendedLayoutApplyParent="" addActionListener="MinimizeActionListener">
+				</JMenuItem >
+				<JMenuItem setText="Exit" extendedLayoutApplyParent="" addActionListener="ExitActionListener">
+				</JMenuItem >
+			</JMenu>
+		</JMenuBar>
 		
 		<SystemTray setText="Video Launcher">
 			<JMenuItem setText="Open" >

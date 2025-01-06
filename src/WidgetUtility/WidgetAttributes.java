@@ -13,6 +13,8 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -28,6 +30,7 @@ import WidgetExtensions.ExtendedActionListenerSubType;
 import WidgetExtensions.ExtendedArrayProcessingPath;
 import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetExtensions.ExtendedLayoutApplyParent;
+import WidgetExtensions.ExtendedSetJMenuBarParent;
 import WidgetExtensions.ExtendedSetViewportView;
 import WidgetExtensions.ExtendedSwappableHolder;
 import WidgetExtensions.JButtonArray;
@@ -47,6 +50,8 @@ public class WidgetAttributes
 		COMPONENT_CLASSES.add(JScrollPane.class);
 		COMPONENT_CLASSES.add(JComboBox.class);
 		COMPONENT_CLASSES.add(JComponent.class);
+		COMPONENT_CLASSES.add(JMenuBar.class);
+		COMPONENT_CLASSES.add(JMenu.class);
 		COMPONENT_CLASSES.add(JMenuItem.class);
 		
 		COMPONENT_CLASSES.add(SystemTray.class);
@@ -82,6 +87,13 @@ public class WidgetAttributes
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class)
 		});
 		EXTENDED_METHODS.put(JComponent.class, new String [] {
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class)
+		});
+		EXTENDED_METHODS.put(JMenuBar.class, new String [] {
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedSetJMenuBarParent.class)
+		});
+		EXTENDED_METHODS.put(JMenu.class, new String [] {
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class)
 		});
 		EXTENDED_METHODS.put(JMenuItem.class, new String [] {

@@ -2,7 +2,6 @@ package WidgetExtensions;
 
 import java.io.File;
 
-import ApplicationBuilder.LoggingMessages;
 import Properties.PropertiesFileLoader;
 
 public class UrlToValueReader 
@@ -10,7 +9,6 @@ public class UrlToValueReader
 	private static final String 
 		URL_DELIMITER = "=",
 		URL_KEY = "URL";
-	
 	
 	public static String parse(String filename, String path)
 	{
