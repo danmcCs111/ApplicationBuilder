@@ -31,8 +31,6 @@ import WidgetExtensions.ExtendedActionListenerSubType;
 import WidgetExtensions.ExtendedArrayProcessingPath;
 import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetExtensions.ExtendedLayoutApplyParent;
-import WidgetExtensions.ExtendedSetBackground;
-import WidgetExtensions.ExtendedSetForeground;
 import WidgetExtensions.ExtendedSetJMenuBarParent;
 import WidgetExtensions.ExtendedSetViewportView;
 import WidgetExtensions.ExtendedSwappableHolder;
@@ -113,8 +111,6 @@ public class WidgetAttributes
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedArrayProcessingPath.class),
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedActionListenerArray.class),
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedSetBackground.class),
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedSetForeground.class),
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedSwappableHolder.class)
 				
 		});

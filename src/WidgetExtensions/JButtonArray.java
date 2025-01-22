@@ -162,16 +162,69 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 	public void addActionListener(ActionListener actionListener) 
 	{
 		this.actionListener = actionListener;
-		addActionListeners(collectionJButtons.get(indexPos));
+		if(collectionJButtons.size()-1 >= indexPos)
+		{
+			addActionListeners(collectionJButtons.get(indexPos));
+		}
 	}
 	
 	private void addActionListeners(ArrayList<JButton> jButtons)
 	{
-		if(this.actionListener != null)
+		if(this.actionListener != null && !jButtons.isEmpty())
 		{
 			for(JButton button : jButtons)
 			{
 				button.addActionListener(actionListener);
+			}
+		}
+	}
+	
+	public void setArrayForeground(Color c)
+	{
+		JButtonArray.foregroundColor = c;
+		for(List<JButton> buts : collectionJButtons)
+		{
+			for(JButton but : buts)
+			{
+				if(!but.getForeground().equals(JButtonArray.foregroundColor))
+				{
+					but.setForeground(JButtonArray.foregroundColor);
+				}
+			}
+		}
+	}
+	
+	public void setArrayBackground(Color c)
+	{
+		JButtonArray.backgroundColor = c;
+		for(List<JButton> buts : collectionJButtons)
+		{
+			for(JButton but : buts)
+			{
+				if(!but.getBackground().equals(JButtonArray.backgroundColor))
+				{
+					but.setBackground(JButtonArray.backgroundColor);
+				}
+			}
+		}
+	}
+	
+	public void setArrayForegroundAndBackground(Color cF, Color cB)
+	{
+		JButtonArray.foregroundColor = cF;
+		JButtonArray.backgroundColor = cB;
+		for(List<JButton> buts : collectionJButtons)
+		{
+			for(JButton but : buts)
+			{
+				if(!but.getBackground().equals(JButtonArray.backgroundColor))
+				{
+					but.setBackground(JButtonArray.backgroundColor);
+				}
+				if(!but.getForeground().equals(JButtonArray.foregroundColor))
+				{
+					but.setForeground(JButtonArray.foregroundColor);
+				}
 			}
 		}
 	}
