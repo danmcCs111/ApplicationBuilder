@@ -22,8 +22,8 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 	private static Color 
 		foregroundColor = new JButton().getForeground(),
 		backgroundColor = new JButton().getBackground(),
-		highlightBackgroundColor = new Color(240,240,240),
-		highlightForegroundColor = new Color(50,50,50);
+		highlightBackgroundColor = new JButton().getForeground(),
+		highlightForegroundColor = new JButton().getBackground();
 	private static int indexPos=0;
 	private static boolean isHighlight = true;
 	private static JButton highlightButton = null;
@@ -114,6 +114,16 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 	public static void setHighlight(boolean isHighlight)
 	{
 		JButtonArray.isHighlight = isHighlight;
+	}
+	
+	public static void setHighlightForegroundColor(Color c)
+	{
+		JButtonArray.highlightForegroundColor = c;
+	}
+	
+	public static void setHighlightBackgroundColor(Color c)
+	{
+		JButtonArray.highlightBackgroundColor = c;
 	}
 	
 	public void addHighlightButtonActionListener(JButton but)
