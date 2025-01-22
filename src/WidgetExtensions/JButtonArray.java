@@ -19,7 +19,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 {
 	private static final long serialVersionUID = 1L;
 	
-	private static Color 
+	public static Color 
 		foregroundColor = new JButton().getForeground(),
 		backgroundColor = new JButton().getBackground(),
 		highlightForegroundColor = foregroundColor,
@@ -27,7 +27,8 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 	private static int indexPos=0;
 	private static boolean isHighlight = true;
 	private static JButton highlightButton = null;
-	private static final ActionListener highlightActionListener = new ActionListener() 
+	private static ArrayList<ArrayList<JButton>> collectionJButtons = new ArrayList<ArrayList<JButton>>();
+	public static final ActionListener highlightActionListener = new ActionListener() 
 	{
 		@Override
 		public void actionPerformed(ActionEvent e) 
@@ -43,7 +44,6 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 		}
 	};
 	
-	private ArrayList<ArrayList<JButton>> collectionJButtons = new ArrayList<ArrayList<JButton>>();
 	private ActionListener actionListener = null;
 	
 	public void addJButtons(String path, List<String> listOf, int index)
@@ -227,6 +227,14 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 				}
 			}
 		}
+	}
+
+	@Override
+	public void unselect() 
+	{
+		highlightButton.setForeground(foregroundColor);
+		highlightButton.setBackground(backgroundColor);
+		highlightButton = null;
 	}
 	
 }

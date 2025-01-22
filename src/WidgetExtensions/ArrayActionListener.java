@@ -20,4 +20,6 @@ public interface ArrayActionListener
 		}
 		return null;
 	}
+	
+	public abstract void unselect();
 }

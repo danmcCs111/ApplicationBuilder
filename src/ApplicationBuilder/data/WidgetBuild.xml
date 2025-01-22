@@ -12,7 +12,7 @@
 							extendedActionListenerArray="LaunchActionListener" extendedLayoutApplyParent="Center" setArrayForegroundAndBackground="240,240,240, 175,204,175"
 							extendedSwappableHolder="swapVideos" >
 						</JButtonArray>
-						<JButton setText=" X Close Video" extendedLayoutApplyParent="South" setBackground="175, 204, 175" setForeground="119,5,6">
+						<JButton setText=" X Close Video" setName="closeLaunchAction" extendedLayoutApplyParent="South" addActionListener="LaunchActionListener" setBackground="175, 204, 175" setForeground="119,5,6">
 						</JButton>
 					</SwappableCollection>
 					

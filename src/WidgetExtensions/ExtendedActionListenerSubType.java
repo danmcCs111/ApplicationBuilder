@@ -17,7 +17,7 @@ public class ExtendedActionListenerSubType implements ExtendedAttributeStringPar
 	{
 		String [] paths = arg0.split(ARG_DELIMITER);
 		
-		if(Direction.class.toString().endsWith(paths[0]))
+		if(Direction.class.toString().endsWith(paths[0]))//TODO
 		{
 			try {
 				Class<?> clazz = Class.forName(paths[0]);

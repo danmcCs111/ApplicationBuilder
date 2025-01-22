@@ -7,18 +7,35 @@ import java.io.IOException;
 import javax.swing.AbstractButton;
 
 import ApplicationBuilder.LoggingMessages;
+import WidgetExtensions.ArrayActionListener;
 
 public class LaunchActionListener implements ActionListener
 {
 	private static Process runningProcess = null;
-	private static final String PROCESS = "chrome.exe";
+	private static final String 
+		PROCESS = "chrome.exe",
+		CLOSE_LAUNCH_ACTION_EVENT="closeLaunchAction";
+	private static AbstractButton lastButton = null;
 	
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
 		AbstractButton button = (AbstractButton) e.getSource();
-		LoggingMessages.printOut("Button Pressed. " + button.getName());
-		executeProcess(PROCESS, button.getName());
+		LoggingMessages.printOut("Button Pressed. " + button.getText());
+		if(button.getName().equals(CLOSE_LAUNCH_ACTION_EVENT))
+		{
+			destroyRunningProcess();
+			if(lastButton != null && !button.equals(lastButton) && lastButton.getParent() instanceof ArrayActionListener)
+			{
+				ArrayActionListener aal = (ArrayActionListener)lastButton.getParent();
+				aal.unselect();
+			}
+		}
+		else
+		{
+			executeProcess(PROCESS, button.getName());
+		}
+		lastButton = button;
 	}
 	
 	private static void executeProcess(String ...args)

@@ -4,7 +4,6 @@ import java.awt.SystemTray;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 
 import ApplicationBuilder.LoggingMessages;
 import Params.XmlToWidgetGenerator;
@@ -92,8 +91,8 @@ public class WidgetCreatorProperty
 		return this.parentNodeText;
 	}
 
-	public boolean isThisParentRef(String parentRef) {
-		return refId.equals(parentRef);
+	public boolean isThisRef(String ref) {
+		return refId.equals(ref);
 	}
 	
 	public void addXmlToWidgetGenerator(XmlToWidgetGenerator xmlToWidgetGenerator)

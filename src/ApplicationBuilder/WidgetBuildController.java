@@ -116,7 +116,7 @@ public class WidgetBuildController
 	{
 		for(WidgetCreatorProperty wcp : getWidgetCreationProperties())
 		{
-			if(wcp.isThisParentRef(ref))
+			if(wcp.isThisRef(ref))
 			{
 				return wcp;
 			}
