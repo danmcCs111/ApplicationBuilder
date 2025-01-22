@@ -65,7 +65,7 @@ public class NavigationButtonActionListener implements ActionListener, ActionLis
 		
 		LoggingMessages.printOut(key);
 		JButtonArray buttonArray = (JButtonArray) ExtendedAttributeStringParam.findComponent(widgetBuildController, JButtonArray.class);
-		buttonArray.addJButtons(key, pathAndFileList.get(key));
+		buttonArray.addJButtons(key, pathAndFileList.get(key), curPosition);
 		
 	}
 	

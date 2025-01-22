@@ -16,11 +16,8 @@ public class ExtendedSwappableHolder implements ExtendedAttributeStringParam
 		JButtonArray buttonArray = (JButtonArray) widgetProperties.getInstance();
 		HashMap<String, List<String>> pathAndFileList = comp.getPathAndFileList();
 		
-		for(String key : pathAndFileList.keySet())
-		{
-			buttonArray.addJButtons(key, pathAndFileList.get(key));
-			break;//Just load the first
-		}
+		String key = pathAndFileList.keySet().iterator().next();//just first path
+		buttonArray.addJButtons(key, pathAndFileList.get(key), 0);
 	}
 
 }

@@ -2,6 +2,7 @@ package WidgetExtensions;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,33 +19,64 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 {
 	private static final long serialVersionUID = 1L;
 	
-	private List<JButton> jButtons = new ArrayList<JButton>();
-	private ActionListener actionListener = null;
-	private Color 
-		foregroundColor,
-		backgroundColor;
+	private static Color 
+		foregroundColor = new JButton().getForeground(),
+		backgroundColor = new JButton().getBackground(),
+		highlightBackgroundColor = new Color(240,240,240),
+		highlightForegroundColor = new Color(50,50,50);
+	private static int indexPos=0;
+	private static boolean isHighlight = true;
+	private static JButton highlightButton = null;
+	private static final ActionListener highlightActionListener = new ActionListener() 
+	{
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+			if(highlightButton != null)
+			{
+				highlightButton.setForeground(foregroundColor);
+				highlightButton.setBackground(backgroundColor);
+			}
+			highlightButton = (JButton) e.getSource();
+			highlight();
+		}
+	};
 	
-	public void addJButtons(String path, List<String> listOf)
+	private ArrayList<ArrayList<JButton>> collectionJButtons = new ArrayList<ArrayList<JButton>>();
+	private ActionListener actionListener = null;
+	
+	public void addJButtons(String path, List<String> listOf, int index)
 	{
 		clearJButtons();
 		
-		for(JComponent comp : FileListOptionGenerator.buildComponents(path, listOf, JButton.class))
+		ArrayList<JButton> jbuts = new ArrayList<JButton>();
+		JButtonArray.indexPos = index;
+		
+		if(collectionJButtons.size()-1 < index)
 		{
-			if(comp instanceof JButton)
+			for(JComponent comp : FileListOptionGenerator.buildComponents(path, listOf, JButton.class))
 			{
-				if(foregroundColor != null)
+				if(comp instanceof JButton)
 				{
 					comp.setForeground(foregroundColor);
-				}
-				if(backgroundColor != null)
-				{
 					comp.setBackground(backgroundColor);
+					addHighlightButtonActionListener((JButton)comp);
+					jbuts.add((JButton) comp);
+					this.add(comp);
 				}
-				jButtons.add((JButton) comp);
-				this.add(comp);
+			}
+			collectionJButtons.add(jbuts);
+		}
+		else
+		{
+			jbuts = collectionJButtons.get(JButtonArray.indexPos);
+			for(JButton but : jbuts)
+			{
+				this.add(but);
 			}
 		}
-		addActionListeners();
+		
+		addActionListeners(jbuts);
 		
 		Container rootCont = getRootPane().getParent();//redraw window
 		rootCont.paintComponents(rootCont.getGraphics());
@@ -52,27 +84,49 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 	
 	public void setForegroundButtonArray(Color c)
 	{
-		this.foregroundColor = c;
+		JButtonArray.foregroundColor = c;
+		ArrayList<JButton> jButtons = collectionJButtons.get(indexPos);
+		
 		if(jButtons != null && jButtons.size() > 0)
 		{
 			for(JButton comp : jButtons)
 			{
-				comp.setForeground(foregroundColor);
+				comp.setForeground(JButtonArray.foregroundColor);
 			}
 		}
 	}
 	
 	public void setBackgroundButtonArray(Color c)
 	{
-		this.backgroundColor = c;
+		JButtonArray.backgroundColor = c;
+		ArrayList<JButton> jButtons = collectionJButtons.get(indexPos);
 		
 		if(jButtons != null && jButtons.size() > 0)
 		{
 			for(JButton comp : jButtons)
 			{
-				comp.setBackground(backgroundColor);
+				comp.setBackground(JButtonArray.backgroundColor);
 			}
 		}
+	}
+	
+	public static void setHighlight(boolean isHighlight)
+	{
+		JButtonArray.isHighlight = isHighlight;
+	}
+	
+	public void addHighlightButtonActionListener(JButton but)
+	{
+		if(isHighlight)
+		{
+			but.addActionListener(highlightActionListener);
+		}
+	}
+	
+	public static void highlight()
+	{
+		highlightButton.setForeground(highlightForegroundColor);
+		highlightButton.setBackground(highlightBackgroundColor);
 	}
 	
 	public void clearJButtons()
@@ -86,7 +140,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 	}
 	public void applyToParentComponent(JComponent parentComponent, Object constraints)
 	{
-		for(JButton button : jButtons)
+		for(JButton button : collectionJButtons.get(indexPos))
 		{
 			if(constraints != null)
 			{
@@ -103,14 +157,14 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 	public void addActionListener(ActionListener actionListener) 
 	{
 		this.actionListener = actionListener;
-		addActionListeners();
+		addActionListeners(collectionJButtons.get(indexPos));
 	}
 	
-	private void addActionListeners()
+	private void addActionListeners(ArrayList<JButton> jButtons)
 	{
 		if(this.actionListener != null)
 		{
-			for(JButton button : this.jButtons)
+			for(JButton button : jButtons)
 			{
 				button.addActionListener(actionListener);
 			}

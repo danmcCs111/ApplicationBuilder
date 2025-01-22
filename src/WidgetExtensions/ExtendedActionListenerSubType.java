@@ -2,7 +2,6 @@ package WidgetExtensions;
 
 import java.awt.event.ActionListener;
 import javax.swing.AbstractButton;
-import javax.swing.JButton;
 
 import ActionListeners.ActionListenerSubTypeExtension;
 import ApplicationBuilder.LoggingMessages;
