@@ -30,6 +30,7 @@ import WidgetExtensions.ExtendedActionListenerConnectedComponent;
 import WidgetExtensions.ExtendedActionListenerSubType;
 import WidgetExtensions.ExtendedArrayProcessingPath;
 import WidgetExtensions.ExtendedAttributeStringParam;
+import WidgetExtensions.ExtendedCalculationPad;
 import WidgetExtensions.ExtendedLayoutApplyParent;
 import WidgetExtensions.ExtendedSetJMenuBarParent;
 import WidgetExtensions.ExtendedSetViewportView;
@@ -79,7 +80,9 @@ public class WidgetAttributes
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class)
 		});
 		EXTENDED_METHODS.put(JLabel.class, new String [] {
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class)
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedCalculationPad.class)
+				
 		});
 		EXTENDED_METHODS.put(JScrollPane.class, new String [] {
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class)

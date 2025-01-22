@@ -3,6 +3,7 @@ package Params;
 import ClassDefintions.ActionListenerConverter;
 import ClassDefintions.BooleanConverter;
 import ClassDefintions.ColorConverter;
+import ClassDefintions.DimensionConverter;
 import ClassDefintions.IntConverter;
 import ClassDefintions.LayoutManagerConverter;
 import ClassDefintions.PointConverter;
@@ -17,7 +18,8 @@ public enum ParamTypes
 	LayoutManager(new LayoutManagerConverter()),
 	Point(new PointConverter()),
 	Boolean(new BooleanConverter()),
-	ActionListener(new ActionListenerConverter());
+	ActionListener(new ActionListenerConverter()),
+	Dimension(new DimensionConverter());
 	
 	private StringToObjectConverter converter;
 	private String defintionName;

@@ -2,6 +2,7 @@ package ApplicationBuilder;
 
 import java.awt.Component;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JComponent;
@@ -9,6 +10,7 @@ import javax.swing.JFrame;
 
 import Params.XmlToWidgetGenerator;
 import WidgetExtensions.ExtendedAttributeStringParam;
+import WidgetExtensions.ExtendedLayoutApplyParent;
 import WidgetUtility.WidgetCreatorProperty;
 import WidgetUtility.WidgetReader;
 
@@ -70,13 +72,39 @@ public class WidgetBuildController
 		return this.widgetCreatorProperties;
 	}
 	
+	private ArrayList<XmlToWidgetGenerator> orderGenerators(ArrayList<XmlToWidgetGenerator> generators)
+	{
+		ArrayList<XmlToWidgetGenerator> tmp = new ArrayList<XmlToWidgetGenerator>();
+		Class<?> [] ordered = new Class<?> [] {ExtendedLayoutApplyParent.class};
+		ArrayList<XmlToWidgetGenerator> orderedGenerators = new ArrayList<XmlToWidgetGenerator>();
+		for(XmlToWidgetGenerator xwg : generators)
+		{
+			String methodName = xwg.getMethodName();
+			for(Class<?> clazz : ordered)
+			{
+				if(clazz.getName().toLowerCase().contains(methodName.toLowerCase()))
+				{
+					orderedGenerators.add(xwg);
+				}
+			}
+			if(!orderedGenerators.contains(xwg))
+			{
+				tmp.add(xwg);
+			}
+		}
+		orderedGenerators.addAll(tmp);
+		
+		return orderedGenerators;
+	}
+	
 	private void generate (List<WidgetCreatorProperty> widgets)
 	{
 		for(WidgetCreatorProperty w : widgets)
 		{
 			Object o = w.getInstance();
-			List<XmlToWidgetGenerator> generators = w.getXmlToWidgetGenerators();
-			for(XmlToWidgetGenerator g : generators)
+			ArrayList<XmlToWidgetGenerator> generators = w.getXmlToWidgetGenerators();
+			List<XmlToWidgetGenerator> orderedGenerators = orderGenerators(generators);
+			for(XmlToWidgetGenerator g : orderedGenerators)
 			{
 				Class<? extends ExtendedAttributeStringParam> c = getExtendedAttribute(g.getMethodName());
 				if(c != null)

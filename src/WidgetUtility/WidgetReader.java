@@ -33,7 +33,7 @@ public class WidgetReader
 		initWidgetReader(sourceFile);
 		for(WidgetCreatorProperty wcp : widgetCreatorProperties)
 		{
-			for(String s : wcp.getSettingsNameAndValue().keySet())
+			for(String s : wcp.getSettingsName())
 			{
 				String val = wcp.getSettingsNameAndValue().get(s);
 				XmlToWidgetGenerator xmlToWidgetGenerator = WidgetAttributes.setAttribute(wcp.getClassType(), s, val);

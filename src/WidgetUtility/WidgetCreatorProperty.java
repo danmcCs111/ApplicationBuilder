@@ -3,7 +3,6 @@ package WidgetUtility;
 import java.awt.SystemTray;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 
 import ApplicationBuilder.LoggingMessages;
 import Params.XmlToWidgetGenerator;
@@ -21,8 +20,9 @@ public class WidgetCreatorProperty
 		refId;
 	private Object instance;
 	private ArrayList<String> settings;
+	ArrayList<String> settingsName = new ArrayList<String>();
 	private ArrayList<XmlToWidgetGenerator> xmlToWidgetGenerators = new ArrayList<XmlToWidgetGenerator>();
-	private LinkedHashMap<String, String> settingsNameAndValue = new LinkedHashMap<String, String>();
+	private HashMap<String, String> settingsNameAndValue = new HashMap<String, String>();
 
 	public WidgetCreatorProperty(String componentName, ArrayList<String> settings, String parentNodeText) 
 	{
@@ -80,6 +80,11 @@ public class WidgetCreatorProperty
 	{
 		return this.settings;
 	}
+	
+	public ArrayList<String> getSettingsName()
+	{
+		return this.settingsName;
+	}
 
 	public HashMap<String, String> getSettingsNameAndValue() 
 	{
@@ -109,6 +114,7 @@ public class WidgetCreatorProperty
 	private void splitAttributeNameAndValue(String attribute) {
 		String[] ss = attribute.split("=");
 		settingsNameAndValue.put(ss[0], ss[1]);
+		settingsName.add(ss[0]);
 	}
 	private void setRefId(String component) 
 	{
