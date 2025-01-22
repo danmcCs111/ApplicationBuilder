@@ -1,5 +1,6 @@
 package ActionListeners;
 
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -16,6 +17,7 @@ public class LaunchActionListener implements ActionListener
 		PROCESS = "chrome.exe",
 		CLOSE_LAUNCH_ACTION_EVENT="closeLaunchAction";
 	private static AbstractButton lastButton = null;
+	private static Container lastButtonParent = null;
 	
 	@Override
 	public void actionPerformed(ActionEvent e) 
@@ -25,9 +27,9 @@ public class LaunchActionListener implements ActionListener
 		if(button.getName().equals(CLOSE_LAUNCH_ACTION_EVENT))
 		{
 			destroyRunningProcess();
-			if(lastButton != null && !button.equals(lastButton) && lastButton.getParent() instanceof ArrayActionListener)
+			if(lastButton != null && !button.equals(lastButton) && lastButtonParent instanceof ArrayActionListener)
 			{
-				ArrayActionListener aal = (ArrayActionListener)lastButton.getParent();
+				ArrayActionListener aal = (ArrayActionListener)lastButtonParent;
 				aal.unselect();
 			}
 		}
@@ -36,6 +38,7 @@ public class LaunchActionListener implements ActionListener
 			executeProcess(PROCESS, button.getName());
 		}
 		lastButton = button;
+		lastButtonParent = lastButton.getParent();
 	}
 	
 	private static void executeProcess(String ...args)

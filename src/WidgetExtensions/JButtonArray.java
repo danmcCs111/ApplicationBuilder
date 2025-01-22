@@ -66,6 +66,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 					this.add(comp);
 				}
 			}
+			addActionListeners(jbuts);
 			collectionJButtons.add(jbuts);
 		}
 		else
@@ -76,8 +77,6 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 				this.add(but);
 			}
 		}
-		
-		addActionListeners(jbuts);
 		
 		Container rootCont = getRootPane().getParent();//redraw window
 		rootCont.paintComponents(rootCont.getGraphics());
