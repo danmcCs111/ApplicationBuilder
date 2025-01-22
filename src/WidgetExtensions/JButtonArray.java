@@ -32,13 +32,14 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
-			if(highlightButton != null)
+			if(highlightButton != null)//return and set new selected 
 			{
 				highlightButton.setForeground(foregroundColor);
 				highlightButton.setBackground(backgroundColor);
 			}
 			highlightButton = (JButton) e.getSource();
-			highlight();
+			highlightButton.setForeground(highlightForegroundColor);
+			highlightButton.setBackground(highlightBackgroundColor);
 		}
 	};
 	
@@ -121,12 +122,6 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 		{
 			but.addActionListener(highlightActionListener);
 		}
-	}
-	
-	public static void highlight()
-	{
-		highlightButton.setForeground(highlightForegroundColor);
-		highlightButton.setBackground(highlightBackgroundColor);
 	}
 	
 	public void clearJButtons()
