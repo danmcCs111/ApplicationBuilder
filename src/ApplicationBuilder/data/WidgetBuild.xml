@@ -1,5 +1,5 @@
 <Build>	
-	<JFrame setLayout="BorderLayout" setTitle="Video Launcher" setSize="750, 550" setLocation="150,150" setDefaultCloseOperation="3">
+	<JFrame setLayout="BorderLayout" setTitle="Video Launcher" setSize="450, 550" setLocation="150,150" setDefaultCloseOperation="3">
 	
 		<JPanel setLayout="BorderLayout" extendedLayoutApplyParent="Center">
 			<JScrollPane extendedLayoutApplyParent="North">
@@ -10,9 +10,8 @@
 						</JLabel>
 						<JButtonArray setName="channels" setLayout="GridLayout" setHighlightBackgroundColor="240,240,240" setHighlightForegroundColor="50,50,50"
 							extendedActionListenerArray="LaunchActionListener" extendedLayoutApplyParent="Center" setArrayForegroundAndBackground="240,240,240, 175,204,175"
-							extendedSwappableHolder="swapVideos" >
+							extendedSwappableHolder="swapVideos" extendedTextStripper="Watch @ Online for Free _ The Roku Channel _ Roku@ - YouTube@.url">
 						</JButtonArray>
-						
 					</SwappableCollection>
 					
 			</JScrollPane>		

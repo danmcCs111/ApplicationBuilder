@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import Params.XmlToWidgetGenerator;
 import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetExtensions.ExtendedLayoutApplyParent;
+import WidgetExtensions.ExtendedTextStripper;
 import WidgetUtility.WidgetCreatorProperty;
 import WidgetUtility.WidgetReader;
 
@@ -75,7 +76,7 @@ public class WidgetBuildController
 	private ArrayList<XmlToWidgetGenerator> orderGenerators(ArrayList<XmlToWidgetGenerator> generators)
 	{
 		ArrayList<XmlToWidgetGenerator> tmp = new ArrayList<XmlToWidgetGenerator>();
-		Class<?> [] ordered = new Class<?> [] {ExtendedLayoutApplyParent.class};
+		Class<?> [] ordered = new Class<?> [] {ExtendedLayoutApplyParent.class, ExtendedTextStripper.class};
 		ArrayList<XmlToWidgetGenerator> orderedGenerators = new ArrayList<XmlToWidgetGenerator>();
 		for(XmlToWidgetGenerator xwg : generators)
 		{

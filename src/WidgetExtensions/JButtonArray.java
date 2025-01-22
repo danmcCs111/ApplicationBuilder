@@ -1,12 +1,14 @@
 package WidgetExtensions;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -27,7 +29,9 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 	private static int indexPos=0;
 	private static boolean isHighlight = true;
 	private static JButton highlightButton = null;
-	private static ArrayList<ArrayList<JButton>> collectionJButtons = new ArrayList<ArrayList<JButton>>();
+	private static ArrayList<ArrayList<Component>> collectionJButtons = new ArrayList<ArrayList<Component>>();
+	private static ArrayList<String> stripFilter = new ArrayList<String>();
+	
 	public static final ActionListener highlightActionListener = new ActionListener() 
 	{
 		@Override
@@ -50,15 +54,24 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 	{
 		clearJButtons();
 		
-		ArrayList<JButton> jbuts = new ArrayList<JButton>();
+		ArrayList<Component> jbuts = new ArrayList<Component>();
 		JButtonArray.indexPos = index;
 		
 		if(collectionJButtons.size()-1 < index)
 		{
-			for(JComponent comp : FileListOptionGenerator.buildComponents(path, listOf, JButton.class))
+			for(Component comp : FileListOptionGenerator.buildComponents(path, listOf, JButton.class))
 			{
-				if(comp instanceof JButton)
+				if(comp instanceof Component)
 				{
+					if(comp instanceof AbstractButton)
+					{
+						String tmpTxt = ((AbstractButton) comp).getText();
+						for(String s : stripFilter)
+						{
+							tmpTxt = tmpTxt.replace(s, "");
+						}
+						((AbstractButton) comp).setText(tmpTxt);
+					}
 					comp.setForeground(foregroundColor);
 					comp.setBackground(backgroundColor);
 					addHighlightButtonActionListener((JButton)comp);
@@ -72,7 +85,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 		else
 		{
 			jbuts = collectionJButtons.get(JButtonArray.indexPos);
-			for(JButton but : jbuts)
+			for(Component but : jbuts)
 			{
 				this.add(but);
 			}
@@ -85,11 +98,11 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 	public void setForegroundButtonArray(Color c)
 	{
 		JButtonArray.foregroundColor = c;
-		ArrayList<JButton> jButtons = collectionJButtons.get(indexPos);
+		ArrayList<Component> jButtons = collectionJButtons.get(indexPos);
 		
 		if(jButtons != null && jButtons.size() > 0)
 		{
-			for(JButton comp : jButtons)
+			for(Component comp : jButtons)
 			{
 				comp.setForeground(JButtonArray.foregroundColor);
 			}
@@ -99,11 +112,11 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 	public void setBackgroundButtonArray(Color c)
 	{
 		JButtonArray.backgroundColor = c;
-		ArrayList<JButton> jButtons = collectionJButtons.get(indexPos);
+		ArrayList<Component> jButtons = collectionJButtons.get(indexPos);
 		
 		if(jButtons != null && jButtons.size() > 0)
 		{
-			for(JButton comp : jButtons)
+			for(Component comp : jButtons)
 			{
 				comp.setBackground(JButtonArray.backgroundColor);
 			}
@@ -144,7 +157,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 	}
 	public void applyToParentComponent(JComponent parentComponent, Object constraints)
 	{
-		for(JButton button : collectionJButtons.get(indexPos))
+		for(Component button : collectionJButtons.get(indexPos))
 		{
 			if(constraints != null)
 			{
@@ -167,13 +180,16 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 		}
 	}
 	
-	private void addActionListeners(ArrayList<JButton> jButtons)
+	private void addActionListeners(ArrayList<Component> jButtons)
 	{
 		if(this.actionListener != null && !jButtons.isEmpty())
 		{
-			for(JButton button : jButtons)
+			for(Component button : jButtons)
 			{
-				button.addActionListener(actionListener);
+				if(button instanceof AbstractButton)
+				{
+					((AbstractButton)button).addActionListener(actionListener);
+				}
 			}
 		}
 	}
@@ -181,9 +197,9 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 	public void setArrayForeground(Color c)
 	{
 		JButtonArray.foregroundColor = c;
-		for(List<JButton> buts : collectionJButtons)
+		for(List<Component> buts : collectionJButtons)
 		{
-			for(JButton but : buts)
+			for(Component but : buts)
 			{
 				if(!but.getForeground().equals(JButtonArray.foregroundColor))
 				{
@@ -196,9 +212,9 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 	public void setArrayBackground(Color c)
 	{
 		JButtonArray.backgroundColor = c;
-		for(List<JButton> buts : collectionJButtons)
+		for(List<Component> buts : collectionJButtons)
 		{
-			for(JButton but : buts)
+			for(Component but : buts)
 			{
 				if(!but.getBackground().equals(JButtonArray.backgroundColor))
 				{
@@ -212,9 +228,9 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 	{
 		JButtonArray.foregroundColor = cF;
 		JButtonArray.backgroundColor = cB;
-		for(List<JButton> buts : collectionJButtons)
+		for(List<Component> buts : collectionJButtons)
 		{
-			for(JButton but : buts)
+			for(Component but : buts)
 			{
 				if(!but.getBackground().equals(JButtonArray.backgroundColor))
 				{
@@ -235,5 +251,11 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 		highlightButton.setBackground(backgroundColor);
 		highlightButton = null;
 	}
-	
+
+	@Override
+	public void addStripFilter(String filter) 
+	{
+		stripFilter.add(filter);
+	}
+
 }

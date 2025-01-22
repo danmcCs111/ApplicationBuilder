@@ -35,6 +35,7 @@ import WidgetExtensions.ExtendedLayoutApplyParent;
 import WidgetExtensions.ExtendedSetJMenuBarParent;
 import WidgetExtensions.ExtendedSetViewportView;
 import WidgetExtensions.ExtendedSwappableHolder;
+import WidgetExtensions.ExtendedTextStripper;
 import WidgetExtensions.JButtonArray;
 import WidgetExtensions.MenuOption;
 
@@ -114,7 +115,8 @@ public class WidgetAttributes
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedArrayProcessingPath.class),
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedActionListenerArray.class),
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedSwappableHolder.class)
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedSwappableHolder.class),
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedTextStripper.class)
 				
 		});
 		EXTENDED_METHODS.put(MenuOption.class, new String [] {

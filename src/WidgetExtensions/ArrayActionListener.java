@@ -22,4 +22,6 @@ public interface ArrayActionListener
 	}
 	
 	public abstract void unselect();
+	
+	public abstract void addStripFilter(String filter);
 }
