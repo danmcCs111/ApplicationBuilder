@@ -6,12 +6,13 @@
 				
 					<SwappableCollection setName="swapVideos" setLayout="BorderLayout" extendedSetViewportView="" 
 					extendedArrayProcessingPath=".\src\ApplicationBuilder\Roku Channels@.url; .\src\ApplicationBuilder\Youtube Channels@.url">
-						<JLabel setText="TODO" setName="title" setForeground="100,50,150" setBackground="190,190,190" setHorizontalAlignment="0" extendedLayoutApplyParent="North">
+						<JLabel setText="TODO" setName="title" setForeground="100,50,150" setBackground="150,150,150" setHorizontalAlignment="0" extendedLayoutApplyParent="North">
 						</JLabel>
-						<JButtonArray setName="channels" setLayout="GridLayout" extendedSwappableHolder="swapVideos" 
-							extendedActionListenerArray="LaunchActionListener" extendedLayoutApplyParent="Center">
+						<JButtonArray setName="channels" setLayout="GridLayout" 
+							extendedActionListenerArray="LaunchActionListener" extendedLayoutApplyParent="Center" extendedSetBackground="175@204@175" extendedSetForeground="240@240@240"
+							extendedSwappableHolder="swapVideos" >
 						</JButtonArray>
-						<JButton setText="Close Video" extendedLayoutApplyParent="South">
+						<JButton setText=" X Close Video" extendedLayoutApplyParent="South" setBackground="175, 204, 175" setForeground="119,5,6">
 						</JButton>
 					</SwappableCollection>
 					

@@ -1,5 +1,6 @@
 package WidgetExtensions;
 
+import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +8,8 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+
+import ApplicationBuilder.LoggingMessages;
 
 /**
  * Holds a collection of JButtons of variable generated size
@@ -18,6 +21,9 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 	
 	private List<JButton> jButtons = new ArrayList<JButton>();
 	private ActionListener actionListener = null;
+	private Color 
+		foregroundColor,
+		backgroundColor;
 	
 	public void addJButtons(String path, List<String> listOf)
 	{
@@ -25,11 +31,44 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 		{
 			if(comp instanceof JButton)
 			{
+				if(foregroundColor != null)
+				{
+					comp.setForeground(foregroundColor);
+				}
+				if(backgroundColor != null)
+				{
+					comp.setBackground(backgroundColor);
+				}
 				jButtons.add((JButton) comp);
 				this.add(comp);
 			}
 		}
 		addActionListeners();
+	}
+	
+	public void setForegroundButtonArray(Color c)
+	{
+		this.foregroundColor = c;
+		if(jButtons != null && jButtons.size() > 0)
+		{
+			for(JButton comp : jButtons)
+			{
+				comp.setForeground(foregroundColor);
+			}
+		}
+	}
+	
+	public void setBackgroundButtonArray(Color c)
+	{
+		this.backgroundColor = c;
+		
+		if(jButtons != null && jButtons.size() > 0)
+		{
+			for(JButton comp : jButtons)
+			{
+				comp.setBackground(backgroundColor);
+			}
+		}
 	}
 	
 	public void clearJButtons()
