@@ -68,7 +68,6 @@ public class XmlToWidgetGenerator
 			WidgetBuildController widgetBuildController, 
 			WidgetCreatorProperty widgetProperties)
 	{
-		LoggingMessages.printOut("|TODO| -> Generate Extended");
 		Method m;
 		try {
 			Object [] os = new Object [stringToObjectConverterList.size() + 2];

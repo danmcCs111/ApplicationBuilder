@@ -2,6 +2,8 @@ package WidgetExtensions;
 
 import java.awt.event.ActionListener;
 import javax.swing.AbstractButton;
+import javax.swing.JButton;
+
 import ActionListeners.ActionListenerSubTypeExtension;
 import ApplicationBuilder.LoggingMessages;
 import ApplicationBuilder.WidgetBuildController;
@@ -14,7 +16,6 @@ public class ExtendedActionListenerSubType implements ExtendedAttributeStringPar
 	@Override
 	public void applyMethod(String arg0, WidgetBuildController wbc, WidgetCreatorProperty widgetProperties) 
 	{
-		LoggingMessages.printOut(arg0);
 		String [] paths = arg0.split(ARG_DELIMITER);
 		
 		if(Direction.class.toString().endsWith(paths[0]))
@@ -39,6 +40,7 @@ public class ExtendedActionListenerSubType implements ExtendedAttributeStringPar
 		{
 			for(ActionListener al : ((AbstractButton) inst).getActionListeners())
 			{
+				LoggingMessages.printOut(al.toString());
 				if(al instanceof ActionListenerSubTypeExtension)
 				{
 					return (ActionListenerSubTypeExtension) al;

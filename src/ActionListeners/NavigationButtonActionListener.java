@@ -3,11 +3,18 @@ package ActionListeners;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import javax.swing.JComponent;
+
 import ApplicationBuilder.LoggingMessages;
+import ApplicationBuilder.WidgetBuildController;
 import WidgetExtensions.ActionListenerExtension;
 import WidgetExtensions.Direction;
+import WidgetExtensions.ExtendedAttributeStringParam;
+import WidgetExtensions.JButtonArray;
+import WidgetExtensions.SwappableCollection;
 
 public class NavigationButtonActionListener implements ActionListener, ActionListenerSubTypeExtension 
 {
@@ -15,6 +22,8 @@ public class NavigationButtonActionListener implements ActionListener, ActionLis
 		curPosition = 0, 
 		lastIndex = 0;
 	private static List<ActionListenerExtension> actionListenerExtensions = new ArrayList<ActionListenerExtension>();
+	private static WidgetBuildController widgetBuildController;
+	private static JComponent connectedComp;
 	
 	private Direction direction = null;
 	
@@ -41,7 +50,23 @@ public class NavigationButtonActionListener implements ActionListener, ActionLis
 	{
 		curPosition = direction.getIndexDirectionNext();
 		LoggingMessages.printOut(curPosition + "");
-		//TODO action on component
+		
+		
+		SwappableCollection comp = (SwappableCollection) connectedComp; //ExtendedAttributeStringParam.findComponent(widgetBuildController, SwappableCollection.class);
+		HashMap<String, List<String>> pathAndFileList = comp.getPathAndFileList();
+		
+		int index = curPosition;
+		String key = null;
+		java.util.Iterator<String> it = pathAndFileList.keySet().iterator();
+		while(index-- >= 0)
+		{
+			key = it.next();
+		}
+		
+		LoggingMessages.printOut(key);
+		JButtonArray buttonArray = (JButtonArray) ExtendedAttributeStringParam.findComponent(widgetBuildController, JButtonArray.class);
+		buttonArray.addJButtons(key, pathAndFileList.get(key));
+		
 	}
 	
 	@Override
@@ -56,5 +81,16 @@ public class NavigationButtonActionListener implements ActionListener, ActionLis
 	public static void addActionListenerExtension(ActionListenerExtension ale)
 	{
 		actionListenerExtensions.add(ale);
+	}
+	@Override
+	public void setConnectedComp(JComponent comp) 
+	{
+		connectedComp = comp;
+	}
+	
+	@Override
+	public void setWidgetBuildController(WidgetBuildController wbc)
+	{
+		widgetBuildController = wbc;
 	}
 }

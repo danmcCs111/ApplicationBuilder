@@ -1,6 +1,7 @@
 package WidgetExtensions;
 
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +9,6 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
-
-import ApplicationBuilder.LoggingMessages;
 
 /**
  * Holds a collection of JButtons of variable generated size
@@ -27,6 +26,8 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 	
 	public void addJButtons(String path, List<String> listOf)
 	{
+		clearJButtons();
+		
 		for(JComponent comp : FileListOptionGenerator.buildComponents(path, listOf, JButton.class))
 		{
 			if(comp instanceof JButton)
@@ -44,6 +45,9 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 			}
 		}
 		addActionListeners();
+		
+		Container rootCont = getRootPane().getParent();//redraw window
+		rootCont.paintComponents(rootCont.getGraphics());
 	}
 	
 	public void setForegroundButtonArray(Color c)

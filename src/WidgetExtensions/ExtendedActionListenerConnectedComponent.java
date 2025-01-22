@@ -1,10 +1,9 @@
 package WidgetExtensions;
 
 import javax.swing.JComponent;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
 
 import ActionListeners.ActionListenerSubTypeExtension;
+import ApplicationBuilder.LoggingMessages;
 import ApplicationBuilder.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
@@ -17,12 +16,14 @@ public class ExtendedActionListenerConnectedComponent implements ExtendedAttribu
 			Class<?> clazz = Class.forName(arg0);
 			JComponent connectedComp = ExtendedAttributeStringParam.findComponent(wbc, clazz);
 			ActionListenerSubTypeExtension ale = ExtendedActionListenerSubType.getActionListener(widgetProperties);
+			
+			ale.setWidgetBuildController(wbc);
+			ale.setConnectedComp(connectedComp);
+			
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		JMenu menu = new JMenu();
-		JMenuItem menuItem = new JMenuItem();
 	}
 	
 }
