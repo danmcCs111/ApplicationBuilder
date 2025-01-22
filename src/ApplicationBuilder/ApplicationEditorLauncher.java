@@ -8,14 +8,14 @@ public class ApplicationEditorLauncher
 	
 	public static void main(String [] args)
 	{
-		readWidgetXML(SOURCE_FILE);
-		SwingUtilities.invokeLater(() -> {
-			ApplicationLayoutEditor window = new ApplicationLayoutEditor();
-		        window.setVisible(true);
-		});
+		buildAppFromXML(SOURCE_FILE);
+//		SwingUtilities.invokeLater(() -> {
+//			ApplicationLayoutEditor window = new ApplicationLayoutEditor();
+//		        window.setVisible(true);
+//		});
 	}
 	
-	public static void readWidgetXML(String SOURCE_FILE)
+	public static void buildAppFromXML(String SOURCE_FILE)
 	{
 		new WidgetBuildController(SOURCE_FILE);
 	}
