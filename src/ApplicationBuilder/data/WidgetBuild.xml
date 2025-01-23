@@ -5,7 +5,7 @@
 			<JScrollPaneResizer setName="scrollPane" extendedLayoutApplyParent="North">
 				
 					<SwappableCollection setName="swapVideos" setLayout="BorderLayout" extendedSetViewportView=""
-					extendedArrayProcessingPath=".\src\ApplicationBuilder\Roku Channels@.url; .\src\ApplicationBuilder\Youtube Channels@.url">
+						extendedArrayProcessingPath=".\src\ApplicationBuilder\Roku Channels@.url; .\src\ApplicationBuilder\Youtube Channels@.url">
 						<JLabel setText="TODO" setName="title" setForeground="100,50,150" setBackground="150,150,150" setHorizontalAlignment="0" extendedLayoutApplyParent="North">
 						</JLabel>
 						<JButtonArray setName="channels" setLayout="GridLayout" setHighlightBackgroundColor="240,240,240" setHighlightForegroundColor="50,50,50"
@@ -28,15 +28,15 @@
 		</JPanel>
 						
 		<JPanel setLayout="BorderLayout" extendedLayoutApplyParent="West">
-		<JButton setText="&lt;" extendedLayoutApplyParent="North" addActionListener="NavigationButtonActionListener" 
-			extendedActionListenerSubType="WidgetExtensions.Direction@BACKWARD" extendedActionListenerConnectedComponent="WidgetExtensions.SwappableCollection">
-		</JButton>
+			<JButton setText="&lt;" extendedLayoutApplyParent="North" addActionListener="NavigationButtonActionListener" 
+				extendedActionListenerSubType="WidgetExtensions.Direction@BACKWARD" extendedActionListenerConnectedComponent="WidgetExtensions.SwappableCollection">
+			</JButton>
 		</JPanel>
 		
 		<JPanel setLayout="BorderLayout" extendedLayoutApplyParent="East">
-		<JButton setText="&gt;" extendedLayoutApplyParent="North" addActionListener="NavigationButtonActionListener" 
-			extendedActionListenerSubType="WidgetExtensions.Direction@FORWARD" extendedActionListenerConnectedComponent="WidgetExtensions.SwappableCollection">
-		</JButton>
+			<JButton setText="&gt;" extendedLayoutApplyParent="North" addActionListener="NavigationButtonActionListener" 
+				extendedActionListenerSubType="WidgetExtensions.Direction@FORWARD" extendedActionListenerConnectedComponent="WidgetExtensions.SwappableCollection">
+			</JButton>
 		</JPanel>
 		
 		<JMenuBar extendedSetJMenuBarParent="">

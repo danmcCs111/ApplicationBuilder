@@ -53,7 +53,6 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 	
 	public void addJButtons(String path, List<String> listOf, int index)
 	{
-		
 		ArrayList<Component> jbuts = new ArrayList<Component>();
 		JButtonArray.indexPos = index;
 		
@@ -94,11 +93,12 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 		}
 		
 		Container rootCont = getRootPane();
-		for(ComponentListener cl : rootCont.getComponentListeners())
+		rootCont.paintComponents(rootCont.getGraphics());
+		
+		for(ComponentListener cl : rootCont.getParent().getComponentListeners())
 		{
-			cl.componentResized(new ComponentEvent(rootCont, ExtendedFrameResizer.INTERNAL_RESIZE_EVENT));
+			cl.componentResized(new ComponentEvent(rootCont.getParent(), ExtendedFrameResizer.INTERNAL_RESIZE_EVENT));
 		}
-		rootCont.paintAll(rootCont.getGraphics());
 	}
 	
 	public void setForegroundButtonArray(Color c)
