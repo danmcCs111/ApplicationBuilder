@@ -124,14 +124,9 @@ public class FrameResizeListener extends ComponentAdapter
 	
 	private Container getLastParent(Component c, Container parent, Container root)
 	{
-		if(parent.getParent() != null && !parent.getParent().equals(root))
-		{
-			return getLastParent(c, parent.getParent(), root);
-		}
-		else
-		{
-			return parent;
-		}
+		return (parent.getParent() != null && !parent.getParent().equals(root)) 
+				? getLastParent(c, parent.getParent(), root)
+				: parent;
 	}
 	
 	private void collectTextWidgets()
