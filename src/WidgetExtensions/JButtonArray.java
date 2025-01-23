@@ -22,11 +22,9 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 {
 	private static final long serialVersionUID = 1L;
 	
-	public static Color 
-		foregroundColor = new JButton().getForeground(),
-		backgroundColor = new JButton().getBackground(),
-		highlightForegroundColor = foregroundColor,
-		highlightBackgroundColor = backgroundColor;
+	public static Color []
+		backgroundAndForegroundColor = new Color [] {new JButton().getBackground(), new JButton().getForeground()},
+		highlightBackgroundAndForegroundColor = new Color [] {backgroundAndForegroundColor[0], backgroundAndForegroundColor[1]};
 	private static int indexPos=0;
 	private static boolean isHighlight = true;
 	private static JButton highlightButton = null;
@@ -40,12 +38,10 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 		{
 			if(highlightButton != null)//return and set new selected 
 			{
-				highlightButton.setForeground(foregroundColor);
-				highlightButton.setBackground(backgroundColor);
+				setHighlightForegroundAndBackground(false);
 			}
 			highlightButton = (JButton) e.getSource();
-			highlightButton.setForeground(highlightForegroundColor);
-			highlightButton.setBackground(highlightBackgroundColor);
+			setHighlightForegroundAndBackground(true);
 		}
 	};
 	
@@ -73,8 +69,8 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 						}
 						((AbstractButton) comp).setText(tmpTxt);
 					}
-					comp.setForeground(foregroundColor);
-					comp.setBackground(backgroundColor);
+					comp.setForeground(backgroundAndForegroundColor[1]);
+					comp.setBackground(backgroundAndForegroundColor[0]);
 					addHighlightButtonActionListener((JButton)comp);
 					jbuts.add((JButton) comp);
 					this.add(comp);
@@ -102,34 +98,6 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 		rootCont.paintComponents(rootCont.getGraphics());
 	}
 	
-	public void setForegroundButtonArray(Color c)
-	{
-		JButtonArray.foregroundColor = c;
-		ArrayList<Component> jButtons = collectionJButtons.get(indexPos);
-		
-		if(jButtons != null && jButtons.size() > 0)
-		{
-			for(Component comp : jButtons)
-			{
-				comp.setForeground(JButtonArray.foregroundColor);
-			}
-		}
-	}
-	
-	public void setBackgroundButtonArray(Color c)
-	{
-		JButtonArray.backgroundColor = c;
-		ArrayList<Component> jButtons = collectionJButtons.get(indexPos);
-		
-		if(jButtons != null && jButtons.size() > 0)
-		{
-			for(Component comp : jButtons)
-			{
-				comp.setBackground(JButtonArray.backgroundColor);
-			}
-		}
-	}
-	
 	public static void setHighlight(boolean isHighlight)
 	{
 		JButtonArray.isHighlight = isHighlight;
@@ -137,12 +105,12 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 	
 	public static void setHighlightForegroundColor(Color c)
 	{
-		JButtonArray.highlightForegroundColor = c;
+		JButtonArray.highlightBackgroundAndForegroundColor[1] = c;
 	}
 	
 	public static void setHighlightBackgroundColor(Color c)
 	{
-		JButtonArray.highlightBackgroundColor = c;
+		JButtonArray.highlightBackgroundAndForegroundColor[0] = c;
 	}
 	
 	public void addHighlightButtonActionListener(JButton but)
@@ -184,29 +152,24 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 	
 	public void setArrayForeground(Color c)
 	{
-		JButtonArray.foregroundColor = c;
-		for(List<Component> buts : collectionJButtons)
-		{
-			for(Component but : buts)
-			{
-				if(!but.getForeground().equals(JButtonArray.foregroundColor))
-				{
-					but.setForeground(JButtonArray.foregroundColor);
-				}
-			}
-		}
+		setArrayColor(c, 1);
 	}
 	
 	public void setArrayBackground(Color c)
 	{
-		JButtonArray.backgroundColor = c;
+		setArrayColor(c, 0);
+	}
+	
+	private void setArrayColor(Color c, int backgroundOrForeground)
+	{
+		JButtonArray.backgroundAndForegroundColor[backgroundOrForeground] = c;
 		for(List<Component> buts : collectionJButtons)
 		{
 			for(Component but : buts)
 			{
-				if(!but.getBackground().equals(JButtonArray.backgroundColor))
+				if(!but.getForeground().equals(JButtonArray.backgroundAndForegroundColor[backgroundOrForeground]))
 				{
-					but.setBackground(JButtonArray.backgroundColor);
+					but.setForeground(JButtonArray.backgroundAndForegroundColor[backgroundOrForeground]);
 				}
 			}
 		}
@@ -214,29 +177,35 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 	
 	public void setArrayForegroundAndBackground(Color cF, Color cB)
 	{
-		JButtonArray.foregroundColor = cF;
-		JButtonArray.backgroundColor = cB;
+		JButtonArray.backgroundAndForegroundColor[1] = cF;
+		JButtonArray.backgroundAndForegroundColor[0] = cB;
 		for(List<Component> buts : collectionJButtons)
 		{
 			for(Component but : buts)
 			{
-				if(!but.getBackground().equals(JButtonArray.backgroundColor))
+				if(!but.getBackground().equals(JButtonArray.backgroundAndForegroundColor[0]))
 				{
-					but.setBackground(JButtonArray.backgroundColor);
+					but.setBackground(JButtonArray.backgroundAndForegroundColor[0]);
 				}
-				if(!but.getForeground().equals(JButtonArray.foregroundColor))
+				if(!but.getForeground().equals(JButtonArray.backgroundAndForegroundColor[1]))
 				{
-					but.setForeground(JButtonArray.foregroundColor);
+					but.setForeground(JButtonArray.backgroundAndForegroundColor[1]);
 				}
 			}
 		}
+	}
+	
+	private static void setHighlightForegroundAndBackground(boolean highlight)
+	{
+		Color [] color = highlight ? highlightBackgroundAndForegroundColor : backgroundAndForegroundColor;
+		highlightButton.setForeground(color[1]);
+		highlightButton.setBackground(color[0]);
 	}
 
 	@Override
 	public void unselect() 
 	{
-		highlightButton.setForeground(foregroundColor);
-		highlightButton.setBackground(backgroundColor);
+		setHighlightForegroundAndBackground(false);
 		highlightButton = null;
 	}
 
