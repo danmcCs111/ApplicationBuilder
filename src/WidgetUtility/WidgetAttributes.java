@@ -31,12 +31,14 @@ import WidgetExtensions.ExtendedActionListenerSubType;
 import WidgetExtensions.ExtendedArrayProcessingPath;
 import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetExtensions.ExtendedCalculationPad;
+import WidgetExtensions.ExtendedFrameResizer;
 import WidgetExtensions.ExtendedLayoutApplyParent;
 import WidgetExtensions.ExtendedSetJMenuBarParent;
 import WidgetExtensions.ExtendedSetViewportView;
 import WidgetExtensions.ExtendedSwappableHolder;
 import WidgetExtensions.ExtendedTextStripper;
 import WidgetExtensions.JButtonArray;
+import WidgetExtensions.JScrollPaneResizer;
 import WidgetExtensions.MenuOption;
 
 public class WidgetAttributes 
@@ -51,6 +53,7 @@ public class WidgetAttributes
 		COMPONENT_CLASSES.add(JTextField.class);
 		COMPONENT_CLASSES.add(JLabel.class);
 		COMPONENT_CLASSES.add(JScrollPane.class);
+		COMPONENT_CLASSES.add(JScrollPaneResizer.class);
 		COMPONENT_CLASSES.add(JComboBox.class);
 		COMPONENT_CLASSES.add(JComponent.class);
 		COMPONENT_CLASSES.add(JMenuBar.class);
@@ -66,7 +69,7 @@ public class WidgetAttributes
 	private static final HashMap<Class<?>, String []> EXTENDED_METHODS = new HashMap<Class<?>, String []>();
 	static {
 		EXTENDED_METHODS.put(JFrame.class, new String [] {
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class)
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedFrameResizer.class)
 		});
 		EXTENDED_METHODS.put(JPanel.class, new String [] {
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),
@@ -86,6 +89,9 @@ public class WidgetAttributes
 				
 		});
 		EXTENDED_METHODS.put(JScrollPane.class, new String [] {
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class)
+		});
+		EXTENDED_METHODS.put(JScrollPaneResizer.class, new String [] {
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class)
 		});
 		EXTENDED_METHODS.put(JComboBox.class, new String [] {

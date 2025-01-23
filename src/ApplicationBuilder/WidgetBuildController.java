@@ -2,7 +2,6 @@ package ApplicationBuilder;
 
 import java.awt.Component;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JComponent;
@@ -76,12 +75,12 @@ public class WidgetBuildController
 	private ArrayList<XmlToWidgetGenerator> orderGenerators(ArrayList<XmlToWidgetGenerator> generators)
 	{
 		ArrayList<XmlToWidgetGenerator> tmp = new ArrayList<XmlToWidgetGenerator>();
-		Class<?> [] ordered = new Class<?> [] {ExtendedLayoutApplyParent.class, ExtendedTextStripper.class};
+		Class<?> [] firstOrdered = new Class<?> [] {ExtendedLayoutApplyParent.class, ExtendedTextStripper.class};
 		ArrayList<XmlToWidgetGenerator> orderedGenerators = new ArrayList<XmlToWidgetGenerator>();
 		for(XmlToWidgetGenerator xwg : generators)
 		{
 			String methodName = xwg.getMethodName();
-			for(Class<?> clazz : ordered)
+			for(Class<?> clazz : firstOrdered)
 			{
 				if(clazz.getName().toLowerCase().contains(methodName.toLowerCase()))
 				{
@@ -112,7 +111,11 @@ public class WidgetBuildController
 				{
 					String parent = w.getParentRef();
 					WidgetCreatorProperty wc = findRef(parent);
-					Object parentObj = wc.getInstance();
+					Object parentObj = null;
+					if(wc != null)
+					{
+						parentObj = wc.getInstance();
+					}
 					LoggingMessages.printOut("Extended Class: " + c.toString() + " **PARENT CLASS**: " + parentObj);
 					g.generateExtended(c, this, w);
 				}

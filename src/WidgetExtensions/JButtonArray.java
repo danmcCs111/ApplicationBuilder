@@ -5,12 +5,15 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
@@ -93,6 +96,10 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 		
 		Container rootCont = getRootPane().getParent();//redraw window
 		rootCont.paintComponents(rootCont.getGraphics());
+		for(ComponentListener cl : rootCont.getComponentListeners())
+		{
+			cl.componentResized(new ComponentEvent(rootCont, ExtendedFrameResizer.INTERNAL_RESIZE_EVENT));
+		}
 	}
 	
 	public void setForegroundButtonArray(Color c)
@@ -151,25 +158,6 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 		this.removeAll();
 	}
 	
-	public void applyToParentComponent(JComponent parentComponent)
-	{
-		applyToParentComponent(parentComponent, null);
-	}
-	public void applyToParentComponent(JComponent parentComponent, Object constraints)
-	{
-		for(Component button : collectionJButtons.get(indexPos))
-		{
-			if(constraints != null)
-			{
-				parentComponent.add(button, constraints);
-			}
-			else
-			{
-				parentComponent.add(button);
-			}
-		}
-	}
-
 	@Override
 	public void addActionListener(ActionListener actionListener) 
 	{

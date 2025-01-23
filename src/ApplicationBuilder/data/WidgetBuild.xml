@@ -1,8 +1,8 @@
 <Build>	
-	<JFrame setLayout="BorderLayout" setTitle="Video Launcher" setSize="450, 550" setLocation="150,150" setDefaultCloseOperation="3">
+	<JFrame setLayout="BorderLayout" setTitle="Video Launcher" setSize="400, 500" setLocation="10,30" setDefaultCloseOperation="3" extendedFrameResizer="scrollPane">
 	
 		<JPanel setLayout="BorderLayout" extendedLayoutApplyParent="Center">
-			<JScrollPane extendedLayoutApplyParent="North">
+			<JScrollPaneResizer setName="scrollPane" extendedLayoutApplyParent="North">
 				
 					<SwappableCollection setName="swapVideos" setLayout="BorderLayout" extendedSetViewportView="" 
 					extendedArrayProcessingPath=".\src\ApplicationBuilder\Roku Channels@.url; .\src\ApplicationBuilder\Youtube Channels@.url">
@@ -14,16 +14,17 @@
 						</JButtonArray>
 					</SwappableCollection>
 					
-			</JScrollPane>		
+			</JScrollPaneResizer>		
 		</JPanel>
 		
 		<JPanel setLayout="BorderLayout" extendedLayoutApplyParent="South">
-						<JButton setText=" X Close Video" setName="closeLaunchAction" extendedLayoutApplyParent="Center" addActionListener="LaunchActionListener" setBackground="175, 204, 175" setForeground="119,5,6">
-						</JButton>
-						<JLabel extendedLayoutApplyParent="East" extendedCalculationPad="JButton">
-						</JLabel>
-						<JLabel extendedLayoutApplyParent="West" extendedCalculationPad="JButton">
-						</JLabel>
+				<JButton setText=" X Close Video" setPreferredSize="80,25" setName="closeLaunchAction" extendedLayoutApplyParent="Center" 
+					addActionListener="LaunchActionListener" setBackground="175, 204, 175" setForeground="119,5,6">
+				</JButton>
+				<JLabel extendedLayoutApplyParent="East" extendedCalculationPad="JButton">
+				</JLabel>
+				<JLabel extendedLayoutApplyParent="West" extendedCalculationPad="JButton">
+				</JLabel>
 		</JPanel>
 						
 		<JPanel setLayout="BorderLayout" extendedLayoutApplyParent="West">
