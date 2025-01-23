@@ -160,36 +160,28 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 		setArrayColor(c, 0);
 	}
 	
-	private void setArrayColor(Color c, int backgroundOrForeground)
-	{
-		JButtonArray.backgroundAndForegroundColor[backgroundOrForeground] = c;
-		for(List<Component> buts : collectionJButtons)
-		{
-			for(Component but : buts)
-			{
-				if(!but.getForeground().equals(JButtonArray.backgroundAndForegroundColor[backgroundOrForeground]))
-				{
-					but.setForeground(JButtonArray.backgroundAndForegroundColor[backgroundOrForeground]);
-				}
-			}
-		}
-	}
-	
 	public void setArrayForegroundAndBackground(Color cF, Color cB)
 	{
-		JButtonArray.backgroundAndForegroundColor[1] = cF;
-		JButtonArray.backgroundAndForegroundColor[0] = cB;
+		setArrayColor(new Color [] {cB, cF}, new int [] {0,1});
+	}
+	
+	private void setArrayColor(Color c, int backgroundOrForeground )
+	{
+		setArrayColor(new Color [] {c}, new int [] {backgroundOrForeground});
+	}
+	
+	private void setArrayColor(Color [] c, int [] backgroundOrForeground )
+	{
 		for(List<Component> buts : collectionJButtons)
 		{
 			for(Component but : buts)
 			{
-				if(!but.getBackground().equals(JButtonArray.backgroundAndForegroundColor[0]))
+				int i = 0;
+				for(int bof : backgroundOrForeground)
 				{
-					but.setBackground(JButtonArray.backgroundAndForegroundColor[0]);
-				}
-				if(!but.getForeground().equals(JButtonArray.backgroundAndForegroundColor[1]))
-				{
-					but.setForeground(JButtonArray.backgroundAndForegroundColor[1]);
+					JButtonArray.backgroundAndForegroundColor[bof] = c[i++];
+					if(bof == 1) but.setForeground(JButtonArray.backgroundAndForegroundColor[bof]);
+					else but.setBackground(JButtonArray.backgroundAndForegroundColor[bof]);
 				}
 			}
 		}
