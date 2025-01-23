@@ -1,10 +1,10 @@
 <Build>	
-	<JFrame setLayout="BorderLayout" setTitle="Video Launcher" setSize="400, 500" setLocation="10,30" setDefaultCloseOperation="3" extendedFrameResizer="scrollPane">
+	<JFrame setLayout="BorderLayout" setName="VideoPlayer" setTitle="Video Launcher" setSize="400, 500" setLocation="10,30" setDefaultCloseOperation="3" extendedFrameResizer="scrollPane">
 	
 		<JPanel setLayout="BorderLayout" extendedLayoutApplyParent="Center">
 			<JScrollPaneResizer setName="scrollPane" extendedLayoutApplyParent="North">
 				
-					<SwappableCollection setName="swapVideos" setLayout="BorderLayout" extendedSetViewportView="" 
+					<SwappableCollection setName="swapVideos" setLayout="BorderLayout" extendedSetViewportView=""
 					extendedArrayProcessingPath=".\src\ApplicationBuilder\Roku Channels@.url; .\src\ApplicationBuilder\Youtube Channels@.url">
 						<JLabel setText="TODO" setName="title" setForeground="100,50,150" setBackground="150,150,150" setHorizontalAlignment="0" extendedLayoutApplyParent="North">
 						</JLabel>

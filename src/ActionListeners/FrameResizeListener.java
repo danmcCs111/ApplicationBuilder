@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.JFrame;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 
 import WidgetExtensions.ExtendedFrameResizer;
 
@@ -89,18 +91,22 @@ public class FrameResizeListener extends ComponentAdapter
 			
 			if(c.getParent() != null)
 			{
-				lastParent = getLastParent(c, c.getParent(), frame.getContentPane());
-				if(lastParentAndComponents.containsKey(lastParent))
+				//ignore scroll pane and scroll bar
+				if(!(c instanceof JScrollPane) && !(c instanceof JScrollBar))
 				{
-					comps = lastParentAndComponents.get(lastParent);
-					comps.add(c);
-					lastParentAndComponents.replace(lastParent, comps);
-				}
-				else
-				{
-					comps = new ArrayList<Component>();
-					comps.add(c);
-					lastParentAndComponents.put(lastParent, comps);
+					lastParent = getLastParent(c, c.getParent(), frame.getContentPane());
+					if(lastParentAndComponents.containsKey(lastParent))
+					{
+						comps = lastParentAndComponents.get(lastParent);
+						comps.add(c);
+						lastParentAndComponents.replace(lastParent, comps);
+					}
+					else
+					{
+						comps = new ArrayList<Component>();
+						comps.add(c);
+						lastParentAndComponents.put(lastParent, comps);
+					}
 				}
 			}
 			for(Container c2 : lastParentAndComponents.keySet())

@@ -27,8 +27,9 @@ public class JScrollPaneResizer extends JScrollPane implements ResizerListener
 			parent.add(this, BorderLayout.NORTH);
 		}
 
-		Container rootCont = getRootPane().getParent();//redraw window
+		Container rootCont = getRootPane();//redraw window
 		rootCont.paintComponents(rootCont.getGraphics());
+		
 	}
 
 }
