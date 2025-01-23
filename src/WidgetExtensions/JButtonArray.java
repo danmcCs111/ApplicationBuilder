@@ -99,6 +99,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 		{
 			cl.componentResized(new ComponentEvent(rootCont.getParent(), ExtendedFrameResizer.INTERNAL_RESIZE_EVENT));
 		}
+		rootCont.paintComponents(rootCont.getGraphics());
 	}
 	
 	public void setForegroundButtonArray(Color c)
