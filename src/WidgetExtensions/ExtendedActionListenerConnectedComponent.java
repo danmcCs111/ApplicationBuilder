@@ -3,7 +3,6 @@ package WidgetExtensions;
 import javax.swing.JComponent;
 
 import ActionListeners.ActionListenerSubTypeExtension;
-import ApplicationBuilder.LoggingMessages;
 import ApplicationBuilder.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 

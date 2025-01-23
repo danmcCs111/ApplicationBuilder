@@ -5,7 +5,6 @@ import java.awt.Component;
 import javax.swing.JFrame;
 
 import ActionListeners.FrameResizeListener;
-import ApplicationBuilder.LoggingMessages;
 import ApplicationBuilder.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 

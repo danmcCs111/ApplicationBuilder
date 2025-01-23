@@ -3,7 +3,6 @@ package WidgetExtensions;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
@@ -13,10 +12,7 @@ import java.util.List;
 
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 /**
  * Holds a collection of JButtons of variable generated size
@@ -57,10 +53,11 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 	
 	public void addJButtons(String path, List<String> listOf, int index)
 	{
-		clearJButtons();
 		
 		ArrayList<Component> jbuts = new ArrayList<Component>();
 		JButtonArray.indexPos = index;
+		
+		clearJButtons();
 		
 		if(collectionJButtons.size()-1 < index)
 		{
@@ -96,13 +93,12 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 			}
 		}
 		
-		Container rootCont = getRootPane().getParent();//redraw window
-		rootCont.paintComponents(this.getGraphics());
-		
+		Container rootCont = getRootPane();
 		for(ComponentListener cl : rootCont.getComponentListeners())
 		{
 			cl.componentResized(new ComponentEvent(rootCont, ExtendedFrameResizer.INTERNAL_RESIZE_EVENT));
 		}
+		rootCont.paintAll(rootCont.getGraphics());
 	}
 	
 	public void setForegroundButtonArray(Color c)

@@ -26,10 +26,6 @@ public class JScrollPaneResizer extends JScrollPane implements ResizerListener
 			LoggingMessages.printOut("frame height not limited");
 			parent.add(this, BorderLayout.NORTH);
 		}
-
-		Container rootCont = getRootPane();//redraw window
-		rootCont.paintComponents(rootCont.getGraphics());
-		
 	}
 
 }
