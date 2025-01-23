@@ -17,7 +17,6 @@ import WidgetExtensions.ExtendedFrameResizer;
 
 public class FrameResizeListener extends ComponentAdapter
 {
-	
 	private ArrayList<Component> allComponents = new ArrayList<Component>();
 	private HashMap<Component, String> componentAndText = new HashMap<Component, String>();
 	
@@ -78,9 +77,7 @@ public class FrameResizeListener extends ComponentAdapter
 	
 	private boolean isHeightLimited()
 	{
-		int 
-			heightF = 0,
-			heightP = 0;
+		int heightPandF [] = new int [] {0,0};
 		
 		HashMap<Container, ArrayList<Component>> lastParentAndComponents = new HashMap<Container, ArrayList<Component>>();
 				
@@ -111,29 +108,18 @@ public class FrameResizeListener extends ComponentAdapter
 			}
 			for(Container c2 : lastParentAndComponents.keySet())
 			{
-				if(!c2.equals(frame))
+				int ind = c2.equals(frame) ? 1 : 0;
+				
+				for(Component comp : lastParentAndComponents.get(c2))
 				{
-					for(Component comp : lastParentAndComponents.get(c2))
+					if(heightPandF[ind] < comp.getBounds().height)
 					{
-						if(heightP < comp.getBounds().height)
-						{
-							heightP = comp.getBounds().height;
-						}
-					}
-				}
-				else
-				{
-					for(Component comp : lastParentAndComponents.get(c2))
-					{
-						if(heightF < comp.getBounds().height)
-						{
-							heightF = comp.getBounds().height;
-						}
+						heightPandF[ind] = comp.getBounds().height;
 					}
 				}
 			}
 		}
-		return (heightP > heightF);
+		return (heightPandF[0] > heightPandF[1]);
 	}
 	
 	private Container getLastParent(Component c, Container parent, Container root)

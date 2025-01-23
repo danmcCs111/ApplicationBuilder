@@ -1,5 +1,7 @@
 package WidgetExtensions;
 
+import java.awt.Component;
+
 import javax.swing.JComponent;
 
 import ApplicationBuilder.WidgetBuildController;
@@ -27,6 +29,19 @@ public interface ExtendedAttributeStringParam
 		for(WidgetCreatorProperty wcp : wbc.getWidgetCreationProperties())
 		{
 			if(wcp.getInstance().getClass().equals(clazz))
+			{
+				return (JComponent) wcp.getInstance();
+			}
+		}
+		return null;
+	}
+	
+	public static JComponent findComponentByName(WidgetBuildController wbc, String name)
+	{
+		for(WidgetCreatorProperty wcp : wbc.getWidgetCreationProperties())
+		{
+			Component c = (Component) wcp.getInstance();
+			if(name.equals(c.getName()))
 			{
 				return (JComponent) wcp.getInstance();
 			}

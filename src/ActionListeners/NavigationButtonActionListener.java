@@ -1,12 +1,11 @@
 package ActionListeners;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import javax.swing.JComponent;
 
 import ApplicationBuilder.LoggingMessages;
 import ApplicationBuilder.WidgetBuildController;
@@ -23,7 +22,7 @@ public class NavigationButtonActionListener implements ActionListener, ActionLis
 		lastIndex = 0;
 	private static List<ActionListenerExtension> actionListenerExtensions = new ArrayList<ActionListenerExtension>();
 	private static WidgetBuildController widgetBuildController;
-	private static JComponent connectedComp;
+	private static Component connectedComp;
 	
 	private Direction direction = null;
 	
@@ -52,7 +51,7 @@ public class NavigationButtonActionListener implements ActionListener, ActionLis
 		LoggingMessages.printOut(curPosition + "");
 		
 		
-		SwappableCollection comp = (SwappableCollection) connectedComp; //ExtendedAttributeStringParam.findComponent(widgetBuildController, SwappableCollection.class);
+		SwappableCollection comp = (SwappableCollection) connectedComp;
 		HashMap<String, List<String>> pathAndFileList = comp.getPathAndFileList();
 		
 		int index = curPosition;
@@ -66,7 +65,6 @@ public class NavigationButtonActionListener implements ActionListener, ActionLis
 		LoggingMessages.printOut(key);
 		JButtonArray buttonArray = (JButtonArray) ExtendedAttributeStringParam.findComponent(widgetBuildController, JButtonArray.class);
 		buttonArray.addJButtons(key, pathAndFileList.get(key), curPosition);
-		
 	}
 	
 	@Override
@@ -82,8 +80,9 @@ public class NavigationButtonActionListener implements ActionListener, ActionLis
 	{
 		actionListenerExtensions.add(ale);
 	}
+	
 	@Override
-	public void setConnectedComp(JComponent comp) 
+	public void setConnectedComp(Component comp) 
 	{
 		connectedComp = comp;
 	}
