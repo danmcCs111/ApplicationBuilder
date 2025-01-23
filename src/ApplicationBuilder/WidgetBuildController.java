@@ -16,6 +16,10 @@ import WidgetUtility.WidgetReader;
 
 public class WidgetBuildController 
 {
+	private static final Class<?> [] FIRST_ORDERED_GENERATORS = new Class<?> [] {
+		ExtendedLayoutApplyParent.class, ExtendedTextStripper.class
+	};
+	
 	private ArrayList<WidgetCreatorProperty> widgetCreatorProperties;
 	private String sourceFile;
 	
@@ -75,12 +79,11 @@ public class WidgetBuildController
 	private ArrayList<XmlToWidgetGenerator> orderGenerators(ArrayList<XmlToWidgetGenerator> generators)
 	{
 		ArrayList<XmlToWidgetGenerator> tmp = new ArrayList<XmlToWidgetGenerator>();
-		Class<?> [] firstOrdered = new Class<?> [] {ExtendedLayoutApplyParent.class, ExtendedTextStripper.class};
 		ArrayList<XmlToWidgetGenerator> orderedGenerators = new ArrayList<XmlToWidgetGenerator>();
 		for(XmlToWidgetGenerator xwg : generators)
 		{
 			String methodName = xwg.getMethodName();
-			for(Class<?> clazz : firstOrdered)
+			for(Class<?> clazz : FIRST_ORDERED_GENERATORS)
 			{
 				if(clazz.getName().toLowerCase().contains(methodName.toLowerCase()))
 				{
