@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.AbstractButton;
@@ -88,6 +89,9 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 			}
 		}
 		
+		ExtendedStringCollection esc = (ExtendedStringCollection) this.getParent();
+		esc.setPathSelected(path);
+		
 		Container rootCont = getRootPane();
 		rootCont.paintComponents(rootCont.getGraphics());
 		
@@ -96,6 +100,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 			cl.componentResized(new ComponentEvent(rootCont.getParent(), ExtendedFrameResizer.INTERNAL_RESIZE_EVENT));
 		}
 		rootCont.paintComponents(rootCont.getGraphics());
+		
 	}
 	
 	public static void setHighlight(boolean isHighlight)

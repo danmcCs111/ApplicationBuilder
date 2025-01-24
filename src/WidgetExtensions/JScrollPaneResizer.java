@@ -11,6 +11,11 @@ public class JScrollPaneResizer extends JScrollPane implements ResizerListener
 {
 	private static final long serialVersionUID = 1L;
 
+	public JScrollPaneResizer()
+	{
+		getVerticalScrollBar().setUnitIncrement(15);
+	}
+	
 	@Override
 	public void heightLimitEvent(boolean isFrameHeightLimited) 
 	{

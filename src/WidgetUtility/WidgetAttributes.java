@@ -37,6 +37,7 @@ import WidgetExtensions.ExtendedSetJMenuBarParent;
 import WidgetExtensions.ExtendedSetViewportView;
 import WidgetExtensions.ExtendedSwappableHolder;
 import WidgetExtensions.ExtendedTextStripper;
+import WidgetExtensions.ExtendedTitleSwitcher;
 import WidgetExtensions.JButtonArray;
 import WidgetExtensions.JScrollPaneResizer;
 import WidgetExtensions.MenuOption;
@@ -85,7 +86,8 @@ public class WidgetAttributes
 		});
 		EXTENDED_METHODS.put(JLabel.class, new String [] {
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedCalculationPad.class)
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedCalculationPad.class),
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedTitleSwitcher.class)
 				
 		});
 		EXTENDED_METHODS.put(JScrollPane.class, new String [] {

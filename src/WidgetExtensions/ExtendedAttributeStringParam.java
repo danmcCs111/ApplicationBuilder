@@ -36,14 +36,14 @@ public interface ExtendedAttributeStringParam
 		return null;
 	}
 	
-	public static JComponent findComponentByName(WidgetBuildController wbc, String name)
+	public static Component findComponentByName(WidgetBuildController wbc, String name)
 	{
 		for(WidgetCreatorProperty wcp : wbc.getWidgetCreationProperties())
 		{
 			Component c = (Component) wcp.getInstance();
 			if(name.equals(c.getName()))
 			{
-				return (JComponent) wcp.getInstance();
+				return (Component) wcp.getInstance();
 			}
 		}
 		return null;
