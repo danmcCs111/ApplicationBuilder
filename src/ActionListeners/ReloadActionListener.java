@@ -11,5 +11,6 @@ public class ReloadActionListener implements ActionListener
 	public void actionPerformed(ActionEvent e) 
 	{
 		LoggingMessages.printOut("Reload");
+		
 	}
 }
