@@ -7,7 +7,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 
-import Properties.PropertiesFileLoader;
+import Properties.PathUtility;
 
 public class FileListOptionGenerator 
 {
@@ -21,7 +21,7 @@ public class FileListOptionGenerator
 		List<JComponent> components = new ArrayList<JComponent>();
 		if(componentType.equals(JButton.class))
 		{
-			ArrayList<String> fileNames = PropertiesFileLoader.getOSFileList(path, filter);
+			ArrayList<String> fileNames = PathUtility.getOSFileList(path, filter);
 			for(String fileName: fileNames)
 			{
 				JButton button = new JButton();

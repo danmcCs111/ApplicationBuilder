@@ -9,7 +9,7 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import ActionListeners.NavigationButtonActionListener;
-import Properties.PathConstants;
+import Properties.PathUtility;
 
 /**
  * Holds a variable number of Components and controls/rebuilds child JComponents
@@ -43,7 +43,7 @@ public class SwappableCollection extends JPanel implements ExtendedStringCollect
 		Method m;
 		try {
 			m = this.pathTextComponent.getClass().getMethod("setText", String.class);
-			m.invoke(this.pathTextComponent, PathConstants.filterPathToFilename(path));
+			m.invoke(this.pathTextComponent, PathUtility.filterPathToFilename(path));
 		} catch (NoSuchMethodException | SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -5,7 +5,7 @@ import java.util.List;
 
 import ApplicationBuilder.LoggingMessages;
 import ApplicationBuilder.WidgetBuildController;
-import Properties.PropertiesFileLoader;
+import Properties.PathUtility;
 import WidgetUtility.WidgetCreatorProperty;
 
 public class ExtendedArrayProcessingPath implements ExtendedAttributeStringParam
@@ -35,7 +35,7 @@ public class ExtendedArrayProcessingPath implements ExtendedAttributeStringParam
 				p=tmp[0].trim(),
 				f=tmp[1].trim();
 			
-			pathAndFileList.put(p, PropertiesFileLoader.getOSFileList(p, f));
+			pathAndFileList.put(p, PathUtility.getOSFileList(p, f));
 		}
 		SwappableCollection sc = (SwappableCollection) ExtendedAttributeStringParam.findComponent(wbc, SwappableCollection.class);
 		sc.setPathAndFileList(pathAndFileList);

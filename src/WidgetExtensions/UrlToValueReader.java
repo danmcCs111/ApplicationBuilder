@@ -2,7 +2,7 @@ package WidgetExtensions;
 
 import java.io.File;
 
-import Properties.PropertiesFileLoader;
+import Properties.PathUtility;
 
 public class UrlToValueReader 
 {
@@ -18,7 +18,7 @@ public class UrlToValueReader
 	public static String parse(String filenameAndPath)
 	{
 		String value = null;
-		value = PropertiesFileLoader.readProperties(filenameAndPath, URL_DELIMITER).get(URL_KEY);
+		value = PathUtility.readProperties(filenameAndPath, URL_DELIMITER).get(URL_KEY);
 		return value;
 	}
 	
