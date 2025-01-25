@@ -17,6 +17,8 @@ import javax.swing.JPanel;
 /**
  * Holds a collection of JButtons of variable generated size
  * Builds a list of Buttons
+ * 
+ * TODO use a collection of inner panels and switch during toggle?
  */
 public class JButtonArray extends JPanel implements ArrayActionListener
 {

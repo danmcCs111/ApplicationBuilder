@@ -9,6 +9,7 @@ import ClassDefintions.LayoutManagerConverter;
 import ClassDefintions.PointConverter;
 import ClassDefintions.StringConverter;
 import ClassDefintions.StringToObjectConverter;
+import ClassDefintions.WindowListenerConverter;
 
 public enum ParamTypes 
 {
@@ -19,6 +20,7 @@ public enum ParamTypes
 	Point(new PointConverter()),
 	Boolean(new BooleanConverter()),
 	ActionListener(new ActionListenerConverter()),
+	WindowListener(new WindowListenerConverter()),
 	Dimension(new DimensionConverter());
 	
 	private StringToObjectConverter converter;

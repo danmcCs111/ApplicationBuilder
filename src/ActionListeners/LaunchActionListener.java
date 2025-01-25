@@ -54,7 +54,7 @@ public class LaunchActionListener implements ActionListener
 		}
 	}
 	
-	private static boolean destroyRunningProcess()
+	public static boolean destroyRunningProcess()
 	{
 		if(runningProcess != null)
 		{
