@@ -11,7 +11,7 @@
 							extendedTitleSwitcher="swapVideos" extendedLayoutApplyParent="North">
 						</JLabel>
 						<JButtonArray setName="channels" setLayout="GridLayout" setHighlightBackgroundColor="240,240,240" setHighlightForegroundColor="50,50,50"
-							extendedActionListenerArray="LaunchActionListener" extendedLayoutApplyParent="Center" setArrayForegroundAndBackground="240,240,240, 175,204,175"
+							extendedActionListenerArray="ActionListeners.LaunchActionListener" extendedLayoutApplyParent="Center" setArrayForegroundAndBackground="240,240,240, 175,204,175"
 							extendedSwappableHolder="swapVideos" extendedTextStripper="Watch @ Online for Free _ The Roku Channel _ Roku@ - YouTube@ - Prime Video@Prime Video- @1_@.url">
 						</JButtonArray>
 					</SwappableCollection>
@@ -21,7 +21,7 @@
 		
 		<JPanel setLayout="BorderLayout" extendedLayoutApplyParent="South">
 				<JButton setText=" X Close Video" setPreferredSize="80,25" setName="closeLaunchAction" extendedLayoutApplyParent="Center" 
-					addActionListener="LaunchActionListener" setBackground="175, 204, 175" setForeground="119,5,6">
+					addActionListener="ActionListeners.LaunchActionListener" setBackground="175, 204, 175" setForeground="119,5,6">
 				</JButton>
 				<JLabel extendedLayoutApplyParent="East" extendedCalculationPad="JButton">
 				</JLabel>
@@ -30,24 +30,24 @@
 		</JPanel>
 						
 		<JPanel setLayout="BorderLayout" extendedLayoutApplyParent="West">
-			<JButton setText="&lt;" extendedLayoutApplyParent="North" addActionListener="NavigationButtonActionListener" 
+			<JButton setText="&lt;" extendedLayoutApplyParent="North" addActionListener="ActionListeners.NavigationButtonActionListener" 
 				extendedActionListenerSubType="WidgetExtensions.Direction@BACKWARD" extendedActionListenerConnectedComponent="WidgetExtensions.SwappableCollection">
 			</JButton>
 		</JPanel>
 		
 		<JPanel setLayout="BorderLayout" extendedLayoutApplyParent="East">
-			<JButton setText="&gt;" extendedLayoutApplyParent="North" addActionListener="NavigationButtonActionListener" 
+			<JButton setText="&gt;" extendedLayoutApplyParent="North" addActionListener="ActionListeners.NavigationButtonActionListener" 
 				extendedActionListenerSubType="WidgetExtensions.Direction@FORWARD" extendedActionListenerConnectedComponent="WidgetExtensions.SwappableCollection">
 			</JButton>
 		</JPanel>
 		
 		<JMenuBar extendedSetJMenuBarParent="">
 			<JMenu setText="File" extendedLayoutApplyParent="">
-				<JMenuItem setText="Reload" extendedLayoutApplyParent="" addActionListener="ReloadActionListener">
+				<JMenuItem setText="Reload" extendedLayoutApplyParent="" addActionListener="ActionListeners.ReloadActionListener">
 				</JMenuItem >
-				<JMenuItem setText="MinimizeToSystemTray" extendedLayoutApplyParent="" addActionListener="MinimizeActionListener">
+				<JMenuItem setText="MinimizeToSystemTray" extendedLayoutApplyParent="" addActionListener="ActionListeners.MinimizeActionListener">
 				</JMenuItem >
-				<JMenuItem setText="Exit" extendedLayoutApplyParent="" addActionListener="ExitActionListener">
+				<JMenuItem setText="Exit" setName="ExitActionListener" extendedLayoutApplyParent="" addActionListener="ActionListeners.ExitPopupLaunchActionListener">
 				</JMenuItem >
 			</JMenu>
 		</JMenuBar>

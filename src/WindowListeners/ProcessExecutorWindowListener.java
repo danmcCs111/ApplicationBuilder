@@ -12,4 +12,10 @@ public class ProcessExecutorWindowListener extends WindowAdapter
 	{
 		LaunchActionListener.destroyRunningProcess();
 	}
+	
+	@Override 
+	public void windowClosed(WindowEvent e)
+	{
+		LaunchActionListener.destroyRunningProcess();
+	}
 }
