@@ -8,11 +8,14 @@ public class ApplicationEditorLauncher
 	
 	public static void main(String [] args)
 	{
-		buildAppFromXML(SOURCE_FILE);
-//		SwingUtilities.invokeLater(() -> {
-//			ApplicationLayoutEditor window = new ApplicationLayoutEditor();
-//		        window.setVisible(true);
-//		});
+		if(args.length == 1) buildAppFromXML(SOURCE_FILE);
+		else
+		{
+			SwingUtilities.invokeLater(() -> {
+				ApplicationLayoutEditor window = new ApplicationLayoutEditor();
+			        window.setVisible(true);
+			});
+		}
 	}
 	
 	public static void buildAppFromXML(String SOURCE_FILE)
