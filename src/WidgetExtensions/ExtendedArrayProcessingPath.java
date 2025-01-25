@@ -10,10 +10,6 @@ import WidgetUtility.WidgetCreatorProperty;
 
 public class ExtendedArrayProcessingPath implements ExtendedAttributeStringParam
 {
-	private static final String 
-		PATHS_DELIMITER = ";",
-		PATH_FILTER_DELIMITER = "@";
-	
 	@Override
 	public void applyMethod(String path, WidgetBuildController wbc, WidgetCreatorProperty widgetProperties)
 	{
@@ -30,7 +26,7 @@ public class ExtendedArrayProcessingPath implements ExtendedAttributeStringParam
 		LoggingMessages.printOut(paths);
 		for(int i = 0; i < paths.length; i++)
 		{
-			String [] tmp = paths[i].split(PATH_FILTER_DELIMITER);
+			String [] tmp = paths[i].split(ARG_DELIMITER);
 			String 
 				p=tmp[0].trim(),
 				f=tmp[1].trim();

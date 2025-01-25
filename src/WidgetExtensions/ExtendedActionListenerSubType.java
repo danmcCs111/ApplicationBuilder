@@ -10,7 +10,6 @@ import WidgetUtility.WidgetCreatorProperty;
 
 public class ExtendedActionListenerSubType implements ExtendedAttributeStringParam
 {
-	private static final String ARG_DELIMITER = "@";
 	
 	@Override
 	public void applyMethod(String arg0, WidgetBuildController wbc, WidgetCreatorProperty widgetProperties) 

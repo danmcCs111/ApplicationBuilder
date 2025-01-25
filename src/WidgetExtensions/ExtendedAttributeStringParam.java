@@ -9,7 +9,10 @@ import WidgetUtility.WidgetCreatorProperty;
 
 public interface ExtendedAttributeStringParam 
 {
-	public static final String METHOD_ARG_DEF = " [java.lang.String arg0]";
+	public static final String 
+		METHOD_ARG_DEF = " [java.lang.String arg0]",
+		PATHS_DELIMITER = ";",
+		ARG_DELIMITER = "@";
 	
 	public static String getMethodDefinition(Class<? extends ExtendedAttributeStringParam> clazz) 
 	{
