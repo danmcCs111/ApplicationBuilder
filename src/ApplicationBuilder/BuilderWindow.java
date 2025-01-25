@@ -26,7 +26,7 @@ public class BuilderWindow extends RedrawableFrame
 	private static final long serialVersionUID = 1L;
 	private static final String TITLE = "Application Parameter Editor";
 	private static final Dimension 
-		WINDOW_LOCATION = new Dimension(250, 250),
+		WINDOW_LOCATION = new Dimension(100, 50),
 		WINDOW_SIZE = new Dimension(480, 640);
 	
 	

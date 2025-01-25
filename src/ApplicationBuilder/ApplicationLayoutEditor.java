@@ -13,7 +13,7 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 	private static final long serialVersionUID = 1L;
 	private static final String TITLE = "Application Layout Editor";
 	private static final Dimension 
-		WINDOW_LOCATION = new Dimension(750, 250),
+		WINDOW_LOCATION = new Dimension(550, 50),
 		WINDOW_SIZE = new Dimension(480, 640);
 	
 	JButton openParameterButton;
