@@ -48,7 +48,7 @@ public interface PathUtility
 			sc = new Scanner(file);
 			while (sc.hasNextLine()) {
 				String s = sc.nextLine();
-				String [] ss = s.split(delimter);
+				String [] ss = s.split(delimter, 2);
 				if(ss.length == 2)
 					props.put(ss[0], ss[1]);
 			}
