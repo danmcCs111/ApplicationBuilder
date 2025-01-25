@@ -35,6 +35,7 @@ import WidgetExtensions.ExtendedFrameResizer;
 import WidgetExtensions.ExtendedLayoutApplyParent;
 import WidgetExtensions.ExtendedSetJMenuBarParent;
 import WidgetExtensions.ExtendedSetViewportView;
+import WidgetExtensions.ExtendedSetupTaskbar;
 import WidgetExtensions.ExtendedSwappableHolder;
 import WidgetExtensions.ExtendedTextStripper;
 import WidgetExtensions.ExtendedTitleSwitcher;
@@ -70,7 +71,8 @@ public class WidgetAttributes
 	private static final HashMap<Class<?>, String []> EXTENDED_METHODS = new HashMap<Class<?>, String []>();
 	static {
 		EXTENDED_METHODS.put(JFrame.class, new String [] {
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedFrameResizer.class)
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedFrameResizer.class),
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedSetupTaskbar.class)
 		});
 		EXTENDED_METHODS.put(JPanel.class, new String [] {
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),

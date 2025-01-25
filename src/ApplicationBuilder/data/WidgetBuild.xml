@@ -1,6 +1,6 @@
 <Build>	
 	<JFrame setLayout="BorderLayout" setName="VideoPlayer" setTitle="Video Launcher" setSize="400, 500" setLocation="10,30" setDefaultCloseOperation="3" 
-		addWindowListener="WindowListeners.ProcessExecutorWindowListener" extendedFrameResizer="scrollPane">
+		addWindowListener="WindowListeners.ProcessExecutorWindowListener" extendedFrameResizer="scrollPane" extendedSetupTaskbar=".\src\ApplicationBuilder\launch.png">
 	
 		<JPanel setLayout="BorderLayout" extendedLayoutApplyParent="Center">
 			<JScrollPaneResizer setName="scrollPane" extendedLayoutApplyParent="North">

@@ -1,17 +1,15 @@
 package WidgetExtensions;
 
 import java.awt.Component;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import ActionListeners.NavigationButtonActionListener;
+import Properties.PathConstants;
 
 /**
  * Holds a variable number of Components and controls/rebuilds child JComponents
@@ -20,8 +18,6 @@ public class SwappableCollection extends JPanel implements ExtendedStringCollect
 {
 	private static final long serialVersionUID = 1L;
 	
-	private static final String PATH_STRIP_FILTER = "([\\.]|[a-zA-Z])+[\\\\]"; // only using landing folder name
-
 	//conceptually holding a collection of components to be swapped/redrawn
 	private HashMap<String, List<String>> pathAndFileList = new HashMap<String, List<String>>();
 	private String path;
@@ -47,7 +43,7 @@ public class SwappableCollection extends JPanel implements ExtendedStringCollect
 		Method m;
 		try {
 			m = this.pathTextComponent.getClass().getMethod("setText", String.class);
-			m.invoke(this.pathTextComponent, filterPath(path));
+			m.invoke(this.pathTextComponent, PathConstants.filterPathToFilename(path));
 		} catch (NoSuchMethodException | SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -70,11 +66,6 @@ public class SwappableCollection extends JPanel implements ExtendedStringCollect
 	public void setTextPathComponent(Component c) 
 	{
 		this.pathTextComponent = c;
-	}
-	
-	private String filterPath(String path)
-	{
-		return path.replaceAll(PATH_STRIP_FILTER, "");
 	}
 	
 }
