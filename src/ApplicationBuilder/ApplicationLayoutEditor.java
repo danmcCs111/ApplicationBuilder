@@ -18,7 +18,7 @@ import ActionListeners.OpenParameterEditorActionListener;
 
 public class ApplicationLayoutEditor extends RedrawableFrame
 {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1887L;
 	private static final String 
 		TITLE = "Application Layout Editor",
 		FILE_MENU_TEXT = "File",
@@ -52,12 +52,13 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 				File f = new File(currentDirectory + XML_PATH_SUFFIX);
 				jfc.setFileFilter(new FileNameExtensionFilter(XML_FILTER_TITLE, XML_FILTER));
 				jfc.setSelectedFile(f);
+				
 				int choice = jfc.showOpenDialog(ApplicationLayoutEditor.this);
 				
 				File chosenFile = jfc.getSelectedFile();
 				if(chosenFile != null)
 				{
-					LoggingMessages.printOut("Chosen File: " + chosenFile.getAbsolutePath());
+					LoggingMessages.printOut("Chosen File: " + choice + " " + chosenFile.getAbsolutePath());
 					ApplicationEditorLauncher.buildAppFromXML(chosenFile.getAbsolutePath());
 				}
 			}

@@ -16,7 +16,7 @@ import Properties.PathUtility;
  */
 public class SwappableCollection extends JPanel implements ExtendedStringCollection
 {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1880L;
 	
 	//conceptually holding a collection of components to be swapped/redrawn
 	private HashMap<String, List<String>> pathAndFileList = new HashMap<String, List<String>>();

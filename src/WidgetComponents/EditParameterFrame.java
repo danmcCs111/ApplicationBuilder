@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 
 public class EditParameterFrame extends JFrame
 {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1884L;
 	private static final String TITLE_NAME_PREFIX = "Add method: ";
 	private static final Dimension 	
 		WINDOW_LOCATION = new Dimension(350, 150),

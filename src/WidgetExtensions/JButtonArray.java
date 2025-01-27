@@ -22,7 +22,7 @@ import javax.swing.JPanel;
  */
 public class JButtonArray extends JPanel implements ArrayActionListener
 {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1883L;
 	
 	public static Color []
 		backgroundAndForegroundColor = new Color [] {new JButton().getBackground(), new JButton().getForeground()},

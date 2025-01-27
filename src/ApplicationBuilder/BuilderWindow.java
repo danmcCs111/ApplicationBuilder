@@ -23,7 +23,7 @@ import WidgetUtility.WidgetAttributes;
 
 public class BuilderWindow extends RedrawableFrame 
 {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1886L;
 	private static final String TITLE = "Application Parameter Editor";
 	private static final Dimension 
 		WINDOW_LOCATION = new Dimension(100, 50),

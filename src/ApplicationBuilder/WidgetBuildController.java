@@ -1,7 +1,6 @@
 package ApplicationBuilder;
 
 import java.awt.Component;
-import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 

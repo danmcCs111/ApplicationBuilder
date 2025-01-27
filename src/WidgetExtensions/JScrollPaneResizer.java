@@ -9,7 +9,7 @@ import ApplicationBuilder.LoggingMessages;
 
 public class JScrollPaneResizer extends JScrollPane implements ResizerListener
 {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1882L;
 
 	public JScrollPaneResizer()
 	{

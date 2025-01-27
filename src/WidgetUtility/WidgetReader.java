@@ -25,7 +25,6 @@ import Params.XmlToWidgetGenerator;
  */
 public class WidgetReader 
 {
-	private static WidgetReader widgetReader = null;
 	private static ArrayList<WidgetCreatorProperty> widgetCreatorProperties = new ArrayList<WidgetCreatorProperty>(); 
 	
 	public static ArrayList<WidgetCreatorProperty> getWidgetCreatorProperties(String sourceFile)
@@ -50,7 +49,7 @@ public class WidgetReader
 	
 	private static void initWidgetReader(String sourceFile)
 	{
-		widgetReader = new WidgetReader(sourceFile);
+		new WidgetReader(sourceFile);
 	}
 	
 	private static void readWidgetBuilder(String sourceFile)
