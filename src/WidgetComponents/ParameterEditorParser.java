@@ -17,11 +17,6 @@ public class ParameterEditorParser
 		editorTypes.add(new FloatEditor());
 	}
 
-	public ParameterEditorParser()
-	{
-		
-	}
-	
 	/**
 	 * @param methodText
 	 * @return method name and parameters

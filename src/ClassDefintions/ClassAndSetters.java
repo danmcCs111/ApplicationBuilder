@@ -66,7 +66,14 @@ public class ClassAndSetters
 		{
 			if(s.startsWith(method))
 			{
-				return s;
+				//TODO fix? not checking params on match. correcting over same prefixed names
+				char af = s.subSequence(method.length(), s.length()).charAt(0);
+				String tst = af + "";
+				LoggingMessages.printOut(tst);
+				if(!tst.replaceAll("[a-zA-Z]*", "").equals(""))
+				{
+					return s;
+				}
 			}
 		}
 		//else try extended?

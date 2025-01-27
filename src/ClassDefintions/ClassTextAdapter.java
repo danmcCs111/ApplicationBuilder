@@ -3,6 +3,7 @@ package ClassDefintions;
 import java.util.ArrayList;
 import java.util.List;
 
+import ApplicationBuilder.LoggingMessages;
 import Params.ParamTypes;
 import Params.XmlToWidgetGenerator;
 import WidgetComponents.ParameterEditorParser;
@@ -15,8 +16,10 @@ public class ClassTextAdapter
 		ArrayList<String> paramDefList = parseParameterListFromMethodDefintion(methodDefintion);
 		int count = 0;
 		
+		LoggingMessages.printOut(methodDefintion);
 		for(String p : paramDefList)//loop through the method definition params
 		{
+			LoggingMessages.printOut("param: " + p);
 			StringToObjectConverter stringToObjectConverter = ParamTypes.getParamType(p).getConverter();
 			List<String> argParams = new ArrayList<String>();
 			for(int i = 0; i < stringToObjectConverter.numberOfArgs(); i++)//loop through the xml args per method def param
