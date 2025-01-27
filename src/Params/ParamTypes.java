@@ -25,16 +25,23 @@ public enum ParamTypes
 	
 	private StringToObjectConverter converter;
 	private String defintionName;
+	private Class<?> defintionClass;
 	
 	private ParamTypes(StringToObjectConverter converter)
 	{
 		this.converter = converter;
 		this.defintionName = converter.getDefinitionClass().getName();
+		this.defintionClass = converter.getClass();
 	}
 	
 	public String getDefinitionName()
 	{
 		return this.defintionName;
+	}
+	
+	public Class<?> getDefinitionClass()
+	{
+		return this.defintionClass;
 	}
 	
 	public StringToObjectConverter getConverter()
@@ -52,6 +59,24 @@ public enum ParamTypes
 		for(ParamTypes pt : ParamTypes.values())
 		{
 			if(pt.getDefinitionName().equals(definitionName))
+			{
+				retP = pt;
+				break;
+			}
+		}
+		return retP;
+	}
+	
+	/**
+	 * @param definitionName
+	 * @return ParamType or **null if not found**
+	 */
+	public static ParamTypes getParamType(Class<?> classDefinition)
+	{
+		ParamTypes retP = null;
+		for(ParamTypes pt : ParamTypes.values())
+		{
+			if(pt.getDefinitionClass().equals(classDefinition))
 			{
 				retP = pt;
 				break;

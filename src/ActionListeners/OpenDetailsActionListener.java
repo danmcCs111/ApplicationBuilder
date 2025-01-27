@@ -21,9 +21,13 @@ public class OpenDetailsActionListener implements ActionListener
 	private JButton openDetails;
 	private JList<?> componentMethods;
 	
-	public OpenDetailsActionListener(JButton openDetails, JList<?> componentMethods)
+	public OpenDetailsActionListener(JButton openDetails)
 	{
 		this.openDetails = openDetails;
+	}
+	
+	public void setComponentMethods(JList<?> componentMethods)
+	{
 		this.componentMethods = componentMethods;
 	}
 	

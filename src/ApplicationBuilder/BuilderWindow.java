@@ -29,7 +29,6 @@ public class BuilderWindow extends RedrawableFrame
 		WINDOW_LOCATION = new Dimension(100, 50),
 		WINDOW_SIZE = new Dimension(480, 640);
 	
-	
 	private HashMap<String, JList<?>> listOfComponentMethods = new HashMap<String, JList<?>>();
 	private JScrollPane scrPane = null;
 	private JPanel innerPanel2 = new JPanel();
@@ -37,6 +36,7 @@ public class BuilderWindow extends RedrawableFrame
 	private JList<?> componentMethods = null;
 	private JButton openDetails;
 	private ArrayList<String> detailsOpenList = new ArrayList<String>();
+	private OpenDetailsActionListener openDetailsActionListener;
 	
 	public BuilderWindow()
 	{
@@ -52,7 +52,8 @@ public class BuilderWindow extends RedrawableFrame
 		{
 			String comboClassStr = cs.getClazz().toString();
 			comboKeySetClasses.add(comboClassStr);
-			comboKeyAndSetClasses.put(comboClassStr, cs.getSetters());
+			LoggingMessages.printOut("class string: " + comboClassStr);
+			comboKeyAndSetClasses.put(comboClassStr, cs.getSupportedSetters());
 		}
 		
 		Collections.sort(comboKeySetClasses);
@@ -96,7 +97,9 @@ public class BuilderWindow extends RedrawableFrame
 		//setup add Property button
 		openDetails = new JButton("Add Property");
 		this.add(openDetails, BorderLayout.SOUTH);
-		openDetails.addActionListener(new OpenDetailsActionListener(openDetails, componentMethods));
+		openDetailsActionListener = new OpenDetailsActionListener(openDetails);
+		openDetails.addActionListener(openDetailsActionListener);
+		openDetailsActionListener.setComponentMethods(componentMethods);
 		openDetails.setEnabled(false);
 
 		
@@ -116,6 +119,7 @@ public class BuilderWindow extends RedrawableFrame
 	public void rebuildInnerPanels() 
 	{
 		componentMethods = listOfComponentMethods.get(classSelection.getSelectedItem());
+		openDetailsActionListener.setComponentMethods(componentMethods);
 		scrPane = new JScrollPane(componentMethods);
 		innerPanel2.add(scrPane, BorderLayout.CENTER);innerPanel2.setOpaque(rootPaneCheckingEnabled);
 		BuilderWindow.this.add(innerPanel2, BorderLayout.CENTER);
