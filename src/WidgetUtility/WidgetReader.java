@@ -69,7 +69,8 @@ public class WidgetReader
 			widgetCreatorProperties = generateWidgetCreatorPropertyList(nl, null);
 			
 		} catch (ParserConfigurationException | SAXException | IOException e) {
-			e.printStackTrace();
+			LoggingMessages.printOut("Malformed xml or non-widget build xml chosen: " + e.getMessage());
+			LoggingMessages.printOut("Cause: " + LoggingMessages.combine(e.getStackTrace()));
 		}
 	}
 	

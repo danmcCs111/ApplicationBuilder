@@ -36,6 +36,12 @@ public class WidgetBuildController
 	{
 		widgetCreatorProperties = WidgetReader.getWidgetCreatorProperties(sourceFile);
 		
+		if(widgetCreatorProperties == null || widgetCreatorProperties.isEmpty())
+		{
+			LoggingMessages.printOut("No widget creation file found while using path: " + sourceFile);
+			return;
+		}
+		
 		LoggingMessages.printOut("-->Widget Creator Properties<--");
 		
 		for(WidgetCreatorProperty wcProp : widgetCreatorProperties)//TODO 
