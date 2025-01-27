@@ -1,6 +1,7 @@
 package ApplicationBuilder;
 
 import java.awt.Component;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,19 +22,20 @@ public class WidgetBuildController
 	};
 	
 	private ArrayList<WidgetCreatorProperty> widgetCreatorProperties;
-	private String sourceFile;
-	
-	public WidgetBuildController(String sourceFile)
-	{
-		this.sourceFile = sourceFile;
-		readProperties();
-	}
 	
 	/**
 	 * read the properties of the source file passed during construction
 	 */
-	private void readProperties()
+	public void readProperties(String sourceFile)
 	{
+		if(widgetCreatorProperties != null && !widgetCreatorProperties.isEmpty())
+		{
+			JFrame frame = (JFrame) widgetCreatorProperties.get(0).getInstance();
+			frame.setVisible(false);
+			frame.dispose();
+			widgetCreatorProperties.clear();
+		}
+		
 		widgetCreatorProperties = WidgetReader.getWidgetCreatorProperties(sourceFile);
 		
 		if(widgetCreatorProperties == null || widgetCreatorProperties.isEmpty())
@@ -55,6 +57,7 @@ public class WidgetBuildController
 		generate(widgetCreatorProperties);
 		
 		JFrame frame = (JFrame) widgetCreatorProperties.get(0).getInstance();
+		
 		frame.setVisible(true);
 		
 		printComponents((JComponent) frame.getComponent(0));
