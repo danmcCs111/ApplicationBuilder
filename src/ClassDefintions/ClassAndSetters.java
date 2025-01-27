@@ -60,14 +60,14 @@ public class ClassAndSetters
 		return tmp;
 	}
 	
-	public String getSetter(String method)
+	public String getSetter(String methodName)
 	{
-		for(String s : this.setters)
+		for(String s : this.setters)//working off of a method def
 		{
-			if(s.startsWith(method))
+			if(s.startsWith(methodName))
 			{
 				//TODO fix? not checking params on match. correcting over same prefixed names
-				char af = s.subSequence(method.length(), s.length()).charAt(0);
+				char af = s.subSequence(methodName.length(), s.length()).charAt(0);
 				String tst = af + "";
 				LoggingMessages.printOut(tst);
 				if(!tst.replaceAll("[a-zA-Z]*", "").equals(""))
@@ -77,7 +77,7 @@ public class ClassAndSetters
 			}
 		}
 		//else try extended?
-		return getExtendedSetter(method);
+		return getExtendedSetter(methodName);
 	}
 	
 	public void addExtendedSetters(String ... setterExtended)
