@@ -12,7 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import ActionListeners.OpenParameterEditorActionListener;
@@ -54,7 +53,6 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 				jfc.setSelectedFile(f);
 				int choice = jfc.showOpenDialog(ApplicationLayoutEditor.this);
 
-				if (choice != JFileChooser.APPROVE_OPTION) return;
 				File chosenFile = jfc.getSelectedFile();
 				if(chosenFile != null)
 				{
