@@ -50,8 +50,7 @@ public class WidgetReader
 	
 	private static void initWidgetReader(String sourceFile)
 	{
-		if(widgetReader == null)
-			widgetReader = new WidgetReader(sourceFile);
+		widgetReader = new WidgetReader(sourceFile);
 	}
 	
 	private static void readWidgetBuilder(String sourceFile)

@@ -23,7 +23,7 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 		TITLE = "Application Layout Editor",
 		FILE_MENU_TEXT = "File",
 		MENU_ITEM_OPEN_TEXT = "Open",
-		XML_PATH_SUFFIX = "\\src\\ApplicationBuilder\\data\\",
+		XML_PATH_SUFFIX = "\\src\\ApplicationBuilder\\data\\ ",
 		XML_FILTER_TITLE = "XML Build File",
 		XML_FILTER = "xml";
 	
@@ -47,16 +47,17 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser jfc = new JFileChooser();
 				String currentDirectory = System.getProperty("user.dir");
-				LoggingMessages.printOut(currentDirectory);
+				LoggingMessages.printOut("Current Directory: " + currentDirectory);
+				LoggingMessages.printOut("Dialog Directory: " + currentDirectory + XML_PATH_SUFFIX);
 				File f = new File(currentDirectory + XML_PATH_SUFFIX);
 				jfc.setFileFilter(new FileNameExtensionFilter(XML_FILTER_TITLE, XML_FILTER));
 				jfc.setSelectedFile(f);
 				int choice = jfc.showOpenDialog(ApplicationLayoutEditor.this);
-
+				
 				File chosenFile = jfc.getSelectedFile();
 				if(chosenFile != null)
 				{
-					LoggingMessages.printOut(chosenFile.getAbsolutePath());
+					LoggingMessages.printOut("Chosen File: " + chosenFile.getAbsolutePath());
 					ApplicationEditorLauncher.buildAppFromXML(chosenFile.getAbsolutePath());
 				}
 			}
