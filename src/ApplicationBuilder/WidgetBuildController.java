@@ -20,7 +20,7 @@ public class WidgetBuildController
 		ExtendedLayoutApplyParent.class, ExtendedTextStripper.class
 	};
 	
-	private ArrayList<WidgetCreatorProperty> widgetCreatorProperties;
+	private static ArrayList<WidgetCreatorProperty> widgetCreatorProperties;
 	
 	/**
 	 * read the properties of the source file passed during construction
@@ -29,10 +29,7 @@ public class WidgetBuildController
 	{
 		if(widgetCreatorProperties != null && !widgetCreatorProperties.isEmpty())
 		{
-			JFrame frame = (JFrame) widgetCreatorProperties.get(0).getInstance();
-			frame.setVisible(false);
-			frame.dispose();
-			widgetCreatorProperties.clear();
+			destroyGeneratedFrame();
 		}
 		
 		widgetCreatorProperties = WidgetReader.getWidgetCreatorProperties(sourceFile);
@@ -63,6 +60,31 @@ public class WidgetBuildController
 		
 	}
 	
+	public static List<WidgetCreatorProperty> getWidgetCreationProperties()
+	{
+		return widgetCreatorProperties;
+	}
+	
+	public static void destroyGeneratedFrame()
+	{
+		JFrame frame = (JFrame) widgetCreatorProperties.get(0).getInstance();
+		frame.setVisible(false);
+		frame.dispose();
+		widgetCreatorProperties.clear();
+	}
+	
+	public static WidgetCreatorProperty findRef(String ref)
+	{
+		for(WidgetCreatorProperty wcp : getWidgetCreationProperties())
+		{
+			if(wcp.isThisRef(ref))
+			{
+				return wcp;
+			}
+		}
+		return null;
+	}
+	
 	private static void printComponents(JComponent frame)
 	{
 		for(Component c : frame.getComponents())
@@ -79,12 +101,7 @@ public class WidgetBuildController
 		}
 	}
 	
-	public List<WidgetCreatorProperty> getWidgetCreationProperties()
-	{
-		return this.widgetCreatorProperties;
-	}
-	
-	private ArrayList<XmlToWidgetGenerator> orderGenerators(ArrayList<XmlToWidgetGenerator> generators)
+	private static ArrayList<XmlToWidgetGenerator> orderGenerators(ArrayList<XmlToWidgetGenerator> generators)
 	{
 		ArrayList<XmlToWidgetGenerator> tmp = new ArrayList<XmlToWidgetGenerator>();
 		ArrayList<XmlToWidgetGenerator> orderedGenerators = new ArrayList<XmlToWidgetGenerator>();
@@ -128,7 +145,7 @@ public class WidgetBuildController
 						parentObj = wc.getInstance();
 					}
 					LoggingMessages.printOut("Extended Class: " + c.toString() + " **PARENT CLASS**: " + parentObj);
-					g.generateExtended(c, this, w);
+					g.generateExtended(c, WidgetBuildController.this, w);
 				}
 				else
 				{
@@ -153,17 +170,5 @@ public class WidgetBuildController
 			//return null
 		}
 		return c;
-	}
-	
-	public WidgetCreatorProperty findRef(String ref)
-	{
-		for(WidgetCreatorProperty wcp : getWidgetCreationProperties())
-		{
-			if(wcp.isThisRef(ref))
-			{
-				return wcp;
-			}
-		}
-		return null;
 	}
 }

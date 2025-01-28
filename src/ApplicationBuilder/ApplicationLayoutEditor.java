@@ -23,6 +23,7 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 		TITLE = "Application Layout Editor",
 		FILE_MENU_TEXT = "File",
 		MENU_ITEM_OPEN_TEXT = "Open",
+		MENU_ITEM_CLOSE_TEXT = "Close Project",
 		XML_PATH_SUFFIX = "\\src\\ApplicationBuilder\\data\\ ",
 		XML_FILTER_TITLE = "XML Build File",
 		XML_FILTER = "xml";
@@ -64,6 +65,15 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 			}
 		});
 		menu.add(open);
+		
+		JMenuItem closeProj = new JMenuItem(MENU_ITEM_CLOSE_TEXT);
+		closeProj.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				WidgetBuildController.destroyGeneratedFrame();
+			}
+		});
+		menu.add(closeProj);
 		
 		menuBar.add(menu);
 		this.setJMenuBar(menuBar);
