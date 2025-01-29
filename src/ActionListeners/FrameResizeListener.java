@@ -7,6 +7,7 @@ import java.awt.event.ComponentEvent;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 import javax.swing.JFrame;
@@ -20,8 +21,10 @@ public class FrameResizeListener extends ComponentAdapter
 	private ArrayList<Component> allComponents = new ArrayList<Component>();
 	private HashMap<Component, String> componentAndText = new HashMap<Component, String>();
 	private HashMap<Container, ArrayList<Component>> 
-		lastParentAndComponents = new HashMap<Container, ArrayList<Component>>(),
-		lastParentAndComponentsPrevValues = new HashMap<Container, ArrayList<Component>>();
+		lastParentAndComponents = new HashMap<Container, ArrayList<Component>>();
+	private String 
+		compCombineCurrent = "",
+		compCombineLast = "";
 	
 	private JFrame frame;
 	private ExtendedFrameResizer resizerListener;
@@ -82,38 +85,23 @@ public class FrameResizeListener extends ComponentAdapter
 	{
 		int heightPandF [] = new int [] {0,0};
 		
-		if(!lastParentAndComponents.values().equals(lastParentAndComponentsPrevValues.values()))
+		if (lastParentAndComponents != null && !lastParentAndComponents.isEmpty())
 		{
-			lastParentAndComponents.clear();
-		}
-		
-		if(lastParentAndComponents.isEmpty())
-		{
-			for(Component c : componentAndText.keySet())
+			compCombineCurrent = FrameResizeListener.combineForComponentsID(lastParentAndComponents.values());
+			if(!compCombineCurrent.equals(compCombineLast))
 			{
-				Container lastParent = null;
-				ArrayList<Component> comps = null;
-				
-				if(c.getParent() != null)
-				{
-					//ignore scroll pane and scroll bar
-					if(!(c instanceof JScrollPane) && !(c instanceof JScrollBar))
-					{
-						lastParent = getLastParent(c, c.getParent(), frame.getContentPane());
-						if(lastParentAndComponents.containsKey(lastParent))
-						{
-							comps = lastParentAndComponents.get(lastParent);
-							comps.add(c);
-							lastParentAndComponents.replace(lastParent, comps);
-						}
-						else
-						{
-							comps = new ArrayList<Component>();
-							comps.add(c);
-							lastParentAndComponents.put(lastParent, comps);
-						}
-					}
-				}
+				lastParentAndComponents.clear();
+				collectLastParentAndComponents();
+			}
+			compCombineLast = FrameResizeListener.combineForComponentsID(lastParentAndComponents.values());
+		}
+		else
+		{
+			collectLastParentAndComponents();
+			if (lastParentAndComponents != null && !lastParentAndComponents.isEmpty())
+			{
+				compCombineCurrent = FrameResizeListener.combineForComponentsID(lastParentAndComponents.values());
+				compCombineLast = compCombineCurrent;
 			}
 		}
 		
@@ -130,10 +118,50 @@ public class FrameResizeListener extends ComponentAdapter
 			}
 		}
 		
-		lastParentAndComponentsPrevValues.clear();
-		lastParentAndComponentsPrevValues.putAll(lastParentAndComponents);
-		
 		return (heightPandF[0] > heightPandF[1]);
+	}
+	
+	private void collectLastParentAndComponents()
+	{
+		for(Component c : componentAndText.keySet())
+		{
+			Container lastParent = null;
+			ArrayList<Component> comps = null;
+			
+			if(c.getParent() != null)
+			{
+				//ignore scroll pane and scroll bar
+				if(!(c instanceof JScrollPane) && !(c instanceof JScrollBar))
+				{
+					lastParent = getLastParent(c, c.getParent(), frame.getContentPane());
+					if(lastParentAndComponents.containsKey(lastParent))
+					{
+						comps = lastParentAndComponents.get(lastParent);
+						comps.add(c);
+						lastParentAndComponents.replace(lastParent, comps);
+					}
+					else
+					{
+						comps = new ArrayList<Component>();
+						comps.add(c);
+						lastParentAndComponents.put(lastParent, comps);
+					}
+				}
+			}
+		}
+	}
+	
+	private static String combineForComponentsID(Collection<ArrayList<Component>> out)
+	{
+		StringBuffer sb = new StringBuffer();
+		for(ArrayList<Component> al : out)
+		{
+			for(Component s : al)
+			{
+				sb.append(((Component)s).getName() + ", ");
+			}
+		}
+		return (String) sb.subSequence(0, sb.length() - ", ".length());
 	}
 	
 	private Container getLastParent(Component c, Container parent, Container root)
