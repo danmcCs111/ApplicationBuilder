@@ -5,7 +5,6 @@ import javax.swing.SwingUtilities;
 public class ApplicationEditorLauncher 
 {
 	private static final String SOURCE_FILE = "src\\ApplicationBuilder\\data\\WidgetBuild.xml";
-	private static WidgetBuildController widgetBuildController;
 	
 	public static void main(String [] args)
 	{
@@ -21,10 +20,6 @@ public class ApplicationEditorLauncher
 	
 	public static void buildAppFromXML(String SOURCE_FILE)
 	{
-		if(widgetBuildController == null)
-		{
-			widgetBuildController = WidgetBuildController.getInstance();
-		}
-		widgetBuildController.readProperties(SOURCE_FILE);
+		WidgetBuildController.readProperties(SOURCE_FILE);
 	}
 }

@@ -20,19 +20,19 @@ public class WidgetBuildController
 		ExtendedLayoutApplyParent.class, ExtendedTextStripper.class
 	};
 	
-	private static final ArrayList<WidgetCreatorProperty> widgetCreatorProperties = new ArrayList<WidgetCreatorProperty>();
-	private static final WidgetBuildController widgetBuildController = WidgetBuildController.getInstance();
+	private static ArrayList<WidgetCreatorProperty> widgetCreatorProperties;
+	private static WidgetBuildController widgetBuildController;
 	
 	private WidgetBuildController()
 	{
 		
 	}
 	
-	public static WidgetBuildController getInstance()
+	public static WidgetBuildController getInstance() 
 	{
 		if(widgetBuildController == null)
 		{
-			return new WidgetBuildController();
+			widgetBuildController = new WidgetBuildController();
 		}
 		return widgetBuildController;
 	}
@@ -43,8 +43,7 @@ public class WidgetBuildController
 	public static void readProperties(String sourceFile)
 	{
 		destroyGeneratedFrame();
-		widgetCreatorProperties.clear();
-		widgetCreatorProperties.addAll(WidgetReader.collectWidgetCreatorProperties(sourceFile));
+		widgetCreatorProperties = (WidgetReader.collectWidgetCreatorProperties(sourceFile));
 		
 		if(widgetCreatorProperties == null || widgetCreatorProperties.isEmpty())
 		{
