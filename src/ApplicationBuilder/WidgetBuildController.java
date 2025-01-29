@@ -21,7 +21,7 @@ public class WidgetBuildController
 	};
 	
 	private static ArrayList<WidgetCreatorProperty> widgetCreatorProperties;
-	private static WidgetBuildController widgetBuildController;
+	private static WidgetBuildController widgetBuildController = WidgetBuildController.getInstance();
 	
 	private WidgetBuildController()
 	{

@@ -70,8 +70,8 @@ public class XmlToWidgetGenerator
 	{
 		Method m;
 		try {
-			Object [] os = new Object [stringToObjectConverterList.size() + 2];
-			Class<?> [] cs = new Class<?> [stringToObjectConverterList.size() + 2];
+			Object [] os = new Object [stringToObjectConverterList.size() + 1];//ADD [number] for params listed additionally
+			Class<?> [] cs = new Class<?> [stringToObjectConverterList.size() + 1];
 			for(int i = 0; i < stringToObjectConverterList.size(); i++)
 			{
 				List<String> params = paramsList.get(i);
@@ -80,10 +80,7 @@ public class XmlToWidgetGenerator
 				cs[i]=sc.getDefinitionClass();
 			}
 			
-			cs[cs.length-2] = WidgetBuildController.class;
-			os[os.length-2] = widgetBuildController;
-			
-			cs[cs.length-1] = WidgetCreatorProperty.class;
+			cs[cs.length-1] = WidgetCreatorProperty.class;//additional added params for extended methods
 			os[os.length-1] = widgetProperties;
 			
 			Object tmp = extendedAttr.newInstance();
