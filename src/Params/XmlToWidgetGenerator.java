@@ -51,15 +51,12 @@ public class XmlToWidgetGenerator
 			Method m = o.getClass().getMethod(methodName, cs);
 			m.invoke(o, os);
 		} catch (NoSuchMethodException e) {
-//			generateExtended(o, cs, os);
+			e.printStackTrace();
 		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -88,19 +85,14 @@ public class XmlToWidgetGenerator
 			m = tmp.getClass().getMethod("applyMethod", cs);
 			m.invoke(tmp, os);
 		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -25,13 +25,10 @@ public class WindowListenerConverter implements StringToObjectConverter
 			c = Class.forName(args[0]);
 			return c.newInstance();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;

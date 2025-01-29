@@ -41,8 +41,7 @@ public class FrameResizeListener extends ComponentAdapter
 	@Override
 	public void componentResized(ComponentEvent e) 
 	{
-		clearComponentsList();
-		
+		clearComponentsList();//TODO attach to a Frame contents change listner?
 		collectAllComponents(frame.getContentPane());
 		collectTextWidgets();
 		
@@ -153,15 +152,16 @@ public class FrameResizeListener extends ComponentAdapter
 	
 	private static String combineForComponentsID(Collection<ArrayList<Component>> out)
 	{
+		String combine_delimiter = ", ";
 		StringBuffer sb = new StringBuffer();
 		for(ArrayList<Component> al : out)
 		{
 			for(Component s : al)
 			{
-				sb.append(((Component)s).getName() + ", ");
+				sb.append(((Component)s).getName() + combine_delimiter);
 			}
 		}
-		return (String) sb.subSequence(0, sb.length() - ", ".length());
+		return (String) sb.subSequence(0, sb.length() - combine_delimiter.length());
 	}
 	
 	private Container getLastParent(Component c, Container parent, Container root)
