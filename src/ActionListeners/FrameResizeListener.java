@@ -19,6 +19,9 @@ public class FrameResizeListener extends ComponentAdapter
 {
 	private ArrayList<Component> allComponents = new ArrayList<Component>();
 	private HashMap<Component, String> componentAndText = new HashMap<Component, String>();
+	private HashMap<Container, ArrayList<Component>> 
+		lastParentAndComponents = new HashMap<Container, ArrayList<Component>>(),
+		lastParentAndComponentsPrevValues = new HashMap<Container, ArrayList<Component>>();
 	
 	private JFrame frame;
 	private ExtendedFrameResizer resizerListener;
@@ -75,50 +78,61 @@ public class FrameResizeListener extends ComponentAdapter
 		return;
 	}
 	
-	private boolean isHeightLimited()
+	private boolean isHeightLimited()//TODO mark explicit?
 	{
 		int heightPandF [] = new int [] {0,0};
 		
-		HashMap<Container, ArrayList<Component>> lastParentAndComponents = new HashMap<Container, ArrayList<Component>>();
-				
-		for(Component c : componentAndText.keySet())
+		if(!lastParentAndComponents.values().equals(lastParentAndComponentsPrevValues.values()))
 		{
-			Container lastParent = null;
-			ArrayList<Component> comps = null;
-			
-			if(c.getParent() != null)
+			lastParentAndComponents.clear();
+		}
+		
+		if(lastParentAndComponents.isEmpty())
+		{
+			for(Component c : componentAndText.keySet())
 			{
-				//ignore scroll pane and scroll bar
-				if(!(c instanceof JScrollPane) && !(c instanceof JScrollBar))
-				{
-					lastParent = getLastParent(c, c.getParent(), frame.getContentPane());
-					if(lastParentAndComponents.containsKey(lastParent))
-					{
-						comps = lastParentAndComponents.get(lastParent);
-						comps.add(c);
-						lastParentAndComponents.replace(lastParent, comps);
-					}
-					else
-					{
-						comps = new ArrayList<Component>();
-						comps.add(c);
-						lastParentAndComponents.put(lastParent, comps);
-					}
-				}
-			}
-			for(Container c2 : lastParentAndComponents.keySet())
-			{
-				int ind = c2.equals(frame) ? 1 : 0;
+				Container lastParent = null;
+				ArrayList<Component> comps = null;
 				
-				for(Component comp : lastParentAndComponents.get(c2))
+				if(c.getParent() != null)
 				{
-					if(heightPandF[ind] < comp.getBounds().height)
+					//ignore scroll pane and scroll bar
+					if(!(c instanceof JScrollPane) && !(c instanceof JScrollBar))
 					{
-						heightPandF[ind] = comp.getBounds().height;
+						lastParent = getLastParent(c, c.getParent(), frame.getContentPane());
+						if(lastParentAndComponents.containsKey(lastParent))
+						{
+							comps = lastParentAndComponents.get(lastParent);
+							comps.add(c);
+							lastParentAndComponents.replace(lastParent, comps);
+						}
+						else
+						{
+							comps = new ArrayList<Component>();
+							comps.add(c);
+							lastParentAndComponents.put(lastParent, comps);
+						}
 					}
 				}
 			}
 		}
+		
+		for(Container c2 : lastParentAndComponents.keySet())
+		{
+			int ind = c2.equals(frame) ? 1 : 0;
+			
+			for(Component comp : lastParentAndComponents.get(c2))
+			{
+				if(heightPandF[ind] < comp.getBounds().height)
+				{
+					heightPandF[ind] = comp.getBounds().height;
+				}
+			}
+		}
+		
+		lastParentAndComponentsPrevValues.clear();
+		lastParentAndComponentsPrevValues.putAll(lastParentAndComponents);
+		
 		return (heightPandF[0] > heightPandF[1]);
 	}
 	
