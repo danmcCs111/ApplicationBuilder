@@ -10,9 +10,9 @@ import WidgetUtility.WidgetCreatorProperty;
 public class ExtendedLayoutApplyParent implements ExtendedAttributeStringParam
 {
 	@Override
-	public void applyMethod(String arg0, WidgetBuildController wbc, WidgetCreatorProperty widgetProperties) 
+	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 
 	{
-		WidgetCreatorProperty parentProp = wbc.findRef(widgetProperties.getParentRef());
+		WidgetCreatorProperty parentProp = WidgetBuildController.findRef(widgetProperties.getParentRef());
 		Object parentComp = parentProp.getInstance();
 		Object comp = widgetProperties.getInstance();
 		

@@ -9,9 +9,9 @@ public interface ArrayActionListener
 {
 	public abstract void addActionListener(ActionListener actionListener);
 	
-	public static ArrayActionListener findInstanceOfArrayActionListener(WidgetBuildController wbc)
+	public static ArrayActionListener findInstanceOfArrayActionListener()
 	{
-		for(WidgetCreatorProperty wcp : wbc.getWidgetCreationProperties())
+		for(WidgetCreatorProperty wcp : WidgetBuildController.getWidgetCreationProperties())
 		{
 			if(wcp.getInstance() instanceof ArrayActionListener)
 			{

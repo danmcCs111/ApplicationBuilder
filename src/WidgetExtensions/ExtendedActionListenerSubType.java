@@ -5,14 +5,13 @@ import javax.swing.AbstractButton;
 
 import ActionListeners.ActionListenerSubTypeExtension;
 import ApplicationBuilder.LoggingMessages;
-import ApplicationBuilder.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
 public class ExtendedActionListenerSubType implements ExtendedAttributeStringParam
 {
 	
 	@Override
-	public void applyMethod(String arg0, WidgetBuildController wbc, WidgetCreatorProperty widgetProperties) 
+	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 
 	{
 		String [] paths = arg0.split(ARG_DELIMITER);
 		

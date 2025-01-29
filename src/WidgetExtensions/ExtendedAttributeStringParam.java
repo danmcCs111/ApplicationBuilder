@@ -25,11 +25,11 @@ public interface ExtendedAttributeStringParam
 		return methodDef;
 	}
 	
-	public abstract void applyMethod(String arg0, WidgetBuildController wbc, WidgetCreatorProperty widgetProperties);
+	public abstract void applyMethod(String arg0, WidgetCreatorProperty widgetProperties);
 	
-	public static JComponent findComponent(WidgetBuildController wbc, Class<?> clazz)
+	public static JComponent findComponent(Class<?> clazz)
 	{
-		for(WidgetCreatorProperty wcp : wbc.getWidgetCreationProperties())
+		for(WidgetCreatorProperty wcp : WidgetBuildController.getWidgetCreationProperties())
 		{
 			if(wcp.getInstance().getClass().equals(clazz))
 			{
@@ -39,9 +39,9 @@ public interface ExtendedAttributeStringParam
 		return null;
 	}
 	
-	public static Component findComponentByName(WidgetBuildController wbc, String name)
+	public static Component findComponentByName(String name)
 	{
-		for(WidgetCreatorProperty wcp : wbc.getWidgetCreationProperties())
+		for(WidgetCreatorProperty wcp : WidgetBuildController.getWidgetCreationProperties())
 		{
 			Component c = (Component) wcp.getInstance();
 			if(name.equals(c.getName()))

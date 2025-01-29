@@ -4,14 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 
 import ApplicationBuilder.LoggingMessages;
-import ApplicationBuilder.WidgetBuildController;
 import Properties.PathUtility;
 import WidgetUtility.WidgetCreatorProperty;
 
 public class ExtendedArrayProcessingPath implements ExtendedAttributeStringParam
 {
 	@Override
-	public void applyMethod(String path, WidgetBuildController wbc, WidgetCreatorProperty widgetProperties)
+	public void applyMethod(String path, WidgetCreatorProperty widgetProperties)
 	{
 		HashMap<String, List<String>> pathAndFileList = new HashMap<String, List<String>>();
 		String [] paths = null;
@@ -33,7 +32,7 @@ public class ExtendedArrayProcessingPath implements ExtendedAttributeStringParam
 			
 			pathAndFileList.put(p, PathUtility.getOSFileList(p, f));
 		}
-		SwappableCollection sc = (SwappableCollection) ExtendedAttributeStringParam.findComponent(wbc, SwappableCollection.class);
+		SwappableCollection sc = (SwappableCollection) ExtendedAttributeStringParam.findComponent(SwappableCollection.class);
 		sc.setPathAndFileList(pathAndFileList);
 	}
 	

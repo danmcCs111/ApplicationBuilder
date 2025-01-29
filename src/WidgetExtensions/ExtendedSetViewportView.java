@@ -11,9 +11,9 @@ public class ExtendedSetViewportView implements ExtendedAttributeStringParam
 {
 
 	@Override
-	public void applyMethod(String arg0, WidgetBuildController wbc, WidgetCreatorProperty widgetProperties) 
+	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 
 	{
-		WidgetCreatorProperty parentWidget = wbc.findRef(widgetProperties.getParentRef());
+		WidgetCreatorProperty parentWidget = WidgetBuildController.findRef(widgetProperties.getParentRef());
 		JScrollPane scrollPane = (JScrollPane) parentWidget.getInstance();
 		scrollPane.setViewportView((Component) widgetProperties.getInstance());
 	}

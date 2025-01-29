@@ -22,11 +22,11 @@ public class ExtendedCalculationPad implements ExtendedAttributeStringParam
 		panel;
 	
 	@Override
-	public void applyMethod(String arg0, WidgetBuildController wbc, WidgetCreatorProperty widgetProperties) 
+	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 
 	{
 		LoggingMessages.printOut(this.getClass().toString());
 		this.thisComp = (JComponent) widgetProperties.getInstance();
-		this.frame = (Container) wbc.getWidgetCreationProperties().get(0).getInstance();
+		this.frame = (Container) WidgetBuildController.getWidgetCreationProperties().get(0).getInstance();
 		this.panel = this.thisComp.getParent();
 		this.targetComp = getTargetComponent(panel, arg0);
 		

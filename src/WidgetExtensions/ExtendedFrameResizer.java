@@ -13,14 +13,12 @@ import WidgetUtility.WidgetCreatorProperty;
  */
 public class ExtendedFrameResizer implements ExtendedAttributeStringParam
 {
-	private WidgetBuildController wbc = null;
 	private String compName;
 	public static final int INTERNAL_RESIZE_EVENT = 999;
 	
 	@Override
-	public void applyMethod(String arg0, WidgetBuildController wbc, WidgetCreatorProperty widgetProperties) 
+	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 
 	{
-		this.wbc = wbc;
 		this.compName = arg0;
 		JFrame frame = (JFrame) widgetProperties.getInstance();
 		FrameResizeListener frListener = new FrameResizeListener(frame, this);
@@ -29,7 +27,7 @@ public class ExtendedFrameResizer implements ExtendedAttributeStringParam
 	
 	public ResizerListener getResizeListener()
 	{
-		for(WidgetCreatorProperty wcp : wbc.getWidgetCreationProperties())
+		for(WidgetCreatorProperty wcp : WidgetBuildController.getWidgetCreationProperties())
 		{
 			Object o = wcp.getInstance();
 			if(o instanceof Component)

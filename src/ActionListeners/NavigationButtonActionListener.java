@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import ApplicationBuilder.LoggingMessages;
-import ApplicationBuilder.WidgetBuildController;
 import WidgetExtensions.ActionListenerExtension;
 import WidgetExtensions.Direction;
 import WidgetExtensions.ExtendedAttributeStringParam;
@@ -21,7 +20,6 @@ public class NavigationButtonActionListener implements ActionListener, ActionLis
 		curPosition = 0, 
 		lastIndex = 0;
 	private static List<ActionListenerExtension> actionListenerExtensions = new ArrayList<ActionListenerExtension>();
-	private static WidgetBuildController widgetBuildController;
 	private static Component connectedComp;
 	
 	private Direction direction = null;
@@ -63,7 +61,7 @@ public class NavigationButtonActionListener implements ActionListener, ActionLis
 		}
 		
 		LoggingMessages.printOut(key);
-		JButtonArray buttonArray = (JButtonArray) ExtendedAttributeStringParam.findComponent(widgetBuildController, JButtonArray.class);
+		JButtonArray buttonArray = (JButtonArray) ExtendedAttributeStringParam.findComponent(JButtonArray.class);
 		buttonArray.addJButtons(key, pathAndFileList.get(key), curPosition);
 	}
 	
@@ -87,9 +85,4 @@ public class NavigationButtonActionListener implements ActionListener, ActionLis
 		connectedComp = comp;
 	}
 	
-	@Override
-	public void setWidgetBuildController(WidgetBuildController wbc)
-	{
-		widgetBuildController = wbc;
-	}
 }
