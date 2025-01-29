@@ -27,7 +27,7 @@ public class WidgetReader
 {
 	private static ArrayList<WidgetCreatorProperty> widgetCreatorProperties = new ArrayList<WidgetCreatorProperty>(); 
 	
-	public static ArrayList<WidgetCreatorProperty> getWidgetCreatorProperties(String sourceFile)
+	public static ArrayList<WidgetCreatorProperty> collectWidgetCreatorProperties(String sourceFile)
 	{
 		initWidgetReader(sourceFile);
 		for(WidgetCreatorProperty wcp : widgetCreatorProperties)

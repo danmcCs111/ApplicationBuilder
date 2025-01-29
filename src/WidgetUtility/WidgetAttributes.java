@@ -31,6 +31,7 @@ import WidgetExtensions.ExtendedActionListenerSubType;
 import WidgetExtensions.ExtendedArrayProcessingPath;
 import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetExtensions.ExtendedCalculationPad;
+import WidgetExtensions.ExtendedClipboard;
 import WidgetExtensions.ExtendedFrameResizer;
 import WidgetExtensions.ExtendedLayoutApplyParent;
 import WidgetExtensions.ExtendedSetJMenuBarParent;
@@ -72,7 +73,8 @@ public class WidgetAttributes
 	static {
 		EXTENDED_METHODS.put(JFrame.class, new String [] {
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedFrameResizer.class),
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedSetupTaskbar.class)
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedSetupTaskbar.class),
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedClipboard.class)
 		});
 		EXTENDED_METHODS.put(JPanel.class, new String [] {
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),

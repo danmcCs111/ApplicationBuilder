@@ -23,7 +23,7 @@ public class ApplicationEditorLauncher
 	{
 		if(widgetBuildController == null)
 		{
-			widgetBuildController = new WidgetBuildController();
+			widgetBuildController = WidgetBuildController.getInstance();
 		}
 		widgetBuildController.readProperties(SOURCE_FILE);
 	}

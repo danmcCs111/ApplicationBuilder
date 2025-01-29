@@ -20,19 +20,31 @@ public class WidgetBuildController
 		ExtendedLayoutApplyParent.class, ExtendedTextStripper.class
 	};
 	
-	private static ArrayList<WidgetCreatorProperty> widgetCreatorProperties;
+	private static final ArrayList<WidgetCreatorProperty> widgetCreatorProperties = new ArrayList<WidgetCreatorProperty>();
+	private static final WidgetBuildController widgetBuildController = WidgetBuildController.getInstance();
+	
+	private WidgetBuildController()
+	{
+		
+	}
+	
+	public static WidgetBuildController getInstance()
+	{
+		if(widgetBuildController == null)
+		{
+			return new WidgetBuildController();
+		}
+		return widgetBuildController;
+	}
 	
 	/**
 	 * read the properties of the source file passed during construction
 	 */
-	public void readProperties(String sourceFile)
+	public static void readProperties(String sourceFile)
 	{
-		if(widgetCreatorProperties != null && !widgetCreatorProperties.isEmpty())
-		{
-			destroyGeneratedFrame();
-		}
-		
-		widgetCreatorProperties = WidgetReader.getWidgetCreatorProperties(sourceFile);
+		destroyGeneratedFrame();
+		widgetCreatorProperties.clear();
+		widgetCreatorProperties.addAll(WidgetReader.collectWidgetCreatorProperties(sourceFile));
 		
 		if(widgetCreatorProperties == null || widgetCreatorProperties.isEmpty())
 		{
@@ -50,7 +62,7 @@ public class WidgetBuildController
 		
 		LoggingMessages.printNewLine();
 		LoggingMessages.printOut("-->Widget Generation<--");
-		generate(widgetCreatorProperties);
+		generateGraphicalInterface(widgetCreatorProperties);
 		
 		JFrame frame = (JFrame) widgetCreatorProperties.get(0).getInstance();
 		
@@ -67,10 +79,13 @@ public class WidgetBuildController
 	
 	public static void destroyGeneratedFrame()
 	{
-		JFrame frame = (JFrame) widgetCreatorProperties.get(0).getInstance();
-		frame.setVisible(false);
-		frame.dispose();
-		widgetCreatorProperties.clear();
+		if(widgetCreatorProperties != null && !widgetCreatorProperties.isEmpty())
+		{
+			JFrame frame = (JFrame) widgetCreatorProperties.get(0).getInstance();
+			frame.setVisible(false);
+			frame.dispose();
+			widgetCreatorProperties.clear();
+		}
 	}
 	
 	public static WidgetCreatorProperty findRef(String ref)
@@ -125,7 +140,7 @@ public class WidgetBuildController
 		return orderedGenerators;
 	}
 	
-	private void generate (List<WidgetCreatorProperty> widgets)
+	private static void generateGraphicalInterface (List<WidgetCreatorProperty> widgets)
 	{
 		for(WidgetCreatorProperty w : widgets)
 		{
@@ -145,7 +160,7 @@ public class WidgetBuildController
 						parentObj = wc.getInstance();
 					}
 					LoggingMessages.printOut("Extended Class: " + c.toString() + " **PARENT CLASS**: " + parentObj);
-					g.generateExtended(c, WidgetBuildController.this, w);
+					g.generateExtended(c, WidgetBuildController.getInstance(), w);
 				}
 				else
 				{
