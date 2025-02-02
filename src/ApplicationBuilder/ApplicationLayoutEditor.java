@@ -60,7 +60,8 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 				if(chosenFile != null)
 				{
 					LoggingMessages.printOut("Chosen File: " + choice + " " + chosenFile.getAbsolutePath());
-					ApplicationEditorLauncher.buildAppFromXML(chosenFile.getAbsolutePath());
+					WidgetBuildController.readProperties(chosenFile);
+					WidgetBuildController.generateGraphicalInterface(WidgetBuildController.getWidgetCreationProperties());
 				}
 			}
 		});

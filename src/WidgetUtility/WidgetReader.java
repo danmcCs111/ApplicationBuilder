@@ -46,12 +46,20 @@ public class WidgetReader
 	{
 		readWidgetBuilder(sourceFile);
 	}
+	private WidgetReader(File sourceFile)
+	{
+		readWidgetBuilder(sourceFile);
+	}
 	
 	private static void initWidgetReader(String sourceFile)
 	{
 		new WidgetReader(sourceFile);
 	}
 	
+	private static void readWidgetBuilder(File sourceFile)
+	{
+		readWidgetBuilder(sourceFile.getAbsolutePath());
+	}
 	private static void readWidgetBuilder(String sourceFile)
 	{
 		File f = new File(sourceFile);

@@ -114,7 +114,7 @@ public class ClassAndSetters
 			String tmp = "";
 			for(String spl : mets[1].split(", "))
 			{
-				tmp = spl.replaceAll("\s[a-zA-Z0-9]+", "");
+				tmp = spl.replaceAll(" [a-zA-Z0-9]+", "");
 				tmp = tmp.replace("]", "");
 				getMethodParams.add(tmp);
 			}

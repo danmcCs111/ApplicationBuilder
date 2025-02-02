@@ -1,6 +1,7 @@
 package ApplicationBuilder;
 
 import java.awt.Component;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +38,11 @@ public class WidgetBuildController
 		return widgetBuildController;
 	}
 	
+	
+	public static void readProperties(File sourceFile)
+	{
+		readProperties(sourceFile.getAbsolutePath());
+	}
 	/**
 	 * read the properties of the source file passed during construction
 	 */
@@ -61,13 +67,6 @@ public class WidgetBuildController
 		
 		LoggingMessages.printNewLine();
 		LoggingMessages.printOut("-->Widget Generation<--");
-		generateGraphicalInterface(widgetCreatorProperties);
-		
-		JFrame frame = (JFrame) widgetCreatorProperties.get(0).getInstance();
-		
-		frame.setVisible(true);
-		
-		printComponents((JComponent) frame.getComponent(0));
 		
 	}
 	
@@ -139,7 +138,7 @@ public class WidgetBuildController
 		return orderedGenerators;
 	}
 	
-	private static void generateGraphicalInterface (List<WidgetCreatorProperty> widgets)
+	public static void generateGraphicalInterface (List<WidgetCreatorProperty> widgets)
 	{
 		for(WidgetCreatorProperty w : widgets)
 		{
@@ -170,6 +169,11 @@ public class WidgetBuildController
 			}
 			LoggingMessages.printNewLine();
 		}
+		
+		JFrame frame = (JFrame) widgetCreatorProperties.get(0).getInstance();
+		frame.setVisible(true);
+		
+		printComponents((JComponent) frame.getComponent(0));
 	}
 	
 	@SuppressWarnings("unchecked")
