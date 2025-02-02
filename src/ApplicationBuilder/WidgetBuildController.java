@@ -59,15 +59,53 @@ public class WidgetBuildController
 		
 		LoggingMessages.printOut("-->Widget Creator Properties<--");
 		
-		for(WidgetCreatorProperty wcProp : widgetCreatorProperties)//TODO 
+		for(WidgetCreatorProperty wcProp : widgetCreatorProperties)//TODO print output
 		{
 			LoggingMessages.printOut(wcProp.toString());
 			LoggingMessages.printNewLine();
 		}
 		
+	}
+	
+	public static void generateGraphicalInterface (List<WidgetCreatorProperty> widgets)
+	{
 		LoggingMessages.printNewLine();
 		LoggingMessages.printOut("-->Widget Generation<--");
 		
+		for(WidgetCreatorProperty w : widgets)
+		{
+			Object o = w.getInstance();
+			ArrayList<XmlToWidgetGenerator> generators = w.getXmlToWidgetGenerators();
+			List<XmlToWidgetGenerator> orderedGenerators = orderGenerators(generators);
+			for(XmlToWidgetGenerator g : orderedGenerators)
+			{
+				Class<? extends ExtendedAttributeStringParam> c = getExtendedAttribute(g.getMethodName());
+				if(c != null)
+				{
+					String parent = w.getParentRef();
+					WidgetCreatorProperty wc = findRef(parent);
+					Object parentObj = null;
+					if(wc != null)
+					{
+						parentObj = wc.getInstance();
+					}
+					LoggingMessages.printOut("Extended Class: " + c.toString() + " **PARENT CLASS**: " + parentObj);
+					g.generateExtended(c, WidgetBuildController.getInstance(), w);
+				}
+				else
+				{
+					g.generate(o);
+				}
+				
+				LoggingMessages.printOut(g.toString());
+			}
+			LoggingMessages.printNewLine();
+		}
+		
+		JFrame frame = (JFrame) widgetCreatorProperties.get(0).getInstance();
+		frame.setVisible(true);
+		
+		printComponents((JComponent) frame.getComponent(0));
 	}
 	
 	public static List<WidgetCreatorProperty> getWidgetCreationProperties()
@@ -86,6 +124,7 @@ public class WidgetBuildController
 		}
 	}
 	
+	//TODO use more refined param, id?
 	public static WidgetCreatorProperty findRef(String ref)
 	{
 		for(WidgetCreatorProperty wcp : getWidgetCreationProperties())
@@ -136,44 +175,6 @@ public class WidgetBuildController
 		orderedGenerators.addAll(tmp);
 		
 		return orderedGenerators;
-	}
-	
-	public static void generateGraphicalInterface (List<WidgetCreatorProperty> widgets)
-	{
-		for(WidgetCreatorProperty w : widgets)
-		{
-			Object o = w.getInstance();
-			ArrayList<XmlToWidgetGenerator> generators = w.getXmlToWidgetGenerators();
-			List<XmlToWidgetGenerator> orderedGenerators = orderGenerators(generators);
-			for(XmlToWidgetGenerator g : orderedGenerators)
-			{
-				Class<? extends ExtendedAttributeStringParam> c = getExtendedAttribute(g.getMethodName());
-				if(c != null)
-				{
-					String parent = w.getParentRef();
-					WidgetCreatorProperty wc = findRef(parent);
-					Object parentObj = null;
-					if(wc != null)
-					{
-						parentObj = wc.getInstance();
-					}
-					LoggingMessages.printOut("Extended Class: " + c.toString() + " **PARENT CLASS**: " + parentObj);
-					g.generateExtended(c, WidgetBuildController.getInstance(), w);
-				}
-				else
-				{
-					g.generate(o);
-				}
-				
-				LoggingMessages.printOut(g.toString());
-			}
-			LoggingMessages.printNewLine();
-		}
-		
-		JFrame frame = (JFrame) widgetCreatorProperties.get(0).getInstance();
-		frame.setVisible(true);
-		
-		printComponents((JComponent) frame.getComponent(0));
 	}
 	
 	@SuppressWarnings("unchecked")

@@ -2,7 +2,7 @@
 
 /** 
 ** TODO
-** Create XmlToEditor & EditorToXml conversions
+** support extended attributes in xml
 **/
 
 
