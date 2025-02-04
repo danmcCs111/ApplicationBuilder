@@ -1,8 +1,10 @@
-package WidgetComponents;
+package Editors;
 
 import java.awt.Component;
 
 import javax.swing.JComboBox;
+
+import WidgetComponents.ParameterEditor;
 
 public class BooleanEditor extends ParameterEditor
 {

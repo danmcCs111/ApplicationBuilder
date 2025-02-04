@@ -15,6 +15,8 @@ import javax.swing.JMenuItem;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import ActionListeners.OpenParameterEditorActionListener;
+import Properties.PathUtility;
+import WidgetComponents.ParameterEditorParser;
 import WidgetUtility.XmlToEditor;
 
 public class ApplicationLayoutEditor extends RedrawableFrame
@@ -48,7 +50,7 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser jfc = new JFileChooser();
-				String currentDirectory = System.getProperty("user.dir");
+				String currentDirectory = PathUtility.getCurrentDirectory();
 				LoggingMessages.printOut("Current Directory: " + currentDirectory);
 				LoggingMessages.printOut("Dialog Directory: " + currentDirectory + XML_PATH_SUFFIX);
 				File f = new File(currentDirectory + XML_PATH_SUFFIX);
@@ -65,6 +67,7 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 					XmlToEditor xe = new XmlToEditor(WidgetBuildController.getWidgetCreationProperties());
 					xe.getParameterEditors();
 					WidgetBuildController.generateGraphicalInterface(WidgetBuildController.getWidgetCreationProperties());
+					ParameterEditorParser.printParameterEditorExtensions();
 				}
 			}
 		});

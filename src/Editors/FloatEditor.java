@@ -1,11 +1,13 @@
-package WidgetComponents;
+package Editors;
 
 import java.awt.Component;
 
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
-public class DoubleEditor extends ParameterEditor
+import WidgetComponents.ParameterEditor;
+
+public class FloatEditor extends ParameterEditor
 {
 
 	private static final int 
@@ -32,7 +34,7 @@ public class DoubleEditor extends ParameterEditor
 	@Override
 	public String getParameterDefintionString() 
 	{
-		return "double";
+		return "float";
 	}
 
 }

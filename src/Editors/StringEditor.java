@@ -1,8 +1,10 @@
-package WidgetComponents;
+package Editors;
 
 import java.awt.Component;
 
 import javax.swing.JTextField;
+
+import WidgetComponents.ParameterEditor;
 
 public class StringEditor extends ParameterEditor
 {

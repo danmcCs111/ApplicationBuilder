@@ -1,8 +1,10 @@
-package WidgetComponents;
+package Editors;
 
 import java.awt.Component;
 
 import javax.swing.JColorChooser;
+
+import WidgetComponents.ParameterEditor;
 
 public class ColorEditor extends ParameterEditor
 {
