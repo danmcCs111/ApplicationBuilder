@@ -73,7 +73,7 @@ public class ParameterEditorParser
 		return pFrame;
 	}
 	
-	public static void loadParameterEditorExtensions()
+	private static void loadParameterEditorExtensions()
 	{
 		ArrayList<String> files = PathUtility.getOSFileList(PathUtility.getCurrentDirectory() + EDITOR_DIRECTORY, EDITOR_PARAMETER_FILE_FILTER);
 		for(String file : files)

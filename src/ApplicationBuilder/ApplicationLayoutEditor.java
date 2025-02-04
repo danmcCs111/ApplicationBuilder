@@ -16,7 +16,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import ActionListeners.OpenParameterEditorActionListener;
 import Properties.PathUtility;
-import WidgetComponents.ParameterEditorParser;
 import WidgetUtility.XmlToEditor;
 
 public class ApplicationLayoutEditor extends RedrawableFrame
