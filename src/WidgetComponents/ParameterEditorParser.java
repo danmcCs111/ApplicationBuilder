@@ -17,7 +17,7 @@ public class ParameterEditorParser
 	
 	private static final ArrayList<ParameterEditor> editorTypes = new ArrayList<ParameterEditor>();
 	static {
-		printParameterEditorExtensions();
+		loadParameterEditorExtensions();
 	}
 
 	/**
@@ -73,9 +73,8 @@ public class ParameterEditorParser
 		return pFrame;
 	}
 	
-	public static void printParameterEditorExtensions()
+	public static void loadParameterEditorExtensions()
 	{
-		LoggingMessages.printOut("Param extensions");
 		ArrayList<String> files = PathUtility.getOSFileList(PathUtility.getCurrentDirectory() + EDITOR_DIRECTORY, EDITOR_PARAMETER_FILE_FILTER);
 		for(String file : files)
 		{
