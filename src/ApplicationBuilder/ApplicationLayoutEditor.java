@@ -67,7 +67,6 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 					XmlToEditor xe = new XmlToEditor(WidgetBuildController.getWidgetCreationProperties());
 					xe.getParameterEditors();
 					WidgetBuildController.generateGraphicalInterface(WidgetBuildController.getWidgetCreationProperties());
-					ParameterEditorParser.loadParameterEditorExtensions();
 				}
 			}
 		});
