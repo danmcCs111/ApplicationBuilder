@@ -50,11 +50,11 @@ public class ParameterEditorParser
 		return methodParams;
 	}
 	
-	public static ParameterEditor getParameterEditor(String param)
+	public static ParameterEditor getParameterEditor(String paramDefNamedType)
 	{
 		for(ParameterEditor p : editorTypes)
 		{
-			if (p.isType(param))
+			if (p.isType(paramDefNamedType))
 			{
 				LoggingMessages.printOut("found editor: " + p.getClass().getName());
 				return p;

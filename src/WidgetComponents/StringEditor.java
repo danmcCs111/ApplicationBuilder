@@ -21,10 +21,9 @@ public class StringEditor extends ParameterEditor
 	}
 
 	@Override
-	public boolean isType(String parameterValueType) 
+	public String getParameterDefintionString() 
 	{
-		// TODO Auto-generated method stub
-		return parameterValueType.toLowerCase().equals("java.lang.string");
+		return "java.lang.string";
 	}
 
 }

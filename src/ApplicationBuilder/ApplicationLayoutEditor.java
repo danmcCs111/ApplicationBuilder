@@ -15,6 +15,7 @@ import javax.swing.JMenuItem;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import ActionListeners.OpenParameterEditorActionListener;
+import WidgetUtility.XmlToEditor;
 
 public class ApplicationLayoutEditor extends RedrawableFrame
 {
@@ -61,6 +62,8 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 				{
 					LoggingMessages.printOut("Chosen File: " + choice + " " + chosenFile.getAbsolutePath());
 					WidgetBuildController.readProperties(chosenFile);
+					XmlToEditor xe = new XmlToEditor(WidgetBuildController.getWidgetCreationProperties());
+					xe.getParameterEditors();
 					WidgetBuildController.generateGraphicalInterface(WidgetBuildController.getWidgetCreationProperties());
 				}
 			}

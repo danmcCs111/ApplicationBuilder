@@ -25,10 +25,9 @@ public class IntegerEditor extends ParameterEditor
 	}
 
 	@Override
-	public boolean isType(String parameterValueType)
+	public String getParameterDefintionString() 
 	{
-		// TODO Auto-generated method stub
-		return parameterValueType.toLowerCase().equals("int");
+		return "int";
 	}
 
 }

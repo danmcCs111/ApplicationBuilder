@@ -9,7 +9,6 @@ public abstract class ParameterEditor
 {
 	public abstract Component getComponentEditor();
 	public abstract String getComponentXMLOutput();
-	public abstract boolean isType(String parameterValueType);
 	
 	public JLabel getFieldLabel(String labelText)
 	{
@@ -22,4 +21,13 @@ public abstract class ParameterEditor
 		int width = fm.stringWidth(label.getText());
 		return width;
 	}
+	
+	public boolean isType(String parameterDefStringName)
+	{
+		return parameterDefStringName == null 
+			? false 
+			: getParameterDefintionString().toLowerCase().equals(parameterDefStringName.toLowerCase());
+	}
+	
+	public abstract String getParameterDefintionString();
 }
