@@ -1,19 +1,25 @@
-package WidgetComponents;
+package Editors;
 
 import java.awt.Component;
 import java.awt.Dimension;
 
 import javax.swing.JSpinner;
 
+import WidgetComponents.ParameterEditor;
+
 public class IntegerEditor extends ParameterEditor
 {
 	private static final Dimension SPINNER_SIZE = new Dimension(50, 50);
+	private JSpinner js = null;
 	
 	@Override
 	public Component getComponentEditor() 
 	{
-		JSpinner js = new JSpinner();
-		js.setSize(SPINNER_SIZE.width, SPINNER_SIZE.height);
+		if(js == null)
+		{
+			js = new JSpinner();
+			js.setSize(SPINNER_SIZE.width, SPINNER_SIZE.height);
+		}
 		return js;
 	}
 
@@ -25,10 +31,15 @@ public class IntegerEditor extends ParameterEditor
 	}
 
 	@Override
-	public boolean isType(String parameterValueType)
+	public String getParameterDefintionString() 
 	{
-		// TODO Auto-generated method stub
-		return parameterValueType.toLowerCase().equals("int");
+		return "int";
+	}
+
+	@Override
+	public void setComponentValue(Object value) 
+	{
+		js.setValue(value);
 	}
 
 }

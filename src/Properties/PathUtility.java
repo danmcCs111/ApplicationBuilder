@@ -17,6 +17,11 @@ public interface PathUtility
 		return path.replaceAll(PathUtility.PATH_STRIP_FILTER, "");
 	}
 	
+	public static String getCurrentDirectory()
+	{
+		return System.getProperty("user.dir");
+	}
+	
 	public static ArrayList<String> getOSFileList(String dir, String filter) 
 	{
 		ArrayList<String> files = new ArrayList<String>();

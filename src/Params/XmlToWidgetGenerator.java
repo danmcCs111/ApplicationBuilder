@@ -15,6 +15,7 @@ public class XmlToWidgetGenerator
 {
 	private String methodName;
 	private ArrayList<StringToObjectConverter> stringToObjectConverterList = new ArrayList<StringToObjectConverter>();
+	//list of lists, example: setArrayForegroundAndBackground [240, 240, 240], [175, 204, 175] class ClassDefintions.ColorConverter, class ClassDefintions.ColorConverter
 	private ArrayList<List<String>> paramsList = new ArrayList<List<String>>();
 	
 	public XmlToWidgetGenerator(StringToObjectConverter stringToObjectConverter, String methodName, List<String> params)
@@ -33,6 +34,16 @@ public class XmlToWidgetGenerator
 	public String getMethodName()
 	{
 		return this.methodName;
+	}
+	
+	public ArrayList<StringToObjectConverter> getObjectConverterList()
+	{
+		return stringToObjectConverterList;
+	}
+	
+	public ArrayList<List<String>> getParamsList()
+	{
+		return this.paramsList;
 	}
 	
 	public void generate(Object o)

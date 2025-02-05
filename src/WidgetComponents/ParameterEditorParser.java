@@ -5,16 +5,19 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 
 import ApplicationBuilder.LoggingMessages;
+import Properties.PathUtility;
 
 public class ParameterEditorParser 
 {
+	private static final String 
+		EDITOR_DIRECTORY = "\\src\\Editors\\ ",
+		PACKAGE_PREFIX = "Editors",
+		EDITOR_PARAMETER_FILE_PREFIX = "\\.java",
+		EDITOR_PARAMETER_FILE_FILTER = "java";
+	
 	private static final ArrayList<ParameterEditor> editorTypes = new ArrayList<ParameterEditor>();
 	static {
-		editorTypes.add(new BooleanEditor());
-		editorTypes.add(new IntegerEditor());
-		editorTypes.add(new ColorEditor());
-		editorTypes.add(new StringEditor());
-		editorTypes.add(new FloatEditor());
+		loadParameterEditorExtensions();
 	}
 
 	/**
@@ -50,14 +53,19 @@ public class ParameterEditorParser
 		return methodParams;
 	}
 	
-	public static ParameterEditor getParameterEditor(String param)
+	
+	public static ParameterEditor getParameterEditor(Class<?> paramDefClass)
+	{
+		return getParameterEditor(paramDefClass.getName());
+	}
+	public static ParameterEditor getParameterEditor(String paramDefNamedType)
 	{
 		for(ParameterEditor p : editorTypes)
 		{
-			if (p.isType(param))
+			if (p.isType(paramDefNamedType))
 			{
 				LoggingMessages.printOut("found editor: " + p.getClass().getName());
-				return p;
+				return p.newInstance();
 			}
 		}
 		return null;
@@ -68,5 +76,23 @@ public class ParameterEditorParser
 		EditParameterFrame pFrame = new EditParameterFrame(methodName);
 		pFrame.addSaveAndCancelButtons();
 		return pFrame;
+	}
+	
+	private static void loadParameterEditorExtensions()
+	{
+		ArrayList<String> files = PathUtility.getOSFileList(PathUtility.getCurrentDirectory() + EDITOR_DIRECTORY, EDITOR_PARAMETER_FILE_FILTER);
+		for(String file : files)
+		{
+			try {
+				Class<?> c = Class.forName(PACKAGE_PREFIX + "." + file.replaceAll(EDITOR_PARAMETER_FILE_PREFIX, ""));
+				editorTypes.add((ParameterEditor) c.newInstance());
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (InstantiationException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

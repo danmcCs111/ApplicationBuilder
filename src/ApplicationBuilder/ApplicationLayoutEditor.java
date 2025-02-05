@@ -2,9 +2,12 @@ package ApplicationBuilder;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -12,9 +15,13 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import ActionListeners.OpenParameterEditorActionListener;
+import Properties.PathUtility;
+import WidgetComponents.ParameterEditor;
+import WidgetUtility.XmlToEditor;
 
 public class ApplicationLayoutEditor extends RedrawableFrame
 {
@@ -30,7 +37,7 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 	
 	private static final Dimension 
 		WINDOW_LOCATION = new Dimension(550, 50),
-		WINDOW_SIZE = new Dimension(480, 640);
+		WINDOW_SIZE = new Dimension(680, 640);
 	
 	private JButton openParameterButton;
 	
@@ -47,7 +54,7 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser jfc = new JFileChooser();
-				String currentDirectory = System.getProperty("user.dir");
+				String currentDirectory = PathUtility.getCurrentDirectory();
 				LoggingMessages.printOut("Current Directory: " + currentDirectory);
 				LoggingMessages.printOut("Dialog Directory: " + currentDirectory + XML_PATH_SUFFIX);
 				File f = new File(currentDirectory + XML_PATH_SUFFIX);
@@ -61,7 +68,8 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 				{
 					LoggingMessages.printOut("Chosen File: " + choice + " " + chosenFile.getAbsolutePath());
 					WidgetBuildController.readProperties(chosenFile);
-					WidgetBuildController.generateGraphicalInterface(WidgetBuildController.getWidgetCreationProperties());
+					XmlToEditor xe = new XmlToEditor(WidgetBuildController.getWidgetCreationProperties(), ApplicationLayoutEditor.this);
+					xe.buildEditors();
 				}
 			}
 		});
@@ -79,19 +87,33 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 		menuBar.add(menu);
 		this.setJMenuBar(menuBar);
 		
-		buildOpenParmeterEditorButton();
+		buildEditorButtons();
 		
 		this.setSize(WINDOW_SIZE.width, WINDOW_SIZE.height);
-		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setVisible(true);
 	}
 	
-	public void buildOpenParmeterEditorButton()
+	public void buildEditorButtons()
 	{
-		//setup add Property button
+		JPanel p = new JPanel(new GridLayout(0,2));
+		
 		openParameterButton = new JButton("Add Widget");
 		openParameterButton.addActionListener(new OpenParameterEditorActionListener());
-		this.add(openParameterButton, BorderLayout.SOUTH);
+		JButton generateButton = new JButton("Generate");
+		generateButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(WidgetBuildController.getWidgetCreationProperties() != null)
+				{
+					WidgetBuildController.generateGraphicalInterface(WidgetBuildController.getWidgetCreationProperties());
+				}
+			}
+		});
+		p.add(openParameterButton);
+		p.add(generateButton);
+		
+		this.add(p, BorderLayout.SOUTH);
 	}
 
 	@Override
