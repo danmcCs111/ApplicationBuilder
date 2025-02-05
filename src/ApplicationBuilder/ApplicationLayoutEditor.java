@@ -35,7 +35,7 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 		XML_FILTER_TITLE = "XML Build File",
 		XML_FILTER = "xml";
 	
-	private static final Dimension 
+	public static final Dimension 
 		WINDOW_LOCATION = new Dimension(550, 50),
 		WINDOW_SIZE = new Dimension(680, 640);
 	

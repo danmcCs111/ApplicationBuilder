@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import ApplicationBuilder.ApplicationLayoutEditor;
 import ApplicationBuilder.LoggingMessages;
 import ClassDefintions.StringToObjectConverter;
 import Params.XmlToWidgetGenerator;
@@ -55,6 +56,7 @@ public class XmlToEditor
 		{
 			Label l = new Label();
 			l.setText(metName);
+			l.setMaximumSize(new Dimension(250, 50));
 			p.add(l);
 			
 			ArrayList<ParameterEditor> tmpMP = methodNameAndParameterEditors.get(metName);
@@ -67,7 +69,7 @@ public class XmlToEditor
 				List<String> lst = tmpPL.get(i);
 				
 				Component c = pe.getComponentEditor();
-				c.setMaximumSize(new Dimension(350, 150));
+				c.setMaximumSize(new Dimension(250, 50));
 				
 				if(lst != null && !lst.isEmpty())
 				{
@@ -90,7 +92,8 @@ public class XmlToEditor
 		outP.add(js, BorderLayout.CENTER);
 		editorFrame.add(outP, BorderLayout.CENTER);
 		
-		editorFrame.repaint();
+		editorFrame.pack();
+//		editorFrame.repaint();
 		editorFrame.validate();
 	}
 	
