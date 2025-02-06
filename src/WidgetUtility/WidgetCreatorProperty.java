@@ -10,12 +10,15 @@ import WidgetComponents.ClassTypeHandler;
 
 public class WidgetCreatorProperty 
 {
-	private static final String ID_POSTFIX = "#";
+	private static final String 
+		ID_POSTFIX = "#",
+		ID_SUFFIX_REGEX = "#[0-9]*";
 	private static int postfixCounter = 0;
 	
 	private String 
 		className,
 		component,
+		parentNodeTextWithID,
 		parentNodeText,
 		refId;
 	private Object instance;
@@ -24,7 +27,7 @@ public class WidgetCreatorProperty
 	private ArrayList<XmlToWidgetGenerator> xmlToWidgetGenerators = new ArrayList<XmlToWidgetGenerator>();
 	private HashMap<String, String> settingsNameAndValue = new HashMap<String, String>();
 
-	public WidgetCreatorProperty(String componentName, ArrayList<String> settings, String parentNodeText) 
+	public WidgetCreatorProperty(String componentName, ArrayList<String> settings, String parentNodeTextWithID) 
 	{
 		className = WidgetAttributes.getClassNameString(componentName);
 		this.component = componentName;
@@ -34,7 +37,11 @@ public class WidgetCreatorProperty
 			splitAttributeNameAndValue(s);
 		}
 		this.setRefId(componentName);
-		this.parentNodeText = parentNodeText;
+		this.parentNodeTextWithID = parentNodeTextWithID;
+		if(this.parentNodeTextWithID != null)
+		{
+			this.parentNodeText = this.parentNodeTextWithID.replaceAll(ID_SUFFIX_REGEX, "");
+		}
 	}
 	
 	public Object getInstance()
@@ -91,6 +98,16 @@ public class WidgetCreatorProperty
 		return this.settingsNameAndValue;
 	}
 
+	public String getParentRefWithID()
+	{
+		return this.parentNodeTextWithID;
+	}
+	
+	public static String stripParentRefWithID(String parentRefWithID)
+	{
+		return parentRefWithID.replaceAll(ID_SUFFIX_REGEX, "");
+	}
+	
 	public String getParentRef()
 	{
 		return this.parentNodeText;
@@ -132,7 +149,7 @@ public class WidgetCreatorProperty
 	{
 		StringBuilder out = new StringBuilder();
 		out.append("RefID: " + this.refId + " ");
-		out.append("ParentNodeID: " + this.parentNodeText + " ");
+		out.append("ParentNodeID: " + this.parentNodeTextWithID + " ");
 		if(this.settings != null && this.settings.size() > 0)
 		{
 			out.append(LoggingMessages.combine(settings) + " ");

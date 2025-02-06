@@ -48,6 +48,7 @@ public class XmlToEditor
 	public void buildEditors()
 	{
 		jtPane = new JTabbedPane();
+		
 		int count = 0;
 		for(WidgetCreatorProperty wcp : widgetCreatorProperties)
 		{
@@ -74,7 +75,6 @@ public class XmlToEditor
 					pe.setComponentValue(convObjs.get(i));
 					p.add(c);
 				}
-				
 			}
 			outP.add(js, BorderLayout.CENTER);
 			jtPane.add(outP);

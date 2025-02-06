@@ -12,7 +12,7 @@ public class ExtendedLayoutApplyParent implements ExtendedAttributeStringParam
 	@Override
 	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 
 	{
-		WidgetCreatorProperty parentProp = WidgetBuildController.findRef(widgetProperties.getParentRef());
+		WidgetCreatorProperty parentProp = WidgetBuildController.findRef(widgetProperties.getParentRefWithID());
 		Object parentComp = parentProp.getInstance();
 		Object comp = widgetProperties.getInstance();
 		

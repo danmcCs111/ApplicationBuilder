@@ -13,7 +13,7 @@ public class ExtendedSetJMenuBarParent implements ExtendedAttributeStringParam
 	@Override
 	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 
 	{
-		Object instance = WidgetBuildController.findRef(widgetProperties.getParentRef()).getInstance();
+		Object instance = WidgetBuildController.findRef(widgetProperties.getParentRefWithID()).getInstance();
 		if(instance instanceof JFrame)
 		{
 			((JFrame)instance).setJMenuBar((JMenuBar) widgetProperties.getInstance());

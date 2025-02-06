@@ -1,21 +1,139 @@
 package WidgetUtility;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import WidgetComponents.ParameterEditor;
+import ApplicationBuilder.LoggingMessages;
+import Params.XmlToWidgetGenerator;
 
 public class EditorToXml 
 {
+	private static final String 
+		CLOSE_BRACKET_OPEN = "</",
+		CLOSE_BRACKET_CLOSE = ">",
+		OPEN_BRACKET_OPEN = "<",
+		OPEN_BRACKET_CLOSE = ">",
+		TAB_CHAR = "\t",
+		BUILD_OPEN_TAG = "<Build>",
+		BUILD_CLOSE_TAG = "</Build>";
+		
 	private String xmlFileName;
+	private List<WidgetCreatorProperty> widgetCreatorProperties;
 	
-	public void writeXml(String sourceFile, ArrayList<ParameterEditor> parameterEditors)
+	public void writeXml(String sourceFile, List<WidgetCreatorProperty> widgetCreatorProperties)
 	{
 		this.xmlFileName = sourceFile;
-		writeXml();
+		this.widgetCreatorProperties = widgetCreatorProperties;
+		if(widgetCreatorProperties != null && !widgetCreatorProperties.isEmpty()) writeXml();
 	}
 	
 	private void writeXml()//TODO
 	{
+		StringBuilder sb = new StringBuilder();
+		sb.append(BUILD_OPEN_TAG + System.lineSeparator());
 		
+		ArrayList<String> parentRefs = new ArrayList<String>();
+		String 
+			lastParentRefWithID = "",
+			lastParentRef = "",
+			lastRef = "";
+		
+		int tabcount = 0;
+		
+		for(WidgetCreatorProperty wcp : widgetCreatorProperties)
+		{
+			LoggingMessages.printOut("" + tabcount);
+			
+			if(!lastParentRefWithID.equals(wcp.getParentRefWithID()) && parentRefs.contains(wcp.getParentRefWithID()))
+			{
+				for(int i =0; i < tabcount; i++)
+				{
+					sb.append(TAB_CHAR);
+				}
+				sb.append(CLOSE_BRACKET_OPEN + lastRef + CLOSE_BRACKET_CLOSE + System.lineSeparator());//close out tag
+				
+				do
+				{
+					tabcount--;
+					for(int i =0; i < tabcount; i++)
+					{
+						sb.append(TAB_CHAR);
+					}
+					sb.append(CLOSE_BRACKET_OPEN + WidgetCreatorProperty.stripParentRefWithID(parentRefs.get(
+							parentRefs.size()-1)) + CLOSE_BRACKET_CLOSE + System.lineSeparator());//close out tag
+					parentRefs.remove(parentRefs.size()-1);
+				} while(!lastParentRefWithID.equals(wcp.getParentRefWithID()) && 
+						!parentRefs.get(parentRefs.size()-1).equals(wcp.getParentRefWithID()));
+				
+				for(int i =0; i < tabcount; i++)
+				{
+					sb.append(TAB_CHAR);
+				}
+				
+			}
+			
+			else if(lastParentRefWithID.equals(wcp.getParentRefWithID()))
+			{
+				for(int i =0; i < tabcount; i++)
+				{
+					sb.append(TAB_CHAR);
+				}
+				sb.append(CLOSE_BRACKET_OPEN + lastRef + CLOSE_BRACKET_CLOSE + System.lineSeparator());
+				for(int i =0; i < tabcount; i++)
+				{
+					sb.append(TAB_CHAR);
+				}	
+			}
+			else
+			{
+				tabcount++;
+				for(int i =0; i < tabcount; i++)
+				{
+					sb.append(TAB_CHAR);
+				}
+			}
+			
+			sb.append(OPEN_BRACKET_OPEN + wcp.getRef() + " ");
+			for(XmlToWidgetGenerator xwg : wcp.getXmlToWidgetGenerators())
+			{
+				String metName = xwg.getMethodName();
+				
+				for(int i = 0; i < xwg.getParameterEditors().size(); i++)
+				{
+					List<String> params = xwg.getParamsList().get(i);
+					sb.append(metName + "=\"" + LoggingMessages.combine(params) + "\" ");
+				}
+			}
+			sb.append(OPEN_BRACKET_CLOSE + System.lineSeparator());
+			lastParentRefWithID = wcp.getParentRefWithID() == null ? lastParentRefWithID : wcp.getParentRefWithID();
+			lastRef = wcp.getRef();
+			lastParentRef = wcp.getParentRef();
+			if(!parentRefs.contains(lastParentRefWithID))
+			{
+				parentRefs.add(lastParentRefWithID);
+			}
+		}
+		
+		for(int i =0; i < tabcount; i++)
+		{
+			sb.append(TAB_CHAR);
+		}
+		sb.append(CLOSE_BRACKET_OPEN + lastRef + CLOSE_BRACKET_CLOSE + System.lineSeparator());//close out tag
+		
+		do
+		{
+			tabcount--;
+			for(int i =0; i < tabcount; i++)
+			{
+				sb.append(TAB_CHAR);
+			}
+			sb.append(CLOSE_BRACKET_OPEN + WidgetCreatorProperty.stripParentRefWithID(
+					parentRefs.get(parentRefs.size()-1)) + CLOSE_BRACKET_CLOSE + System.lineSeparator());//close out tag
+			parentRefs.remove(parentRefs.size()-1);
+		} while(parentRefs.size() > 1);
+		
+		sb.append(BUILD_CLOSE_TAG + System.lineSeparator());
+		
+		LoggingMessages.printOut(sb.toString());
 	}
 }

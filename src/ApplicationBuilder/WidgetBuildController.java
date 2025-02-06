@@ -82,7 +82,7 @@ public class WidgetBuildController
 				Class<? extends ExtendedAttributeStringParam> c = getExtendedAttribute(g.getMethodName());
 				if(c != null)
 				{
-					String parent = w.getParentRef();
+					String parent = w.getParentRefWithID();
 					WidgetCreatorProperty wc = findRef(parent);
 					Object parentObj = null;
 					if(wc != null)

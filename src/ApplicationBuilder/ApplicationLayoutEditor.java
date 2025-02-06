@@ -18,6 +18,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import ActionListeners.OpenParameterEditorActionListener;
 import Properties.PathUtility;
+import WidgetUtility.EditorToXml;
 import WidgetUtility.XmlToEditor;
 
 public class ApplicationLayoutEditor extends RedrawableFrame
@@ -120,6 +121,13 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 		
 		JButton addComponent = new JButton("Add Component");
 		JButton saveButton = new JButton("Save");
+		saveButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				EditorToXml ex = new EditorToXml();
+				ex.writeXml("", WidgetBuildController.getWidgetCreationProperties());
+			}
+		});
 		p.add(addComponent);
 		p.add(saveButton);
 		
