@@ -38,6 +38,7 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 	
 	private JButton openParameterButton;
 	private XmlToEditor xe;
+	private OpenParameterEditorActionListener opListener; 
 	
 	public ApplicationLayoutEditor()
 	{
@@ -67,7 +68,11 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 					LoggingMessages.printOut("Chosen File: " + choice + " " + chosenFile.getAbsolutePath());
 					WidgetBuildController.readProperties(chosenFile);
 					xe = new XmlToEditor(WidgetBuildController.getWidgetCreationProperties(), ApplicationLayoutEditor.this);
-					OpenParameterEditorActionListener opListener = new OpenParameterEditorActionListener(xe);
+					if(openParameterButton != null)
+					{
+						openParameterButton.removeActionListener(opListener);
+					}
+					opListener = new OpenParameterEditorActionListener(xe);
 					openParameterButton.addActionListener(opListener);
 					xe.buildEditors();
 				}
@@ -112,6 +117,11 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 		});
 		p.add(openParameterButton);
 		p.add(generateButton);
+		
+		JButton addComponent = new JButton("Add Component");
+		JButton saveButton = new JButton("Save");
+		p.add(addComponent);
+		p.add(saveButton);
 		
 		this.add(p, BorderLayout.SOUTH);
 	}

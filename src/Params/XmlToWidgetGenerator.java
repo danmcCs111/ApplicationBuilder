@@ -8,6 +8,8 @@ import java.util.List;
 import ApplicationBuilder.LoggingMessages;
 import ApplicationBuilder.WidgetBuildController;
 import ClassDefintions.StringToObjectConverter;
+import WidgetComponents.ParameterEditor;
+import WidgetComponents.ParameterEditorParser;
 import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetUtility.WidgetCreatorProperty;
 
@@ -15,6 +17,7 @@ public class XmlToWidgetGenerator
 {
 	private String methodName;
 	private ArrayList<StringToObjectConverter> stringToObjectConverterList = new ArrayList<StringToObjectConverter>();
+	private ArrayList<ParameterEditor> parameterEditors = new ArrayList<ParameterEditor>();
 	//list of lists, example: setArrayForegroundAndBackground [240, 240, 240], [175, 204, 175] class ClassDefintions.ColorConverter, class ClassDefintions.ColorConverter
 	private ArrayList<List<String>> paramsList = new ArrayList<List<String>>();
 	
@@ -44,6 +47,21 @@ public class XmlToWidgetGenerator
 	public ArrayList<List<String>> getParamsList()
 	{
 		return this.paramsList;
+	}
+	
+	public ArrayList<Object> getConvertedObjects()
+	{
+		ArrayList<Object> convObjs = new ArrayList<Object>();
+		
+		for(int i = 0; i < stringToObjectConverterList.size(); i++)
+		{
+			StringToObjectConverter soc = stringToObjectConverterList.get(i);
+			List<String> params = paramsList.get(i);
+			Object o = soc.conversionCall(params.toArray(new String [params.size()]));
+			convObjs.add(o);
+		}
+		
+		return convObjs;
 	}
 	
 	public void generate(Object o)
@@ -118,5 +136,22 @@ public class XmlToWidgetGenerator
 		sb.append(LoggingMessages.combine(stringToObjectConverterList));
 		
 		return sb.toString();
+	}
+	
+	public List<ParameterEditor> getParameterEditors()
+	{
+		if(this.parameterEditors.isEmpty())
+		{
+			addParameterEditors();
+		}
+		return this.parameterEditors;
+	}
+	
+	private void addParameterEditors()
+	{
+		for(StringToObjectConverter soc : stringToObjectConverterList)
+		{
+			parameterEditors.add(ParameterEditorParser.getParameterEditor(soc.getDefinitionClass()));
+		}
 	}
 }

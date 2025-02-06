@@ -95,6 +95,11 @@ public class WidgetCreatorProperty
 	{
 		return this.parentNodeText;
 	}
+	
+	public String getRef()
+	{
+		return this.component;
+	}
 
 	public boolean isThisRef(String ref) {
 		return refId.equals(ref);
