@@ -43,6 +43,7 @@ public class XmlToEditor
 	public void destroyEditors()
 	{
 		jtPane.removeAll();
+		editorFrame.remove(jtPane);
 		editorFrame.validate();
 	}
 	
@@ -94,9 +95,6 @@ public class XmlToEditor
 		}
 		
 		editorFrame.add(jtPane, BorderLayout.CENTER);
-		
-//		editorFrame.pack();
-//		editorFrame.repaint();
 		editorFrame.validate();
 	}
 	
