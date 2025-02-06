@@ -37,6 +37,7 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 		WINDOW_SIZE = new Dimension(680, 640);
 	
 	private JButton openParameterButton;
+	private XmlToEditor xe;
 	
 	public ApplicationLayoutEditor()
 	{
@@ -65,7 +66,7 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 				{
 					LoggingMessages.printOut("Chosen File: " + choice + " " + chosenFile.getAbsolutePath());
 					WidgetBuildController.readProperties(chosenFile);
-					XmlToEditor xe = new XmlToEditor(WidgetBuildController.getWidgetCreationProperties(), ApplicationLayoutEditor.this);
+					xe = new XmlToEditor(WidgetBuildController.getWidgetCreationProperties(), ApplicationLayoutEditor.this);
 					xe.buildEditors();
 				}
 			}
@@ -77,6 +78,7 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				WidgetBuildController.destroyGeneratedFrame();
+				xe.destroyEditors();
 			}
 		});
 		menu.add(closeProj);

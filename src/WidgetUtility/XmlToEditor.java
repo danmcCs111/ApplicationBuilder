@@ -2,7 +2,6 @@ package WidgetUtility;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Label;
 import java.util.ArrayList;
@@ -31,6 +30,7 @@ public class XmlToEditor
 		methodNameAndStringToObjectConverters = new HashMap<String, HashMap<String, ArrayList<StringToObjectConverter>>>();
 	
 	private JFrame editorFrame;
+	private JTabbedPane jtPane;
 	
 	public XmlToEditor(List<WidgetCreatorProperty> widgetCreatorProperties, JFrame frame)
 	{
@@ -40,10 +40,15 @@ public class XmlToEditor
 		collectParameterEditors();
 	}
 	
+	public void destroyEditors()
+	{
+		jtPane.removeAll();
+		editorFrame.validate();
+	}
+	
 	public void buildEditors()
 	{
-		JTabbedPane jtPane = new JTabbedPane();
-		
+		jtPane = new JTabbedPane();
 		int count = 0;
 		for(String compName : methodNameAndParameterEditors.keySet())
 		{
@@ -91,7 +96,7 @@ public class XmlToEditor
 		editorFrame.add(jtPane, BorderLayout.CENTER);
 		
 //		editorFrame.pack();
-		editorFrame.repaint();
+//		editorFrame.repaint();
 		editorFrame.validate();
 	}
 	
