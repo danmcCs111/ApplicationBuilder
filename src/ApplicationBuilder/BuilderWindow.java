@@ -20,6 +20,7 @@ import ActionListeners.ComponentComboBoxActionListener;
 import ActionListeners.OpenDetailsActionListener;
 import ClassDefintions.ClassAndSetters;
 import WidgetUtility.WidgetAttributes;
+import WidgetUtility.XmlToEditor;
 
 public class BuilderWindow extends RedrawableFrame 
 {
@@ -61,6 +62,7 @@ public class BuilderWindow extends RedrawableFrame
 		//setup combo box of component classes to build
 		classSelection = new JComboBox<String>(comboKeySetClasses.toArray(new String[]{}));
 		classSelection.addActionListener(new ComponentComboBoxActionListener(this));
+		
 		classSelection.setVisible(true);
 		
 		//setup methods list from selected drop down component
@@ -105,6 +107,21 @@ public class BuilderWindow extends RedrawableFrame
 		
 		this.add(classSelection, BorderLayout.NORTH);
 		this.setSize(WINDOW_SIZE.width, WINDOW_SIZE.height);
+	}
+	
+	public void setComboSelection(String compSelect)
+	{
+		for (int i = 0; i < classSelection.getItemCount(); i++)
+		{
+			String sel = classSelection.getItemAt(i);
+			String compStr = compSelect.replaceFirst(XmlToEditor.COMPONENT_REGEX, "");
+			LoggingMessages.printOut(compStr + " " + sel);
+			if(sel.endsWith(compStr))
+			{
+				classSelection.setSelectedIndex(i);
+				return;
+			}
+		}
 	}
 	
 	@Override

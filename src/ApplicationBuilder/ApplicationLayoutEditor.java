@@ -67,6 +67,8 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 					LoggingMessages.printOut("Chosen File: " + choice + " " + chosenFile.getAbsolutePath());
 					WidgetBuildController.readProperties(chosenFile);
 					xe = new XmlToEditor(WidgetBuildController.getWidgetCreationProperties(), ApplicationLayoutEditor.this);
+					OpenParameterEditorActionListener opListener = new OpenParameterEditorActionListener(xe);
+					openParameterButton.addActionListener(opListener);
 					xe.buildEditors();
 				}
 			}
@@ -97,8 +99,7 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 	{
 		JPanel p = new JPanel(new GridLayout(0,2));
 		
-		openParameterButton = new JButton("Add Widget");
-		openParameterButton.addActionListener(new OpenParameterEditorActionListener());
+		openParameterButton = new JButton("Add Widget Property");
 		JButton generateButton = new JButton("Generate");
 		generateButton.addActionListener(new ActionListener() {
 			@Override

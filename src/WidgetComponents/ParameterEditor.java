@@ -48,7 +48,7 @@ public abstract class ParameterEditor
 	{
 		return parameterDefClassName == null 
 			? false 
-			: getParameterDefintionString().toLowerCase().equals(parameterDefClassName.getName().toLowerCase());
+			: isType(parameterDefClassName.getName());
 	}
 	
 	public abstract String getParameterDefintionString();

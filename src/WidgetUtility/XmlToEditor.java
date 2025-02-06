@@ -21,6 +21,10 @@ import WidgetComponents.ParameterEditorParser;
 
 public class XmlToEditor 
 {
+	public static final String 
+		COMPONENT_SUFFIX = "@",
+		COMPONENT_REGEX = COMPONENT_SUFFIX + "[0-9]*";
+	
 	private List<WidgetCreatorProperty> widgetCreatorProperties;
 	private HashMap<String, HashMap<String, ArrayList<ParameterEditor>>> 
 		methodNameAndParameterEditors = new HashMap<String, HashMap<String, ArrayList<ParameterEditor>>>();
@@ -44,12 +48,19 @@ public class XmlToEditor
 	{
 		jtPane.removeAll();
 		editorFrame.remove(jtPane);
+		editorFrame.repaint();
 		editorFrame.validate();
+	}
+	
+	public JTabbedPane getTabbedPane()
+	{
+		return this.jtPane;
 	}
 	
 	public void buildEditors()
 	{
 		jtPane = new JTabbedPane();
+		
 		int count = 0;
 		for(String compName : methodNameAndParameterEditors.keySet())
 		{
@@ -111,7 +122,7 @@ public class XmlToEditor
 			
 			for (XmlToWidgetGenerator xwg : wcp.getXmlToWidgetGenerators())
 			{
-				String keyName = methodPrefix + count;
+				String keyName = methodPrefix + COMPONENT_SUFFIX + count;
 				LoggingMessages.printOut(keyName);
 				
 				ArrayList<ParameterEditor> paramEdits = new ArrayList<ParameterEditor>();
