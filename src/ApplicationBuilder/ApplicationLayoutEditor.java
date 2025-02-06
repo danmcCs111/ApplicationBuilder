@@ -6,8 +6,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -20,7 +18,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import ActionListeners.OpenParameterEditorActionListener;
 import Properties.PathUtility;
-import WidgetComponents.ParameterEditor;
 import WidgetUtility.XmlToEditor;
 
 public class ApplicationLayoutEditor extends RedrawableFrame
@@ -36,7 +33,7 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 		XML_FILTER = "xml";
 	
 	public static final Dimension 
-		WINDOW_LOCATION = new Dimension(550, 50),
+		WINDOW_LOCATION = new Dimension(550, 10),
 		WINDOW_SIZE = new Dimension(680, 640);
 	
 	private JButton openParameterButton;

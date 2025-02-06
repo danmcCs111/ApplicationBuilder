@@ -12,8 +12,8 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 
-import ApplicationBuilder.ApplicationLayoutEditor;
 import ApplicationBuilder.LoggingMessages;
 import ClassDefintions.StringToObjectConverter;
 import Params.XmlToWidgetGenerator;
@@ -47,6 +47,8 @@ public class XmlToEditor
 	
 	public void buildEditors()
 	{
+		JTabbedPane jtPane = new JTabbedPane();
+		
 		JPanel outP = new JPanel(new BorderLayout());
 		JPanel p = new JPanel(new GridLayout(0,1));//rows, columns
 		JScrollPane js = new JScrollPane(p);
@@ -56,7 +58,7 @@ public class XmlToEditor
 		{
 			Label l = new Label();
 			l.setText(metName);
-			l.setMaximumSize(new Dimension(250, 50));
+//			l.setMaximumSize(new Dimension(250, 50));
 			p.add(l);
 			
 			ArrayList<ParameterEditor> tmpMP = methodNameAndParameterEditors.get(metName);
@@ -69,7 +71,7 @@ public class XmlToEditor
 				List<String> lst = tmpPL.get(i);
 				
 				Component c = pe.getComponentEditor();
-				c.setMaximumSize(new Dimension(250, 50));
+//				c.setMaximumSize(new Dimension(250, 50));
 				
 				if(lst != null && !lst.isEmpty())
 				{
@@ -90,7 +92,9 @@ public class XmlToEditor
 		}
 		
 		outP.add(js, BorderLayout.CENTER);
-		editorFrame.add(outP, BorderLayout.CENTER);
+		jtPane.add(outP);
+		jtPane.setTitleAt(0, "Editor");
+		editorFrame.add(jtPane, BorderLayout.CENTER);
 		
 		editorFrame.pack();
 //		editorFrame.repaint();
