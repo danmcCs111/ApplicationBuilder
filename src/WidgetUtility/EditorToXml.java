@@ -1,6 +1,7 @@
 package WidgetUtility;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import ApplicationBuilder.LoggingMessages;
@@ -16,6 +17,13 @@ public class EditorToXml
 		TAB_CHAR = "\t",
 		BUILD_OPEN_TAG = "<Build>",
 		BUILD_CLOSE_TAG = "</Build>";
+	
+	public static final HashMap<String, String> xmlWriteReplace = new HashMap<String, String>();
+	static
+	{
+		xmlWriteReplace.put(">", "&gt;");
+		xmlWriteReplace.put("<", "&lt;");
+	}
 		
 	private String xmlFileName;
 	private List<WidgetCreatorProperty> widgetCreatorProperties;
@@ -98,11 +106,25 @@ public class EditorToXml
 			{
 				String metName = xwg.getMethodName();
 				
+				String parWrite = "";
 				for(int i = 0; i < xwg.getParameterEditors().size(); i++)
 				{
 					List<String> params = xwg.getParamsList().get(i);
-					sb.append(metName + "=\"" + LoggingMessages.combine(params) + "\" ");
+					if(parWrite.isBlank())
+						parWrite += LoggingMessages.combine(params);
+					else
+						parWrite += ", " + LoggingMessages.combine(params);
+					
+					for(String replChar : xmlWriteReplace.keySet())
+					{
+						if(parWrite.contains(replChar))
+						{
+							String repl = xmlWriteReplace.get(replChar);
+							parWrite = parWrite.replaceAll(replChar, repl);
+						}
+					}
 				}
+				sb.append(metName + "=\"" + parWrite + "\" ");
 			}
 			sb.append(OPEN_BRACKET_CLOSE + System.lineSeparator());
 			lastParentRefWithID = wcp.getParentRefWithID() == null ? lastParentRefWithID : wcp.getParentRefWithID();
