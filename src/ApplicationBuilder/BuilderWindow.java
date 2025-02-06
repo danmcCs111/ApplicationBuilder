@@ -25,7 +25,7 @@ import WidgetUtility.XmlToEditor;
 public class BuilderWindow extends RedrawableFrame 
 {
 	private static final long serialVersionUID = 1886L;
-	private static final String TITLE = "Application Parameter Editor";
+	private static final String TITLE = "Add Property: ";
 	private static final Dimension 
 		WINDOW_LOCATION = new Dimension(100, 50),
 		WINDOW_SIZE = new Dimension(480, 640);
@@ -63,7 +63,7 @@ public class BuilderWindow extends RedrawableFrame
 		classSelection = new JComboBox<String>(comboKeySetClasses.toArray(new String[]{}));
 		classSelection.addActionListener(new ComponentComboBoxActionListener(this));
 		
-		classSelection.setVisible(true);
+		classSelection.setVisible(false);
 		
 		//setup methods list from selected drop down component
 		for (String c : comboKeySetClasses)
@@ -95,7 +95,6 @@ public class BuilderWindow extends RedrawableFrame
 		this.setLayout(bl);
 		this.add(innerPanel2, BorderLayout.CENTER);
 		
-		
 		//setup add Property button
 		openDetails = new JButton("Add Property");
 		this.add(openDetails, BorderLayout.SOUTH);
@@ -103,7 +102,6 @@ public class BuilderWindow extends RedrawableFrame
 		openDetails.addActionListener(openDetailsActionListener);
 		openDetailsActionListener.setComponentMethods(componentMethods);
 		openDetails.setEnabled(false);
-
 		
 		this.add(classSelection, BorderLayout.NORTH);
 		this.setSize(WINDOW_SIZE.width, WINDOW_SIZE.height);
@@ -115,10 +113,10 @@ public class BuilderWindow extends RedrawableFrame
 		{
 			String sel = classSelection.getItemAt(i);
 			String compStr = compSelect.replaceFirst(XmlToEditor.COMPONENT_REGEX, "");
-			LoggingMessages.printOut(compStr + " " + sel);
 			if(sel.endsWith(compStr))
 			{
 				classSelection.setSelectedIndex(i);
+				this.setTitle(TITLE + compStr);
 				return;
 			}
 		}
