@@ -23,12 +23,12 @@ import WidgetComponents.ParameterEditorParser;
 public class XmlToEditor 
 {
 	private List<WidgetCreatorProperty> widgetCreatorProperties;
-	private HashMap<String, ArrayList<ParameterEditor>> 
-		methodNameAndParameterEditors = new HashMap<String, ArrayList<ParameterEditor>>();
-	private HashMap<String, ArrayList<List<String>>> 
-		methodNameAndParamList = new HashMap<String, ArrayList<List<String>>>();
-	private HashMap<String, ArrayList<StringToObjectConverter>> 
-		methodNameAndStringToObjectConverters = new HashMap<String, ArrayList<StringToObjectConverter>>();
+	private HashMap<String, HashMap<String, ArrayList<ParameterEditor>>> 
+		methodNameAndParameterEditors = new HashMap<String, HashMap<String, ArrayList<ParameterEditor>>>();
+	private HashMap<String, HashMap<String, ArrayList<List<String>>>> 
+		methodNameAndParamList = new HashMap<String, HashMap<String, ArrayList<List<String>>>>();
+	private HashMap<String, HashMap<String, ArrayList<StringToObjectConverter>>> 
+		methodNameAndStringToObjectConverters = new HashMap<String, HashMap<String, ArrayList<StringToObjectConverter>>>();
 	
 	private JFrame editorFrame;
 	
@@ -40,64 +40,58 @@ public class XmlToEditor
 		collectParameterEditors();
 	}
 	
-	public HashMap<String, ArrayList<ParameterEditor>> getMethodNameAndParameterEditors()
-	{
-		return methodNameAndParameterEditors;
-	}
-	
 	public void buildEditors()
 	{
 		JTabbedPane jtPane = new JTabbedPane();
 		
-		JPanel outP = new JPanel(new BorderLayout());
-		JPanel p = new JPanel(new GridLayout(0,1));//rows, columns
-		JScrollPane js = new JScrollPane(p);
-		js.getVerticalScrollBar().setUnitIncrement(15);
-		
-		for(String metName : methodNameAndParameterEditors.keySet())
+		int count = 0;
+		for(String compName : methodNameAndParameterEditors.keySet())
 		{
-			Label l = new Label();
-			l.setText(metName);
-//			l.setMaximumSize(new Dimension(250, 50));
-			p.add(l);
+			JPanel outP = new JPanel(new BorderLayout());
+			JPanel p = new JPanel(new GridLayout(0,1));//rows, columns
+			JScrollPane js = new JScrollPane(p);
+			js.getVerticalScrollBar().setUnitIncrement(15);
 			
-			ArrayList<ParameterEditor> tmpMP = methodNameAndParameterEditors.get(metName);
-			ArrayList<StringToObjectConverter> tmpSOC = methodNameAndStringToObjectConverters.get(metName);
-			ArrayList<List<String>> tmpPL = methodNameAndParamList.get(metName);
-			
-			for(int i=0; i < tmpMP.size(); i++)
+			LoggingMessages.printOut("BuildTab: " + compName + " " + 
+					LoggingMessages.combine(methodNameAndParameterEditors.get(compName).keySet()));
+			for(String metName : methodNameAndParameterEditors.get(compName).keySet())
 			{
-				ParameterEditor pe = tmpMP.get(i);
-				List<String> lst = tmpPL.get(i);
+				Label l = new Label();
+				l.setText(metName);
+				p.add(l);
 				
-				Component c = pe.getComponentEditor();
-//				c.setMaximumSize(new Dimension(250, 50));
+				ArrayList<ParameterEditor> tmpMP = methodNameAndParameterEditors.get(compName).get(metName);
+				ArrayList<StringToObjectConverter> tmpSOC = methodNameAndStringToObjectConverters.get(compName).get(metName);
+				ArrayList<List<String>> tmpPL = methodNameAndParamList.get(compName).get(metName);
 				
-				if(lst != null && !lst.isEmpty())
+				for(int i=0; i < tmpMP.size(); i++)
 				{
-					String [] args = (String[]) tmpPL.get(i).toArray(new String[lst.size()]);
-					Object o = tmpSOC.get(i).conversionCall(args);
-					if(o != null) 
+					ParameterEditor pe = tmpMP.get(i);
+					List<String> lst = tmpPL.get(i);
+					
+					Component c = pe.getComponentEditor();
+					
+					if(lst != null && !lst.isEmpty())
 					{
-						LoggingMessages.printOut("Method: " + metName);
-						LoggingMessages.printOut("Set component value: " + o.toString());
-						LoggingMessages.printOut("Component: " + c);
-						LoggingMessages.printNewLine();
-						pe.setComponentValue(o);
+						String [] args = (String[]) tmpPL.get(i).toArray(new String[lst.size()]);
+						Object o = tmpSOC.get(i).conversionCall(args);
+						if(o != null) 
+						{
+							pe.setComponentValue(o);
+						}
 					}
+					p.add(c);
 				}
-				
-				p.add(c);
 			}
+			outP.add(js, BorderLayout.CENTER);
+			jtPane.add(outP);
+			jtPane.setTitleAt(count++, compName);
 		}
 		
-		outP.add(js, BorderLayout.CENTER);
-		jtPane.add(outP);
-		jtPane.setTitleAt(0, "Editor");
 		editorFrame.add(jtPane, BorderLayout.CENTER);
 		
-		editorFrame.pack();
-//		editorFrame.repaint();
+//		editorFrame.pack();
+		editorFrame.repaint();
 		editorFrame.validate();
 	}
 	
@@ -108,9 +102,13 @@ public class XmlToEditor
 		{
 			String methodPrefix = wcp.getInstance().getClass().getName();
 			
+			HashMap<String, ArrayList<ParameterEditor>> tmpP = new HashMap<String, ArrayList<ParameterEditor>>();
+			HashMap<String, ArrayList<List<String>>> tmpL = new HashMap<String, ArrayList<List<String>>>();
+			HashMap<String, ArrayList<StringToObjectConverter>> tmpS = new HashMap<String, ArrayList<StringToObjectConverter>>();
+			
 			for (XmlToWidgetGenerator xwg : wcp.getXmlToWidgetGenerators())
 			{
-				String keyName = methodPrefix + count + xwg.getMethodName();
+				String keyName = methodPrefix + count;
 				LoggingMessages.printOut(keyName);
 				
 				ArrayList<ParameterEditor> paramEdits = new ArrayList<ParameterEditor>();
@@ -130,9 +128,14 @@ public class XmlToEditor
 								soc.getDefinitionClass().getName());
 					}
 				}
-				methodNameAndParameterEditors.put(keyName, paramEdits);
-				methodNameAndParamList.put(keyName, xwg.getParamsList());
-				methodNameAndStringToObjectConverters.put(keyName, lst);
+				
+				tmpP.put(xwg.getMethodName(), paramEdits);
+				tmpL.put(xwg.getMethodName(), xwg.getParamsList());
+				tmpS.put(xwg.getMethodName(), lst);
+				
+				methodNameAndParameterEditors.put(keyName, tmpP);
+				methodNameAndParamList.put(keyName, tmpL);
+				methodNameAndStringToObjectConverters.put(keyName, tmpS);
 				LoggingMessages.printNewLine();
 			}
 			count++;
