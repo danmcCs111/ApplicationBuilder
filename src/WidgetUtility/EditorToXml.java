@@ -1,5 +1,7 @@
 package WidgetUtility;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -157,5 +159,13 @@ public class EditorToXml
 		sb.append(BUILD_CLOSE_TAG + System.lineSeparator());
 		
 		LoggingMessages.printOut(sb.toString());
+		
+		try {
+			FileWriter fw = new FileWriter(xmlFileName);
+			fw.write(sb.toString());
+			fw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

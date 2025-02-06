@@ -125,7 +125,8 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				EditorToXml ex = new EditorToXml();
-				ex.writeXml("", WidgetBuildController.getWidgetCreationProperties());
+				ex.writeXml(PathUtility.getCurrentDirectory() + XML_PATH_SUFFIX.trim() + "Test.xml",
+						WidgetBuildController.getWidgetCreationProperties());
 			}
 		});
 		p.add(addComponent);
