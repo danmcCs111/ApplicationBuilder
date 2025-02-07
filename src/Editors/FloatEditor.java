@@ -9,7 +9,6 @@ import WidgetComponents.ParameterEditor;
 
 public class FloatEditor extends ParameterEditor
 {
-
 	private static final int 
 		SPINNER_LIMIT = 1000000,
 		SPINNER_INTERVAL = 1;
@@ -45,6 +44,12 @@ public class FloatEditor extends ParameterEditor
 	public void setComponentValue(Object value) 
 	{
 		spinnerUpDown.setValue(value);
+	}
+
+	@Override
+	public String[] getComponentValue() 
+	{
+		return new String [] {spinnerUpDown.getValue()+""};
 	}
 
 }

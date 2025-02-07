@@ -9,6 +9,7 @@ public abstract class ParameterEditor
 {
 	public abstract Component getComponentEditor();
 	public abstract void setComponentValue(Object value);
+	public abstract String [] getComponentValue();
 	public abstract String getComponentXMLOutput();
 	
 	public ParameterEditor newInstance()

@@ -42,4 +42,10 @@ public class BooleanEditor extends ParameterEditor
 		trueOrFalse.setSelectedItem(value);
 	}
 
+	@Override
+	public String [] getComponentValue() 
+	{
+		return new String [] {trueOrFalse.getSelectedItem().toString()};
+	}
+
 }

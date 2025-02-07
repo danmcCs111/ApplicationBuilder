@@ -1,5 +1,5 @@
 <Build>
-	<JFrame addWindowListener="WindowListeners.ProcessExecutorWindowListener" extendedFrameResizer="scrollPane" extendedSetupTaskbar=".\src\ApplicationBuilder\launch_sm.png" setDefaultCloseOperation="3" setLayout="BorderLayout" setLocation="10, 30" setName="VideoPlayer" setSize="400, 500" setTitle="Video Launcher" >
+	<JFrame addWindowListener="WindowListeners.ProcessExecutorWindowListener" extendedFrameResizer="scrollPane" extendedSetupTaskbar=".\src\ApplicationBuilder\launch_sm.png" setDefaultCloseOperation="3" setLayout="BorderLayout" setLocation="10, 30" setName="VideoPlayer" setSize="400, 500" setTitle="Video Launcherz" >
 		<JPanel extendedLayoutApplyParent="Center" setLayout="BorderLayout" >
 			<JScrollPaneResizer extendedLayoutApplyParent="North" setName="scrollPane" >
 				<SwappableCollection extendedArrayProcessingPath=".\src\ApplicationBuilder\Roku Channels@.url; .\src\ApplicationBuilder\Youtube Channels@.url; .\src\ApplicationBuilder\Amazon Videos@.url; .\src\ApplicationBuilder\Music@.url" extendedSetViewportView="" setLayout="BorderLayout" setName="swapVideos" >
@@ -19,11 +19,11 @@
 			</JLabel>
 		</JPanel>
 		<JPanel extendedLayoutApplyParent="West" setLayout="BorderLayout" >
-			<JButton addActionListener="ActionListeners.NavigationButtonActionListener" extendedActionListenerConnectedComponent="WidgetExtensions.SwappableCollection" extendedActionListenerSubType="WidgetExtensions.Direction@BACKWARD" extendedLayoutApplyParent="North" setText="&lt;" >
+			<JButton addActionListener="ActionListeners.NavigationButtonActionListener" extendedActionListenerConnectedComponent="WidgetExtensions.SwappableCollection" extendedActionListenerSubType="WidgetExtensions.Direction@BACKWARD" extendedLayoutApplyParent="North" setText="[&lt;]" >
 			</JButton>
 		</JPanel>
 		<JPanel extendedLayoutApplyParent="East" setLayout="BorderLayout" >
-			<JButton addActionListener="ActionListeners.NavigationButtonActionListener" extendedActionListenerConnectedComponent="WidgetExtensions.SwappableCollection" extendedActionListenerSubType="WidgetExtensions.Direction@FORWARD" extendedLayoutApplyParent="North" setText="&gt;" >
+			<JButton addActionListener="ActionListeners.NavigationButtonActionListener" extendedActionListenerConnectedComponent="WidgetExtensions.SwappableCollection" extendedActionListenerSubType="WidgetExtensions.Direction@FORWARD" extendedLayoutApplyParent="North" setText="[&gt;]" >
 			</JButton>
 		</JPanel>
 		<JMenuBar extendedSetJMenuBarParent="" >

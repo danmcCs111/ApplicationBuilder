@@ -8,6 +8,7 @@ import java.util.List;
 
 import ApplicationBuilder.LoggingMessages;
 import Params.XmlToWidgetGenerator;
+import WidgetComponents.ParameterEditor;
 
 public class EditorToXml 
 {
@@ -27,25 +28,18 @@ public class EditorToXml
 		xmlWriteReplace.put("<", "&lt;");
 	}
 		
-	private String xmlFileName;
-	private List<WidgetCreatorProperty> widgetCreatorProperties;
-	
-	public void writeXml(String sourceFile, List<WidgetCreatorProperty> widgetCreatorProperties)
+	public static void writeXml(String sourceFile, List<WidgetCreatorProperty> widgetCreatorProperties)
 	{
-		this.xmlFileName = sourceFile;
-		this.widgetCreatorProperties = widgetCreatorProperties;
-		if(widgetCreatorProperties != null && !widgetCreatorProperties.isEmpty()) writeXml();
-	}
-	
-	private void writeXml()//TODO
-	{
+		if(widgetCreatorProperties == null || widgetCreatorProperties.isEmpty())
+		{
+			return;
+		}
 		StringBuilder sb = new StringBuilder();
 		sb.append(BUILD_OPEN_TAG + System.lineSeparator());
 		
 		ArrayList<String> parentRefs = new ArrayList<String>();
 		String 
 			lastParentRefWithID = "",
-			lastParentRef = "",
 			lastRef = "";
 		
 		int tabcount = 0;
@@ -111,19 +105,30 @@ public class EditorToXml
 				String parWrite = "";
 				for(int i = 0; i < xwg.getParameterEditors().size(); i++)
 				{
-					List<String> params = xwg.getParamsList().get(i);
-					if(parWrite.isBlank())
-						parWrite += LoggingMessages.combine(params);
-					else
-						parWrite += ", " + LoggingMessages.combine(params);
-					
-					for(String replChar : xmlWriteReplace.keySet())
+					ParameterEditor pe = xwg.getParameterEditors().get(i);
+					if(pe != null)
 					{
-						if(parWrite.contains(replChar))
-						{
-							String repl = xmlWriteReplace.get(replChar);
-							parWrite = parWrite.replaceAll(replChar, repl);
-						}
+						if(parWrite.isBlank())
+							parWrite += LoggingMessages.combine(pe.getComponentValue());
+						else
+							parWrite += ", " + LoggingMessages.combine(pe.getComponentValue());
+					}
+					else
+					{
+						List<String> params = xwg.getParamsList().get(i);
+						if(parWrite.isBlank())
+							parWrite += LoggingMessages.combine(params);
+						else
+							parWrite += ", " + LoggingMessages.combine(params);
+					}
+					
+				}
+				for(String replChar : xmlWriteReplace.keySet())
+				{
+					if(parWrite.contains(replChar))
+					{
+						String repl = xmlWriteReplace.get(replChar);
+						parWrite = parWrite.replaceAll(replChar, repl);
 					}
 				}
 				sb.append(metName + "=\"" + parWrite + "\" ");
@@ -131,7 +136,6 @@ public class EditorToXml
 			sb.append(OPEN_BRACKET_CLOSE + System.lineSeparator());
 			lastParentRefWithID = wcp.getParentRefWithID() == null ? lastParentRefWithID : wcp.getParentRefWithID();
 			lastRef = wcp.getRef();
-			lastParentRef = wcp.getParentRef();
 			if(!parentRefs.contains(lastParentRefWithID))
 			{
 				parentRefs.add(lastParentRefWithID);
@@ -161,7 +165,7 @@ public class EditorToXml
 		LoggingMessages.printOut(sb.toString());
 		
 		try {
-			FileWriter fw = new FileWriter(xmlFileName);
+			FileWriter fw = new FileWriter(sourceFile);
 			fw.write(sb.toString());
 			fw.close();
 		} catch (IOException e) {

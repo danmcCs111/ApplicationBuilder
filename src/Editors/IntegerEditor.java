@@ -42,4 +42,10 @@ public class IntegerEditor extends ParameterEditor
 		js.setValue(value);
 	}
 
+	@Override
+	public String[] getComponentValue() 
+	{
+		return new String [] {js.getValue()+""};
+	}
+
 }

@@ -57,4 +57,11 @@ public class ColorEditor extends ParameterEditor
 		colorPicker.setText("[-Color Select-]");
 		jcc.setColor((Color)value);
 	}
+
+	@Override
+	public String[] getComponentValue() 
+	{
+		Color c = jcc.getColor();
+		return new String [] {c.getRed()+"", c.getGreen()+"",c.getBlue()+""};
+	}
 }

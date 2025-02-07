@@ -4,7 +4,6 @@ import java.awt.Component;
 
 import javax.swing.JTextField;
 
-import ApplicationBuilder.LoggingMessages;
 import WidgetComponents.ParameterEditor;
 
 public class StringEditor extends ParameterEditor
@@ -38,6 +37,12 @@ public class StringEditor extends ParameterEditor
 	public void setComponentValue(Object value) 
 	{
 		textField.setText((String)value);
+	}
+
+	@Override
+	public String[] getComponentValue() 
+	{
+		return new String [] {textField.getText()};
 	}
 
 }

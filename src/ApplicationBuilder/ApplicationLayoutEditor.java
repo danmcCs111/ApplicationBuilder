@@ -24,6 +24,7 @@ import WidgetUtility.XmlToEditor;
 public class ApplicationLayoutEditor extends RedrawableFrame
 {
 	private static final long serialVersionUID = 1887L;
+	
 	private static final String 
 		TITLE = "Application Layout Editor",
 		FILE_MENU_TEXT = "File",
@@ -31,7 +32,11 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 		MENU_ITEM_CLOSE_TEXT = "Close Project",
 		XML_PATH_SUFFIX = "\\src\\ApplicationBuilder\\data\\ ",
 		XML_FILTER_TITLE = "XML Build File",
-		XML_FILTER = "xml";
+		XML_FILTER = "xml",
+		EDITOR_SAVE_BUTTON_TEXT = "Save",
+		EDITOR_GENERATE_BUTTON_TEXT = "Generate",
+		EDITOR_ADD_PROPERTY_BUTTON_TEXT = "Add Component Property",
+		EDITOR_ADD_COMPONENT_BUTTON_TEXT = "Add Component";
 	
 	public static final Dimension 
 		WINDOW_LOCATION = new Dimension(550, 10),
@@ -55,18 +60,14 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser jfc = new JFileChooser();
 				String currentDirectory = PathUtility.getCurrentDirectory();
-				LoggingMessages.printOut("Current Directory: " + currentDirectory);
-				LoggingMessages.printOut("Dialog Directory: " + currentDirectory + XML_PATH_SUFFIX);
 				File f = new File(currentDirectory + XML_PATH_SUFFIX);
 				jfc.setFileFilter(new FileNameExtensionFilter(XML_FILTER_TITLE, XML_FILTER));
 				jfc.setSelectedFile(f);
 				
 				int choice = jfc.showOpenDialog(ApplicationLayoutEditor.this);
-				
 				File chosenFile = jfc.getSelectedFile();
 				if(chosenFile != null)
 				{
-					LoggingMessages.printOut("Chosen File: " + choice + " " + chosenFile.getAbsolutePath());
 					WidgetBuildController.readProperties(chosenFile);
 					xe = new XmlToEditor(WidgetBuildController.getWidgetCreationProperties(), ApplicationLayoutEditor.this);
 					if(openParameterButton != null)
@@ -105,8 +106,8 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 	{
 		JPanel p = new JPanel(new GridLayout(0,2));
 		
-		openParameterButton = new JButton("Add Widget Property");
-		JButton generateButton = new JButton("Generate");
+		openParameterButton = new JButton(EDITOR_ADD_PROPERTY_BUTTON_TEXT);
+		JButton generateButton = new JButton(EDITOR_GENERATE_BUTTON_TEXT);
 		generateButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -119,14 +120,24 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 		p.add(openParameterButton);
 		p.add(generateButton);
 		
-		JButton addComponent = new JButton("Add Component");
-		JButton saveButton = new JButton("Save");
+		JButton addComponent = new JButton(EDITOR_ADD_COMPONENT_BUTTON_TEXT);
+		JButton saveButton = new JButton(EDITOR_SAVE_BUTTON_TEXT);
 		saveButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				EditorToXml ex = new EditorToXml();
-				ex.writeXml(PathUtility.getCurrentDirectory() + XML_PATH_SUFFIX.trim() + "Test.xml",
-						WidgetBuildController.getWidgetCreationProperties());
+				JFileChooser jfc = new JFileChooser();
+				jfc.setDialogType(JFileChooser.SAVE_DIALOG);
+				File f = new File(PathUtility.getCurrentDirectory() + XML_PATH_SUFFIX);
+				jfc.setFileFilter(new FileNameExtensionFilter(XML_FILTER_TITLE, XML_FILTER));
+				jfc.setSelectedFile(f);
+				
+				int choice = jfc.showSaveDialog(ApplicationLayoutEditor.this);
+				File chosenFile = jfc.getSelectedFile();
+				if(chosenFile != null && choice == JFileChooser.APPROVE_OPTION)
+				{
+					EditorToXml.writeXml(chosenFile.getAbsolutePath(),
+							WidgetBuildController.getWidgetCreationProperties());
+				}
 			}
 		});
 		p.add(addComponent);
