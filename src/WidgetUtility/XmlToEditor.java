@@ -34,10 +34,13 @@ public class XmlToEditor
 	
 	public void destroyEditors()
 	{
-		jtPane.removeAll();
-		editorFrame.remove(jtPane);
-		editorFrame.repaint();
-		editorFrame.validate();
+		if(jtPane != null)
+		{
+			jtPane.removeAll();
+			editorFrame.remove(jtPane);
+			editorFrame.repaint();
+			editorFrame.validate();
+		}
 	}
 	
 	public JTabbedPane getTabbedPane()
