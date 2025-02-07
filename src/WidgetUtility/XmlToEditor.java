@@ -4,9 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.Label;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -19,7 +22,8 @@ public class XmlToEditor
 {
 	public static final String 
 		COMPONENT_SUFFIX = "@",
-		COMPONENT_REGEX = COMPONENT_SUFFIX + "[0-9]*";
+		COMPONENT_REGEX = COMPONENT_SUFFIX + "[0-9]*",
+		DELETE_BUTTON_TEXT = "X";
 	
 	private List<WidgetCreatorProperty> widgetCreatorProperties;
 	
@@ -53,6 +57,7 @@ public class XmlToEditor
 		jtPane = new JTabbedPane();
 		
 		int count = 0;
+		
 		for(WidgetCreatorProperty wcp : widgetCreatorProperties)
 		{
 			JPanel outP = new JPanel(new BorderLayout());
@@ -66,17 +71,38 @@ public class XmlToEditor
 				String metName = xwg.getMethodName();
 				ArrayList<Object> convObjs = xwg.getConvertedObjects();
 				Label l = new Label();
+				Component [] cs = new Component [xwg.getParameterEditors().size()];
+				JPanel pi = new JPanel(new BorderLayout());
+				JButton del = new JButton();
+				
 				l.setText(metName);
-				p.add(l);
+				del.setText(DELETE_BUTTON_TEXT);
+				pi.add(del, BorderLayout.WEST);
+				pi.add(l, BorderLayout.CENTER);
+				del.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						for(Component c : cs) if(c != null) p.remove(c);
+						pi.remove(l);
+						pi.remove(del);
+						p.repaint();
+						editorFrame.validate();
+						
+						wcp.getXmlToWidgetGenerators().remove(xwg);//remove from generators for saving removal
+					}
+				});
+				
+				p.add(pi);
 				
 				for(int i = 0; i < xwg.getParameterEditors().size(); i++)
 				{
 					ParameterEditor pe = xwg.getParameterEditors().get(i);
 					if(pe == null)
 						continue;
-					Component c = pe.getComponentEditor();
+					
+					cs[i] = pe.getComponentEditor();
 					pe.setComponentValue(convObjs.get(i));
-					p.add(c);
+					p.add(cs[i]);
 				}
 			}
 			outP.add(js, BorderLayout.CENTER);
