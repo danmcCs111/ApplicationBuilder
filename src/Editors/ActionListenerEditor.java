@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import javax.swing.JComboBox;
 
+import ApplicationBuilder.LoggingMessages;
 import Params.ParameterEditor;
 
 public class ActionListenerEditor extends ParameterEditor
@@ -37,7 +38,7 @@ public class ActionListenerEditor extends ParameterEditor
 	@Override
 	public void setComponentValue(Object value) 
 	{
-		componentEditor.setSelectedItem(value);
+		componentEditor.setSelectedItem(value.getClass().getName());//using class name
 	}
 
 	@Override
