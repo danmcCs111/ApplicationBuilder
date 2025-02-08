@@ -1,5 +1,6 @@
 package Params;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -86,12 +87,20 @@ public class ParameterEditorParser
 		{
 			try {
 				Class<?> c = Class.forName(PACKAGE_PREFIX + "." + file.replaceAll(EDITOR_PARAMETER_FILE_PREFIX, ""));
-				editorTypes.add((ParameterEditor) c.newInstance());
+				editorTypes.add((ParameterEditor) c.getDeclaredConstructor().newInstance());
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			} catch (InstantiationException e) {
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				e.printStackTrace();
+			} catch (NoSuchMethodException e) {
+				e.printStackTrace();
+			} catch (SecurityException e) {
 				e.printStackTrace();
 			}
 		}

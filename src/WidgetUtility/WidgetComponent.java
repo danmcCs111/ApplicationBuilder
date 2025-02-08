@@ -2,6 +2,7 @@ package WidgetUtility;
 
 import java.awt.Component;
 import java.awt.SystemTray;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.JComponent;
 
@@ -55,7 +56,7 @@ public class WidgetComponent
 		Object o = null;
 		try {
 			c = Class.forName(packagePrefix + text);
-			o = c.newInstance();
+			o = c.getDeclaredConstructor().newInstance();
 			if (o instanceof JComponent) {
 				JComponent component = (JComponent) o;
 				return new WidgetComponent(text, component);
@@ -73,6 +74,10 @@ public class WidgetComponent
 				SystemTray component = SystemTray.getSystemTray();
 				return new WidgetComponent(text, component);
 			}
+		} catch (IllegalArgumentException e) {
+		} catch (InvocationTargetException e) {
+		} catch (NoSuchMethodException e) {
+		} catch (SecurityException e) {
 		}
 		return null;
 	}

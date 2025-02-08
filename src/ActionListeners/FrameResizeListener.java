@@ -176,10 +176,11 @@ public class FrameResizeListener extends ComponentAdapter
 		for(Component c : allComponents)
 		{
 			try {
-				Method m = c.getClass().getMethod("getText", null);
+				Class<?> clazz = c.getClass();
+				Method m = clazz.getMethod("getText");
 				if(m != null)
 				{
-					String text = (String) m.invoke(c, null);
+					String text = (String) m.invoke(c);
 					Container parentKey = c.getParent();
 					if(componentAndText.containsKey(parentKey))
 					{

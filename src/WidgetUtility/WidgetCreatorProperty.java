@@ -1,6 +1,7 @@
 package WidgetUtility;
 
 import java.awt.SystemTray;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -56,15 +57,20 @@ public class WidgetCreatorProperty
 			{
 				try {
 					Class<?> c = Class.forName(className);
-					instance = c.newInstance();
+					instance = c.getDeclaredConstructor().newInstance();
 				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (InstantiationException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (IllegalAccessException e) {
-					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalArgumentException e) {
+					e.printStackTrace();
+				} catch (InvocationTargetException e) {
+					e.printStackTrace();
+				} catch (NoSuchMethodException e) {
+					e.printStackTrace();
+				} catch (SecurityException e) {
 					e.printStackTrace();
 				}
 			}

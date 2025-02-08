@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import javax.swing.JComboBox;
 
-import ApplicationBuilder.LoggingMessages;
 import Params.ParameterEditor;
 
 public class ActionListenerEditor extends ParameterEditor

@@ -1,6 +1,7 @@
 package ClassDefintions;
 
 import java.awt.event.WindowListener;
+import java.lang.reflect.InvocationTargetException;
 
 public class WindowListenerConverter implements StringToObjectConverter
 {
@@ -23,12 +24,20 @@ public class WindowListenerConverter implements StringToObjectConverter
 		Class<?> c;
 		try {
 			c = Class.forName(args[0]);
-			return c.newInstance();
+			return c.getDeclaredConstructor().newInstance();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (InstantiationException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
 			e.printStackTrace();
 		}
 		return null;
