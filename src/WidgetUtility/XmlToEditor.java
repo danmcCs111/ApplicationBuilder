@@ -15,8 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
+import Params.ParameterEditor;
 import Params.XmlToWidgetGenerator;
-import WidgetComponents.ParameterEditor;
 
 public class XmlToEditor 
 {

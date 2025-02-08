@@ -13,8 +13,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
 
-import WidgetComponents.ParameterEditor;
-import WidgetComponents.ParameterEditorParser;
+import Params.ParameterEditor;
+import Params.ParameterEditorParser;
 
 public class OpenDetailsActionListener implements ActionListener
 {

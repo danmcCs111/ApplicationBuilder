@@ -8,8 +8,6 @@ import java.util.List;
 import ApplicationBuilder.LoggingMessages;
 import ApplicationBuilder.WidgetBuildController;
 import ClassDefintions.StringToObjectConverter;
-import WidgetComponents.ParameterEditor;
-import WidgetComponents.ParameterEditorParser;
 import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetUtility.WidgetCreatorProperty;
 

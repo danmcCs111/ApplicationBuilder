@@ -5,7 +5,7 @@ import java.awt.Component;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
-import WidgetComponents.ParameterEditor;
+import Params.ParameterEditor;
 
 public class DoubleEditor extends ParameterEditor
 {

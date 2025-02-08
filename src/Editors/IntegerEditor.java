@@ -5,7 +5,7 @@ import java.awt.Dimension;
 
 import javax.swing.JSpinner;
 
-import WidgetComponents.ParameterEditor;
+import Params.ParameterEditor;
 
 public class IntegerEditor extends ParameterEditor
 {

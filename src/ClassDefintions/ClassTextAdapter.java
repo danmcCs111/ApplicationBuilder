@@ -5,8 +5,8 @@ import java.util.List;
 
 import ApplicationBuilder.LoggingMessages;
 import Params.ParamTypes;
+import Params.ParameterEditorParser;
 import Params.XmlToWidgetGenerator;
-import WidgetComponents.ParameterEditorParser;
 
 public class ClassTextAdapter 
 {

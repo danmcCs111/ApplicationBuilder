@@ -4,7 +4,7 @@ import java.awt.Component;
 
 import javax.swing.JTextField;
 
-import WidgetComponents.ParameterEditor;
+import Params.ParameterEditor;
 
 public class StringEditor extends ParameterEditor
 {

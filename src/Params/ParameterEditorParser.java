@@ -1,4 +1,4 @@
-package WidgetComponents;
+package Params;
 
 import java.util.ArrayList;
 
@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 
 import ApplicationBuilder.LoggingMessages;
 import Properties.PathUtility;
+import WidgetComponents.EditParameterFrame;
 
 public class ParameterEditorParser 
 {

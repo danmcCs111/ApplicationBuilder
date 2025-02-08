@@ -4,7 +4,7 @@ import java.awt.Component;
 
 import javax.swing.JComboBox;
 
-import WidgetComponents.ParameterEditor;
+import Params.ParameterEditor;
 
 public class BooleanEditor extends ParameterEditor
 {

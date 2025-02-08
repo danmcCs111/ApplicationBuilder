@@ -1,9 +1,13 @@
-package WidgetComponents;
+package Params;
 
 import java.awt.Component;
 import java.awt.FontMetrics;
+import java.util.ArrayList;
 
 import javax.swing.JLabel;
+
+import ApplicationBuilder.LoggingMessages;
+import Properties.PathUtility;
 
 public abstract class ParameterEditor 
 {
@@ -50,6 +54,23 @@ public abstract class ParameterEditor
 		return parameterDefClassName == null 
 			? false 
 			: isType(parameterDefClassName.getName());
+	}
+	
+	protected static ArrayList<String> loadClassExtensionsAsString(String classFileDirectory, String classFileExtension, String packagePrefix, String fileFilter)
+	{
+		ArrayList<String> classExtensions = new ArrayList<String>();
+		ArrayList<String> files = PathUtility.getOSFileList(PathUtility.getCurrentDirectory() + classFileDirectory, fileFilter);
+		for(String file : files)
+		{
+			LoggingMessages.printOut(packagePrefix + "." + file.replaceAll(classFileExtension, ""));
+			try {
+				Class<?> c = Class.forName(packagePrefix + "." + file.replaceAll(classFileExtension, ""));
+				classExtensions.add(c.getName());
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+		return classExtensions;
 	}
 	
 	public abstract String getParameterDefintionString();

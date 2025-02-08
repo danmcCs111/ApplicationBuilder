@@ -7,8 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import ApplicationBuilder.LoggingMessages;
+import Params.ParameterEditor;
 import Params.XmlToWidgetGenerator;
-import WidgetComponents.ParameterEditor;
 
 public class EditorToXml 
 {

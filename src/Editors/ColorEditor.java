@@ -9,7 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JDialog;
 
-import WidgetComponents.ParameterEditor;
+import Params.ParameterEditor;
 
 public class ColorEditor extends ParameterEditor
 {
