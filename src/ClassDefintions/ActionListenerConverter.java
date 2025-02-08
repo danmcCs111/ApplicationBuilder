@@ -1,6 +1,7 @@
 package ClassDefintions;
 
 import java.awt.event.ActionListener;
+import java.lang.reflect.InvocationTargetException;
 
 import ApplicationBuilder.LoggingMessages;
 
@@ -11,15 +12,20 @@ public class ActionListenerConverter implements StringToObjectConverter
 		ActionListener al = null;
 		try {
 			Class<?> c = Class.forName(arg0);
-			al = (ActionListener) c.newInstance();
+			al = (ActionListener) c.getConstructor().newInstance();
 		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
 			e.printStackTrace();
 		}
 		LoggingMessages.printOut("ActionListener name: " + al.getClass().toString());

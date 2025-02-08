@@ -32,7 +32,8 @@ public class LayoutEditor extends ParameterEditor
 	@Override
 	public void setComponentValue(Object value) 
 	{
-		comboBox.setSelectedItem(value.getClass().getName());//using class name
+		if(value != null)
+			comboBox.setSelectedItem(value.getClass().getName());//using class name
 	}
 
 	@Override
