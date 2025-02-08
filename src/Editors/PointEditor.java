@@ -1,8 +1,8 @@
 package Editors;
 
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Point;
 
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
@@ -10,7 +10,7 @@ import javax.swing.JSpinner;
 import ApplicationBuilder.LoggingMessages;
 import Params.ParameterEditor;
 
-public class DimensionEditor extends ParameterEditor 
+public class PointEditor extends ParameterEditor 
 {
 
 	private JPanel dimPanel;
@@ -41,15 +41,15 @@ public class DimensionEditor extends ParameterEditor
 	@Override
 	public String getParameterDefintionString() 
 	{
-		return Dimension.class.getName();
+		return Point.class.getName();
 	}
 
 	@Override
 	public void setComponentValue(Object value) 
 	{
-		Dimension d = (Dimension) value;
-		spin1.setValue((int)d.getWidth());
-		spin2.setValue((int)d.getHeight());
+		Point p = (Point) value;
+		spin1.setValue((int)p.x);
+		spin2.setValue((int)p.y);
 	}
 
 	@Override
