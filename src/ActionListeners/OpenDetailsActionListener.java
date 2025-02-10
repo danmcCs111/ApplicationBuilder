@@ -7,6 +7,7 @@ import javax.swing.JList;
 import javax.swing.ListSelectionModel;
 
 import ApplicationBuilder.LoggingMessages;
+import ApplicationBuilder.RedrawableFrame;
 import Params.XmlToWidgetGenerator;
 import WidgetUtility.WidgetAttributes;
 import WidgetUtility.WidgetCreatorProperty;
@@ -15,6 +16,15 @@ public class OpenDetailsActionListener implements ActionListener
 {
 	private JList<?> componentMethods;
 	private WidgetCreatorProperty wcp;
+	private RedrawableFrame 
+		rFrameParent,
+		rFrame;
+	
+	public OpenDetailsActionListener(RedrawableFrame rFrameParent, RedrawableFrame rFrame)
+	{
+		this.rFrameParent = rFrameParent;
+		this.rFrame = rFrame;
+	}
 	
 	public void setComponentMethods(JList<?> componentMethods, WidgetCreatorProperty wcp)
 	{
@@ -33,6 +43,11 @@ public class OpenDetailsActionListener implements ActionListener
 				LoggingMessages.printOut(o.toString());
 				XmlToWidgetGenerator xmlG = WidgetAttributes.setAttribute(wcp.getClassType(), o+"");
 				wcp.addXmlToWidgetGenerator(xmlG);
+				
+				rFrameParent.clearInnerPanels();
+				rFrameParent.rebuildInnerPanels();
+				rFrame.clearInnerPanels();
+				rFrame.rebuildInnerPanels();
 				LoggingMessages.printOut(xmlG.toString());
 			}
 			

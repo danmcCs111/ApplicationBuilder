@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
+import ApplicationBuilder.ApplicationLayoutEditor;
 import Params.ParameterEditor;
 import Params.XmlToWidgetGenerator;
 
@@ -27,13 +27,13 @@ public class XmlToEditor
 	
 	private List<WidgetCreatorProperty> widgetCreatorProperties;
 	
-	private JFrame editorFrame;
+	private ApplicationLayoutEditor editorFrame;
 	private JTabbedPane jtPane;
 	
-	public XmlToEditor(List<WidgetCreatorProperty> widgetCreatorProperties, JFrame frame)
+	public XmlToEditor(List<WidgetCreatorProperty> widgetCreatorProperties, ApplicationLayoutEditor editorFrame)
 	{
 		this.widgetCreatorProperties = widgetCreatorProperties;
-		this.editorFrame = frame;
+		this.editorFrame = editorFrame;
 	}
 	
 	public void destroyEditors()
@@ -92,8 +92,9 @@ public class XmlToEditor
 						pi.remove(del);
 						p.repaint();
 						editorFrame.validate();
-						
 						wcp.getXmlToWidgetGenerators().remove(xwg);//remove from generators for saving removal
+						
+						editorFrame.updatePropertyEditor();
 					}
 				});
 				

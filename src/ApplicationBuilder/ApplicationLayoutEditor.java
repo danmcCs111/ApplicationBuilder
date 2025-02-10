@@ -44,7 +44,7 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 	
 	private JButton openParameterButton;
 	private XmlToEditor xe;
-	private OpenParameterEditorActionListener opListener; 
+	private OpenParameterEditorActionListener opListener;
 	
 	public ApplicationLayoutEditor()
 	{
@@ -77,7 +77,8 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 					{
 						openParameterButton.removeActionListener(opListener);
 					}
-					opListener = new OpenParameterEditorActionListener(xe);
+					
+					opListener = new OpenParameterEditorActionListener(xe, ApplicationLayoutEditor.this);
 					openParameterButton.addActionListener(opListener);
 					xe.buildEditors();
 				}
@@ -154,17 +155,24 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 		
 		this.add(p, BorderLayout.SOUTH);
 	}
-
-	@Override
-	public void clearInnerPanels() {
-		// TODO Auto-generated method stub
-		
+	
+	public void updatePropertyEditor()
+	{
+		opListener.getBuilderWindow().clearInnerPanels();
+		opListener.getBuilderWindow().rebuildInnerPanels();
+		LoggingMessages.printOut("rebuild");
 	}
 
 	@Override
-	public void rebuildInnerPanels() {
-		// TODO Auto-generated method stub
-		
+	public void clearInnerPanels() 
+	{
+		xe.destroyEditors();
+	}
+
+	@Override
+	public void rebuildInnerPanels() 
+	{
+		xe.buildEditors();
 	}
 	
 }

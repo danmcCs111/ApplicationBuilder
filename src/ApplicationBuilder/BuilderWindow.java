@@ -4,11 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -16,12 +13,12 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import ActionListeners.ComponentComboBoxActionListener;
 import ActionListeners.OpenDetailsActionListener;
 import ClassDefintions.ClassAndSetters;
+import Params.ParamTypes;
+import Params.XmlToWidgetGenerator;
 import WidgetUtility.WidgetAttributes;
 import WidgetUtility.WidgetCreatorProperty;
-import WidgetUtility.XmlToEditor;
 
 public class BuilderWindow extends RedrawableFrame 
 {
@@ -33,63 +30,50 @@ public class BuilderWindow extends RedrawableFrame
 		WINDOW_LOCATION = new Dimension(100, 50),
 		WINDOW_SIZE = new Dimension(480, 640);
 	
-	private HashMap<String, JList<?>> listOfComponentMethods = new HashMap<String, JList<?>>();
 	private JScrollPane scrPane = null;
 	private JPanel innerPanel2 = new JPanel();
-	private JComboBox<String> classSelection;
-	private JList<?> componentMethods = null;
-	private JButton openDetails;
-	private ArrayList<String> detailsOpenList = new ArrayList<String>();
+	private JList<String> componentMethods = null;
+	private JButton addMethodParamAction;
+	private ArrayList<String> methods = new ArrayList<String>(); 
 	private OpenDetailsActionListener openDetailsActionListener;
 	private WidgetCreatorProperty wcp;
+	private RedrawableFrame rParentFrame;
 	
-	public BuilderWindow()
+	public BuilderWindow(RedrawableFrame rParentFrame, WidgetCreatorProperty wcp)
 	{
+		this.rParentFrame = rParentFrame;
+		
 		setTitle(TITLE);
 		setLocation(WINDOW_LOCATION.width, WINDOW_LOCATION.height);
 		
 		ArrayList<ClassAndSetters> classAndSetters = WidgetAttributes.getClassAndSetters();
-		List<String> comboKeySetClasses = new ArrayList<String>();
-		HashMap<String, ArrayList<String>> comboKeyAndSetClasses = new HashMap<String, ArrayList<String>>();
 		
-		for(ClassAndSetters cs : classAndSetters)
+		for(ClassAndSetters cs : classAndSetters)//TODO garbage
 		{
-			String comboClassStr = cs.getClazz().toString();
-			comboKeySetClasses.add(comboClassStr);
-			LoggingMessages.printOut("class string: " + comboClassStr);
-			comboKeyAndSetClasses.put(comboClassStr, cs.getSupportedSetters());
+			if(cs.getClazz().equals(wcp.getInstance().getClass()))
+			{
+				methods = cs.getSupportedSetters();
+				break;
+			}
 		}
 		
-		Collections.sort(comboKeySetClasses);
-		
-		//setup combo box of component classes to build
-		classSelection = new JComboBox<String>(comboKeySetClasses.toArray(new String[]{}));
-		classSelection.addActionListener(new ComponentComboBoxActionListener(this));
-		
-		classSelection.setVisible(false);
-		
-		//setup methods list from selected drop down component
-		for (String c : comboKeySetClasses)
+		for(String m : methods)
 		{
-			ArrayList<String> methods =	comboKeyAndSetClasses.get(c);
-			
-			Collections.sort(methods);//Sort list...
-			JList<String> jl = new JList<String>(methods.toArray(new String[] {}));
-			listOfComponentMethods.put(c, jl);
-			jl.addListSelectionListener(new ListSelectionListener() {
-				@Override
-				public void valueChanged(ListSelectionEvent e) {
-					if(!e.getValueIsAdjusting())
-					{
-						ListSelectionModel lsm = jl.getSelectionModel();
-						openDetails.setEnabled(!lsm.isSelectionEmpty() && 
-								!detailsOpenList.contains(jl.getSelectedValue()));
-					}
+			ParamTypes.getParamType(m);
+		}
+		
+		componentMethods = new JList<String>();
+		Collections.sort(methods);//Sort list...
+		componentMethods.addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				if(!e.getValueIsAdjusting())
+				{
+					ListSelectionModel lsm = componentMethods.getSelectionModel();
+					addMethodParamAction.setEnabled(!lsm.isSelectionEmpty());
 				}
-			});
-		}
-		componentMethods = listOfComponentMethods.get(classSelection.getSelectedItem());
-		LoggingMessages.printOut("Method output for class: " + classSelection.getSelectedItem().toString());
+			}
+		});
 		BorderLayout bl = new BorderLayout();
 		scrPane = new JScrollPane(componentMethods);
 		BorderLayout bl2 = new BorderLayout();
@@ -99,41 +83,53 @@ public class BuilderWindow extends RedrawableFrame
 		this.add(innerPanel2, BorderLayout.CENTER);
 		
 		//setup add Property button
-		openDetails = new JButton(ACTION_BUTTON_TEXT);
-		this.add(openDetails, BorderLayout.SOUTH);
-		openDetailsActionListener = new OpenDetailsActionListener();
-		openDetails.addActionListener(openDetailsActionListener);
+		addMethodParamAction = new JButton(ACTION_BUTTON_TEXT);
+		this.add(addMethodParamAction, BorderLayout.SOUTH);
+		openDetailsActionListener = new OpenDetailsActionListener(rParentFrame, BuilderWindow.this);
+		addMethodParamAction.addActionListener(openDetailsActionListener);
 		openDetailsActionListener.setComponentMethods(componentMethods, wcp);
-		openDetails.setEnabled(false);
+		addMethodParamAction.setEnabled(false);
 		
-		this.add(classSelection, BorderLayout.NORTH);
+		setWidgetCreatorProperty(wcp);
+		
 		this.setSize(WINDOW_SIZE.width, WINDOW_SIZE.height);
 	}
 	
 	public void setComboSelection(String compSelect)
 	{
-		for (int i = 0; i < classSelection.getItemCount(); i++)
-		{
-			String sel = classSelection.getItemAt(i);
-			String compStr = compSelect.replaceFirst(XmlToEditor.COMPONENT_REGEX, "");
-			if(sel.endsWith(compStr))
-			{
-				classSelection.setSelectedIndex(i);
-				this.setTitle(TITLE + compStr);
-				return;
-			}
-		}
+		this.setTitle(TITLE + compSelect);
 	}
 	
 	public void setWidgetCreatorProperty(WidgetCreatorProperty wcp)
 	{
 		this.wcp = wcp;
+		refreshComponentMethods(wcp);
 		openDetailsActionListener.setComponentMethods(componentMethods, wcp);
 	}
 	
 	public String getComponentSelected()
 	{
 		return componentMethods.getSelectedValue().toString();
+	}
+	
+	public void refreshComponentMethods(WidgetCreatorProperty wcp)
+	{
+		ArrayList<String> objs = new ArrayList<String>();
+		
+		nextSel:
+		for(String s : methods)
+		{
+			for(XmlToWidgetGenerator xwg : wcp.getXmlToWidgetGenerators())
+			{
+				if(s.contains(xwg.getMethodName()))
+				{
+					LoggingMessages.printOut("match: " + s);
+					continue nextSel;
+				}
+			}
+			objs.add(s);
+		}
+		componentMethods.setListData(objs.toArray(new String[objs.size()]));
 	}
 	
 	@Override
@@ -147,14 +143,13 @@ public class BuilderWindow extends RedrawableFrame
 	@Override
 	public void rebuildInnerPanels() 
 	{
-		componentMethods = listOfComponentMethods.get(classSelection.getSelectedItem());
-		openDetailsActionListener.setComponentMethods(componentMethods, wcp);
+		setWidgetCreatorProperty(wcp);
+		
 		scrPane = new JScrollPane(componentMethods);
 		innerPanel2.add(scrPane, BorderLayout.CENTER);innerPanel2.setOpaque(rootPaneCheckingEnabled);
 		BuilderWindow.this.add(innerPanel2, BorderLayout.CENTER);
 		
-		LoggingMessages.printOut("Method output for class: " + classSelection.getSelectedItem().toString());
-		BuilderWindow.this.paintComponents(BuilderWindow.this.getGraphics());
+		BuilderWindow.this.validate();
 	}
 	
 }

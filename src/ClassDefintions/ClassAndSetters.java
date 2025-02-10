@@ -20,7 +20,6 @@ public class ClassAndSetters
 			this.setters = setters;
 			clazz = Class.forName(classStr);
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
