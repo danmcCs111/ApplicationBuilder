@@ -161,9 +161,11 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 	
 	public void updatePropertyEditor()
 	{
-		opListener.getBuilderWindow().clearInnerPanels();
-		opListener.getBuilderWindow().rebuildInnerPanels();
-		LoggingMessages.printOut("rebuild");
+		if(opListener.getBuilderWindow() != null)
+		{
+			opListener.getBuilderWindow().clearInnerPanels();
+			opListener.getBuilderWindow().rebuildInnerPanels();
+		}
 	}
 
 	@Override

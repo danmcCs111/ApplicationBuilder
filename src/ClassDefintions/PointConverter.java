@@ -21,8 +21,8 @@ public class PointConverter implements StringToObjectConverter
 	public Object conversionCall(String... args) 
 	{
 		return conversionCallIsBlankCheck(args)
-		? getDefaultNullValue()
-		: getPoint(args[0], args[1]);
+				? getDefaultNullValue()
+				: getPoint(args[0], args[1]);
 	}
 	
 	@Override

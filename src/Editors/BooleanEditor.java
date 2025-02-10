@@ -9,6 +9,11 @@ import Params.ParameterEditor;
 public class BooleanEditor extends ParameterEditor
 {
 	private JComboBox<String> trueOrFalse = null;
+	private static final String [] options = new String[] {
+			"",
+			"True",
+			"False"
+	};
 	
 	@Override
 	public Component getComponentEditor() 
@@ -16,9 +21,7 @@ public class BooleanEditor extends ParameterEditor
 		if(trueOrFalse == null)
 		{
 			trueOrFalse = new JComboBox<String>();
-			trueOrFalse.addItem("");
-			trueOrFalse.addItem("true");
-			trueOrFalse.addItem("false");
+			for(String s : options) trueOrFalse.addItem(s);
 		}
 		return trueOrFalse;
 	}
@@ -39,7 +42,12 @@ public class BooleanEditor extends ParameterEditor
 	@Override
 	public void setComponentValue(Object value) 
 	{
-		trueOrFalse.setSelectedItem(value);
+		for(int i=0; i < trueOrFalse.getItemCount(); i++)
+		{
+			if(trueOrFalse.getItemAt(i).toLowerCase().equals(value.toString().toLowerCase()))
+				trueOrFalse.setSelectedItem(trueOrFalse.getItemAt(i));
+			
+		}
 	}
 
 	@Override
