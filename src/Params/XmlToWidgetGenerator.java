@@ -107,7 +107,7 @@ public class XmlToWidgetGenerator
 			cs[cs.length-1] = WidgetCreatorProperty.class;//additional added params for extended methods
 			os[os.length-1] = widgetProperties;
 			
-			Object tmp = extendedAttr.newInstance();
+			Object tmp = extendedAttr.getDeclaredConstructor().newInstance();
 			
 			m = tmp.getClass().getMethod("applyMethod", cs);
 			m.invoke(tmp, os);
