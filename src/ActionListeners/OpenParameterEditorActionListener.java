@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 
 import ApplicationBuilder.BuilderWindow;
 import ApplicationBuilder.LoggingMessages;
+import ApplicationBuilder.WidgetBuildController;
+import WidgetUtility.WidgetCreatorProperty;
 import WidgetUtility.XmlToEditor;
 
 public class OpenParameterEditorActionListener implements ActionListener 
@@ -20,6 +22,7 @@ public class OpenParameterEditorActionListener implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
+		WidgetCreatorProperty wcp = WidgetBuildController.getWidgetCreationProperties().get(xe.getSelectedIndex());
 		String sel = xe.getTabbedPane().getTitleAt(xe.getTabbedPane().getSelectedIndex());
 		LoggingMessages.printOut(sel);
 		
@@ -28,6 +31,7 @@ public class OpenParameterEditorActionListener implements ActionListener
 			builderWindow = new BuilderWindow();
 		}
 		builderWindow.setComboSelection(sel);
+		builderWindow.setWidgetCreatorProperty(wcp);
 		builderWindow.setVisible(true);
 	}
 

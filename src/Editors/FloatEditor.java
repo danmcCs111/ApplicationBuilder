@@ -49,7 +49,9 @@ public class FloatEditor extends ParameterEditor
 	@Override
 	public String[] getComponentValue() 
 	{
-		return new String [] {spinnerUpDown.getValue()+""};
+		return spinnerUpDown == null
+				? new String [] {""}
+				: new String [] {spinnerUpDown.getValue()+""};
 	}
 
 }

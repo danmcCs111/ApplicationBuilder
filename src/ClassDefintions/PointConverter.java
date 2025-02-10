@@ -20,7 +20,9 @@ public class PointConverter implements StringToObjectConverter
 	@Override
 	public Object conversionCall(String... args) 
 	{
-		return getPoint(args[0], args[1]);
+		return conversionCallIsBlankCheck(args)
+		? getDefaultNullValue()
+		: getPoint(args[0], args[1]);
 	}
 	
 	@Override
@@ -33,5 +35,11 @@ public class PointConverter implements StringToObjectConverter
 	public Class<?> getDefinitionClass() 
 	{
 		return Point.class;
+	}
+
+	@Override
+	public Object getDefaultNullValue() 
+	{
+		return new Point();
 	}
 }

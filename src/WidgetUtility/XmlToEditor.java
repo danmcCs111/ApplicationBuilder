@@ -52,6 +52,11 @@ public class XmlToEditor
 		return this.jtPane;
 	}
 	
+	public int getSelectedIndex()
+	{
+		return jtPane.getSelectedIndex();
+	}
+	
 	public void buildEditors()
 	{
 		jtPane = new JTabbedPane();

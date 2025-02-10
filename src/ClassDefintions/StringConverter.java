@@ -11,7 +11,9 @@ public class StringConverter implements StringToObjectConverter
 	@Override
 	public Object conversionCall(String... args) 
 	{
-		return args[0];
+		return conversionCallIsBlankCheck(args)
+			? getDefaultNullValue()
+			:args[0];
 	}
 	
 	@Override
@@ -24,5 +26,11 @@ public class StringConverter implements StringToObjectConverter
 	public Class<?> getDefinitionClass() 
 	{
 		return String.class;
+	}
+
+	@Override
+	public Object getDefaultNullValue() 
+	{
+		return "";
 	}
 }

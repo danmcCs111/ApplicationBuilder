@@ -49,7 +49,9 @@ public class DoubleEditor extends ParameterEditor
 	@Override
 	public String[] getComponentValue() 
 	{
-		return new String [] {(double) spinnerUpDown.getValue()+""};
+		return spinnerUpDown == null
+				? new String [] {""}
+				: new String [] {(double) spinnerUpDown.getValue()+""};
 	}
 
 }

@@ -19,7 +19,9 @@ public class ColorConverter implements StringToObjectConverter
 	@Override
 	public Object conversionCall(String... args) 
 	{
-		return getColor(args[0], args[1], args[2]);
+		return conversionCallIsBlankCheck(args)
+				? getDefaultNullValue()
+				: getColor(args[0], args[1], args[2]);
 	}
 	
 	@Override
@@ -32,5 +34,11 @@ public class ColorConverter implements StringToObjectConverter
 	public Class<?> getDefinitionClass() 
 	{
 		return Color.class;
+	}
+
+	@Override
+	public Object getDefaultNullValue() 
+	{
+		return Color.white;
 	}
 }

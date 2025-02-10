@@ -22,9 +22,14 @@ public class ClassTextAdapter
 			LoggingMessages.printOut("param: " + p);
 			StringToObjectConverter stringToObjectConverter = ParamTypes.getParamType(p).getConverter();
 			List<String> argParams = new ArrayList<String>();
-			for(int i = 0; i < stringToObjectConverter.numberOfArgs(); i++)//loop through the xml args per method def param
+			
+			if(params.length-count >= stringToObjectConverter.numberOfArgs())
 			{
-				argParams.add(params[count + i]);
+				for(int i = 0; i < stringToObjectConverter.numberOfArgs(); i++)//loop through the xml args per method def param
+				{
+					
+					argParams.add(params[count + i]);
+				}
 			}
 			if(methodParams == null)
 			{

@@ -42,7 +42,9 @@ public class StringEditor extends ParameterEditor
 	@Override
 	public String[] getComponentValue() 
 	{
-		return new String [] {textField.getText()};
+		return textField == null
+				? new String [] {""}
+				: new String [] {textField.getText()};
 	}
 
 }

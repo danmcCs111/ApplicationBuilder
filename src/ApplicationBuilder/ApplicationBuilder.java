@@ -4,11 +4,9 @@ import javax.swing.SwingUtilities;
 
 public class ApplicationBuilder
 {
-	private static final String SOURCE_FILE = "src\\ApplicationBuilder\\data\\WidgetBuild.xml";
-	
 	public static void main(String [] args)
 	{
-		if(args.length == 1) buildAppFromXML(SOURCE_FILE);
+		if(args.length == 1) buildAppFromXML(args[0]);
 		else
 		{
 			SwingUtilities.invokeLater(() -> {

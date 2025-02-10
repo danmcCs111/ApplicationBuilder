@@ -39,7 +39,9 @@ public class LayoutEditor extends ParameterEditor
 	@Override
 	public String[] getComponentValue() 
 	{
-		return new String [] {comboBox.getSelectedItem().toString()};
+		return comboBox == null
+			? new String [] {""}
+			: new String [] {comboBox.getSelectedItem().toString()};
 	}
 
 	@Override

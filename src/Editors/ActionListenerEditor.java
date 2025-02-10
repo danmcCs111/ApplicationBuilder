@@ -43,7 +43,9 @@ public class ActionListenerEditor extends ParameterEditor
 	@Override
 	public String[] getComponentValue() 
 	{
-		return new String [] {componentEditor.getSelectedItem().toString()};
+		return componentEditor == null
+			? new String [] {""}
+			: new String [] {componentEditor.getSelectedItem().toString()};
 	}
 
 	@Override

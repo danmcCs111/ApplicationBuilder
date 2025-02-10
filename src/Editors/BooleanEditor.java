@@ -15,7 +15,7 @@ public class BooleanEditor extends ParameterEditor
 	{
 		if(trueOrFalse == null)
 		{
-			new JComboBox<String>();
+			trueOrFalse = new JComboBox<String>();
 			trueOrFalse.addItem("");
 			trueOrFalse.addItem("true");
 			trueOrFalse.addItem("false");
@@ -45,7 +45,9 @@ public class BooleanEditor extends ParameterEditor
 	@Override
 	public String [] getComponentValue() 
 	{
-		return new String [] {trueOrFalse.getSelectedItem().toString()};
+		return trueOrFalse==null //case during creation
+			? new String [] {""}
+			: new String [] {trueOrFalse.getSelectedItem().toString()};
 	}
 
 }

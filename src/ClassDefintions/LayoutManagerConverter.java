@@ -48,7 +48,9 @@ public class LayoutManagerConverter implements StringToObjectConverter
 	@Override
 	public Object conversionCall(String... args) 
 	{
-		return getLayoutManager(args[0]);
+		return conversionCallIsBlankCheck(args)
+				? getDefaultNullValue()
+				: getLayoutManager(args[0]);
 	}
 	
 	@Override
@@ -61,5 +63,11 @@ public class LayoutManagerConverter implements StringToObjectConverter
 	public Class<?> getDefinitionClass() 
 	{
 		return LayoutManager.class;
+	}
+
+	@Override
+	public Object getDefaultNullValue() 
+	{
+		return null;
 	}
 }

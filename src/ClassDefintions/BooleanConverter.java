@@ -9,13 +9,22 @@ public class BooleanConverter implements StringToObjectConverter
 	}
 
 	@Override
-	public Object conversionCall(String... args) {
-		return Boolean.parseBoolean(args[0]);
+	public Object conversionCall(String... args) 
+	{
+		return conversionCallIsBlankCheck(args)
+				? getDefaultNullValue()
+				: Boolean.parseBoolean(args[0]);
 	}
 
 	@Override
 	public Class<?> getDefinitionClass() {
 		return boolean.class;
+	}
+
+	@Override
+	public Object getDefaultNullValue() 
+	{
+		return false;
 	}
 
 }

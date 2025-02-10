@@ -20,12 +20,15 @@ import ActionListeners.ComponentComboBoxActionListener;
 import ActionListeners.OpenDetailsActionListener;
 import ClassDefintions.ClassAndSetters;
 import WidgetUtility.WidgetAttributes;
+import WidgetUtility.WidgetCreatorProperty;
 import WidgetUtility.XmlToEditor;
 
 public class BuilderWindow extends RedrawableFrame 
 {
 	private static final long serialVersionUID = 1886L;
-	private static final String TITLE = "Add Property: ";
+	private static final String 
+		TITLE = "Add Property: ",
+		ACTION_BUTTON_TEXT = "Add Property";
 	private static final Dimension 
 		WINDOW_LOCATION = new Dimension(100, 50),
 		WINDOW_SIZE = new Dimension(480, 640);
@@ -38,12 +41,12 @@ public class BuilderWindow extends RedrawableFrame
 	private JButton openDetails;
 	private ArrayList<String> detailsOpenList = new ArrayList<String>();
 	private OpenDetailsActionListener openDetailsActionListener;
+	private WidgetCreatorProperty wcp;
 	
 	public BuilderWindow()
 	{
 		setTitle(TITLE);
 		setLocation(WINDOW_LOCATION.width, WINDOW_LOCATION.height);
-		
 		
 		ArrayList<ClassAndSetters> classAndSetters = WidgetAttributes.getClassAndSetters();
 		List<String> comboKeySetClasses = new ArrayList<String>();
@@ -96,11 +99,11 @@ public class BuilderWindow extends RedrawableFrame
 		this.add(innerPanel2, BorderLayout.CENTER);
 		
 		//setup add Property button
-		openDetails = new JButton("Add Property");
+		openDetails = new JButton(ACTION_BUTTON_TEXT);
 		this.add(openDetails, BorderLayout.SOUTH);
-		openDetailsActionListener = new OpenDetailsActionListener(openDetails);
+		openDetailsActionListener = new OpenDetailsActionListener();
 		openDetails.addActionListener(openDetailsActionListener);
-		openDetailsActionListener.setComponentMethods(componentMethods);
+		openDetailsActionListener.setComponentMethods(componentMethods, wcp);
 		openDetails.setEnabled(false);
 		
 		this.add(classSelection, BorderLayout.NORTH);
@@ -122,6 +125,17 @@ public class BuilderWindow extends RedrawableFrame
 		}
 	}
 	
+	public void setWidgetCreatorProperty(WidgetCreatorProperty wcp)
+	{
+		this.wcp = wcp;
+		openDetailsActionListener.setComponentMethods(componentMethods, wcp);
+	}
+	
+	public String getComponentSelected()
+	{
+		return componentMethods.getSelectedValue().toString();
+	}
+	
 	@Override
 	public void clearInnerPanels()
 	{
@@ -134,7 +148,7 @@ public class BuilderWindow extends RedrawableFrame
 	public void rebuildInnerPanels() 
 	{
 		componentMethods = listOfComponentMethods.get(classSelection.getSelectedItem());
-		openDetailsActionListener.setComponentMethods(componentMethods);
+		openDetailsActionListener.setComponentMethods(componentMethods, wcp);
 		scrPane = new JScrollPane(componentMethods);
 		innerPanel2.add(scrPane, BorderLayout.CENTER);innerPanel2.setOpaque(rootPaneCheckingEnabled);
 		BuilderWindow.this.add(innerPanel2, BorderLayout.CENTER);

@@ -7,12 +7,10 @@ import java.awt.GridLayout;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 
-import ApplicationBuilder.LoggingMessages;
 import Params.ParameterEditor;
 
 public class DimensionEditor extends ParameterEditor 
 {
-
 	private JPanel dimPanel;
 	private JSpinner spin1, spin2;
 	
@@ -55,7 +53,9 @@ public class DimensionEditor extends ParameterEditor
 	@Override
 	public String[] getComponentValue() 
 	{
-		return new String [] {Integer.parseInt(spin1.getValue()+"")+"", Integer.parseInt(spin2.getValue()+"")+""};
+		return dimPanel == null
+			? new String [] {""}
+			: new String [] {Integer.parseInt(spin1.getValue()+"")+"", Integer.parseInt(spin2.getValue()+"")+""};
 	}
 
 }

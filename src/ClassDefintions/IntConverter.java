@@ -16,7 +16,9 @@ public class IntConverter implements StringToObjectConverter
 	@Override
 	public Object conversionCall(String... args) 
 	{
-		return getInt(args[0]);
+		return conversionCallIsBlankCheck(args)
+				? getDefaultNullValue()
+				: getInt(args[0]);
 	}
 	
 	@Override
@@ -29,5 +31,11 @@ public class IntConverter implements StringToObjectConverter
 	public Class<?> getDefinitionClass() 
 	{
 		return int.class;
+	}
+
+	@Override
+	public Object getDefaultNullValue() 
+	{
+		return 0;
 	}
 }

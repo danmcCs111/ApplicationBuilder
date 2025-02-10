@@ -21,6 +21,10 @@ public class WindowListenerConverter implements StringToObjectConverter
 	@Override
 	public Object conversionCall(String... args) 
 	{
+		if(conversionCallIsBlankCheck(args))
+		{
+			return getDefaultNullValue();
+		}
 		Class<?> c;
 		try {
 			c = Class.forName(args[0]);
@@ -47,6 +51,12 @@ public class WindowListenerConverter implements StringToObjectConverter
 	public Class<?> getDefinitionClass() 
 	{
 		return WindowListener.class;
+	}
+
+	@Override
+	public Object getDefaultNullValue() 
+	{
+		return null;
 	}
 
 }

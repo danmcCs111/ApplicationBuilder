@@ -60,7 +60,10 @@ public class ColorEditor extends ParameterEditor
 	@Override
 	public String[] getComponentValue() 
 	{
-		Color c = jcc.getColor();
-		return new String [] {c.getRed()+"", c.getGreen()+"",c.getBlue()+""};
+		return jcc == null
+			? new String [] {""}
+			: new String [] {jcc.getColor().getRed()+"", 
+				jcc.getColor().getGreen()+"",
+				jcc.getColor().getBlue()+""};
 	}
 }

@@ -45,7 +45,9 @@ public class IntegerEditor extends ParameterEditor
 	@Override
 	public String[] getComponentValue() 
 	{
-		return new String [] {js.getValue()+""};
+		return js == null
+			? new String [] {""}
+			: new String [] {js.getValue()+""};
 	}
 
 }

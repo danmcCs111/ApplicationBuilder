@@ -41,7 +41,9 @@ public class ActionListenerConverter implements StringToObjectConverter
 	@Override
 	public Object conversionCall(String... args) 
 	{
-		return getActionListener(args[0]);
+		return conversionCallIsBlankCheck(args)
+			? getDefaultNullValue()
+			: getActionListener(args[0]);
 	}
 	
 	@Override
@@ -54,5 +56,11 @@ public class ActionListenerConverter implements StringToObjectConverter
 	public Class<?> getDefinitionClass() 
 	{
 		return ActionListener.class;
+	}
+
+	@Override
+	public Object getDefaultNullValue() 
+	{
+		return null;
 	}
 }

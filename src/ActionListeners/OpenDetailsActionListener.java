@@ -1,34 +1,25 @@
 package ActionListeners;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JList;
-import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
 
-import Params.ParameterEditor;
-import Params.ParameterEditorParser;
+import ApplicationBuilder.LoggingMessages;
+import Params.XmlToWidgetGenerator;
+import WidgetUtility.WidgetAttributes;
+import WidgetUtility.WidgetCreatorProperty;
 
 public class OpenDetailsActionListener implements ActionListener
 {
-	private JButton openDetails;
 	private JList<?> componentMethods;
+	private WidgetCreatorProperty wcp;
 	
-	public OpenDetailsActionListener(JButton openDetails)
-	{
-		this.openDetails = openDetails;
-	}
-	
-	public void setComponentMethods(JList<?> componentMethods)
+	public void setComponentMethods(JList<?> componentMethods, WidgetCreatorProperty wcp)
 	{
 		this.componentMethods = componentMethods;
+		this.wcp = wcp;
 	}
 	
 	@Override
@@ -37,32 +28,15 @@ public class OpenDetailsActionListener implements ActionListener
 		ListSelectionModel lsm = componentMethods.getSelectionModel();
 		if(!lsm.isSelectionEmpty())
 		{
-			ArrayList<String> methodParams = ParameterEditorParser.parseMethodParamsToList(componentMethods.getSelectedValue().toString());
-			JFrame editorFrame = ParameterEditorParser.launchEditor(methodParams.get(0));
-//			int count = 0;
-			JPanel innerPanel = new JPanel();
-//			GridLayout gl = new GridLayout(0, 2);
-			GridLayout gl = new GridLayout(0, 1);
-			innerPanel.setLayout(gl);
-			
-			for(String s : methodParams.subList(1, methodParams.size()))
+			for(Object o : componentMethods.getSelectedValuesList())
 			{
-				ParameterEditor pe = ParameterEditorParser.getParameterEditor(s);
-				if(pe != null )
-				{
-					Component c = pe.getComponentEditor();
-					if(c != null)
-					{
-//						JLabel l = pe.getFieldLabel("arg" + count + ":");
-//						innerPanel.add(l);
-						innerPanel.add(c);
-//						count++;
-					}
-				}
+				LoggingMessages.printOut(o.toString());
+				XmlToWidgetGenerator xmlG = WidgetAttributes.setAttribute(wcp.getClassType(), o+"");
+				wcp.addXmlToWidgetGenerator(xmlG);
+				LoggingMessages.printOut(xmlG.toString());
 			}
-			editorFrame.add(innerPanel, BorderLayout.NORTH);
+			
 		}
-		openDetails.setEnabled(false);
 	}
 
 }

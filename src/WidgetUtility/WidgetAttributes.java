@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import ApplicationBuilder.LoggingMessages;
 import ClassDefintions.ClassAndSetters;
 import ClassDefintions.ClassTextAdapter;
 import Params.XmlToWidgetGenerator;
@@ -175,6 +176,14 @@ public class WidgetAttributes
 			paramList.add(arg);
 		}
 		return setAttribute(classTypeHandler, method,  paramList.toArray(new String []{}));
+	}
+	
+	public static XmlToWidgetGenerator setAttribute(ClassTypeHandler classTypeHandler, String methodDef)
+	{
+		methodDef = methodDef.replaceAll("\\[.*", "");
+		methodDef = methodDef.trim();
+		LoggingMessages.printOut(methodDef);
+		return setAttribute(classTypeHandler, methodDef,  new String []{""});
 	}
 	
 	public static void addClassAndSetters(ClassAndSetters classAndSetters)

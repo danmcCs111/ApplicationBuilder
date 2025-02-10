@@ -14,13 +14,21 @@ public class DimensionConverter implements StringToObjectConverter
 	@Override
 	public Object conversionCall(String... args) 
 	{
-		return new Dimension(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
+		return conversionCallIsBlankCheck(args)
+				? getDefaultNullValue()
+				: new Dimension(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
 	}
 
 	@Override
 	public Class<?> getDefinitionClass() 
 	{
 		return Dimension.class;
+	}
+
+	@Override
+	public Object getDefaultNullValue() 
+	{
+		return new Dimension();
 	}
 
 }
