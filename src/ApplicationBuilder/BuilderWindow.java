@@ -15,7 +15,6 @@ import javax.swing.event.ListSelectionListener;
 
 import ActionListeners.OpenDetailsActionListener;
 import ClassDefintions.ClassAndSetters;
-import Params.ParamTypes;
 import Params.XmlToWidgetGenerator;
 import WidgetUtility.WidgetAttributes;
 import WidgetUtility.WidgetCreatorProperty;
@@ -37,12 +36,9 @@ public class BuilderWindow extends RedrawableFrame
 	private ArrayList<String> methods = new ArrayList<String>(); 
 	private OpenDetailsActionListener openDetailsActionListener;
 	private WidgetCreatorProperty wcp;
-	private RedrawableFrame rParentFrame;
 	
 	public BuilderWindow(RedrawableFrame rParentFrame, WidgetCreatorProperty wcp)
 	{
-		this.rParentFrame = rParentFrame;
-		
 		setTitle(TITLE);
 		setLocation(WINDOW_LOCATION.width, WINDOW_LOCATION.height);
 		
@@ -55,11 +51,6 @@ public class BuilderWindow extends RedrawableFrame
 				methods = cs.getSupportedSetters();
 				break;
 			}
-		}
-		
-		for(String m : methods)
-		{
-			ParamTypes.getParamType(m);
 		}
 		
 		componentMethods = new JList<String>();
@@ -123,7 +114,6 @@ public class BuilderWindow extends RedrawableFrame
 			{
 				if(s.contains(xwg.getMethodName()))
 				{
-					LoggingMessages.printOut("match: " + s);
 					continue nextSel;
 				}
 			}

@@ -26,7 +26,6 @@ public class XmlToEditor
 		DELETE_BUTTON_TEXT = "X";
 	
 	private List<WidgetCreatorProperty> widgetCreatorProperties;
-	
 	private ApplicationLayoutEditor editorFrame;
 	private JTabbedPane jtPane;
 	
