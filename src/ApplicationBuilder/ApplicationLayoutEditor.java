@@ -69,6 +69,8 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 				if(chosenFile != null)
 				{
 					WidgetBuildController.destroyGeneratedFrame();
+					WidgetBuildController.clearWidgetCreatorProperties();
+					
 					if(xe != null) xe.destroyEditors();
 					
 					WidgetBuildController.readProperties(chosenFile);
@@ -91,7 +93,6 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				WidgetBuildController.destroyGeneratedFrame();
-				if(xe != null) xe.destroyEditors();
 			}
 		});
 		menu.add(closeProj);
@@ -143,6 +144,8 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 							WidgetBuildController.getWidgetCreationProperties());
 					
 					WidgetBuildController.destroyGeneratedFrame();
+					WidgetBuildController.clearWidgetCreatorProperties();
+					
 					if(xe != null) xe.destroyEditors();
 					
 					WidgetBuildController.readProperties(chosenFile);

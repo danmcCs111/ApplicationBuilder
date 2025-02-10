@@ -49,8 +49,9 @@ public class WidgetBuildController
 	public static void readProperties(String sourceFile)
 	{
 		destroyGeneratedFrame();
-		widgetCreatorProperties = (WidgetReader.collectWidgetCreatorProperties(sourceFile));
+		clearWidgetCreatorProperties();
 		
+		widgetCreatorProperties = (WidgetReader.collectWidgetCreatorProperties(sourceFile));
 		if(widgetCreatorProperties == null || widgetCreatorProperties.isEmpty())
 		{
 			LoggingMessages.printOut("No widget creation file found while using path: " + sourceFile);
@@ -120,6 +121,13 @@ public class WidgetBuildController
 			JFrame frame = (JFrame) widgetCreatorProperties.get(0).getInstance();
 			frame.setVisible(false);
 			frame.dispose();
+		}
+	}
+	
+	public static void clearWidgetCreatorProperties()
+	{
+		if(widgetCreatorProperties != null && !widgetCreatorProperties.isEmpty())
+		{
 			widgetCreatorProperties.clear();
 		}
 	}
