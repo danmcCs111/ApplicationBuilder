@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -13,11 +14,13 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import ActionListeners.OpenParameterEditorActionListener;
 import Properties.PathUtility;
+import WidgetUtility.ComponentSelector;
 import WidgetUtility.EditorToXml;
 import WidgetUtility.XmlToEditor;
 
@@ -36,7 +39,9 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 		EDITOR_SAVE_BUTTON_TEXT = "Save",
 		EDITOR_GENERATE_BUTTON_TEXT = "Generate",
 		EDITOR_ADD_PROPERTY_BUTTON_TEXT = "Add Component Property",
-		EDITOR_ADD_COMPONENT_BUTTON_TEXT = "Add Component";
+		EDITOR_ADD_COMPONENT_BUTTON_TEXT = "Add Component",
+		DIALOG_SELECT_COMPONENT_LABEL_MESSAGE = "Select Component", 
+		DIALOG_SELECT_COMPONENT_TITLE = "Component Selection";
 	
 	public static final Dimension 
 		WINDOW_LOCATION = new Dimension(550, 10),
@@ -126,6 +131,20 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 		p.add(generateButton);
 		
 		JButton addComponent = new JButton(EDITOR_ADD_COMPONENT_BUTTON_TEXT);
+		addComponent.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ArrayList<String> componentOptions = ComponentSelector.generateComboSelectionOptions();
+				String opt = (String) JOptionPane.showInputDialog(
+						ApplicationLayoutEditor.this,
+						DIALOG_SELECT_COMPONENT_LABEL_MESSAGE, DIALOG_SELECT_COMPONENT_TITLE, 
+						JOptionPane.PLAIN_MESSAGE, 
+						null, 
+						componentOptions.toArray(), "");
+				LoggingMessages.printOut(opt==null?"cancelled":opt);
+			}
+		});
+		
 		JButton saveButton = new JButton(EDITOR_SAVE_BUTTON_TEXT);
 		saveButton.addActionListener(new ActionListener() {
 			@Override
