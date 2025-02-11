@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import ApplicationBuilder.WidgetBuildController;
 import ClassDefintions.ClassAndSetters;
 
-public class ComponentSelector 
+public interface ComponentSelector 
 {
 	public static ArrayList<String> generateComboSelectionOptions()
 	{

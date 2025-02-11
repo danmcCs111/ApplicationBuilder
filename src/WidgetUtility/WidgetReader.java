@@ -27,6 +27,15 @@ public class WidgetReader
 {
 	private static ArrayList<WidgetCreatorProperty> widgetCreatorProperties = new ArrayList<WidgetCreatorProperty>(); 
 	
+	private WidgetReader(String sourceFile)
+	{
+		readWidgetBuilder(sourceFile);
+	}
+	private WidgetReader(File sourceFile)
+	{
+		readWidgetBuilder(sourceFile);
+	}
+	
 	public static ArrayList<WidgetCreatorProperty> collectWidgetCreatorProperties(String sourceFile)
 	{
 		initWidgetReader(sourceFile);
@@ -40,15 +49,6 @@ public class WidgetReader
 			}
 		}
 		return widgetCreatorProperties;
-	}
-	
-	private WidgetReader(String sourceFile)
-	{
-		readWidgetBuilder(sourceFile);
-	}
-	private WidgetReader(File sourceFile)
-	{
-		readWidgetBuilder(sourceFile);
 	}
 	
 	private static void initWidgetReader(String sourceFile)

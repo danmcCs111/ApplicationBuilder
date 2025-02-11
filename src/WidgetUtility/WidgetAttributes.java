@@ -203,11 +203,14 @@ public class WidgetAttributes
 		{
 			if(c.getName().endsWith(classNameSuffix))
 			{
-				packageName = c.getPackageName();
+				if(!classNameSuffix.startsWith(c.getName()))
+				{
+					packageName = c.getPackageName()+".";//include package name 
+				}
 				break;
 			}
 		}
-		return packageName + "." + classNameSuffix;
+		return packageName + classNameSuffix;
 	}
 	
 	private static void initialLoad()

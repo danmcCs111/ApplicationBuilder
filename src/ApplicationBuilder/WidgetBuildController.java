@@ -114,6 +114,13 @@ public class WidgetBuildController
 		return widgetCreatorProperties;
 	}
 	
+	public static void addWidgetCreatorProperty(WidgetCreatorProperty wcp)
+	{
+		if(widgetCreatorProperties == null)
+			widgetCreatorProperties = new ArrayList<WidgetCreatorProperty>();
+		widgetCreatorProperties.add(wcp);
+	}
+	
 	public static void destroyGeneratedFrame()
 	{
 		if(widgetCreatorProperties != null && !widgetCreatorProperties.isEmpty())

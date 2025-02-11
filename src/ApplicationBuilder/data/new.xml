@@ -1,0 +1,4 @@
+<Build>
+	<JFrame setDefaultCloseOperation="3" setLocation="480, 10" setMinimumSize="300, 100" setName="My App" setPreferredSize="300, 100" >
+	</JFrame>
+</Build>

@@ -23,6 +23,8 @@ import ActionListeners.OpenParameterEditorActionListener;
 import Properties.PathUtility;
 import WidgetUtility.ComponentSelector;
 import WidgetUtility.EditorToXml;
+import WidgetUtility.WidgetAttributes;
+import WidgetUtility.WidgetCreatorProperty;
 import WidgetUtility.XmlToEditor;
 
 public class ApplicationLayoutEditor extends RedrawableFrame
@@ -153,6 +155,14 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 							null, 
 							ComponentSelector.getParentContainerOptions().toArray(), "");
 					LoggingMessages.printOut("Add Component: " + opt + " <-> Make Parent: " + optP);
+					ArrayList<String> settings = new ArrayList<String>();
+					String optFiltered = opt.replaceAll("[a-zA-Z]+[\\.]+", "");
+					LoggingMessages.printOut("Filtered: " + optFiltered + " non-Filtered: " + opt);
+					settings.add("setName=\"" + optFiltered + "\"");
+					
+					WidgetCreatorProperty wcp = new WidgetCreatorProperty(optFiltered, settings, optP.equals("")?null:optP);
+					WidgetBuildController.addWidgetCreatorProperty(wcp);
+					rebuildInnerPanels();
 				}
 				else LoggingMessages.printOut("cancelled");
 			}
@@ -209,6 +219,11 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 	@Override
 	public void rebuildInnerPanels() 
 	{
+		if(xe == null)
+		{
+			xe = new XmlToEditor(WidgetBuildController.getWidgetCreationProperties(), ApplicationLayoutEditor.this);
+			xe.buildEditors();
+		}
 		xe.rebuildEditors();
 	}
 	

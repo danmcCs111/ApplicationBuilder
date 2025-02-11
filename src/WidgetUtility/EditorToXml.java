@@ -148,7 +148,7 @@ public class EditorToXml
 		}
 		sb.append(CLOSE_BRACKET_OPEN + lastRef + CLOSE_BRACKET_CLOSE + System.lineSeparator());//close out tag
 		
-		do
+		while(parentRefs.size() > 1)
 		{
 			tabcount--;
 			for(int i =0; i < tabcount; i++)
@@ -158,7 +158,7 @@ public class EditorToXml
 			sb.append(CLOSE_BRACKET_OPEN + WidgetCreatorProperty.stripParentRefWithID(
 					parentRefs.get(parentRefs.size()-1)) + CLOSE_BRACKET_CLOSE + System.lineSeparator());//close out tag
 			parentRefs.remove(parentRefs.size()-1);
-		} while(parentRefs.size() > 1);
+		} 
 		
 		sb.append(BUILD_CLOSE_TAG + System.lineSeparator());
 		
