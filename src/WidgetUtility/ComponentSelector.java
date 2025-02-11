@@ -30,12 +30,12 @@ public class ComponentSelector
 		ArrayList<String> containerOptions = new ArrayList<String>();
 		for(WidgetCreatorProperty wcp : props)
 		{
-			String parent = wcp.getParentRef();
+			String parent = wcp.getParentRefWithID();
 			if(parent == null || parent.equals("")) 
 				continue;
 			if(!containerOptions.contains(parent))
 			{
-				containerOptions.add(wcp.getParentRef());
+				containerOptions.add(wcp.getParentRefWithID());
 			}
 		}
 		
