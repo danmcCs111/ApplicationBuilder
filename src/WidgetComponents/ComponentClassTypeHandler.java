@@ -1,6 +1,7 @@
 package WidgetComponents;
 
 import java.awt.Component;
+import java.awt.Container;
 
 public class ComponentClassTypeHandler implements ClassTypeHandler
 {
@@ -26,5 +27,11 @@ public class ComponentClassTypeHandler implements ClassTypeHandler
 	public Class<?> getClassType() 
 	{
 		return this.getComponent().getClass();
+	}
+
+	@Override
+	public boolean isContainer() 
+	{
+		return (this.component instanceof Container);
 	}
 }

@@ -123,6 +123,11 @@ public class WidgetCreatorProperty
 	{
 		return this.component;
 	}
+	
+	public String getRefWithID()
+	{
+		return this.refId;
+	}
 
 	public boolean isThisRef(String ref) {
 		return refId.equals(ref);

@@ -1,5 +1,7 @@
 package WidgetComponents;
 
+import java.awt.Container;
+
 import javax.swing.JComponent;
 
 public class JComponentClassTypeHandler implements ClassTypeHandler 
@@ -20,6 +22,11 @@ public class JComponentClassTypeHandler implements ClassTypeHandler
 	public void applyAttribute(String method, String... params) 
 	{
 		// TODO Auto-generated method stub
+	}
+	
+	public boolean isContainer()
+	{
+		return (this.jComponent instanceof Container);
 	}
 
 	@Override

@@ -1,8 +1,9 @@
 package WidgetUtility;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import javax.swing.JFrame;
 
 import ApplicationBuilder.WidgetBuildController;
 import ClassDefintions.ClassAndSetters;
@@ -11,34 +12,47 @@ public class ComponentSelector
 {
 	public static ArrayList<String> generateComboSelectionOptions()
 	{
-		ArrayList<String> comboSel;
-		comboSel = new ArrayList<String>();
-		ArrayList<ClassAndSetters> css = WidgetAttributes.getClassAndSetters();
-		for(ClassAndSetters cs : css)
+		ArrayList<String> comboSel = new ArrayList<String>();
+		List<WidgetCreatorProperty> props = WidgetBuildController.getWidgetCreationProperties();
+		
+		if(props == null || props.isEmpty())
 		{
-			String name = cs.getClazz().getName();
-			comboSel.add(name);
+			comboSel.add(JFrame.class.getName());
+		}
+		else
+		{
+			ArrayList<ClassAndSetters> css = WidgetAttributes.getClassAndSetters();
+			for(ClassAndSetters cs : css)
+			{
+				String name = cs.getClazz().getName();
+				comboSel.add(name);
+			}
 		}
 		return comboSel;
 	}
 	
-	public static List<String> getParentContainerOptions()
+	public static ArrayList<String> getParentContainerOptions()
 	{
-		List<WidgetCreatorProperty> props = WidgetBuildController.getWidgetCreationProperties();
-		if(props == null || props.isEmpty()) return Arrays.asList(new String [] {"JFrame"});
-		
 		ArrayList<String> containerOptions = new ArrayList<String>();
-		for(WidgetCreatorProperty wcp : props)
+		List<WidgetCreatorProperty> props = WidgetBuildController.getWidgetCreationProperties();
+		
+		if(props == null || props.isEmpty())
 		{
-			String parent = wcp.getParentRefWithID();
-			if(parent == null || parent.equals("")) 
-				continue;
-			if(!containerOptions.contains(parent))
+			containerOptions.add("");
+		}
+		else
+		{
+			for(WidgetCreatorProperty wcp : props)
 			{
-				containerOptions.add(wcp.getParentRefWithID());
+				String ref = wcp.getRefWithID();
+				if(ref == null || ref.equals("")) 
+					continue;
+				if(!containerOptions.contains(ref) && wcp.getClassType().isContainer())
+				{
+					containerOptions.add(ref);
+				}
 			}
 		}
-		
 		return containerOptions;
 	}
 	

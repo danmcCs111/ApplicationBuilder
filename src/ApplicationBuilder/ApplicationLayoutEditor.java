@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -136,7 +137,7 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 		addComponent.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<String> componentOptions = ComponentSelector.generateComboSelectionOptions();
+				List<String> componentOptions = ComponentSelector.generateComboSelectionOptions();
 				String opt = (String) JOptionPane.showInputDialog(
 						ApplicationLayoutEditor.this,
 						DIALOG_SELECT_COMPONENT_LABEL_MESSAGE, DIALOG_SELECT_COMPONENT_TITLE, 
@@ -145,7 +146,6 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 						componentOptions.toArray(), "");
 				if(opt!=null)
 				{
-					
 					String optP = (String) JOptionPane.showInputDialog(
 							ApplicationLayoutEditor.this,
 							DIALOG_SELECT_PARENT_LABEL_MESSAGE, DIALOG_SELECT_PARENT_TITLE, 

@@ -7,6 +7,7 @@ public interface ClassTypeHandler
 {
 	public abstract void applyAttribute(String method, String ... params);
 	public abstract Class<?> getClassType();
+	public abstract boolean isContainer();
 	
 	public static ClassAndSetters getClassAndSetters(ClassTypeHandler classTypeHandler)
 	{

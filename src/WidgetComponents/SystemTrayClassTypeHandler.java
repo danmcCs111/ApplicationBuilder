@@ -25,4 +25,10 @@ public class SystemTrayClassTypeHandler implements ClassTypeHandler
 	{
 		return this.getSystemTray().getClass();
 	}
+
+	@Override
+	public boolean isContainer() 
+	{
+		return false;
+	}
 }
