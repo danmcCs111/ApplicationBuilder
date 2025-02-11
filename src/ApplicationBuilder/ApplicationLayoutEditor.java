@@ -41,7 +41,9 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 		EDITOR_ADD_PROPERTY_BUTTON_TEXT = "Add Component Property",
 		EDITOR_ADD_COMPONENT_BUTTON_TEXT = "Add Component",
 		DIALOG_SELECT_COMPONENT_LABEL_MESSAGE = "Select Component", 
-		DIALOG_SELECT_COMPONENT_TITLE = "Component Selection";
+		DIALOG_SELECT_COMPONENT_TITLE = "Component Selection",
+		DIALOG_SELECT_PARENT_LABEL_MESSAGE = "Select Parent Container", 
+		DIALOG_SELECT_PARENT_TITLE = "Parent Container Selection";
 	
 	public static final Dimension 
 		WINDOW_LOCATION = new Dimension(550, 10),
@@ -141,7 +143,18 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 						JOptionPane.PLAIN_MESSAGE, 
 						null, 
 						componentOptions.toArray(), "");
-				LoggingMessages.printOut(opt==null?"cancelled":opt);
+				if(opt!=null)
+				{
+					
+					String optP = (String) JOptionPane.showInputDialog(
+							ApplicationLayoutEditor.this,
+							DIALOG_SELECT_PARENT_LABEL_MESSAGE, DIALOG_SELECT_PARENT_TITLE, 
+							JOptionPane.PLAIN_MESSAGE, 
+							null, 
+							ComponentSelector.getParentContainerOptions().toArray(), "");
+					LoggingMessages.printOut("Add Component: " + opt + " <-> Make Parent: " + optP);
+				}
+				else LoggingMessages.printOut("cancelled");
 			}
 		});
 		

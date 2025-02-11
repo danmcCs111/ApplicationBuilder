@@ -1,7 +1,10 @@
 package WidgetUtility;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
+import ApplicationBuilder.WidgetBuildController;
 import ClassDefintions.ClassAndSetters;
 
 public class ComponentSelector 
@@ -18,4 +21,25 @@ public class ComponentSelector
 		}
 		return comboSel;
 	}
+	
+	public static List<String> getParentContainerOptions()
+	{
+		List<WidgetCreatorProperty> props = WidgetBuildController.getWidgetCreationProperties();
+		if(props == null || props.isEmpty()) return Arrays.asList(new String [] {"JFrame"});
+		
+		ArrayList<String> containerOptions = new ArrayList<String>();
+		for(WidgetCreatorProperty wcp : props)
+		{
+			String parent = wcp.getParentRef();
+			if(parent == null || parent.equals("")) 
+				continue;
+			if(!containerOptions.contains(parent))
+			{
+				containerOptions.add(wcp.getParentRef());
+			}
+		}
+		
+		return containerOptions;
+	}
+	
 }
