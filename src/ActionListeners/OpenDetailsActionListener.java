@@ -44,7 +44,6 @@ public class OpenDetailsActionListener implements ActionListener
 				XmlToWidgetGenerator xmlG = WidgetAttributes.setAttribute(wcp.getClassType(), o+"");
 				wcp.addXmlToWidgetGenerator(xmlG);
 				
-				rFrameParent.clearInnerPanels();
 				rFrameParent.rebuildInnerPanels();
 				rFrame.clearInnerPanels();
 				rFrame.rebuildInnerPanels();

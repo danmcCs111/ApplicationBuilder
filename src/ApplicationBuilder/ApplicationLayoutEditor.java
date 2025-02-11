@@ -146,10 +146,10 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 					WidgetBuildController.destroyGeneratedFrame();
 					WidgetBuildController.clearWidgetCreatorProperties();
 					
-					if(xe != null) xe.destroyEditors();
 					
 					WidgetBuildController.readProperties(chosenFile);
-					xe.buildEditors();
+					if(xe != null) xe.rebuildEditors();
+					else xe.buildEditors();
 				}
 			}
 		});
@@ -177,7 +177,7 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 	@Override
 	public void rebuildInnerPanels() 
 	{
-		xe.buildEditors();
+		xe.rebuildEditors();
 	}
 	
 }

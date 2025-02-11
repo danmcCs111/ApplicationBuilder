@@ -1,6 +1,7 @@
 package WidgetUtility;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.Label;
@@ -35,6 +36,14 @@ public class XmlToEditor
 		this.editorFrame = editorFrame;
 	}
 	
+	public void rebuildEditors()
+	{
+		int select = getSelectedIndex();
+		destroyEditors();
+		buildEditors();
+		setSelectedIndex(select);
+	}
+	
 	public void destroyEditors()
 	{
 		if(jtPane != null)
@@ -54,6 +63,11 @@ public class XmlToEditor
 	public int getSelectedIndex()
 	{
 		return jtPane.getSelectedIndex();
+	}
+	
+	public void setSelectedIndex(int index)
+	{
+		jtPane.setSelectedIndex(index);
 	}
 	
 	public void buildEditors()
@@ -80,9 +94,11 @@ public class XmlToEditor
 				JButton del = new JButton();
 				
 				l.setText(metName);
+				l.setForeground(Color.BLUE);
 				del.setText(DELETE_BUTTON_TEXT);
 				pi.add(del, BorderLayout.WEST);
 				pi.add(l, BorderLayout.CENTER);
+				del.setForeground(Color.RED);
 				del.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {

@@ -17,7 +17,6 @@ public class ComponentComboBoxActionListener implements ActionListener
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		redrawFrame.clearInnerPanels();
 		redrawFrame.rebuildInnerPanels();
 	}
 
