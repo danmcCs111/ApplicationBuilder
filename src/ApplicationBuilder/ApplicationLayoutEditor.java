@@ -20,7 +20,10 @@ import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import ActionListeners.OpenParameterEditorActionListener;
+import Params.XmlToWidgetGenerator;
 import Properties.PathUtility;
+import WidgetExtensions.ExtendedAttributeStringParam;
+import WidgetExtensions.ExtendedLayoutApplyParent;
 import WidgetUtility.ComponentSelector;
 import WidgetUtility.EditorToXml;
 import WidgetUtility.WidgetAttributes;
@@ -158,9 +161,15 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 					ArrayList<String> settings = new ArrayList<String>();
 					String optFiltered = opt.replaceAll("[a-zA-Z]+[\\.]+", "");
 					LoggingMessages.printOut("Filtered: " + optFiltered + " non-Filtered: " + opt);
-					settings.add("setName=\"" + optFiltered + "\"");
 					
-					WidgetCreatorProperty wcp = new WidgetCreatorProperty(optFiltered, settings, optP.equals("")?null:optP);
+					WidgetCreatorProperty wcp = new WidgetCreatorProperty(optFiltered, settings, optP.equals("") ?null: optP);
+					if(!optP.equals(""))
+					{
+						XmlToWidgetGenerator xmlG = WidgetAttributes.setAttribute(wcp.getClassType(), 
+								ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class));
+						wcp.addXmlToWidgetGenerator(xmlG);
+					}
+					
 					WidgetBuildController.addWidgetCreatorProperty(wcp);
 					rebuildInnerPanels();
 				}

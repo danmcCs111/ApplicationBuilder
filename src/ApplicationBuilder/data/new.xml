@@ -1,4 +1,6 @@
 <Build>
-	<JFrame setDefaultCloseOperation="3" setLocation="480, 10" setMinimumSize="300, 100" setName="My App" setPreferredSize="300, 100" >
+	<JFrame setLayout="java.awt.BorderLayout" setMinimumSize="350, 200" setLocation="450, 100" >
+		<JButton extendedLayoutApplyParent="North" setText="click me!" >
+		</JButton>
 	</JFrame>
 </Build>
