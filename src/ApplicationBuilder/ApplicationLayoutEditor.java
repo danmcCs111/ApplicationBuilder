@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import ActionListeners.AddComponentActionListener;
 import ActionListeners.CloseProjectActionListener;
 import ActionListeners.GenerateActionListener;
+import ActionListeners.NewEditorActionListener;
 import ActionListeners.OpenFileActionListener;
 import ActionListeners.OpenParameterEditorActionListener;
 import ActionListeners.SaveEditorActionListener;
@@ -28,6 +29,7 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 	private static final String 
 		TITLE = "Application Layout Editor",
 		FILE_MENU_TEXT = "File",
+		MENU_ITEM_NEW_TEXT = "New",
 		MENU_ITEM_OPEN_TEXT = "Open",
 		MENU_ITEM_CLOSE_TEXT = "Close Project",
 		EDITOR_SAVE_BUTTON_TEXT = "Save",
@@ -51,9 +53,13 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 		JMenuBar menuBar = new JMenuBar();
 		JMenu menu = new JMenu(FILE_MENU_TEXT);
 		
-		JMenuItem open = new JMenuItem(MENU_ITEM_OPEN_TEXT);
-		open.addActionListener(new OpenFileActionListener(this));
-		menu.add(open);
+		JMenuItem newItem = new JMenuItem(MENU_ITEM_NEW_TEXT);
+		newItem.addActionListener(new NewEditorActionListener(this));
+		menu.add(newItem);
+		
+		JMenuItem openItem = new JMenuItem(MENU_ITEM_OPEN_TEXT);
+		openItem.addActionListener(new OpenFileActionListener(this));
+		menu.add(openItem);
 		
 		JMenuItem closeProj = new JMenuItem(MENU_ITEM_CLOSE_TEXT);
 		closeProj.addActionListener(new CloseProjectActionListener());

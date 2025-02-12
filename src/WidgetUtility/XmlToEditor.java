@@ -74,7 +74,7 @@ public class XmlToEditor
 	
 	public void setSelectedIndex(int index)
 	{
-		if(jtPane.getTabCount() >= index-1)
+		if(jtPane.getTabCount()-1 >= index)
 			jtPane.setSelectedIndex(index);
 	}
 	
