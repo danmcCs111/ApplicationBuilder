@@ -36,7 +36,7 @@ public class OpenFileActionListener implements ActionListener
 		
 		int choice = jfc.showOpenDialog(applicationLayoutEditor);
 		File chosenFile = jfc.getSelectedFile();
-		if(chosenFile != null)
+		if(chosenFile != null && choice == JFileChooser.APPROVE_OPTION)
 		{
 			WidgetBuildController.destroyGeneratedFrame();
 			WidgetBuildController.clearWidgetCreatorProperties();

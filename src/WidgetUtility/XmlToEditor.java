@@ -8,7 +8,6 @@ import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -16,7 +15,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
 import ApplicationBuilder.ApplicationLayoutEditor;
-import ApplicationBuilder.LoggingMessages;
 import Params.ParameterEditor;
 import Params.XmlToWidgetGenerator;
 
