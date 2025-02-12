@@ -19,15 +19,15 @@ import WidgetUtility.WidgetReader;
 public class WidgetBuildController 
 {
 	private static final Class<?> [] FIRST_ORDERED_GENERATORS = new Class<?> [] {
-		ExtendedLayoutApplyParent.class, ExtendedTextStripper.class
+		ExtendedLayoutApplyParent.class, 
+		ExtendedTextStripper.class
 	};
 	
 	private static ArrayList<WidgetCreatorProperty> widgetCreatorProperties;
 	private static WidgetBuildController widgetBuildController = WidgetBuildController.getInstance();
 	
-	private WidgetBuildController()
-	{
-		
+	private WidgetBuildController() {
+		//single instance
 	}
 	
 	public static WidgetBuildController getInstance() 

@@ -15,14 +15,33 @@ import WidgetComponents.SystemTrayClassTypeHandler;
 public class WidgetComponent 
 {
 	public static final String ID_SPLIT = "#";
+	private static final String [] PACKAGE_PREFIXES = new String [] {
+			"java.awt.", 
+			"WidgetExtensions.", 
+			"javax.swing."
+	};
 	private static int counter = 0;
 
 	private String componentLabel;
-	
 	private JComponent jComponent = null;
 	private Component component = null;
 	private SystemTray systemTray = null;
 	
+	private WidgetComponent(String componentLabel, JComponent jComponent)
+	{
+		this.componentLabel = componentLabel;
+		this.jComponent = jComponent;
+	}
+	private WidgetComponent(String componentLabel, Component component)
+	{
+		this.componentLabel = componentLabel;
+		this.component = component;
+	}
+	private WidgetComponent(String componentLabel, SystemTray systemTray)
+	{
+		this.componentLabel = componentLabel;
+		this.systemTray = systemTray;
+	}
 	
 	public String getNextCounterId()
 	{
@@ -41,8 +60,7 @@ public class WidgetComponent
 	
 	public static WidgetComponent getWidgetComponent(String text)
 	{
-		String [] packagePrefixes = new String [] {"java.awt.", "WidgetExtensions.", "javax.swing."};
-		for(String packPre : packagePrefixes)
+		for(String packPre : PACKAGE_PREFIXES)
 		{
 			WidgetComponent wc = getWidgetComponent(text, packPre);
 			if(wc != null)
@@ -125,19 +143,4 @@ public class WidgetComponent
 		return o;
 	}
 	
-	private WidgetComponent(String componentLabel, JComponent jComponent)
-	{
-		this.componentLabel = componentLabel;
-		this.jComponent = jComponent;
-	}
-	private WidgetComponent(String componentLabel, Component component)
-	{
-		this.componentLabel = componentLabel;
-		this.component = component;
-	}
-	private WidgetComponent(String componentLabel, SystemTray systemTray)
-	{
-		this.componentLabel = componentLabel;
-		this.systemTray = systemTray;
-	}
 }
