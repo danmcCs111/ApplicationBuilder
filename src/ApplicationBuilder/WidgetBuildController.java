@@ -103,10 +103,12 @@ public class WidgetBuildController
 			LoggingMessages.printNewLine();
 		}
 		
-		JFrame frame = (JFrame) widgetCreatorProperties.get(0).getInstance();
-		frame.setVisible(true);
-		
-		printComponents((JComponent) frame.getComponent(0));
+		if(widgetCreatorProperties != null && !widgetCreatorProperties.isEmpty())
+		{
+			JFrame frame = (JFrame) widgetCreatorProperties.get(0).getInstance();
+			frame.setVisible(true);
+			printComponents((JComponent) frame.getComponent(0));
+		}
 	}
 	
 	public static List<WidgetCreatorProperty> getWidgetCreationProperties()
@@ -118,6 +120,12 @@ public class WidgetBuildController
 	{
 		if(widgetCreatorProperties == null)
 			widgetCreatorProperties = new ArrayList<WidgetCreatorProperty>();
+		
+		if(wcp.getParentRef() != null && !wcp.getParentRef().isBlank())
+		{
+			WidgetCreatorProperty wcpP = findRef(wcp.getParentRefWithID());
+			LoggingMessages.printOut(wcpP.toString());
+		}
 		widgetCreatorProperties.add(wcp);
 	}
 	
@@ -136,6 +144,7 @@ public class WidgetBuildController
 		if(widgetCreatorProperties != null && !widgetCreatorProperties.isEmpty())
 		{
 			widgetCreatorProperties.clear();
+			WidgetCreatorProperty.resetIDCounter();
 		}
 	}
 	

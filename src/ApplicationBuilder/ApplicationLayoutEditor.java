@@ -82,14 +82,15 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 		openParameterButton = new JButton(EDITOR_ADD_PROPERTY_BUTTON_TEXT);
 		JButton generateButton = new JButton(EDITOR_GENERATE_BUTTON_TEXT);
 		generateButton.addActionListener(new GenerateActionListener());
+		
 		p.add(openParameterButton);
 		p.add(generateButton);
 		
 		JButton addComponent = new JButton(EDITOR_ADD_COMPONENT_BUTTON_TEXT);
 		addComponent.addActionListener(new AddComponentActionListener(this));
-		
 		JButton saveButton = new JButton(EDITOR_SAVE_BUTTON_TEXT);
 		saveButton.addActionListener(new SaveEditorActionListener(this));
+		
 		p.add(addComponent);
 		p.add(saveButton);
 		

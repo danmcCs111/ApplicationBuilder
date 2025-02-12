@@ -155,6 +155,11 @@ public class WidgetCreatorProperty
 		this.refId = component + postfix;
 	}
 	
+	public static void resetIDCounter()
+	{
+		postfixCounter = 0;
+	}
+	
 	@Override
 	public String toString()
 	{
