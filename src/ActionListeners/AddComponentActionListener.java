@@ -8,11 +8,11 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import ApplicationBuilder.ApplicationLayoutEditor;
+import ApplicationBuilder.ComponentSelector;
 import ApplicationBuilder.LoggingMessages;
 import Params.XmlToWidgetGenerator;
 import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetExtensions.ExtendedLayoutApplyParent;
-import WidgetUtility.ComponentSelector;
 import WidgetUtility.WidgetAttributes;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;

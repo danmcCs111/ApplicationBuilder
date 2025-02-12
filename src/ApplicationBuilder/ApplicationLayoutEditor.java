@@ -21,7 +21,6 @@ import ActionListeners.OpenParameterEditorActionListener;
 import ActionListeners.SaveEditorActionListener;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
-import WidgetUtility.XmlToEditor;
 
 public class ApplicationLayoutEditor extends RedrawableFrame
 {

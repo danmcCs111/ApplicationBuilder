@@ -1,4 +1,4 @@
-package WidgetUtility;
+package ApplicationBuilder;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import ApplicationBuilder.LoggingMessages;
 import Params.ParameterEditor;
 import Params.XmlToWidgetGenerator;
+import WidgetUtility.WidgetCreatorProperty;
 
 public class EditorToXml 
 {

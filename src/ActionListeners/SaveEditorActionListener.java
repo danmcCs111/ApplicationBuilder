@@ -8,8 +8,8 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import ApplicationBuilder.ApplicationLayoutEditor;
+import ApplicationBuilder.EditorToXml;
 import Properties.PathUtility;
-import WidgetUtility.EditorToXml;
 import WidgetUtility.WidgetBuildController;
 
 public class SaveEditorActionListener implements ActionListener 

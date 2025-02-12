@@ -7,9 +7,9 @@ import java.util.List;
 import ApplicationBuilder.ApplicationLayoutEditor;
 import ApplicationBuilder.BuilderWindow;
 import ApplicationBuilder.LoggingMessages;
+import ApplicationBuilder.XmlToEditor;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
-import WidgetUtility.XmlToEditor;
 
 public class OpenParameterEditorActionListener implements ActionListener 
 {

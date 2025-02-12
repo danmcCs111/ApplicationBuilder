@@ -1,4 +1,4 @@
-package WidgetUtility;
+package ApplicationBuilder;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -14,9 +14,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
-import ApplicationBuilder.ApplicationLayoutEditor;
 import Params.ParameterEditor;
 import Params.XmlToWidgetGenerator;
+import WidgetUtility.WidgetBuildController;
+import WidgetUtility.WidgetCreatorProperty;
 
 public class XmlToEditor 
 {
