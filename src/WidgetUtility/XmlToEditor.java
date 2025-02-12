@@ -16,6 +16,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
 import ApplicationBuilder.ApplicationLayoutEditor;
+import ApplicationBuilder.LoggingMessages;
+import ApplicationBuilder.WidgetBuildController;
 import Params.ParameterEditor;
 import Params.XmlToWidgetGenerator;
 
@@ -26,22 +28,27 @@ public class XmlToEditor
 		COMPONENT_REGEX = COMPONENT_SUFFIX + "[0-9]*",
 		DELETE_BUTTON_TEXT = "X";
 	
-	private List<WidgetCreatorProperty> widgetCreatorProperties;
 	private ApplicationLayoutEditor editorFrame;
 	private JTabbedPane jtPane;
 	
-	public XmlToEditor(List<WidgetCreatorProperty> widgetCreatorProperties, ApplicationLayoutEditor editorFrame)
+	public XmlToEditor(ApplicationLayoutEditor editorFrame)
 	{
-		this.widgetCreatorProperties = widgetCreatorProperties;
 		this.editorFrame = editorFrame;
 	}
 	
 	public void rebuildEditors()
 	{
-		int select = getSelectedIndex();
-		destroyEditors();
-		buildEditors();
-		setSelectedIndex(select);
+		if(jtPane == null)
+		{
+			buildEditors();
+		}
+		else
+		{
+			int select = getSelectedIndex();
+			destroyEditors();
+			buildEditors();
+			setSelectedIndex(select);
+		}
 	}
 	
 	public void destroyEditors()
@@ -67,7 +74,8 @@ public class XmlToEditor
 	
 	public void setSelectedIndex(int index)
 	{
-		jtPane.setSelectedIndex(index);
+		if(jtPane.getTabCount() >= index-1)
+			jtPane.setSelectedIndex(index);
 	}
 	
 	public void buildEditors()
@@ -75,6 +83,8 @@ public class XmlToEditor
 		jtPane = new JTabbedPane();
 		
 		int count = 0;
+		List<WidgetCreatorProperty> widgetCreatorProperties = WidgetBuildController.getWidgetCreationProperties();
+		LoggingMessages.printOut(widgetCreatorProperties.size()+"");
 		
 		for(WidgetCreatorProperty wcp : widgetCreatorProperties)
 		{

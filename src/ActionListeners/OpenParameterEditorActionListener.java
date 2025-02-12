@@ -2,6 +2,7 @@ package ActionListeners;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import ApplicationBuilder.ApplicationLayoutEditor;
 import ApplicationBuilder.BuilderWindow;
@@ -30,7 +31,11 @@ public class OpenParameterEditorActionListener implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		WidgetCreatorProperty wcp = WidgetBuildController.getWidgetCreationProperties().get(xe.getSelectedIndex());
+		List<WidgetCreatorProperty> wcps = WidgetBuildController.getWidgetCreationProperties();
+		if(wcps == null || wcps.isEmpty() || xe == null || xe.getSelectedIndex()==-1)
+			return;
+		
+		WidgetCreatorProperty wcp = wcps.get(xe.getSelectedIndex());
 		String sel = xe.getTabbedPane().getTitleAt(xe.getTabbedPane().getSelectedIndex());
 		LoggingMessages.printOut(sel);
 		

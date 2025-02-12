@@ -83,19 +83,10 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 				{
 					WidgetBuildController.destroyGeneratedFrame();
 					WidgetBuildController.clearWidgetCreatorProperties();
-					
-					if(xe != null) xe.destroyEditors();
-					
 					WidgetBuildController.readProperties(chosenFile);
-					xe = new XmlToEditor(WidgetBuildController.getWidgetCreationProperties(), ApplicationLayoutEditor.this);
-					if(openParameterButton != null)
-					{
-						openParameterButton.removeActionListener(opListener);
-					}
 					
-					opListener = new OpenParameterEditorActionListener(xe, ApplicationLayoutEditor.this);
-					openParameterButton.addActionListener(opListener);
-					xe.buildEditors();
+					xe = new XmlToEditor(ApplicationLayoutEditor.this);
+					rebuildInnerPanels();
 				}
 			}
 		});
@@ -159,10 +150,11 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 							ComponentSelector.getParentContainerOptions().toArray(), "");
 					LoggingMessages.printOut("Add Component: " + opt + " <-> Make Parent: " + optP);
 					ArrayList<String> settings = new ArrayList<String>();
+					settings.add("extendedLayoutApplyParent=\"\"");
 					String optFiltered = opt.replaceAll("[a-zA-Z]+[\\.]+", "");
 					LoggingMessages.printOut("Filtered: " + optFiltered + " non-Filtered: " + opt);
 					
-					WidgetCreatorProperty wcp = new WidgetCreatorProperty(optFiltered, settings, optP.equals("") ?null: optP);
+					WidgetCreatorProperty wcp = new WidgetCreatorProperty(optFiltered, settings, optP.equals("")?null:optP);
 					if(!optP.equals(""))
 					{
 						XmlToWidgetGenerator xmlG = WidgetAttributes.setAttribute(wcp.getClassType(), 
@@ -196,11 +188,9 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 					
 					WidgetBuildController.destroyGeneratedFrame();
 					WidgetBuildController.clearWidgetCreatorProperties();
-					
-					
 					WidgetBuildController.readProperties(chosenFile);
-					if(xe != null) xe.rebuildEditors();
-					else xe.buildEditors();
+					
+					rebuildInnerPanels();
 				}
 			}
 		});
@@ -208,6 +198,8 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 		p.add(saveButton);
 		
 		this.add(p, BorderLayout.SOUTH);
+		
+		rebuildInnerPanels();
 	}
 	
 	public void updatePropertyEditor()
@@ -228,12 +220,23 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 	@Override
 	public void rebuildInnerPanels() 
 	{
-		if(xe == null)
+		List<WidgetCreatorProperty> wcps = WidgetBuildController.getWidgetCreationProperties();
+		if(xe == null && wcps != null && wcps.size() > 0)
 		{
-			xe = new XmlToEditor(WidgetBuildController.getWidgetCreationProperties(), ApplicationLayoutEditor.this);
+			xe = new XmlToEditor(ApplicationLayoutEditor.this);
 			xe.buildEditors();
 		}
-		xe.rebuildEditors();
+		else if(xe != null)
+		{
+			xe.rebuildEditors();
+		}
+		
+		if(opListener != null)
+		{
+			openParameterButton.removeActionListener(opListener);
+		}
+		opListener = new OpenParameterEditorActionListener(xe, ApplicationLayoutEditor.this);
+		openParameterButton.addActionListener(opListener);
 	}
 	
 }
