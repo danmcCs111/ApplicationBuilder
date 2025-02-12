@@ -12,6 +12,7 @@ import Params.XmlToWidgetGenerator;
 import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetExtensions.ExtendedLayoutApplyParent;
 import WidgetExtensions.ExtendedTextStripper;
+import WidgetUtility.WidgetComponent;
 import WidgetUtility.WidgetCreatorProperty;
 import WidgetUtility.WidgetReader;
 
@@ -143,8 +144,9 @@ public class WidgetBuildController
 	{
 		if(widgetCreatorProperties != null && !widgetCreatorProperties.isEmpty())
 		{
-			widgetCreatorProperties.clear();
 			WidgetCreatorProperty.resetIDCounter();
+			WidgetComponent.resetIDCounter();
+			widgetCreatorProperties.clear();
 		}
 	}
 	

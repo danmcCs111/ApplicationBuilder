@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import ApplicationBuilder.LoggingMessages;
 import ApplicationBuilder.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
@@ -12,6 +13,7 @@ public class ExtendedLayoutApplyParent implements ExtendedAttributeStringParam
 	@Override
 	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 
 	{
+		LoggingMessages.printOut(widgetProperties.getParentRefWithID());
 		WidgetCreatorProperty parentProp = WidgetBuildController.findRef(widgetProperties.getParentRefWithID());
 		Object parentComp = parentProp.getInstance();
 		Object comp = widgetProperties.getInstance();

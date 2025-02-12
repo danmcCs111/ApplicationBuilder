@@ -109,7 +109,7 @@ public class XmlToWidgetGenerator
 			
 			Object tmp = extendedAttr.getDeclaredConstructor().newInstance();
 			LoggingMessages.printOut(tmp+" " + cs[0] + " " + cs[1]);
-			LoggingMessages.printOut(tmp+" " + os[0] + " " + os[1]);
+			LoggingMessages.printOut(tmp+" " + os[0].getClass() + " " + os[1].getClass());
 			m = tmp.getClass().getMethod("applyMethod", cs);
 			m.invoke(tmp, os);
 		} catch (NoSuchMethodException e) {

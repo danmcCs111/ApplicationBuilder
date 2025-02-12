@@ -29,6 +29,11 @@ public class WidgetComponent
 		return getLabelStr() + ID_SPLIT + counter++;
 	}
 	
+	public static void resetIDCounter()
+	{
+		counter = 0;
+	}
+	
 	public String getLabelStr()
 	{
 		return this.componentLabel;
