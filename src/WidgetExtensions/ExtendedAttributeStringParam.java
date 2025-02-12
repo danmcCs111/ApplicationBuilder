@@ -17,8 +17,9 @@ public interface ExtendedAttributeStringParam
 	public static String getMethodDefinition(Class<? extends ExtendedAttributeStringParam> clazz) 
 	{
 		String [] className = clazz.getName().split("\\.");
-		String methodDef = className[className.length-1];
-		String methodBeginCase = methodDef.substring(0, 1);
+		String 
+			methodDef = className[className.length-1],
+			methodBeginCase = methodDef.substring(0, 1);
 		
 		methodDef = methodBeginCase.toLowerCase() + methodDef.substring(1, methodDef.length()) + METHOD_ARG_DEF;
 		

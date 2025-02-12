@@ -63,7 +63,6 @@ public class ExtendedCalculationPad implements ExtendedAttributeStringParam
 	{
 		int 
 			width = frame.getWidth(),
-//			height = frame.getHeight(),
 			calcWidth = (width / 2) - targetComp.getPreferredSize().width,
 			calcHeight = targetComp.getPreferredSize().height;
 		

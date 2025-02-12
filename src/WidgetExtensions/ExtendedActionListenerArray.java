@@ -8,7 +8,6 @@ import WidgetUtility.WidgetCreatorProperty;
 
 public class ExtendedActionListenerArray implements ExtendedAttributeStringParam 
 {
-
 	@Override
 	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 
 	{

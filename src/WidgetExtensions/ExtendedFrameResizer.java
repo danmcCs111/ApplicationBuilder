@@ -13,8 +13,8 @@ import WidgetUtility.WidgetCreatorProperty;
  */
 public class ExtendedFrameResizer implements ExtendedAttributeStringParam
 {
-	private String compName;
 	public static final int INTERNAL_RESIZE_EVENT = 999;
+	private String compName;
 	
 	@Override
 	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 

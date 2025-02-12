@@ -16,22 +16,23 @@ public class WidgetCreatorProperty
 		ID_SUFFIX_REGEX = "#[0-9]*";
 	private static int postfixCounter = 0;
 	
+	private Object instance;
 	private String 
 		className,
-		component,
+		componentTag,
 		parentNodeTextWithID,
 		parentNodeText,
-		refId;
-	private Object instance;
-	private ArrayList<String> settings;
-	ArrayList<String> settingsName = new ArrayList<String>();
-	private ArrayList<XmlToWidgetGenerator> xmlToWidgetGenerators = new ArrayList<XmlToWidgetGenerator>();
+		componentTagRefId;
+	private ArrayList<String> 
+		settings,
+		settingsName = new ArrayList<String>();
 	private HashMap<String, String> settingsNameAndValue = new HashMap<String, String>();
+	private ArrayList<XmlToWidgetGenerator> xmlToWidgetGenerators = new ArrayList<XmlToWidgetGenerator>();
 
 	public WidgetCreatorProperty(String componentName, ArrayList<String> settings, String parentNodeTextWithID) 
 	{
 		className = WidgetAttributes.getClassNameString(componentName);
-		this.component = componentName;
+		this.componentTag = componentName;
 		this.settings = settings;
 		for (String s : settings)
 		{
@@ -81,7 +82,7 @@ public class WidgetCreatorProperty
 
 	public WidgetComponent getComponentType() 
 	{
-		return WidgetComponent.getWidgetComponent(this.component);
+		return WidgetComponent.getWidgetComponent(this.componentTag);
 	}
 	
 	public ClassTypeHandler getClassType()
@@ -121,16 +122,16 @@ public class WidgetCreatorProperty
 	
 	public String getRef()
 	{
-		return this.component;
+		return this.componentTag;
 	}
 	
 	public String getRefWithID()
 	{
-		return this.refId;
+		return this.componentTagRefId;
 	}
 
 	public boolean isThisRef(String ref) {
-		return refId.equals(ref);
+		return componentTagRefId.equals(ref);
 	}
 	
 	public void addXmlToWidgetGenerator(XmlToWidgetGenerator xmlToWidgetGenerator)
@@ -144,7 +145,8 @@ public class WidgetCreatorProperty
 		return this.xmlToWidgetGenerators;
 	}
 
-	private void splitAttributeNameAndValue(String attribute) {
+	private void splitAttributeNameAndValue(String attribute) 
+	{
 		String[] ss = attribute.split("=");
 		settingsNameAndValue.put(ss[0], ss[1]);
 		settingsName.add(ss[0]);
@@ -152,7 +154,7 @@ public class WidgetCreatorProperty
 	private void setRefId(String component) 
 	{
 		String postfix = ID_POSTFIX + postfixCounter++;
-		this.refId = component + postfix;
+		this.componentTagRefId = component + postfix;
 	}
 	
 	public static void resetIDCounter()
@@ -164,7 +166,7 @@ public class WidgetCreatorProperty
 	public String toString()
 	{
 		StringBuilder out = new StringBuilder();
-		out.append("RefID: " + this.refId + " ");
+		out.append("RefID: " + this.componentTagRefId + " ");
 		out.append("ParentNodeID: " + this.parentNodeTextWithID + " ");
 		if(this.settings != null && this.settings.size() > 0)
 		{

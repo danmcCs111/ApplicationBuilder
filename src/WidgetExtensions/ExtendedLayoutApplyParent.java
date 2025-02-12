@@ -43,16 +43,12 @@ public class ExtendedLayoutApplyParent implements ExtendedAttributeStringParam
 			m = parentComp.getClass().getMethod("add", cs);
 			m.invoke(parentComp, os);
 		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

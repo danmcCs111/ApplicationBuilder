@@ -45,13 +45,10 @@ public class SwappableCollection extends JPanel implements ExtendedStringCollect
 			m = this.pathTextComponent.getClass().getMethod("setText", String.class);
 			m.invoke(this.pathTextComponent, PathUtility.filterPathToFilename(path));
 		} catch (NoSuchMethodException | SecurityException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

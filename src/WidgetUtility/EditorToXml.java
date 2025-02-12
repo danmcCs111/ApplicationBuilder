@@ -22,8 +22,7 @@ public class EditorToXml
 		BUILD_CLOSE_TAG = "</Build>";
 	
 	public static final HashMap<String, String> xmlWriteReplace = new HashMap<String, String>();
-	static
-	{
+	static {
 		xmlWriteReplace.put(">", "&gt;");
 		xmlWriteReplace.put("<", "&lt;");
 	}
@@ -37,11 +36,10 @@ public class EditorToXml
 		StringBuilder sb = new StringBuilder();
 		sb.append(BUILD_OPEN_TAG + System.lineSeparator());
 		
-		ArrayList<String> parentRefs = new ArrayList<String>();
 		String 
 			lastParentRefWithID = "",
 			lastRef = "";
-		
+		ArrayList<String> parentRefs = new ArrayList<String>();
 		int tabcount = 0;
 		
 		for(WidgetCreatorProperty wcp : widgetCreatorProperties)
