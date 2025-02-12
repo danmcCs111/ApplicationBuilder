@@ -48,7 +48,6 @@ public class NavigationButtonActionListener implements ActionListener, ActionLis
 		curPosition = direction.getIndexDirectionNext();
 		LoggingMessages.printOut(curPosition + "");
 		
-		
 		SwappableCollection comp = (SwappableCollection) connectedComp;
 		HashMap<String, List<String>> pathAndFileList = comp.getPathAndFileList();
 		

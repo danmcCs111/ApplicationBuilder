@@ -213,8 +213,10 @@ public class WidgetBuildController
 	
 	private static ArrayList<XmlToWidgetGenerator> orderGenerators(ArrayList<XmlToWidgetGenerator> generators)
 	{
-		ArrayList<XmlToWidgetGenerator> tmp = new ArrayList<XmlToWidgetGenerator>();
-		ArrayList<XmlToWidgetGenerator> orderedGenerators = new ArrayList<XmlToWidgetGenerator>();
+		ArrayList<XmlToWidgetGenerator> 
+			tmp = new ArrayList<XmlToWidgetGenerator>(),
+			orderedGenerators = new ArrayList<XmlToWidgetGenerator>();
+		
 		for(XmlToWidgetGenerator xwg : generators)
 		{
 			String methodName = xwg.getMethodName();
