@@ -10,67 +10,72 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
 
+import ActionListeners.RemoveEditorTabActionListener;
 import Params.ParameterEditor;
 import Params.XmlToWidgetGenerator;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class XmlToEditor 
+public class XmlToEditor extends TabbedPanel
 {
+	private static final long serialVersionUID = 1888L;
+
 	public static final String 
+		MENU_ITEM_REMOVE_TEXT = "remove",
 		COMPONENT_SUFFIX = "@",
 		COMPONENT_REGEX = COMPONENT_SUFFIX + "[0-9]*",
 		DELETE_BUTTON_TEXT = "X";
 	
-	private ApplicationLayoutEditor editorFrame;
-	private JTabbedPane jtPane = new JTabbedPane();
+	private DependentRedrawableFrame editorFrame;
 	
-	public XmlToEditor(ApplicationLayoutEditor editorFrame)
+	public XmlToEditor(DependentRedrawableFrame editorFrame)
 	{
+		super();
 		this.editorFrame = editorFrame;
 	}
 	
-	public void rebuildEditors()
+	@Override
+	public void rebuildPanel()
 	{
 		int select = getSelectedIndex();
-		destroyEditors();
+		destroyPanel();
 		buildEditors();
 		setSelectedIndex(select);
 	}
 	
-	public void destroyEditors()
+	@Override
+	public void destroyPanel()
 	{
-		jtPane.removeAll();
-		editorFrame.remove(jtPane);
+		this.removeAll();
+		editorFrame.remove(this);
 		editorFrame.repaint();
 		editorFrame.validate();
 	}
 	
-	public JTabbedPane getTabbedPane()
-	{
-		return this.jtPane;
-	}
-	
-	public int getSelectedIndex()
-	{
-		return jtPane.getSelectedIndex();
-	}
-	
+	@Override
 	public void setSelectedIndex(int index)
 	{
-		if(jtPane.getTabCount()-1 >= index)
-			jtPane.setSelectedIndex(index);
-		else if(jtPane.getTabCount() != 0)
-			jtPane.setSelectedIndex(0);
+		if(this.getTabCount()-1 >= index)
+			super.setSelectedIndex(index);
+		else if(this.getTabCount() != 0)
+			super.setSelectedIndex(0);
 	}
 	
 	private void buildEditors()
 	{
 		int count = 0;
+		
+		JPopupMenu pm = new JPopupMenu();
+		JMenuItem mi = new JMenuItem(MENU_ITEM_REMOVE_TEXT);
+		mi.addActionListener(new RemoveEditorTabActionListener(this));
+		pm.setEnabled(true);
+		pm.add(mi);
+		this.setComponentPopupMenu(pm);
 		
 		for(WidgetCreatorProperty wcp : WidgetBuildController.getWidgetCreatorProperties())
 		{
@@ -105,7 +110,7 @@ public class XmlToEditor
 						editorFrame.validate();
 						wcp.getXmlToWidgetGenerators().remove(xwg);//remove from generators for saving removal
 						
-						editorFrame.updatePropertyEditor();
+						editorFrame.updateDependentWindow();
 					}
 				});
 				
@@ -123,10 +128,10 @@ public class XmlToEditor
 				}
 			}
 			outP.add(js, BorderLayout.CENTER);
-			jtPane.add(outP);
-			jtPane.setTitleAt(count++, compName);
+			this.add(outP);
+			this.setTitleAt(count++, compName);
 		}
-		editorFrame.add(jtPane, BorderLayout.CENTER);
+		editorFrame.add(this, BorderLayout.CENTER);
 		editorFrame.validate();
 	}
 	

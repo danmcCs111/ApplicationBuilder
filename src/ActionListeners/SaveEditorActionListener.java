@@ -44,6 +44,8 @@ public class SaveEditorActionListener implements ActionListener
 			
 			WidgetBuildController.readProperties(chosenFile);
 			
+			applicationLayoutEditor.rebuildInnerPanels();
+			
 		}
 	}
 }

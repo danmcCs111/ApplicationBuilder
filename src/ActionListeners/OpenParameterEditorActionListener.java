@@ -36,7 +36,7 @@ public class OpenParameterEditorActionListener implements ActionListener
 			return;
 		
 		WidgetCreatorProperty wcp = wcps.get(xe.getSelectedIndex());
-		String sel = xe.getTabbedPane().getTitleAt(xe.getTabbedPane().getSelectedIndex());
+		String sel = xe.getTitleAt(xe.getSelectedIndex());
 		LoggingMessages.printOut(sel);
 		
 		if(builderWindow == null )

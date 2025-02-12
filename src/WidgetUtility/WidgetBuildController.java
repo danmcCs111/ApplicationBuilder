@@ -119,7 +119,7 @@ public class WidgetBuildController
 		addWidgetCreatorProperty(wcp, false);
 	}
 	
-	public static void addWidgetCreatorProperty(WidgetCreatorProperty wcp, boolean inPlace)
+	public static void addWidgetCreatorProperty(WidgetCreatorProperty wcp, boolean inPlace)//TODO append/order insert?
 	{
 		if(inPlace == false)
 		{

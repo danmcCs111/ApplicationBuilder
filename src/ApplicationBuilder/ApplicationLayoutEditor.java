@@ -22,7 +22,7 @@ import ActionListeners.SaveEditorActionListener;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class ApplicationLayoutEditor extends RedrawableFrame
+public class ApplicationLayoutEditor extends DependentRedrawableFrame
 {
 	private static final long serialVersionUID = 1887L;
 	
@@ -99,7 +99,8 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 		rebuildInnerPanels();
 	}
 	
-	public void updatePropertyEditor()
+	@Override
+	public void updateDependentWindow()
 	{
 		if(opListener.getBuilderWindow() != null)
 		{
@@ -111,7 +112,7 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 	@Override
 	public void clearInnerPanels() 
 	{
-		xe.destroyEditors();
+		xe.destroyPanel();
 	}
 
 	@Override
@@ -121,11 +122,11 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 		if(xe == null && wcps != null && wcps.size() > 0)
 		{
 			xe = new XmlToEditor(ApplicationLayoutEditor.this);
-			xe.rebuildEditors();
+			xe.rebuildPanel();
 		}
 		else if(xe != null)
 		{
-			xe.rebuildEditors();
+			xe.rebuildPanel();
 		}
 		
 		if(opListener != null)
