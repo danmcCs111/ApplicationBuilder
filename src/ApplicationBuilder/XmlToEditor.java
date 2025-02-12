@@ -77,6 +77,8 @@ public class XmlToEditor extends TabbedPanel
 		pm.add(mi);
 		this.setComponentPopupMenu(pm);
 		
+		LoggingMessages.printOut("number of tabs: " + WidgetBuildController.getWidgetCreatorProperties().size());
+		
 		for(WidgetCreatorProperty wcp : WidgetBuildController.getWidgetCreatorProperties())
 		{
 			JPanel outP = new JPanel(new BorderLayout());

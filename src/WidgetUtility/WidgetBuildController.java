@@ -155,10 +155,14 @@ public class WidgetBuildController
 					getWidgetCreatorProperties().add(wcpReplace);
 				}
 			}
-			else
+			else //it is the last in the list
 			{
 				getWidgetCreatorProperties().add(wcp);
 			}
+		}
+		else //no parent entered so root.
+		{
+			getWidgetCreatorProperties().add(wcp);
 		}
 	}
 	

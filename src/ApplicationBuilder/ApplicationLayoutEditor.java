@@ -3,7 +3,6 @@ package ApplicationBuilder;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,8 +18,6 @@ import ActionListeners.NewEditorActionListener;
 import ActionListeners.OpenFileActionListener;
 import ActionListeners.OpenParameterEditorActionListener;
 import ActionListeners.SaveEditorActionListener;
-import WidgetUtility.WidgetBuildController;
-import WidgetUtility.WidgetCreatorProperty;
 
 public class ApplicationLayoutEditor extends DependentRedrawableFrame
 {
@@ -118,8 +115,7 @@ public class ApplicationLayoutEditor extends DependentRedrawableFrame
 	@Override
 	public void rebuildInnerPanels() 
 	{
-		List<WidgetCreatorProperty> wcps = WidgetBuildController.getWidgetCreatorProperties();
-		if(xe == null && wcps != null && wcps.size() > 0)
+		if(xe == null)
 		{
 			xe = new XmlToEditor(ApplicationLayoutEditor.this);
 			xe.rebuildPanel();

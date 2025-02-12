@@ -52,10 +52,11 @@ public class AddComponentActionListener implements ActionListener
 					ComponentSelector.getParentContainerOptions().toArray(), "");
 			LoggingMessages.printOut("Add Component: " + opt + " <-> Make Parent: " + optP);
 			ArrayList<String> settings = new ArrayList<String>();
-			settings.add("extendedLayoutApplyParent=\"\"");
 			String optFiltered = opt.replaceAll("[a-zA-Z]+[\\.]+", "");
 			LoggingMessages.printOut("Filtered: " + optFiltered + " non-Filtered: " + opt);
 			
+			if(!optP.equals(""))
+				settings.add("extendedLayoutApplyParent=\"\"");
 			WidgetCreatorProperty wcp = new WidgetCreatorProperty(optFiltered, settings, optP.equals("")?null:optP);
 			if(!optP.equals(""))
 			{
@@ -64,7 +65,6 @@ public class AddComponentActionListener implements ActionListener
 				wcp.addXmlToWidgetGenerator(xmlG);
 			}
 			
-			LoggingMessages.printOut("add triggered!");
 			WidgetBuildController.addWidgetCreatorProperty(wcp, true);
 			applicationLayoutEditor.rebuildInnerPanels();
 		}
