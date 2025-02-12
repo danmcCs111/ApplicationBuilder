@@ -4,7 +4,7 @@ import java.awt.Component;
 
 import javax.swing.JScrollPane;
 
-import ApplicationBuilder.WidgetBuildController;
+import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
 public class ExtendedSetViewportView implements ExtendedAttributeStringParam 

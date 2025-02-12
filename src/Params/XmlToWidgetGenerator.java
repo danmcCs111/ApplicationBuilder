@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ApplicationBuilder.LoggingMessages;
-import ApplicationBuilder.WidgetBuildController;
 import ClassDefintions.StringToObjectConverter;
 import WidgetExtensions.ExtendedAttributeStringParam;
+import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
 public class XmlToWidgetGenerator 

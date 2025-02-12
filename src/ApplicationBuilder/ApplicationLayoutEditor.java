@@ -19,6 +19,7 @@ import ActionListeners.NewEditorActionListener;
 import ActionListeners.OpenFileActionListener;
 import ActionListeners.OpenParameterEditorActionListener;
 import ActionListeners.SaveEditorActionListener;
+import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 import WidgetUtility.XmlToEditor;
 
@@ -117,11 +118,11 @@ public class ApplicationLayoutEditor extends RedrawableFrame
 	@Override
 	public void rebuildInnerPanels() 
 	{
-		List<WidgetCreatorProperty> wcps = WidgetBuildController.getWidgetCreationProperties();
+		List<WidgetCreatorProperty> wcps = WidgetBuildController.getWidgetCreatorProperties();
 		if(xe == null && wcps != null && wcps.size() > 0)
 		{
 			xe = new XmlToEditor(ApplicationLayoutEditor.this);
-			xe.buildEditors();
+			xe.rebuildEditors();
 		}
 		else if(xe != null)
 		{

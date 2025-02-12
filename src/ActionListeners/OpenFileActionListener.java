@@ -8,8 +8,8 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import ApplicationBuilder.ApplicationLayoutEditor;
-import ApplicationBuilder.WidgetBuildController;
 import Properties.PathUtility;
+import WidgetUtility.WidgetBuildController;
 
 public class OpenFileActionListener implements ActionListener 
 {

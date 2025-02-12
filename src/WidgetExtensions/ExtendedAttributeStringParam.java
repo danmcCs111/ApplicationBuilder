@@ -4,7 +4,7 @@ import java.awt.Component;
 
 import javax.swing.JComponent;
 
-import ApplicationBuilder.WidgetBuildController;
+import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
 public interface ExtendedAttributeStringParam 
@@ -30,7 +30,7 @@ public interface ExtendedAttributeStringParam
 	
 	public static JComponent findComponent(Class<?> clazz)
 	{
-		for(WidgetCreatorProperty wcp : WidgetBuildController.getWidgetCreationProperties())
+		for(WidgetCreatorProperty wcp : WidgetBuildController.getWidgetCreatorProperties())
 		{
 			if(wcp.getInstance().getClass().equals(clazz))
 			{
@@ -42,7 +42,7 @@ public interface ExtendedAttributeStringParam
 	
 	public static Component findComponentByName(String name)
 	{
-		for(WidgetCreatorProperty wcp : WidgetBuildController.getWidgetCreationProperties())
+		for(WidgetCreatorProperty wcp : WidgetBuildController.getWidgetCreatorProperties())
 		{
 			Component c = (Component) wcp.getInstance();
 			if(name.equals(c.getName()))

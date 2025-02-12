@@ -5,7 +5,7 @@ import java.awt.Component;
 import javax.swing.JFrame;
 
 import ActionListeners.FrameResizeListener;
-import ApplicationBuilder.WidgetBuildController;
+import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
 /**
@@ -27,7 +27,7 @@ public class ExtendedFrameResizer implements ExtendedAttributeStringParam
 	
 	public ResizerListener getResizeListener()
 	{
-		for(WidgetCreatorProperty wcp : WidgetBuildController.getWidgetCreationProperties())
+		for(WidgetCreatorProperty wcp : WidgetBuildController.getWidgetCreatorProperties())
 		{
 			Object o = wcp.getInstance();
 			if(o instanceof Component)

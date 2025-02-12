@@ -2,7 +2,7 @@ package WidgetExtensions;
 
 import java.awt.event.ActionListener;
 
-import ApplicationBuilder.WidgetBuildController;
+import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
 public interface ArrayActionListener 
@@ -11,7 +11,7 @@ public interface ArrayActionListener
 	
 	public static ArrayActionListener findInstanceOfArrayActionListener()
 	{
-		for(WidgetCreatorProperty wcp : WidgetBuildController.getWidgetCreationProperties())
+		for(WidgetCreatorProperty wcp : WidgetBuildController.getWidgetCreatorProperties())
 		{
 			if(wcp.getInstance() instanceof ArrayActionListener)
 			{

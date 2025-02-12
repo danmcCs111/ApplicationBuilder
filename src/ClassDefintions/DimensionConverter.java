@@ -4,7 +4,6 @@ import java.awt.Dimension;
 
 public class DimensionConverter implements StringToObjectConverter
 {
-
 	@Override
 	public int numberOfArgs() 
 	{

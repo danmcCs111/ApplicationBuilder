@@ -5,7 +5,6 @@ import java.lang.reflect.InvocationTargetException;
 
 public class WindowListenerConverter implements StringToObjectConverter
 {
-	
 	@Override
 	public String toString()
 	{

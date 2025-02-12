@@ -17,7 +17,6 @@ import javax.swing.JTabbedPane;
 
 import ApplicationBuilder.ApplicationLayoutEditor;
 import ApplicationBuilder.LoggingMessages;
-import ApplicationBuilder.WidgetBuildController;
 import Params.ParameterEditor;
 import Params.XmlToWidgetGenerator;
 
@@ -29,7 +28,7 @@ public class XmlToEditor
 		DELETE_BUTTON_TEXT = "X";
 	
 	private ApplicationLayoutEditor editorFrame;
-	private JTabbedPane jtPane;
+	private JTabbedPane jtPane = new JTabbedPane();
 	
 	public XmlToEditor(ApplicationLayoutEditor editorFrame)
 	{
@@ -38,28 +37,18 @@ public class XmlToEditor
 	
 	public void rebuildEditors()
 	{
-		if(jtPane == null)
-		{
-			buildEditors();
-		}
-		else
-		{
-			int select = getSelectedIndex();
-			destroyEditors();
-			buildEditors();
-			setSelectedIndex(select);
-		}
+		int select = getSelectedIndex();
+		destroyEditors();
+		buildEditors();
+		setSelectedIndex(select);
 	}
 	
 	public void destroyEditors()
 	{
-		if(jtPane != null)
-		{
-			jtPane.removeAll();
-			editorFrame.remove(jtPane);
-			editorFrame.repaint();
-			editorFrame.validate();
-		}
+		jtPane.removeAll();
+		editorFrame.remove(jtPane);
+		editorFrame.repaint();
+		editorFrame.validate();
 	}
 	
 	public JTabbedPane getTabbedPane()
@@ -76,17 +65,15 @@ public class XmlToEditor
 	{
 		if(jtPane.getTabCount()-1 >= index)
 			jtPane.setSelectedIndex(index);
+		else if(jtPane.getTabCount() != 0)
+			jtPane.setSelectedIndex(0);
 	}
 	
-	public void buildEditors()
+	private void buildEditors()
 	{
-		jtPane = new JTabbedPane();
-		
 		int count = 0;
-		List<WidgetCreatorProperty> widgetCreatorProperties = WidgetBuildController.getWidgetCreationProperties();
-		LoggingMessages.printOut(widgetCreatorProperties.size()+"");
 		
-		for(WidgetCreatorProperty wcp : widgetCreatorProperties)
+		for(WidgetCreatorProperty wcp : WidgetBuildController.getWidgetCreatorProperties())
 		{
 			JPanel outP = new JPanel(new BorderLayout());
 			JPanel p = new JPanel(new GridLayout(0,1));//rows, columns

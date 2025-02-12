@@ -2,6 +2,8 @@ package ApplicationBuilder;
 
 import javax.swing.SwingUtilities;
 
+import WidgetUtility.WidgetBuildController;
+
 public class ApplicationBuilder
 {
 	public static void main(String [] args)
@@ -19,6 +21,6 @@ public class ApplicationBuilder
 	public static void buildAppFromXML(String SOURCE_FILE)
 	{
 		WidgetBuildController.readProperties(SOURCE_FILE);
-		WidgetBuildController.generateGraphicalInterface(WidgetBuildController.getWidgetCreationProperties());
+		WidgetBuildController.generateGraphicalInterface();
 	}
 }

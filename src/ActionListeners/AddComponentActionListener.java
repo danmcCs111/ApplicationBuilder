@@ -9,12 +9,12 @@ import javax.swing.JOptionPane;
 
 import ApplicationBuilder.ApplicationLayoutEditor;
 import ApplicationBuilder.LoggingMessages;
-import ApplicationBuilder.WidgetBuildController;
 import Params.XmlToWidgetGenerator;
 import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetExtensions.ExtendedLayoutApplyParent;
 import WidgetUtility.ComponentSelector;
 import WidgetUtility.WidgetAttributes;
+import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
 public class AddComponentActionListener implements ActionListener 
@@ -64,7 +64,8 @@ public class AddComponentActionListener implements ActionListener
 				wcp.addXmlToWidgetGenerator(xmlG);
 			}
 			
-			WidgetBuildController.addWidgetCreatorProperty(wcp);
+			LoggingMessages.printOut("add triggered!");
+			WidgetBuildController.addWidgetCreatorProperty(wcp, true);
 			applicationLayoutEditor.rebuildInnerPanels();
 		}
 		else LoggingMessages.printOut("cancelled");

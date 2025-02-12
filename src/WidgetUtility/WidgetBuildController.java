@@ -1,4 +1,4 @@
-package ApplicationBuilder;
+package WidgetUtility;
 
 import java.awt.Component;
 import java.io.File;
@@ -8,13 +8,11 @@ import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
+import ApplicationBuilder.LoggingMessages;
 import Params.XmlToWidgetGenerator;
 import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetExtensions.ExtendedLayoutApplyParent;
 import WidgetExtensions.ExtendedTextStripper;
-import WidgetUtility.WidgetComponent;
-import WidgetUtility.WidgetCreatorProperty;
-import WidgetUtility.WidgetReader;
 
 public class WidgetBuildController 
 {
@@ -23,7 +21,6 @@ public class WidgetBuildController
 		ExtendedTextStripper.class
 	};
 	
-	private static ArrayList<WidgetCreatorProperty> widgetCreatorProperties;
 	private static WidgetBuildController widgetBuildController = WidgetBuildController.getInstance();
 	
 	private WidgetBuildController() {
@@ -52,8 +49,8 @@ public class WidgetBuildController
 		destroyGeneratedFrame();
 		clearWidgetCreatorProperties();
 		
-		widgetCreatorProperties = (WidgetReader.collectWidgetCreatorProperties(sourceFile));
-		if(widgetCreatorProperties == null || widgetCreatorProperties.isEmpty())
+		WidgetReader.collectWidgetCreatorProperties(sourceFile);
+		if(getWidgetCreatorProperties() == null || getWidgetCreatorProperties().isEmpty())
 		{
 			LoggingMessages.printOut("No widget creation file found while using path: " + sourceFile);
 			return;
@@ -61,7 +58,7 @@ public class WidgetBuildController
 		
 		LoggingMessages.printOut("-->Widget Creator Properties<--");
 		
-		for(WidgetCreatorProperty wcProp : widgetCreatorProperties)//TODO print output
+		for(WidgetCreatorProperty wcProp : getWidgetCreatorProperties())//TODO print output
 		{
 			LoggingMessages.printOut(wcProp.toString());
 			LoggingMessages.printNewLine();
@@ -69,12 +66,12 @@ public class WidgetBuildController
 		
 	}
 	
-	public static void generateGraphicalInterface (List<WidgetCreatorProperty> widgets)
+	public static void generateGraphicalInterface()
 	{
 		LoggingMessages.printNewLine();
 		LoggingMessages.printOut("-->Widget Generation<--");
 		
-		for(WidgetCreatorProperty w : widgets)
+		for(WidgetCreatorProperty w : getWidgetCreatorProperties())
 		{
 			Object o = w.getInstance();
 			ArrayList<XmlToWidgetGenerator> generators = w.getXmlToWidgetGenerators();
@@ -104,37 +101,72 @@ public class WidgetBuildController
 			LoggingMessages.printNewLine();
 		}
 		
-		if(widgetCreatorProperties != null && !widgetCreatorProperties.isEmpty())
+		if(getWidgetCreatorProperties() != null && !getWidgetCreatorProperties().isEmpty())
 		{
-			JFrame frame = (JFrame) widgetCreatorProperties.get(0).getInstance();
+			JFrame frame = (JFrame) getWidgetCreatorProperties().get(0).getInstance();
 			frame.setVisible(true);
 			printComponents((JComponent) frame.getComponent(0));
 		}
 	}
 	
-	public static List<WidgetCreatorProperty> getWidgetCreationProperties()
+	public static List<WidgetCreatorProperty> getWidgetCreatorProperties()
 	{
-		return widgetCreatorProperties;
+		return WidgetReader.getWidgetCreatorProperties();
 	}
 	
 	public static void addWidgetCreatorProperty(WidgetCreatorProperty wcp)
 	{
-		if(widgetCreatorProperties == null)
-			widgetCreatorProperties = new ArrayList<WidgetCreatorProperty>();
+		addWidgetCreatorProperty(wcp, false);
+	}
+	
+	public static void addWidgetCreatorProperty(WidgetCreatorProperty wcp, boolean inPlace)
+	{
+		if(inPlace == false)
+		{
+			getWidgetCreatorProperties().add(wcp);
+			return;
+		}
 		
 		if(wcp.getParentRef() != null && !wcp.getParentRef().isBlank())
 		{
-			WidgetCreatorProperty wcpP = findRef(wcp.getParentRefWithID());
-			LoggingMessages.printOut(wcpP.toString());
+			WidgetCreatorProperty wcpParent = findRef(wcp.getParentRefWithID());
+			LoggingMessages.printOut(wcpParent.toString());
+			
+			//TODO
+			int indexAfter = getWidgetCreatorProperties().indexOf(wcpParent)+1;
+			WidgetCreatorProperty wcpReplace;
+			if(getWidgetCreatorProperties().size()-1 >= indexAfter)
+			{
+				wcpReplace = getWidgetCreatorProperties().get(indexAfter);
+				getWidgetCreatorProperties().set(indexAfter, wcp);
+				
+				if(getWidgetCreatorProperties().size() > indexAfter)//has additional in list
+				{
+					List<WidgetCreatorProperty> sublist = getWidgetCreatorProperties().subList(
+						indexAfter+1, getWidgetCreatorProperties().size());
+					WidgetReader.setWidgetCreatorProperties(new ArrayList<WidgetCreatorProperty>(getWidgetCreatorProperties().subList(0, indexAfter+1)));
+					getWidgetCreatorProperties().add(wcpReplace);
+					getWidgetCreatorProperties().addAll(sublist);
+					LoggingMessages.printOut("index after. " + indexAfter);
+					LoggingMessages.printOut("list count: " + getWidgetCreatorProperties().size());
+				}
+				else //was replacing on last in list
+				{
+					getWidgetCreatorProperties().add(wcpReplace);
+				}
+			}
+			else
+			{
+				getWidgetCreatorProperties().add(wcp);
+			}
 		}
-		widgetCreatorProperties.add(wcp);
 	}
 	
 	public static void destroyGeneratedFrame()
 	{
-		if(widgetCreatorProperties != null && !widgetCreatorProperties.isEmpty())
+		if(getWidgetCreatorProperties() != null && !getWidgetCreatorProperties().isEmpty())
 		{
-			JFrame frame = (JFrame) widgetCreatorProperties.get(0).getInstance();
+			JFrame frame = (JFrame) getWidgetCreatorProperties().get(0).getInstance();
 			frame.setVisible(false);
 			frame.dispose();
 		}
@@ -142,18 +174,18 @@ public class WidgetBuildController
 	
 	public static void clearWidgetCreatorProperties()
 	{
-		if(widgetCreatorProperties != null && !widgetCreatorProperties.isEmpty())
+		if(getWidgetCreatorProperties() != null && !getWidgetCreatorProperties().isEmpty())
 		{
+			WidgetReader.clearWidgetCreatorProperties();
 			WidgetCreatorProperty.resetIDCounter();
 			WidgetComponent.resetIDCounter();
-			widgetCreatorProperties.clear();
 		}
 	}
 	
 	//TODO use more refined param, id?
 	public static WidgetCreatorProperty findRef(String ref)
 	{
-		for(WidgetCreatorProperty wcp : getWidgetCreationProperties())
+		for(WidgetCreatorProperty wcp : getWidgetCreatorProperties())
 		{
 			if(wcp.isThisRef(ref))
 			{

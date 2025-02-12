@@ -7,7 +7,7 @@ import java.util.List;
 import ApplicationBuilder.ApplicationLayoutEditor;
 import ApplicationBuilder.BuilderWindow;
 import ApplicationBuilder.LoggingMessages;
-import ApplicationBuilder.WidgetBuildController;
+import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 import WidgetUtility.XmlToEditor;
 
@@ -31,7 +31,7 @@ public class OpenParameterEditorActionListener implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		List<WidgetCreatorProperty> wcps = WidgetBuildController.getWidgetCreationProperties();
+		List<WidgetCreatorProperty> wcps = WidgetBuildController.getWidgetCreatorProperties();
 		if(wcps == null || wcps.isEmpty() || xe == null || xe.getSelectedIndex()==-1)
 			return;
 		

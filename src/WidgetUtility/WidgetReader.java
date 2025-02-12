@@ -36,6 +36,21 @@ public class WidgetReader
 		readWidgetBuilder(sourceFile);
 	}
 	
+	protected static ArrayList<WidgetCreatorProperty> getWidgetCreatorProperties()
+	{
+		return widgetCreatorProperties;
+	}
+	
+	protected static void setWidgetCreatorProperties(ArrayList<WidgetCreatorProperty> propertiesReplace)
+	{
+		widgetCreatorProperties = propertiesReplace;
+	}
+	
+	public static void clearWidgetCreatorProperties()
+	{
+		widgetCreatorProperties = new ArrayList<WidgetCreatorProperty>();
+	}
+	
 	public static ArrayList<WidgetCreatorProperty> collectWidgetCreatorProperties(String sourceFile)
 	{
 		initWidgetReader(sourceFile);

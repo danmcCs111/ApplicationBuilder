@@ -3,7 +3,7 @@ package WidgetExtensions;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 
-import ApplicationBuilder.WidgetBuildController;
+import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
 //TODO clean up these extended classes...

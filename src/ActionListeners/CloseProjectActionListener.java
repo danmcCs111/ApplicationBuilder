@@ -3,7 +3,7 @@ package ActionListeners;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import ApplicationBuilder.WidgetBuildController;
+import WidgetUtility.WidgetBuildController;
 
 public class CloseProjectActionListener implements ActionListener 
 {

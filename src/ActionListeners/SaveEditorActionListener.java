@@ -8,9 +8,9 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import ApplicationBuilder.ApplicationLayoutEditor;
-import ApplicationBuilder.WidgetBuildController;
 import Properties.PathUtility;
 import WidgetUtility.EditorToXml;
+import WidgetUtility.WidgetBuildController;
 
 public class SaveEditorActionListener implements ActionListener 
 {
@@ -40,13 +40,10 @@ public class SaveEditorActionListener implements ActionListener
 		if(chosenFile != null && choice == JFileChooser.APPROVE_OPTION)
 		{
 			EditorToXml.writeXml(chosenFile.getAbsolutePath(),
-					WidgetBuildController.getWidgetCreationProperties());
+					WidgetBuildController.getWidgetCreatorProperties());
 			
-			WidgetBuildController.destroyGeneratedFrame();
-			WidgetBuildController.clearWidgetCreatorProperties();
 			WidgetBuildController.readProperties(chosenFile);
 			
-			applicationLayoutEditor.rebuildInnerPanels();
 		}
 	}
 }

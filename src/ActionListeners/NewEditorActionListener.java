@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import ApplicationBuilder.ApplicationLayoutEditor;
-import ApplicationBuilder.WidgetBuildController;
+import WidgetUtility.WidgetBuildController;
 
 public class NewEditorActionListener implements ActionListener 
 {

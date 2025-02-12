@@ -9,7 +9,7 @@ import java.awt.event.ComponentEvent;
 import javax.swing.JComponent;
 
 import ApplicationBuilder.LoggingMessages;
-import ApplicationBuilder.WidgetBuildController;
+import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
 public class ExtendedCalculationPad implements ExtendedAttributeStringParam
@@ -26,7 +26,7 @@ public class ExtendedCalculationPad implements ExtendedAttributeStringParam
 	{
 		LoggingMessages.printOut(this.getClass().toString());
 		this.thisComp = (JComponent) widgetProperties.getInstance();
-		this.frame = (Container) WidgetBuildController.getWidgetCreationProperties().get(0).getInstance();
+		this.frame = (Container) WidgetBuildController.getWidgetCreatorProperties().get(0).getInstance();
 		this.panel = this.thisComp.getParent();
 		this.targetComp = getTargetComponent(panel, arg0);
 		
