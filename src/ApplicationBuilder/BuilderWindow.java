@@ -119,6 +119,7 @@ public class BuilderWindow extends RedrawableFrame
 			}
 			objs.add(s);
 		}
+		componentMethods.removeAll();
 		componentMethods.setListData(objs.toArray(new String[objs.size()]));
 	}
 	

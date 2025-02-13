@@ -1,25 +1,32 @@
 package WidgetExtensions;
 
-import javax.swing.JButton;
-
-import ActionListeners.OpenParameterEditorActionListener;
+import ApplicationBuilder.BuilderWindow;
 import ApplicationBuilder.DependentRedrawableFrame;
 
 public class ApplicationLayoutEditor2 extends DependentRedrawableFrame
 {
 	private static final long serialVersionUID = 1897L;
 	
-	private JButton openParameterButton;
+	private BuilderWindow builderWindow;
 	private XmlToEditor xe;
-	private OpenParameterEditorActionListener opListener;
+	
+	public XmlToEditor getXmlToEditor()
+	{
+		return xe;
+	}
+	
+	public void setBuilderWindow(BuilderWindow builderWindow)
+	{
+		this.builderWindow = builderWindow;
+	}
 	
 	@Override
 	public void updateDependentWindow()
 	{
-		if(opListener.getBuilderWindow() != null)
+		if(builderWindow != null)
 		{
-			opListener.getBuilderWindow().clearInnerPanels();
-			opListener.getBuilderWindow().rebuildInnerPanels();
+			builderWindow.clearInnerPanels();
+			builderWindow.rebuildInnerPanels();
 		}
 	}
 
@@ -42,13 +49,6 @@ public class ApplicationLayoutEditor2 extends DependentRedrawableFrame
 		{
 			xe.rebuildPanel();
 		}
-		
-//		if(opListener != null)
-//		{
-//			openParameterButton.removeActionListener(opListener);
-//		}
-//		opListener = new OpenParameterEditorActionListener(xe, ApplicationLayoutEditor2.this);
-//		openParameterButton.addActionListener(opListener);
 	}
 	
 }

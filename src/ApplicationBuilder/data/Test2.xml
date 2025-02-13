@@ -1,0 +1,6 @@
+<Build>
+	<JFrame setLayout="java.awt.BorderLayout" setMinimumSize="350, 200" setTitle="Test" >
+		<JButton extendedLayoutApplyParent="South" setText="Game" >
+		</JButton>
+	</JFrame>
+</Build>

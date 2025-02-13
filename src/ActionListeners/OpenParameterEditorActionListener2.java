@@ -6,22 +6,18 @@ import java.util.List;
 
 import ApplicationBuilder.BuilderWindow;
 import ApplicationBuilder.DependentRedrawableFrame;
+import ApplicationBuilder.DependentRedrawableFrameListener;
 import ApplicationBuilder.LoggingMessages;
+import WidgetExtensions.ApplicationLayoutEditor2;
 import WidgetExtensions.XmlToEditor;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class OpenParameterEditorActionListener implements ActionListener 
+public class OpenParameterEditorActionListener2 implements DependentRedrawableFrameListener, ActionListener 
 {
 	private BuilderWindow builderWindow;
-	private DependentRedrawableFrame parentEditor;
+	private DependentRedrawableFrame dependentRedrawableFrame;
 	private XmlToEditor xe;
-	
-	public OpenParameterEditorActionListener(XmlToEditor xe, DependentRedrawableFrame parentEditor)
-	{
-		this.parentEditor = parentEditor;
-		this.xe = xe;
-	}
 	
 	public BuilderWindow getBuilderWindow()
 	{
@@ -29,9 +25,19 @@ public class OpenParameterEditorActionListener implements ActionListener
 	}
 	
 	@Override
-	public void actionPerformed(ActionEvent e) 
+	public void setDependentRedrawableFrame(DependentRedrawableFrame dependentRedrawableFrame) 
+	{
+		this.dependentRedrawableFrame = dependentRedrawableFrame;
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) //TODO
 	{
 		List<WidgetCreatorProperty> wcps = WidgetBuildController.getInstance().getWidgetCreatorProperties();
+		if(dependentRedrawableFrame instanceof ApplicationLayoutEditor2)
+		{
+			xe = ((ApplicationLayoutEditor2) dependentRedrawableFrame).getXmlToEditor();
+		}
 		if(wcps == null || wcps.isEmpty() || xe == null || xe.getSelectedIndex()==-1)
 			return;
 		
@@ -39,14 +45,16 @@ public class OpenParameterEditorActionListener implements ActionListener
 		String sel = xe.getTitleAt(xe.getSelectedIndex());
 		LoggingMessages.printOut(sel);
 		
-		if(builderWindow != null)//1 for now.
+		if(builderWindow != null)//1 for now
 		{
 			builderWindow.dispose();
 		}
 		
-		builderWindow = new BuilderWindow(parentEditor, wcp);
+		builderWindow = new BuilderWindow(dependentRedrawableFrame, wcp);
+		((ApplicationLayoutEditor2) dependentRedrawableFrame).setBuilderWindow(builderWindow);
 		builderWindow.setComboSelection(sel);
 		builderWindow.setWidgetCreatorProperty(wcp);
+		
 		builderWindow.setVisible(true);
 	}
 

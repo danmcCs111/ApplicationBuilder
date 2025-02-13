@@ -7,7 +7,7 @@ import ApplicationBuilder.DependentRedrawableFrame;
 import ApplicationBuilder.DependentRedrawableFrameListener;
 import WidgetUtility.WidgetBuildController;
 
-public class NewEditorActionListener implements DependentRedrawableFrameListener, ActionListener
+public class NewEditorActionListener2 implements DependentRedrawableFrameListener, ActionListener
 {
 	private DependentRedrawableFrame applicationLayoutEditor;
 	
@@ -19,9 +19,12 @@ public class NewEditorActionListener implements DependentRedrawableFrameListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		WidgetBuildController.getInstance().destroyGeneratedFrame();
-		WidgetBuildController.getInstance().clearWidgetCreatorProperties();
-		applicationLayoutEditor.rebuildInnerPanels();
+		if(WidgetBuildController.getGeneratedNum()>=2)
+		{
+			WidgetBuildController.getInstance().destroyGeneratedFrame();
+			WidgetBuildController.getInstance().clearWidgetCreatorProperties();
+			applicationLayoutEditor.rebuildInnerPanels();
+		}
 	}
 
 }
