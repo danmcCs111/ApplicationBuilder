@@ -30,7 +30,7 @@ public interface ExtendedAttributeStringParam
 	
 	public static JComponent findComponent(Class<?> clazz)
 	{
-		for(WidgetCreatorProperty wcp : WidgetBuildController.getWidgetCreatorProperties())
+		for(WidgetCreatorProperty wcp : WidgetBuildController.getInstance().getWidgetCreatorProperties())
 		{
 			if(wcp.getInstance().getClass().equals(clazz))
 			{
@@ -42,7 +42,7 @@ public interface ExtendedAttributeStringParam
 	
 	public static Component findComponentByName(String name)
 	{
-		for(WidgetCreatorProperty wcp : WidgetBuildController.getWidgetCreatorProperties())
+		for(WidgetCreatorProperty wcp : WidgetBuildController.getInstance().getWidgetCreatorProperties())
 		{
 			Component c = (Component) wcp.getInstance();
 			if(name.equals(c.getName()))

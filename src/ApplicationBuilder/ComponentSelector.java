@@ -6,6 +6,7 @@ import java.util.List;
 import javax.swing.JFrame;
 
 import ClassDefintions.ClassAndSetters;
+import WidgetExtensions.ApplicationLayoutEditor;
 import WidgetUtility.WidgetAttributes;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
@@ -15,11 +16,12 @@ public interface ComponentSelector
 	public static ArrayList<String> generateComboSelectionOptions()
 	{
 		ArrayList<String> comboSel = new ArrayList<String>();
-		List<WidgetCreatorProperty> props = WidgetBuildController.getWidgetCreatorProperties();
+		List<WidgetCreatorProperty> props = WidgetBuildController.getInstance().getWidgetCreatorProperties();
 		
 		if(props == null || props.isEmpty())
 		{
 			comboSel.add(JFrame.class.getName());
+			comboSel.add(ApplicationLayoutEditor.class.getName());
 		}
 		else
 		{
@@ -36,7 +38,7 @@ public interface ComponentSelector
 	public static ArrayList<String> getParentContainerOptions()
 	{
 		ArrayList<String> containerOptions = new ArrayList<String>();
-		List<WidgetCreatorProperty> props = WidgetBuildController.getWidgetCreatorProperties();
+		List<WidgetCreatorProperty> props = WidgetBuildController.getInstance().getWidgetCreatorProperties();
 		
 		if(props == null || props.isEmpty())
 		{

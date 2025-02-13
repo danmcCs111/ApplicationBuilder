@@ -3,20 +3,21 @@ package ActionListeners;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import ApplicationBuilder.DependentRedrawableFrame;
+import ApplicationBuilder.DependentRedrawableFrameListener;
 
-import ApplicationBuilder.RedrawableFrame;
-
-public class ComponentComboBoxActionListener implements ActionListener 
+public class ComponentComboBoxActionListener implements DependentRedrawableFrameListener, ActionListener 
 {
-	private RedrawableFrame redrawFrame;
+	private DependentRedrawableFrame redrawFrame;
 	
-	public ComponentComboBoxActionListener(RedrawableFrame redrawFrame)
+	public void setDependentRedrawableFrame(DependentRedrawableFrame redrawFrame)
 	{
 		this.redrawFrame = redrawFrame;
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) 
+	{
 		redrawFrame.rebuildInnerPanels();
 	}
 

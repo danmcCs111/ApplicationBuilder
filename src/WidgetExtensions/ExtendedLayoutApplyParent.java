@@ -14,7 +14,7 @@ public class ExtendedLayoutApplyParent implements ExtendedAttributeStringParam
 	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 
 	{
 		LoggingMessages.printOut(widgetProperties.getParentRefWithID());
-		WidgetCreatorProperty parentProp = WidgetBuildController.findRef(widgetProperties.getParentRefWithID());
+		WidgetCreatorProperty parentProp = WidgetBuildController.getInstance().findRef(widgetProperties.getParentRefWithID());
 		Object parentComp = parentProp.getInstance();
 		Object comp = widgetProperties.getInstance();
 		

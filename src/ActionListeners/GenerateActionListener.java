@@ -10,9 +10,9 @@ public class GenerateActionListener implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		if(WidgetBuildController.getWidgetCreatorProperties() != null)
+		if(WidgetBuildController.getInstance().getWidgetCreatorProperties() != null)
 		{
-			WidgetBuildController.generateGraphicalInterface();
+			WidgetBuildController.getInstance().generateGraphicalInterface();
 		}	
 	}
 

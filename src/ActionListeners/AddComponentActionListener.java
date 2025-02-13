@@ -7,8 +7,9 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import ApplicationBuilder.ApplicationLayoutEditor;
 import ApplicationBuilder.ComponentSelector;
+import ApplicationBuilder.DependentRedrawableFrame;
+import ApplicationBuilder.DependentRedrawableFrameListener;
 import ApplicationBuilder.LoggingMessages;
 import Params.XmlToWidgetGenerator;
 import WidgetExtensions.ExtendedAttributeStringParam;
@@ -17,7 +18,7 @@ import WidgetUtility.WidgetAttributes;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class AddComponentActionListener implements ActionListener 
+public class AddComponentActionListener implements DependentRedrawableFrameListener, ActionListener
 {
 	private static final String 
 		DIALOG_SELECT_COMPONENT_LABEL_MESSAGE = "Select Component", 
@@ -25,9 +26,9 @@ public class AddComponentActionListener implements ActionListener
 		DIALOG_SELECT_PARENT_LABEL_MESSAGE = "Select Parent Container", 
 		DIALOG_SELECT_PARENT_TITLE = "Parent Container Selection";
 	
-	private ApplicationLayoutEditor applicationLayoutEditor;
+	private DependentRedrawableFrame applicationLayoutEditor;
 	
-	public AddComponentActionListener(ApplicationLayoutEditor applicationLayoutEditor)
+	public void setDependentRedrawableFrame(DependentRedrawableFrame applicationLayoutEditor)
 	{
 		this.applicationLayoutEditor = applicationLayoutEditor;
 	}
@@ -65,7 +66,7 @@ public class AddComponentActionListener implements ActionListener
 				wcp.addXmlToWidgetGenerator(xmlG);
 			}
 			
-			WidgetBuildController.addWidgetCreatorProperty(wcp, true);
+			WidgetBuildController.getInstance().addWidgetCreatorProperty(wcp, true);
 			applicationLayoutEditor.rebuildInnerPanels();
 		}
 		else LoggingMessages.printOut("cancelled");

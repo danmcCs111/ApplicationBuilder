@@ -27,7 +27,7 @@ public class ExtendedFrameResizer implements ExtendedAttributeStringParam
 	
 	public ResizerListener getResizeListener()
 	{
-		for(WidgetCreatorProperty wcp : WidgetBuildController.getWidgetCreatorProperties())
+		for(WidgetCreatorProperty wcp : WidgetBuildController.getInstance().getWidgetCreatorProperties())
 		{
 			Object o = wcp.getInstance();
 			if(o instanceof Component)

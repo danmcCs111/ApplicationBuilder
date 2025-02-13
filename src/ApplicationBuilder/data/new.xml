@@ -1,6 +1,14 @@
 <Build>
-	<JFrame setLayout="java.awt.BorderLayout" setLocation="100, 100" setMinimumSize="350, 200" >
-		<JButton extendedLayoutApplyParent="North" setText="Click Me!" >
-		</JButton>
-	</JFrame>
+	<ApplicationLayoutEditor2 setLayout="java.awt.BorderLayout" setLocation="100, 100" setMinimumSize="680, 640" >
+		<JMenuBar extendedSetJMenuBarParent="">
+			<JMenu setText="File" extendedLayoutApplyParent="">
+				<JMenuItem setText="New" extendedLayoutApplyParent="" addActionListener="ActionListeners.NewEditorActionListener">
+				</JMenuItem >
+				<JMenuItem setText="Open" extendedLayoutApplyParent="" addActionListener="ActionListeners.OpenFileActionListener">
+				</JMenuItem >
+				<JMenuItem setText="Close Project" setName="ExitActionListener" extendedLayoutApplyParent="" addActionListener="ActionListeners.CloseProjectActionListener">
+				</JMenuItem >
+			</JMenu>
+		</JMenuBar>
+	</ApplicationLayoutEditor2>
 </Build>

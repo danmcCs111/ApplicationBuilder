@@ -21,35 +21,57 @@ public class WidgetBuildController
 		ExtendedTextStripper.class
 	};
 	
-	private static WidgetBuildController widgetBuildController = WidgetBuildController.getInstance();
+	private static ArrayList<WidgetBuildController> widgetBuildController = new ArrayList<WidgetBuildController> ();
+	static {
+		widgetBuildController.add(new WidgetBuildController());
+	}
+	private static ArrayList<WidgetReader> widgetReaders = new ArrayList<WidgetReader>();
+	
+	private static int selInstance = 0;
 	
 	private WidgetBuildController() {
-		//single instance
+		//adjusted to controlled instances.
 	}
 	
 	public static WidgetBuildController getInstance() 
 	{
-		if(widgetBuildController == null)
-		{
-			widgetBuildController = new WidgetBuildController();
-		}
-		return widgetBuildController;
+		return getInstance(selInstance);
+	}
+	
+	public static WidgetReader getWidgetReader()
+	{
+		return getWidgetReader(selInstance);
+	}
+	public static WidgetReader getWidgetReader(int sel)
+	{
+		return (widgetReaders.isEmpty())
+			? null
+			: widgetReaders.get(sel);
+	}
+	
+	public static WidgetBuildController getInstance(int sel) 
+	{
+		return widgetBuildController.get(sel);
 	}
 	
 	
-	public static void readProperties(File sourceFile)
+	public void readProperties(File sourceFile)
 	{
 		readProperties(sourceFile.getAbsolutePath());
 	}
 	/**
 	 * read the properties of the source file passed during construction
 	 */
-	public static void readProperties(String sourceFile)
+	public void readProperties(String sourceFile)
 	{
 		destroyGeneratedFrame();
 		clearWidgetCreatorProperties();
 		
-		WidgetReader.collectWidgetCreatorProperties(sourceFile);
+		if(!widgetReaders.isEmpty())
+			widgetReaders.set(selInstance, new WidgetReader(sourceFile));
+		else
+			widgetReaders.add(new WidgetReader(sourceFile));
+		
 		if(getWidgetCreatorProperties() == null || getWidgetCreatorProperties().isEmpty())
 		{
 			LoggingMessages.printOut("No widget creation file found while using path: " + sourceFile);
@@ -66,7 +88,7 @@ public class WidgetBuildController
 		
 	}
 	
-	public static void generateGraphicalInterface()
+	public void generateGraphicalInterface()
 	{
 		LoggingMessages.printNewLine();
 		LoggingMessages.printOut("-->Widget Generation<--");
@@ -109,17 +131,19 @@ public class WidgetBuildController
 		}
 	}
 	
-	public static List<WidgetCreatorProperty> getWidgetCreatorProperties()
+	public List<WidgetCreatorProperty> getWidgetCreatorProperties()
 	{
-		return WidgetReader.getWidgetCreatorProperties();
+		return getWidgetReader()==null
+				? null
+				:getWidgetReader().getWidgetCreatorProperties();
 	}
 	
-	public static void addWidgetCreatorProperty(WidgetCreatorProperty wcp)
+	public void addWidgetCreatorProperty(WidgetCreatorProperty wcp)
 	{
 		addWidgetCreatorProperty(wcp, false);
 	}
 	
-	public static void addWidgetCreatorProperty(WidgetCreatorProperty wcp, boolean inPlace)//TODO append/order insert?
+	public void addWidgetCreatorProperty(WidgetCreatorProperty wcp, boolean inPlace)//TODO append/order insert?
 	{
 		if(inPlace == false)
 		{
@@ -144,7 +168,7 @@ public class WidgetBuildController
 				{
 					List<WidgetCreatorProperty> sublist = getWidgetCreatorProperties().subList(
 						indexAfter+1, getWidgetCreatorProperties().size());
-					WidgetReader.setWidgetCreatorProperties(new ArrayList<WidgetCreatorProperty>(getWidgetCreatorProperties().subList(0, indexAfter+1)));
+					getWidgetReader().setWidgetCreatorProperties(new ArrayList<WidgetCreatorProperty>(getWidgetCreatorProperties().subList(0, indexAfter+1)));
 					getWidgetCreatorProperties().add(wcpReplace);
 					getWidgetCreatorProperties().addAll(sublist);
 					LoggingMessages.printOut("index after. " + indexAfter);
@@ -166,7 +190,7 @@ public class WidgetBuildController
 		}
 	}
 	
-	public static void destroyGeneratedFrame()
+	public void destroyGeneratedFrame()
 	{
 		if(getWidgetCreatorProperties() != null && !getWidgetCreatorProperties().isEmpty())
 		{
@@ -176,18 +200,18 @@ public class WidgetBuildController
 		}
 	}
 	
-	public static void clearWidgetCreatorProperties()
+	public void clearWidgetCreatorProperties()
 	{
 		if(getWidgetCreatorProperties() != null && !getWidgetCreatorProperties().isEmpty())
 		{
-			WidgetReader.clearWidgetCreatorProperties();
+			getWidgetReader().clearWidgetCreatorProperties();
 			WidgetCreatorProperty.resetIDCounter();
 			WidgetComponent.resetIDCounter();
 		}
 	}
 	
 	//TODO use more refined param, id?
-	public static WidgetCreatorProperty findRef(String ref)
+	public WidgetCreatorProperty findRef(String ref)
 	{
 		for(WidgetCreatorProperty wcp : getWidgetCreatorProperties())
 		{
@@ -199,7 +223,7 @@ public class WidgetBuildController
 		return null;
 	}
 	
-	private static void printComponents(JComponent frame)
+	private void printComponents(JComponent frame)
 	{
 		for(Component c : frame.getComponents())
 		{
@@ -215,7 +239,7 @@ public class WidgetBuildController
 		}
 	}
 	
-	private static ArrayList<XmlToWidgetGenerator> orderGenerators(ArrayList<XmlToWidgetGenerator> generators)
+	private ArrayList<XmlToWidgetGenerator> orderGenerators(ArrayList<XmlToWidgetGenerator> generators)
 	{
 		ArrayList<XmlToWidgetGenerator> 
 			tmp = new ArrayList<XmlToWidgetGenerator>(),
@@ -242,7 +266,7 @@ public class WidgetBuildController
 	}
 	
 	@SuppressWarnings("unchecked")
-	private static Class<? extends ExtendedAttributeStringParam> getExtendedAttribute(String methodName)
+	private Class<? extends ExtendedAttributeStringParam> getExtendedAttribute(String methodName)
 	{
 		String me = methodName.substring(0, 1).toUpperCase() + methodName.substring(1);
 		Class<? extends ExtendedAttributeStringParam> c = null;

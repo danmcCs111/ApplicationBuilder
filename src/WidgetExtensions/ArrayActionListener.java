@@ -11,7 +11,7 @@ public interface ArrayActionListener
 	
 	public static ArrayActionListener findInstanceOfArrayActionListener()
 	{
-		for(WidgetCreatorProperty wcp : WidgetBuildController.getWidgetCreatorProperties())
+		for(WidgetCreatorProperty wcp : WidgetBuildController.getInstance().getWidgetCreatorProperties())
 		{
 			if(wcp.getInstance() instanceof ArrayActionListener)
 			{

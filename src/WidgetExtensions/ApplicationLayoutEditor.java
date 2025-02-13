@@ -1,4 +1,4 @@
-package ApplicationBuilder;
+package WidgetExtensions;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -18,6 +18,7 @@ import ActionListeners.NewEditorActionListener;
 import ActionListeners.OpenFileActionListener;
 import ActionListeners.OpenParameterEditorActionListener;
 import ActionListeners.SaveEditorActionListener;
+import ApplicationBuilder.DependentRedrawableFrame;
 
 public class ApplicationLayoutEditor extends DependentRedrawableFrame
 {
@@ -51,11 +52,15 @@ public class ApplicationLayoutEditor extends DependentRedrawableFrame
 		JMenu menu = new JMenu(FILE_MENU_TEXT);
 		
 		JMenuItem newItem = new JMenuItem(MENU_ITEM_NEW_TEXT);
-		newItem.addActionListener(new NewEditorActionListener(this));
+		NewEditorActionListener neal = new NewEditorActionListener();
+		neal.setDependentRedrawableFrame(this);
+		newItem.addActionListener(neal);
 		menu.add(newItem);
 		
 		JMenuItem openItem = new JMenuItem(MENU_ITEM_OPEN_TEXT);
-		openItem.addActionListener(new OpenFileActionListener(this));
+		OpenFileActionListener ofal = new OpenFileActionListener();
+		ofal.setDependentRedrawableFrame(this);
+		openItem.addActionListener(ofal);
 		menu.add(openItem);
 		
 		JMenuItem closeProj = new JMenuItem(MENU_ITEM_CLOSE_TEXT);
@@ -84,9 +89,13 @@ public class ApplicationLayoutEditor extends DependentRedrawableFrame
 		p.add(generateButton);
 		
 		JButton addComponent = new JButton(EDITOR_ADD_COMPONENT_BUTTON_TEXT);
-		addComponent.addActionListener(new AddComponentActionListener(this));
+		AddComponentActionListener acal = new AddComponentActionListener();
+		acal.setDependentRedrawableFrame(this);
+		addComponent.addActionListener(acal);
 		JButton saveButton = new JButton(EDITOR_SAVE_BUTTON_TEXT);
-		saveButton.addActionListener(new SaveEditorActionListener(this));
+		SaveEditorActionListener seal = new SaveEditorActionListener();
+		seal.setDependentRedrawableFrame(this);
+		saveButton.addActionListener(seal);
 		
 		p.add(addComponent);
 		p.add(saveButton);
@@ -117,7 +126,8 @@ public class ApplicationLayoutEditor extends DependentRedrawableFrame
 	{
 		if(xe == null)
 		{
-			xe = new XmlToEditor(ApplicationLayoutEditor.this);
+			xe = new XmlToEditor();
+			xe.setDependentRedrawableFrame(this);
 			xe.rebuildPanel();
 		}
 		else if(xe != null)

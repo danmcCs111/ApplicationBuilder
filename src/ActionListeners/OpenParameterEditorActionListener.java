@@ -4,20 +4,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-import ApplicationBuilder.ApplicationLayoutEditor;
 import ApplicationBuilder.BuilderWindow;
+import ApplicationBuilder.DependentRedrawableFrame;
 import ApplicationBuilder.LoggingMessages;
-import ApplicationBuilder.XmlToEditor;
+import WidgetExtensions.ApplicationLayoutEditor;
+import WidgetExtensions.XmlToEditor;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
 public class OpenParameterEditorActionListener implements ActionListener 
 {
 	private BuilderWindow builderWindow;
-	private ApplicationLayoutEditor parentEditor;
+	private DependentRedrawableFrame parentEditor;
 	private XmlToEditor xe;
 	
-	public OpenParameterEditorActionListener(XmlToEditor xe, ApplicationLayoutEditor parentEditor)
+	public OpenParameterEditorActionListener(XmlToEditor xe, DependentRedrawableFrame parentEditor)
 	{
 		this.parentEditor = parentEditor;
 		this.xe = xe;
@@ -31,7 +32,7 @@ public class OpenParameterEditorActionListener implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		List<WidgetCreatorProperty> wcps = WidgetBuildController.getWidgetCreatorProperties();
+		List<WidgetCreatorProperty> wcps = WidgetBuildController.getInstance().getWidgetCreatorProperties();
 		if(wcps == null || wcps.isEmpty() || xe == null || xe.getSelectedIndex()==-1)
 			return;
 		

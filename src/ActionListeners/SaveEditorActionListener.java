@@ -7,21 +7,22 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import ApplicationBuilder.ApplicationLayoutEditor;
+import ApplicationBuilder.DependentRedrawableFrame;
+import ApplicationBuilder.DependentRedrawableFrameListener;
 import ApplicationBuilder.EditorToXml;
 import Properties.PathUtility;
 import WidgetUtility.WidgetBuildController;
 
-public class SaveEditorActionListener implements ActionListener 
+public class SaveEditorActionListener implements DependentRedrawableFrameListener, ActionListener
 {
 	private static final String 
 		XML_PATH_SUFFIX = "\\src\\ApplicationBuilder\\data\\ ",
 		XML_FILTER_TITLE = "XML Build File",
 		XML_FILTER = "xml";
 	
-	private ApplicationLayoutEditor applicationLayoutEditor;
+	private DependentRedrawableFrame applicationLayoutEditor;
 	
-	public SaveEditorActionListener(ApplicationLayoutEditor applicationLayoutEditor)
+	public void setDependentRedrawableFrame(DependentRedrawableFrame applicationLayoutEditor)
 	{
 		this.applicationLayoutEditor = applicationLayoutEditor;
 	}
@@ -40,9 +41,9 @@ public class SaveEditorActionListener implements ActionListener
 		if(chosenFile != null && choice == JFileChooser.APPROVE_OPTION)
 		{
 			EditorToXml.writeXml(chosenFile.getAbsolutePath(),
-					WidgetBuildController.getWidgetCreatorProperties());
+					WidgetBuildController.getInstance().getWidgetCreatorProperties());
 			
-			WidgetBuildController.readProperties(chosenFile);
+			WidgetBuildController.getInstance().readProperties(chosenFile);
 			
 			applicationLayoutEditor.rebuildInnerPanels();
 			

@@ -10,7 +10,7 @@ public class CloseProjectActionListener implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		WidgetBuildController.destroyGeneratedFrame();
+		WidgetBuildController.getInstance().destroyGeneratedFrame();
 	}
 
 }

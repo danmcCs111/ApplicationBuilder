@@ -26,6 +26,8 @@ import ClassDefintions.ClassTextAdapter;
 import Params.XmlToWidgetGenerator;
 import WidgetComponents.ClassTypeHandler;
 import WidgetExtensions.SwappableCollection;
+import WidgetExtensions.XmlToEditor;
+import WidgetExtensions.ApplicationLayoutEditor2;
 import WidgetExtensions.ExtendedActionListenerArray;
 import WidgetExtensions.ExtendedActionListenerConnectedComponent;
 import WidgetExtensions.ExtendedActionListenerSubType;
@@ -64,6 +66,8 @@ public class WidgetAttributes
 		COMPONENT_CLASSES.add(JMenu.class);
 		COMPONENT_CLASSES.add(JMenuItem.class);
 		
+		COMPONENT_CLASSES.add(ApplicationLayoutEditor2.class);
+		COMPONENT_CLASSES.add(XmlToEditor.class);
 		COMPONENT_CLASSES.add(SystemTray.class);
 		COMPONENT_CLASSES.add(SwappableCollection.class);
 		COMPONENT_CLASSES.add(JButtonArray.class);

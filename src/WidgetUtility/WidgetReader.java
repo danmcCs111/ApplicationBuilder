@@ -25,35 +25,36 @@ import Params.XmlToWidgetGenerator;
  */
 public class WidgetReader 
 {
-	private static ArrayList<WidgetCreatorProperty> widgetCreatorProperties = new ArrayList<WidgetCreatorProperty>(); 
+	private ArrayList<WidgetCreatorProperty> widgetCreatorProperties = new ArrayList<WidgetCreatorProperty>(); 
 	
-	private WidgetReader(String sourceFile)
+	public WidgetReader(String sourceFile)
 	{
 		readWidgetBuilder(sourceFile);
+		collectWidgetCreatorProperties();
 	}
-	private WidgetReader(File sourceFile)
+	public WidgetReader(File sourceFile)
 	{
 		readWidgetBuilder(sourceFile);
+		collectWidgetCreatorProperties();
 	}
 	
-	protected static ArrayList<WidgetCreatorProperty> getWidgetCreatorProperties()
+	protected ArrayList<WidgetCreatorProperty> getWidgetCreatorProperties()
 	{
 		return widgetCreatorProperties;
 	}
 	
-	protected static void setWidgetCreatorProperties(ArrayList<WidgetCreatorProperty> propertiesReplace)
+	protected void setWidgetCreatorProperties(ArrayList<WidgetCreatorProperty> propertiesReplace)
 	{
 		widgetCreatorProperties = propertiesReplace;
 	}
 	
-	public static void clearWidgetCreatorProperties()
+	public void clearWidgetCreatorProperties()
 	{
 		widgetCreatorProperties = new ArrayList<WidgetCreatorProperty>();
 	}
 	
-	public static ArrayList<WidgetCreatorProperty> collectWidgetCreatorProperties(String sourceFile)
+	public ArrayList<WidgetCreatorProperty> collectWidgetCreatorProperties()
 	{
-		initWidgetReader(sourceFile);
 		for(WidgetCreatorProperty wcp : widgetCreatorProperties)
 		{
 			for(String s : wcp.getSettingsName())
@@ -66,16 +67,11 @@ public class WidgetReader
 		return widgetCreatorProperties;
 	}
 	
-	private static void initWidgetReader(String sourceFile)
-	{
-		new WidgetReader(sourceFile);
-	}
-	
-	private static void readWidgetBuilder(File sourceFile)
+	private void readWidgetBuilder(File sourceFile)
 	{
 		readWidgetBuilder(sourceFile.getAbsolutePath());
 	}
-	private static void readWidgetBuilder(String sourceFile)
+	private void readWidgetBuilder(String sourceFile)
 	{
 		File f = new File(sourceFile);
 		DocumentBuilderFactory dbFact = DocumentBuilderFactory.newInstance();
@@ -95,7 +91,7 @@ public class WidgetReader
 		}
 	}
 	
-	private static ArrayList<WidgetCreatorProperty> generateWidgetCreatorPropertyList(NodeList nl, String parentId)
+	private ArrayList<WidgetCreatorProperty> generateWidgetCreatorPropertyList(NodeList nl, String parentId)
 	{
 		if(nl != null)
 		{
@@ -127,7 +123,7 @@ public class WidgetReader
 		return widgetCreatorProperties;
 	}
 	
-	private static WidgetCreatorProperty generateWidgetCreatorProperty(Node node, String parentNode)
+	private WidgetCreatorProperty generateWidgetCreatorProperty(Node node, String parentNode)
 	{
 		ArrayList<String> attributes = new ArrayList<String>();
 		

@@ -19,7 +19,7 @@ public class RemoveEditorTabActionListener implements ActionListener
 	public void actionPerformed(ActionEvent e) 
 	{
 		int index = xmlToEditor.getSelectedIndex();
-		WidgetBuildController.getWidgetCreatorProperties().remove(index);
+		WidgetBuildController.getInstance().getWidgetCreatorProperties().remove(index);
 		xmlToEditor.rebuildPanel();
 	}
 }

@@ -26,7 +26,7 @@ public class ExtendedCalculationPad implements ExtendedAttributeStringParam
 	{
 		LoggingMessages.printOut(this.getClass().toString());
 		this.thisComp = (JComponent) widgetProperties.getInstance();
-		this.frame = (Container) WidgetBuildController.getWidgetCreatorProperties().get(0).getInstance();
+		this.frame = (Container) WidgetBuildController.getInstance().getWidgetCreatorProperties().get(0).getInstance();
 		this.panel = this.thisComp.getParent();
 		this.targetComp = getTargetComponent(panel, arg0);
 		
