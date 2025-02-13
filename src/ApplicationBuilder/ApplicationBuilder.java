@@ -1,22 +1,24 @@
 package ApplicationBuilder;
 
-import javax.swing.SwingUtilities;
-
-import WidgetExtensions.ApplicationLayoutEditor;
+import Properties.PathUtility;
 import WidgetUtility.WidgetBuildController;
 
 public class ApplicationBuilder
 {
+	public static final String DEFAULT_APPLICATION_EDITOR_PATH = PathUtility.getCurrentDirectory() + 
+			"/" +  "src/ApplicationBuilder/data/GeneratedApplicationBuilder.xml";
+	
 	public static void main(String [] args)
 	{
 		if(args.length == 1) buildAppFromXML(args[0]);
-		else
-		{
-			SwingUtilities.invokeLater(() -> {
-				ApplicationLayoutEditor window = new ApplicationLayoutEditor();
-			        window.setVisible(true);
-			});
-		}
+		else buildAppFromXML(DEFAULT_APPLICATION_EDITOR_PATH);
+//		else
+//		{
+//			SwingUtilities.invokeLater(() -> {
+//				ApplicationLayoutEditor window = new ApplicationLayoutEditor();
+//			        window.setVisible(true);
+//			});
+//		}
 	}
 	
 	public static void buildAppFromXML(String SOURCE_FILE)
