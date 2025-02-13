@@ -123,6 +123,11 @@ public class WidgetAttributes
 		});
 		
 		//EXTENDED WIDGETS
+		EXTENDED_METHODS.put(ApplicationLayoutEditor2.class, new String [] {
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedFrameResizer.class),
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedSetupTaskbar.class),
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedClipboard.class)
+		});
 		EXTENDED_METHODS.put(SwappableCollection.class, new String [] {
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedArrayProcessingPath.class),
