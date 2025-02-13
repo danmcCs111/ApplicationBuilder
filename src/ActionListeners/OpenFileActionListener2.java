@@ -13,7 +13,7 @@ import ApplicationBuilder.LoggingMessages;
 import Properties.PathUtility;
 import WidgetUtility.WidgetBuildController;
 
-public class OpenFileActionListener implements DependentRedrawableFrameListener, ActionListener
+public class OpenFileActionListener2 implements DependentRedrawableFrameListener, ActionListener
 {
 	private static final String 
 		XML_PATH_SUFFIX = "\\src\\ApplicationBuilder\\data\\ ",
@@ -42,7 +42,7 @@ public class OpenFileActionListener implements DependentRedrawableFrameListener,
 		{
 			LoggingMessages.printOut("number generated: " + WidgetBuildController.getGeneratedNum());
 			
-//			WidgetBuildController.setSelectionIndex(WidgetBuildController.getGeneratedNum());//Advance by 1
+			WidgetBuildController.setSelectionIndex(WidgetBuildController.getGeneratedNum());//Advance by 1
 			WidgetBuildController.getInstance().destroyGeneratedFrame();
 			WidgetBuildController.getInstance().clearWidgetCreatorProperties();
 			WidgetBuildController.getInstance().readProperties(chosenFile);

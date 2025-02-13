@@ -1,13 +1,19 @@
 <Build>
 	<ApplicationLayoutEditor2 setLayout="java.awt.BorderLayout" setLocation="100, 100" setMinimumSize="680, 640" >
-		<JMenuBar extendedSetJMenuBarParent="">
-			<JMenu setText="File" extendedLayoutApplyParent="">
-				<JMenuItem setText="New" extendedLayoutApplyParent="" addActionListener="ActionListeners.NewEditorActionListener">
-				</JMenuItem >
-				<JMenuItem setText="Open" extendedLayoutApplyParent="" addActionListener="ActionListeners.OpenFileActionListener">
-				</JMenuItem >
-				<JMenuItem setText="Close Project" setName="ExitActionListener" extendedLayoutApplyParent="" addActionListener="ActionListeners.CloseProjectActionListener">
-				</JMenuItem >
+		<JPanel extendedLayoutApplyParent="South" setLayout="java.awt.GridLayout" >
+			<JButton extendedLayoutApplyParent="" addActionListener="ActionListeners.SaveEditorActionListener" setText="Save" >
+			</JButton>
+			<JButton addActionListener="ActionListeners.GenerateActionListener" extendedLayoutApplyParent="" setText="Generate" >
+			</JButton>
+		</JPanel>
+		<JMenuBar extendedSetJMenuBarParent="" >
+			<JMenu extendedLayoutApplyParent="" setText="File" >
+				<JMenuItem addActionListener="ActionListeners.NewEditorActionListener" extendedLayoutApplyParent="" setText="New" >
+				</JMenuItem>
+				<JMenuItem addActionListener="ActionListeners.OpenFileActionListener2" extendedLayoutApplyParent="" setText="Open" >
+				</JMenuItem>
+				<JMenuItem addActionListener="ActionListeners.CloseProjectActionListener" extendedLayoutApplyParent="" setName="ExitActionListener" setText="Close Project" >
+				</JMenuItem>
 			</JMenu>
 		</JMenuBar>
 	</ApplicationLayoutEditor2>

@@ -19,8 +19,12 @@ public class NewEditorActionListener implements DependentRedrawableFrameListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		WidgetBuildController.getInstance().destroyGeneratedFrame();
-		WidgetBuildController.getInstance().clearWidgetCreatorProperties();
+		if(WidgetBuildController.getGeneratedNum()==0)
+		{
+			WidgetBuildController.getInstance().destroyGeneratedFrame();
+			WidgetBuildController.getInstance().clearWidgetCreatorProperties();
+		}
+		
 		applicationLayoutEditor.rebuildInnerPanels();
 	}
 

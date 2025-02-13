@@ -33,6 +33,15 @@ public class WidgetBuildController
 		//adjusted to controlled instances.
 	}
 	
+	public static int getGeneratedNum()
+	{
+		return widgetBuildController.size();
+	}
+	public static void setSelectionIndex(int sel)
+	{
+		selInstance = sel;
+	}
+	
 	public static WidgetBuildController getInstance() 
 	{
 		return getInstance(selInstance);
@@ -44,13 +53,17 @@ public class WidgetBuildController
 	}
 	public static WidgetReader getWidgetReader(int sel)
 	{
-		return (widgetReaders.isEmpty())
+		return (widgetReaders.isEmpty() || widgetReaders.size() -1 < sel)
 			? null
 			: widgetReaders.get(sel);
 	}
 	
 	public static WidgetBuildController getInstance(int sel) 
 	{
+		if(widgetBuildController.size()-1 < sel)
+		{
+			widgetBuildController.add(new WidgetBuildController());
+		}
 		return widgetBuildController.get(sel);
 	}
 	
@@ -67,7 +80,7 @@ public class WidgetBuildController
 		destroyGeneratedFrame();
 		clearWidgetCreatorProperties();
 		
-		if(!widgetReaders.isEmpty())
+		if(!widgetReaders.isEmpty() && widgetReaders.size()-1 >= selInstance)
 			widgetReaders.set(selInstance, new WidgetReader(sourceFile));
 		else
 			widgetReaders.add(new WidgetReader(sourceFile));

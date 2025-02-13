@@ -79,10 +79,8 @@ public class XmlToEditor extends TabbedPanel implements DependentRedrawableFrame
 		pm.add(mi);
 		this.setComponentPopupMenu(pm);
 		
-//		LoggingMessages.printOut("number of tabs: " + WidgetBuildController.getInstance().getWidgetCreatorProperties().size());
 		if(WidgetBuildController.getInstance().getWidgetCreatorProperties() != null)
 		{
-			
 			for(WidgetCreatorProperty wcp : WidgetBuildController.getInstance().getWidgetCreatorProperties())
 			{
 				JPanel outP = new JPanel(new BorderLayout());
