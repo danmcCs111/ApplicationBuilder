@@ -12,9 +12,9 @@ import WidgetComponents.EditParameterFrame;
 public class ParameterEditorParser 
 {
 	private static final String 
-		EDITOR_DIRECTORY = "\\src\\Editors\\ ",
+		EDITOR_DIRECTORY = "/src/Editors ",
 		PACKAGE_PREFIX = "Editors",
-		EDITOR_PARAMETER_FILE_PREFIX = "\\.java",
+		EDITOR_PARAMETER_FILE_PREFIX = ".java",
 		EDITOR_PARAMETER_FILE_FILTER = "java";
 	
 	private static final ArrayList<ParameterEditor> editorTypes = new ArrayList<ParameterEditor>();
