@@ -43,7 +43,6 @@ public class DoubleEditor extends ParameterEditor
 	@Override
 	public void setComponentValue(Object value) 
 	{
-		super.setComponentValue(value);
 		spinnerUpDown.setValue(value);
 	}
 

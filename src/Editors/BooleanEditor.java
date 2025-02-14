@@ -42,7 +42,6 @@ public class BooleanEditor extends ParameterEditor
 	@Override
 	public void setComponentValue(Object value) 
 	{
-		super.setComponentValue(value);
 		for(int i=0; i < trueOrFalse.getItemCount(); i++)
 		{
 			if(trueOrFalse.getItemAt(i).toLowerCase().equals(value.toString().toLowerCase()))

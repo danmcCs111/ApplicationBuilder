@@ -37,7 +37,6 @@ public class ActionListenerEditor extends ParameterEditor
 	@Override
 	public void setComponentValue(Object value) 
 	{
-		super.setComponentValue(value);
 		if(value != null)
 			componentEditor.setSelectedItem(value.getClass().getName());//using class name
 	}

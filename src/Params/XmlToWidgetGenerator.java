@@ -146,7 +146,6 @@ public class XmlToWidgetGenerator
 	{
 		for(int i = 0; i < parameterEditors.size(); i++)
 		{
-			List<String> params = paramsList.get(i);
 			String [] compValue = parameterEditors.get(i).getComponentValue();
 			paramsList.set(i, Arrays.asList(compValue));
 		}

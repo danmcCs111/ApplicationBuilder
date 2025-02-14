@@ -36,7 +36,6 @@ public class WindowListenerEditor extends ParameterEditor
 	@Override
 	public void setComponentValue(Object value) 
 	{
-		super.setComponentValue(value);
 		comboBox.setSelectedItem(value.getClass().getName());//using class name
 	}
 

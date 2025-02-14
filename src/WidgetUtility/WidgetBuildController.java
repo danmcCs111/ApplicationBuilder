@@ -101,7 +101,7 @@ public class WidgetBuildController
 		
 	}
 	
-	public void generateGraphicalInterface(boolean replace)
+	public void generateGraphicalInterface(boolean replaceWithEditorValues)
 	{
 		LoggingMessages.printNewLine();
 		LoggingMessages.printOut("-->Widget Generation<--");
@@ -113,7 +113,7 @@ public class WidgetBuildController
 			List<XmlToWidgetGenerator> orderedGenerators = orderGenerators(generators);
 			for(XmlToWidgetGenerator g : orderedGenerators)
 			{
-				if(replace) g.replaceParamsListWithParamEditors();
+				if(replaceWithEditorValues) g.replaceParamsListWithParamEditors();
 				Class<? extends ExtendedAttributeStringParam> c = getExtendedAttribute(g.getMethodName());
 				if(c != null)
 				{

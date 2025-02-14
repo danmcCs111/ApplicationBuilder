@@ -36,7 +36,6 @@ public class StringEditor extends ParameterEditor
 	@Override
 	public void setComponentValue(Object value) 
 	{
-		super.setComponentValue(value);
 		textField.setText((String)value);
 	}
 

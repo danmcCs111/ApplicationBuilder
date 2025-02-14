@@ -34,7 +34,6 @@ public class LayoutEditor extends ParameterEditor
 	{
 		if(value != null)
 		{
-			super.setComponentValue(value);
 			comboBox.setSelectedItem(value.getClass().getName());//using class name
 		}
 	}

@@ -12,16 +12,8 @@ import Properties.PathUtility;
 
 public abstract class ParameterEditor 
 {
-	private Object lastValueSet;
 	public abstract Component getComponentEditor();
-	public Object getLastValueSet()
-	{
-		return lastValueSet;
-	}
-	public void setComponentValue(Object value)
-	{
-		this.lastValueSet = value;
-	}
+	public abstract void setComponentValue(Object value);
 	public abstract String [] getComponentValue();
 	public abstract Object getComponentValueObj();
 	public abstract String getComponentXMLOutput();

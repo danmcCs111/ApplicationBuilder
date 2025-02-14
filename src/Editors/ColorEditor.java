@@ -52,7 +52,6 @@ public class ColorEditor extends ParameterEditor
 	@Override
 	public void setComponentValue(Object value) 
 	{
-		super.setComponentValue(value);
 		colorPicker.setForeground((Color)value);
 		colorPicker.setText("[-Color Select-]");
 		jcc.setColor((Color)value);

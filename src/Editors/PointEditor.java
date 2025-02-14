@@ -45,7 +45,6 @@ public class PointEditor extends ParameterEditor
 	@Override
 	public void setComponentValue(Object value) 
 	{
-		super.setComponentValue(value);
 		Point p = (Point) value;
 		spin1.setValue((int)p.x);
 		spin2.setValue((int)p.y);

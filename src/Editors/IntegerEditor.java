@@ -39,7 +39,6 @@ public class IntegerEditor extends ParameterEditor
 	@Override
 	public void setComponentValue(Object value) 
 	{
-		super.setComponentValue(value);
 		js.setValue(value);
 	}
 

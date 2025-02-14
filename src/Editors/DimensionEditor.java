@@ -45,7 +45,6 @@ public class DimensionEditor extends ParameterEditor
 	@Override
 	public void setComponentValue(Object value) 
 	{
-		super.setComponentValue(value);
 		Dimension d = (Dimension) value;
 		spin1.setValue((int)d.getWidth());
 		spin2.setValue((int)d.getHeight());

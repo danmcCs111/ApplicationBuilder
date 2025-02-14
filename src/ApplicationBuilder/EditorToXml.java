@@ -98,27 +98,16 @@ public class EditorToXml
 			sb.append(OPEN_BRACKET_OPEN + wcp.getRef() + " ");
 			for(XmlToWidgetGenerator xwg : wcp.getXmlToWidgetGenerators())
 			{
-				String metName = xwg.getMethodName();
-				
-				String parWrite = "";
+				String 
+					metName = xwg.getMethodName(),
+					parWrite = "";
 				for(int i = 0; i < xwg.getParameterEditors().size(); i++)
 				{
 					ParameterEditor pe = xwg.getParameterEditors().get(i);
-					if(pe != null)
-					{
-						if(parWrite.isBlank())
-							parWrite += LoggingMessages.combine(pe.getComponentValue());
-						else
-							parWrite += ", " + LoggingMessages.combine(pe.getComponentValue());
-					}
+					if(parWrite.isBlank())
+						parWrite += LoggingMessages.combine(pe.getComponentValue());
 					else
-					{
-						List<String> params = xwg.getParamsList().get(i);
-						if(parWrite.isBlank())
-							parWrite += LoggingMessages.combine(params);
-						else
-							parWrite += ", " + LoggingMessages.combine(params);
-					}
+						parWrite += ", " + LoggingMessages.combine(pe.getComponentValue());
 					
 				}
 				for(String replChar : xmlWriteReplace.keySet())
