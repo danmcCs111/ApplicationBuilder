@@ -1,5 +1,5 @@
 <Build>
-	<JFrame addWindowListener="WindowListeners.ProcessExecutorWindowListener" extendedFrameResizer="scrollPane" extendedSetupTaskbar=".\src\ApplicationBuilder\launch_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="10, 30" setName="VideoPlayer" setSize="389, 500" setTitle="Video Launcherz!..." >
+	<JFrame addWindowListener="WindowListeners.ProcessExecutorWindowListener" extendedFrameResizer="scrollPane" extendedSetupTaskbar=".\src\ApplicationBuilder\launch_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="10, 30" setName="VideoPlayer" setSize="389, 500" setTitle="...!Video Launch!..." >
 		<JPanel extendedLayoutApplyParent="Center" setLayout="java.awt.BorderLayout" >
 			<JScrollPaneResizer extendedLayoutApplyParent="North" setName="scrollPane" >
 				<SwappableCollection extendedArrayProcessingPath="./src/ApplicationBuilder/Roku Channels@.url; ./src/ApplicationBuilder/Youtube Channels@.url; ./src/ApplicationBuilder/Amazon Videos@.url; ./src/ApplicationBuilder/Music@.url" extendedSetViewportView="" setLayout="java.awt.BorderLayout" setName="swapVideos" >
