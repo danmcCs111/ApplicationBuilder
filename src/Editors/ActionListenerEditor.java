@@ -11,9 +11,9 @@ import Params.ParameterEditor;
 public class ActionListenerEditor extends ParameterEditor
 {
 	private static final String 
-		EDITOR_DIRECTORY = "\\src\\ActionListeners\\ ",
+		EDITOR_DIRECTORY = "/src/ActionListeners",
 		PACKAGE_PREFIX = "ActionListeners",
-		EDITOR_PARAMETER_FILE_EXTENSION = "\\.java",
+		EDITOR_PARAMETER_FILE_EXTENSION = ".java",
 		EDITOR_PARAMETER_FILE_FILTER = "java";
 	
 	private JComboBox<String> componentEditor;

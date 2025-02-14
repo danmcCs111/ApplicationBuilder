@@ -16,7 +16,7 @@ import WidgetUtility.WidgetBuildController;
 public class SaveEditorActionListener implements DependentRedrawableFrameListener, ActionListener
 {
 	private static final String 
-		XML_PATH_SUFFIX = "\\src\\ApplicationBuilder\\data\\ ",
+		XML_PATH_SUFFIX = "/src/ApplicationBuilder/data/ ",
 		XML_FILTER_TITLE = "XML Build File",
 		XML_FILTER = "xml";
 	
