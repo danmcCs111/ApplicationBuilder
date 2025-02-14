@@ -32,17 +32,7 @@
 			<JMenu extendedLayoutApplyParent="" setText="File" >
 				<JMenuItem addActionListener="ActionListeners.ReloadActionListener" extendedLayoutApplyParent="" setText="Reload" >
 				</JMenuItem>
-				<JMenuItem addActionListener="ActionListeners.MinimizeActionListener" extendedLayoutApplyParent="" setText="MinimizeToSystemTray" >
-				</JMenuItem>
-				<JMenuItem addActionListener="ActionListeners.ExitPopupLaunchActionListener" extendedLayoutApplyParent="" setName="ExitActionListener" setText="Exit" >
-				</JMenuItem>
 			</JMenu>
 		</JMenuBar>
-		<SystemTray >
-			<JMenuItem setText="Open" >
-			</JMenuItem>
-			<JMenuItem setText="Close" >
-			</JMenuItem>
-		</SystemTray>
 	</JFrame>
 </Build>
