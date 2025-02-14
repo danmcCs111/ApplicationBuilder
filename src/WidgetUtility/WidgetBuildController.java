@@ -26,11 +26,17 @@ public class WidgetBuildController
 		widgetBuildController.add(new WidgetBuildController());
 	}
 	private static ArrayList<WidgetReader> widgetReaders = new ArrayList<WidgetReader>();
+	private String filename;
 	
 	private static int selInstance = 0;
 	
 	private WidgetBuildController() {
 		//adjusted to controlled instances.
+	}
+	
+	public String getFilename()
+	{
+		return filename;
 	}
 	
 	public static int getGeneratedNum()
@@ -77,13 +83,18 @@ public class WidgetBuildController
 	 */
 	public void readProperties(String sourceFile)
 	{
+		this.filename = sourceFile;
 		destroyGeneratedFrame();
 		clearWidgetCreatorProperties();
 		
 		if(!widgetReaders.isEmpty() && widgetReaders.size()-1 >= selInstance)
 			widgetReaders.set(selInstance, new WidgetReader(sourceFile));
 		else
+		{
 			widgetReaders.add(new WidgetReader(sourceFile));
+			WidgetCreatorProperty.resetIDCounter();
+			WidgetComponent.resetIDCounter();			
+		}
 		
 		if(getWidgetCreatorProperties() == null || getWidgetCreatorProperties().isEmpty())
 		{
