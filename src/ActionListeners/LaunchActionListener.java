@@ -13,8 +13,9 @@ import WidgetExtensions.ArrayActionListener;
 public class LaunchActionListener implements ActionListener
 {
 	private static Process runningProcess = null;
-	private static final String 
-		PROCESS = "chrome.exe",
+	private static final String
+		PROCESS_WINDOWS = "chrome.exe",
+		PROCESS_NOT_WINDOWS = "google-chrome",
 		CLOSE_LAUNCH_ACTION_EVENT="closeLaunchAction";
 	private static AbstractButton lastButton = null;
 	private static Container lastButtonParent = null;
@@ -35,7 +36,7 @@ public class LaunchActionListener implements ActionListener
 		}
 		else
 		{
-			executeProcess(PROCESS, button.getName());
+			executeProcess(System.getProperty("os.name").startsWith("Windows")?PROCESS_WINDOWS:PROCESS_NOT_WINDOWS, button.getName());
 		}
 		lastButton = button;
 		lastButtonParent = lastButton.getParent();
