@@ -33,7 +33,10 @@ public class LayoutEditor extends ParameterEditor
 	public void setComponentValue(Object value) 
 	{
 		if(value != null)
+		{
+			super.setComponentValue(value);
 			comboBox.setSelectedItem(value.getClass().getName());//using class name
+		}
 	}
 
 	@Override
@@ -53,6 +56,12 @@ public class LayoutEditor extends ParameterEditor
 	public String getParameterDefintionString() 
 	{
 		return LayoutManager.class.getName();
+	}
+
+	@Override
+	public Object getComponentValueObj() 
+	{
+		return comboBox.getSelectedItem();
 	}
 
 }

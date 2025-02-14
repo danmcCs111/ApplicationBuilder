@@ -43,6 +43,7 @@ public class FloatEditor extends ParameterEditor
 	@Override
 	public void setComponentValue(Object value) 
 	{
+		super.setComponentValue(value);
 		spinnerUpDown.setValue(value);
 	}
 
@@ -52,6 +53,12 @@ public class FloatEditor extends ParameterEditor
 		return spinnerUpDown == null
 				? new String [] {""}
 				: new String [] {spinnerUpDown.getValue()+""};
+	}
+
+	@Override
+	public Object getComponentValueObj() 
+	{
+		return spinnerUpDown.getValue();
 	}
 
 }

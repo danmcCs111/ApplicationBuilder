@@ -36,6 +36,7 @@ public class StringEditor extends ParameterEditor
 	@Override
 	public void setComponentValue(Object value) 
 	{
+		super.setComponentValue(value);
 		textField.setText((String)value);
 	}
 
@@ -45,6 +46,12 @@ public class StringEditor extends ParameterEditor
 		return textField == null
 				? new String [] {""}
 				: new String [] {textField.getText()};
+	}
+
+	@Override
+	public Object getComponentValueObj() 
+	{
+		return textField.getText();
 	}
 
 }

@@ -45,6 +45,7 @@ public class PointEditor extends ParameterEditor
 	@Override
 	public void setComponentValue(Object value) 
 	{
+		super.setComponentValue(value);
 		Point p = (Point) value;
 		spin1.setValue((int)p.x);
 		spin2.setValue((int)p.y);
@@ -56,6 +57,12 @@ public class PointEditor extends ParameterEditor
 		return dimPanel == null
 				? new String [] {""}
 				: new String [] {Integer.parseInt(spin1.getValue()+"")+"", Integer.parseInt(spin2.getValue()+"")+""};
+	}
+
+	@Override
+	public Object getComponentValueObj() 
+	{
+		return new Point(Integer.parseInt(spin1.getValue()+""), Integer.parseInt(spin2.getValue()+""));
 	}
 
 }

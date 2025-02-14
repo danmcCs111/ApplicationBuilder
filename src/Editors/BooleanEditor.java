@@ -42,6 +42,7 @@ public class BooleanEditor extends ParameterEditor
 	@Override
 	public void setComponentValue(Object value) 
 	{
+		super.setComponentValue(value);
 		for(int i=0; i < trueOrFalse.getItemCount(); i++)
 		{
 			if(trueOrFalse.getItemAt(i).toLowerCase().equals(value.toString().toLowerCase()))
@@ -56,6 +57,12 @@ public class BooleanEditor extends ParameterEditor
 		return trueOrFalse==null //case during creation
 			? new String [] {""}
 			: new String [] {trueOrFalse.getSelectedItem().toString()};
+	}
+
+	@Override
+	public Object getComponentValueObj() 
+	{
+		return trueOrFalse.getSelectedItem();
 	}
 
 }

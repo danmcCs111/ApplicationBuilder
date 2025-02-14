@@ -1,5 +1,5 @@
 <Build>
-	<ApplicationLayoutEditor2 setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="100, 100" setMinimumSize="680, 640" setTitle="Application Layout Editor" extendedSetupTaskbar=".\src\ApplicationBuilder\build-icon_sm.png">
+	<ApplicationLayoutEditor2 extendedSetupTaskbar=".\src\ApplicationBuilder\build-icon_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="350, 100" setMinimumSize="680, 640" setTitle="Application Layout Editor" >
 		<JPanel extendedLayoutApplyParent="South" setLayout="java.awt.BorderLayout" >
 			<JPanel extendedLayoutApplyParent="West" setLayout="java.awt.GridLayout" >
 				<JButton addActionListener="ActionListeners.GenerateActionListener" extendedLayoutApplyParent="" setForeground="0, 114, 197" setText="Generate" >
@@ -20,7 +20,7 @@
 				</JMenuItem>
 				<JMenuItem addActionListener="ActionListeners.OpenFileActionListener2" extendedLayoutApplyParent="" setText="Open" >
 				</JMenuItem>
-				<JMenuItem addActionListener="ActionListeners.SaveEditorActionListener" extendedLayoutApplyParent="" setText="Save" >
+				<JMenuItem addActionListener="ActionListeners.SaveEditorActionListener" extendedLayoutApplyParent="" setText="Save As" >
 				</JMenuItem>
 			</JMenu>
 		</JMenuBar>

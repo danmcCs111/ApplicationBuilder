@@ -24,12 +24,14 @@ public class XmlToWidgetGenerator
 		this.stringToObjectConverterList.add(stringToObjectConverter);
 		this.methodName = methodName;
 		this.paramsList.add(params);
+		addParameterEditor(stringToObjectConverter, params);
 	}
 	
 	public void addNextParams(StringToObjectConverter stringToObjectConverter, List<String> params)
 	{
 		this.stringToObjectConverterList.add(stringToObjectConverter);
 		this.paramsList.add(params);
+		addParameterEditor(stringToObjectConverter, params);
 	}
 	
 	public String getMethodName()
@@ -56,6 +58,20 @@ public class XmlToWidgetGenerator
 			StringToObjectConverter soc = stringToObjectConverterList.get(i);
 			List<String> params = paramsList.get(i);
 			Object o = soc.conversionCall(params.toArray(new String [params.size()]));
+			convObjs.add(o);
+		}
+		
+		return convObjs;
+	}
+	
+	public ArrayList<Object> getParamEditorObjects()
+	{
+		ArrayList<Object> convObjs = new ArrayList<Object>();
+		
+		for(int i = 0; i < parameterEditors.size(); i++)
+		{
+			ParameterEditor pe = parameterEditors.get(i);
+			Object o = pe.getComponentValueObj();
 			convObjs.add(o);
 		}
 		
@@ -139,18 +155,14 @@ public class XmlToWidgetGenerator
 	
 	public List<ParameterEditor> getParameterEditors()
 	{
-		if(this.parameterEditors.isEmpty())
-		{
-			addParameterEditors();
-		}
 		return this.parameterEditors;
 	}
 	
-	private void addParameterEditors()
+	private void addParameterEditor(StringToObjectConverter soc, List<String> params)
 	{
-		for(StringToObjectConverter soc : stringToObjectConverterList)
-		{
-			parameterEditors.add(ParameterEditorParser.getParameterEditor(soc.getDefinitionClass()));
-		}
+		ParameterEditor pe = ParameterEditorParser.getParameterEditor(soc.getDefinitionClass());
+		pe.getComponentEditor();
+		pe.setComponentValue(soc.conversionCall(params.toArray(new String[params.size()])));
+		parameterEditors.add(pe);
 	}
 }

@@ -92,7 +92,7 @@ public class XmlToEditor extends TabbedPanel implements DependentRedrawableFrame
 				for(XmlToWidgetGenerator xwg : wcp.getXmlToWidgetGenerators())
 				{
 					String metName = xwg.getMethodName();
-					ArrayList<Object> convObjs = xwg.getConvertedObjects();
+					ArrayList<Object> convObjs = xwg.getParamEditorObjects();
 					Label l = new Label();
 					Component [] cs = new Component [xwg.getParameterEditors().size()];
 					JPanel pi = new JPanel(new BorderLayout());

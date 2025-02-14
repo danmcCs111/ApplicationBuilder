@@ -45,6 +45,7 @@ public class DimensionEditor extends ParameterEditor
 	@Override
 	public void setComponentValue(Object value) 
 	{
+		super.setComponentValue(value);
 		Dimension d = (Dimension) value;
 		spin1.setValue((int)d.getWidth());
 		spin2.setValue((int)d.getHeight());
@@ -56,6 +57,12 @@ public class DimensionEditor extends ParameterEditor
 		return dimPanel == null
 			? new String [] {""}
 			: new String [] {Integer.parseInt(spin1.getValue()+"")+"", Integer.parseInt(spin2.getValue()+"")+""};
+	}
+
+	@Override
+	public Object getComponentValueObj() 
+	{
+		return new Dimension(Integer.parseInt(spin1.getValue()+""), Integer.parseInt(spin2.getValue()+""));
 	}
 
 }

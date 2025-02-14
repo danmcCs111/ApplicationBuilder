@@ -52,6 +52,7 @@ public class ColorEditor extends ParameterEditor
 	@Override
 	public void setComponentValue(Object value) 
 	{
+		super.setComponentValue(value);
 		colorPicker.setForeground((Color)value);
 		colorPicker.setText("[-Color Select-]");
 		jcc.setColor((Color)value);
@@ -65,5 +66,11 @@ public class ColorEditor extends ParameterEditor
 			: new String [] {jcc.getColor().getRed()+"", 
 				jcc.getColor().getGreen()+"",
 				jcc.getColor().getBlue()+""};
+	}
+
+	@Override
+	public Object getComponentValueObj() 
+	{
+		return jcc.getColor();
 	}
 }
