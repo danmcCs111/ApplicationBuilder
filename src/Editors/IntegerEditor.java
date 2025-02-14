@@ -54,7 +54,7 @@ public class IntegerEditor extends ParameterEditor
 	@Override
 	public Object getComponentValueObj() 
 	{
-		return js.getValue();
+		return Integer.parseInt(js.getValue()+"");
 	}
 
 }

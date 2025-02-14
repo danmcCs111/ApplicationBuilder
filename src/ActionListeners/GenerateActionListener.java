@@ -12,7 +12,7 @@ public class GenerateActionListener implements ActionListener
 	{
 		if(WidgetBuildController.getInstance().getWidgetCreatorProperties() != null)
 		{
-			WidgetBuildController.getInstance().generateGraphicalInterface();
+			WidgetBuildController.getInstance().generateGraphicalInterface(true);
 		}	
 	}
 

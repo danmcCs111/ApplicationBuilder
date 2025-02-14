@@ -24,6 +24,6 @@ public class ApplicationBuilder
 	public static void buildAppFromXML(String SOURCE_FILE)
 	{
 		WidgetBuildController.getInstance().readProperties(SOURCE_FILE);
-		WidgetBuildController.getInstance().generateGraphicalInterface();
+		WidgetBuildController.getInstance().generateGraphicalInterface(false);
 	}
 }

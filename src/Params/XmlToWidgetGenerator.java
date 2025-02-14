@@ -3,6 +3,7 @@ package Params;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import ApplicationBuilder.LoggingMessages;
@@ -138,6 +139,16 @@ public class XmlToWidgetGenerator
 			e.printStackTrace();
 		} catch (InstantiationException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public void replaceParamsListWithParamEditors()
+	{
+		for(int i = 0; i < parameterEditors.size(); i++)
+		{
+			List<String> params = paramsList.get(i);
+			String [] compValue = parameterEditors.get(i).getComponentValue();
+			paramsList.set(i, Arrays.asList(compValue));
 		}
 	}
 	
