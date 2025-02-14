@@ -6,11 +6,19 @@ import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 
 import Params.ParameterEditor;
 
 public class DimensionEditor extends ParameterEditor 
 {
+	private static final int 
+		SPINNER_LIMIT = 1000000,
+		SPINNER_INTERVAL = 1;
+	private static final String SPINNER_FORMAT = "0";
+	private SpinnerNumberModel snm1 = new SpinnerNumberModel(0, 0, SPINNER_LIMIT, SPINNER_INTERVAL);
+	private SpinnerNumberModel snm2 = new SpinnerNumberModel(0, 0, SPINNER_LIMIT, SPINNER_INTERVAL);
+
 	private JPanel dimPanel;
 	private JSpinner spin1, spin2;
 	
@@ -19,10 +27,16 @@ public class DimensionEditor extends ParameterEditor
 	{
 		if(dimPanel == null)
 		{
+			spin1 = new JSpinner();
+			spin1.setModel(snm1);
+			spin1.setEditor(new JSpinner.NumberEditor(spin1, SPINNER_FORMAT));
+			
+			spin2 = new JSpinner();
+			spin2.setModel(snm2);
+			spin2.setEditor(new JSpinner.NumberEditor(spin2, SPINNER_FORMAT));
+			
 			dimPanel = new JPanel();
 			dimPanel.setLayout(new GridLayout(0,1));
-			spin1 = new JSpinner();
-			spin2 = new JSpinner();
 			dimPanel.add(spin1);
 			dimPanel.add(spin2);
 		}

@@ -123,9 +123,6 @@ public class XmlToEditor extends TabbedPanel implements DependentRedrawableFrame
 					for(int i = 0; i < xwg.getParameterEditors().size(); i++)
 					{
 						ParameterEditor pe = xwg.getParameterEditors().get(i);
-						if(pe == null)
-							continue;
-						
 						cs[i] = pe.getComponentEditor();
 						pe.setComponentValue(convObjs.get(i));
 						p.add(cs[i]);

@@ -11,6 +11,7 @@ import ApplicationBuilder.DependentRedrawableFrame;
 import ApplicationBuilder.DependentRedrawableFrameListener;
 import ApplicationBuilder.EditorToXml;
 import Properties.PathUtility;
+import WidgetExtensions.ApplicationLayoutEditor2;
 import WidgetUtility.WidgetBuildController;
 
 public class SaveEditorActionListener implements DependentRedrawableFrameListener, ActionListener
@@ -44,9 +45,7 @@ public class SaveEditorActionListener implements DependentRedrawableFrameListene
 					WidgetBuildController.getInstance().getWidgetCreatorProperties());
 			
 			WidgetBuildController.getInstance().readProperties(chosenFile);
-			
 			applicationLayoutEditor.rebuildInnerPanels();
-			
 		}
 	}
 }

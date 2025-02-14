@@ -4,12 +4,19 @@ import java.awt.Component;
 import java.awt.Dimension;
 
 import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 
 import Params.ParameterEditor;
 
 public class IntegerEditor extends ParameterEditor
 {
+	private static final int 
+		SPINNER_LIMIT = 1000000,
+		SPINNER_INTERVAL = 1;
+	private static final String SPINNER_FORMAT = "0";
 	private static final Dimension SPINNER_SIZE = new Dimension(50, 50);
+	private SpinnerNumberModel snm = new SpinnerNumberModel(0, 0, SPINNER_LIMIT, SPINNER_INTERVAL);
+	
 	private JSpinner js = null;
 	
 	@Override
@@ -18,6 +25,8 @@ public class IntegerEditor extends ParameterEditor
 		if(js == null)
 		{
 			js = new JSpinner();
+			js.setModel(snm);
+			js.setEditor(new JSpinner.NumberEditor(js, SPINNER_FORMAT));
 			js.setSize(SPINNER_SIZE.width, SPINNER_SIZE.height);
 		}
 		return js;
