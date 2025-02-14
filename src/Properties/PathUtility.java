@@ -10,7 +10,7 @@ import ApplicationBuilder.LoggingMessages;
 
 public interface PathUtility 
 {
-	public static final String PATH_STRIP_FILTER = "([\\.]|[0-9\\sa-zA-Z])+[\\\\]"; // only using landing folder name
+	public static final String PATH_STRIP_FILTER = "([\\.]|[0-9\\sa-zA-Z])+[/]"; // only using landing folder name
 	
 	public static String filterPathToFilename(String path)
 	{
