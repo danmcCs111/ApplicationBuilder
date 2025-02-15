@@ -11,29 +11,31 @@ import javax.swing.JDialog;
 
 import Params.ParameterEditor;
 
-public class ColorEditor implements ParameterEditor
+public class ColorEditor extends JButton implements ParameterEditor
 {
-	private JButton colorPicker = null;
+	private static final long serialVersionUID = 1992L;
+	
 	private JColorChooser jcc = null;
+	
+	public ColorEditor()
+	{
+		super();
+		jcc = new JColorChooser();
+		this.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JDialog d = new JDialog();
+				d.add(jcc);
+				d.setVisible(true);
+				d.pack();
+			}
+		});
+	}
 	
 	@Override
 	public Component getComponentEditor() 
 	{
-		if(colorPicker == null)
-		{
-			colorPicker = new JButton();
-			jcc = new JColorChooser();
-			colorPicker.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					JDialog d = new JDialog();
-					d.add(jcc);
-					d.setVisible(true);
-					d.pack();
-				}
-			});
-		}
-		return colorPicker;
+		return this;
 	}
 
 	@Override
@@ -52,8 +54,8 @@ public class ColorEditor implements ParameterEditor
 	@Override
 	public void setComponentValue(Object value) 
 	{
-		colorPicker.setForeground((Color)value);
-		colorPicker.setText("[-Color Select-]");
+		this.setForeground((Color)value);
+		this.setText("[-Color Select-]");
 		jcc.setColor((Color)value);
 	}
 

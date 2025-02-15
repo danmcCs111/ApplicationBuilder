@@ -2,51 +2,49 @@ package Editors;
 
 import java.awt.Component;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.JComboBox;
 
 import Params.ParameterEditor;
 
-public class ActionListenerEditor implements ParameterEditor
+public class ActionListenerEditor extends JComboBox<String> implements ParameterEditor
 {
+	private static final long serialVersionUID = 1900L;
+
 	private static final String 
 		EDITOR_DIRECTORY = "/src/ActionListeners",
 		PACKAGE_PREFIX = "ActionListeners",
 		EDITOR_PARAMETER_FILE_EXTENSION = ".java",
 		EDITOR_PARAMETER_FILE_FILTER = "java";
 	
-	private JComboBox<String> componentEditor;
+	public ActionListenerEditor()
+	{
+		super(ParameterEditor.loadClassExtensionsAsString(
+				EDITOR_DIRECTORY, 
+				EDITOR_PARAMETER_FILE_EXTENSION, 
+				PACKAGE_PREFIX, 
+				EDITOR_PARAMETER_FILE_FILTER).toArray(new String[] {}));
+	}
 	
 	@Override
 	public Component getComponentEditor() 
 	{
-		if(componentEditor == null)
-		{
-			ArrayList<String> obs = ParameterEditor.loadClassExtensionsAsString(
-					EDITOR_DIRECTORY, 
-					EDITOR_PARAMETER_FILE_EXTENSION, 
-					PACKAGE_PREFIX, 
-					EDITOR_PARAMETER_FILE_FILTER);
-			componentEditor = new JComboBox<String>(obs.toArray(new String [obs.size()]));
-			
-		}
-		return componentEditor;
+		return this;
 	}
 
 	@Override
 	public void setComponentValue(Object value) 
 	{
 		if(value != null)
-			componentEditor.setSelectedItem(value.getClass().getName());//using class name
+			this.setSelectedItem(value.getClass().getName());//using class name
 	}
 
 	@Override
 	public String[] getComponentValue() 
 	{
-		return componentEditor == null
+		return this == null
 			? new String [] {""}
-			: new String [] {componentEditor.getSelectedItem().toString()};
+			: new String [] {this.getSelectedItem().toString()};
 	}
 
 	@Override
@@ -64,7 +62,7 @@ public class ActionListenerEditor implements ParameterEditor
 	@Override
 	public Object getComponentValueObj() 
 	{
-		return componentEditor.getSelectedItem();
+		return this.getSelectedItem();
 	}
 
 }

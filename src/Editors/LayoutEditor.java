@@ -10,23 +10,25 @@ import javax.swing.JComboBox;
 
 import Params.ParameterEditor;
 
-public class LayoutEditor implements ParameterEditor 
+public class LayoutEditor extends JComboBox<String> implements ParameterEditor 
 {
-	private JComboBox<String> comboBox;
+	private static final long serialVersionUID = 1997L;
+	
 	private static final String [] layoutManagers = new String [] {
 			GridLayout.class.getName(),
 			BorderLayout.class.getName(),
 			FlowLayout.class.getName()
 	};//for now just standard library managers
 	
+	public LayoutEditor()
+	{
+		super(layoutManagers);
+	}
+	
 	@Override
 	public Component getComponentEditor() 
 	{
-		if(comboBox == null)
-		{
-			comboBox = new JComboBox<String>(layoutManagers);
-		}
-		return comboBox;
+		return this;
 	}
 
 	@Override
@@ -34,16 +36,16 @@ public class LayoutEditor implements ParameterEditor
 	{
 		if(value != null)
 		{
-			comboBox.setSelectedItem(value.getClass().getName());//using class name
+			this.setSelectedItem(value.getClass().getName());//using class name
 		}
 	}
 
 	@Override
 	public String[] getComponentValue() 
 	{
-		return comboBox == null
+		return this == null
 			? new String [] {""}
-			: new String [] {comboBox.getSelectedItem().toString()};
+			: new String [] {this.getSelectedItem().toString()};
 	}
 
 	@Override
@@ -60,7 +62,7 @@ public class LayoutEditor implements ParameterEditor
 	@Override
 	public Object getComponentValueObj() 
 	{
-		return comboBox.getSelectedItem();
+		return this.getSelectedItem();
 	}
 
 }

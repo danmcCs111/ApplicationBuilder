@@ -6,18 +6,19 @@ import javax.swing.JTextField;
 
 import Params.ParameterEditor;
 
-public class StringEditor implements ParameterEditor
+public class StringEditor extends JTextField implements ParameterEditor
 {
-	private JTextField textField = null;
+	private static final long serialVersionUID = 1999L;
+	
+	public StringEditor()
+	{
+		super();
+	}
 	
 	@Override
 	public Component getComponentEditor() 
 	{
-		if(textField == null)
-		{
-			textField = new JTextField();
-		}
-		return textField;
+		return this;
 	}
 
 	@Override
@@ -36,21 +37,21 @@ public class StringEditor implements ParameterEditor
 	@Override
 	public void setComponentValue(Object value) 
 	{
-		textField.setText((String)value);
+		this.setText((String)value);
 	}
 
 	@Override
 	public String[] getComponentValue() 
 	{
-		return textField == null
+		return this == null
 				? new String [] {""}
-				: new String [] {textField.getText()};
+				: new String [] {this.getText()};
 	}
 
 	@Override
 	public Object getComponentValueObj() 
 	{
-		return textField.getText();
+		return this.getText();
 	}
 
 }

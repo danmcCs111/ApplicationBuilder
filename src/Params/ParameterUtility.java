@@ -2,7 +2,7 @@ package Params;
 
 import java.lang.reflect.InvocationTargetException;
 
-public class ParameterUtility 
+public interface ParameterUtility 
 {
 	public static boolean isType(String parameterDefStringName, ParameterEditor pe)
 	{

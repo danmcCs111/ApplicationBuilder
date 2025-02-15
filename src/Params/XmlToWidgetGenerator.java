@@ -171,7 +171,6 @@ public class XmlToWidgetGenerator
 	private void addParameterEditor(StringToObjectConverter soc, List<String> params)
 	{
 		ParameterEditor pe = ParameterEditorParser.getParameterEditor(soc.getDefinitionClass());
-		pe.getComponentEditor();
 		pe.setComponentValue(soc.conversionCall(params.toArray(new String[params.size()])));
 		parameterEditors.add(pe);
 	}

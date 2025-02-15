@@ -10,8 +10,10 @@ import javax.swing.SpinnerNumberModel;
 
 import Params.ParameterEditor;
 
-public class DimensionEditor implements ParameterEditor 
+public class DimensionEditor extends JPanel implements ParameterEditor 
 {
+	private static final long serialVersionUID = 1993L;
+	
 	private static final int 
 		SPINNER_LIMIT = 1000000,
 		SPINNER_INTERVAL = 1;
@@ -19,28 +21,28 @@ public class DimensionEditor implements ParameterEditor
 	private SpinnerNumberModel snm1 = new SpinnerNumberModel(0, 0, SPINNER_LIMIT, SPINNER_INTERVAL);
 	private SpinnerNumberModel snm2 = new SpinnerNumberModel(0, 0, SPINNER_LIMIT, SPINNER_INTERVAL);
 
-	private JPanel dimPanel;
 	private JSpinner spin1, spin2;
+	
+	public DimensionEditor()
+	{
+		super();
+		spin1 = new JSpinner();
+		spin1.setModel(snm1);
+		spin1.setEditor(new JSpinner.NumberEditor(spin1, SPINNER_FORMAT));
+		
+		spin2 = new JSpinner();
+		spin2.setModel(snm2);
+		spin2.setEditor(new JSpinner.NumberEditor(spin2, SPINNER_FORMAT));
+		
+		this.setLayout(new GridLayout(0,1));
+		this.add(spin1);
+		this.add(spin2);
+	}
 	
 	@Override
 	public Component getComponentEditor() 
 	{
-		if(dimPanel == null)
-		{
-			spin1 = new JSpinner();
-			spin1.setModel(snm1);
-			spin1.setEditor(new JSpinner.NumberEditor(spin1, SPINNER_FORMAT));
-			
-			spin2 = new JSpinner();
-			spin2.setModel(snm2);
-			spin2.setEditor(new JSpinner.NumberEditor(spin2, SPINNER_FORMAT));
-			
-			dimPanel = new JPanel();
-			dimPanel.setLayout(new GridLayout(0,1));
-			dimPanel.add(spin1);
-			dimPanel.add(spin2);
-		}
-		return dimPanel;
+		return this;
 	}
 
 	@Override
@@ -67,7 +69,7 @@ public class DimensionEditor implements ParameterEditor
 	@Override
 	public String[] getComponentValue() 
 	{
-		return dimPanel == null
+		return this == null
 			? new String [] {""}
 			: new String [] {Integer.parseInt(spin1.getValue()+"")+"", Integer.parseInt(spin2.getValue()+"")+""};
 	}

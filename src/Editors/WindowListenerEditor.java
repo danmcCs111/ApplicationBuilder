@@ -2,49 +2,48 @@ package Editors;
 
 import java.awt.Component;
 import java.awt.event.WindowListener;
-import java.util.ArrayList;
 
 import javax.swing.JComboBox;
 
 import Params.ParameterEditor;
 
-public class WindowListenerEditor implements ParameterEditor 
+public class WindowListenerEditor extends JComboBox<String> implements ParameterEditor 
 {
+	private static final long serialVersionUID = 2000L;
+
 	private static final String 
 		EDITOR_DIRECTORY = "/src/WindowListeners",
 		PACKAGE_PREFIX = "WindowListeners",
 		EDITOR_PARAMETER_FILE_EXTENSION = ".java",
 		EDITOR_PARAMETER_FILE_FILTER = "java";
 	
-	private JComboBox<String> comboBox;
+	public WindowListenerEditor()
+	{
+		super(ParameterEditor.loadClassExtensionsAsString(
+				EDITOR_DIRECTORY, 
+				EDITOR_PARAMETER_FILE_EXTENSION, 
+				PACKAGE_PREFIX, 
+				EDITOR_PARAMETER_FILE_FILTER).toArray(new String [] {}));
+	}
 	
 	@Override
 	public Component getComponentEditor() 
 	{
-		if(comboBox == null)
-		{
-			ArrayList<String> obs = ParameterEditor.loadClassExtensionsAsString(
-					EDITOR_DIRECTORY, 
-					EDITOR_PARAMETER_FILE_EXTENSION, 
-					PACKAGE_PREFIX, 
-					EDITOR_PARAMETER_FILE_FILTER);
-			comboBox = new JComboBox<String>(obs.toArray(new String [obs.size()]));
-		}
-		return comboBox;
+		return this;
 	}
 
 	@Override
 	public void setComponentValue(Object value) 
 	{
-		comboBox.setSelectedItem(value.getClass().getName());//using class name
+		this.setSelectedItem(value.getClass().getName());//using class name
 	}
 
 	@Override
 	public String[] getComponentValue() 
 	{
-		return comboBox == null
+		return this == null
 				? new String [] {""}
-				: new String [] {comboBox.getSelectedItem().toString()};
+				: new String [] {this.getSelectedItem().toString()};
 	}
 
 	@Override
@@ -61,7 +60,7 @@ public class WindowListenerEditor implements ParameterEditor
 	@Override
 	public Object getComponentValueObj() 
 	{
-		return comboBox.getSelectedItem();
+		return this.getSelectedItem();
 	}
 
 }

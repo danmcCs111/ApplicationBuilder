@@ -6,24 +6,26 @@ import javax.swing.JComboBox;
 
 import Params.ParameterEditor;
 
-public class BooleanEditor implements ParameterEditor
+public class BooleanEditor extends JComboBox<String> implements ParameterEditor
 {
-	private JComboBox<String> trueOrFalse = null;
+	private static final long serialVersionUID = 1901L;
+	
 	private static final String [] options = new String[] {
 			"",
 			"True",
 			"False"
 	};
 	
+	public BooleanEditor()
+	{
+		super();
+		for(String s : options) this.addItem(s);
+	}
+	
 	@Override
 	public Component getComponentEditor() 
 	{
-		if(trueOrFalse == null)
-		{
-			trueOrFalse = new JComboBox<String>();
-			for(String s : options) trueOrFalse.addItem(s);
-		}
-		return trueOrFalse;
+		return this;
 	}
 
 	@Override
@@ -42,10 +44,10 @@ public class BooleanEditor implements ParameterEditor
 	@Override
 	public void setComponentValue(Object value) 
 	{
-		for(int i=0; i < trueOrFalse.getItemCount(); i++)
+		for(int i=0; i < this.getItemCount(); i++)
 		{
-			if(trueOrFalse.getItemAt(i).toLowerCase().equals(value.toString().toLowerCase()))
-				trueOrFalse.setSelectedItem(trueOrFalse.getItemAt(i));
+			if(this.getItemAt(i).toLowerCase().equals(value.toString().toLowerCase()))
+				this.setSelectedItem(this.getItemAt(i));
 			
 		}
 	}
@@ -53,15 +55,15 @@ public class BooleanEditor implements ParameterEditor
 	@Override
 	public String [] getComponentValue() 
 	{
-		return trueOrFalse==null //case during creation
+		return this==null //case during creation
 			? new String [] {""}
-			: new String [] {trueOrFalse.getSelectedItem().toString()};
+			: new String [] {this.getSelectedItem().toString()};
 	}
 
 	@Override
 	public Object getComponentValueObj() 
 	{
-		return trueOrFalse.getSelectedItem();
+		return this.getSelectedItem();
 	}
 
 }

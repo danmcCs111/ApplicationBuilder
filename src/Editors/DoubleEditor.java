@@ -7,24 +7,26 @@ import javax.swing.SpinnerNumberModel;
 
 import Params.ParameterEditor;
 
-public class DoubleEditor implements ParameterEditor
+public class DoubleEditor extends JSpinner implements ParameterEditor
 {
+	private static final long serialVersionUID = 1994L;
+	
 	private static final int 
 		SPINNER_LIMIT = 1000000,
 		SPINNER_INTERVAL = 1;
 	private static final String SPINNER_FORMAT = "000000.00";
-	private JSpinner spinnerUpDown = null;
+	
+	public DoubleEditor()
+	{
+		super();
+		this.setModel(new SpinnerNumberModel(0, 0, SPINNER_LIMIT, SPINNER_INTERVAL));
+		this.setEditor(new JSpinner.NumberEditor(this, SPINNER_FORMAT));
+	}
 	
 	@Override
 	public Component getComponentEditor() 
 	{
-		if(spinnerUpDown == null)
-		{
-			spinnerUpDown = new JSpinner();
-	        spinnerUpDown.setModel(new SpinnerNumberModel(0, 0, SPINNER_LIMIT, SPINNER_INTERVAL));
-	        spinnerUpDown.setEditor(new JSpinner.NumberEditor(spinnerUpDown, SPINNER_FORMAT));
-		}
-		return spinnerUpDown;
+		return this;
 	}
 
 	@Override
@@ -43,21 +45,21 @@ public class DoubleEditor implements ParameterEditor
 	@Override
 	public void setComponentValue(Object value) 
 	{
-		spinnerUpDown.setValue(value);
+		this.setValue(value);
 	}
 
 	@Override
 	public String[] getComponentValue() 
 	{
-		return spinnerUpDown == null
+		return this == null
 				? new String [] {""}
-				: new String [] {(double) spinnerUpDown.getValue()+""};
+				: new String [] {(double) this.getValue()+""};
 	}
 
 	@Override
 	public Object getComponentValueObj() 
 	{
-		return spinnerUpDown.getValue();
+		return this.getValue();
 	}
 
 }
