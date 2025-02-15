@@ -11,7 +11,7 @@ import javax.swing.JDialog;
 
 import Params.ParameterEditor;
 
-public class ColorEditor extends ParameterEditor
+public class ColorEditor implements ParameterEditor
 {
 	private JButton colorPicker = null;
 	private JColorChooser jcc = null;

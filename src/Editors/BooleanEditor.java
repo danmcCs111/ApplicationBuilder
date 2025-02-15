@@ -6,7 +6,7 @@ import javax.swing.JComboBox;
 
 import Params.ParameterEditor;
 
-public class BooleanEditor extends ParameterEditor
+public class BooleanEditor implements ParameterEditor
 {
 	private JComboBox<String> trueOrFalse = null;
 	private static final String [] options = new String[] {

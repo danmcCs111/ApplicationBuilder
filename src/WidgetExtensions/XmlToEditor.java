@@ -10,11 +10,12 @@ import javax.swing.JScrollPane;
 import ActionListeners.RemoveEditorTabActionListener;
 import ApplicationBuilder.DependentRedrawableFrame;
 import ApplicationBuilder.DependentRedrawableFrameListener;
+import ApplicationBuilder.LoggingMessages;
 import ApplicationBuilder.TabbedPanel;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class XmlToEditor extends TabbedPanel implements DependentRedrawableFrameListener
+public class XmlToEditor extends TabbedPanel implements DependentRedrawableFrameListener, ResizerListener
 {
 	private static final long serialVersionUID = 1888L;
 
@@ -78,8 +79,7 @@ public class XmlToEditor extends TabbedPanel implements DependentRedrawableFrame
 				
 				JPanel outP = new JPanel(new BorderLayout());
 				WidgetPropertiesPanelArray pArray = new WidgetPropertiesPanelArray();
-				JScrollPane js = new JScrollPane(pArray);
-				js.getVerticalScrollBar().setUnitIncrement(15);
+				JScrollPane js = new JScrollPaneResizer(pArray);
 				
 				pArray.buildPropertiesArray(wcp);
 				pArray.setDependentRedrawableFrame(editorFrame);
@@ -90,6 +90,12 @@ public class XmlToEditor extends TabbedPanel implements DependentRedrawableFrame
 		}
 		editorFrame.add(this, BorderLayout.CENTER);
 		editorFrame.validate();
+	}
+
+	@Override
+	public void heightLimitEvent(boolean isFrameHeightLimited) 
+	{
+		LoggingMessages.printOut(isFrameHeightLimited + "");
 	}
 
 }

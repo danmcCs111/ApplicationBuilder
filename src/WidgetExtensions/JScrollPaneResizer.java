@@ -1,6 +1,7 @@
 package WidgetExtensions;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Container;
 
 import javax.swing.JScrollPane;
@@ -12,6 +13,18 @@ public class JScrollPaneResizer extends JScrollPane implements ResizerListener
 	private static final long serialVersionUID = 1882L;
 
 	public JScrollPaneResizer()
+	{
+		super();
+		defaultSettings();
+	}
+	
+	public JScrollPaneResizer(Component c)
+	{
+		super(c);
+		defaultSettings();
+	}
+	
+	private void defaultSettings()
 	{
 		getVerticalScrollBar().setUnitIncrement(15);
 	}

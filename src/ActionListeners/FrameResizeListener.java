@@ -117,6 +117,10 @@ public class FrameResizeListener extends ComponentAdapter
 			}
 		}
 		
+//		LoggingMessages.printOut(LoggingMessages.combine(lastParentAndComponents.keySet().size()) +
+//		LoggingMessages.printOut(
+//				" " + heightPandF[0]+" " + heightPandF[1]);
+		
 		return (heightPandF[0] > heightPandF[1]);
 	}
 	
@@ -202,4 +206,5 @@ public class FrameResizeListener extends ComponentAdapter
 			}
 		}
 	}
+	
 }

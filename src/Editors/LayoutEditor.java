@@ -10,7 +10,7 @@ import javax.swing.JComboBox;
 
 import Params.ParameterEditor;
 
-public class LayoutEditor extends ParameterEditor 
+public class LayoutEditor implements ParameterEditor 
 {
 	private JComboBox<String> comboBox;
 	private static final String [] layoutManagers = new String [] {

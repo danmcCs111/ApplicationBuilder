@@ -8,7 +8,7 @@ import javax.swing.JComboBox;
 
 import Params.ParameterEditor;
 
-public class WindowListenerEditor extends ParameterEditor 
+public class WindowListenerEditor implements ParameterEditor 
 {
 	private static final String 
 		EDITOR_DIRECTORY = "/src/WindowListeners",
@@ -23,7 +23,7 @@ public class WindowListenerEditor extends ParameterEditor
 	{
 		if(comboBox == null)
 		{
-			ArrayList<String> obs = loadClassExtensionsAsString(
+			ArrayList<String> obs = ParameterEditor.loadClassExtensionsAsString(
 					EDITOR_DIRECTORY, 
 					EDITOR_PARAMETER_FILE_EXTENSION, 
 					PACKAGE_PREFIX, 

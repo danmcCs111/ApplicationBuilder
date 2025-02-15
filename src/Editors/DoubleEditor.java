@@ -7,7 +7,7 @@ import javax.swing.SpinnerNumberModel;
 
 import Params.ParameterEditor;
 
-public class DoubleEditor extends ParameterEditor
+public class DoubleEditor implements ParameterEditor
 {
 	private static final int 
 		SPINNER_LIMIT = 1000000,

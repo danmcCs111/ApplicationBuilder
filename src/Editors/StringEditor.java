@@ -6,7 +6,7 @@ import javax.swing.JTextField;
 
 import Params.ParameterEditor;
 
-public class StringEditor extends ParameterEditor
+public class StringEditor implements ParameterEditor
 {
 	private JTextField textField = null;
 	

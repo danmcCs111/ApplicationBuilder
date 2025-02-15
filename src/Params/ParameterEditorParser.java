@@ -64,10 +64,10 @@ public class ParameterEditorParser
 	{
 		for(ParameterEditor p : editorTypes)
 		{
-			if (p.isType(paramDefNamedType))
+			if (ParameterUtility.isType(paramDefNamedType, p))
 			{
 				LoggingMessages.printOut("found editor: " + p.getClass().getName());
-				return p.newInstance();
+				return ParameterUtility.newInstance(p.getClass());
 			}
 		}
 		return null;
