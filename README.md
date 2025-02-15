@@ -7,6 +7,6 @@ For extended methods, can use a walkthrough since interdependent / have dependen
 
 *Outstanding bugs:
 
-jSpinner while saving from File menu
+if a jSpinner widget is last in focus then saving from File menu (save as) value does not propigate.
 
-tab switching in editor and clicking generate with some action listeners on generated frame.
+Switching in tabs in editor and clicking generate will cause some action listeners on generated frame to get multiple actions to register.
