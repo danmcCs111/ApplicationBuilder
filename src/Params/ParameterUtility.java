@@ -21,7 +21,11 @@ public class ParameterUtility
 	public static ParameterEditor newInstance(Class<?> clazz)
 	{
 		try {
-			return ((ParameterEditor) Class.forName(clazz.getName()).getDeclaredConstructor().newInstance());
+			 Object o = Class.forName(clazz.getName()).getDeclaredConstructor().newInstance();
+			 if(o instanceof ParameterEditor)
+			 {
+				 return ((ParameterEditor) o);
+			 }
 		} catch (InstantiationException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
