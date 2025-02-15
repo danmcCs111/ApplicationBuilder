@@ -3,11 +3,8 @@ package Params;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
-
 import ApplicationBuilder.LoggingMessages;
 import Properties.PathUtility;
-import WidgetComponents.EditParameterFrame;
 
 public class ParameterEditorParser 
 {
@@ -71,13 +68,6 @@ public class ParameterEditorParser
 			}
 		}
 		return null;
-	}
-	
-	public static JFrame launchEditor(String methodName)
-	{
-		EditParameterFrame pFrame = new EditParameterFrame(methodName);
-		pFrame.addSaveAndCancelButtons();
-		return pFrame;
 	}
 	
 	private static void loadParameterEditorExtensions()

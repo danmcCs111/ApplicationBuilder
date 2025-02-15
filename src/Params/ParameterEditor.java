@@ -16,6 +16,7 @@ public interface ParameterEditor
 	public abstract String [] getComponentValue();
 	public abstract Object getComponentValueObj();
 	public abstract String getComponentXMLOutput();
+	public abstract String getParameterDefintionString();
 	
 	public static JLabel getFieldLabel(String labelText)
 	{
@@ -46,5 +47,4 @@ public interface ParameterEditor
 		return classExtensions;
 	}
 	
-	public abstract String getParameterDefintionString();
 }
