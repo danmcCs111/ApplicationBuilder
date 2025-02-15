@@ -1,22 +1,22 @@
 <Build>	
 	<JFrame setLayout="BorderLayout" setName="VideoPlayer" setTitle="Video Launcher" setSize="400, 500" setLocation="10,30" setDefaultCloseOperation="3" 
-		addWindowListener="WindowListeners.ProcessExecutorWindowListener" extendedFrameResizer="scrollPane" extendedSetupTaskbar=".\src\ApplicationBuilder\launch_sm.png">
+		addWindowListener="WindowListeners.ProcessExecutorWindowListener" extendedSetupTaskbar=".\src\ApplicationBuilder\launch_sm.png">
 	
 		<JPanel setLayout="BorderLayout" extendedLayoutApplyParent="Center">
-			<JScrollPaneResizer setName="scrollPane" extendedLayoutApplyParent="North">
-				
+			<JScrollPane setName="scrollPane" extendedLayoutApplyParent="Center">
 					<SwappableCollection setName="swapVideos" setLayout="BorderLayout" extendedSetViewportView=""
 						extendedArrayProcessingPath="./src/ApplicationBuilder/Roku Channels@.url; ./src/ApplicationBuilder/Youtube Channels@.url; ./src/ApplicationBuilder/Amazon Videos@.url; ./src/ApplicationBuilder/Music@.url" >
-						<JLabel setText="TODO" setName="title" setForeground="100,50,150" setBackground="150,150,150" setHorizontalAlignment="0" 
-							extendedTitleSwitcher="swapVideos" extendedLayoutApplyParent="North">
-						</JLabel>
-						<JButtonArray setName="channels" setLayout="GridLayout" setHighlightBackgroundColor="240,240,240" setHighlightForegroundColor="50,50,50"
-							extendedActionListenerArray="ActionListeners.LaunchActionListener" extendedLayoutApplyParent="Center" setArrayForegroundAndBackground="240,240,240, 175,204,175"
-							extendedSwappableHolder="swapVideos" extendedTextStripper="Watch @ Online for Free _ The Roku Channel _ Roku@ - YouTube@ - Prime Video@Prime Video- @1_@.url">
-						</JButtonArray>
+						<JPanel extendedLayoutApplyParent="North" setLayout="java.awt.BorderLayout" >
+							<JLabel setText="TODO" setName="title" setForeground="100,50,150" setBackground="150,150,150" setHorizontalAlignment="0" 
+								extendedTitleSwitcher="swapVideos" extendedLayoutApplyParent="North">
+							</JLabel>
+							<JButtonArray setName="channels" setLayout="GridLayout" setHighlightBackgroundColor="240,240,240" setHighlightForegroundColor="50,50,50"
+								extendedActionListenerArray="ActionListeners.LaunchActionListener" extendedLayoutApplyParent="Center" setArrayForegroundAndBackground="240,240,240, 175,204,175"
+								extendedSwappableHolder="swapVideos" extendedTextStripper="Watch @ Online for Free _ The Roku Channel _ Roku@ - YouTube@ - Prime Video@Prime Video- @1_@.url">
+							</JButtonArray>
+						</JPanel>
 					</SwappableCollection>
-					
-			</JScrollPaneResizer>
+			</JScrollPane>
 		</JPanel>
 		
 		<JPanel setLayout="BorderLayout" extendedLayoutApplyParent="South">
