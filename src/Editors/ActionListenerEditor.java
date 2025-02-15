@@ -9,7 +9,7 @@ import Params.ParameterEditor;
 
 public class ActionListenerEditor extends JComboBox<String> implements ParameterEditor
 {
-	private static final long serialVersionUID = 1900L;
+	private static final long serialVersionUID = 1990L;
 
 	private static final String 
 		EDITOR_DIRECTORY = "/src/ActionListeners",

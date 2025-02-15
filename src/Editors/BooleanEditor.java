@@ -8,7 +8,7 @@ import Params.ParameterEditor;
 
 public class BooleanEditor extends JComboBox<String> implements ParameterEditor
 {
-	private static final long serialVersionUID = 1901L;
+	private static final long serialVersionUID = 1991L;
 	
 	private static final String [] options = new String[] {
 			"",
@@ -48,7 +48,6 @@ public class BooleanEditor extends JComboBox<String> implements ParameterEditor
 		{
 			if(this.getItemAt(i).toLowerCase().equals(value.toString().toLowerCase()))
 				this.setSelectedItem(this.getItemAt(i));
-			
 		}
 	}
 

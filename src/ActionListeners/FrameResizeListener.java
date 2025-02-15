@@ -43,7 +43,8 @@ public class FrameResizeListener extends ComponentAdapter
 	{
 		clearComponentsList();//TODO attach to a Frame contents change listner?
 		collectAllComponents(frame.getContentPane());
-		collectTextWidgets();
+		collectMethodFilteredWidgets("getText");
+//		collectMethodFilteredWidgets("getComponentValueObj");
 		
 		boolean tmpH = isHeightLimited();
 		
@@ -118,7 +119,6 @@ public class FrameResizeListener extends ComponentAdapter
 		}
 		
 //		LoggingMessages.printOut(LoggingMessages.combine(lastParentAndComponents.keySet().size()) +
-//		LoggingMessages.printOut(
 //				" " + heightPandF[0]+" " + heightPandF[1]);
 		
 		return (heightPandF[0] > heightPandF[1]);
@@ -175,16 +175,16 @@ public class FrameResizeListener extends ComponentAdapter
 				: parent;
 	}
 	
-	private void collectTextWidgets()
+	private void collectMethodFilteredWidgets(String methodFilter)
 	{
 		for(Component c : allComponents)
 		{
 			try {
 				Class<?> clazz = c.getClass();
-				Method m = clazz.getMethod("getText");
+				Method m = clazz.getMethod(methodFilter);
 				if(m != null)
 				{
-					String text = (String) m.invoke(c);
+					String text = (String) m.invoke(c).toString();
 					Container parentKey = c.getParent();
 					if(componentAndText.containsKey(parentKey))
 					{
