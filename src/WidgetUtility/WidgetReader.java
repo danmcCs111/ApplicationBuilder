@@ -26,20 +26,33 @@ import Params.XmlToWidgetGenerator;
 public class WidgetReader 
 {
 	private ArrayList<WidgetCreatorProperty> widgetCreatorProperties = new ArrayList<WidgetCreatorProperty>(); 
+	private String sourceFile;
 	
 	public WidgetReader(String sourceFile)
 	{
+		this.sourceFile = sourceFile;
 		readWidgetBuilder(sourceFile);
 		collectWidgetCreatorProperties();
 	}
 	public WidgetReader(File sourceFile)
 	{
+		this.sourceFile = sourceFile.getAbsolutePath();
 		readWidgetBuilder(sourceFile);
 		collectWidgetCreatorProperties();
 	}
 	
+	public String getSourceFileAbsolutePath()
+	{
+		return this.sourceFile;
+	}
+	
 	protected ArrayList<WidgetCreatorProperty> getWidgetCreatorProperties()
 	{
+		if(widgetCreatorProperties.isEmpty() && this.sourceFile != null)
+		{
+			readWidgetBuilder(sourceFile);
+			collectWidgetCreatorProperties();
+		}
 		return widgetCreatorProperties;
 	}
 	

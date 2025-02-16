@@ -26,7 +26,6 @@ public class WidgetBuildController
 		widgetBuildController.add(new WidgetBuildController());
 	}
 	private static ArrayList<WidgetReader> widgetReaders = new ArrayList<WidgetReader>();
-	private String filename;
 	
 	private static int selInstance = 0;
 	
@@ -36,7 +35,7 @@ public class WidgetBuildController
 	
 	public String getFilename()
 	{
-		return filename;
+		return getWidgetReader(selInstance).getSourceFileAbsolutePath();
 	}
 	
 	public static int getGeneratedNum()
@@ -83,7 +82,6 @@ public class WidgetBuildController
 	 */
 	public void readProperties(String sourceFile)
 	{
-		this.filename = sourceFile;
 		destroyGeneratedFrame();
 		clearWidgetCreatorProperties();
 		
@@ -117,9 +115,9 @@ public class WidgetBuildController
 		LoggingMessages.printNewLine();
 		LoggingMessages.printOut("-->Widget Generation<--");
 		
-		if(filename != null && getWidgetCreatorProperties().isEmpty())
+		if(getWidgetReader().getSourceFileAbsolutePath() != null && getWidgetCreatorProperties().isEmpty())
 		{
-			readProperties(filename);
+			readProperties(getWidgetReader().getSourceFileAbsolutePath());
 		}
 		
 		for(WidgetCreatorProperty w : getWidgetCreatorProperties())

@@ -12,13 +12,6 @@ public class ApplicationBuilder
 	{
 		if(args.length == 1) buildAppFromXML(args[0]);
 		else buildAppFromXML(DEFAULT_APPLICATION_EDITOR_PATH);
-//		else
-//		{
-//			SwingUtilities.invokeLater(() -> {
-//				ApplicationLayoutEditor window = new ApplicationLayoutEditor();
-//			        window.setVisible(true);
-//			});
-//		}
 	}
 	
 	public static void buildAppFromXML(String SOURCE_FILE)
