@@ -117,6 +117,11 @@ public class WidgetBuildController
 		LoggingMessages.printNewLine();
 		LoggingMessages.printOut("-->Widget Generation<--");
 		
+		if(filename != null && getWidgetCreatorProperties().isEmpty())
+		{
+			readProperties(filename);
+		}
+		
 		for(WidgetCreatorProperty w : getWidgetCreatorProperties())
 		{
 			Object o = w.getInstance();
@@ -303,4 +308,11 @@ public class WidgetBuildController
 		}
 		return c;
 	}
+	
+	public void destroy()
+	{
+		destroyGeneratedFrame();
+		clearWidgetCreatorProperties();
+	}
+	
 }

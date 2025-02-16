@@ -46,7 +46,7 @@ public class NavigationButtonActionListener implements ActionListener, ActionLis
 	public void actionPerformed(ActionEvent e) 
 	{
 		curPosition = direction.getIndexDirectionNext();
-		LoggingMessages.printOut(curPosition + "");
+		LoggingMessages.printOut(curPosition + " " + e.getActionCommand());
 		
 		SwappableCollection comp = (SwappableCollection) connectedComp;
 		HashMap<String, List<String>> pathAndFileList = comp.getPathAndFileList();
