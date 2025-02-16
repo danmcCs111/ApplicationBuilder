@@ -1,6 +1,6 @@
 <Build>
 	<JFrame setLayout="java.awt.BorderLayout" setMinimumSize="350, 200" >
-		<JButton extendedLayoutApplyParent="South" setForeground="51, 51, 255" setText="---!?OK?!---" >
+		<JButton extendedLayoutApplyParent="South" setForeground="51, 51, 255" setText="!?OK?!?" >
 		</JButton>
 		<JButton extendedLayoutApplyParent="North" setBackground="0, 153, 153" setText="click me!" setToolTipText="question?" >
 		</JButton>
