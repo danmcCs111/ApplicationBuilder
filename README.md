@@ -7,6 +7,3 @@ add end component/tag when adding a component and specifying parent. reapply par
 
 ![image](https://github.com/user-attachments/assets/11ae1b1b-2d46-4fc0-b8f7-36ff29303acc)
 
-*Outstanding bugs:
-
-if a jSpinner widget is last in focus then saving from File menu (save as) value does not propigate.
