@@ -13,6 +13,7 @@ import Params.XmlToWidgetGenerator;
 import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetExtensions.ExtendedLayoutApplyParent;
 import WidgetExtensions.ExtendedTextStripper;
+import WidgetExtensions.PostWidgetBuildProcessing;
 
 public class WidgetBuildController 
 {
@@ -33,9 +34,22 @@ public class WidgetBuildController
 		//adjusted to controlled instances.
 	}
 	
+	public void newWidgetBuild()
+	{
+		getInstance(++selInstance);
+		widgetReaders.add(new WidgetReader(null));
+		WidgetCreatorProperty.resetIDCounter();
+		WidgetComponent.resetIDCounter();	
+	}
+	
 	public String getFilename()
 	{
 		return getWidgetReader(selInstance).getSourceFileAbsolutePath();
+	}
+	
+	public void clearFilename()
+	{
+		getWidgetReader(selInstance).clearSourceFile();
 	}
 	
 	public static int getGeneratedNum()
@@ -120,9 +134,14 @@ public class WidgetBuildController
 			readProperties(getWidgetReader().getSourceFileAbsolutePath());
 		}
 		
+		ArrayList<PostWidgetBuildProcessing> postGenerationComponents = new ArrayList<PostWidgetBuildProcessing>();
 		for(WidgetCreatorProperty w : getWidgetCreatorProperties())
 		{
 			Object o = w.getInstance();
+			if(o instanceof PostWidgetBuildProcessing)
+			{
+				postGenerationComponents.add((PostWidgetBuildProcessing) o);
+			}
 			ArrayList<XmlToWidgetGenerator> generators = w.getXmlToWidgetGenerators();
 			List<XmlToWidgetGenerator> orderedGenerators = orderGenerators(generators);
 			for(XmlToWidgetGenerator g : orderedGenerators)
@@ -157,6 +176,12 @@ public class WidgetBuildController
 			frame.setVisible(true);
 			printComponents((JComponent) frame.getComponent(0));
 		}
+		
+		for(PostWidgetBuildProcessing pp : postGenerationComponents)//Post build processing.
+		{
+			pp.execute();
+		}
+		
 	}
 	
 	public List<WidgetCreatorProperty> getWidgetCreatorProperties()

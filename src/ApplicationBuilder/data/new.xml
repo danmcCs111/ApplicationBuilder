@@ -1,5 +1,5 @@
 <Build>
-	<JFrame setLayout="java.awt.BorderLayout" setMaximumSize="350, 0" setMinimumSize="350, 200" setTitle="" >
+	<JFrame setLayout="java.awt.BorderLayout" setMaximumSize="350, 0" setMinimumSize="350, 200" setTitle="new title" >
 		<JButton extendedLayoutApplyParent="South" setForeground="102, 102, 0" setHorizontalAlignment="0" setText="Game" setToolTipText="nothing." >
 		</JButton>
 	</JFrame>

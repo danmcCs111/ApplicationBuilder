@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import ApplicationBuilder.DependentRedrawableFrame;
 import ApplicationBuilder.DependentRedrawableFrameListener;
 import ApplicationBuilder.EditorToXml;
+import ApplicationBuilder.LoggingMessages;
 import WidgetUtility.WidgetBuildController;
 
 public class SaveEditorActionListener implements DependentRedrawableFrameListener, ActionListener
@@ -20,10 +21,24 @@ public class SaveEditorActionListener implements DependentRedrawableFrameListene
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		EditorToXml.writeXml(WidgetBuildController.getInstance().getFilename(),
-				WidgetBuildController.getInstance().getWidgetCreatorProperties());
+		if(WidgetBuildController.getInstance().getWidgetCreatorProperties().isEmpty())
+		{
+			return;
+		}
 		
-//		WidgetBuildController.getInstance().readProperties(chosenFile);
-		applicationLayoutEditor.rebuildInnerPanels();
+		//TODO introduce "Save as" when no filename 
+		if(WidgetBuildController.getInstance().getFilename() == null)
+		{
+			boolean saved = SaveAsEditorActionListener.performSaveAs(this.applicationLayoutEditor);
+			LoggingMessages.printOut("Saved? " + saved);
+		}
+		else
+		{
+			EditorToXml.writeXml(WidgetBuildController.getInstance().getFilename(),
+					WidgetBuildController.getInstance().getWidgetCreatorProperties());
+			
+			WidgetBuildController.getInstance().readProperties(WidgetBuildController.getInstance().getFilename());
+			applicationLayoutEditor.rebuildInnerPanels();	
+		}
 	}
 }

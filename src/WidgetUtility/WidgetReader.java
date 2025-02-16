@@ -34,16 +34,15 @@ public class WidgetReader
 		readWidgetBuilder(sourceFile);
 		collectWidgetCreatorProperties();
 	}
-	public WidgetReader(File sourceFile)
-	{
-		this.sourceFile = sourceFile.getAbsolutePath();
-		readWidgetBuilder(sourceFile);
-		collectWidgetCreatorProperties();
-	}
 	
 	public String getSourceFileAbsolutePath()
 	{
 		return this.sourceFile;
+	}
+	
+	public void clearSourceFile()
+	{
+		this.sourceFile = null;
 	}
 	
 	protected ArrayList<WidgetCreatorProperty> getWidgetCreatorProperties()
@@ -63,7 +62,7 @@ public class WidgetReader
 	
 	public void clearWidgetCreatorProperties()
 	{
-		widgetCreatorProperties = new ArrayList<WidgetCreatorProperty>();
+		this.widgetCreatorProperties = new ArrayList<WidgetCreatorProperty>();
 	}
 	
 	public ArrayList<WidgetCreatorProperty> collectWidgetCreatorProperties()
@@ -80,12 +79,10 @@ public class WidgetReader
 		return widgetCreatorProperties;
 	}
 	
-	private void readWidgetBuilder(File sourceFile)
-	{
-		readWidgetBuilder(sourceFile.getAbsolutePath());
-	}
 	private void readWidgetBuilder(String sourceFile)
 	{
+		if(sourceFile == null)
+			return;
 		File f = new File(sourceFile);
 		DocumentBuilderFactory dbFact = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dc;

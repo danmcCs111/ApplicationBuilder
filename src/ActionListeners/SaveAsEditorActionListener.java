@@ -30,6 +30,34 @@ public class SaveAsEditorActionListener implements DependentRedrawableFrameListe
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
+//		JFileChooser jfc = new JFileChooser();
+//		jfc.setDialogType(JFileChooser.SAVE_DIALOG);
+//		File f = new File(PathUtility.getCurrentDirectory() + XML_PATH_SUFFIX);
+//		jfc.setFileFilter(new FileNameExtensionFilter(XML_FILTER_TITLE, XML_FILTER));
+//		jfc.setSelectedFile(f);
+//		
+//		int choice = jfc.showSaveDialog(applicationLayoutEditor);
+//		File chosenFile = jfc.getSelectedFile();
+//		if(chosenFile != null && choice == JFileChooser.APPROVE_OPTION)
+//		{
+//			EditorToXml.writeXml(chosenFile.getAbsolutePath(),
+//					WidgetBuildController.getInstance().getWidgetCreatorProperties());
+//			
+//			WidgetBuildController.getInstance().readProperties(chosenFile);
+//			applicationLayoutEditor.rebuildInnerPanels();
+//		}
+		SaveAsEditorActionListener.performSaveAs(applicationLayoutEditor);
+	}
+	
+	/**
+	 * 
+	 * @return save performed.
+	 */
+	public static boolean performSaveAs(DependentRedrawableFrame applicationLayoutEditor)
+	{
+		if(WidgetBuildController.getInstance().getWidgetCreatorProperties().isEmpty())
+			return false;
+		
 		JFileChooser jfc = new JFileChooser();
 		jfc.setDialogType(JFileChooser.SAVE_DIALOG);
 		File f = new File(PathUtility.getCurrentDirectory() + XML_PATH_SUFFIX);
@@ -45,6 +73,8 @@ public class SaveAsEditorActionListener implements DependentRedrawableFrameListe
 			
 			WidgetBuildController.getInstance().readProperties(chosenFile);
 			applicationLayoutEditor.rebuildInnerPanels();
+			return true;
 		}
+		return false;
 	}
 }

@@ -27,7 +27,7 @@ import Params.XmlToWidgetGenerator;
 import WidgetComponents.ClassTypeHandler;
 import WidgetExtensions.SwappableCollection;
 import WidgetExtensions.XmlToEditor;
-import WidgetExtensions.ApplicationLayoutEditor2;
+import WidgetExtensions.ApplicationLayoutEditor;
 import WidgetExtensions.ExtendedActionListenerArray;
 import WidgetExtensions.ExtendedActionListenerConnectedComponent;
 import WidgetExtensions.ExtendedActionListenerSubType;
@@ -63,7 +63,7 @@ public class WidgetAttributes
 		COMPONENT_CLASSES.add(JMenu.class);
 		COMPONENT_CLASSES.add(JMenuItem.class);
 		
-		COMPONENT_CLASSES.add(ApplicationLayoutEditor2.class);
+		COMPONENT_CLASSES.add(ApplicationLayoutEditor.class);
 		COMPONENT_CLASSES.add(XmlToEditor.class);
 		COMPONENT_CLASSES.add(SystemTray.class);
 		COMPONENT_CLASSES.add(SwappableCollection.class);
@@ -116,7 +116,7 @@ public class WidgetAttributes
 		});
 		
 		//EXTENDED WIDGETS
-		EXTENDED_METHODS.put(ApplicationLayoutEditor2.class, new String [] {
+		EXTENDED_METHODS.put(ApplicationLayoutEditor.class, new String [] {
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedSetupTaskbar.class),
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedClipboard.class)
 		});

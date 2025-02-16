@@ -24,7 +24,8 @@ public class AddComponentActionListener implements DependentRedrawableFrameListe
 		DIALOG_SELECT_COMPONENT_LABEL_MESSAGE = "Select Component", 
 		DIALOG_SELECT_COMPONENT_TITLE = "Component Selection",
 		DIALOG_SELECT_PARENT_LABEL_MESSAGE = "Select Parent Container", 
-		DIALOG_SELECT_PARENT_TITLE = "Parent Container Selection";
+		DIALOG_SELECT_PARENT_TITLE = "Parent Container Selection",
+		STRIP_PACKAGE_NAME_FROM_CLASS_FILTER = "[a-zA-Z]+[\\.]+";
 	
 	private DependentRedrawableFrame applicationLayoutEditor;
 	
@@ -53,7 +54,7 @@ public class AddComponentActionListener implements DependentRedrawableFrameListe
 					ComponentSelector.getParentContainerOptions().toArray(), "");
 			LoggingMessages.printOut("Add Component: " + opt + " <-> Make Parent: " + optP);
 			ArrayList<String> settings = new ArrayList<String>();
-			String optFiltered = opt.replaceAll("[a-zA-Z]+[\\.]+", "");
+			String optFiltered = opt.replaceAll(STRIP_PACKAGE_NAME_FROM_CLASS_FILTER, "");
 			LoggingMessages.printOut("Filtered: " + optFiltered + " non-Filtered: " + opt);
 			
 			if(!optP.equals(""))
