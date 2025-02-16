@@ -46,6 +46,11 @@ public class WidgetCreatorProperty
 		}
 	}
 	
+	public void destroy()
+	{
+		instance = null;
+	}
+	
 	public Object getInstance()
 	{
 		if(instance == null)

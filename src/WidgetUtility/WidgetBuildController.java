@@ -249,6 +249,7 @@ public class WidgetBuildController
 		{
 			JFrame frame = (JFrame) getWidgetCreatorProperties().get(0).getInstance();
 			frame.setVisible(false);
+			for(WidgetCreatorProperty wcp : getWidgetCreatorProperties()) wcp.destroy();
 			frame.dispose();
 		}
 	}
@@ -332,7 +333,7 @@ public class WidgetBuildController
 		return c;
 	}
 	
-	public void destroy()
+	public void destroyFrameAndCreatorProperties()
 	{
 		destroyGeneratedFrame();
 		clearWidgetCreatorProperties();
