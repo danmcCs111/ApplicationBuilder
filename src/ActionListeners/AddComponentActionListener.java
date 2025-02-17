@@ -39,7 +39,7 @@ public class AddComponentActionListener implements DependentRedrawableFrameListe
 		DIALOG_SELECT_PARENT_TITLE = "Parent Container Selection",
 		DIALOG_SELECT_CHILD_COMPONENTS_TITLE = "Components Selection",
 		DIALOG_SELECT_CHILD_COMPONENTS_MESSAGE = "Select Child Components: ",
-		SAVE_BUTTON_TEXT = "Save",
+		SAVE_BUTTON_TEXT = "Add",
 		CANCEL_BUTTON_TEXT = "Cancel",
 		STRIP_PACKAGE_NAME_FROM_CLASS_FILTER = "[a-zA-Z]+[\\.]+";
 	private static final Dimension MIN_DIMENSION_DIALOG = new Dimension(300,150);
@@ -109,7 +109,7 @@ public class AddComponentActionListener implements DependentRedrawableFrameListe
 						List<String> selected = componentMethods.getSelectedValuesList();
 						if(selected != null && !selected.isEmpty())
 						{
-							ComponentSelector.setParentRefIdOnComponents(selected, optFiltered);
+							ComponentSelector.setParentRefIdOnComponents(selected, wcp.getRefWithID());
 						}
 						XmlToWidgetGenerator xmlG = WidgetAttributes.setAttribute(wcp.getClassType(), 
 						ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class));
