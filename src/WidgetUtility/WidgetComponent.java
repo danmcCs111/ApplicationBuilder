@@ -27,6 +27,16 @@ public class WidgetComponent
 	private Component component = null;
 	private SystemTray systemTray = null;
 	
+	public static int nextCountId()
+	{
+		return counter++;
+	}
+	
+	public static int getCountId()
+	{
+		return counter;
+	}
+	
 	private WidgetComponent(String componentLabel, JComponent jComponent)
 	{
 		this.componentLabel = componentLabel;
@@ -43,10 +53,10 @@ public class WidgetComponent
 		this.systemTray = systemTray;
 	}
 	
-	public String getNextCounterId()
-	{
-		return getLabelStr() + ID_SPLIT + counter++;
-	}
+//	public String getNextCounterId()
+//	{
+//		return getLabelStr() + ID_SPLIT + counter++;
+//	}
 	
 	public static void resetIDCounter()
 	{

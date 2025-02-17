@@ -38,7 +38,6 @@ public class WidgetBuildController
 	{
 		getInstance(++selInstance);
 		widgetReaders.add(new WidgetReader(null));
-		WidgetCreatorProperty.resetIDCounter();
 		WidgetComponent.resetIDCounter();	
 	}
 	
@@ -104,7 +103,6 @@ public class WidgetBuildController
 		else
 		{
 			widgetReaders.add(new WidgetReader(sourceFile));
-			WidgetCreatorProperty.resetIDCounter();
 			WidgetComponent.resetIDCounter();			
 		}
 		
@@ -259,7 +257,6 @@ public class WidgetBuildController
 		if(getWidgetCreatorProperties() != null && !getWidgetCreatorProperties().isEmpty())
 		{
 			getWidgetReader().clearWidgetCreatorProperties();
-			WidgetCreatorProperty.resetIDCounter();
 			WidgetComponent.resetIDCounter();
 		}
 	}

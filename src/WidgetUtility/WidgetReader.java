@@ -124,7 +124,8 @@ public class WidgetReader
 					{
 						String nodeStr = n.getNodeName().split(WidgetComponent.ID_SPLIT)[0];
 						WidgetComponent wcType = WidgetComponent.getWidgetComponent(nodeStr);
-						counterId = wcType.getNextCounterId();
+						counterId = nodeStr + WidgetComponent.ID_SPLIT + WidgetComponent.nextCountId();
+						LoggingMessages.printOut(wcType.getLabelStr() + " " + counterId);
 					}
 					generateWidgetCreatorPropertyList(nl2, counterId);
 				}
@@ -147,8 +148,8 @@ public class WidgetReader
 		{
 			attributes.add(nnMap.item(j).toString());
 		}
-		String counterId = parentNode;
 		
-		return new WidgetCreatorProperty(node.getNodeName(), attributes, counterId);
+		return new WidgetCreatorProperty(node.getNodeName()+WidgetComponent.ID_SPLIT+WidgetComponent.getCountId(), 
+				attributes, parentNode);
 	}
 }

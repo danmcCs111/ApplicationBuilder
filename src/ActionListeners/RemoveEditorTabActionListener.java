@@ -2,9 +2,12 @@ package ActionListeners;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
+import ApplicationBuilder.ComponentSelector;
 import ApplicationBuilder.TabbedPanel;
 import WidgetUtility.WidgetBuildController;
+import WidgetUtility.WidgetCreatorProperty;
 
 public class RemoveEditorTabActionListener implements ActionListener 
 {
@@ -19,7 +22,12 @@ public class RemoveEditorTabActionListener implements ActionListener
 	public void actionPerformed(ActionEvent e) 
 	{
 		int index = xmlToEditor.getSelectedIndex();
+		WidgetCreatorProperty wcp = WidgetBuildController.getInstance().getWidgetCreatorProperties().get(index);
+		List<String> componentsReassign = ComponentSelector.getComponentsFromParent(wcp.getRefWithID());
+		ComponentSelector.setParentRefIdOnComponents(componentsReassign, wcp.getParentRefWithID());
+		
 		WidgetBuildController.getInstance().getWidgetCreatorProperties().remove(index);
+		
 		xmlToEditor.rebuildPanel();
 	}
 }

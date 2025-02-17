@@ -12,16 +12,12 @@ import WidgetComponents.ClassTypeHandler;
 public class WidgetCreatorProperty 
 {
 	private static final String 
-		ID_POSTFIX = "#",
 		ID_SUFFIX_REGEX = "#[0-9]*";
-	private static int postfixCounter = 0;
 	
 	private Object instance;
 	private String 
 		className,
-		componentTag,
 		parentNodeTextWithID,
-		parentNodeText,
 		componentTagRefId;
 	private ArrayList<String> 
 		settings,
@@ -29,21 +25,16 @@ public class WidgetCreatorProperty
 	private HashMap<String, String> settingsNameAndValue = new HashMap<String, String>();
 	private ArrayList<XmlToWidgetGenerator> xmlToWidgetGenerators = new ArrayList<XmlToWidgetGenerator>();
 
-	public WidgetCreatorProperty(String componentName, ArrayList<String> settings, String parentNodeTextWithID) 
+	public WidgetCreatorProperty(String componentNameWithID, ArrayList<String> settings, String parentNodeTextWithID) 
 	{
-		className = WidgetAttributes.getClassNameString(componentName);
-		this.componentTag = componentName;
+		this.setRefId(componentNameWithID);
+		this.className = WidgetAttributes.getClassNameString(getRef());
 		this.settings = settings;
 		for (String s : settings)
 		{
 			splitAttributeNameAndValue(s);
 		}
-		this.setRefId(componentName);
 		this.parentNodeTextWithID = parentNodeTextWithID;
-		if(this.parentNodeTextWithID != null)
-		{
-			this.parentNodeText = this.parentNodeTextWithID.replaceAll(ID_SUFFIX_REGEX, "");
-		}
 	}
 	
 	public void destroy()
@@ -87,7 +78,7 @@ public class WidgetCreatorProperty
 
 	public WidgetComponent getComponentType() 
 	{
-		return WidgetComponent.getWidgetComponent(this.componentTag);
+		return WidgetComponent.getWidgetComponent(getRef());
 	}
 	
 	public ClassTypeHandler getClassType()
@@ -115,6 +106,11 @@ public class WidgetCreatorProperty
 		return this.parentNodeTextWithID;
 	}
 	
+	public String setParentRefWithID(String parentRefId)
+	{
+		return this.parentNodeTextWithID = parentRefId;
+	}
+	
 	public static String stripParentRefWithID(String parentRefWithID)
 	{
 		return parentRefWithID.replaceAll(ID_SUFFIX_REGEX, "");
@@ -122,12 +118,12 @@ public class WidgetCreatorProperty
 	
 	public String getParentRef()
 	{
-		return this.parentNodeText;
+		return stripParentRefWithID(getParentRefWithID());
 	}
 	
 	public String getRef()
 	{
-		return this.componentTag;
+		return stripParentRefWithID(getRefWithID());
 	}
 	
 	public String getRefWithID()
@@ -135,8 +131,8 @@ public class WidgetCreatorProperty
 		return this.componentTagRefId;
 	}
 
-	public boolean isThisRef(String ref) {
-		return componentTagRefId.equals(ref);
+	public boolean isThisRef(String refWithId) {
+		return getRefWithID().equals(refWithId);
 	}
 	
 	public void addXmlToWidgetGenerator(XmlToWidgetGenerator xmlToWidgetGenerator)
@@ -156,15 +152,9 @@ public class WidgetCreatorProperty
 		settingsNameAndValue.put(ss[0], ss[1]);
 		settingsName.add(ss[0]);
 	}
-	private void setRefId(String component) 
+	private void setRefId(String componentWithID) 
 	{
-		String postfix = ID_POSTFIX + postfixCounter++;
-		this.componentTagRefId = component + postfix;
-	}
-	
-	public static void resetIDCounter()
-	{
-		postfixCounter = 0;
+		this.componentTagRefId = componentWithID;
 	}
 	
 	@Override

@@ -1,5 +1,6 @@
 package ApplicationBuilder;
 
+import java.awt.Container;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,6 +59,33 @@ public interface ComponentSelector
 			}
 		}
 		return containerOptions;
+	}
+	
+	public static ArrayList<String> getComponentsFromParent(String parentRefId)//TODO performance
+	{
+		ArrayList<String> componentIncludeOptions = new ArrayList<String>();
+		for(WidgetCreatorProperty wcp : WidgetBuildController.getInstance().getWidgetCreatorProperties())
+		{
+			if(parentRefId.equals(wcp.getParentRefWithID()))
+			{
+				componentIncludeOptions.add(wcp.getRefWithID());
+			}
+		}
+		return componentIncludeOptions;
+	}
+	
+	public static void setParentRefIdOnComponents(List<String> selectedRefIds, String parentRefId)//TODO performance
+	{
+		for(WidgetCreatorProperty wcp : WidgetBuildController.getInstance().getWidgetCreatorProperties())
+		{
+			for(String selId : selectedRefIds)
+			{
+				if(wcp.getRefWithID().equals(selId))
+				{
+					wcp.setParentRefWithID(parentRefId);
+				}
+			}
+		}
 	}
 	
 }
