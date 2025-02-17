@@ -1,34 +1,20 @@
 package Params;
 
 import java.awt.Component;
-import java.awt.FontMetrics;
 import java.util.ArrayList;
-
-import javax.swing.JLabel;
 
 import Properties.LoggingMessages;
 import Properties.PathUtility;
 
 public interface ParameterEditor 
 {
+	public abstract void destroy();
 	public abstract Component getComponentEditor();
 	public abstract void setComponentValue(Object value);
 	public abstract String [] getComponentValue();
 	public abstract Object getComponentValueObj();
 	public abstract String getComponentXMLOutput();
 	public abstract String getParameterDefintionString();
-	
-	public static JLabel getFieldLabel(String labelText)
-	{
-		return new JLabel(labelText);
-	}
-	
-	public static int getFieldLabelWidth(JLabel label)
-	{
-		FontMetrics fm = label.getFontMetrics(label.getFont());
-		int width = fm.stringWidth(label.getText());
-		return width;
-	}
 	
 	public static ArrayList<String> loadClassExtensionsAsString(String classFileDirectory, String classFileExtension, String packagePrefix, String fileFilter)
 	{

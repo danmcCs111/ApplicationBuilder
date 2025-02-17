@@ -8,6 +8,7 @@ import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
+import Params.ParameterEditor;
 import Params.XmlToWidgetGenerator;
 import Properties.LoggingMessages;
 import WidgetComponents.PostWidgetBuildProcessing;
@@ -336,4 +337,21 @@ public class WidgetBuildController
 		clearWidgetCreatorProperties();
 	}
 	
+	public void destroyEditors()
+	{
+		for(WidgetCreatorProperty wcp : getWidgetCreatorProperties())
+		{
+			ArrayList<XmlToWidgetGenerator> xmlToWidgetGenerators = wcp.getXmlToWidgetGenerators();
+			if(xmlToWidgetGenerators != null)
+			{
+				for(XmlToWidgetGenerator xmlGen : xmlToWidgetGenerators)
+				{
+					for(ParameterEditor pe : xmlGen.getParameterEditors())
+					{
+						pe.destroy();
+					}
+				}
+			}
+		}
+	}
 }

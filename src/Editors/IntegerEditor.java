@@ -66,4 +66,10 @@ public class IntegerEditor extends JSpinner implements ParameterEditor
 		return Integer.parseInt(this.getValue()+"");
 	}
 
+	@Override
+	public void destroy() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

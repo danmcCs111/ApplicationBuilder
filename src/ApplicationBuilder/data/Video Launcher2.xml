@@ -6,7 +6,7 @@
 					<JPanel extendedLayoutApplyParent="North" setLayout="java.awt.BorderLayout" >
 						<JLabel extendedLayoutApplyParent="North" extendedTitleSwitcher="swapVideos" setBackground="150, 150, 150" setForeground="100, 50, 150" setHorizontalAlignment="0" setName="title" setText="TODO" >
 						</JLabel>
-						<JButtonArray extendedActionListenerArray="ActionListeners.LaunchActionListener" extendedLayoutApplyParent="Center" extendedSwappableHolder="swapVideos" extendedTextStripper="Watch @ Online for Free _ The Roku Channel _ Roku@ - YouTube@ - Prime Video@Prime Video- @1_@.url" setArrayForegroundAndBackground="240, 240, 240, 175, 204, 175" setHighlightBackgroundColor="240, 240, 240" setHighlightForegroundColor="50, 50, 50" setLayout="java.awt.GridLayout" setName="channels" >
+						<JButtonArray extendedActionListenerArray="ActionListeners.LaunchActionListener" extendedLayoutApplyParent="Center" extendedSwappableHolder="swapVideos" extendedTextStripper="Watch @ Online for Free _ The Roku Channel _ Roku@ - YouTube@ - Prime Video@Prime Video- @1_@.url" setArrayForegroundAndBackground="240, 240, 240, 102, 102, 102" setHighlightBackgroundColor="240, 240, 240" setHighlightForegroundColor="50, 50, 50" setLayout="java.awt.GridLayout" setName="channels" >
 						</JButtonArray>
 					</JPanel>
 				</SwappableCollection>

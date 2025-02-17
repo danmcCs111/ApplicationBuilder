@@ -62,4 +62,10 @@ public class FloatEditor extends JSpinner implements ParameterEditor
 		return this.getValue();
 	}
 
+	@Override
+	public void destroy() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

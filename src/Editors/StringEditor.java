@@ -54,4 +54,10 @@ public class StringEditor extends JTextField implements ParameterEditor
 		return this.getText();
 	}
 
+	@Override
+	public void destroy() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

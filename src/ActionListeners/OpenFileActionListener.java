@@ -42,6 +42,7 @@ public class OpenFileActionListener implements DependentRedrawableFrameListener,
 		{
 			LoggingMessages.printOut("number generated: " + WidgetBuildController.getGeneratedNum());
 			
+			WidgetBuildController.getInstance().destroyEditors();
 			WidgetBuildController.getInstance().destroyFrameAndCreatorProperties();
 			WidgetBuildController.getInstance().readProperties(chosenFile);
 			

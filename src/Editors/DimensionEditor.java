@@ -80,4 +80,10 @@ public class DimensionEditor extends JPanel implements ParameterEditor
 		return new Dimension(Integer.parseInt(spin1.getValue()+""), Integer.parseInt(spin2.getValue()+""));
 	}
 
+	@Override
+	public void destroy() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

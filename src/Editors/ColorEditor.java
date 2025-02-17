@@ -25,8 +25,9 @@ public class ColorEditor extends JButton implements ParameterEditor
 		SAVE_BUTTON_TEXT = "Save",
 		CANCEL_BUTTON_TEXT = "Cancel";
 	
+	private String titleText = "";
 	private JColorChooser jcc = null;
-	JDialog d;
+	private JDialog d;
 	
 	public ColorEditor()
 	{
@@ -38,6 +39,7 @@ public class ColorEditor extends JButton implements ParameterEditor
 				if(d == null)
 				{
 					d = new JDialog();
+					d.setTitle(titleText);
 					d.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 					d.addWindowListener(new WindowAdapter() {
 						@Override
@@ -77,6 +79,11 @@ public class ColorEditor extends JButton implements ParameterEditor
 				d.pack();
 			}
 		});
+	}
+	
+	public void setTitleText(String titleText)
+	{
+		this.titleText = titleText;
 	}
 	
 	@Override
@@ -120,5 +127,11 @@ public class ColorEditor extends JButton implements ParameterEditor
 	public Object getComponentValueObj() 
 	{
 		return jcc.getColor();
+	}
+
+	@Override
+	public void destroy() 
+	{
+		if(d != null)d.dispose();
 	}
 }

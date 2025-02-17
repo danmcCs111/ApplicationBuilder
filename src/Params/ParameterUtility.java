@@ -1,9 +1,29 @@
 package Params;
 
+import java.awt.FontMetrics;
 import java.lang.reflect.InvocationTargetException;
+
+import javax.swing.JLabel;
+
+import Editors.ColorEditor;
 
 public interface ParameterUtility 
 {
+	public static int getFieldLabelWidth(JLabel label)
+	{
+		FontMetrics fm = label.getFontMetrics(label.getFont());
+		int width = fm.stringWidth(label.getText());
+		return width;
+	}
+	
+	public static void setTitleText(ParameterEditor pe, String title)
+	{
+		if(pe instanceof ColorEditor)
+		{
+			((ColorEditor) pe).setTitleText(title);
+		}
+	}
+	
 	public static boolean isType(String parameterDefStringName, ParameterEditor pe)
 	{
 		return parameterDefStringName == null 

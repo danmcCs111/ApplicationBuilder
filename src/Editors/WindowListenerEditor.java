@@ -63,4 +63,10 @@ public class WindowListenerEditor extends JComboBox<String> implements Parameter
 		return this.getSelectedItem();
 	}
 
+	@Override
+	public void destroy() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

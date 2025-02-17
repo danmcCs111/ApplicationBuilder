@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import Params.ParameterEditor;
+import Params.ParameterUtility;
 import Params.XmlToWidgetGenerator;
 import WidgetUtility.WidgetCreatorProperty;
 
@@ -20,6 +21,7 @@ public class WidgetPropertiesPanelArray extends JPanel implements DependentRedra
 {
 	public static final String 
 		MENU_ITEM_REMOVE_TEXT = "remove",
+		TITLE_TEXT_SEPERATOR = " <-> ",
 		COMPONENT_SUFFIX = "@",
 		COMPONENT_REGEX = COMPONENT_SUFFIX + "[0-9]*",
 		DELETE_BUTTON_TEXT = "X";
@@ -68,8 +70,10 @@ public class WidgetPropertiesPanelArray extends JPanel implements DependentRedra
 			
 			for(int i = 0; i < xwg.getParameterEditors().size(); i++)
 			{
+				String titleText = wcp.getRefWithID() + TITLE_TEXT_SEPERATOR + metName;
 				ParameterEditor pe = xwg.getParameterEditors().get(i);
 				cs[i] = pe.getComponentEditor();
+				ParameterUtility.setTitleText(pe, titleText);
 				pe.setComponentValue(convObjs.get(i));
 				this.add(cs[i]);
 			}

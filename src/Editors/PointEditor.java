@@ -80,4 +80,10 @@ public class PointEditor extends JPanel implements ParameterEditor
 		return new Point(Integer.parseInt(spin1.getValue()+""), Integer.parseInt(spin2.getValue()+""));
 	}
 
+	@Override
+	public void destroy() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

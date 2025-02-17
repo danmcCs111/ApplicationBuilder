@@ -65,4 +65,10 @@ public class LayoutEditor extends JComboBox<String> implements ParameterEditor
 		return this.getSelectedItem();
 	}
 
+	@Override
+	public void destroy() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
