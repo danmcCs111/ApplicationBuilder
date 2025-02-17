@@ -21,11 +21,11 @@
 			</JLabel>
 		</JPanel>
 		<JPanel extendedLayoutApplyParent="West" setLayout="java.awt.BorderLayout" >
-			<JButton addActionListener="ActionListeners.NavigationButtonActionListener" extendedActionListenerConnectedComponent="WidgetExtensions.SwappableCollection" extendedActionListenerSubType="WidgetExtensions.Direction@BACKWARD" extendedLayoutApplyParent="North" setText="[&lt;]" >
+			<JButton addActionListener="ActionListeners.NavigationButtonActionListener" extendedActionListenerConnectedComponent="WidgetComponents.SwappableCollection" extendedActionListenerSubType="WidgetComponents.Direction@BACKWARD" extendedLayoutApplyParent="North" setText="[&lt;]" >
 			</JButton>
 		</JPanel>
 		<JPanel extendedLayoutApplyParent="East" setLayout="java.awt.BorderLayout" >
-			<JButton addActionListener="ActionListeners.NavigationButtonActionListener" extendedActionListenerConnectedComponent="WidgetExtensions.SwappableCollection" extendedActionListenerSubType="WidgetExtensions.Direction@FORWARD" extendedLayoutApplyParent="North" setText="[&gt;]..." >
+			<JButton addActionListener="ActionListeners.NavigationButtonActionListener" extendedActionListenerConnectedComponent="WidgetComponents.SwappableCollection" extendedActionListenerSubType="WidgetComponents.Direction@FORWARD" extendedLayoutApplyParent="North" setText="[&gt;]..." >
 			</JButton>
 		</JPanel>
 		<JMenuBar extendedSetJMenuBarParent="" >
