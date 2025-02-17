@@ -20,7 +20,7 @@ import javax.swing.WindowConstants;
 
 import Params.XmlToWidgetGenerator;
 import Properties.LoggingMessages;
-import WidgetComponents.ComponentSelector;
+import WidgetComponents.ComponentSelectorUtility;
 import WidgetComponents.DependentRedrawableFrame;
 import WidgetComponents.DependentRedrawableFrameListener;
 import WidgetExtensions.ExtendedAttributeStringParam;
@@ -54,7 +54,7 @@ public class AddComponentActionListener implements DependentRedrawableFrameListe
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		List<String> componentOptions = ComponentSelector.generateComboSelectionOptions();
+		List<String> componentOptions = ComponentSelectorUtility.generateComboSelectionOptions();
 		String opt = (String) JOptionPane.showInputDialog(
 				applicationLayoutEditor,
 				DIALOG_SELECT_COMPONENT_LABEL_MESSAGE, DIALOG_SELECT_COMPONENT_TITLE, 
@@ -72,7 +72,7 @@ public class AddComponentActionListener implements DependentRedrawableFrameListe
 				DIALOG_SELECT_PARENT_LABEL_MESSAGE, DIALOG_SELECT_PARENT_TITLE, 
 				JOptionPane.PLAIN_MESSAGE, 
 				null, 
-				ComponentSelector.getParentContainerOptions().toArray(), "");
+				ComponentSelectorUtility.getParentContainerOptions().toArray(), "");
 		if(optP == null)
 		{
 			LoggingMessages.printOut(this.getClass().getName() + " " + opt + " Cancelled.");
@@ -101,7 +101,7 @@ public class AddComponentActionListener implements DependentRedrawableFrameListe
 					(int)applicationLayoutEditor.getRootPane().getBounds().getCenterY() - (MIN_DIMENSION_DIALOG.height /2));
 			d.setMinimumSize(MIN_DIMENSION_DIALOG);
 			JList<String> componentMethods = new JList<String>();
-			List<String> components = ComponentSelector.getComponentsFromParent(optPFiltered);
+			List<String> components = ComponentSelectorUtility.getComponentsFromParent(optPFiltered);
 			
 			componentMethods.setListData(components.toArray(new String[components.size()]));
 			d.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -119,7 +119,7 @@ public class AddComponentActionListener implements DependentRedrawableFrameListe
 					List<String> selected = componentMethods.getSelectedValuesList();
 					if(selected != null && !selected.isEmpty())
 					{
-						ComponentSelector.setParentRefIdOnComponents(selected, wcp.getRefWithID());
+						ComponentSelectorUtility.setParentRefIdOnComponents(selected, wcp.getRefWithID());
 					}
 					d.dispose();
 				}

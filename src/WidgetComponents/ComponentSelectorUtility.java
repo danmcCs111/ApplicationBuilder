@@ -10,14 +10,14 @@ import WidgetUtility.WidgetAttributes;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
-public interface ComponentSelector 
+public interface ComponentSelectorUtility 
 {
 	public static ArrayList<String> generateComboSelectionOptions()
 	{
 		ArrayList<String> comboSel = new ArrayList<String>();
 		List<WidgetCreatorProperty> props = WidgetBuildController.getInstance().getWidgetCreatorProperties();
 		
-		if(props == null || props.isEmpty())
+		if(props == null || props.isEmpty())//TODO registered instanceof JFrame
 		{
 			comboSel.add(JFrame.class.getName());
 			comboSel.add(ApplicationLayoutEditor.class.getName());

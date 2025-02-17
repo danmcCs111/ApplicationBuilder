@@ -62,7 +62,7 @@ public class EditorToXml
 					{
 						sb.append(TAB_CHAR);
 					}
-					sb.append(CLOSE_BRACKET_OPEN + WidgetCreatorProperty.stripParentRefWithID(parentRefs.get(
+					sb.append(CLOSE_BRACKET_OPEN + WidgetCreatorProperty.stripRefWithID(parentRefs.get(
 							parentRefs.size()-1)) + CLOSE_BRACKET_CLOSE + System.lineSeparator());//close out tag
 					parentRefs.remove(parentRefs.size()-1);
 				} while(!lastParentRefWithID.equals(wcp.getParentRefWithID()) && 
@@ -143,7 +143,7 @@ public class EditorToXml
 			{
 				sb.append(TAB_CHAR);
 			}
-			sb.append(CLOSE_BRACKET_OPEN + WidgetCreatorProperty.stripParentRefWithID(
+			sb.append(CLOSE_BRACKET_OPEN + WidgetCreatorProperty.stripRefWithID(
 					parentRefs.get(parentRefs.size()-1)) + CLOSE_BRACKET_CLOSE + System.lineSeparator());//close out tag
 			parentRefs.remove(parentRefs.size()-1);
 		} 

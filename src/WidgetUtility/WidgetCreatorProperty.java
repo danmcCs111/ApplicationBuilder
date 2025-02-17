@@ -110,7 +110,7 @@ public class WidgetCreatorProperty
 		return this.parentNodeTextWithID = parentRefId;
 	}
 	
-	public static String stripParentRefWithID(String parentRefWithID)
+	public static String stripRefWithID(String parentRefWithID)
 	{
 		return parentRefWithID.replaceAll(ID_SUFFIX_REGEX, "");
 	}
@@ -119,12 +119,12 @@ public class WidgetCreatorProperty
 	{
 		return getParentRefWithID() == null
 			? null
-			: stripParentRefWithID(getParentRefWithID());
+			: stripRefWithID(getParentRefWithID());
 	}
 	
 	public String getRef()
 	{
-		return stripParentRefWithID(getRefWithID());
+		return stripRefWithID(getRefWithID());
 	}
 	
 	public String getRefWithID()
