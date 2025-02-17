@@ -18,7 +18,7 @@ for v in ${vals[@]}
 do
 	linecount=`echo $v | egrep -o "^[0-9]*"`
 	total=$((total + linecount))
-	filename=`echo $v | sed 's/^[0-9]*//g'`
+	filename=`echo $v | sed "s/$linecount//g"`
 	echo $filename " | Line Count - " $linecount " | Running Total - " $total
 done
 echo "total line count: " $total
