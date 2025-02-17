@@ -1,12 +1,12 @@
 <Build>
 	<JFrame addWindowListener="WindowListeners.ProcessExecutorWindowListener" extendedSetupTaskbar=".\src\ApplicationBuilder\launch_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="10, 30" setName="VideoPlayer" setSize="400, 500" setTitle="Video Launcher" >
-		<JPanel extendedLayoutApplyParent="Center" setLayout="BorderLayout" >
+		<JPanel extendedLayoutApplyParent="Center" setLayout="java.awt.BorderLayout" >
 			<JScrollPaneUnit15 extendedLayoutApplyParent="Center" setName="scrollPane" >
 				<SwappableCollection extendedArrayProcessingPath="./src/ApplicationBuilder/Roku Channels@.url; ./src/ApplicationBuilder/Youtube Channels@.url; ./src/ApplicationBuilder/Amazon Videos@.url; ./src/ApplicationBuilder/Music@.url" extendedSetViewportView="" setLayout="java.awt.BorderLayout" setName="swapVideos" >
 					<JPanel extendedLayoutApplyParent="North" setLayout="java.awt.BorderLayout" >
 						<JLabel extendedLayoutApplyParent="North" extendedTitleSwitcher="swapVideos" setBackground="150, 150, 150" setForeground="93, 2, 93" setHorizontalAlignment="0" setName="title" setText="TODO" >
 						</JLabel>
-						<JButtonArray extendedActionListenerArray="ActionListeners.LaunchActionListener" extendedLayoutApplyParent="Center" extendedSwappableHolder="swapVideos" extendedTextStripper="Watch @ Online for Free _ The Roku Channel _ Roku@ - YouTube@ - Prime Video@Prime Video- @1_@.url" setArrayForegroundAndBackground="240, 240, 240, 175, 204, 175" setHighlightBackgroundColor="240, 240, 240" setHighlightForegroundColor="50, 50, 50" setLayout="java.awt.GridLayout" setName="channels" >
+						<JButtonArray extendedActionListenerArray="ActionListeners.LaunchActionListener" extendedLayoutApplyParent="Center" extendedSwappableHolder="swapVideos" extendedTextStripper="Watch @ Online for Free _ The Roku Channel _ Roku@ - YouTube@ - Prime Video@Prime Video- @1_@.url" setArrayForegroundAndBackground="240, 240, 240, 175, 204, 175" setHighlightBackgroundColor="240, 240, 240" setHighlightForegroundColor="50, 50, 50" setLayout="java.awt.GridLayout" setName="channels" extendedCharacterLimited="35" >
 						</JButtonArray>
 					</JPanel>
 				</SwappableCollection>
