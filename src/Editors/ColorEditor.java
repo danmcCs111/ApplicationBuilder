@@ -6,17 +6,24 @@ import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 
 import Params.ParameterEditor;
 
 public class ColorEditor extends JButton implements ParameterEditor
 {
 	private static final long serialVersionUID = 1992L;
+	
+	public static final String 
+		SAVE_BUTTON_TEXT = "Save",
+		CANCEL_BUTTON_TEXT = "Cancel";
 	
 	private JColorChooser jcc = null;
 	JDialog d;
@@ -31,18 +38,26 @@ public class ColorEditor extends JButton implements ParameterEditor
 				if(d == null)
 				{
 					d = new JDialog();
-					d.setLayout(new BorderLayout());
-					d.add(jcc, BorderLayout.CENTER);
-					JButton save = new JButton("Save");
-					save.addActionListener(new ActionListener() {
+					d.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+					d.addWindowListener(new WindowAdapter() {
 						@Override
-						public void actionPerformed(ActionEvent e) {
-							d.dispose();
-							ColorEditor.this.setForeground((Color)jcc.getColor());
+						public void windowClosed(WindowEvent e) {
+							jcc.setColor(ColorEditor.this.getForeground());
 							d = null;
 						}
 					});
-					JButton cancel = new JButton("Cancel");
+					d.setLayout(new BorderLayout());
+					d.add(jcc, BorderLayout.CENTER);
+					JButton save = new JButton(SAVE_BUTTON_TEXT);
+					save.addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							ColorEditor.this.setForeground((Color)jcc.getColor());
+							d.dispose();
+							d = null;
+						}
+					});
+					JButton cancel = new JButton(CANCEL_BUTTON_TEXT);
 					cancel.addActionListener(new ActionListener() {
 						@Override
 						public void actionPerformed(ActionEvent e) {
