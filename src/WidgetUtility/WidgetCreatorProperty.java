@@ -118,7 +118,9 @@ public class WidgetCreatorProperty
 	
 	public String getParentRef()
 	{
-		return stripParentRefWithID(getParentRefWithID());
+		return getParentRefWithID() == null
+			? null
+			: stripParentRefWithID(getParentRefWithID());
 	}
 	
 	public String getRef()
