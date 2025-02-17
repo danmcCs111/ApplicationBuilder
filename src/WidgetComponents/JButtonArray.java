@@ -21,14 +21,16 @@ import WidgetUtility.FileListOptionGenerator;
  * 
  * TODO use a collection of inner panels and switch during toggle?
  */
-public class JButtonArray extends JPanel implements ArrayActionListener
+public class JButtonArray extends JPanel implements ArrayActionListener, CharacterLimited
 {
 	private static final long serialVersionUID = 1883L;
-	
+	public static final String CHARACTER_LIMIT_TEXT="..";
 	public static Color []
 		backgroundAndForegroundColor = new Color [] {new JButton().getBackground(), new JButton().getForeground()},
 		highlightBackgroundAndForegroundColor = new Color [] {backgroundAndForegroundColor[0], backgroundAndForegroundColor[1]};
 	private static int indexPos=0;
+	
+	private int characterLimit=0;
 	private static boolean isHighlight = true;
 	private static JButton highlightButton = null;
 	private static ArrayList<ArrayList<Component>> collectionJButtons = new ArrayList<ArrayList<Component>>();
@@ -70,7 +72,16 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 						{
 							tmpTxt = tmpTxt.replace(s, "");
 						}
-						((AbstractButton) comp).setText(tmpTxt);
+						if(characterLimit != 0)
+						{
+							((AbstractButton) comp).setText(tmpTxt.length() >= this.characterLimit
+									? tmpTxt.substring(0, this.characterLimit)+CHARACTER_LIMIT_TEXT
+									: tmpTxt);
+						}
+						else
+						{
+							((AbstractButton) comp).setText(tmpTxt);
+						}
 					}
 					comp.setForeground(backgroundAndForegroundColor[1]);
 					comp.setBackground(backgroundAndForegroundColor[0]);
@@ -220,6 +231,12 @@ public class JButtonArray extends JPanel implements ArrayActionListener
 	public void addStripFilter(String filter) 
 	{
 		stripFilter.add(filter);
+	}
+	
+	@Override
+	public void setCharacterLimit(int characterLimit)
+	{
+		this.characterLimit = characterLimit;
 	}
 
 }

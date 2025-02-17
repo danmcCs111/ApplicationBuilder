@@ -26,6 +26,7 @@ import Params.XmlToWidgetGenerator;
 import Properties.LoggingMessages;
 import WidgetComponents.ApplicationLayoutEditor;
 import WidgetComponents.JButtonArray;
+import WidgetComponents.JScrollPaneUnit15;
 import WidgetComponents.MenuOption;
 import WidgetComponents.SwappableCollection;
 import WidgetComponents.XmlToEditor;
@@ -35,6 +36,7 @@ import WidgetExtensions.ExtendedActionListenerSubType;
 import WidgetExtensions.ExtendedArrayProcessingPath;
 import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetExtensions.ExtendedCalculationPad;
+import WidgetExtensions.ExtendedCharacterLimited;
 import WidgetExtensions.ExtendedClipboard;
 import WidgetExtensions.ExtendedLayoutApplyParent;
 import WidgetExtensions.ExtendedPostProcessingExec;
@@ -63,6 +65,7 @@ public class WidgetAttributes
 		COMPONENT_CLASSES.add(JMenu.class);
 		COMPONENT_CLASSES.add(JMenuItem.class);
 		
+		COMPONENT_CLASSES.add(JScrollPaneUnit15.class);
 		COMPONENT_CLASSES.add(ApplicationLayoutEditor.class);
 		COMPONENT_CLASSES.add(XmlToEditor.class);
 		COMPONENT_CLASSES.add(SystemTray.class);
@@ -121,6 +124,9 @@ public class WidgetAttributes
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedClipboard.class),
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedPostProcessingExec.class),
 		});
+		EXTENDED_METHODS.put(JScrollPaneUnit15.class, new String [] {
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),
+		});
 		EXTENDED_METHODS.put(SwappableCollection.class, new String [] {
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedArrayProcessingPath.class),
@@ -131,6 +137,7 @@ public class WidgetAttributes
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedArrayProcessingPath.class),
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedActionListenerArray.class),
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedSwappableHolder.class),
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedCharacterLimited.class),
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedTextStripper.class)
 				
 		});
