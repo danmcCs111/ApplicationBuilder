@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 
 import Properties.PathUtility;
-import WidgetComponents.UrlToValueReader;
+import Properties.UrlToValueReader;
 
 public class FileListOptionGenerator 
 {

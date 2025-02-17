@@ -8,6 +8,7 @@ import java.util.List;
 
 import Params.ParameterEditor;
 import Params.XmlToWidgetGenerator;
+import Properties.LoggingMessages;
 import WidgetUtility.WidgetCreatorProperty;
 
 public class EditorToXml 

@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import ClassDefintions.StringToObjectConverter;
-import WidgetComponents.LoggingMessages;
+import Properties.LoggingMessages;
 import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;

@@ -8,7 +8,7 @@ import java.awt.event.ComponentEvent;
 
 import javax.swing.JComponent;
 
-import WidgetComponents.LoggingMessages;
+import Properties.LoggingMessages;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 

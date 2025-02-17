@@ -19,10 +19,10 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import Params.XmlToWidgetGenerator;
+import Properties.LoggingMessages;
 import WidgetComponents.ComponentSelector;
 import WidgetComponents.DependentRedrawableFrame;
 import WidgetComponents.DependentRedrawableFrameListener;
-import WidgetComponents.LoggingMessages;
 import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetExtensions.ExtendedLayoutApplyParent;
 import WidgetUtility.WidgetAttributes;

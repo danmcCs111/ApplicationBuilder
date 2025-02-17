@@ -6,8 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import Params.XmlToWidgetGenerator;
-import WidgetComponents.ClassTypeHandler;
-import WidgetComponents.LoggingMessages;
+import Properties.LoggingMessages;
 
 public class WidgetCreatorProperty 
 {

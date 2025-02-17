@@ -1,7 +1,6 @@
-package WidgetComponents;
+package WidgetUtility;
 
 import ClassDefintions.ClassAndSetters;
-import WidgetUtility.WidgetAttributes;
 
 public interface ClassTypeHandler 
 {

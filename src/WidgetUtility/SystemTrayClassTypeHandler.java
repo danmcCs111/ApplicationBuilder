@@ -1,4 +1,4 @@
-package WidgetComponents;
+package WidgetUtility;
 
 public class SystemTrayClassTypeHandler implements ClassTypeHandler 
 {

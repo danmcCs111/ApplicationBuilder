@@ -4,9 +4,9 @@ import java.awt.event.ActionListener;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import Properties.LoggingMessages;
 import WidgetComponents.DependentRedrawableFrame;
 import WidgetComponents.DependentRedrawableFrameListener;
-import WidgetComponents.LoggingMessages;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 

@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 import javax.swing.JLabel;
 
+import Properties.LoggingMessages;
 import Properties.PathUtility;
-import WidgetComponents.LoggingMessages;
 
 public interface ParameterEditor 
 {

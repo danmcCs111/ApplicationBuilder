@@ -1,4 +1,4 @@
-package WidgetComponents;
+package WidgetUtility;
 
 import java.awt.Component;
 import java.awt.Container;

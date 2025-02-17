@@ -3,8 +3,8 @@ package WidgetExtensions;
 import java.util.HashMap;
 import java.util.List;
 
+import Properties.LoggingMessages;
 import Properties.PathUtility;
-import WidgetComponents.LoggingMessages;
 import WidgetComponents.SwappableCollection;
 import WidgetUtility.WidgetCreatorProperty;
 

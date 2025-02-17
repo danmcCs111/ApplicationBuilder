@@ -4,7 +4,7 @@ import java.awt.Component;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import WidgetComponents.LoggingMessages;
+import Properties.LoggingMessages;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 

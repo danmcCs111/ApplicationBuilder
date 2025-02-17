@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import Properties.LoggingMessages;
 import WidgetComponents.ActionListenerExtension;
 import WidgetComponents.Direction;
 import WidgetComponents.JButtonArray;
-import WidgetComponents.LoggingMessages;
 import WidgetComponents.SwappableCollection;
 import WidgetExtensions.ExtendedAttributeStringParam;
 

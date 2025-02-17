@@ -7,7 +7,7 @@ import javax.swing.JList;
 import javax.swing.ListSelectionModel;
 
 import Params.XmlToWidgetGenerator;
-import WidgetComponents.LoggingMessages;
+import Properties.LoggingMessages;
 import WidgetComponents.RedrawableFrame;
 import WidgetUtility.WidgetAttributes;
 import WidgetUtility.WidgetCreatorProperty;

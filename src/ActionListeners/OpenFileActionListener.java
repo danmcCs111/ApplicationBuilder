@@ -7,10 +7,10 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import Properties.LoggingMessages;
 import Properties.PathUtility;
 import WidgetComponents.DependentRedrawableFrame;
 import WidgetComponents.DependentRedrawableFrameListener;
-import WidgetComponents.LoggingMessages;
 import WidgetUtility.WidgetBuildController;
 
 public class OpenFileActionListener implements DependentRedrawableFrameListener, ActionListener

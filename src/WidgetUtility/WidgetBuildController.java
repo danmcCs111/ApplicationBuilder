@@ -9,7 +9,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 
 import Params.XmlToWidgetGenerator;
-import WidgetComponents.LoggingMessages;
+import Properties.LoggingMessages;
 import WidgetComponents.PostWidgetBuildProcessing;
 import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetExtensions.ExtendedLayoutApplyParent;

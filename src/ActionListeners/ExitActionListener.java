@@ -3,7 +3,7 @@ package ActionListeners;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import WidgetComponents.LoggingMessages;
+import Properties.LoggingMessages;
 
 public class ExitActionListener implements ActionListener
 {

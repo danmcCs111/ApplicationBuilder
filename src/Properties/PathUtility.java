@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
-import WidgetComponents.LoggingMessages;
-
 public interface PathUtility 
 {
 	public static final String PATH_STRIP_FILTER = "([\\.]|[0-9\\sa-zA-Z])+[/]"; // only using landing folder name

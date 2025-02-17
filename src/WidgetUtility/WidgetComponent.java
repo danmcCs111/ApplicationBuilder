@@ -6,11 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.JComponent;
 
-import WidgetComponents.ClassTypeHandler;
-import WidgetComponents.ComponentClassTypeHandler;
-import WidgetComponents.JComponentClassTypeHandler;
-import WidgetComponents.LoggingMessages;
-import WidgetComponents.SystemTrayClassTypeHandler;
+import Properties.LoggingMessages;
 
 public class WidgetComponent 
 {

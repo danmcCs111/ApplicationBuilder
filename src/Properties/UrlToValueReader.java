@@ -1,8 +1,6 @@
-package WidgetComponents;
+package Properties;
 
 import java.io.File;
-
-import Properties.PathUtility;
 
 public class UrlToValueReader 
 {

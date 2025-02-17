@@ -16,7 +16,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import Params.XmlToWidgetGenerator;
-import WidgetComponents.LoggingMessages;
+import Properties.LoggingMessages;
 
 /**
  * single instance for now
