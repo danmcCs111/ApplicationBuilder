@@ -36,6 +36,7 @@ import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetExtensions.ExtendedCalculationPad;
 import WidgetExtensions.ExtendedClipboard;
 import WidgetExtensions.ExtendedLayoutApplyParent;
+import WidgetExtensions.ExtendedPostProcessingExec;
 import WidgetExtensions.ExtendedSetJMenuBarParent;
 import WidgetExtensions.ExtendedSetViewportView;
 import WidgetExtensions.ExtendedSetupTaskbar;
@@ -118,7 +119,8 @@ public class WidgetAttributes
 		//EXTENDED WIDGETS
 		EXTENDED_METHODS.put(ApplicationLayoutEditor.class, new String [] {
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedSetupTaskbar.class),
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedClipboard.class)
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedClipboard.class),
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedPostProcessingExec.class),
 		});
 		EXTENDED_METHODS.put(SwappableCollection.class, new String [] {
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),

@@ -10,6 +10,7 @@ public class ApplicationLayoutEditor extends DependentRedrawableFrame implements
 	
 	private BuilderWindow builderWindow;
 	private XmlToEditor xe;
+	private boolean doPostExecute = true;
 	
 	public XmlToEditor getXmlToEditor()
 	{
@@ -55,8 +56,20 @@ public class ApplicationLayoutEditor extends DependentRedrawableFrame implements
 	@Override
 	public void execute() 
 	{
-		//advance to remove focus from layout editor.
-		WidgetBuildController.getInstance().newWidgetBuild();
+		if(doPostExecute)
+		{
+			//advance to remove focus from layout editor.
+			WidgetBuildController.getInstance().newWidgetBuild();
+		}
+	}
+	
+	/**
+	 * set false to unlock generation of this editor itself, but may cause buggy behavior.
+	 **/
+	@Override
+	public void setDoPostExecute(boolean doPostExecute) 
+	{
+		this.doPostExecute = doPostExecute;
 	}
 	
 }
