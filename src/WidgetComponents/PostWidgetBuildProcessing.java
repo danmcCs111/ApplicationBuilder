@@ -1,4 +1,4 @@
-package WidgetExtensions;
+package WidgetComponents;
 
 public interface PostWidgetBuildProcessing 
 {

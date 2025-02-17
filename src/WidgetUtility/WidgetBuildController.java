@@ -8,12 +8,12 @@ import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
-import ApplicationBuilder.LoggingMessages;
 import Params.XmlToWidgetGenerator;
+import WidgetComponents.LoggingMessages;
+import WidgetComponents.PostWidgetBuildProcessing;
 import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetExtensions.ExtendedLayoutApplyParent;
 import WidgetExtensions.ExtendedTextStripper;
-import WidgetExtensions.PostWidgetBuildProcessing;
 
 public class WidgetBuildController 
 {

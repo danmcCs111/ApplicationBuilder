@@ -1,4 +1,4 @@
-package WidgetExtensions;
+package WidgetComponents;
 
 import java.io.File;
 

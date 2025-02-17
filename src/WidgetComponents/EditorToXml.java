@@ -1,4 +1,4 @@
-package ApplicationBuilder;
+package WidgetComponents;
 
 import java.io.FileWriter;
 import java.io.IOException;

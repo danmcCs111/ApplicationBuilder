@@ -5,9 +5,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import ApplicationBuilder.LoggingMessages;
 import Params.XmlToWidgetGenerator;
 import WidgetComponents.ClassTypeHandler;
+import WidgetComponents.LoggingMessages;
 
 public class WidgetCreatorProperty 
 {

@@ -1,6 +1,7 @@
 package WidgetExtensions;
 
 import ClassDefintions.BooleanConverter;
+import WidgetComponents.PostWidgetBuildProcessing;
 import WidgetUtility.WidgetCreatorProperty;
 
 public class ExtendedPostProcessingExec implements ExtendedAttributeStringParam 

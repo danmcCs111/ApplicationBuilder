@@ -3,8 +3,8 @@ package ActionListeners;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import ApplicationBuilder.DependentRedrawableFrame;
-import ApplicationBuilder.DependentRedrawableFrameListener;
+import WidgetComponents.DependentRedrawableFrame;
+import WidgetComponents.DependentRedrawableFrameListener;
 
 public class ComponentComboBoxActionListener implements DependentRedrawableFrameListener, ActionListener 
 {

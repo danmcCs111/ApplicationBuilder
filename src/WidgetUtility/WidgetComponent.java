@@ -6,10 +6,10 @@ import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.JComponent;
 
-import ApplicationBuilder.LoggingMessages;
 import WidgetComponents.ClassTypeHandler;
 import WidgetComponents.ComponentClassTypeHandler;
 import WidgetComponents.JComponentClassTypeHandler;
+import WidgetComponents.LoggingMessages;
 import WidgetComponents.SystemTrayClassTypeHandler;
 
 public class WidgetComponent 
@@ -17,7 +17,7 @@ public class WidgetComponent
 	public static final String ID_SPLIT = "#";
 	private static final String [] PACKAGE_PREFIXES = new String [] {
 			"java.awt.", 
-			"WidgetExtensions.", 
+			"WidgetComponents.", 
 			"javax.swing."
 	};
 	private static int counter = 0;

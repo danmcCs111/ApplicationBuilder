@@ -1,4 +1,4 @@
-package WidgetExtensions;
+package WidgetComponents;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import ApplicationBuilder.DependentRedrawableFrame;
-import ApplicationBuilder.DependentRedrawableFrameListener;
 import Params.ParameterEditor;
 import Params.XmlToWidgetGenerator;
 import WidgetUtility.WidgetCreatorProperty;

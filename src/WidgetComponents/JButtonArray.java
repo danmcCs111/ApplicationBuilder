@@ -1,4 +1,4 @@
-package WidgetExtensions;
+package WidgetComponents;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -11,6 +11,9 @@ import java.util.List;
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
+import WidgetExtensions.ExtendedStringCollection;
+import WidgetUtility.FileListOptionGenerator;
 
 /**
  * Holds a collection of JButtons of variable generated size

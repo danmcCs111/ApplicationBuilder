@@ -1,4 +1,4 @@
-package WidgetExtensions;
+package WidgetComponents;
 
 import java.awt.Component;
 import java.lang.reflect.InvocationTargetException;
@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 
 import ActionListeners.NavigationButtonActionListener;
 import Properties.PathUtility;
+import WidgetExtensions.ExtendedStringCollection;
 
 /**
  * Holds a variable number of Components and controls/rebuilds child JComponents

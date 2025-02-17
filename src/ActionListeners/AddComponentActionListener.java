@@ -18,11 +18,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-import ApplicationBuilder.ComponentSelector;
-import ApplicationBuilder.DependentRedrawableFrame;
-import ApplicationBuilder.DependentRedrawableFrameListener;
-import ApplicationBuilder.LoggingMessages;
 import Params.XmlToWidgetGenerator;
+import WidgetComponents.ComponentSelector;
+import WidgetComponents.DependentRedrawableFrame;
+import WidgetComponents.DependentRedrawableFrameListener;
+import WidgetComponents.LoggingMessages;
 import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetExtensions.ExtendedLayoutApplyParent;
 import WidgetUtility.WidgetAttributes;

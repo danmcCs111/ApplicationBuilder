@@ -20,14 +20,16 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import ApplicationBuilder.LoggingMessages;
 import ClassDefintions.ClassAndSetters;
 import ClassDefintions.ClassTextAdapter;
 import Params.XmlToWidgetGenerator;
+import WidgetComponents.ApplicationLayoutEditor;
 import WidgetComponents.ClassTypeHandler;
-import WidgetExtensions.SwappableCollection;
-import WidgetExtensions.XmlToEditor;
-import WidgetExtensions.ApplicationLayoutEditor;
+import WidgetComponents.JButtonArray;
+import WidgetComponents.LoggingMessages;
+import WidgetComponents.MenuOption;
+import WidgetComponents.SwappableCollection;
+import WidgetComponents.XmlToEditor;
 import WidgetExtensions.ExtendedActionListenerArray;
 import WidgetExtensions.ExtendedActionListenerConnectedComponent;
 import WidgetExtensions.ExtendedActionListenerSubType;
@@ -43,8 +45,6 @@ import WidgetExtensions.ExtendedSetupTaskbar;
 import WidgetExtensions.ExtendedSwappableHolder;
 import WidgetExtensions.ExtendedTextStripper;
 import WidgetExtensions.ExtendedTitleSwitcher;
-import WidgetExtensions.JButtonArray;
-import WidgetExtensions.MenuOption;
 
 public class WidgetAttributes 
 {

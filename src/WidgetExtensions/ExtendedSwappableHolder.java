@@ -3,6 +3,8 @@ package WidgetExtensions;
 import java.util.HashMap;
 import java.util.List;
 
+import WidgetComponents.JButtonArray;
+import WidgetComponents.SwappableCollection;
 import WidgetUtility.WidgetCreatorProperty;
 
 public class ExtendedSwappableHolder implements ExtendedAttributeStringParam

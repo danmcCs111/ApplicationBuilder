@@ -3,8 +3,8 @@ package Params;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
-import ApplicationBuilder.LoggingMessages;
 import Properties.PathUtility;
+import WidgetComponents.LoggingMessages;
 
 public class ParameterEditorParser 
 {

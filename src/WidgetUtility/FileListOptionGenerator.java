@@ -1,4 +1,4 @@
-package WidgetExtensions;
+package WidgetUtility;
 
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 
 import Properties.PathUtility;
+import WidgetComponents.UrlToValueReader;
 
 public class FileListOptionGenerator 
 {

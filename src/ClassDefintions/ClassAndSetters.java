@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import ApplicationBuilder.LoggingMessages;
 import Params.ParamTypes;
+import WidgetComponents.LoggingMessages;
 
 public class ClassAndSetters 
 {

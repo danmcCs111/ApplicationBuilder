@@ -1,4 +1,4 @@
-package ApplicationBuilder;
+package WidgetComponents;
 
 import javax.swing.JFrame;
 

@@ -3,8 +3,9 @@ package WidgetExtensions;
 import java.util.HashMap;
 import java.util.List;
 
-import ApplicationBuilder.LoggingMessages;
 import Properties.PathUtility;
+import WidgetComponents.LoggingMessages;
+import WidgetComponents.SwappableCollection;
 import WidgetUtility.WidgetCreatorProperty;
 
 public class ExtendedArrayProcessingPath implements ExtendedAttributeStringParam

@@ -1,4 +1,4 @@
-package ApplicationBuilder;
+package WidgetComponents;
 
 import java.util.ArrayList;
 import java.util.List;

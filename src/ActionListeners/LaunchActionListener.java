@@ -7,8 +7,8 @@ import java.io.IOException;
 
 import javax.swing.AbstractButton;
 
-import ApplicationBuilder.LoggingMessages;
-import WidgetExtensions.ArrayActionListener;
+import WidgetComponents.ArrayActionListener;
+import WidgetComponents.LoggingMessages;
 
 public class LaunchActionListener implements ActionListener
 {

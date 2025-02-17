@@ -1,7 +1,5 @@
-package WidgetExtensions;
+package WidgetComponents;
 
-import ApplicationBuilder.BuilderWindow;
-import ApplicationBuilder.DependentRedrawableFrame;
 import WidgetUtility.WidgetBuildController;
 
 public class ApplicationLayoutEditor extends DependentRedrawableFrame implements PostWidgetBuildProcessing

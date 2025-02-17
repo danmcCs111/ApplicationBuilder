@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import ApplicationBuilder.LoggingMessages;
-import WidgetExtensions.ActionListenerExtension;
-import WidgetExtensions.Direction;
+import WidgetComponents.ActionListenerExtension;
+import WidgetComponents.Direction;
+import WidgetComponents.JButtonArray;
+import WidgetComponents.LoggingMessages;
+import WidgetComponents.SwappableCollection;
 import WidgetExtensions.ExtendedAttributeStringParam;
-import WidgetExtensions.JButtonArray;
-import WidgetExtensions.SwappableCollection;
 
 public class NavigationButtonActionListener implements ActionListener, ActionListenerSubTypeExtension 
 {

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
-import ApplicationBuilder.LoggingMessages;
+import WidgetComponents.LoggingMessages;
 
 public interface PathUtility 
 {

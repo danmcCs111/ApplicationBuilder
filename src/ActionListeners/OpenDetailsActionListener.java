@@ -6,9 +6,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JList;
 import javax.swing.ListSelectionModel;
 
-import ApplicationBuilder.LoggingMessages;
-import ApplicationBuilder.RedrawableFrame;
 import Params.XmlToWidgetGenerator;
+import WidgetComponents.LoggingMessages;
+import WidgetComponents.RedrawableFrame;
 import WidgetUtility.WidgetAttributes;
 import WidgetUtility.WidgetCreatorProperty;
 

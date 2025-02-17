@@ -4,7 +4,8 @@ import java.awt.event.ActionListener;
 import javax.swing.AbstractButton;
 
 import ActionListeners.ActionListenerSubTypeExtension;
-import ApplicationBuilder.LoggingMessages;
+import WidgetComponents.Direction;
+import WidgetComponents.LoggingMessages;
 import WidgetUtility.WidgetCreatorProperty;
 
 public class ExtendedActionListenerSubType implements ExtendedAttributeStringParam

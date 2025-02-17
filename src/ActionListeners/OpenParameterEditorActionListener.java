@@ -4,12 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-import ApplicationBuilder.BuilderWindow;
-import ApplicationBuilder.DependentRedrawableFrame;
-import ApplicationBuilder.DependentRedrawableFrameListener;
-import ApplicationBuilder.LoggingMessages;
-import WidgetExtensions.ApplicationLayoutEditor;
-import WidgetExtensions.XmlToEditor;
+import WidgetComponents.ApplicationLayoutEditor;
+import WidgetComponents.BuilderWindow;
+import WidgetComponents.DependentRedrawableFrame;
+import WidgetComponents.DependentRedrawableFrameListener;
+import WidgetComponents.LoggingMessages;
+import WidgetComponents.XmlToEditor;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 

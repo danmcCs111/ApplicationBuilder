@@ -1,4 +1,4 @@
-package WidgetExtensions;
+package WidgetComponents;
 
 import java.awt.BorderLayout;
 
@@ -8,9 +8,6 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 
 import ActionListeners.RemoveEditorTabActionListener;
-import ApplicationBuilder.DependentRedrawableFrame;
-import ApplicationBuilder.DependentRedrawableFrameListener;
-import ApplicationBuilder.TabbedPanel;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 

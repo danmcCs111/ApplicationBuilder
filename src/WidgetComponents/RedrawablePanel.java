@@ -1,4 +1,4 @@
-package ApplicationBuilder;
+package WidgetComponents;
 
 public interface RedrawablePanel
 {

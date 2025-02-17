@@ -1,13 +1,11 @@
-package ApplicationBuilder;
+package WidgetComponents;
 
-import java.awt.Container;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
 
 import ClassDefintions.ClassAndSetters;
-import WidgetExtensions.ApplicationLayoutEditor;
 import WidgetUtility.WidgetAttributes;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
