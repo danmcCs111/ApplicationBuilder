@@ -82,6 +82,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 						{
 							((AbstractButton) comp).setText(tmpTxt);
 						}
+						((AbstractButton) comp).setToolTipText(tmpTxt);
 					}
 					comp.setForeground(backgroundAndForegroundColor[1]);
 					comp.setBackground(backgroundAndForegroundColor[0]);
