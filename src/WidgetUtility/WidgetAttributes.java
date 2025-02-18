@@ -36,10 +36,7 @@ import WidgetExtensions.ExtendedActionListenerSubType;
 import WidgetExtensions.ExtendedArrayProcessingPath;
 import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetExtensions.ExtendedCalculationPad;
-import WidgetExtensions.ExtendedCharacterLimited;
-import WidgetExtensions.ExtendedClipboard;
 import WidgetExtensions.ExtendedLayoutApplyParent;
-import WidgetExtensions.ExtendedPostProcessingExec;
 import WidgetExtensions.ExtendedSetJMenuBarParent;
 import WidgetExtensions.ExtendedSetViewportView;
 import WidgetExtensions.ExtendedSetupTaskbar;
@@ -78,7 +75,6 @@ public class WidgetAttributes
 	static {
 		EXTENDED_METHODS.put(JFrame.class, new String [] {
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedSetupTaskbar.class),
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedClipboard.class)
 		});
 		EXTENDED_METHODS.put(JPanel.class, new String [] {
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),
@@ -121,8 +117,6 @@ public class WidgetAttributes
 		//EXTENDED WIDGETS
 		EXTENDED_METHODS.put(ApplicationLayoutEditor.class, new String [] {
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedSetupTaskbar.class),
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedClipboard.class),
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedPostProcessingExec.class),
 		});
 		EXTENDED_METHODS.put(JScrollPaneUnit15.class, new String [] {
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),
@@ -137,7 +131,6 @@ public class WidgetAttributes
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedArrayProcessingPath.class),
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedActionListenerArray.class),
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedSwappableHolder.class),
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedCharacterLimited.class),
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedTextStripper.class)
 				
 		});
