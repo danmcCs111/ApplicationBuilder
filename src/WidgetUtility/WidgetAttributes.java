@@ -26,7 +26,6 @@ import Params.XmlToWidgetGenerator;
 import Properties.LoggingMessages;
 import WidgetComponents.ApplicationLayoutEditor;
 import WidgetComponents.JButtonArray;
-import WidgetComponents.JScrollPaneUnit15;
 import WidgetComponents.MenuOption;
 import WidgetComponents.SwappableCollection;
 import WidgetComponents.XmlToEditor;
@@ -37,6 +36,7 @@ import WidgetExtensions.ExtendedArrayProcessingPath;
 import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetExtensions.ExtendedCalculationPad;
 import WidgetExtensions.ExtendedLayoutApplyParent;
+import WidgetExtensions.ExtendedScrollBarSetUnit;
 import WidgetExtensions.ExtendedSetJMenuBarParent;
 import WidgetExtensions.ExtendedSetViewportView;
 import WidgetExtensions.ExtendedSetupTaskbar;
@@ -62,7 +62,6 @@ public class WidgetAttributes
 		COMPONENT_CLASSES.add(JMenu.class);
 		COMPONENT_CLASSES.add(JMenuItem.class);
 		
-		COMPONENT_CLASSES.add(JScrollPaneUnit15.class);
 		COMPONENT_CLASSES.add(ApplicationLayoutEditor.class);
 		COMPONENT_CLASSES.add(XmlToEditor.class);
 		COMPONENT_CLASSES.add(SystemTray.class);
@@ -95,7 +94,8 @@ public class WidgetAttributes
 				
 		});
 		EXTENDED_METHODS.put(JScrollPane.class, new String [] {
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class)
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedScrollBarSetUnit.class)
 		});
 		EXTENDED_METHODS.put(JComboBox.class, new String [] {
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class)
@@ -117,9 +117,6 @@ public class WidgetAttributes
 		//EXTENDED WIDGETS
 		EXTENDED_METHODS.put(ApplicationLayoutEditor.class, new String [] {
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedSetupTaskbar.class),
-		});
-		EXTENDED_METHODS.put(JScrollPaneUnit15.class, new String [] {
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),
 		});
 		EXTENDED_METHODS.put(SwappableCollection.class, new String [] {
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),
