@@ -28,9 +28,9 @@ public class ImageMouseAdapter extends MouseAdapter
 {
 	private static final Dimension 
 		DIM_PAD = new Dimension(150,0),
-		DIM_NO_PIC = new Dimension(350,50),
-		DIM_PIC = new Dimension(350,450);
-	private static final String KEEP_TITLE = "Click Image to Launch";
+		DIM_NO_PIC = new Dimension(300,50),
+		DIM_PIC = new Dimension(300,470);
+	private static final String KEEP_TITLE = "[Click Image]";
 	
 	private JFrame f;
 	private Component component;
@@ -125,9 +125,15 @@ public class ImageMouseAdapter extends MouseAdapter
 		
 		if(img != null)
 		{
-			JLabel picLabel = new JLabel(new ImageIcon(img));
+			ImageIcon ii = new ImageIcon(img);
+			JLabel picLabel = new JLabel(ii);
 			picLabel.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
+					
+					LoggingMessages.printOut(e.getX() + " " + e.getY() + " " + 
+					ii.getIconWidth() + " " + ii.getIconHeight() + 
+					" " + picLabel.getX() + " " + picLabel.getY());
+					
 					for(ActionListener al : ((JButton)component).getActionListeners())
 					{
 						al.actionPerformed(new ActionEvent(component, 1, "Open From Image"));
