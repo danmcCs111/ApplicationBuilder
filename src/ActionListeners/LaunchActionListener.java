@@ -25,6 +25,7 @@ public class LaunchActionListener implements ActionListener
 	{
 		AbstractButton button = (AbstractButton) e.getSource();
 		LoggingMessages.printOut("Button Pressed. " + button.getText());
+		LoggingMessages.printOut("Button Pressed. " + e);
 		if(button.getName().equals(CLOSE_LAUNCH_ACTION_EVENT))
 		{
 			destroyRunningProcess();
