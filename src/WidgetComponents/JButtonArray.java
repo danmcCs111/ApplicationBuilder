@@ -34,12 +34,12 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 		backgroundAndForegroundColor = new Color [] {new JButton().getBackground(), new JButton().getForeground()},
 		highlightBackgroundAndForegroundColor = new Color [] {backgroundAndForegroundColor[0], backgroundAndForegroundColor[1]};
 	private static int indexPos=0;
-	
-	private int characterLimit=0;
 	private static boolean isHighlight = true;
 	private static JButton highlightButton = null;
 	private static ArrayList<ArrayList<Component>> collectionJButtons = new ArrayList<ArrayList<Component>>();
 	private static ArrayList<String> stripFilter = new ArrayList<String>();
+	
+	private int characterLimit=0;
 	
 	public static final ActionListener highlightActionListener = new ActionListener() 
 	{

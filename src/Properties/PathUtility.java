@@ -9,8 +9,8 @@ import java.util.Scanner;
 public interface PathUtility 
 {
 	public static final String [] 
-			PATH_STRIP_FILTER = new String [] {"([\\.]|[0-9\\sa-zA-Z])+[/]",""},
-			PATH_REMOVE_CURRENT_DIRECTORY = new String []{"\\./","/"};
+			PATH_STRIP_FILTER = new String [] {"([\\.]|[0-9\\sa-zA-Z])+[/]", ""},
+			PATH_REMOVE_CURRENT_DIRECTORY = new String []{"\\./", "/"};
 	
 	public static String filterPathToFilename(String path)
 	{

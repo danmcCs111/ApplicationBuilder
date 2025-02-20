@@ -21,67 +21,73 @@ import Properties.LoggingMessages;
 
 public class ImageMouseAdapter extends MouseAdapter
 {
-		private JFrame f;
-		private Component component;
-		private JFrame parentFrame;
-		private BufferedImage img;
-		private String text;
-		private static final Dimension DIM_PAD = new Dimension(150,0);
-		private static final Dimension DIM_NO_PIC = new Dimension(350,50);
-		private static final Dimension DIM_PIC = new Dimension(350,450);
+	private static final Dimension 
+		DIM_PAD = new Dimension(150,0),
+		DIM_NO_PIC = new Dimension(350,50),
+		DIM_PIC = new Dimension(350,450);
+	
+	private JFrame f;
+	private Component component;
+	private JFrame parentFrame;
+	private BufferedImage img;
+	private String text;
 		
-		public ImageMouseAdapter(Component component, JFrame parentFrame, String path, String text)
+	public ImageMouseAdapter(Component component, JFrame parentFrame, String path, String text)
+	{
+		this.component = component;
+		this.parentFrame = parentFrame;
+		this.text = text;
+		String fileLocation = path + toPngFilename();
+		File file = new File(fileLocation);
+		LoggingMessages.printOut("file location: " + fileLocation);
+		try {
+			img = ImageIO.read(file);
+			
+		} catch (IOException e) {
+			LoggingMessages.printOut("file not found: " + fileLocation);
+		}
+	}
+	
+	private String toPngFilename()
+	{
+		return this.text + ".png";
+	}
+	
+	@Override
+	public void mouseExited(MouseEvent e) 
+	{
+		f.setVisible(false);
+		f.removeAll();
+		f.dispose();
+	}
+	
+	@Override
+	public void mouseEntered(MouseEvent e) 
+	{
+		f = new JFrame();
+		Rectangle bounds = component.getBounds();
+		Point loc = parentFrame.getLocation();
+		JLabel l = new JLabel();
+		JPanel p = new JPanel();
+		
+		f.setUndecorated(true);
+		p.setLayout(new BorderLayout());
+		l.setText(text);
+		p.add(l, BorderLayout.NORTH);
+		if(img != null)
 		{
-			this.component = component;
-			this.parentFrame = parentFrame;
-			this.text = text;
-			String fileLocation = path + toPngFilename();
-			File file = new File(fileLocation);
-			LoggingMessages.printOut("file location: " + fileLocation);
-			try {
-				img = ImageIO.read(file);
-				
-			} catch (IOException e) {
-				LoggingMessages.printOut("file not found: " + fileLocation);
-			}
+			JLabel picLabel = new JLabel(new ImageIcon(img));
+			p.add(picLabel, BorderLayout.CENTER);
+			f.setMinimumSize(DIM_PIC);
 		}
-		
-		private String toPngFilename()
+		else
 		{
-			return this.text + ".png";
+			f.setMinimumSize(DIM_NO_PIC);
 		}
+		f.add(p);
+		f.setLocation((int)loc.getX() + (bounds.width + DIM_PAD.width), 
+				(int)loc.getY() + (bounds.height + DIM_PAD.height));
+		f.setVisible(true);
+	}
 		
-		@Override
-		public void mouseExited(MouseEvent e) {
-			f.setVisible(false);
-			f.removeAll();
-			f.dispose();
-		}
-		
-		@Override
-		public void mouseEntered(MouseEvent e) {
-			f = new JFrame();
-			Rectangle bounds = component.getBounds();
-			Point loc = parentFrame.getLocation();
-			f.setUndecorated(true);
-			JPanel p = new JPanel();
-			p.setLayout(new BorderLayout());
-			JLabel l = new JLabel();
-			l.setText(text);
-			p.add(l, BorderLayout.NORTH);
-			if(img != null)
-			{
-				JLabel picLabel = new JLabel(new ImageIcon(img));
-				p.add(picLabel, BorderLayout.CENTER);
-				f.setMinimumSize(DIM_PIC);
-			}
-			else
-			{
-				f.setMinimumSize(DIM_NO_PIC);
-			}
-			f.add(p);
-			f.setLocation((int)loc.getX() + (bounds.width + DIM_PAD.width), 
-					(int)loc.getY() + (bounds.height + DIM_PAD.height));
-			f.setVisible(true);
-		}
 }
