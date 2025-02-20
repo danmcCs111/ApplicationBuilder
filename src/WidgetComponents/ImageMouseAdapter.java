@@ -53,8 +53,8 @@ public class ImageMouseAdapter extends MouseAdapter
 		
 		@Override
 		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
 			f.setVisible(false);
+			f.removeAll();
 			f.dispose();
 		}
 		
