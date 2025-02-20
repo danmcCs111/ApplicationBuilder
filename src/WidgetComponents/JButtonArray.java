@@ -26,7 +26,10 @@ import WidgetUtility.WidgetBuildController;
 public class JButtonArray extends JPanel implements ArrayActionListener, CharacterLimited
 {
 	private static final long serialVersionUID = 1883L;
-	public static final String CHARACTER_LIMIT_TEXT="..";
+	public static final String 
+		CHARACTER_LIMIT_TEXT= "..",
+		IMAGES_RELATIVE_FILE_LOCATION= "/images/";
+	
 	public static Color []
 		backgroundAndForegroundColor = new Color [] {new JButton().getBackground(), new JButton().getForeground()},
 		highlightBackgroundAndForegroundColor = new Color [] {backgroundAndForegroundColor[0], backgroundAndForegroundColor[1]};
@@ -88,7 +91,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 						//TODO
 						((AbstractButton) comp).addMouseListener(new ImageMouseAdapter(comp, 
 								WidgetBuildController.getInstance().getFrame(),
-								PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/YoutubeFreeMovies/images/", 
+								PathUtility.getCurrentDirectory() + path + IMAGES_RELATIVE_FILE_LOCATION, 
 								tmpTxt));
 					}
 					comp.setForeground(backgroundAndForegroundColor[1]);
