@@ -55,6 +55,7 @@ public class ImageMouseAdapter extends MouseAdapter
 		public void mouseExited(MouseEvent e) {
 			// TODO Auto-generated method stub
 			f.setVisible(false);
+			f.dispose();
 		}
 		
 		@Override
@@ -79,7 +80,8 @@ public class ImageMouseAdapter extends MouseAdapter
 				f.setMinimumSize(DIM_NO_PIC);
 			}
 			f.add(p);
-			f.setLocation((int)loc.getX() + (bounds.width + DIM_PAD.width), (int)loc.getY() + (bounds.height + DIM_PAD.height));
+			f.setLocation((int)loc.getX() + (bounds.width + DIM_PAD.width), 
+					(int)loc.getY() + (bounds.height + DIM_PAD.height));
 			f.setVisible(true);
 		}
 }
