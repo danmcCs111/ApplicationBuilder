@@ -30,6 +30,7 @@ public class ImageMouseAdapter extends MouseAdapter
 		DIM_PAD = new Dimension(150,0),
 		DIM_NO_PIC = new Dimension(350,50),
 		DIM_PIC = new Dimension(350,450);
+	private static final String KEEP_TITLE = "Click Image to Launch";
 	
 	private JFrame f;
 	private Component component;
@@ -96,6 +97,7 @@ public class ImageMouseAdapter extends MouseAdapter
 			f.setUndecorated(false);
 			f.removeMouseListener(this);
 			keepFrame = false;
+			f.setTitle(KEEP_TITLE);
 			
 			f.setVisible(true);
 			f.pack();
