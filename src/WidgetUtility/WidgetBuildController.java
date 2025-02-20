@@ -275,6 +275,11 @@ public class WidgetBuildController
 		return null;
 	}
 	
+	public JFrame getFrame()
+	{
+		return (JFrame) getWidgetCreatorProperties().get(0).getInstance();
+	}
+	
 	private void printComponents(JComponent frame)
 	{
 		for(Component c : frame.getComponents())

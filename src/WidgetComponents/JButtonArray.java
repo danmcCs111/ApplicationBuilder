@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import Properties.PathUtility;
 import WidgetExtensions.ExtendedStringCollection;
 import WidgetUtility.FileListOptionGenerator;
+import WidgetUtility.WidgetBuildController;
 
 /**
  * Holds a collection of JButtons of variable generated size
@@ -86,6 +87,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 //						((AbstractButton) comp).setToolTipText(tmpTxt);
 						//TODO
 						((AbstractButton) comp).addMouseListener(new ImageMouseAdapter(comp, 
+								WidgetBuildController.getInstance().getFrame(),
 								PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/YoutubeFreeMovies/images/", 
 								tmpTxt));
 					}
