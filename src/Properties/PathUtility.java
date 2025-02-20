@@ -8,11 +8,18 @@ import java.util.Scanner;
 
 public interface PathUtility 
 {
-	public static final String PATH_STRIP_FILTER = "([\\.]|[0-9\\sa-zA-Z])+[/]"; // only using landing folder name
+	public static final String [] 
+			PATH_STRIP_FILTER = new String [] {"([\\.]|[0-9\\sa-zA-Z])+[/]",""},
+			PATH_REMOVE_CURRENT_DIRECTORY = new String []{"\\./","/"};
 	
 	public static String filterPathToFilename(String path)
 	{
-		return path.replaceAll(PathUtility.PATH_STRIP_FILTER, "");
+		return path.replaceAll(PATH_STRIP_FILTER[0], PATH_STRIP_FILTER[1]);
+	}
+	
+	public static String removeCurrentWorkingDirectoryFromPath(String path)
+	{
+		return path.replaceAll(PATH_REMOVE_CURRENT_DIRECTORY[0], PATH_REMOVE_CURRENT_DIRECTORY[1]);
 	}
 	
 	public static String getCurrentDirectory()

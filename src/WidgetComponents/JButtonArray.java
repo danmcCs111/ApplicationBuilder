@@ -91,7 +91,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 						//TODO
 						((AbstractButton) comp).addMouseListener(new ImageMouseAdapter(comp, 
 								WidgetBuildController.getInstance().getFrame(),
-								PathUtility.getCurrentDirectory() + path + IMAGES_RELATIVE_FILE_LOCATION, 
+								PathUtility.getCurrentDirectory() + PathUtility.removeCurrentWorkingDirectoryFromPath(path) + IMAGES_RELATIVE_FILE_LOCATION, 
 								tmpTxt));
 					}
 					comp.setForeground(backgroundAndForegroundColor[1]);
