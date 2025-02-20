@@ -1,0 +1,63 @@
+<Build>	
+	<JFrame setLayout="BorderLayout" setName="VideoPlayer" setTitle="Video Launcher" setSize="400, 500" setLocation="10,30" setDefaultCloseOperation="3" 
+		addWindowListener="WindowListeners.ProcessExecutorWindowListener" extendedFrameResizer="scrollPane" extendedSetupTaskbar=".\src\ApplicationBuilder\launch_sm.png">
+	
+		<JPanel setLayout="BorderLayout" extendedLayoutApplyParent="Center">
+			<JScrollPaneResizer setName="scrollPane" extendedLayoutApplyParent="North">
+				
+					<SwappableCollection setName="swapVideos" setLayout="BorderLayout" extendedSetViewportView=""
+						extendedArrayProcessingPath=".\src\ApplicationBuilder\Roku Channels@.url; .\src\ApplicationBuilder\Youtube Channels@.url; .\src\ApplicationBuilder\Amazon Videos@.url; .\src\ApplicationBuilder\Music@.url" >
+						<JLabel setText="TODO" setName="title" setForeground="100,50,150" setBackground="150,150,150" setHorizontalAlignment="0" 
+							extendedTitleSwitcher="swapVideos" extendedLayoutApplyParent="North">
+						</JLabel>
+						<JButtonArray setName="channels" setLayout="GridLayout" setHighlightBackgroundColor="240,240,240" setHighlightForegroundColor="50,50,50"
+							extendedActionListenerArray="ActionListeners.LaunchActionListener" extendedLayoutApplyParent="Center" setArrayForegroundAndBackground="240,240,240, 175,204,175"
+							extendedSwappableHolder="swapVideos" extendedTextStripper="Watch @ Online for Free _ The Roku Channel _ Roku@ - YouTube@ - Prime Video@Prime Video- @1_@.url">
+						</JButtonArray>
+					</SwappableCollection>
+					
+			</JScrollPaneResizer>
+		</JPanel>
+		
+		<JPanel setLayout="BorderLayout" extendedLayoutApplyParent="South">
+				<JButton setText=" X Close Video" setPreferredSize="80,25" setName="closeLaunchAction" extendedLayoutApplyParent="Center" 
+					addActionListener="ActionListeners.LaunchActionListener" setBackground="175, 204, 175" setForeground="119,5,6">
+				</JButton>
+				<JLabel extendedLayoutApplyParent="East" extendedCalculationPad="JButton">
+				</JLabel>
+				<JLabel extendedLayoutApplyParent="West" extendedCalculationPad="JButton">
+				</JLabel>
+		</JPanel>
+						
+		<JPanel setLayout="BorderLayout" extendedLayoutApplyParent="West">
+			<JButton setText="&lt;" extendedLayoutApplyParent="North" addActionListener="ActionListeners.NavigationButtonActionListener" 
+				extendedActionListenerSubType="WidgetExtensions.Direction@BACKWARD" extendedActionListenerConnectedComponent="WidgetExtensions.SwappableCollection">
+			</JButton>
+		</JPanel>
+		
+		<JPanel setLayout="BorderLayout" extendedLayoutApplyParent="East">
+			<JButton setText="&gt;" extendedLayoutApplyParent="North" addActionListener="ActionListeners.NavigationButtonActionListener" 
+				extendedActionListenerSubType="WidgetExtensions.Direction@FORWARD" extendedActionListenerConnectedComponent="WidgetExtensions.SwappableCollection">
+			</JButton>
+		</JPanel>
+		
+		<JMenuBar extendedSetJMenuBarParent="">
+			<JMenu setText="File" extendedLayoutApplyParent="">
+				<JMenuItem setText="Reload" extendedLayoutApplyParent="" addActionListener="ActionListeners.ReloadActionListener">
+				</JMenuItem >
+				<JMenuItem setText="MinimizeToSystemTray" extendedLayoutApplyParent="" addActionListener="ActionListeners.MinimizeActionListener">
+				</JMenuItem >
+				<JMenuItem setText="Exit" setName="ExitActionListener" extendedLayoutApplyParent="" addActionListener="ActionListeners.ExitPopupLaunchActionListener">
+				</JMenuItem >
+			</JMenu>
+		</JMenuBar>
+		
+		<SystemTray setText="Video Launcher">
+			<JMenuItem setText="Open" >
+			</JMenuItem>
+			<JMenuItem setText="Close" >
+			</JMenuItem>
+		</SystemTray>
+		
+	</JFrame>
+</Build>
