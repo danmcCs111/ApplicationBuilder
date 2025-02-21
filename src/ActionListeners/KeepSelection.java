@@ -1,6 +1,8 @@
 package ActionListeners;
 
 import java.awt.Point;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 
@@ -10,6 +12,7 @@ public class KeepSelection
 		path,
 		text;
 	private JFrame frame;
+	private ImageMouseAdapter ima;
 	
 	public KeepSelection(String path, String text)
 	{
@@ -17,10 +20,22 @@ public class KeepSelection
 		this.text = text;
 	}
 	
-	public void setFrame(JFrame frame)
+	public void setFrame(JFrame frame, ImageMouseAdapter ima)
 	{
 		this.frame = frame;
+		this.ima = ima;
+//		addListener();
 	}
+	
+//	private void addListener()
+//	{
+//		frame.addWindowListener(new WindowAdapter() {
+//			@Override
+//			public void windowClosed(WindowEvent e) {
+//				ima.removeSel(KeepSelection.this);
+//			}
+//		});
+//	}
 	
 	public Point getLocationPoint()
 	{

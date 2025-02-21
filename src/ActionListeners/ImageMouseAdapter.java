@@ -72,36 +72,64 @@ public class ImageMouseAdapter extends MouseAdapter
 		return this.keepFrame;
 	}
 	
+	public void removeSel(KeepSelection ks)
+	{
+		if(keepFrame == true) keepFrame = false;
+		keeps.remove(ks);
+	}
+	
 	public void setupKeepFrame(int x, int y)
 	{
-		performFrameBuild();
-		keepFrame = true;
-		f.setLocation(x, y);
-		createKeepFrame();
+		if(!keepFrame && !keeps.contains(keep))
+		{
+			performFrameBuild();
+			keepFrame = true;
+			f.setLocation(x, y);
+			createKeepFrame();
+			keepFrame = false;
+		}
 	}
 	
 	private String toPngFilename()
 	{
 		return this.text + ".png";
 	}
+	
+	private void destroyFrame()
+	{
+		f.setVisible(false);
+		f.removeAll();
+		f.dispose();
+	}
 
 	private void createKeepFrame()
 	{
-		if(!keeps.contains(keep))
+		if(keepFrame)
 		{
-			keeps.add(keep);
-			keep.setFrame(f);
-			for(KeepSelection k : keeps) LoggingMessages.printOut(k.toString());
+			if(!keeps.contains(keep))
+			{
+				keeps.add(keep);
+				keep.setFrame(f, this);
+				for(KeepSelection k : keeps) LoggingMessages.printOut(k.toString());
+				
+				f.dispose();
+				f.setUndecorated(false);
+				f.removeMouseListener(ImageMouseAdapter.this);
+				f.setTitle(KEEP_TITLE);
+				
+				f.setVisible(true);
+				f.pack();
+			}
+			else
+			{
+				destroyFrame();
+			}
+		}
+		else
+		{
+			destroyFrame();
 		}
 		
-		f.dispose();
-		f.setUndecorated(false);
-		f.removeMouseListener(ImageMouseAdapter.this);
-		keepFrame = false;
-		f.setTitle(KEEP_TITLE);
-		
-		f.setVisible(true);
-		f.pack();
 	}
 	
 	@Override
@@ -131,9 +159,7 @@ public class ImageMouseAdapter extends MouseAdapter
 	{
 		if(!keepFrame)
 		{
-			f.setVisible(false);
-			f.removeAll();
-			f.dispose();
+			destroyFrame();
 		}
 		else
 		{
@@ -147,11 +173,17 @@ public class ImageMouseAdapter extends MouseAdapter
 		performFrameBuild();
 	}
 	
-	
 	private void performFrameBuild()
 	{
+		performFrameBuild("");
+	}
+	
+	private void performFrameBuild(String title)
+	{
 		f = new JFrame();
+		f.setTitle(title);
 		f.setUndecorated(true);
+		
 		Rectangle bounds = component.getBounds();
 		Point loc = parentFrame.getLocation();
 		
