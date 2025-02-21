@@ -22,8 +22,6 @@ public class ComboSelectionDialog extends JDialog
 {
 	private static final long serialVersionUID = 2001L;
 	private static final String 
-		DIALOG_SELECT_CHILD_COMPONENTS_TITLE = "Save Selection",
-		DIALOG_SELECT_CHILD_COMPONENTS_MESSAGE = "Select Which to Save: ",
 		ADD_BUTTON_TEXT = "Add",
 		ADD_ALL_BUTTON_TEXT = "Add All",
 		CLOSE_BUTTON_TEXT = "Close";
@@ -31,13 +29,17 @@ public class ComboSelectionDialog extends JDialog
 	
 	private JList<String> componentMethods = new JList<String>();
 	
-	public void buildAndShow(List<String> selectables, ComboListDialogSelectedListener cdsl, DialogParentReferenceContainer refLocContainer)
+	public void buildAndShow(List<String> selectables,
+			String dialogTitle,
+			String dialogMessage,
+			ComboListDialogSelectedListener cdsl,
+			DialogParentReferenceContainer refLocContainer)
 	{
 		JLabel messageLabel = new JLabel();
 		componentMethods.setListData(selectables.toArray(new String[selectables.size()]));
 		
-		messageLabel.setText(DIALOG_SELECT_CHILD_COMPONENTS_MESSAGE);
-		this.setTitle(DIALOG_SELECT_CHILD_COMPONENTS_TITLE);
+		messageLabel.setText(dialogMessage);
+		this.setTitle(dialogTitle);
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		
 		this.setLocation((int)refLocContainer.getContainerCenterLocationPoint().x - (MIN_DIMENSION_DIALOG.width/2), 

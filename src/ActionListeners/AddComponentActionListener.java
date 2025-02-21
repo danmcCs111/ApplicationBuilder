@@ -1,28 +1,21 @@
 package ActionListeners;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.GridLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.WindowConstants;
 
 import Params.XmlToWidgetGenerator;
 import Properties.LoggingMessages;
+import WidgetComponents.ComboListDialogSelectedListener;
+import WidgetComponents.ComboSelectionDialog;
 import WidgetComponents.ComponentSelectorUtility;
 import WidgetComponents.DependentRedrawableFrame;
 import WidgetComponents.DependentRedrawableFrameListener;
+import WidgetComponents.DialogParentReferenceContainer;
 import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetExtensions.ExtendedLayoutApplyParent;
 import WidgetUtility.WidgetAttributes;
@@ -30,7 +23,7 @@ import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetComponent;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class AddComponentActionListener implements DependentRedrawableFrameListener, ActionListener
+public class AddComponentActionListener implements DependentRedrawableFrameListener, ActionListener, ComboListDialogSelectedListener, DialogParentReferenceContainer
 {
 	private static final String 
 		DIALOG_SELECT_COMPONENT_LABEL_MESSAGE = "Select Component", 
@@ -39,10 +32,8 @@ public class AddComponentActionListener implements DependentRedrawableFrameListe
 		DIALOG_SELECT_PARENT_TITLE = "Parent Container Selection",
 		DIALOG_SELECT_CHILD_COMPONENTS_TITLE = "Components Selection",
 		DIALOG_SELECT_CHILD_COMPONENTS_MESSAGE = "Select Child Components: ",
-		ADD_BUTTON_TEXT = "Add",
-		CLOSE_BUTTON_TEXT = "Close",
 		STRIP_PACKAGE_NAME_FROM_CLASS_FILTER = "[a-zA-Z]+[\\.]+";
-	private static final Dimension MIN_DIMENSION_DIALOG = new Dimension(300,150);
+	private WidgetCreatorProperty wcpBuild;
 	
 	private DependentRedrawableFrame applicationLayoutEditor;
 	
@@ -88,71 +79,41 @@ public class AddComponentActionListener implements DependentRedrawableFrameListe
 		
 		if(!optP.equals(""))
 			settings.add("extendedLayoutApplyParent=\"\"");
-		WidgetCreatorProperty wcp = new WidgetCreatorProperty(optFiltered+WidgetComponent.ID_SPLIT+WidgetComponent.nextCountId(), 
+		wcpBuild = new WidgetCreatorProperty(optFiltered+WidgetComponent.ID_SPLIT+WidgetComponent.nextCountId(), 
 				settings, optP.equals("")?null:optPFiltered);
 		
 		if(!optP.equals(""))
 		{
-			JDialog d = new JDialog();
-			JLabel messageLabel = new JLabel();
-			messageLabel.setText(DIALOG_SELECT_CHILD_COMPONENTS_MESSAGE);
-			d.setTitle(DIALOG_SELECT_CHILD_COMPONENTS_TITLE);
-			d.setLocation((int)applicationLayoutEditor.getBounds().getCenterX() - (MIN_DIMENSION_DIALOG.width/2), 
-					(int)applicationLayoutEditor.getRootPane().getBounds().getCenterY() - (MIN_DIMENSION_DIALOG.height /2));
-			d.setMinimumSize(MIN_DIMENSION_DIALOG);
-			JList<String> componentMethods = new JList<String>();
+			ComboSelectionDialog csd = new ComboSelectionDialog();
 			List<String> components = ComponentSelectorUtility.getComponentsFromParent(optPFiltered);
-			
-			componentMethods.setListData(components.toArray(new String[components.size()]));
-			d.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-			d.addWindowListener(new WindowAdapter() {
-				@Override
-				public void windowClosed(WindowEvent e) {
-					applicationLayoutEditor.rebuildInnerPanels();
-				}
-			});
-			
-			JButton save = new JButton(ADD_BUTTON_TEXT);
-			save.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					List<String> selected = componentMethods.getSelectedValuesList();
-					if(selected != null && !selected.isEmpty())
-					{
-						ComponentSelectorUtility.setParentRefIdOnComponents(selected, wcp.getRefWithID());
-					}
-					d.dispose();
-				}
-			});
-			JButton cancel = new JButton(CLOSE_BUTTON_TEXT);
-			cancel.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					applicationLayoutEditor.rebuildInnerPanels();
-					d.dispose();
-				}
-			});
-			
-			d.setLayout(new BorderLayout());
-			d.add(messageLabel, BorderLayout.NORTH);
-			d.add(componentMethods, BorderLayout.CENTER);
-			JPanel southPane = new JPanel(new BorderLayout());
-			JPanel eastPane = new JPanel(new GridLayout(1,2));
-			eastPane.add(save);
-			eastPane.add(cancel);
-			southPane.add(eastPane, BorderLayout.EAST);
-			d.add(southPane, BorderLayout.SOUTH);
-			d.setVisible(true);
-			d.pack();
-			
-			XmlToWidgetGenerator xmlG = WidgetAttributes.setAttribute(wcp.getClassType(), 
-					ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class));
-			wcp.addXmlToWidgetGenerator(xmlG);
+			csd.buildAndShow(components, 
+				DIALOG_SELECT_CHILD_COMPONENTS_TITLE,
+				DIALOG_SELECT_CHILD_COMPONENTS_MESSAGE,
+				this, this);
+		}
+	
+	}
+
+	@Override
+	public Point getContainerCenterLocationPoint() 
+	{
+		return new Point((int)applicationLayoutEditor.getBounds().getCenterX(), 
+				(int)applicationLayoutEditor.getBounds().getCenterY());
+	}
+
+	@Override
+	public void selectionChosen(List<String> chosenSelection) 
+	{
+		if(chosenSelection != null)
+		{
+			ComponentSelectorUtility.setParentRefIdOnComponents(chosenSelection, wcpBuild.getRefWithID());
 		}
 		
-		WidgetBuildController.getInstance().addWidgetCreatorProperty(wcp, true);
+		XmlToWidgetGenerator xmlG = WidgetAttributes.setAttribute(wcpBuild.getClassType(), 
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class));
+		wcpBuild.addXmlToWidgetGenerator(xmlG);
+
+		WidgetBuildController.getInstance().addWidgetCreatorProperty(wcpBuild, true);
 		applicationLayoutEditor.rebuildInnerPanels();
-		
 	}
-	
 }

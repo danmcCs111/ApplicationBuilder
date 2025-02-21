@@ -42,6 +42,8 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 //		DIM_NO_PIC = new Dimension(300,30),
 		DIM_PIC = new Dimension(300,470);
 	private static final String 
+		DIALOG_SELECT_CHILD_COMPONENTS_TITLE = "Save Selection",
+		DIALOG_SELECT_CHILD_COMPONENTS_MESSAGE = "Select Which to Save: ",
 		PROPERTIES_FILE_LOCATION = PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/data/",
 		PROPERTIES_FILE_SAVE_TITLE = "Save Properties",
 		PROPERTIES_FILE_SAVE_FILTER = "txt",
@@ -281,7 +283,10 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 				saveFilePathChosen += PROPERTIES_FILE_EXTENSION;
 			}
 			ComboSelectionDialog csd = new ComboSelectionDialog();
-			csd.buildAndShow(KeepSelection.getTextOnlyConversion(keeps), ImageMouseAdapter.this, ImageMouseAdapter.this);
+			csd.buildAndShow(KeepSelection.getTextOnlyConversion(keeps), 
+					DIALOG_SELECT_CHILD_COMPONENTS_TITLE,
+					DIALOG_SELECT_CHILD_COMPONENTS_MESSAGE,
+					ImageMouseAdapter.this, ImageMouseAdapter.this);
 		}
 		
 	}
