@@ -2,6 +2,8 @@ package Properties;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -66,5 +68,21 @@ public interface PathUtility
 			e.printStackTrace();
 		}
 		return props;
+	}
+	
+	public static void writeProperties(String path, String [] [] namesAndValues)
+	{
+		try {
+			FileWriter myWriter = new FileWriter(path);
+			for(int i = 0; i < namesAndValues.length; i++)
+			{
+				myWriter.write(namesAndValues[i][0] + "=" + namesAndValues[i][1] + "\n");	
+			}
+			myWriter.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

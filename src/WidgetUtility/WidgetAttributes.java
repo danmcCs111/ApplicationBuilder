@@ -36,6 +36,7 @@ import WidgetExtensions.ExtendedArrayProcessingPath;
 import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetExtensions.ExtendedCalculationPad;
 import WidgetExtensions.ExtendedLayoutApplyParent;
+import WidgetExtensions.ExtendedSaveActionListener;
 import WidgetExtensions.ExtendedScrollBarSetUnit;
 import WidgetExtensions.ExtendedSetJMenuBarParent;
 import WidgetExtensions.ExtendedSetViewportView;
@@ -111,7 +112,9 @@ public class WidgetAttributes
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class)
 		});
 		EXTENDED_METHODS.put(JMenuItem.class, new String [] {
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class)
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedSaveActionListener.class)
+				
 		});
 		
 		//EXTENDED WIDGETS

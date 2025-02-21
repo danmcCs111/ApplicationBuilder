@@ -275,6 +275,22 @@ public class WidgetBuildController
 		return null;
 	}
 	
+	public WidgetCreatorProperty findRefByName(String name)
+	{
+		for(WidgetCreatorProperty wcp : getWidgetCreatorProperties())
+		{
+			Object o = wcp.getInstance();
+			if(o instanceof Component)
+			{
+				if(((Component) o).getName() != null && ((Component) o).getName().equals(name))
+				{
+					return wcp;
+				}
+			}
+		}
+		return null;
+	}
+	
 	public JFrame getFrame()
 	{
 		return (JFrame) getWidgetCreatorProperties().get(0).getInstance();

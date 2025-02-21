@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,10 +25,11 @@ import WidgetUtility.WidgetBuildController;
  * 
  * TODO use a collection of inner panels and switch during toggle?
  */
-public class JButtonArray extends JPanel implements ArrayActionListener, CharacterLimited
+public class JButtonArray extends JPanel implements ArrayActionListener, CharacterLimited, SaveActionExtension
 {
 	private static final long serialVersionUID = 1883L;
 	public static final String 
+		SAVE_ID = "JButtonArray",
 		CHARACTER_LIMIT_TEXT= "..",
 		IMAGES_RELATIVE_FILE_LOCATION= "/images/";
 	
@@ -248,6 +250,19 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 	public void setCharacterLimit(int characterLimit)
 	{
 		this.characterLimit = characterLimit;
+	}
+
+	@Override
+	public void performSave() 
+	{
+		for(MouseListener ml : collectionJButtons.get(indexPos).get(0).getMouseListeners())
+		{
+			if(ml instanceof ImageMouseAdapter)
+			{
+				((ImageMouseAdapter) ml).writeSave();
+				return;
+			}
+		}
 	}
 
 }

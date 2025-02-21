@@ -19,11 +19,16 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Properties.LoggingMessages;
+import Properties.PathUtility;
+import WidgetComponents.EditorToXml;
+import WidgetUtility.WidgetBuildController;
 
 public class ImageMouseAdapter extends MouseAdapter
 {
@@ -31,7 +36,11 @@ public class ImageMouseAdapter extends MouseAdapter
 		DIM_PAD = new Dimension(150,0),
 		DIM_NO_PIC = new Dimension(300,50),
 		DIM_PIC = new Dimension(300,470);
-	private static final String KEEP_TITLE = "[Click Image]";
+	private static final String 
+		PROPERTIES_FILE_LOCATION = PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/data/",
+		PROPERTIES_FILE_SAVE_TITLE = "Save Properties",
+		PROPERTIES_FILE_SAVE_FILTER = "txt",
+		KEEP_TITLE = "[Click Image]";
 	
 	private JFrame f;
 	private Component component;
@@ -169,5 +178,35 @@ public class ImageMouseAdapter extends MouseAdapter
 				(int)loc.getY() + (bounds.height + DIM_PAD.height));
 		f.setVisible(true);
 	}
+	
+	public void writeSave()
+	{
+		if(keeps.isEmpty())
+			return;
 		
+		String [][] properties = new String [keeps.size()][2];
+		for(int i = 0; i < keeps.size(); i++)
+		{
+			KeepSelection ks = keeps.get(i);
+			String [] props = new String [] {
+					ks.getText(),
+					ks.getPath()
+			};
+			properties[i] = props;
+		}
+		
+		JFileChooser jfc = new JFileChooser();
+		jfc.setDialogType(JFileChooser.SAVE_DIALOG);
+		File f = new File(PROPERTIES_FILE_LOCATION);
+		jfc.setFileFilter(new FileNameExtensionFilter(PROPERTIES_FILE_SAVE_TITLE, PROPERTIES_FILE_SAVE_FILTER));
+		jfc.setSelectedFile(f);
+		
+		int choice = jfc.showSaveDialog(parentFrame);
+		File chosenFile = jfc.getSelectedFile();
+		if(chosenFile != null && choice == JFileChooser.APPROVE_OPTION)
+		{
+			PathUtility.writeProperties(chosenFile.getAbsolutePath(), properties);
+		}
+	}
+	
 }
