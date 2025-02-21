@@ -35,6 +35,25 @@ public class ComboSelectionDialog extends JDialog
 			ComboListDialogSelectedListener cdsl,
 			DialogParentReferenceContainer refLocContainer)
 	{
+		buildAndShow
+		(
+				selectables,
+				dialogTitle, dialogMessage,
+				ADD_BUTTON_TEXT, ADD_ALL_BUTTON_TEXT, CLOSE_BUTTON_TEXT,
+				cdsl,refLocContainer
+		);
+	}
+	
+	public void buildAndShow(List<String> selectables,
+			String dialogTitle,
+			String dialogMessage,
+			String addButtonText,
+			String addAllButtonText,
+			String closeButtonText,
+			ComboListDialogSelectedListener cdsl,
+			DialogParentReferenceContainer refLocContainer)
+	{
+	
 		JLabel messageLabel = new JLabel();
 		componentMethods.setListData(selectables.toArray(new String[selectables.size()]));
 		
@@ -54,50 +73,62 @@ public class ComboSelectionDialog extends JDialog
 			}
 		};
 		this.addWindowListener(wl);
-		
-		JButton save = new JButton(ADD_BUTTON_TEXT);
-		save.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				List<String> selected = componentMethods.getSelectedValuesList();
-				if(selected != null && !selected.isEmpty())
-				{
-					//save only selected
-					cdsl.selectionChosen(selected);
-					ComboSelectionDialog.this.removeWindowListener(wl);
-					ComboSelectionDialog.this.dispose();
-				}
-			}
-		});
-		JButton saveAll = new JButton(ADD_ALL_BUTTON_TEXT);
-		saveAll.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//save all in list
-				cdsl.selectionChosen(selectables);
-				ComboSelectionDialog.this.removeWindowListener(wl);
-				ComboSelectionDialog.this.dispose();
-			}
-		});
-		JButton cancel = new JButton(CLOSE_BUTTON_TEXT);
-		cancel.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//cancel
-				cdsl.selectionChosen(null);
-				ComboSelectionDialog.this.removeWindowListener(wl);
-				ComboSelectionDialog.this.dispose();
-			}
-		});
-		
 		this.setLayout(new BorderLayout());
 		this.add(messageLabel, BorderLayout.NORTH);
 		this.add(componentMethods, BorderLayout.CENTER);
+		
 		JPanel southPane = new JPanel(new BorderLayout());
 		JPanel eastPane = new JPanel(new GridLayout(1,2));
-		eastPane.add(save);
-		eastPane.add(saveAll);
-		eastPane.add(cancel);
+		
+		if(addButtonText != null)
+		{
+			JButton save = new JButton(addButtonText);
+			save.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					List<String> selected = componentMethods.getSelectedValuesList();
+					if(selected != null && !selected.isEmpty())
+					{
+						//save only selected
+						cdsl.selectionChosen(selected);
+						ComboSelectionDialog.this.removeWindowListener(wl);
+						ComboSelectionDialog.this.dispose();
+					}
+				}
+			});
+			eastPane.add(save);
+		}
+		
+		if(addAllButtonText != null)
+		{
+			JButton saveAll = new JButton(addAllButtonText);
+			saveAll.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					//save all in list
+					cdsl.selectionChosen(selectables);
+					ComboSelectionDialog.this.removeWindowListener(wl);
+					ComboSelectionDialog.this.dispose();
+				}
+			});
+			eastPane.add(saveAll);
+		}
+		
+		if(closeButtonText != null)
+		{
+			JButton cancel = new JButton(closeButtonText);
+			cancel.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					//cancel
+					cdsl.selectionChosen(null);
+					ComboSelectionDialog.this.removeWindowListener(wl);
+					ComboSelectionDialog.this.dispose();
+				}
+			});
+			eastPane.add(cancel);
+		}
+		
 		southPane.add(eastPane, BorderLayout.EAST);
 		this.add(southPane, BorderLayout.SOUTH);
 		this.setVisible(true);
