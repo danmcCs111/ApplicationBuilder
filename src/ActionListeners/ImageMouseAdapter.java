@@ -41,7 +41,7 @@ public class ImageMouseAdapter extends MouseAdapter
 		PROPERTIES_FILE_SAVE_TITLE = "Save Properties",
 		PROPERTIES_FILE_SAVE_FILTER = "txt",
 		PROPERTIES_FILE_EXTENSION = ".txt",
-		KEEP_TITLE = "[Click Image]";
+		KEEP_TITLE = "[Double-Click Image]";
 	
 	private JFrame f;
 	private Component component;
@@ -110,7 +110,7 @@ public class ImageMouseAdapter extends MouseAdapter
 			if(!keeps.contains(keep))
 			{
 				keeps.add(keep);
-				keep.setFrame(f, this);
+				keep.setFrame(f);
 				for(KeepSelection k : keeps) LoggingMessages.printOut(k.toString());
 				
 				f.dispose();
@@ -217,16 +217,18 @@ public class ImageMouseAdapter extends MouseAdapter
 			JLabel picLabel = new JLabel(ii);
 			picLabel.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
-					
-					LoggingMessages.printOut(e.getX() + " " + e.getY() + " " + 
-					ii.getIconWidth() + " " + ii.getIconHeight() + 
-					" " + picLabel.getX() + " " + picLabel.getY());
-					
-					for(ActionListener al : ((JButton)component).getActionListeners())
+					if(e.getClickCount() == 2)//require double click
 					{
-						al.actionPerformed(new ActionEvent(component, 1, "Open From Image"));
+						LoggingMessages.printOut(e.getX() + " " + e.getY() + " " + 
+						ii.getIconWidth() + " " + ii.getIconHeight() + 
+						" " + picLabel.getX() + " " + picLabel.getY());
+						
+						for(ActionListener al : ((JButton)component).getActionListeners())
+						{
+							al.actionPerformed(new ActionEvent(component, 1, "Open From Image"));
+						}
+						LoggingMessages.printOut("Image pressed.");
 					}
-					LoggingMessages.printOut("Image pressed.");
 				}
 			});
 			p.add(picLabel, BorderLayout.CENTER);
