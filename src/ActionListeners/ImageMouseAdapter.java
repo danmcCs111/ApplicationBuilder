@@ -49,7 +49,9 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		PROPERTIES_FILE_SAVE_TITLE = "Save Properties",
 		PROPERTIES_FILE_SAVE_FILTER = "txt",
 		PROPERTIES_FILE_EXTENSION = ".txt",
+		KEEP_MENU_OPTION_TEXT = "keep",
 		KEEP_TITLE = "[Double-Click Image]",
+		FILE_ARG_DELIMITER="@",
 		DEFAULT_IMG = PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/launch_xsm.png";//TODO
 	
 	private JFrame f;
@@ -166,12 +168,11 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		{
 			PopupMenu pm = new PopupMenu();
 			MenuItem mi = new MenuItem();
-			mi.setLabel("keep");
+			mi.setLabel(KEEP_MENU_OPTION_TEXT);
 			mi.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					keepFrame = true;
-					LoggingMessages.printOut("Keep.");
 				}
 			});
 			pm.add(mi);
@@ -293,7 +294,8 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 				if(saveChosenSelection.contains(ks.getText()))//TODO better ID / key system?
 				{
 					String [] props = new String [] {
-							ks.getText()+"@"+ks.getLocationPoint().x+"@"+ks.getLocationPoint().y,
+							ks.getText() + FILE_ARG_DELIMITER+ks.getLocationPoint().x + 
+								FILE_ARG_DELIMITER + ks.getLocationPoint().y,
 							ks.getPath()
 					};
 					properties[i+minusCount] = props;

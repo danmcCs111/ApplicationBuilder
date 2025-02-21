@@ -16,9 +16,9 @@ import WidgetUtility.WidgetBuildController;
 public class SaveAsEditorActionListener implements DependentRedrawableFrameListener, ActionListener
 {
 	private static final String 
-	XML_PATH_SUFFIX = "/src/ApplicationBuilder/data/ ",
-	XML_FILTER_TITLE = "XML Build File",
-	XML_FILTER = "xml";
+		XML_PATH_SUFFIX = "/src/ApplicationBuilder/data/ ",
+		XML_FILTER_TITLE = "XML Build File",
+		XML_FILTER = "xml";
 
 	private DependentRedrawableFrame applicationLayoutEditor;
 	
@@ -30,22 +30,6 @@ public class SaveAsEditorActionListener implements DependentRedrawableFrameListe
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-//		JFileChooser jfc = new JFileChooser();
-//		jfc.setDialogType(JFileChooser.SAVE_DIALOG);
-//		File f = new File(PathUtility.getCurrentDirectory() + XML_PATH_SUFFIX);
-//		jfc.setFileFilter(new FileNameExtensionFilter(XML_FILTER_TITLE, XML_FILTER));
-//		jfc.setSelectedFile(f);
-//		
-//		int choice = jfc.showSaveDialog(applicationLayoutEditor);
-//		File chosenFile = jfc.getSelectedFile();
-//		if(chosenFile != null && choice == JFileChooser.APPROVE_OPTION)
-//		{
-//			EditorToXml.writeXml(chosenFile.getAbsolutePath(),
-//					WidgetBuildController.getInstance().getWidgetCreatorProperties());
-//			
-//			WidgetBuildController.getInstance().readProperties(chosenFile);
-//			applicationLayoutEditor.rebuildInnerPanels();
-//		}
 		SaveAsEditorActionListener.performSaveAs(applicationLayoutEditor);
 	}
 	
