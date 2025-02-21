@@ -3,8 +3,8 @@ package WidgetExtensions;
 
 import java.awt.event.ActionListener;
 
+import ActionListeners.ArrayActionListener;
 import ClassDefintions.ActionListenerConverter;
-import WidgetComponents.ArrayActionListener;
 import WidgetUtility.WidgetCreatorProperty;
 
 public class ExtendedActionListenerArray implements ExtendedAttributeStringParam 

@@ -1,4 +1,4 @@
-package WidgetComponents;
+package MouseListeners;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

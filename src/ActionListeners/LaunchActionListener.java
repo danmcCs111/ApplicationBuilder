@@ -8,7 +8,6 @@ import java.io.IOException;
 import javax.swing.AbstractButton;
 
 import Properties.LoggingMessages;
-import WidgetComponents.ArrayActionListener;
 
 public class LaunchActionListener implements ActionListener
 {

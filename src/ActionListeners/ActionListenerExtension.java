@@ -1,4 +1,4 @@
-package WidgetComponents;
+package ActionListeners;
 
 public interface ActionListenerExtension 
 {

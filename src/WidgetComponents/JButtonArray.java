@@ -18,7 +18,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import ActionListeners.ImageMouseAdapter;
+import ActionListeners.ArrayActionListener;
+import MouseListeners.ImageMouseAdapter;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
 import WidgetExtensions.ExtendedStringCollection;

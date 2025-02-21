@@ -1,6 +1,6 @@
 package WidgetExtensions;
 
-import WidgetComponents.ArrayActionListener;
+import ActionListeners.ArrayActionListener;
 import WidgetUtility.WidgetCreatorProperty;
 
 public class ExtendedTextStripper implements ExtendedAttributeStringParam

@@ -1,4 +1,4 @@
-package ActionListeners;
+package MouseListeners;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -28,12 +28,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import Params.KeepSelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
 import WidgetComponents.ComboListDialogSelectedListener;
 import WidgetComponents.ComboSelectionDialog;
 import WidgetComponents.DialogParentReferenceContainer;
-import WidgetComponents.PicLabelMouseListener;
 
 public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSelectedListener, DialogParentReferenceContainer
 {

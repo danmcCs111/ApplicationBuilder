@@ -1,5 +1,6 @@
 package WidgetComponents;
 
+import ActionListeners.ActionListenerExtension;
 import ActionListeners.NavigationButtonActionListener;
 
 public enum Direction implements ActionListenerExtension 
