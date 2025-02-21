@@ -34,25 +34,27 @@ public class ImageMouseAdapter extends MouseAdapter
 {
 	private static final Dimension 
 		DIM_PAD = new Dimension(150,0),
-		DIM_NO_PIC = new Dimension(300,50),
+		DIM_NO_PIC = new Dimension(300,80),
 		DIM_PIC = new Dimension(300,470);
 	private static final String 
 		PROPERTIES_FILE_LOCATION = PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/data/",
 		PROPERTIES_FILE_SAVE_TITLE = "Save Properties",
 		PROPERTIES_FILE_SAVE_FILTER = "txt",
 		PROPERTIES_FILE_EXTENSION = ".txt",
-		KEEP_TITLE = "[Double-Click Image]";
+		KEEP_TITLE = "[Double-Click Image]",
+		DEFAULT_IMG = PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/default_mouse_xsm.png";
 	
 	private JFrame f;
 	private Component component;
 	private JFrame parentFrame;
-	private BufferedImage img;
+	private BufferedImage img,
+		defaultImg;
 	private String text;
 	private boolean keepFrame = false;
 	private static final ArrayList<KeepSelection> keeps = new ArrayList<KeepSelection>();//The whole app
 	private KeepSelection keep;
 		
-	public ImageMouseAdapter(Component component, JFrame parentFrame, String path, String text)
+	public ImageMouseAdapter(Component component, JFrame parentFrame, String path, String text) throws IOException
 	{
 		this.keep = new KeepSelection(path, text);
 		this.component = component;
@@ -60,11 +62,13 @@ public class ImageMouseAdapter extends MouseAdapter
 		this.text = text;
 		String fileLocation = path + toPngFilename();
 		File file = new File(fileLocation);
+		File fileDefault = new File(DEFAULT_IMG);
 		try {
 			img = ImageIO.read(file);
 			
 		} catch (IOException e) {
 			//TODO ignore. not required.
+			defaultImg = ImageIO.read(fileDefault);
 		}
 	}
 	
@@ -210,33 +214,36 @@ public class ImageMouseAdapter extends MouseAdapter
 		p2.add(l, BorderLayout.CENTER);
 		p.add(p2, BorderLayout.NORTH);
 		
+		BufferedImage useImage = null;
 		if(img != null)
 		{
-			ImageIcon ii = new ImageIcon(img);
-			JLabel picLabel = new JLabel(ii);
-			picLabel.addMouseListener(new MouseAdapter() {
-				public void mouseClicked(MouseEvent e) {
-					if(e.getClickCount() == 2)//require double click
-					{
-						LoggingMessages.printOut(e.getX() + " " + e.getY() + " " + 
-						ii.getIconWidth() + " " + ii.getIconHeight() + 
-						" " + picLabel.getX() + " " + picLabel.getY());
-						
-						for(ActionListener al : ((JButton)component).getActionListeners())
-						{
-							al.actionPerformed(new ActionEvent(component, 1, "Open From Image"));
-						}
-						LoggingMessages.printOut("Image pressed.");
-					}
-				}
-			});
-			p.add(picLabel, BorderLayout.CENTER);
 			f.setMinimumSize(DIM_PIC);
+			useImage = img;
 		}
 		else
 		{
 			f.setMinimumSize(DIM_NO_PIC);
+			useImage = defaultImg;
 		}
+		ImageIcon ii = new ImageIcon(useImage);
+		JLabel picLabel = new JLabel(ii);
+		picLabel.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if(e.getClickCount() == 2)//require double click
+				{
+					LoggingMessages.printOut(e.getX() + " " + e.getY() + " " + 
+					ii.getIconWidth() + " " + ii.getIconHeight() + 
+					" " + picLabel.getX() + " " + picLabel.getY());
+					
+					for(ActionListener al : ((JButton)component).getActionListeners())
+					{
+						al.actionPerformed(new ActionEvent(component, 1, "Open From Image"));
+					}
+					LoggingMessages.printOut("Image pressed.");
+				}
+			}
+		});
+		p.add(picLabel, BorderLayout.CENTER);
 		
 		f.add(p);
 		f.setLocation((int)loc.getX() + (bounds.width + DIM_PAD.width), 

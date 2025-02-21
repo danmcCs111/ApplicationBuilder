@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -111,11 +112,16 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 						{
 							((AbstractButton) comp).setText(txt);
 						}
-						ImageMouseAdapter ima = new ImageMouseAdapter(comp, 
-								WidgetBuildController.getInstance().getFrame(),
-								PathUtility.getCurrentDirectory() + PathUtility.removeCurrentWorkingDirectoryFromPath(path) + IMAGES_RELATIVE_FILE_LOCATION, 
-								txt);
-						((AbstractButton) comp).addMouseListener(ima);
+						ImageMouseAdapter ima;
+						try {
+							ima = new ImageMouseAdapter(comp, 
+									WidgetBuildController.getInstance().getFrame(),
+									PathUtility.getCurrentDirectory() + PathUtility.removeCurrentWorkingDirectoryFromPath(path) + IMAGES_RELATIVE_FILE_LOCATION, 
+									txt);
+							((AbstractButton) comp).addMouseListener(ima);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
 					}
 					comp.setForeground(backgroundAndForegroundColor[1]);
 					comp.setBackground(backgroundAndForegroundColor[0]);
