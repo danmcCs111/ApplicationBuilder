@@ -294,25 +294,29 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 	@Override
 	public void performOpen() 
 	{
-		for(MouseListener ml : collectionJButtons.get(indexPaths.get(indexPos)).get(0).getMouseListeners())
+		HashMap<String, String> props = performPropertiesOpen();
+		
+		for(String s : collectionJButtons.keySet())
 		{
-			if(ml instanceof ImageMouseAdapter)
+			for(MouseListener ml : collectionJButtons.get(s).get(0).getMouseListeners())
 			{
-				HashMap<String, String> props = performPropertiesOpen();
-				if(props != null)
+				if(ml instanceof ImageMouseAdapter)
 				{
-					for(String key : props.keySet())
+					if(props != null)
 					{
-						String [] k = key.split(PROPERTIES_FILE_ARG_DELIMITER);
-						for(AbstractButton b : collectionJButtons.get(indexPaths.get(indexPos)))
+						for(String key : props.keySet())
 						{
-							if(b.getText().equals(k[0]))
+							String [] k = key.split(PROPERTIES_FILE_ARG_DELIMITER);
+							for(AbstractButton b : collectionJButtons.get(s))
 							{
-								for(MouseListener al : b.getMouseListeners())
+								if(b.getText().equals(k[0]))
 								{
-									if(al instanceof ImageMouseAdapter)
+									for(MouseListener al : b.getMouseListeners())
 									{
-										((ImageMouseAdapter) al).setupKeepFrame(Integer.parseInt(k[1]), Integer.parseInt(k[2]));
+										if(al instanceof ImageMouseAdapter)
+										{
+											((ImageMouseAdapter) al).setupKeepFrame(Integer.parseInt(k[1]), Integer.parseInt(k[2]));
+										}
 									}
 								}
 							}
@@ -323,7 +327,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 		}
 	}
 	
-	public HashMap<String, String> performPropertiesOpen()
+	private HashMap<String, String> performPropertiesOpen()
 	{
 		HashMap<String, String> props = null;
 		
