@@ -65,5 +65,5 @@ public class SwappableCollection extends JPanel implements ExtendedStringCollect
 	{
 		this.pathTextComponent = c;
 	}
-	
+
 }

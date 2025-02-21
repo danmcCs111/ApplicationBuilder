@@ -56,6 +56,12 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 	
 	private int characterLimit=0;
 	
+	public JButtonArray()
+	{
+		//startup
+		super();
+	}
+	
 	public static final ActionListener highlightActionListener = new ActionListener() 
 	{
 		@Override
@@ -228,14 +234,17 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 	
 	private void setArrayColor(Color [] c, int [] backgroundOrForeground )
 	{
+		for(int i = 0; i < backgroundOrForeground.length; i++)
+		{
+			JButtonArray.backgroundAndForegroundColor[backgroundOrForeground[i]] = c[i];
+		}
+		
 		for(List<AbstractButton> buts : collectionJButtons.values())
 		{
 			for(Component but : buts)
 			{
-				int i = 0;
 				for(int bof : backgroundOrForeground)
 				{
-					JButtonArray.backgroundAndForegroundColor[bof] = c[i++];
 					if(bof == 1) but.setForeground(JButtonArray.backgroundAndForegroundColor[bof]);
 					else but.setBackground(JButtonArray.backgroundAndForegroundColor[bof]);
 				}

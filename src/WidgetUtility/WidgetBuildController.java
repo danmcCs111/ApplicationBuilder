@@ -14,6 +14,7 @@ import Properties.LoggingMessages;
 import WidgetComponents.PostWidgetBuildProcessing;
 import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetExtensions.ExtendedLayoutApplyParent;
+import WidgetExtensions.ExtendedSwappableHolder;
 import WidgetExtensions.ExtendedTextStripper;
 
 public class WidgetBuildController 
@@ -21,6 +22,10 @@ public class WidgetBuildController
 	private static final Class<?> [] FIRST_ORDERED_GENERATORS = new Class<?> [] {
 		ExtendedLayoutApplyParent.class, 
 		ExtendedTextStripper.class
+	};
+	
+	private static final Class<?> [] LAST_ORDERED_GENERATORS = new Class<?> [] {
+		ExtendedSwappableHolder.class 
 	};
 	
 	private static ArrayList<WidgetBuildController> widgetBuildController = new ArrayList<WidgetBuildController> ();
@@ -316,8 +321,10 @@ public class WidgetBuildController
 	{
 		ArrayList<XmlToWidgetGenerator> 
 			tmp = new ArrayList<XmlToWidgetGenerator>(),
+			tmpL = new ArrayList<XmlToWidgetGenerator>(),
 			orderedGenerators = new ArrayList<XmlToWidgetGenerator>();
-		
+			
+		outer:
 		for(XmlToWidgetGenerator xwg : generators)
 		{
 			String methodName = xwg.getMethodName();
@@ -326,14 +333,21 @@ public class WidgetBuildController
 				if(clazz.getName().toLowerCase().contains(methodName.toLowerCase()))
 				{
 					orderedGenerators.add(xwg);
+					continue outer;
 				}
 			}
-			if(!orderedGenerators.contains(xwg))
+			for(Class<?> clazz : LAST_ORDERED_GENERATORS)
 			{
-				tmp.add(xwg);
+				if(clazz.getName().toLowerCase().contains(methodName.toLowerCase()))
+				{
+					tmpL.add(xwg);
+					continue outer;
+				}
 			}
+			tmp.add(xwg);
 		}
 		orderedGenerators.addAll(tmp);
+		orderedGenerators.addAll(tmpL);
 		
 		return orderedGenerators;
 	}

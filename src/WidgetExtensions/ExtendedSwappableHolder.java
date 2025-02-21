@@ -1,5 +1,6 @@
 package WidgetExtensions;
 
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -12,12 +13,17 @@ public class ExtendedSwappableHolder implements ExtendedAttributeStringParam
 	@Override
 	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 
 	{
-		SwappableCollection comp = (SwappableCollection) ExtendedAttributeStringParam.findComponent(SwappableCollection.class);
 		JButtonArray buttonArray = (JButtonArray) widgetProperties.getInstance();
-		HashMap<String, List<String>> pathAndFileList = comp.getPathAndFileList();
+		SwappableCollection comp = (SwappableCollection) ExtendedAttributeStringParam.findComponent(SwappableCollection.class);
 		
-		String key = pathAndFileList.keySet().iterator().next();//just first path
-		buttonArray.addJButtons(key, pathAndFileList.get(key), 0);
+		//TODO fix. just first path
+		HashMap<String, List<String>> pathAndFileList = comp.getPathAndFileList();
+		int count = 0;
+		for(String key : pathAndFileList.keySet())
+		{
+			buttonArray.addJButtons(key, pathAndFileList.get(key), count);
+			count++;
+		}
 	}
 
 }
