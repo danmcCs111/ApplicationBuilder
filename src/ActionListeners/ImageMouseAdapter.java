@@ -38,7 +38,7 @@ public class ImageMouseAdapter extends MouseAdapter
 		PROPERTIES_FILE_LOCATION = PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/data/",
 		PROPERTIES_FILE_SAVE_TITLE = "Save Properties",
 		PROPERTIES_FILE_SAVE_FILTER = "txt",
-		PROPERTIES_FILE_EXTENSION = "\\.txt",
+		PROPERTIES_FILE_EXTENSION = ".txt",
 		KEEP_TITLE = "[Click Image]";
 	
 	private JFrame f;
@@ -72,11 +72,11 @@ public class ImageMouseAdapter extends MouseAdapter
 		return this.keepFrame;
 	}
 	
-	public void setupKeepFrame()
+	public void setupKeepFrame(int x, int y)
 	{
-		LoggingMessages.printOut("setup keep frame");
 		performFrameBuild();
 		keepFrame = true;
+		f.setLocation(x, y);
 		createKeepFrame();
 	}
 	
@@ -90,6 +90,7 @@ public class ImageMouseAdapter extends MouseAdapter
 		if(!keeps.contains(keep))
 		{
 			keeps.add(keep);
+			keep.setFrame(f);
 			for(KeepSelection k : keeps) LoggingMessages.printOut(k.toString());
 		}
 		
@@ -151,7 +152,6 @@ public class ImageMouseAdapter extends MouseAdapter
 	{
 		f = new JFrame();
 		f.setUndecorated(true);
-		
 		Rectangle bounds = component.getBounds();
 		Point loc = parentFrame.getLocation();
 		
@@ -207,7 +207,7 @@ public class ImageMouseAdapter extends MouseAdapter
 		{
 			KeepSelection ks = keeps.get(i);
 			String [] props = new String [] {
-					ks.getText(),
+					ks.getText()+"@"+ks.getLocationPoint().x+"@"+ks.getLocationPoint().y,
 					ks.getPath()
 			};
 			properties[i] = props;
@@ -228,7 +228,7 @@ public class ImageMouseAdapter extends MouseAdapter
 			{
 				path += PROPERTIES_FILE_EXTENSION;
 			}
-			PathUtility.writeProperties(chosenFile.getAbsolutePath(), properties);
+			PathUtility.writeProperties(path, properties);
 		}
 	}
 	

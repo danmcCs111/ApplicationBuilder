@@ -1,11 +1,15 @@
 package ActionListeners;
 
+import java.awt.Point;
+
+import javax.swing.JFrame;
+
 public class KeepSelection
 {
 	private String 
 		path,
 		text;
-	private boolean keep;
+	private JFrame frame;
 	
 	public KeepSelection(String path, String text)
 	{
@@ -13,14 +17,14 @@ public class KeepSelection
 		this.text = text;
 	}
 	
-	public boolean setKeepFrame(boolean keep)
+	public void setFrame(JFrame frame)
 	{
-		return this.keep = keep;
+		this.frame = frame;
 	}
 	
-	public boolean getKeepFrame()
+	public Point getLocationPoint()
 	{
-		return keep;
+		return this.frame.getLocation();
 	}
 	
 	public String getText()

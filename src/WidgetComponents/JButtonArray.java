@@ -40,6 +40,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 		PROPERTIES_FILE_OPEN_TITLE = "Open Properties",
 		PROPERTIES_FILE_OPEN_FILTER = "txt",
 		PROPERTIES_FILE_EXTENSION = "\\.txt",
+		PROPERTIES_FILE_ARG_DELIMITER = "@",
 		PROPERTIES_FILE_DELIMITER = "=";
 	
 	public static Color []
@@ -287,15 +288,16 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 				{
 					for(String key : props.keySet())
 					{
+						String [] k = key.split(PROPERTIES_FILE_ARG_DELIMITER);
 						for(AbstractButton b : collectionJButtons.get(indexPos))
 						{
-							if(b.getText().equals(key))
+							if(b.getText().equals(k[0]))
 							{
 								for(MouseListener al : b.getMouseListeners())
 								{
 									if(al instanceof ImageMouseAdapter)
 									{
-										((ImageMouseAdapter) al).setupKeepFrame();
+										((ImageMouseAdapter) al).setupKeepFrame(Integer.parseInt(k[1]), Integer.parseInt(k[2]));
 									}
 								}
 							}
