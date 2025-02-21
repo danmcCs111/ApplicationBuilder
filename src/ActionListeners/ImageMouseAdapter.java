@@ -32,9 +32,10 @@ import Properties.PathUtility;
 
 public class ImageMouseAdapter extends MouseAdapter
 {
-	private static final Dimension 
+	private static final Dimension //TODO
 		DIM_PAD = new Dimension(150,0),
-		DIM_NO_PIC = new Dimension(300,80),
+		DIM_DEFAULT_PIC = new Dimension(300,80),
+//		DIM_NO_PIC = new Dimension(300,30),
 		DIM_PIC = new Dimension(300,470);
 	private static final String 
 		PROPERTIES_FILE_LOCATION = PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/data/",
@@ -42,7 +43,7 @@ public class ImageMouseAdapter extends MouseAdapter
 		PROPERTIES_FILE_SAVE_FILTER = "txt",
 		PROPERTIES_FILE_EXTENSION = ".txt",
 		KEEP_TITLE = "[Double-Click Image]",
-		DEFAULT_IMG = PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/default_mouse_xsm.png";
+		DEFAULT_IMG = PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/launch_xsm.png";//TODO
 	
 	private JFrame f;
 	private Component component;
@@ -222,7 +223,7 @@ public class ImageMouseAdapter extends MouseAdapter
 		}
 		else
 		{
-			f.setMinimumSize(DIM_NO_PIC);
+			f.setMinimumSize(DIM_DEFAULT_PIC);
 			useImage = defaultImg;
 		}
 		ImageIcon ii = new ImageIcon(useImage);
