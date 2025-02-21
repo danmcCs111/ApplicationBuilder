@@ -298,31 +298,30 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 	}
 	
 	@Override
-	public void performOpen() 
+	public void performOpen()
 	{
 		HashMap<String, String> props = performPropertiesOpen();
+		if(props == null)
+			return;
 		
-		for(String s : collectionJButtons.keySet())
+		for(String s : collectionJButtons.keySet())//search entire collection.
 		{
 			for(MouseListener ml : collectionJButtons.get(s).get(0).getMouseListeners())
 			{
 				if(ml instanceof ImageMouseAdapter)
 				{
-					if(props != null)
+					for(String key : props.keySet())
 					{
-						for(String key : props.keySet())
+						String [] k = key.split(PROPERTIES_FILE_ARG_DELIMITER);
+						for(AbstractButton b : collectionJButtons.get(s))
 						{
-							String [] k = key.split(PROPERTIES_FILE_ARG_DELIMITER);
-							for(AbstractButton b : collectionJButtons.get(s))
+							if(b.getText().equals(k[0]))
 							{
-								if(b.getText().equals(k[0]))
+								for(MouseListener al : b.getMouseListeners())
 								{
-									for(MouseListener al : b.getMouseListeners())
+									if(al instanceof ImageMouseAdapter)
 									{
-										if(al instanceof ImageMouseAdapter)
-										{
-											((ImageMouseAdapter) al).setupKeepFrame(Integer.parseInt(k[1]), Integer.parseInt(k[2]));
-										}
+										((ImageMouseAdapter) al).setupKeepFrame(Integer.parseInt(k[1]), Integer.parseInt(k[2]));
 									}
 								}
 							}
