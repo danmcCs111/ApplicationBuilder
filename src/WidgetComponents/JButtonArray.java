@@ -6,12 +6,16 @@ import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import ActionListeners.ImageMouseAdapter;
 import Properties.PathUtility;
@@ -25,13 +29,18 @@ import WidgetUtility.WidgetBuildController;
  * 
  * TODO use a collection of inner panels and switch during toggle?
  */
-public class JButtonArray extends JPanel implements ArrayActionListener, CharacterLimited, SaveActionExtension
+public class JButtonArray extends JPanel implements ArrayActionListener, CharacterLimited, SaveActionExtension, OpenActionExtension
 {
 	private static final long serialVersionUID = 1883L;
 	public static final String 
 		SAVE_ID = "JButtonArray",
 		CHARACTER_LIMIT_TEXT= "..",
-		IMAGES_RELATIVE_FILE_LOCATION= "/images/";
+		IMAGES_RELATIVE_FILE_LOCATION= "/images/",
+		PROPERTIES_FILE_LOCATION = PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/data/",
+		PROPERTIES_FILE_OPEN_TITLE = "Open Properties",
+		PROPERTIES_FILE_OPEN_FILTER = "txt",
+		PROPERTIES_FILE_EXTENSION = "\\.txt",
+		PROPERTIES_FILE_DELIMITER = "=";
 	
 	public static Color []
 		backgroundAndForegroundColor = new Color [] {new JButton().getBackground(), new JButton().getForeground()},
@@ -75,25 +84,26 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 				{
 					if(comp instanceof AbstractButton)
 					{
-						String tmpTxt = ((AbstractButton) comp).getText();
+						String txt = ((AbstractButton) comp).getText();
+						
 						for(String s : stripFilter)
 						{
-							tmpTxt = tmpTxt.replace(s, "");
+							txt = txt.replace(s, "");
 						}
 						if(characterLimit != 0)
 						{
-							((AbstractButton) comp).setText(tmpTxt.length() >= this.characterLimit
-									? tmpTxt.substring(0, this.characterLimit)+CHARACTER_LIMIT_TEXT
-									: tmpTxt);
+							((AbstractButton) comp).setText(txt.length() >= this.characterLimit
+									? txt.substring(0, this.characterLimit)+CHARACTER_LIMIT_TEXT
+									: txt);
 						}
 						else
 						{
-							((AbstractButton) comp).setText(tmpTxt);
+							((AbstractButton) comp).setText(txt);
 						}
 						ImageMouseAdapter ima = new ImageMouseAdapter(comp, 
 								WidgetBuildController.getInstance().getFrame(),
 								PathUtility.getCurrentDirectory() + PathUtility.removeCurrentWorkingDirectoryFromPath(path) + IMAGES_RELATIVE_FILE_LOCATION, 
-								tmpTxt);
+								txt);
 						((AbstractButton) comp).addMouseListener(ima);
 					}
 					comp.setForeground(backgroundAndForegroundColor[1]);
@@ -263,6 +273,55 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 				return;
 			}
 		}
+	}
+	
+	@Override
+	public void performOpen() 
+	{
+		for(MouseListener ml : collectionJButtons.get(indexPos).get(0).getMouseListeners())
+		{
+			if(ml instanceof ImageMouseAdapter)
+			{
+				HashMap<String, String> props = performPropertiesOpen();
+				if(props != null)
+				{
+					for(String key : props.keySet())
+					{
+						for(AbstractButton b : collectionJButtons.get(indexPos))
+						{
+							if(b.getText().equals(key))
+							{
+								for(MouseListener al : b.getMouseListeners())
+								{
+									if(al instanceof ImageMouseAdapter)
+									{
+										((ImageMouseAdapter) al).setupKeepFrame();
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	public HashMap<String, String> performPropertiesOpen()
+	{
+		HashMap<String, String> props = null;
+		
+		JFileChooser jfc = new JFileChooser();
+		File f = new File(PROPERTIES_FILE_LOCATION);
+		jfc.setFileFilter(new FileNameExtensionFilter(PROPERTIES_FILE_OPEN_TITLE, PROPERTIES_FILE_OPEN_FILTER));
+		jfc.setSelectedFile(f);
+		
+		int choice = jfc.showOpenDialog(WidgetBuildController.getInstance().getFrame());
+		File chosenFile = jfc.getSelectedFile();
+		if(chosenFile != null && choice == JFileChooser.APPROVE_OPTION)
+		{
+			props = PathUtility.readProperties(chosenFile.getAbsolutePath(), PROPERTIES_FILE_DELIMITER);
+		}
+		return props;
 	}
 
 }

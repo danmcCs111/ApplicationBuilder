@@ -27,8 +27,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Properties.LoggingMessages;
 import Properties.PathUtility;
-import WidgetComponents.EditorToXml;
-import WidgetUtility.WidgetBuildController;
 
 public class ImageMouseAdapter extends MouseAdapter
 {
@@ -40,6 +38,7 @@ public class ImageMouseAdapter extends MouseAdapter
 		PROPERTIES_FILE_LOCATION = PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/data/",
 		PROPERTIES_FILE_SAVE_TITLE = "Save Properties",
 		PROPERTIES_FILE_SAVE_FILTER = "txt",
+		PROPERTIES_FILE_EXTENSION = "\\.txt",
 		KEEP_TITLE = "[Click Image]";
 	
 	private JFrame f;
@@ -73,11 +72,37 @@ public class ImageMouseAdapter extends MouseAdapter
 		return this.keepFrame;
 	}
 	
+	public void setupKeepFrame()
+	{
+		LoggingMessages.printOut("setup keep frame");
+		performFrameBuild();
+		keepFrame = true;
+		createKeepFrame();
+	}
+	
 	private String toPngFilename()
 	{
 		return this.text + ".png";
 	}
 
+	private void createKeepFrame()
+	{
+		if(!keeps.contains(keep))
+		{
+			keeps.add(keep);
+			for(KeepSelection k : keeps) LoggingMessages.printOut(k.toString());
+		}
+		
+		f.dispose();
+		f.setUndecorated(false);
+		f.removeMouseListener(ImageMouseAdapter.this);
+		keepFrame = false;
+		f.setTitle(KEEP_TITLE);
+		
+		f.setVisible(true);
+		f.pack();
+	}
+	
 	@Override
 	public void mouseClicked(MouseEvent e) 
 	{
@@ -111,25 +136,18 @@ public class ImageMouseAdapter extends MouseAdapter
 		}
 		else
 		{
-			if(!keeps.contains(keep))
-			{
-				keeps.add(keep);
-				for(KeepSelection k : keeps) LoggingMessages.printOut(k.toString());
-			}
-			
-			f.dispose();
-			f.setUndecorated(false);
-			f.removeMouseListener(ImageMouseAdapter.this);
-			keepFrame = false;
-			f.setTitle(KEEP_TITLE);
-			
-			f.setVisible(true);
-			f.pack();
+			createKeepFrame();
 		}
 	}
 	
 	@Override
 	public void mouseEntered(MouseEvent e) 
+	{
+		performFrameBuild();
+	}
+	
+	
+	private void performFrameBuild()
 	{
 		f = new JFrame();
 		f.setUndecorated(true);
@@ -205,8 +223,14 @@ public class ImageMouseAdapter extends MouseAdapter
 		File chosenFile = jfc.getSelectedFile();
 		if(chosenFile != null && choice == JFileChooser.APPROVE_OPTION)
 		{
+			String path = chosenFile.getAbsolutePath();
+			if(!path.endsWith(PROPERTIES_FILE_EXTENSION))
+			{
+				path += PROPERTIES_FILE_EXTENSION;
+			}
 			PathUtility.writeProperties(chosenFile.getAbsolutePath(), properties);
 		}
 	}
+	
 	
 }

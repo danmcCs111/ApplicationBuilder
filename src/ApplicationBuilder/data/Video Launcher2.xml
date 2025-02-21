@@ -30,6 +30,8 @@
 		</JPanel>
 		<JMenuBar extendedSetJMenuBarParent="" >
 			<JMenu extendedLayoutApplyParent="" setText="File" >
+				<JMenuItem extendedLayoutApplyParent="" extendedOpenActionListener="channels" setText="Open" >
+				</JMenuItem>
 				<JMenuItem extendedLayoutApplyParent="" extendedSaveActionListener="channels" setText="Save" >
 				</JMenuItem>
 				<JMenuItem addActionListener="ActionListeners.ReloadActionListener" extendedLayoutApplyParent="" setText="Reload" >
