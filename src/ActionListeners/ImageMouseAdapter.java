@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -33,6 +33,7 @@ import Properties.PathUtility;
 import WidgetComponents.ComboListDialogSelectedListener;
 import WidgetComponents.ComboSelectionDialog;
 import WidgetComponents.DialogParentReferenceContainer;
+import WidgetComponents.PicLabelMouseListener;
 
 public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSelectedListener, DialogParentReferenceContainer
 {
@@ -76,7 +77,6 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 			img = ImageIO.read(file);
 			
 		} catch (IOException e) {
-			//TODO ignore. not required.
 			defaultImg = ImageIO.read(fileDefault);
 		}
 	}
@@ -236,22 +236,12 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		}
 		ImageIcon ii = new ImageIcon(useImage);
 		JLabel picLabel = new JLabel(ii);
-		picLabel.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				if(e.getClickCount() == 2)//require double click
-				{
-					LoggingMessages.printOut(e.getX() + " " + e.getY() + " " + 
-					ii.getIconWidth() + " " + ii.getIconHeight() + 
-					" " + picLabel.getX() + " " + picLabel.getY());
-					
-					for(ActionListener al : ((JButton)component).getActionListeners())
-					{
-						al.actionPerformed(new ActionEvent(component, 1, "Open From Image"));
-					}
-					LoggingMessages.printOut("Image pressed.");
-				}
-			}
-		});
+		
+		if(component instanceof AbstractButton)//TODO
+		{
+			picLabel.addMouseListener(new PicLabelMouseListener((AbstractButton) component));
+		}
+		
 		p.add(picLabel, BorderLayout.CENTER);
 		
 		f.add(p);

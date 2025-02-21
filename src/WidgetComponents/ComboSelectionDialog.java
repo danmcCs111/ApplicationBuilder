@@ -21,10 +21,10 @@ import javax.swing.WindowConstants;
 public class ComboSelectionDialog extends JDialog 
 {
 	private static final long serialVersionUID = 2001L;
-	private static final String 
-		ADD_BUTTON_TEXT = "Add",
-		ADD_ALL_BUTTON_TEXT = "Add All",
-		CLOSE_BUTTON_TEXT = "Close";
+	public static final String 
+		ADD_BUTTON_DEFAULT_TEXT = "Add",
+		ADD_ALL_BUTTON_DEFAULT_TEXT = "Add All",
+		CLOSE_BUTTON_DEFAULT_TEXT = "Close";
 	private static final Dimension MIN_DIMENSION_DIALOG = new Dimension(300,150);
 	
 	private JList<String> componentMethods = new JList<String>();
@@ -39,7 +39,7 @@ public class ComboSelectionDialog extends JDialog
 		(
 				selectables,
 				dialogTitle, dialogMessage,
-				ADD_BUTTON_TEXT, ADD_ALL_BUTTON_TEXT, CLOSE_BUTTON_TEXT,
+				ADD_BUTTON_DEFAULT_TEXT, ADD_ALL_BUTTON_DEFAULT_TEXT, CLOSE_BUTTON_DEFAULT_TEXT,
 				cdsl,refLocContainer
 		);
 	}
