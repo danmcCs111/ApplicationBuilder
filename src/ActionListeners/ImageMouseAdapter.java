@@ -1,4 +1,4 @@
-package WidgetComponents;
+package ActionListeners;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -14,6 +14,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -38,9 +39,12 @@ public class ImageMouseAdapter extends MouseAdapter
 	private BufferedImage img;
 	private String text;
 	private boolean keepFrame = false;
+	private static final ArrayList<KeepSelection> keeps = new ArrayList<KeepSelection>();//The whole app
+	private KeepSelection keep;
 		
 	public ImageMouseAdapter(Component component, JFrame parentFrame, String path, String text)
 	{
+		this.keep = new KeepSelection(path, text);
 		this.component = component;
 		this.parentFrame = parentFrame;
 		this.text = text;
@@ -53,6 +57,11 @@ public class ImageMouseAdapter extends MouseAdapter
 		} catch (IOException e) {
 			LoggingMessages.printOut("file not found: " + fileLocation);
 		}
+	}
+	
+	protected boolean keepFrame()
+	{
+		return this.keepFrame;
 	}
 	
 	private String toPngFilename()
@@ -93,9 +102,15 @@ public class ImageMouseAdapter extends MouseAdapter
 		}
 		else
 		{
+			if(!keeps.contains(keep))
+			{
+				keeps.add(keep);
+				for(KeepSelection k : keeps) LoggingMessages.printOut(k.toString());
+			}
+			
 			f.dispose();
 			f.setUndecorated(false);
-			f.removeMouseListener(this);
+			f.removeMouseListener(ImageMouseAdapter.this);
 			keepFrame = false;
 			f.setTitle(KEEP_TITLE);
 			

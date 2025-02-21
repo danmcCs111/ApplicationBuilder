@@ -12,6 +12,7 @@ import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import ActionListeners.ImageMouseAdapter;
 import Properties.PathUtility;
 import WidgetExtensions.ExtendedStringCollection;
 import WidgetUtility.FileListOptionGenerator;
@@ -36,7 +37,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 	private static int indexPos=0;
 	private static boolean isHighlight = true;
 	private static JButton highlightButton = null;
-	private static ArrayList<ArrayList<Component>> collectionJButtons = new ArrayList<ArrayList<Component>>();
+	private static ArrayList<ArrayList<AbstractButton>> collectionJButtons = new ArrayList<ArrayList<AbstractButton>>();
 	private static ArrayList<String> stripFilter = new ArrayList<String>();
 	
 	private int characterLimit=0;
@@ -59,7 +60,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 	
 	public void addJButtons(String path, List<String> listOf, int index)
 	{
-		ArrayList<Component> jbuts = new ArrayList<Component>();
+		ArrayList<AbstractButton> jbuts = new ArrayList<AbstractButton>();
 		JButtonArray.indexPos = index;
 		
 		clearJButtons();
@@ -87,12 +88,11 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 						{
 							((AbstractButton) comp).setText(tmpTxt);
 						}
-//						((AbstractButton) comp).setToolTipText(tmpTxt);
-						//TODO
-						((AbstractButton) comp).addMouseListener(new ImageMouseAdapter(comp, 
+						ImageMouseAdapter ima = new ImageMouseAdapter(comp, 
 								WidgetBuildController.getInstance().getFrame(),
 								PathUtility.getCurrentDirectory() + PathUtility.removeCurrentWorkingDirectoryFromPath(path) + IMAGES_RELATIVE_FILE_LOCATION, 
-								tmpTxt));
+								tmpTxt);
+						((AbstractButton) comp).addMouseListener(ima);
 					}
 					comp.setForeground(backgroundAndForegroundColor[1]);
 					comp.setBackground(backgroundAndForegroundColor[0]);
@@ -173,7 +173,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 		}
 	}
 	
-	private void addActionListeners(ArrayList<Component> jButtons)
+	private void addActionListeners(ArrayList<AbstractButton> jButtons)
 	{
 		if(this.actionListener != null && !jButtons.isEmpty())
 		{
@@ -209,7 +209,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 	
 	private void setArrayColor(Color [] c, int [] backgroundOrForeground )
 	{
-		for(List<Component> buts : collectionJButtons)
+		for(List<AbstractButton> buts : collectionJButtons)
 		{
 			for(Component but : buts)
 			{
