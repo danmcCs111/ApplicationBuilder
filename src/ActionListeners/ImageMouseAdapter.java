@@ -60,12 +60,11 @@ public class ImageMouseAdapter extends MouseAdapter
 		this.text = text;
 		String fileLocation = path + toPngFilename();
 		File file = new File(fileLocation);
-		LoggingMessages.printOut("file location: " + fileLocation);
 		try {
 			img = ImageIO.read(file);
 			
 		} catch (IOException e) {
-			LoggingMessages.printOut("file not found: " + fileLocation);
+			//TODO ignore. not required.
 		}
 	}
 	

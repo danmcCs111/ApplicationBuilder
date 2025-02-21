@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import ActionListeners.ImageMouseAdapter;
+import Properties.LoggingMessages;
 import Properties.PathUtility;
 import WidgetExtensions.ExtendedStringCollection;
 import WidgetUtility.FileListOptionGenerator;
@@ -49,7 +50,8 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 	private static int indexPos=0;
 	private static boolean isHighlight = true;
 	private static JButton highlightButton = null;
-	private static ArrayList<ArrayList<AbstractButton>> collectionJButtons = new ArrayList<ArrayList<AbstractButton>>();
+	private static final ArrayList<String> indexPaths = new ArrayList<String>();
+	private static HashMap<String, ArrayList<AbstractButton>> collectionJButtons = new HashMap<String, ArrayList<AbstractButton>>();
 	private static ArrayList<String> stripFilter = new ArrayList<String>();
 	
 	private int characterLimit=0;
@@ -72,12 +74,14 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 	
 	public void addJButtons(String path, List<String> listOf, int index)
 	{
+		LoggingMessages.printOut("load buttons." + listOf.size() + " " + index);
 		ArrayList<AbstractButton> jbuts = new ArrayList<AbstractButton>();
 		JButtonArray.indexPos = index;
 		
 		clearJButtons();
 		
-		if(collectionJButtons.size()-1 < index)
+//		if(collectionJButtons)//TODO fix.
+		if(!indexPaths.contains(path))
 		{
 			for(Component comp : FileListOptionGenerator.buildComponents(path, listOf, JButton.class))
 			{
@@ -115,16 +119,18 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 				}
 			}
 			addActionListeners(jbuts);
-			collectionJButtons.add(jbuts);
+			collectionJButtons.put(path, jbuts);
 		}
 		else
 		{
-			jbuts = collectionJButtons.get(JButtonArray.indexPos);
+			jbuts = collectionJButtons.get(indexPaths.get(JButtonArray.indexPos));
 			for(Component but : jbuts)
 			{
 				this.add(but);
 			}
 		}
+		
+		indexPaths.add(path);
 		
 		ExtendedStringCollection esc = getExtendedStringCollection(this);
 		esc.setPathSelected(path);
@@ -182,7 +188,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 		this.actionListener = actionListener;
 		if(collectionJButtons.size()-1 >= indexPos)
 		{
-			addActionListeners(collectionJButtons.get(indexPos));
+			addActionListeners(collectionJButtons.get(indexPaths.get(indexPos)));
 		}
 	}
 	
@@ -222,7 +228,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 	
 	private void setArrayColor(Color [] c, int [] backgroundOrForeground )
 	{
-		for(List<AbstractButton> buts : collectionJButtons)
+		for(List<AbstractButton> buts : collectionJButtons.values())
 		{
 			for(Component but : buts)
 			{
@@ -266,7 +272,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 	@Override
 	public void performSave() 
 	{
-		for(MouseListener ml : collectionJButtons.get(indexPos).get(0).getMouseListeners())
+		for(MouseListener ml : collectionJButtons.get(indexPaths.get(indexPos)).get(0).getMouseListeners())
 		{
 			if(ml instanceof ImageMouseAdapter)
 			{
@@ -279,7 +285,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 	@Override
 	public void performOpen() 
 	{
-		for(MouseListener ml : collectionJButtons.get(indexPos).get(0).getMouseListeners())
+		for(MouseListener ml : collectionJButtons.get(indexPaths.get(indexPos)).get(0).getMouseListeners())
 		{
 			if(ml instanceof ImageMouseAdapter)
 			{
@@ -289,7 +295,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 					for(String key : props.keySet())
 					{
 						String [] k = key.split(PROPERTIES_FILE_ARG_DELIMITER);
-						for(AbstractButton b : collectionJButtons.get(indexPos))
+						for(AbstractButton b : collectionJButtons.get(indexPaths.get(indexPos)))
 						{
 							if(b.getText().equals(k[0]))
 							{
