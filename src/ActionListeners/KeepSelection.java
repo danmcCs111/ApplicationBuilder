@@ -1,6 +1,8 @@
 package ActionListeners;
 
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 
@@ -55,5 +57,15 @@ public class KeepSelection
 	public String toString()
 	{
 		return this.path + " " + this.text;
+	}
+	
+	public static ArrayList<String> getTextOnlyConversion (List<KeepSelection> ks)
+	{
+		ArrayList<String> convList = new ArrayList<String>();
+		for(KeepSelection k : ks)
+		{
+			convList.add(k.getText());
+		}
+		return convList;
 	}
 }

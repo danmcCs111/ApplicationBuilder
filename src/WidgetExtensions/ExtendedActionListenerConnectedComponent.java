@@ -18,7 +18,6 @@ public class ExtendedActionListenerConnectedComponent implements ExtendedAttribu
 			ale.setConnectedComp(connectedComp);
 			
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -1,0 +1,4 @@
+2010  The Year We Make Contact@590@150=C:\Users\danie\eclipse-workspace\ApplicationBuilder/src/ApplicationBuilder/YoutubeFreeMovies/images/
+PHONK Beat@1244@216=C:\Users\danie\eclipse-workspace\ApplicationBuilder/src/ApplicationBuilder/Music/images/
+ABC News Live@954@281=C:\Users\danie\eclipse-workspace\ApplicationBuilder/src/ApplicationBuilder/Roku Channels/images/
+A Bridge Too Far@1141@368=C:\Users\danie\eclipse-workspace\ApplicationBuilder/src/ApplicationBuilder/YoutubeFreeMovies/images/

@@ -17,6 +17,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -29,8 +30,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Properties.LoggingMessages;
 import Properties.PathUtility;
+import WidgetComponents.ComboListDialogSelectedListener;
+import WidgetComponents.ComboSelectionDialog;
+import WidgetComponents.DialogParentReferenceContainer;
 
-public class ImageMouseAdapter extends MouseAdapter
+public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSelectedListener, DialogParentReferenceContainer
 {
 	private static final Dimension //TODO
 		DIM_PAD = new Dimension(150,0),
@@ -54,6 +58,8 @@ public class ImageMouseAdapter extends MouseAdapter
 	private boolean keepFrame = false;
 	private static final ArrayList<KeepSelection> keeps = new ArrayList<KeepSelection>();//The whole app
 	private KeepSelection keep;
+	private List<String> saveChosenSelection = null;
+	private String saveFilePathChosen = null;
 		
 	public ImageMouseAdapter(Component component, JFrame parentFrame, String path, String text) throws IOException
 	{
@@ -258,16 +264,6 @@ public class ImageMouseAdapter extends MouseAdapter
 		if(keeps.isEmpty())
 			return;
 		
-		String [][] properties = new String [keeps.size()][2];
-		for(int i = 0; i < keeps.size(); i++)
-		{
-			KeepSelection ks = keeps.get(i);
-			String [] props = new String [] {
-					ks.getText()+"@"+ks.getLocationPoint().x+"@"+ks.getLocationPoint().y,
-					ks.getPath()
-			};
-			properties[i] = props;
-		}
 		
 		JFileChooser jfc = new JFileChooser();
 		jfc.setDialogType(JFileChooser.SAVE_DIALOG);
@@ -279,13 +275,59 @@ public class ImageMouseAdapter extends MouseAdapter
 		File chosenFile = jfc.getSelectedFile();
 		if(chosenFile != null && choice == JFileChooser.APPROVE_OPTION)
 		{
-			String path = chosenFile.getAbsolutePath();
-			if(!path.endsWith(PROPERTIES_FILE_EXTENSION))
+			saveFilePathChosen = chosenFile.getAbsolutePath();
+			if(!saveFilePathChosen.endsWith(PROPERTIES_FILE_EXTENSION))
 			{
-				path += PROPERTIES_FILE_EXTENSION;
+				saveFilePathChosen += PROPERTIES_FILE_EXTENSION;
 			}
-			PathUtility.writeProperties(path, properties);
+			ComboSelectionDialog csd = new ComboSelectionDialog();
+			csd.buildAndShow(KeepSelection.getTextOnlyConversion(keeps), ImageMouseAdapter.this, ImageMouseAdapter.this);
 		}
+		
+	}
+	
+	private void performAfterSelectionEventSave()
+	{
+		if(saveChosenSelection != null)
+		{
+			int minusCount = 0;
+			String [][] properties = new String [saveChosenSelection.size()][2];
+			for(int i = 0; i < keeps.size(); i++)
+			{
+				KeepSelection ks = keeps.get(i);
+				if(saveChosenSelection.contains(ks.getText()))//TODO better ID / key system?
+				{
+					String [] props = new String [] {
+							ks.getText()+"@"+ks.getLocationPoint().x+"@"+ks.getLocationPoint().y,
+							ks.getPath()
+					};
+					properties[i+minusCount] = props;
+				}
+				else
+				{
+					minusCount--;
+				}
+			}
+			PathUtility.writeProperties(saveFilePathChosen, properties);
+		}
+		saveChosenSelection = null;//reset.
+		saveFilePathChosen = null;
+	}
+	
+	@Override
+	public void selectionChosen(List<String> chosenSelection) 
+	{
+		if(chosenSelection == null) return;
+		LoggingMessages.printOut(LoggingMessages.combine(chosenSelection));//print
+		saveChosenSelection = (List<String>) chosenSelection;
+		performAfterSelectionEventSave();
+	}
+	
+	@Override
+	public Point getContainerCenterLocationPoint() 
+	{
+		return new Point((int)parentFrame.getBounds().getCenterX(), 
+				(int)parentFrame.getBounds().getCenterY());
 	}
 	
 	
