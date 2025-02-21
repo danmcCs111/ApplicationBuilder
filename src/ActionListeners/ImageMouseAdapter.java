@@ -11,6 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -86,7 +88,6 @@ public class ImageMouseAdapter extends MouseAdapter
 			keepFrame = true;
 			f.setLocation(x, y);
 			createKeepFrame();
-			keepFrame = false;
 		}
 	}
 	
@@ -114,6 +115,19 @@ public class ImageMouseAdapter extends MouseAdapter
 				
 				f.dispose();
 				f.setUndecorated(false);
+				f.addWindowListener(new WindowAdapter() {
+					
+					@Override
+					public void windowClosing(WindowEvent e) {
+						if(keepFrame)
+						{
+							LoggingMessages.printOut("remove. " + keep);
+							keeps.remove(keep);
+							keepFrame = false;
+						}
+					}
+					
+				});
 				f.removeMouseListener(ImageMouseAdapter.this);
 				f.setTitle(KEEP_TITLE);
 				
@@ -212,7 +226,7 @@ public class ImageMouseAdapter extends MouseAdapter
 					{
 						al.actionPerformed(new ActionEvent(component, 1, "Open From Image"));
 					}
-					LoggingMessages.printOut("button pressed.");
+					LoggingMessages.printOut("Image pressed.");
 				}
 			});
 			p.add(picLabel, BorderLayout.CENTER);
