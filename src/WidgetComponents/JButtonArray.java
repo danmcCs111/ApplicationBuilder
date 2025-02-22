@@ -45,7 +45,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 		SAVE_ID = "JButtonArray",
 		CHARACTER_LIMIT_TEXT= "..",
 		IMAGES_RELATIVE_FILE_LOCATION= "/images/",
-		PROPERTIES_FILE_LOCATION = PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/data/",
+		PROPERTIES_FILE_LOCATION = PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/data/ ",
 		PROPERTIES_FILE_OPEN_TITLE = "Open Properties",
 		PROPERTIES_FILE_OPEN_FILTER = "txt",
 		PROPERTIES_FILE_EXTENSION = "\\.txt",
