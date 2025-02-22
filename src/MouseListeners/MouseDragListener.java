@@ -23,6 +23,8 @@ public class MouseDragListener extends MouseAdapter
 	private AbstractButton component;
 	private JLabel picLabel;
 	
+	private boolean mouse1Pressed = false;
+	
 	public MouseDragListener(JFrame f, AbstractButton component, JLabel picLabel)
 	{
 		super();
@@ -57,19 +59,33 @@ public class MouseDragListener extends MouseAdapter
 	}
 	
 	@Override
-	public void mouseReleased(MouseEvent e) {
+	public void mouseReleased(MouseEvent e) 
+	{
         mouseDownCompCoords = null;
     }
 
 	@Override
-    public void mousePressed(MouseEvent e) {
-        mouseDownCompCoords = e.getPoint();
+    public void mousePressed(MouseEvent e) 
+	{
+		if(e.getButton() == MouseEvent.BUTTON1)
+		{
+			mouseDownCompCoords = e.getPoint();
+			mouse1Pressed = true;
+		}
+		else
+		{
+			mouse1Pressed = false;
+		}
     }
         
 	@Override
-	public void mouseDragged(MouseEvent e) {
-        Point currCoords = e.getLocationOnScreen();
-        currCoords.setLocation(currCoords.x, currCoords.y - FRAME_AND_TITLE_HEIGHT);
-        f.setLocation(currCoords.x - mouseDownCompCoords.x, currCoords.y - mouseDownCompCoords.y);
+	public void mouseDragged(MouseEvent e) 
+	{
+		if(mouse1Pressed)
+		{
+	        Point currCoords = e.getLocationOnScreen();
+	        currCoords.setLocation(currCoords.x, currCoords.y - FRAME_AND_TITLE_HEIGHT);
+	        f.setLocation(currCoords.x - mouseDownCompCoords.x, currCoords.y - mouseDownCompCoords.y);
+		}
 	}
 }

@@ -52,12 +52,13 @@ public class PicLabelMouseListener extends MouseAdapter
 	public void mouseClicked(MouseEvent e)
 	{
 //		if(e.getClickCount() == 2)//require double click
-//		{
+		if(e.getButton() == MouseEvent.BUTTON1)
+		{
 			for(ActionListener al : connectedButton.getActionListeners())
 			{
 				al.actionPerformed(new ActionEvent(connectedButton, 1, "Open From Image"));
 				highLightLabel(connectedButton, true);
 			}
-//		}
+		}
 	}
 }
