@@ -244,14 +244,14 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		}
 		ImageIcon ii = new ImageIcon(useImage);
 		JLabel picLabel = new JLabel(ii);
-		MouseDragListener mouseDragListener = new MouseDragListener(f);
-		picLabel.addMouseMotionListener(mouseDragListener);
-		picLabel.addMouseListener(mouseDragListener);
-		picLabel.setName(text);
 		
 		if(component instanceof AbstractButton)//TODO
 		{
 			AbstractButton ab = (AbstractButton) component;
+			MouseDragListener mouseDragListener = new MouseDragListener(f, ab, picLabel);
+			picLabel.addMouseMotionListener(mouseDragListener);
+			picLabel.addMouseListener(mouseDragListener);
+			picLabel.setName(text);
 			picLabel.addMouseListener(new PicLabelMouseListener(ab, picLabel));
 			if(JButtonArray.isHighlightButton(ab))//TODO add interface.?
 			{
