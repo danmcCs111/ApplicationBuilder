@@ -285,6 +285,11 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 		highlightButton.setForeground(color[1]);
 		highlightButton.setBackground(color[0]);
 	}
+	
+	public static boolean isHighlightButton(AbstractButton ab)
+	{
+		return highlightButton == ab;
+	}
 
 	@Override
 	public void unselect() 
@@ -423,6 +428,5 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 	{
 		return this;
 	}
-
 
 }

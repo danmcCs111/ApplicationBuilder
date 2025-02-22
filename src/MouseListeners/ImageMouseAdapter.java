@@ -34,6 +34,7 @@ import Properties.PathUtility;
 import WidgetComponents.ComboListDialogSelectedListener;
 import WidgetComponents.ComboSelectionDialog;
 import WidgetComponents.DialogParentReferenceContainer;
+import WidgetComponents.JButtonArray;
 
 public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSelectedListener, DialogParentReferenceContainer
 {
@@ -247,7 +248,12 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		
 		if(component instanceof AbstractButton)//TODO
 		{
-			picLabel.addMouseListener(new PicLabelMouseListener((AbstractButton) component, picLabel));
+			AbstractButton ab = (AbstractButton) component;
+			picLabel.addMouseListener(new PicLabelMouseListener(ab, picLabel));
+			if(JButtonArray.isHighlightButton(ab))//TODO add interface.?
+			{
+				PicLabelMouseListener.highLightLabel(ab, true);
+			}
 		}
 		
 		p.add(picLabel, BorderLayout.CENTER);
