@@ -22,6 +22,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import ActionListeners.ArrayActionListener;
 import MouseListeners.ImageMouseAdapter;
+import MouseListeners.PicLabelMouseListener;
 import Params.KeepSelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
@@ -84,6 +85,19 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 		}
 	};
 	
+	public static final ActionListener highlightLabelActionListener = new ActionListener() 
+	{
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+			if(e.getSource() instanceof AbstractButton)
+			{
+				AbstractButton ab = (AbstractButton) e.getSource();
+				PicLabelMouseListener.highLightLabel(ab, e.getID() == (ActionEvent.ACTION_PERFORMED));
+			}
+		}
+	};
+	
 	private ActionListener actionListener = null;
 	
 	public void addJButtons(String path, List<String> listOf, int index)
@@ -94,7 +108,6 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 		
 		clearJButtons();
 		
-//		if(collectionJButtons)//TODO fix.
 		if(!indexPaths.contains(path))
 		{
 			for(Component comp : FileListOptionGenerator.buildComponents(path, listOf, JButton.class))
@@ -220,6 +233,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 				if(button instanceof AbstractButton)
 				{
 					((AbstractButton)button).addActionListener(actionListener);
+					((AbstractButton)button).addActionListener(highlightLabelActionListener);
 				}
 			}
 		}

@@ -57,14 +57,15 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 	private JFrame f;
 	private Component component;
 	private JFrame parentFrame;
-	private BufferedImage img,
+	private BufferedImage 
+		img,
 		defaultImg;
-	private String text;
-	private boolean keepFrame = false;
 	private static final ArrayList<KeepSelection> keeps = new ArrayList<KeepSelection>();//The whole app
 	private KeepSelection keep;
+	private String text;
 	private List<String> saveChosenSelection = null;
 	private String saveFilePathChosen = null;
+	private boolean keepFrame = false;
 		
 	public ImageMouseAdapter(Component component, JFrame parentFrame, String path, String text) throws IOException
 	{
@@ -242,10 +243,11 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		}
 		ImageIcon ii = new ImageIcon(useImage);
 		JLabel picLabel = new JLabel(ii);
+		picLabel.setName(text);
 		
 		if(component instanceof AbstractButton)//TODO
 		{
-			picLabel.addMouseListener(new PicLabelMouseListener((AbstractButton) component));
+			picLabel.addMouseListener(new PicLabelMouseListener((AbstractButton) component, picLabel));
 		}
 		
 		p.add(picLabel, BorderLayout.CENTER);
@@ -261,7 +263,6 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 	{
 		if(keeps.isEmpty())
 			return;
-		
 		
 		JFileChooser jfc = new JFileChooser();
 		jfc.setDialogType(JFileChooser.SAVE_DIALOG);
