@@ -1,5 +1,5 @@
 <Build>
-	<JFrame addWindowListener="WindowListeners.ProcessExecutorWindowListener" extendedSetupTaskbar=".\src\ApplicationBuilder\launch_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="10, 30" setName="VideoPlayer" setSize="450, 500" setTitle="...!Video Launch!..." >
+	<JFrame addWindowListener="WindowListeners.ProcessExecutorWindowListener" extendedSetupTaskbar=".\src\ApplicationBuilder\launch_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="10, 30" setName="VideoPlayer" setSize="450, 500" setTitle="...!Video Launch!..." setResizable="False" >
 		<JPanel extendedLayoutApplyParent="Center" setLayout="java.awt.BorderLayout" >
 			<JScrollPane extendedLayoutApplyParent="Center" extendedScrollBarSetUnit="15" setName="scrollPane" >
 				<SwappableCollection extendedArrayProcessingPath="./src/ApplicationBuilder/Roku Channels@.url; ./src/ApplicationBuilder/YoutubeFreeMovies@.url; ./src/ApplicationBuilder/Youtube Channels@.url; ./src/ApplicationBuilder/Amazon Videos@.url; ./src/ApplicationBuilder/Music@.url" extendedSetViewportView="" setLayout="java.awt.BorderLayout" setName="swapVideos" >
@@ -36,9 +36,9 @@
 				</JMenuItem>
 				<JMenuItem addActionListener="ActionListeners.ReloadActionListener" extendedLayoutApplyParent="" setText="Reload" >
 				</JMenuItem>
-				<JMenuItem extendedLayoutApplyParent="" extendedCloseActionListener="channels" setText="Close" >
+				<JMenuItem extendedCloseActionListener="channels" extendedLayoutApplyParent="" setText="Close" >
 				</JMenuItem>
-				<JMenuItem extendedLayoutApplyParent="" extendedCloseAllActionListener="channels" setText="Close All" >
+				<JMenuItem extendedCloseAllActionListener="channels" extendedLayoutApplyParent="" setText="Close All" >
 				</JMenuItem>
 			</JMenu>
 		</JMenuBar>
