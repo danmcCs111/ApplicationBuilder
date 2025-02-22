@@ -38,6 +38,8 @@
 				</JMenuItem>
 				<JMenuItem extendedLayoutApplyParent="" extendedCloseActionListener="channels" setText="Close" >
 				</JMenuItem>
+				<JMenuItem extendedLayoutApplyParent="" extendedCloseAllActionListener="channels" setText="Close All" >
+				</JMenuItem>
 			</JMenu>
 		</JMenuBar>
 	</JFrame>

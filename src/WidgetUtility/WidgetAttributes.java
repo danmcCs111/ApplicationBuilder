@@ -36,6 +36,7 @@ import WidgetExtensions.ExtendedArrayProcessingPath;
 import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetExtensions.ExtendedCalculationPad;
 import WidgetExtensions.ExtendedCloseActionListener;
+import WidgetExtensions.ExtendedCloseAllActionListener;
 import WidgetExtensions.ExtendedLayoutApplyParent;
 import WidgetExtensions.ExtendedOpenActionListener;
 import WidgetExtensions.ExtendedSaveActionListener;
@@ -117,7 +118,8 @@ public class WidgetAttributes
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedSaveActionListener.class),
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedOpenActionListener.class),
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedCloseActionListener.class)
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedCloseActionListener.class),
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedCloseAllActionListener.class)
 				
 		});
 		

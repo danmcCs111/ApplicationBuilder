@@ -27,6 +27,7 @@ import Params.KeepSelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
 import WidgetExtensions.CloseActionExtension;
+import WidgetExtensions.CloseAllActionExtension;
 import WidgetExtensions.ExtendedStringCollection;
 import WidgetExtensions.OpenActionExtension;
 import WidgetExtensions.SaveActionExtension;
@@ -39,7 +40,7 @@ import WidgetUtility.WidgetBuildController;
  * 
  * TODO use a collection of inner panels and switch during toggle?
  */
-public class JButtonArray extends JPanel implements ArrayActionListener, CharacterLimited, SaveActionExtension, OpenActionExtension, CloseActionExtension, ComboListDialogSelectedListener, DialogParentReferenceContainer
+public class JButtonArray extends JPanel implements ArrayActionListener, CharacterLimited, SaveActionExtension, OpenActionExtension, CloseActionExtension, ComboListDialogSelectedListener, DialogParentReferenceContainer, CloseAllActionExtension
 {
 	private static final long serialVersionUID = 1883L;
 	public static final String 
@@ -427,6 +428,15 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 	public Object getCloseListener() 
 	{
 		return this;
+	}
+
+	@Override
+	public void closeAll() 
+	{
+		for(KeepSelection ks : getKeepSelection().toArray(new KeepSelection[] {}))
+		{
+			ks.getFrame().dispatchEvent(new WindowEvent(ks.getFrame(), WindowEvent.WINDOW_CLOSING));
+		}
 	}
 
 }
