@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import javax.swing.AbstractButton;
 
+import MouseListeners.PicLabelMouseListener;
 import Properties.LoggingMessages;
 
 public class LaunchActionListener implements ActionListener
@@ -33,6 +34,7 @@ public class LaunchActionListener implements ActionListener
 				ArrayActionListener aal = (ArrayActionListener)lastButtonParent;
 				aal.unselect();
 			}
+			PicLabelMouseListener.highLightLabel(lastButton, false);//TODO interface?
 		}
 		else
 		{
