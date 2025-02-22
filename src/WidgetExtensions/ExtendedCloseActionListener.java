@@ -1,0 +1,57 @@
+package WidgetExtensions;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JMenuItem;
+
+import WidgetComponents.ComboListDialogSelectedListener;
+import WidgetComponents.ComboSelectionDialog;
+import WidgetComponents.DialogParentReferenceContainer;
+import WidgetUtility.WidgetBuildController;
+import WidgetUtility.WidgetCreatorProperty;
+
+public class ExtendedCloseActionListener implements ExtendedAttributeStringParam
+{
+
+	public static final String 
+		DIALOG_TITLE = "Close Selector",
+		DIALOG_MESSAGE = "Select Items to Close";
+	
+	@Override
+	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 
+	{
+		String name = arg0;
+		Object m = widgetProperties.getInstance();
+		
+		if(m instanceof JMenuItem)
+		{
+			JMenuItem mi = (JMenuItem) m;
+			mi.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					WidgetCreatorProperty wcp = WidgetBuildController.getInstance().findRefByName(name);
+					if(wcp != null)
+					{
+						Object o = wcp.getInstance();
+						if(o instanceof CloseActionExtension)//TODO
+						{
+							CloseActionExtension cae = ((CloseActionExtension) o);
+							ComboSelectionDialog csd = new ComboSelectionDialog();
+							csd.buildAndShow(
+									cae.getSelectionValues(), 
+									DIALOG_TITLE, 
+									DIALOG_MESSAGE, 
+									"Close",
+									"Close All",
+									"Cancel",
+									(ComboListDialogSelectedListener) cae.getCloseListener(), 
+									(DialogParentReferenceContainer) cae.getCloseListener());
+						}
+					}
+				}
+			});
+		}
+	}
+
+}

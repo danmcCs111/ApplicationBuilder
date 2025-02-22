@@ -23,6 +23,11 @@ public class KeepSelection
 	{
 		this.frame = frame;
 	}
+
+	public JFrame getFrame()
+	{
+		return this.frame;
+	}
 	
 	public Point getLocationPoint()
 	{

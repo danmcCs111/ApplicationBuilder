@@ -3,9 +3,11 @@ package WidgetComponents;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,9 +22,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import ActionListeners.ArrayActionListener;
 import MouseListeners.ImageMouseAdapter;
+import Params.KeepSelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
+import WidgetExtensions.CloseActionExtension;
 import WidgetExtensions.ExtendedStringCollection;
+import WidgetExtensions.OpenActionExtension;
+import WidgetExtensions.SaveActionExtension;
 import WidgetUtility.FileListOptionGenerator;
 import WidgetUtility.WidgetBuildController;
 
@@ -32,7 +38,7 @@ import WidgetUtility.WidgetBuildController;
  * 
  * TODO use a collection of inner panels and switch during toggle?
  */
-public class JButtonArray extends JPanel implements ArrayActionListener, CharacterLimited, SaveActionExtension, OpenActionExtension
+public class JButtonArray extends JPanel implements ArrayActionListener, CharacterLimited, SaveActionExtension, OpenActionExtension, CloseActionExtension, ComboListDialogSelectedListener, DialogParentReferenceContainer
 {
 	private static final long serialVersionUID = 1883L;
 	public static final String 
@@ -106,7 +112,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 						if(characterLimit != 0)
 						{
 							((AbstractButton) comp).setText(txt.length() >= this.characterLimit
-									? txt.substring(0, this.characterLimit)+CHARACTER_LIMIT_TEXT
+									? txt.substring(0, this.characterLimit-CHARACTER_LIMIT_TEXT.length()) + CHARACTER_LIMIT_TEXT
 									: txt);
 						}
 						else
@@ -350,5 +356,59 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 		}
 		return props;
 	}
+	
+	private ArrayList<KeepSelection> getKeepSelection()
+	{
+		return ((ImageMouseAdapter)getAMouseListener()).getKeeps();
+	}
+
+	@Override
+	public List<String> getSelectionValues() 
+	{
+		return KeepSelection.getTextOnlyConversion(getKeepSelection());
+	}
+
+	
+	public ImageMouseAdapter getAMouseListener() 
+	{
+		for(MouseListener ml : collectionJButtons.get(indexPaths.get(indexPos)).get(0).getMouseListeners())
+		{
+			if(ml instanceof ImageMouseAdapter)
+			{
+				return (ImageMouseAdapter) ml;
+			}
+		}
+		return null;//shouldn't.
+	}
+
+	@Override
+	public Point getContainerCenterLocationPoint() 
+	{
+		return new Point((int)WidgetBuildController.getInstance().getFrame().getBounds().getCenterX(), 
+				(int)WidgetBuildController.getInstance().getFrame().getBounds().getCenterY());
+	}
+
+	@Override
+	public void selectionChosen(List<String> chosenSelection) 
+	{
+		if(chosenSelection == null)
+			return;
+		
+		//Change to array to avoid concurrent issue
+		for(KeepSelection ks : getKeepSelection().toArray(new KeepSelection[getKeepSelection().size()]))
+		{
+			if(chosenSelection.contains(ks.getText()))
+			{
+				ks.getFrame().dispatchEvent(new WindowEvent(ks.getFrame(), WindowEvent.WINDOW_CLOSING));
+			}
+		}
+	}
+
+	@Override
+	public Object getCloseListener() 
+	{
+		return this;
+	}
+
 
 }

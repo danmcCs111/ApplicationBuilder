@@ -36,6 +36,8 @@
 				</JMenuItem>
 				<JMenuItem addActionListener="ActionListeners.ReloadActionListener" extendedLayoutApplyParent="" setText="Reload" >
 				</JMenuItem>
+				<JMenuItem extendedLayoutApplyParent="" extendedCloseActionListener="channels" setText="Close" >
+				</JMenuItem>
 			</JMenu>
 		</JMenuBar>
 	</JFrame>

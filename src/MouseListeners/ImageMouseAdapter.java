@@ -83,6 +83,11 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		}
 	}
 	
+	public ArrayList<KeepSelection> getKeeps()
+	{
+		return keeps;
+	}
+	
 	protected boolean keepFrame()
 	{
 		return this.keepFrame;

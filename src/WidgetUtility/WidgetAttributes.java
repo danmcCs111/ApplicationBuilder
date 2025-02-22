@@ -35,6 +35,7 @@ import WidgetExtensions.ExtendedActionListenerSubType;
 import WidgetExtensions.ExtendedArrayProcessingPath;
 import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetExtensions.ExtendedCalculationPad;
+import WidgetExtensions.ExtendedCloseActionListener;
 import WidgetExtensions.ExtendedLayoutApplyParent;
 import WidgetExtensions.ExtendedOpenActionListener;
 import WidgetExtensions.ExtendedSaveActionListener;
@@ -115,7 +116,8 @@ public class WidgetAttributes
 		EXTENDED_METHODS.put(JMenuItem.class, new String [] {
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedSaveActionListener.class),
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedOpenActionListener.class)
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedOpenActionListener.class),
+				ExtendedAttributeStringParam.getMethodDefinition(ExtendedCloseActionListener.class)
 				
 		});
 		
