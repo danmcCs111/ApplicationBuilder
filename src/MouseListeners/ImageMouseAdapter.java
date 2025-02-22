@@ -51,7 +51,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		PROPERTIES_FILE_SAVE_FILTER = "txt",
 		PROPERTIES_FILE_EXTENSION = ".txt",
 		KEEP_MENU_OPTION_TEXT = "keep",
-		KEEP_TITLE = "[Double-Click Image]",
+		KEEP_TITLE = "[Click Image]",
 		FILE_ARG_DELIMITER="@",
 		DEFAULT_IMG = PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/launch_xsm.png";//TODO
 	
