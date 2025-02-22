@@ -331,7 +331,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 		if(props == null)
 			return;
 		
-		for(String s : collectionJButtons.keySet())//search entire collection.
+		for(String s : collectionJButtons.keySet())//search entire collection. issue with duplicates when link is in more than one folder
 		{
 			for(MouseListener ml : collectionJButtons.get(s).get(0).getMouseListeners())
 			{
