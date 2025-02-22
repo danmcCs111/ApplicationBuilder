@@ -55,8 +55,6 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		FILE_ARG_DELIMITER="@",
 		DEFAULT_IMG = PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/launch_xsm.png";//TODO
 	
-	private static final int FRAME_AND_TITLE_HEIGHT = 45; 
-	
 	private JFrame f;
 	private Component component;
 	private JFrame parentFrame;
@@ -69,25 +67,6 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 	private List<String> saveChosenSelection = null;
 	private String saveFilePathChosen = null;
 	private boolean keepFrame = false;
-	private MouseAdapter mouseDragAdapter = new MouseAdapter() {
-		private Point mouseDownCompCoords = null;
-		@Override
-		public void mouseReleased(MouseEvent e) {
-            mouseDownCompCoords = null;
-        }
-
-		@Override
-        public void mousePressed(MouseEvent e) {
-            mouseDownCompCoords = e.getPoint();
-        }
-	        
-		@Override
-		public void mouseDragged(MouseEvent e) {
-            Point currCoords = e.getLocationOnScreen();
-            currCoords.setLocation(currCoords.x, currCoords.y - FRAME_AND_TITLE_HEIGHT);
-            f.setLocation(currCoords.x - mouseDownCompCoords.x, currCoords.y - mouseDownCompCoords.y);
-		}
-	};
 		
 	public ImageMouseAdapter(Component component, JFrame parentFrame, String path, String text) throws IOException
 	{
@@ -265,8 +244,9 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		}
 		ImageIcon ii = new ImageIcon(useImage);
 		JLabel picLabel = new JLabel(ii);
-		picLabel.addMouseMotionListener(mouseDragAdapter);
-		picLabel.addMouseListener(mouseDragAdapter);
+		MouseDragListener mouseDragListener = new MouseDragListener(f);
+		picLabel.addMouseMotionListener(mouseDragListener);
+		picLabel.addMouseListener(mouseDragListener);
 		picLabel.setName(text);
 		
 		if(component instanceof AbstractButton)//TODO
