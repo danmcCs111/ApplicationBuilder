@@ -18,8 +18,8 @@ public class ExtendedCloseActionListener implements ExtendedAttributeStringParam
 		DIALOG_TITLE = "Close Selector",
 		DIALOG_MESSAGE = "Select Items to Close",
 		CLOSE_BUTTON_TEXT = "Close",
-		CLOSE_ALL_BUTTON_TEXT = "Close All",
-		CANCEL_BUTTON_TEXT ="Cancel";
+		CLOSE_ALL_BUTTON_TEXT = "Close All";
+//		CANCEL_BUTTON_TEXT ="Cancel";
 	
 	@Override
 	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 
@@ -47,7 +47,7 @@ public class ExtendedCloseActionListener implements ExtendedAttributeStringParam
 									DIALOG_MESSAGE, 
 									CLOSE_BUTTON_TEXT,
 									CLOSE_ALL_BUTTON_TEXT,
-									CANCEL_BUTTON_TEXT,
+									null,
 									(ComboListDialogSelectedListener) cae.getCloseListener(), 
 									(DialogParentReferenceContainer) cae.getCloseListener());
 						}
