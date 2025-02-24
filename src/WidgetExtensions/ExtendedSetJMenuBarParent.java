@@ -15,7 +15,11 @@ public class ExtendedSetJMenuBarParent implements ExtendedAttributeStringParam
 		Object instance = WidgetBuildController.getInstance().findRef(widgetProperties.getParentRefWithID()).getInstance();
 		if(instance instanceof JFrame)
 		{
-			((JFrame)instance).setJMenuBar((JMenuBar) widgetProperties.getInstance());
+			Object o = widgetProperties.getInstance();
+			if(o instanceof JMenuBar)
+			{
+				((JFrame)instance).setJMenuBar((JMenuBar) widgetProperties.getInstance());
+			}
 		}
 	}
 	

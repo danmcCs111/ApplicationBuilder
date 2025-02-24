@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import ActionListeners.ArrayActionListener;
+import ClassDefintions.DirectorySelection;
 import MouseListeners.ImageMouseAdapter;
 import MouseListeners.PicLabelMouseListener;
 import Params.KeepSelection;
@@ -43,17 +44,18 @@ import WidgetUtility.WidgetBuildController;
 public class JButtonArray extends JPanel implements ArrayActionListener, CharacterLimited, SaveActionExtension, OpenActionExtension, CloseActionExtension, ComboListDialogSelectedListener, DialogParentReferenceContainer, CloseAllActionExtension
 {
 	private static final long serialVersionUID = 1883L;
+	
 	public static final String 
 		SAVE_ID = "JButtonArray",
 		CHARACTER_LIMIT_TEXT= "..",
 		IMAGES_RELATIVE_FILE_LOCATION= "/images/",
-		PROPERTIES_FILE_LOCATION = PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/data/ ",
 		PROPERTIES_FILE_OPEN_TITLE = "Open Properties",
 		PROPERTIES_FILE_OPEN_FILTER = "txt",
 		PROPERTIES_FILE_EXTENSION = "\\.txt",
 		PROPERTIES_FILE_ARG_DELIMITER = "@",
 		PROPERTIES_FILE_DELIMITER = "=";
 	
+	private static String propertiesFileLocation;
 	public static Color []
 		backgroundAndForegroundColor = new Color [] {new JButton().getBackground(), new JButton().getForeground()},
 		highlightBackgroundAndForegroundColor = new Color [] {backgroundAndForegroundColor[0], backgroundAndForegroundColor[1]};
@@ -100,6 +102,11 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 	};
 	
 	private ActionListener actionListener = null;
+	
+	public void setPropertiesFileRelativeLocation(DirectorySelection directorySelection)
+	{
+		propertiesFileLocation = directorySelection.getFullPath();
+	}
 	
 	public void addJButtons(String path, List<String> listOf, int index)
 	{
@@ -364,7 +371,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 		HashMap<String, String> props = null;
 		
 		JFileChooser jfc = new JFileChooser();
-		File f = new File(PROPERTIES_FILE_LOCATION);
+		File f = new File(propertiesFileLocation);
 		jfc.setFileFilter(new FileNameExtensionFilter(PROPERTIES_FILE_OPEN_TITLE, PROPERTIES_FILE_OPEN_FILTER));
 		jfc.setSelectedFile(f);
 		

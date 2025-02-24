@@ -29,6 +29,11 @@ public interface PathUtility
 		return System.getProperty("user.dir");
 	}
 	
+	public static String replaceBackslash(String path)
+	{
+		return path.replaceAll("\\\\", "/");
+	}
+	
 	public static ArrayList<String> getOSFileList(String dir, String filter) 
 	{
 		ArrayList<String> files = new ArrayList<String>();

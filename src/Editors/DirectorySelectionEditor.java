@@ -1,0 +1,88 @@
+package Editors;
+
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+
+import ClassDefintions.DirectorySelection;
+import Params.ParameterEditor;
+import Properties.PathUtility;
+
+public class DirectorySelectionEditor extends JButton implements ParameterEditor
+{
+	private static final long serialVersionUID = 2002L;
+
+	private static final String END_DIRECTORY_SUFFIX = "/ ";
+	private JFileChooser jcc;
+
+	public DirectorySelectionEditor()
+	{
+		jcc = new JFileChooser();
+		jcc.setDialogType(JFileChooser.DIRECTORIES_ONLY);
+		this.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				jcc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+				jcc.setDialogTitle("Select Directory");
+				int choice = jcc.showOpenDialog(null);
+				File chosenFile = jcc.getSelectedFile();
+				if(chosenFile != null && choice == JFileChooser.APPROVE_OPTION)
+				{
+					String replPath = PathUtility.replaceBackslash(chosenFile.getAbsolutePath());
+					
+					DirectorySelectionEditor.this.setText(replPath.replaceAll(
+							PathUtility.replaceBackslash(PathUtility.getCurrentDirectory()), "") + END_DIRECTORY_SUFFIX);
+					jcc.setSelectedFile(chosenFile);
+				}
+			}
+		});
+	}
+	
+	@Override
+	public void destroy() {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public Component getComponentEditor() 
+	{
+		return this;
+	}
+
+	@Override
+	public void setComponentValue(Object value) 
+	{
+		DirectorySelection ds = (DirectorySelection) value;
+		this.setText(ds.getRelativePath());
+		jcc.setSelectedFile(new File(ds.getFullPath()));
+	}
+
+	@Override
+	public String[] getComponentValue() 
+	{
+		return new String[] {DirectorySelectionEditor.this.getText()};
+	}
+
+	@Override
+	public Object getComponentValueObj() 
+	{
+		return new DirectorySelection(DirectorySelectionEditor.this.getText());
+	}
+
+	@Override
+	public String getComponentXMLOutput() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getParameterDefintionString() 
+	{
+		return DirectorySelection.class.getName();
+	}
+
+}

@@ -95,7 +95,6 @@ public class WidgetAttributes
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedCalculationPad.class),
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedTitleSwitcher.class)
-				
 		});
 		EXTENDED_METHODS.put(JScrollPane.class, new String [] {
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),
@@ -120,7 +119,6 @@ public class WidgetAttributes
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedOpenActionListener.class),
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedCloseActionListener.class),
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedCloseAllActionListener.class)
-				
 		});
 		
 		//EXTENDED WIDGETS
@@ -138,7 +136,6 @@ public class WidgetAttributes
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedActionListenerArray.class),
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedSwappableHolder.class),
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedTextStripper.class)
-				
 		});
 		EXTENDED_METHODS.put(MenuOption.class, new String [] {
 				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),
