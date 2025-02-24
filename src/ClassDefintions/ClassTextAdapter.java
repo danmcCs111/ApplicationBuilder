@@ -27,7 +27,6 @@ public class ClassTextAdapter
 			{
 				for(int i = 0; i < stringToObjectConverter.numberOfArgs(); i++)//loop through the xml args per method def param
 				{
-					
 					argParams.add(params[count + i]);
 				}
 			}

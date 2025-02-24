@@ -49,11 +49,6 @@ public class WidgetComponent
 		this.systemTray = systemTray;
 	}
 	
-//	public String getNextCounterId()
-//	{
-//		return getLabelStr() + ID_SPLIT + counter++;
-//	}
-	
 	public static void resetIDCounter()
 	{
 		counter = 0;

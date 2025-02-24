@@ -24,7 +24,9 @@ public class DirectorySelectionConverter implements StringToObjectConverter
 	@Override
 	public Object conversionCall(String... args) 
 	{
-		return new DirectorySelection(args[0]);
+		return conversionCallIsBlankCheck(args)
+				? getDefaultNullValue()
+				: new DirectorySelection(args[0]);
 	}
 	
 }
