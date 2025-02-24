@@ -16,7 +16,9 @@ public class DirectorySelectionEditor extends JButton implements ParameterEditor
 {
 	private static final long serialVersionUID = 2002L;
 
-	private static final String END_DIRECTORY_SUFFIX = "/ ";
+	private static final String
+		DIRECTORY_SELECT_DIALOG_TITLE_TEXT = "Select Directory",
+		END_DIRECTORY_SUFFIX = "/ ";
 	private JFileChooser jcc;
 
 	public DirectorySelectionEditor()
@@ -27,7 +29,7 @@ public class DirectorySelectionEditor extends JButton implements ParameterEditor
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				jcc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-				jcc.setDialogTitle("Select Directory");
+				jcc.setDialogTitle(DIRECTORY_SELECT_DIALOG_TITLE_TEXT);
 				int choice = jcc.showOpenDialog(null);
 				File chosenFile = jcc.getSelectedFile();
 				if(chosenFile != null && choice == JFileChooser.APPROVE_OPTION)
