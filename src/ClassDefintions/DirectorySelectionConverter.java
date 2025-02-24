@@ -18,7 +18,7 @@ public class DirectorySelectionConverter implements StringToObjectConverter
 	@Override
 	public Object getDefaultNullValue() 
 	{
-		return null;
+		return "";
 	}
 
 	@Override
