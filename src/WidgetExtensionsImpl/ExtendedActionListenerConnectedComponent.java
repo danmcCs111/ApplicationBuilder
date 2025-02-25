@@ -3,6 +3,7 @@ package WidgetExtensionsImpl;
 import javax.swing.JComponent;
 
 import ActionListeners.ActionListenerSubTypeExtension;
+import WidgetExtensions.ExtendedAttributeParam;
 import WidgetUtility.WidgetCreatorProperty;
 
 public class ExtendedActionListenerConnectedComponent implements ExtendedAttributeParam

@@ -6,14 +6,14 @@
 					<JPanel extendedLayoutApplyParent="North" setBackground="204, 255, 204" setLayout="java.awt.BorderLayout" >
 						<JLabel extendedLayoutApplyParent="North" extendedTitleSwitcher="swapVideos" setBackground="150, 150, 150" setForeground="100, 50, 150" setHorizontalAlignment="0" setName="title" setText="TODO" >
 						</JLabel>
-						<JButtonArray extendedActionListenerArray="ActionListeners.LaunchActionListener" extendedLayoutApplyParent="Center" extendedSwappableHolder="swapVideos" extendedTextStripper="Watch @ Online for Free _ The Roku Channel _ Roku@ - YouTube@ - Prime Video@Prime Video- @1_@.url" setArrayForegroundAndBackground="240, 240, 240, 102, 102, 102" setCharacterLimit="35" setExpandedArrangementFileRelativeLocation="/src/ApplicationBuilder/data/ " setHighlightBackgroundColor="240, 240, 240" setHighlightForegroundColor="50, 50, 50" setLayout="java.awt.GridLayout" setName="channels" >
+						<JButtonArray extendedActionListenerArray="ActionListenersImpl.LaunchActionListener" extendedLayoutApplyParent="Center" extendedSwappableHolder="swapVideos" extendedTextStripper="Watch @ Online for Free _ The Roku Channel _ Roku@ - YouTube@ - Prime Video@Prime Video- @1_@.url" setArrayForegroundAndBackground="240, 240, 240, 102, 102, 102" setCharacterLimit="35" setExpandedArrangementFileRelativeLocation="/src/ApplicationBuilder/data/ " setHighlightBackgroundColor="240, 240, 240" setHighlightForegroundColor="50, 50, 50" setLayout="java.awt.GridLayout" setName="channels" >
 						</JButtonArray>
 					</JPanel>
 				</SwappableCollection>
 			</JScrollPane>
 		</JPanel>
 		<JPanel extendedLayoutApplyParent="South" setLayout="java.awt.BorderLayout" setBackground="204, 255, 204" >
-			<JButton addActionListener="ActionListeners.LaunchActionListener" extendedLayoutApplyParent="Center" setBackground="175, 204, 175" setForeground="119, 5, 6" setName="closeLaunchAction" setPreferredSize="80, 25" setText=" X Close Video" >
+			<JButton addActionListener="ActionListenersImpl.LaunchActionListener" extendedLayoutApplyParent="Center" setBackground="175, 204, 175" setForeground="119, 5, 6" setName="closeLaunchAction" setPreferredSize="80, 25" setText=" X Close Video" >
 			</JButton>
 			<JLabel extendedCalculationPad="JButton" extendedLayoutApplyParent="East" >
 			</JLabel>
@@ -21,11 +21,11 @@
 			</JLabel>
 		</JPanel>
 		<JPanel extendedLayoutApplyParent="West" setLayout="java.awt.BorderLayout" setBackground="204, 255, 204" >
-			<JButton addActionListener="ActionListeners.NavigationButtonActionListener" extendedActionListenerConnectedComponent="WidgetComponents.SwappableCollection" extendedActionListenerSubType="WidgetComponents.Direction@BACKWARD" extendedLayoutApplyParent="North" setText="[&lt;]" >
+			<JButton addActionListener="ActionListenersImpl.NavigationButtonActionListener" extendedActionListenerConnectedComponent="WidgetComponents.SwappableCollection" extendedActionListenerSubType="WidgetComponents.Direction@BACKWARD" extendedLayoutApplyParent="North" setText="[&lt;]" >
 			</JButton>
 		</JPanel>
 		<JPanel extendedLayoutApplyParent="East" setLayout="java.awt.BorderLayout" setBackground="204, 255, 204" >
-			<JButton addActionListener="ActionListeners.NavigationButtonActionListener" extendedActionListenerConnectedComponent="WidgetComponents.SwappableCollection" extendedActionListenerSubType="WidgetComponents.Direction@FORWARD" extendedLayoutApplyParent="North" setText="[&gt;]..." >
+			<JButton addActionListener="ActionListenersImpl.NavigationButtonActionListener" extendedActionListenerConnectedComponent="WidgetComponents.SwappableCollection" extendedActionListenerSubType="WidgetComponents.Direction@FORWARD" extendedLayoutApplyParent="North" setText="[&gt;]..." >
 			</JButton>
 		</JPanel>
 		<JMenuBar extendedSetJMenuBarParent="" >
@@ -34,7 +34,7 @@
 				</JMenuItem>
 				<JMenuItem extendedLayoutApplyParent="" extendedSaveActionListener="channels" setText="Save" >
 				</JMenuItem>
-				<JMenuItem addActionListener="ActionListeners.ReloadActionListener" extendedLayoutApplyParent="" setText="Reload" >
+				<JMenuItem addActionListener="ActionListenersImpl.ReloadActionListener" extendedLayoutApplyParent="" setText="Reload" >
 				</JMenuItem>
 				<JMenuItem extendedCloseActionListener="channels" extendedLayoutApplyParent="" setText="Close" >
 				</JMenuItem>

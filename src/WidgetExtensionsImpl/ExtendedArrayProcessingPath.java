@@ -6,6 +6,7 @@ import java.util.List;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
 import WidgetComponents.SwappableCollection;
+import WidgetExtensions.ExtendedAttributeParam;
 import WidgetUtility.WidgetCreatorProperty;
 
 public class ExtendedArrayProcessingPath implements ExtendedAttributeParam

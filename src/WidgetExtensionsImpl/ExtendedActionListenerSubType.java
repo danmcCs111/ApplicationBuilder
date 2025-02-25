@@ -6,6 +6,7 @@ import javax.swing.AbstractButton;
 import ActionListeners.ActionListenerSubTypeExtension;
 import Properties.LoggingMessages;
 import WidgetComponents.Direction;
+import WidgetExtensions.ExtendedAttributeParam;
 import WidgetUtility.WidgetCreatorProperty;
 
 public class ExtendedActionListenerSubType implements ExtendedAttributeParam

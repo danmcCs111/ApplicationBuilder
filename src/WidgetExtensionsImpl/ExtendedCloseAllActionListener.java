@@ -7,6 +7,7 @@ import javax.swing.JMenuItem;
 
 import WidgetExtensions.CloseActionExtension;
 import WidgetExtensions.CloseAllActionExtension;
+import WidgetExtensions.ExtendedAttributeParam;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 

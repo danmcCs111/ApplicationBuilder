@@ -12,13 +12,15 @@ import Params.ParameterEditor;
 import Params.XmlToWidgetGenerator;
 import Properties.LoggingMessages;
 import WidgetComponents.PostWidgetBuildProcessing;
-import WidgetExtensionsImpl.ExtendedAttributeParam;
+import WidgetExtensions.ExtendedAttributeParam;
 import WidgetExtensionsImpl.ExtendedLayoutApplyParent;
 import WidgetExtensionsImpl.ExtendedSwappableHolder;
 import WidgetExtensionsImpl.ExtendedTextStripper;
 
 public class WidgetBuildController 
 {
+	private static final String EXTENSIONS_PACKAGE_NAME = "WidgetExtensionsImpl";
+	
 	private static final Class<?> [] FIRST_ORDERED_GENERATORS = new Class<?> [] {
 		ExtendedLayoutApplyParent.class, 
 		ExtendedTextStripper.class
@@ -359,7 +361,7 @@ public class WidgetBuildController
 		Class<? extends ExtendedAttributeParam> c = null;
 		try {
 			c = (Class<? extends ExtendedAttributeParam>) 
-					Class.forName("WidgetExtensions" + "." + me);
+					Class.forName(EXTENSIONS_PACKAGE_NAME + "." + me);
 		} catch (ClassNotFoundException e) {
 			//return null
 		}

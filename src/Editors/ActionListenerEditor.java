@@ -12,8 +12,8 @@ public class ActionListenerEditor extends JComboBox<String> implements Parameter
 	private static final long serialVersionUID = 1990L;
 
 	private static final String 
-		EDITOR_DIRECTORY = "/src/ActionListeners",
-		PACKAGE_PREFIX = "ActionListeners",
+		EDITOR_DIRECTORY = "/src/ActionListenersImpl",
+		PACKAGE_PREFIX = "ActionListenersImpl",
 		EDITOR_PARAMETER_FILE_EXTENSION = ".java",
 		EDITOR_PARAMETER_FILE_FILTER = "java";
 	

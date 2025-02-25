@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import ActionListeners.ArrayActionListener;
 import ObjectTypeConvertersImpl.ActionListenerConverter;
+import WidgetExtensions.ExtendedAttributeParam;
 import WidgetUtility.WidgetCreatorProperty;
 
 public class ExtendedActionListenerArray implements ExtendedAttributeParam 

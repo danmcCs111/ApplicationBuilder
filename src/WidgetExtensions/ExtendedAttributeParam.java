@@ -1,4 +1,4 @@
-package WidgetExtensionsImpl;
+package WidgetExtensions;
 
 import java.awt.Component;
 

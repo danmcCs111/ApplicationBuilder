@@ -1,9 +1,9 @@
-package WidgetExtensionsImpl;
+package WidgetExtensions;
 
 public enum ExtendedMethodArgDef 
 {
-	ExtendedFileSelection(" [ClassDefinitions.FileSelection arg0]"),
-	ExtendedDirectorySelection(" [ClassDefinitions.DirectorySelection arg0]"),
+	ExtendedFileSelection(" [ObjectTypeConversion.FileSelection arg0]"),
+	ExtendedDirectorySelection(" [ObjectTypeConversion.DirectorySelection arg0]"),
 	ExtendedAttributeStringParam(" [java.lang.String arg0]");
 	
 	private String methodArgDef;

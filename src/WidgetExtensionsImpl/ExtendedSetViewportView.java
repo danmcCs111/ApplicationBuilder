@@ -4,6 +4,7 @@ import java.awt.Component;
 
 import javax.swing.JScrollPane;
 
+import WidgetExtensions.ExtendedAttributeParam;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 

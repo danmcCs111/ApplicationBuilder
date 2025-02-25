@@ -9,6 +9,7 @@ import WidgetComponents.ComboListDialogSelectedListener;
 import WidgetComponents.ComboSelectionDialog;
 import WidgetComponents.DialogParentReferenceContainer;
 import WidgetExtensions.CloseActionExtension;
+import WidgetExtensions.ExtendedAttributeParam;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 

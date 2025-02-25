@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
 
+import WidgetExtensions.ExtendedAttributeParam;
 import WidgetExtensions.OpenActionExtension;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;

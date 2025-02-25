@@ -2,6 +2,7 @@ package WidgetExtensionsImpl;
 
 import java.awt.Component;
 
+import WidgetExtensions.ExtendedAttributeParam;
 import WidgetUtility.WidgetCreatorProperty;
 
 public class ExtendedTitleSwitcher implements ExtendedAttributeParam

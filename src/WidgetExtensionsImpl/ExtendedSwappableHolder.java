@@ -5,6 +5,7 @@ import java.util.List;
 
 import WidgetComponents.JButtonArray;
 import WidgetComponents.SwappableCollection;
+import WidgetExtensions.ExtendedAttributeParam;
 import WidgetUtility.WidgetCreatorProperty;
 
 public class ExtendedSwappableHolder implements ExtendedAttributeParam

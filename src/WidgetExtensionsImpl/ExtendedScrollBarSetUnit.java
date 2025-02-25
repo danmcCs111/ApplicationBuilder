@@ -2,6 +2,7 @@ package WidgetExtensionsImpl;
 
 import javax.swing.JScrollPane;
 
+import WidgetExtensions.ExtendedAttributeParam;
 import WidgetUtility.WidgetCreatorProperty;
 
 public class ExtendedScrollBarSetUnit implements ExtendedAttributeParam

@@ -3,6 +3,7 @@ package WidgetExtensionsImpl;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 
+import WidgetExtensions.ExtendedAttributeParam;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 

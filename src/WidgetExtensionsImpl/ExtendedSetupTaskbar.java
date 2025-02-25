@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import ObjectTypeConversion.FileSelection;
+import WidgetExtensions.ExtendedAttributeParam;
 import WidgetUtility.WidgetCreatorProperty;
 
 public class ExtendedSetupTaskbar implements ExtendedAttributeParam 

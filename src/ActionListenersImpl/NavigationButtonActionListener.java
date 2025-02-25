@@ -13,7 +13,7 @@ import Properties.LoggingMessages;
 import WidgetComponents.Direction;
 import WidgetComponents.JButtonArray;
 import WidgetComponents.SwappableCollection;
-import WidgetExtensionsImpl.ExtendedAttributeParam;
+import WidgetExtensions.ExtendedAttributeParam;
 
 public class NavigationButtonActionListener implements ActionListener, ActionListenerSubTypeExtension 
 {
