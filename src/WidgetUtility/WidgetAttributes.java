@@ -20,8 +20,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import ClassDefintions.ClassAndSetters;
-import ClassDefintions.ClassTextAdapter;
+import ClassDefinitions.ClassAndSetters;
+import ClassDefinitions.ClassTextAdapter;
 import Params.XmlToWidgetGenerator;
 import Properties.LoggingMessages;
 import WidgetComponents.ApplicationLayoutEditor;
@@ -33,11 +33,12 @@ import WidgetExtensions.ExtendedActionListenerArray;
 import WidgetExtensions.ExtendedActionListenerConnectedComponent;
 import WidgetExtensions.ExtendedActionListenerSubType;
 import WidgetExtensions.ExtendedArrayProcessingPath;
-import WidgetExtensions.ExtendedAttributeStringParam;
+import WidgetExtensions.ExtendedAttributeParam;
 import WidgetExtensions.ExtendedCalculationPad;
 import WidgetExtensions.ExtendedCloseActionListener;
 import WidgetExtensions.ExtendedCloseAllActionListener;
 import WidgetExtensions.ExtendedLayoutApplyParent;
+import WidgetExtensions.ExtendedMethodArgDef;
 import WidgetExtensions.ExtendedOpenActionListener;
 import WidgetExtensions.ExtendedSaveActionListener;
 import WidgetExtensions.ExtendedScrollBarSetUnit;
@@ -77,69 +78,69 @@ public class WidgetAttributes
 	private static final HashMap<Class<?>, String []> EXTENDED_METHODS = new HashMap<Class<?>, String []>();
 	static {
 		EXTENDED_METHODS.put(JFrame.class, new String [] {
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedSetupTaskbar.class),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetupTaskbar.class, ExtendedMethodArgDef.ExtendedDirectorySelection.getMethodArgDef()),
 		});
 		EXTENDED_METHODS.put(JPanel.class, new String [] {
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedSetViewportView.class)
+				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetViewportView.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(JButton.class, new String [] {
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedActionListenerSubType.class),
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedActionListenerConnectedComponent.class)
+				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedActionListenerSubType.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedActionListenerConnectedComponent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(JTextField.class, new String [] {
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class)
+				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(JLabel.class, new String [] {
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedCalculationPad.class),
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedTitleSwitcher.class)
+				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedCalculationPad.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedTitleSwitcher.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(JScrollPane.class, new String [] {
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedScrollBarSetUnit.class)
+				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedScrollBarSetUnit.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(JComboBox.class, new String [] {
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class)
+				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(JComponent.class, new String [] {
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class)
+				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(JMenuBar.class, new String [] {
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedSetJMenuBarParent.class)
+				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetJMenuBarParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(JMenu.class, new String [] {
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class)
+				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(JMenuItem.class, new String [] {
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedSaveActionListener.class),
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedOpenActionListener.class),
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedCloseActionListener.class),
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedCloseAllActionListener.class)
+				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSaveActionListener.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedOpenActionListener.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedCloseActionListener.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedCloseAllActionListener.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		
 		//EXTENDED WIDGETS
 		EXTENDED_METHODS.put(ApplicationLayoutEditor.class, new String [] {
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedSetupTaskbar.class),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetupTaskbar.class, ExtendedMethodArgDef.ExtendedDirectorySelection.getMethodArgDef()),
 		});
 		EXTENDED_METHODS.put(SwappableCollection.class, new String [] {
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedArrayProcessingPath.class),
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedSetViewportView.class)
+				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedArrayProcessingPath.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetViewportView.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(JButtonArray.class, new String [] {
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedArrayProcessingPath.class),
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedActionListenerArray.class),
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedSwappableHolder.class),
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedTextStripper.class)
+				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedArrayProcessingPath.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedActionListenerArray.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSwappableHolder.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedTextStripper.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(MenuOption.class, new String [] {
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class),
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedArrayProcessingPath.class)
+				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedArrayProcessingPath.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		
 	}

@@ -4,10 +4,10 @@ package WidgetExtensions;
 import java.awt.event.ActionListener;
 
 import ActionListeners.ArrayActionListener;
-import ClassDefintions.ActionListenerConverter;
+import ClassDefinitions.ActionListenerConverter;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class ExtendedActionListenerArray implements ExtendedAttributeStringParam 
+public class ExtendedActionListenerArray implements ExtendedAttributeParam 
 {
 	@Override
 	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 

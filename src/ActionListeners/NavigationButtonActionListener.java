@@ -11,7 +11,7 @@ import Properties.LoggingMessages;
 import WidgetComponents.Direction;
 import WidgetComponents.JButtonArray;
 import WidgetComponents.SwappableCollection;
-import WidgetExtensions.ExtendedAttributeStringParam;
+import WidgetExtensions.ExtendedAttributeParam;
 
 public class NavigationButtonActionListener implements ActionListener, ActionListenerSubTypeExtension 
 {
@@ -59,7 +59,7 @@ public class NavigationButtonActionListener implements ActionListener, ActionLis
 		}
 		
 		LoggingMessages.printOut(key);
-		JButtonArray buttonArray = (JButtonArray) ExtendedAttributeStringParam.findComponent(JButtonArray.class);
+		JButtonArray buttonArray = (JButtonArray) ExtendedAttributeParam.findComponent(JButtonArray.class);
 		buttonArray.addJButtons(key, pathAndFileList.get(key), curPosition);
 	}
 	

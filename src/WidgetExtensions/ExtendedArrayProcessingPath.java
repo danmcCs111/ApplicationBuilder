@@ -8,7 +8,7 @@ import Properties.PathUtility;
 import WidgetComponents.SwappableCollection;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class ExtendedArrayProcessingPath implements ExtendedAttributeStringParam
+public class ExtendedArrayProcessingPath implements ExtendedAttributeParam
 {
 	@Override
 	public void applyMethod(String path, WidgetCreatorProperty widgetProperties)
@@ -33,7 +33,7 @@ public class ExtendedArrayProcessingPath implements ExtendedAttributeStringParam
 			
 			pathAndFileList.put(p, PathUtility.getOSFileList(p, f));
 		}
-		SwappableCollection sc = (SwappableCollection) ExtendedAttributeStringParam.findComponent(SwappableCollection.class);
+		SwappableCollection sc = (SwappableCollection) ExtendedAttributeParam.findComponent(SwappableCollection.class);
 		sc.setPathAndFileList(pathAndFileList);
 	}
 	

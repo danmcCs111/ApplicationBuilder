@@ -11,7 +11,7 @@ import WidgetComponents.DialogParentReferenceContainer;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class ExtendedCloseActionListener implements ExtendedAttributeStringParam
+public class ExtendedCloseActionListener implements ExtendedAttributeParam
 {
 
 	public static final String 

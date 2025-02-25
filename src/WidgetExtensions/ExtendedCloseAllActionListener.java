@@ -8,7 +8,7 @@ import javax.swing.JMenuItem;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class ExtendedCloseAllActionListener implements ExtendedAttributeStringParam
+public class ExtendedCloseAllActionListener implements ExtendedAttributeParam
 {
 
 	@Override

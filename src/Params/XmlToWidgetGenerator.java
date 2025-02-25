@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import ClassDefintions.StringToObjectConverter;
+import ClassDefinitions.StringToObjectConverter;
 import Properties.LoggingMessages;
-import WidgetExtensions.ExtendedAttributeStringParam;
+import WidgetExtensions.ExtendedAttributeParam;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
@@ -105,7 +105,7 @@ public class XmlToWidgetGenerator
 		}
 	}
 	
-	public void generateExtended(Class<? extends ExtendedAttributeStringParam> extendedAttr, 
+	public void generateExtended(Class<? extends ExtendedAttributeParam> extendedAttr, 
 			WidgetBuildController widgetBuildController, 
 			WidgetCreatorProperty widgetProperties)
 	{

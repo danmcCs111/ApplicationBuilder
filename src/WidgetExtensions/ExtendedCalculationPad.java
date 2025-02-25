@@ -12,7 +12,7 @@ import Properties.LoggingMessages;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class ExtendedCalculationPad implements ExtendedAttributeStringParam
+public class ExtendedCalculationPad implements ExtendedAttributeParam
 {
 	private Component 
 		thisComp,

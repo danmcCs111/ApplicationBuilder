@@ -8,7 +8,7 @@ import Properties.LoggingMessages;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class ExtendedLayoutApplyParent implements ExtendedAttributeStringParam
+public class ExtendedLayoutApplyParent implements ExtendedAttributeParam
 {
 	@Override
 	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 

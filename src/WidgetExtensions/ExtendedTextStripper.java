@@ -3,7 +3,7 @@ package WidgetExtensions;
 import ActionListeners.ArrayActionListener;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class ExtendedTextStripper implements ExtendedAttributeStringParam
+public class ExtendedTextStripper implements ExtendedAttributeParam
 {
 	@Override
 	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties)

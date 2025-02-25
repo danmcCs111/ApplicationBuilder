@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
-import ClassDefintions.ClassAndSetters;
+import ClassDefinitions.ClassAndSetters;
 import WidgetUtility.WidgetAttributes;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;

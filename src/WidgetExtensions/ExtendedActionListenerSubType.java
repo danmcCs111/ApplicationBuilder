@@ -8,7 +8,7 @@ import Properties.LoggingMessages;
 import WidgetComponents.Direction;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class ExtendedActionListenerSubType implements ExtendedAttributeStringParam
+public class ExtendedActionListenerSubType implements ExtendedAttributeParam
 {
 	@Override
 	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 

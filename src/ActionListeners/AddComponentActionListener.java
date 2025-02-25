@@ -16,8 +16,9 @@ import WidgetComponents.ComponentSelectorUtility;
 import WidgetComponents.DependentRedrawableFrame;
 import WidgetComponents.DependentRedrawableFrameListener;
 import WidgetComponents.DialogParentReferenceContainer;
-import WidgetExtensions.ExtendedAttributeStringParam;
+import WidgetExtensions.ExtendedAttributeParam;
 import WidgetExtensions.ExtendedLayoutApplyParent;
+import WidgetExtensions.ExtendedMethodArgDef;
 import WidgetUtility.WidgetAttributes;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetComponent;
@@ -110,7 +111,7 @@ public class AddComponentActionListener implements DependentRedrawableFrameListe
 		}
 		
 		XmlToWidgetGenerator xmlG = WidgetAttributes.setAttribute(wcpBuild.getClassType(), 
-				ExtendedAttributeStringParam.getMethodDefinition(ExtendedLayoutApplyParent.class));
+				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()));
 		wcpBuild.addXmlToWidgetGenerator(xmlG);
 
 		WidgetBuildController.getInstance().addWidgetCreatorProperty(wcpBuild, true);

@@ -7,9 +7,8 @@ import javax.swing.JScrollPane;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class ExtendedSetViewportView implements ExtendedAttributeStringParam 
+public class ExtendedSetViewportView implements ExtendedAttributeParam
 {
-
 	@Override
 	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 
 	{

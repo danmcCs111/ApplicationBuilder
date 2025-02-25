@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import ActionListeners.ArrayActionListener;
-import ClassDefintions.DirectorySelection;
+import ClassDefinitions.DirectorySelection;
 import MouseListeners.ImageMouseAdapter;
 import MouseListeners.PicLabelMouseListener;
 import Params.KeepSelection;
