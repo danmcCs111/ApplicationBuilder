@@ -2,6 +2,8 @@ package ClassDefinitions;
 
 import java.awt.Dimension;
 
+import Properties.LoggingMessages;
+
 public class DimensionConverter implements StringToObjectConverter
 {
 	@Override
@@ -28,6 +30,12 @@ public class DimensionConverter implements StringToObjectConverter
 	public Object getDefaultNullValue() 
 	{
 		return new Dimension();
+	}
+
+	@Override
+	public String conversionCallStringXml(String... args) 
+	{
+		return LoggingMessages.combine(args);
 	}
 
 }

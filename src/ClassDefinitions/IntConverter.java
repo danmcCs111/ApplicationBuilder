@@ -38,4 +38,10 @@ public class IntConverter implements StringToObjectConverter
 	{
 		return 0;
 	}
+
+	@Override
+	public String conversionCallStringXml(String... args) 
+	{
+		return args[0];
+	}
 }

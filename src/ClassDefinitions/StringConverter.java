@@ -33,4 +33,10 @@ public class StringConverter implements StringToObjectConverter
 	{
 		return "";
 	}
+
+	@Override
+	public String conversionCallStringXml(String... args) 
+	{
+		return args[0];
+	}
 }

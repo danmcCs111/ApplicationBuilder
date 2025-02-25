@@ -5,6 +5,7 @@ import ClassDefinitions.BooleanConverter;
 import ClassDefinitions.ColorConverter;
 import ClassDefinitions.DimensionConverter;
 import ClassDefinitions.DirectorySelectionConverter;
+import ClassDefinitions.FileSelectionConverter;
 import ClassDefinitions.IntConverter;
 import ClassDefinitions.LayoutManagerConverter;
 import ClassDefinitions.PointConverter;
@@ -23,6 +24,7 @@ public enum ParamTypes
 	ActionListener(new ActionListenerConverter()),
 	WindowListener(new WindowListenerConverter()),
 	DirectorySelection(new DirectorySelectionConverter()),
+	FileSelection(new FileSelectionConverter()),
 	Dimension(new DimensionConverter());
 	
 	private StringToObjectConverter converter;

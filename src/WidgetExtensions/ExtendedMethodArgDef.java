@@ -2,6 +2,7 @@ package WidgetExtensions;
 
 public enum ExtendedMethodArgDef 
 {
+	ExtendedFileSelection(" [ClassDefinitions.FileSelection arg0]"),
 	ExtendedDirectorySelection(" [ClassDefinitions.DirectorySelection arg0]"),
 	ExtendedAttributeStringParam(" [java.lang.String arg0]");
 	

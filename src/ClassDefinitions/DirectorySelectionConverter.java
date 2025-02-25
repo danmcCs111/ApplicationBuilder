@@ -2,7 +2,6 @@ package ClassDefinitions;
 
 public class DirectorySelectionConverter implements StringToObjectConverter
 {
-
 	@Override
 	public int numberOfArgs() 
 	{
@@ -27,6 +26,12 @@ public class DirectorySelectionConverter implements StringToObjectConverter
 		return conversionCallIsBlankCheck(args)
 				? getDefaultNullValue()
 				: new DirectorySelection(args[0]);
+	}
+
+	@Override
+	public String conversionCallStringXml(String... args) 
+	{
+		return args[0];
 	}
 	
 }

@@ -81,4 +81,10 @@ public class ActionListenerConverter implements StringToObjectConverter
 	{
 		return null;
 	}
+
+	@Override
+	public String conversionCallStringXml(String... args) 
+	{
+		return args[1];
+	}
 }

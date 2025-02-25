@@ -2,6 +2,8 @@ package ClassDefinitions;
 
 import java.awt.Color;
 
+import Properties.LoggingMessages;
+
 public class ColorConverter implements StringToObjectConverter
 {
 	public static Color getColor(String arg0, String arg1, String arg2)
@@ -40,5 +42,11 @@ public class ColorConverter implements StringToObjectConverter
 	public Object getDefaultNullValue() 
 	{
 		return Color.white;
+	}
+
+	@Override
+	public String conversionCallStringXml(String... args) 
+	{
+		return LoggingMessages.combine(args);
 	}
 }

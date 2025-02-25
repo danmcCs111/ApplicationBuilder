@@ -6,6 +6,7 @@ public interface StringToObjectConverter
 	public abstract Class<?> getDefinitionClass();
 	public abstract Object getDefaultNullValue();
 	public abstract Object conversionCall(String ... args);
+	public abstract String conversionCallStringXml(String ... args);
 	public default boolean conversionCallIsBlankCheck(String ... args)
 	{
 		if((args == null || args.length == 0) && numberOfArgs() > 0)

@@ -2,6 +2,8 @@ package ClassDefinitions;
 
 import java.awt.Point;
 
+import Properties.LoggingMessages;
+
 public class PointConverter implements StringToObjectConverter
 {
 	public static Point getPoint(String arg0, String arg1)
@@ -41,5 +43,11 @@ public class PointConverter implements StringToObjectConverter
 	public Object getDefaultNullValue() 
 	{
 		return new Point();
+	}
+
+	@Override
+	public String conversionCallStringXml(String... args) 
+	{
+		return LoggingMessages.combine(args);
 	}
 }

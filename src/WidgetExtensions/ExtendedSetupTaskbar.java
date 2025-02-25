@@ -7,8 +7,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
-import ClassDefinitions.DirectorySelection;
-import ClassDefinitions.DirectorySelectionConverter;
+import ClassDefinitions.FileSelection;
 import WidgetUtility.WidgetCreatorProperty;
 
 public class ExtendedSetupTaskbar implements ExtendedAttributeParam 
@@ -17,7 +16,7 @@ public class ExtendedSetupTaskbar implements ExtendedAttributeParam
 	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 
 	{
 		JFrame frame = (JFrame) widgetProperties.getInstance();
-		File file = new File(new DirectorySelection(arg0).getFullPath());
+		File file = new File(new FileSelection(arg0).getFullPath());
 		BufferedImage img;
 		try {
 			img = ImageIO.read(file);

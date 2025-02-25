@@ -27,4 +27,10 @@ public class BooleanConverter implements StringToObjectConverter
 		return false;
 	}
 
+	@Override
+	public String conversionCallStringXml(String... args) 
+	{
+		return args[0];
+	}
+
 }

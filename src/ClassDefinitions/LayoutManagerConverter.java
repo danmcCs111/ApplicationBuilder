@@ -70,4 +70,10 @@ public class LayoutManagerConverter implements StringToObjectConverter
 	{
 		return null;
 	}
+
+	@Override
+	public String conversionCallStringXml(String... args) 
+	{
+		return args[0];
+	}
 }
