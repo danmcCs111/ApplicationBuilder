@@ -55,7 +55,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 		PROPERTIES_FILE_ARG_DELIMITER = "@",
 		PROPERTIES_FILE_DELIMITER = "=";
 	
-	private static String propertiesFileLocation;
+	private static String keepsFileLocation;
 	public static Color []
 		backgroundAndForegroundColor = new Color [] {new JButton().getBackground(), new JButton().getForeground()},
 		highlightBackgroundAndForegroundColor = new Color [] {backgroundAndForegroundColor[0], backgroundAndForegroundColor[1]};
@@ -103,9 +103,9 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 	
 	private ActionListener actionListener = null;
 	
-	public void setPropertiesFileRelativeLocation(DirectorySelection directorySelection)
+	public void setExpandedArrangementFileRelativeLocation(DirectorySelection directorySelection)
 	{
-		propertiesFileLocation = directorySelection.getFullPath();
+		keepsFileLocation = directorySelection.getFullPath();
 	}
 	
 	public void addJButtons(String path, List<String> listOf, int index)
@@ -371,7 +371,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 		HashMap<String, String> props = null;
 		
 		JFileChooser jfc = new JFileChooser();
-		File f = new File(propertiesFileLocation);
+		File f = new File(keepsFileLocation);
 		jfc.setFileFilter(new FileNameExtensionFilter(PROPERTIES_FILE_OPEN_TITLE, PROPERTIES_FILE_OPEN_FILTER));
 		jfc.setSelectedFile(f);
 		
