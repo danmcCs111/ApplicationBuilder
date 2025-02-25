@@ -3,11 +3,9 @@ package Editors;
 import java.awt.Component;
 import java.awt.event.WindowListener;
 
-import javax.swing.JComboBox;
+import EditorInterface.ListenerEditor;
 
-import Params.ParameterEditor;
-
-public class WindowListenerEditor extends JComboBox<String> implements ParameterEditor 
+public class WindowListenerEditor extends ListenerEditor
 {
 	private static final long serialVersionUID = 2000L;
 
@@ -15,41 +13,8 @@ public class WindowListenerEditor extends JComboBox<String> implements Parameter
 		EDITOR_DIRECTORY = "/src/WindowListeners",
 		PACKAGE_PREFIX = "WindowListeners",
 		EDITOR_PARAMETER_FILE_EXTENSION = ".java",
-		EDITOR_PARAMETER_FILE_FILTER = "java";
-	
-	public WindowListenerEditor()
-	{
-		super(ParameterEditor.loadClassExtensionsAsString(
-				EDITOR_DIRECTORY, 
-				EDITOR_PARAMETER_FILE_EXTENSION, 
-				PACKAGE_PREFIX, 
-				EDITOR_PARAMETER_FILE_FILTER).toArray(new String [] {}));
-	}
-	
-	@Override
-	public Component getComponentEditor() 
-	{
-		return this;
-	}
-
-	@Override
-	public void setComponentValue(Object value) 
-	{
-		this.setSelectedItem(value.getClass().getName());//using class name
-	}
-
-	@Override
-	public String[] getComponentValue() 
-	{
-		return this == null
-				? new String [] {""}
-				: new String [] {this.getSelectedItem().toString()};
-	}
-
-	@Override
-	public String getComponentXMLOutput() {
-		return null;
-	}
+		EDITOR_PARAMETER_FILE_FILTER = "java",
+		EDIT_BUTTON_TEXT = "Edit";
 
 	@Override
 	public String getParameterDefintionString() 
@@ -58,15 +23,64 @@ public class WindowListenerEditor extends JComboBox<String> implements Parameter
 	}
 
 	@Override
-	public Object getComponentValueObj() 
+	public String getEditorDirectory() 
 	{
-		return this.getSelectedItem();
+		return EDITOR_DIRECTORY;
 	}
 
 	@Override
-	public void destroy() {
-		// TODO Auto-generated method stub
-		
+	public String getPackagePrefix() 
+	{
+		return PACKAGE_PREFIX;
 	}
 
+	@Override
+	public String getFileExtension() 
+	{
+		return EDITOR_PARAMETER_FILE_EXTENSION;
+	}
+
+	@Override
+	public String getFileFilter() 
+	{
+		return EDITOR_PARAMETER_FILE_FILTER;
+	}
+
+	@Override
+	public String getEditButtonText() 
+	{
+		return EDIT_BUTTON_TEXT;
+	}
+
+	@Override
+	public void setEditorDirectory(String editorDirectory) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void setPackagePrefix(String packagePrefix) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void setFileExtension(String fileExtension) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void setFileFilter(String fileFilter) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void setEditButtonText(String editButtonText) {
+		// TODO Auto-generated method stub
+	}
+	
+	@Override
+	public Component getComponentEditor() 
+	{
+		return this;
+	}	
+	
 }

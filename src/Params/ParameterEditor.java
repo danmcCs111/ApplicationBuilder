@@ -16,7 +16,11 @@ public interface ParameterEditor
 	public abstract String getComponentXMLOutput();
 	public abstract String getParameterDefintionString();
 	
-	public static ArrayList<String> loadClassExtensionsAsString(String classFileDirectory, String classFileExtension, String packagePrefix, String fileFilter)
+	public static ArrayList<String> loadClassExtensionsAsString(
+			String classFileDirectory, 
+			String classFileExtension, 
+			String packagePrefix, 
+			String fileFilter)
 	{
 		ArrayList<String> classExtensions = new ArrayList<String>();
 		ArrayList<String> files = PathUtility.getOSFileList(PathUtility.getCurrentDirectory() + classFileDirectory, fileFilter);
