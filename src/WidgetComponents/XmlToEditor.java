@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 
-import ActionListeners.RemoveEditorTabActionListener;
+import ActionListenersImpl.RemoveEditorTabActionListener;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 

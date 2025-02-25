@@ -13,7 +13,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import ActionListeners.OpenDetailsActionListener;
+import ActionListenersImpl.OpenDetailsActionListener;
 import ClassDefinitions.ClassAndSetters;
 import Params.XmlToWidgetGenerator;
 import WidgetUtility.WidgetAttributes;

@@ -29,9 +29,9 @@ import Properties.LoggingMessages;
 import Properties.PathUtility;
 import WidgetExtensions.CloseActionExtension;
 import WidgetExtensions.CloseAllActionExtension;
-import WidgetExtensions.ExtendedStringCollection;
 import WidgetExtensions.OpenActionExtension;
 import WidgetExtensions.SaveActionExtension;
+import WidgetExtensionsImpl.ExtendedStringCollection;
 import WidgetUtility.FileListOptionGenerator;
 import WidgetUtility.WidgetBuildController;
 

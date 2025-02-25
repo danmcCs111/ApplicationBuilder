@@ -8,9 +8,9 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-import ActionListeners.NavigationButtonActionListener;
+import ActionListenersImpl.NavigationButtonActionListener;
 import Properties.PathUtility;
-import WidgetExtensions.ExtendedStringCollection;
+import WidgetExtensionsImpl.ExtendedStringCollection;
 
 /**
  * Holds a variable number of Components and controls/rebuilds child JComponents

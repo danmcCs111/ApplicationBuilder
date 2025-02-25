@@ -12,10 +12,10 @@ import Params.ParameterEditor;
 import Params.XmlToWidgetGenerator;
 import Properties.LoggingMessages;
 import WidgetComponents.PostWidgetBuildProcessing;
-import WidgetExtensions.ExtendedAttributeParam;
-import WidgetExtensions.ExtendedLayoutApplyParent;
-import WidgetExtensions.ExtendedSwappableHolder;
-import WidgetExtensions.ExtendedTextStripper;
+import WidgetExtensionsImpl.ExtendedAttributeParam;
+import WidgetExtensionsImpl.ExtendedLayoutApplyParent;
+import WidgetExtensionsImpl.ExtendedSwappableHolder;
+import WidgetExtensionsImpl.ExtendedTextStripper;
 
 public class WidgetBuildController 
 {
