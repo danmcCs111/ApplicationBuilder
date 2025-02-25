@@ -8,7 +8,7 @@ import java.io.File;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 
-import ClassDefinitions.DirectorySelection;
+import ObjectTypeConversion.DirectorySelection;
 import Params.ParameterEditor;
 import Properties.PathUtility;
 

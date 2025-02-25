@@ -14,7 +14,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import ActionListenersImpl.OpenDetailsActionListener;
-import ClassDefinitions.ClassAndSetters;
+import ObjectTypeConvertersImpl.ClassAndSetters;
 import Params.XmlToWidgetGenerator;
 import WidgetUtility.WidgetAttributes;
 import WidgetUtility.WidgetCreatorProperty;

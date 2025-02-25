@@ -1,6 +1,6 @@
 package WidgetUtility;
 
-import ClassDefinitions.ClassAndSetters;
+import ObjectTypeConvertersImpl.ClassAndSetters;
 
 public interface ClassTypeHandler 
 {

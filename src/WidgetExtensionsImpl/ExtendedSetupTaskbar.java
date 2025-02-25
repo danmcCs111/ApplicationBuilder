@@ -7,7 +7,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
-import ClassDefinitions.FileSelection;
+import ObjectTypeConversion.FileSelection;
 import WidgetUtility.WidgetCreatorProperty;
 
 public class ExtendedSetupTaskbar implements ExtendedAttributeParam 

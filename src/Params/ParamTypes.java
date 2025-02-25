@@ -1,17 +1,17 @@
 package Params;
 
-import ClassDefinitions.ActionListenerConverter;
-import ClassDefinitions.BooleanConverter;
-import ClassDefinitions.ColorConverter;
-import ClassDefinitions.DimensionConverter;
-import ClassDefinitions.DirectorySelectionConverter;
-import ClassDefinitions.FileSelectionConverter;
-import ClassDefinitions.IntConverter;
-import ClassDefinitions.LayoutManagerConverter;
-import ClassDefinitions.PointConverter;
-import ClassDefinitions.StringConverter;
-import ClassDefinitions.StringToObjectConverter;
-import ClassDefinitions.WindowListenerConverter;
+import ObjectTypeConversion.StringToObjectConverter;
+import ObjectTypeConvertersImpl.ActionListenerConverter;
+import ObjectTypeConvertersImpl.BooleanConverter;
+import ObjectTypeConvertersImpl.ColorConverter;
+import ObjectTypeConvertersImpl.DimensionConverter;
+import ObjectTypeConvertersImpl.DirectorySelectionConverter;
+import ObjectTypeConvertersImpl.FileSelectionConverter;
+import ObjectTypeConvertersImpl.IntConverter;
+import ObjectTypeConvertersImpl.LayoutManagerConverter;
+import ObjectTypeConvertersImpl.PointConverter;
+import ObjectTypeConvertersImpl.StringConverter;
+import ObjectTypeConvertersImpl.WindowListenerConverter;
 
 public enum ParamTypes 
 {

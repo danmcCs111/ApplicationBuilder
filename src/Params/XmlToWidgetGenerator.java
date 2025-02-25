@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import ClassDefinitions.StringToObjectConverter;
+import ObjectTypeConversion.StringToObjectConverter;
 import Properties.LoggingMessages;
 import WidgetExtensionsImpl.ExtendedAttributeParam;
 import WidgetUtility.WidgetBuildController;

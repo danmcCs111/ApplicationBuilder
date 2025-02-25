@@ -20,8 +20,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import ClassDefinitions.ClassAndSetters;
-import ClassDefinitions.ClassTextAdapter;
+import ObjectTypeConvertersImpl.ClassAndSetters;
+import ObjectTypeConvertersImpl.ClassTextAdapter;
 import Params.XmlToWidgetGenerator;
 import Properties.LoggingMessages;
 import WidgetComponents.ApplicationLayoutEditor;
