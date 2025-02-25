@@ -8,7 +8,7 @@ import java.io.IOException;
 import javax.swing.AbstractButton;
 
 import ActionListeners.ArrayActionListener;
-import MouseListeners.PicLabelMouseListener;
+import MouseListenersImpl.PicLabelMouseListener;
 import Properties.LoggingMessages;
 
 public class LaunchActionListener implements ActionListener
