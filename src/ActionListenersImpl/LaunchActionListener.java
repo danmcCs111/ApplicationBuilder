@@ -16,11 +16,11 @@ public class LaunchActionListener implements ActionListener
 	private static Process runningProcess = null;
 	private static final String
 		PROCESS_WINDOWS = "chrome.exe",
-		PROCESS_NOT_WINDOWS = "google-chrome",
+		PROCESS_LINUX = "google-chrome",
 		CLOSE_LAUNCH_ACTION_EVENT="closeLaunchAction";
 	private String
 		processWindows = PROCESS_WINDOWS,
-		processLinux = PROCESS_NOT_WINDOWS;
+		processLinux = PROCESS_LINUX;
 	
 	private static AbstractButton lastButton = null;
 	private static Container lastButtonParent = null;
