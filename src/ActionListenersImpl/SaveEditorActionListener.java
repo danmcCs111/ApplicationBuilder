@@ -29,7 +29,8 @@ public class SaveEditorActionListener implements DependentRedrawableFrameListene
 		//TODO introduce "Save as" when no filename 
 		if(WidgetBuildController.getInstance().getFilename() == null)
 		{
-			boolean saved = SaveAsEditorActionListener.performSaveAs(this.applicationLayoutEditor);
+			SaveAsEditorActionListener sal = new SaveAsEditorActionListener();
+			boolean saved = sal.performSaveAs(this.applicationLayoutEditor);
 			LoggingMessages.printOut("Saved? " + saved);
 		}
 		else

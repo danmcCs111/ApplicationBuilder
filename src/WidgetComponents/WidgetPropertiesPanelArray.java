@@ -35,6 +35,11 @@ public class WidgetPropertiesPanelArray extends JPanel implements DependentRedra
 		this.setLayout(new GridLayout(0,1));
 	}
 	
+	public void buildLayoutPropertiesArray(ActionListener al)
+	{
+		//TODO
+	}
+	
 	public void buildPropertiesArray(WidgetCreatorProperty wcp)
 	{
 		for(XmlToWidgetGenerator xwg : wcp.getXmlToWidgetGenerators())

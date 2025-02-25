@@ -21,6 +21,26 @@ public class LaunchActionListener implements ActionListener
 	private static AbstractButton lastButton = null;
 	private static Container lastButtonParent = null;
 	
+	public void setProcessWindowsOS()
+	{
+		//TODO
+	}
+	
+	public void setProcessLinuxOS()
+	{
+		//TODO
+	}
+	
+	public String getProcessWindowsOS()
+	{
+		return PROCESS_WINDOWS;
+	}
+	
+	public String getProcessLinuxOS()
+	{
+		return PROCESS_NOT_WINDOWS;
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
@@ -39,7 +59,7 @@ public class LaunchActionListener implements ActionListener
 		}
 		else
 		{
-			executeProcess(System.getProperty("os.name").startsWith("Windows")?PROCESS_WINDOWS:PROCESS_NOT_WINDOWS, button.getName());
+			executeProcess(System.getProperty("os.name").startsWith("Windows")?getProcessWindowsOS():getProcessLinuxOS(), button.getName());
 		}
 		lastButton = button;
 		lastButtonParent = lastButton.getParent();

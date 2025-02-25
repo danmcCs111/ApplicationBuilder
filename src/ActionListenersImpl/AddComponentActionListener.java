@@ -38,6 +38,60 @@ public class AddComponentActionListener implements DependentRedrawableFrameListe
 	
 	private DependentRedrawableFrame applicationLayoutEditor;
 	
+	public String getDialogSelectComponentMessage()
+	{
+		return DIALOG_SELECT_COMPONENT_LABEL_MESSAGE;
+	}
+	public void setDialogSelectComponentMessage()
+	{
+		//TODO
+	}
+	
+	public String getDialogSelectComponentTitle()
+	{
+		return DIALOG_SELECT_COMPONENT_TITLE;
+	}
+	public void setDialogSelectComponentTitle()
+	{
+		//TODO
+	}
+	
+	public String getDialogSelectParentMessage()
+	{
+		return DIALOG_SELECT_COMPONENT_LABEL_MESSAGE;
+	}
+	public void setDialogSelectParentMessage()
+	{
+		//TODO
+	}
+	
+	public String getDialogSelectParentTitle()
+	{
+		return DIALOG_SELECT_PARENT_TITLE;
+	}
+	public void setDialogSelectParentTitle()
+	{
+		//TODO
+	}
+	
+	public String getDialogSelectChildComponentsTitle()
+	{
+		return DIALOG_SELECT_CHILD_COMPONENTS_TITLE;
+	}
+	public void setDialogSelectChildComponentsTitle()
+	{
+		//TODO
+	}
+	
+	public String getDialogSelectChildComponentsMessage()
+	{
+		return DIALOG_SELECT_CHILD_COMPONENTS_MESSAGE;
+	}
+	public void setDialogSelectChildComponentsMessage()
+	{
+		//TODO
+	}
+	
 	public void setDependentRedrawableFrame(DependentRedrawableFrame applicationLayoutEditor)
 	{
 		this.applicationLayoutEditor = applicationLayoutEditor;

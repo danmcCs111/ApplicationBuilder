@@ -22,6 +22,33 @@ public class SaveAsEditorActionListener implements DependentRedrawableFrameListe
 
 	private DependentRedrawableFrame applicationLayoutEditor;
 	
+	public String getXmlPathDefault()
+	{
+		return XML_PATH_SUFFIX;
+	}
+	public void setXmlPathDefault()
+	{
+		//TODO
+	}
+	
+	public String getXmlFilterTitle()
+	{
+		return XML_FILTER_TITLE;
+	}
+	public void setXmlFilterTitle()
+	{
+		//TODO
+	}
+	
+	public String getXmlFilter()
+	{
+		return XML_FILTER;
+	}
+	public void setXmlFilter()
+	{
+		//TODO
+	}
+	
 	public void setDependentRedrawableFrame(DependentRedrawableFrame applicationLayoutEditor)
 	{
 		this.applicationLayoutEditor = applicationLayoutEditor;
@@ -30,22 +57,22 @@ public class SaveAsEditorActionListener implements DependentRedrawableFrameListe
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		SaveAsEditorActionListener.performSaveAs(applicationLayoutEditor);
+		performSaveAs(applicationLayoutEditor);
 	}
 	
 	/**
 	 * 
 	 * @return save performed.
 	 */
-	public static boolean performSaveAs(DependentRedrawableFrame applicationLayoutEditor)
+	public boolean performSaveAs(DependentRedrawableFrame applicationLayoutEditor)
 	{
 		if(WidgetBuildController.getInstance().getWidgetCreatorProperties().isEmpty())
 			return false;
 		
 		JFileChooser jfc = new JFileChooser();
 		jfc.setDialogType(JFileChooser.SAVE_DIALOG);
-		File f = new File(PathUtility.getCurrentDirectory() + XML_PATH_SUFFIX);
-		jfc.setFileFilter(new FileNameExtensionFilter(XML_FILTER_TITLE, XML_FILTER));
+		File f = new File(PathUtility.getCurrentDirectory() + getXmlPathDefault());
+		jfc.setFileFilter(new FileNameExtensionFilter(getXmlFilterTitle(), getXmlFilter()));
 		jfc.setSelectedFile(f);
 		
 		int choice = jfc.showSaveDialog(applicationLayoutEditor);
