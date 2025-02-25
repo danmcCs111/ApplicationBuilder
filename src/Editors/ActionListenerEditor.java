@@ -3,7 +3,7 @@ package Editors;
 import java.awt.Component;
 import java.awt.event.ActionListener;
 
-import EditorInterface.ListenerEditor;
+import EditorAbstract.ListenerEditor;
 
 public class ActionListenerEditor extends ListenerEditor
 {

@@ -3,14 +3,14 @@ package Editors;
 import java.awt.Component;
 import java.awt.event.WindowListener;
 
-import EditorInterface.ListenerEditor;
+import EditorAbstract.ListenerEditor;
 
 public class WindowListenerEditor extends ListenerEditor
 {
 	private static final long serialVersionUID = 2000L;
 
 	private static final String 
-		EDITOR_DIRECTORY = "/src/WindowListeners",
+		EDITOR_DIRECTORY = "/src/WindowListeners/ ",
 		PACKAGE_PREFIX = "WindowListeners",
 		EDITOR_PARAMETER_FILE_EXTENSION = ".java",
 		EDITOR_PARAMETER_FILE_FILTER = "java",

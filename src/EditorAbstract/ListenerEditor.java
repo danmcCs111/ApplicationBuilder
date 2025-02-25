@@ -1,4 +1,4 @@
-package EditorInterface;
+package EditorAbstract;
 
 import java.awt.BorderLayout;
 
