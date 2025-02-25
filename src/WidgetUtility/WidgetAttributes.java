@@ -99,7 +99,7 @@ public class WidgetAttributes
 		});
 		EXTENDED_METHODS.put(JScrollPane.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
-				ExtendedAttributeParam.getMethodDefinition(ExtendedScrollBarSetUnit.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
+				ExtendedAttributeParam.getMethodDefinition(ExtendedScrollBarSetUnit.class, ExtendedMethodArgDef.ExtendedScrollBarSetUnit.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(JComboBox.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())

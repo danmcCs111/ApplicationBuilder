@@ -4,6 +4,7 @@ public enum ExtendedMethodArgDef
 {
 	ExtendedFileSelection(" [ObjectTypeConversion.FileSelection arg0]"),
 	ExtendedDirectorySelection(" [ObjectTypeConversion.DirectorySelection arg0]"),
+	ExtendedScrollBarSetUnit(" [int arg0]"),
 	ExtendedAttributeStringParam(" [java.lang.String arg0]");
 	
 	private String methodArgDef;
