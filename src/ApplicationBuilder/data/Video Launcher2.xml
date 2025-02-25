@@ -12,7 +12,7 @@
 				</SwappableCollection>
 			</JScrollPane>
 		</JPanel>
-		<JPanel extendedLayoutApplyParent="South" setLayout="java.awt.BorderLayout" setBackground="204, 255, 204" >
+		<JPanel extendedLayoutApplyParent="South" setBackground="204, 255, 204" setLayout="java.awt.BorderLayout" >
 			<JButton addActionListener="ActionListenersImpl.LaunchActionListener" extendedLayoutApplyParent="Center" setBackground="175, 204, 175" setForeground="119, 5, 6" setName="closeLaunchAction" setPreferredSize="80, 25" setText=" X Close Video" >
 			</JButton>
 			<JLabel extendedCalculationPad="JButton" extendedLayoutApplyParent="East" >
@@ -20,11 +20,11 @@
 			<JLabel extendedCalculationPad="JButton" extendedLayoutApplyParent="West" >
 			</JLabel>
 		</JPanel>
-		<JPanel extendedLayoutApplyParent="West" setLayout="java.awt.BorderLayout" setBackground="204, 255, 204" >
+		<JPanel extendedLayoutApplyParent="West" setBackground="204, 255, 204" setLayout="java.awt.BorderLayout" >
 			<JButton addActionListener="ActionListenersImpl.NavigationButtonActionListener" extendedActionListenerConnectedComponent="WidgetComponents.SwappableCollection" extendedActionListenerSubType="WidgetComponents.Direction@BACKWARD" extendedLayoutApplyParent="North" setText="[&lt;]" >
 			</JButton>
 		</JPanel>
-		<JPanel extendedLayoutApplyParent="East" setLayout="java.awt.BorderLayout" setBackground="204, 255, 204" >
+		<JPanel extendedLayoutApplyParent="East" setBackground="204, 255, 204" setLayout="java.awt.BorderLayout" >
 			<JButton addActionListener="ActionListenersImpl.NavigationButtonActionListener" extendedActionListenerConnectedComponent="WidgetComponents.SwappableCollection" extendedActionListenerSubType="WidgetComponents.Direction@FORWARD" extendedLayoutApplyParent="North" setText="[&gt;]..." >
 			</JButton>
 		</JPanel>

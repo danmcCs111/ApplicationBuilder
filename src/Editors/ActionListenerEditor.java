@@ -15,7 +15,14 @@ public class ActionListenerEditor extends ListenerEditor
 		EDITOR_PARAMETER_FILE_EXTENSION = ".java",
 		EDITOR_PARAMETER_FILE_FILTER = "java",
 		EDIT_BUTTON_TEXT = "Edit";
-
+	
+	private String
+		editorDirectory = EDITOR_DIRECTORY,
+		packagePrefix = PACKAGE_PREFIX,
+		editorParamFileExtension = EDITOR_PARAMETER_FILE_EXTENSION,
+		editorParamFileFilter = EDITOR_PARAMETER_FILE_FILTER,
+		editButtonText = EDIT_BUTTON_TEXT;
+	
 	@Override
 	public String getParameterDefintionString() 
 	{
@@ -25,65 +32,66 @@ public class ActionListenerEditor extends ListenerEditor
 	@Override
 	public String getEditorDirectory() 
 	{
-		return EDITOR_DIRECTORY;
+		return editorDirectory;
 	}
 
 	@Override
 	public String getPackagePrefix() 
 	{
-		return PACKAGE_PREFIX;
+		return packagePrefix;
 	}
 
 	@Override
 	public String getFileExtension() 
 	{
-		return EDITOR_PARAMETER_FILE_EXTENSION;
+		return editorParamFileExtension;
 	}
 
 	@Override
 	public String getFileFilter() 
 	{
-		return EDITOR_PARAMETER_FILE_FILTER;
+		return editorParamFileFilter;
 	}
 
 	@Override
 	public String getEditButtonText() 
 	{
-		return EDIT_BUTTON_TEXT;
+		return editButtonText;
 	}
 
 	@Override
-	public void setEditorDirectory(String editorDirectory) {
-		// TODO Auto-generated method stub
-		
+	public void setEditorDirectory(String editorDirectory) 
+	{
+		this.editorDirectory = editorDirectory;
 	}
 
 	@Override
-	public void setPackagePrefix(String packagePrefix) {
-		// TODO Auto-generated method stub
-		
+	public void setPackagePrefix(String packagePrefix) 
+	{
+		this.packagePrefix = packagePrefix;
 	}
 
 	@Override
-	public void setFileExtension(String fileExtension) {
-		// TODO Auto-generated method stub
-		
+	public void setFileExtension(String fileExtension) 
+	{
+		this.editorParamFileExtension = fileExtension;
 	}
 
 	@Override
-	public void setFileFilter(String fileFilter) {
-		// TODO Auto-generated method stub
-		
+	public void setFileFilter(String fileFilter) 
+	{
+		this.editorParamFileFilter = fileFilter;
 	}
 
 	@Override
-	public void setEditButtonText(String editButtonText) {
-		// TODO Auto-generated method stub
-		
+	public void setEditButtonText(String editButtonText) 
+	{
+		this.editButtonText = editButtonText;
 	}
 
 	@Override
-	public Component getComponentEditor() {
+	public Component getComponentEditor() 
+	{
 		return this;
 	}
 	
