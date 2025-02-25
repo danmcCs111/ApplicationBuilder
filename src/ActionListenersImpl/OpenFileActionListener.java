@@ -20,7 +20,39 @@ public class OpenFileActionListener implements DependentRedrawableFrameListener,
 		XML_FILTER_TITLE = "XML Build File",
 		XML_FILTER = "xml";
 	
+	private String
+		xmlPathSuffix = XML_PATH_SUFFIX,
+		xmlFilterTitle = XML_FILTER_TITLE,
+		xmlFilter = XML_FILTER;
+	
 	private DependentRedrawableFrame applicationLayoutEditor;
+	
+	public String getXmlPathSuffix()
+	{
+		return xmlPathSuffix;
+	}
+	public void setXmlPathSuffix(String pathSuffix)
+	{
+		xmlPathSuffix = pathSuffix;
+	}
+	
+	public String getXmlFilterTitle()
+	{
+		return xmlFilterTitle;
+	}
+	public void setXmlFilterTitle(String filterTitle)
+	{
+		xmlFilterTitle = filterTitle;
+	}
+	
+	public String getXmlFilter()
+	{
+		return xmlFilter;
+	}
+	public void setXmlFilter(String filter)
+	{
+		xmlFilter = filter;
+	}
 	
 	public void setDependentRedrawableFrame(DependentRedrawableFrame applicationLayoutEditor)
 	{
@@ -32,8 +64,8 @@ public class OpenFileActionListener implements DependentRedrawableFrameListener,
 	{
 		JFileChooser jfc = new JFileChooser();
 		String currentDirectory = PathUtility.getCurrentDirectory();
-		File f = new File(currentDirectory + XML_PATH_SUFFIX);
-		jfc.setFileFilter(new FileNameExtensionFilter(XML_FILTER_TITLE, XML_FILTER));
+		File f = new File(currentDirectory + getXmlPathSuffix());
+		jfc.setFileFilter(new FileNameExtensionFilter(getXmlFilterTitle(), getXmlFilter()));
 		jfc.setSelectedFile(f);
 		
 		int choice = jfc.showOpenDialog(applicationLayoutEditor);

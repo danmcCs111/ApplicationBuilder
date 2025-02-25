@@ -20,33 +20,37 @@ public class SaveAsEditorActionListener implements DependentRedrawableFrameListe
 		XML_FILTER_TITLE = "XML Build File",
 		XML_FILTER = "xml";
 
+	private String 
+		xmlPathSuffix = XML_PATH_SUFFIX,
+		xmlFilterTitle = XML_FILTER_TITLE,
+		xmlFilter = XML_FILTER;
 	private DependentRedrawableFrame applicationLayoutEditor;
 	
 	public String getXmlPathDefault()
 	{
-		return XML_PATH_SUFFIX;
+		return xmlPathSuffix;
 	}
-	public void setXmlPathDefault()
+	public void setXmlPathDefault(String pathSuffix)
 	{
-		//TODO
+		xmlPathSuffix = pathSuffix;
 	}
 	
 	public String getXmlFilterTitle()
 	{
-		return XML_FILTER_TITLE;
+		return xmlFilterTitle;
 	}
-	public void setXmlFilterTitle()
+	public void setXmlFilterTitle(String title)
 	{
-		//TODO
+		xmlFilterTitle = title;
 	}
 	
 	public String getXmlFilter()
 	{
-		return XML_FILTER;
+		return xmlFilter;
 	}
-	public void setXmlFilter()
+	public void setXmlFilter(String filter)
 	{
-		//TODO
+		xmlFilter = filter;
 	}
 	
 	public void setDependentRedrawableFrame(DependentRedrawableFrame applicationLayoutEditor)

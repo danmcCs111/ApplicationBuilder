@@ -18,27 +18,29 @@ public class LaunchActionListener implements ActionListener
 		PROCESS_WINDOWS = "chrome.exe",
 		PROCESS_NOT_WINDOWS = "google-chrome",
 		CLOSE_LAUNCH_ACTION_EVENT="closeLaunchAction";
+	private String
+		processWindows = PROCESS_WINDOWS,
+		processLinux = PROCESS_NOT_WINDOWS;
+	
 	private static AbstractButton lastButton = null;
 	private static Container lastButtonParent = null;
 	
-	public void setProcessWindowsOS()
-	{
-		//TODO
-	}
-	
-	public void setProcessLinuxOS()
-	{
-		//TODO
-	}
-	
 	public String getProcessWindowsOS()
 	{
-		return PROCESS_WINDOWS;
+		return processWindows;
+	}
+	public void setProcessWindowsOS(String windowsProc)
+	{
+		processWindows = windowsProc;
 	}
 	
 	public String getProcessLinuxOS()
 	{
-		return PROCESS_NOT_WINDOWS;
+		return processLinux;
+	}
+	public void setProcessLinuxOS(String linuxProc)
+	{
+		processLinux = linuxProc;
 	}
 	
 	@Override

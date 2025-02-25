@@ -27,10 +27,10 @@ import WidgetUtility.WidgetCreatorProperty;
 public class AddComponentActionListener implements DependentRedrawableFrameListener, ActionListener, ComboListDialogSelectedListener, DialogParentReferenceContainer
 {
 	private static final String 
-		DIALOG_SELECT_COMPONENT_LABEL_MESSAGE = "Select Component", 
 		DIALOG_SELECT_COMPONENT_TITLE = "Component Selection",
-		DIALOG_SELECT_PARENT_LABEL_MESSAGE = "Select Parent Container", 
+		DIALOG_SELECT_COMPONENT_LABEL_MESSAGE = "Select Component", 
 		DIALOG_SELECT_PARENT_TITLE = "Parent Container Selection",
+		DIALOG_SELECT_PARENT_LABEL_MESSAGE = "Select Parent Container", 
 		DIALOG_SELECT_CHILD_COMPONENTS_TITLE = "Components Selection",
 		DIALOG_SELECT_CHILD_COMPONENTS_MESSAGE = "Select Child Components: ",
 		STRIP_PACKAGE_NAME_FROM_CLASS_FILTER = "[a-zA-Z]+[\\.]+";
@@ -38,58 +38,66 @@ public class AddComponentActionListener implements DependentRedrawableFrameListe
 	
 	private DependentRedrawableFrame applicationLayoutEditor;
 	
-	public String getDialogSelectComponentMessage()
-	{
-		return DIALOG_SELECT_COMPONENT_LABEL_MESSAGE;
-	}
-	public void setDialogSelectComponentMessage()
-	{
-		//TODO
-	}
+	private String
+		dialogSelectComponentTitle = DIALOG_SELECT_COMPONENT_TITLE,
+		dialogSelectComponentMessage = DIALOG_SELECT_COMPONENT_LABEL_MESSAGE,
+		dialogSelectParentTitle = DIALOG_SELECT_PARENT_TITLE,
+		dialogSelectParentMessage = DIALOG_SELECT_PARENT_LABEL_MESSAGE,
+		dialogSelectChildComponentsTitle = DIALOG_SELECT_CHILD_COMPONENTS_TITLE,
+		dialogSelectChildComponentsMessage = DIALOG_SELECT_CHILD_COMPONENTS_MESSAGE;
 	
 	public String getDialogSelectComponentTitle()
 	{
-		return DIALOG_SELECT_COMPONENT_TITLE;
+		return dialogSelectComponentTitle;
 	}
-	public void setDialogSelectComponentTitle()
+	public void setDialogSelectComponentTitle(String title)
 	{
-		//TODO
+		dialogSelectComponentTitle = title;
 	}
 	
-	public String getDialogSelectParentMessage()
+	public String getDialogSelectComponentMessage()
 	{
-		return DIALOG_SELECT_COMPONENT_LABEL_MESSAGE;
+		return dialogSelectComponentMessage;
 	}
-	public void setDialogSelectParentMessage()
+	public void setDialogSelectComponentMessage(String message)
 	{
-		//TODO
+		dialogSelectComponentMessage = message;
 	}
 	
 	public String getDialogSelectParentTitle()
 	{
-		return DIALOG_SELECT_PARENT_TITLE;
+		return dialogSelectParentTitle;
 	}
-	public void setDialogSelectParentTitle()
+	public void setDialogSelectParentTitle(String title)
 	{
-		//TODO
+		dialogSelectParentTitle = title;
+	}
+	
+	public String getDialogSelectParentMessage()
+	{
+		return dialogSelectParentMessage;
+	}
+	public void setDialogSelectParentMessage(String message)
+	{
+		dialogSelectParentMessage = message;
 	}
 	
 	public String getDialogSelectChildComponentsTitle()
 	{
-		return DIALOG_SELECT_CHILD_COMPONENTS_TITLE;
+		return dialogSelectChildComponentsTitle;
 	}
-	public void setDialogSelectChildComponentsTitle()
+	public void setDialogSelectChildComponentsTitle(String title)
 	{
-		//TODO
+		dialogSelectChildComponentsTitle = title;
 	}
 	
 	public String getDialogSelectChildComponentsMessage()
 	{
-		return DIALOG_SELECT_CHILD_COMPONENTS_MESSAGE;
+		return dialogSelectChildComponentsMessage;
 	}
-	public void setDialogSelectChildComponentsMessage()
+	public void setDialogSelectChildComponentsMessage(String message)
 	{
-		//TODO
+		dialogSelectChildComponentsMessage = message;
 	}
 	
 	public void setDependentRedrawableFrame(DependentRedrawableFrame applicationLayoutEditor)
