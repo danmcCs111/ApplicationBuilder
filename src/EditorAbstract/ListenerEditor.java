@@ -26,6 +26,7 @@ public abstract class ListenerEditor extends JPanel implements ParameterEditor
 				getFileFilter()).toArray(new String[] {})
 		);
 		editButton = new JButton();
+		editButton.setToolTipText("ToDo.");
 		editButton.setText(getEditButtonText());
 		this.setLayout(new BorderLayout());
 		this.add(comboSelection, BorderLayout.CENTER);
