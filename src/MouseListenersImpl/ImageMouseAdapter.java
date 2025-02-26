@@ -15,11 +15,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.imageio.ImageIO;
 import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -35,14 +33,12 @@ import WidgetComponents.ComboListDialogSelectedListener;
 import WidgetComponents.ComboSelectionDialog;
 import WidgetComponents.DialogParentReferenceContainer;
 import WidgetComponents.JButtonArray;
+import WidgetComponents.JButtonLengthLimited;
 
 public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSelectedListener, DialogParentReferenceContainer
 {
 	private static final Dimension //TODO
-		DIM_PAD = new Dimension(150,0),
-		DIM_DEFAULT_PIC = new Dimension(300,80),
-//		DIM_NO_PIC = new Dimension(300,30),
-		DIM_PIC = new Dimension(300,470);
+		DIM_PAD = new Dimension(150,0);
 	private static final String 
 		DIALOG_SELECT_CHILD_COMPONENTS_TITLE = "Save Selection",
 		DIALOG_SELECT_CHILD_COMPONENTS_MESSAGE = "Select Which to Save: ",
@@ -52,37 +48,50 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		PROPERTIES_FILE_EXTENSION = ".txt",
 		KEEP_MENU_OPTION_TEXT = "keep",
 		KEEP_TITLE = "[Click Image]",
-		FILE_ARG_DELIMITER="@",
-		DEFAULT_IMG = PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/launch_xsm.png";//TODO
+		FILE_ARG_DELIMITER="@";
+		
 	
-	private JFrame f;
-	private Component component;
-	private JFrame parentFrame;
-	private BufferedImage 
-		img,
-		defaultImg;
 	private static final ArrayList<KeepSelection> keeps = new ArrayList<KeepSelection>();//The whole app
-	private KeepSelection keep;
-	private String text;
+	private ArrayList<KeepSelection> keepsCurrentCollection = new ArrayList<KeepSelection>();//instance
+	private JFrame f;
+	private JFrame parentFrame;
 	private List<String> saveChosenSelection = null;
 	private String saveFilePathChosen = null;
+	private String path;
 	private boolean keepFrame = false;
 		
-	public ImageMouseAdapter(Component component, JFrame parentFrame, String path, String text) throws IOException
+	public ImageMouseAdapter(JFrame parentFrame, String path)
 	{
-		this.keep = new KeepSelection(path, text);
-		this.component = component;
 		this.parentFrame = parentFrame;
-		this.text = text;
-		String fileLocation = path + toPngFilename();
-		File file = new File(fileLocation);
-		File fileDefault = new File(DEFAULT_IMG);
-		try {
-			img = ImageIO.read(file);
-			
-		} catch (IOException e) {
-			defaultImg = ImageIO.read(fileDefault);
+		this.path = path;
+	}
+	
+	//required.
+	public void setupKeepsSelection(List<Component> components)
+	{
+		for(Component c : components)
+		{
+			String text = ((JButtonLengthLimited)c).getFullLengthText();
+			keepsCurrentCollection.add(new KeepSelection(this.path, text));
 		}
+	}
+	
+	public KeepSelection getKeepSelection(Component component)
+	{
+		String fullText = ((JButtonLengthLimited)component).getFullLengthText();
+		return getKeepSelection(fullText);
+	}
+	
+	public KeepSelection getKeepSelection(String fullText)
+	{
+		for(KeepSelection ks : keepsCurrentCollection)//TODO
+		{
+			if(fullText.equals(ks.getText()))
+			{
+				return ks;
+			}
+		}
+		return null;
 	}
 	
 	public ArrayList<KeepSelection> getKeeps()
@@ -101,20 +110,16 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		keeps.remove(ks);
 	}
 	
-	public void setupKeepFrame(int x, int y)
+	public void setupKeepFrame(Component c, int x, int y)
 	{
+		KeepSelection keep = getKeepSelection(c);
 		if(!keepFrame && !keeps.contains(keep))
 		{
-			performFrameBuild();
+			performFrameBuild(c);
 			keepFrame = true;
 			f.setLocation(x, y);
-			createKeepFrame();
+			createKeepFrame(c);
 		}
-	}
-	
-	private String toPngFilename()
-	{
-		return this.text + ".png";
 	}
 	
 	private void destroyFrame()
@@ -124,8 +129,9 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		f.dispose();
 	}
 
-	private void createKeepFrame()
+	private void createKeepFrame(Component c)
 	{
+		KeepSelection keep = getKeepSelection(c);
 		if(keepFrame)
 		{
 			if(!keeps.contains(keep))
@@ -170,6 +176,8 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 	@Override
 	public void mouseClicked(MouseEvent e) 
 	{
+		Component component = (Component)e.getSource();
+		
 		LoggingMessages.printOut(e.toString());
 		if(e.getButton() == MouseEvent.BUTTON3)//Offer option to keep
 		{
@@ -197,23 +205,26 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		}
 		else
 		{
-			createKeepFrame();
+			createKeepFrame((Component)e.getSource());
 		}
 	}
 	
 	@Override
 	public void mouseEntered(MouseEvent e) 
 	{
-		performFrameBuild();
+		performFrameBuild((Component)e.getSource());
 	}
 	
-	private void performFrameBuild()
+	private void performFrameBuild(Component c )
 	{
-		performFrameBuild("");
+		performFrameBuild(c, "");
 	}
 	
-	private void performFrameBuild(String title)
+	private void performFrameBuild(Component component, String title)
 	{
+		String fullText = ((JButtonLengthLimited)component).getFullLengthText();
+		KeepSelection ks = getKeepSelection(fullText);
+		
 		f = new JFrame();
 		f.setTitle(title);
 		f.setUndecorated(true);
@@ -227,21 +238,13 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		
 		p.setLayout(new BorderLayout());
 		p2.setLayout(new BorderLayout());
-		l.setText(text);
+		l.setText(ks.getText());
 		p2.add(l, BorderLayout.CENTER);
 		p.add(p2, BorderLayout.NORTH);
 		
 		BufferedImage useImage = null;
-		if(img != null)
-		{
-			f.setMinimumSize(DIM_PIC);
-			useImage = img;
-		}
-		else
-		{
-			f.setMinimumSize(DIM_DEFAULT_PIC);
-			useImage = defaultImg;
-		}
+		f.setMinimumSize(ks.getSize());
+		useImage = ks.getImg();
 		ImageIcon ii = new ImageIcon(useImage);
 		JLabel picLabel = new JLabel(ii);
 		
@@ -251,7 +254,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 			MouseDragListener mouseDragListener = new MouseDragListener(f, ab, picLabel);
 			picLabel.addMouseMotionListener(mouseDragListener);
 			picLabel.addMouseListener(mouseDragListener);
-			picLabel.setName(text);
+			picLabel.setName(ks.getText());
 			picLabel.addMouseListener(new PicLabelMouseListener(ab, picLabel));
 			if(JButtonArray.isHighlightButton(ab))//TODO add interface.?
 			{

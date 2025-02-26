@@ -9,6 +9,7 @@ import javax.swing.JComponent;
 
 import Properties.PathUtility;
 import Properties.UrlToValueReader;
+import WidgetComponents.JButtonLengthLimited;
 
 public class FileListOptionGenerator 
 {
@@ -36,11 +37,11 @@ public class FileListOptionGenerator
 	public static List<JComponent> buildComponents(String path, List<String> fileNames, Class<?> componentType)
 	{
 		List<JComponent> components = new ArrayList<JComponent>();
-		if(componentType.equals(JButton.class))
+		if(componentType.equals(JButtonLengthLimited.class))//TODO impl
 		{
 			for(String fileName: fileNames)
 			{
-				JButton button = new JButton();
+				JButton button = new JButtonLengthLimited();
 				button.setText(fileName);
 				button.setName(UrlToValueReader.parse(fileName, path));
 				components.add(button);

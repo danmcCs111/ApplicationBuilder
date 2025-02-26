@@ -27,7 +27,7 @@ public class WidgetBuildController
 	};
 	
 	private static final Class<?> [] LAST_ORDERED_GENERATORS = new Class<?> [] {
-		ExtendedSwappableHolder.class 
+		ExtendedSwappableHolder.class
 	};
 	
 	private static ArrayList<WidgetBuildController> widgetBuildController = new ArrayList<WidgetBuildController> ();

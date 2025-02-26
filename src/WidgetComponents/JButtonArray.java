@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,7 +40,7 @@ import WidgetUtility.WidgetBuildController;
  * 
  * TODO use a collection of inner panels and switch during toggle?
  */
-public class JButtonArray extends JPanel implements ArrayActionListener, CharacterLimited, SaveActionExtension, OpenActionExtension, CloseActionExtension, ComboListDialogSelectedListener, DialogParentReferenceContainer, CloseAllActionExtension
+public class JButtonArray extends JPanel implements ArrayActionListener, CharacterLimited, SaveActionExtension, OpenActionExtension, CloseActionExtension, ComboListDialogSelectedListener, DialogParentReferenceContainer, CloseAllActionExtension, PostWidgetBuildProcessing
 {
 	private static final long serialVersionUID = 1883L;
 	
@@ -63,7 +62,8 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 	private static boolean isHighlight = true;
 	private static JButton highlightButton = null;
 	private static final ArrayList<String> indexPaths = new ArrayList<String>();
-	private static HashMap<String, ArrayList<AbstractButton>> collectionJButtons = new HashMap<String, ArrayList<AbstractButton>>();
+	private static HashMap<String, ArrayList<Component>> collectionJButtons = new HashMap<String, ArrayList<Component>>();
+	private static HashMap<String, MouseListener> pathAndMouseAdapter;
 	private static ArrayList<String> stripFilter = new ArrayList<String>();
 	
 	private int characterLimit=0;
@@ -111,14 +111,14 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 	public void addJButtons(String path, List<String> listOf, int index)
 	{
 		LoggingMessages.printOut("load buttons." + listOf.size() + " " + index);
-		ArrayList<AbstractButton> jbuts = new ArrayList<AbstractButton>();
+		ArrayList<Component> jbuts = new ArrayList<Component>();
 		JButtonArray.indexPos = index;
 		
 		clearJButtons();
 		
 		if(!indexPaths.contains(path))
 		{
-			for(Component comp : FileListOptionGenerator.buildComponents(path, listOf, JButton.class))
+			for(Component comp : FileListOptionGenerator.buildComponents(path, listOf, JButtonLengthLimited.class))
 			{
 				if(comp instanceof Component)
 				{
@@ -130,26 +130,11 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 						{
 							txt = txt.replace(s, "");
 						}
-						if(characterLimit != 0)
+						if(comp instanceof JButtonLengthLimited && characterLimit != 0)
 						{
-							((AbstractButton) comp).setText(txt.length() >= this.characterLimit
-									? txt.substring(0, this.characterLimit-CHARACTER_LIMIT_TEXT.length()) + CHARACTER_LIMIT_TEXT
-									: txt);
+							((JButtonLengthLimited) comp).setCharacterLimit(characterLimit);
 						}
-						else
-						{
-							((AbstractButton) comp).setText(txt);
-						}
-						ImageMouseAdapter ima;
-						try {
-							ima = new ImageMouseAdapter(comp, 
-									WidgetBuildController.getInstance().getFrame(),
-									PathUtility.getCurrentDirectory() + PathUtility.removeCurrentWorkingDirectoryFromPath(path) + IMAGES_RELATIVE_FILE_LOCATION, 
-									txt);
-							((AbstractButton) comp).addMouseListener(ima);
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
+						((AbstractButton) comp).setText(txt);
 					}
 					comp.setForeground(backgroundAndForegroundColor[1]);
 					comp.setBackground(backgroundAndForegroundColor[0]);
@@ -232,7 +217,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 		}
 	}
 	
-	private void addActionListeners(ArrayList<AbstractButton> jButtons)
+	private void addActionListeners(ArrayList<Component> jButtons)
 	{
 		if(this.actionListener != null && !jButtons.isEmpty())
 		{
@@ -274,7 +259,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 			JButtonArray.backgroundAndForegroundColor[backgroundOrForeground[i]] = c[i];
 		}
 		
-		for(List<AbstractButton> buts : collectionJButtons.values())
+		for(List<Component> buts : collectionJButtons.values())
 		{
 			for(Component but : buts)
 			{
@@ -347,15 +332,15 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 					for(String key : props.keySet())
 					{
 						String [] k = key.split(PROPERTIES_FILE_ARG_DELIMITER);
-						for(AbstractButton b : collectionJButtons.get(s))
+						for(Component b : collectionJButtons.get(s))
 						{
-							if(b.getText().equals(k[0]))
+							if(((AbstractButton) b).getText().equals(k[0]))//TODO
 							{
 								for(MouseListener al : b.getMouseListeners())
 								{
 									if(al instanceof ImageMouseAdapter)
 									{
-										((ImageMouseAdapter) al).setupKeepFrame(Integer.parseInt(k[1]), Integer.parseInt(k[2]));
+										((ImageMouseAdapter) al).setupKeepFrame(b, Integer.parseInt(k[1]), Integer.parseInt(k[2]));
 									}
 								}
 							}
@@ -443,6 +428,34 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 		for(KeepSelection ks : getKeepSelection().toArray(new KeepSelection[] {}))
 		{
 			ks.getFrame().dispatchEvent(new WindowEvent(ks.getFrame(), WindowEvent.WINDOW_CLOSING));
+		}
+	}
+
+	@Override
+	public void execute() //perform mouse listener adapter add as post processing TODO include in xml.
+	{
+		if(JButtonArray.pathAndMouseAdapter == null || JButtonArray.pathAndMouseAdapter.isEmpty())
+		{
+			JButtonArray.pathAndMouseAdapter = new HashMap<String, MouseListener>();
+			for(String key : collectionJButtons.keySet())
+			{
+				JButtonArray.pathAndMouseAdapter.put(
+						key, 
+						new ImageMouseAdapter(WidgetBuildController.getInstance().getFrame(), key)
+				);
+			}
+		}
+		
+		for(String key : collectionJButtons.keySet())
+		{
+			LoggingMessages.printOut(key + " " + JButtonArray.pathAndMouseAdapter.size() + " " + collectionJButtons.get(key).size());
+			ImageMouseAdapter ima = (ImageMouseAdapter) JButtonArray.pathAndMouseAdapter.get(key);
+			ima.setupKeepsSelection(collectionJButtons.get(key));
+			
+			for(Component c : collectionJButtons.get(key))
+			{
+				c.addMouseListener(ima);
+			}
 		}
 	}
 
