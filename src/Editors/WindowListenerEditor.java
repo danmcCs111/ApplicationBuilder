@@ -16,7 +16,7 @@ public class WindowListenerEditor extends ListenerEditor
 		EDITOR_PARAMETER_FILE_FILTER = "java",
 		EDIT_BUTTON_TEXT = "Edit";
 
-	private static String //ehh static.
+	private static String 
 		editorDirectory = EDITOR_DIRECTORY,
 		packagePrefix = PACKAGE_PREFIX,
 		editorParamFileExtension = EDITOR_PARAMETER_FILE_EXTENSION,
@@ -62,31 +62,31 @@ public class WindowListenerEditor extends ListenerEditor
 	@Override
 	public void setEditorDirectory(String editorDirectory) 
 	{
-		this.editorDirectory = editorDirectory;
+		WindowListenerEditor.editorDirectory = editorDirectory;
 	}
 
 	@Override
 	public void setPackagePrefix(String packagePrefix) 
 	{
-		this.packagePrefix = packagePrefix;
+		WindowListenerEditor.packagePrefix = packagePrefix;
 	}
 
 	@Override
 	public void setFileExtension(String fileExtension) 
 	{
-		this.editorParamFileExtension = fileExtension;
+		WindowListenerEditor.editorParamFileExtension = fileExtension;
 	}
 
 	@Override
 	public void setFileFilter(String fileFilter) 
 	{
-		this.editorParamFileFilter = fileFilter;
+		WindowListenerEditor.editorParamFileFilter = fileFilter;
 	}
 
 	@Override
 	public void setEditButtonText(String editButtonText) 
 	{
-		this.editButtonText = editButtonText;
+		WindowListenerEditor.editButtonText = editButtonText;
 	}
 	
 	@Override

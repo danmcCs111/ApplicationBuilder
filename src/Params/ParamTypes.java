@@ -8,6 +8,7 @@ import ObjectTypeConvertersImpl.DimensionConverter;
 import ObjectTypeConvertersImpl.DirectorySelectionConverter;
 import ObjectTypeConvertersImpl.FileSelectionConverter;
 import ObjectTypeConvertersImpl.IntConverter;
+import ObjectTypeConvertersImpl.KeyListenerConverter;
 import ObjectTypeConvertersImpl.LayoutManagerConverter;
 import ObjectTypeConvertersImpl.PointConverter;
 import ObjectTypeConvertersImpl.StringConverter;
@@ -23,6 +24,7 @@ public enum ParamTypes
 	Boolean(new BooleanConverter()),
 	ActionListener(new ActionListenerConverter()),
 	WindowListener(new WindowListenerConverter()),
+	KeyListener(new KeyListenerConverter()),
 	DirectorySelection(new DirectorySelectionConverter()),
 	FileSelection(new FileSelectionConverter()),
 	Dimension(new DimensionConverter());
