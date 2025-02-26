@@ -28,6 +28,7 @@ import Properties.LoggingMessages;
 import Properties.PathUtility;
 import WidgetExtensions.CloseActionExtension;
 import WidgetExtensions.CloseAllActionExtension;
+import WidgetExtensions.MouseAdapterArrayExtension;
 import WidgetExtensions.OpenActionExtension;
 import WidgetExtensions.SaveActionExtension;
 import WidgetExtensionsImpl.ExtendedStringCollection;
@@ -40,7 +41,7 @@ import WidgetUtility.WidgetBuildController;
  * 
  * TODO use a collection of inner panels and switch during toggle?
  */
-public class JButtonArray extends JPanel implements ArrayActionListener, CharacterLimited, SaveActionExtension, OpenActionExtension, CloseActionExtension, ComboListDialogSelectedListener, DialogParentReferenceContainer, CloseAllActionExtension, PostWidgetBuildProcessing
+public class JButtonArray extends JPanel implements ArrayActionListener, CharacterLimited, SaveActionExtension, OpenActionExtension, CloseActionExtension, ComboListDialogSelectedListener, DialogParentReferenceContainer, CloseAllActionExtension, MouseAdapterArrayExtension, PostWidgetBuildProcessing
 {
 	private static final long serialVersionUID = 1883L;
 	
@@ -436,16 +437,8 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 	{
 		if(JButtonArray.pathAndMouseAdapter == null || JButtonArray.pathAndMouseAdapter.isEmpty())
 		{
-			JButtonArray.pathAndMouseAdapter = new HashMap<String, MouseListener>();
-			for(String key : collectionJButtons.keySet())
-			{
-				JButtonArray.pathAndMouseAdapter.put(
-						key, 
-						new ImageMouseAdapter(WidgetBuildController.getInstance().getFrame(), key)
-				);
-			}
+			return;
 		}
-		
 		for(String key : collectionJButtons.keySet())
 		{
 			LoggingMessages.printOut(key + " " + JButtonArray.pathAndMouseAdapter.size() + " " + collectionJButtons.get(key).size());
@@ -457,6 +450,12 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 				c.addMouseListener(ima);
 			}
 		}
+	}
+
+	@Override
+	public void setPathAndMouseListenerAdapter(HashMap<String, MouseListener> pathAndMouseAdapter) 
+	{
+		JButtonArray.pathAndMouseAdapter = pathAndMouseAdapter;
 	}
 
 }

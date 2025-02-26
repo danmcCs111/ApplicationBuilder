@@ -49,7 +49,6 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		KEEP_MENU_OPTION_TEXT = "keep",
 		KEEP_TITLE = "[Click Image]",
 		FILE_ARG_DELIMITER="@";
-		
 	
 	private static final ArrayList<KeepSelection> keeps = new ArrayList<KeepSelection>();//The whole app
 	private ArrayList<KeepSelection> keepsCurrentCollection = new ArrayList<KeepSelection>();//instance

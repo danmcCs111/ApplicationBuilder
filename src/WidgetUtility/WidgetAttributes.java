@@ -39,6 +39,7 @@ import WidgetExtensionsImpl.ExtendedCalculationPad;
 import WidgetExtensionsImpl.ExtendedCloseActionListener;
 import WidgetExtensionsImpl.ExtendedCloseAllActionListener;
 import WidgetExtensionsImpl.ExtendedLayoutApplyParent;
+import WidgetExtensionsImpl.ExtendedImageMouseAdapterArray;
 import WidgetExtensionsImpl.ExtendedOpenActionListener;
 import WidgetExtensionsImpl.ExtendedSaveActionListener;
 import WidgetExtensionsImpl.ExtendedScrollBarSetUnit;
@@ -136,7 +137,8 @@ public class WidgetAttributes
 				ExtendedAttributeParam.getMethodDefinition(ExtendedArrayProcessingPath.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedActionListenerArray.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSwappableHolder.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
-				ExtendedAttributeParam.getMethodDefinition(ExtendedTextStripper.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
+				ExtendedAttributeParam.getMethodDefinition(ExtendedTextStripper.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedImageMouseAdapterArray.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(MenuOption.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
