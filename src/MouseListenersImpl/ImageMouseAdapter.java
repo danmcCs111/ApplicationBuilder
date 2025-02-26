@@ -76,15 +76,31 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		}
 	}
 	
-	public KeepSelection getKeepSelection(Component component)
+	public KeepSelection getAllStoredKeepSelection(Component component)
 	{
 		String fullText = ((JButtonLengthLimited)component).getFullLengthText();
-		return getKeepSelection(fullText);
+		return getAllStoredKeepSelection(fullText);
 	}
-	
-	public KeepSelection getKeepSelection(String fullText)
+	public KeepSelection getAllStoredKeepSelection(String fullText)
 	{
 		for(KeepSelection ks : keepsCurrentCollection)//TODO
+		{
+			if(fullText.equals(ks.getText()))
+			{
+				return ks;
+			}
+		}
+		return null;
+	}
+	
+	public KeepSelection getKeepSelectionVisible(Component component)
+	{
+		String fullText = ((JButtonLengthLimited)component).getFullLengthText();
+		return getKeepSelectionVisible(fullText);
+	}
+	public KeepSelection getKeepSelectionVisible(String fullText)
+	{
+		for(KeepSelection ks : keeps)//TODO
 		{
 			if(fullText.equals(ks.getText()))
 			{
@@ -112,7 +128,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 	
 	public void setupKeepFrame(Component c, int x, int y)
 	{
-		KeepSelection keep = getKeepSelection(c);
+		KeepSelection keep = getKeepSelectionVisible(c);
 		if(!keepFrame && !keeps.contains(keep))
 		{
 			performFrameBuild(c);
@@ -131,7 +147,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 
 	private void createKeepFrame(Component c)
 	{
-		KeepSelection keep = getKeepSelection(c);
+		KeepSelection keep = getAllStoredKeepSelection(c);
 		if(keepFrame)
 		{
 			if(!keeps.contains(keep))
@@ -143,15 +159,9 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 				f.dispose();
 				f.setUndecorated(false);
 				f.addWindowListener(new WindowAdapter() {
-					
 					@Override
 					public void windowClosing(WindowEvent e) {
-						if(keepFrame)
-						{
-							LoggingMessages.printOut("remove. " + keep);
-							keeps.remove(keep);
-							keepFrame = false;
-						}
+						removeSel(keep);
 					}
 					
 				});
@@ -170,7 +180,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		{
 			destroyFrame();
 		}
-		
+		keepFrame = false;
 	}
 	
 	@Override
@@ -223,7 +233,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 	private void performFrameBuild(Component component, String title)
 	{
 		String fullText = ((JButtonLengthLimited)component).getFullLengthText();
-		KeepSelection ks = getKeepSelection(fullText);
+		KeepSelection ks = getAllStoredKeepSelection(fullText);
 		
 		f = new JFrame();
 		f.setTitle(title);

@@ -11,7 +11,6 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
-import Properties.LoggingMessages;
 import Properties.PathUtility;
 
 public class KeepSelection
