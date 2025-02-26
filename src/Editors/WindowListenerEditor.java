@@ -10,13 +10,13 @@ public class WindowListenerEditor extends ListenerEditor
 	private static final long serialVersionUID = 2000L;
 
 	private static final String 
-		EDITOR_DIRECTORY = "/src/WindowListeners/ ",
+		EDITOR_DIRECTORY = "/src/WindowListeners",
 		PACKAGE_PREFIX = "WindowListeners",
 		EDITOR_PARAMETER_FILE_EXTENSION = ".java",
 		EDITOR_PARAMETER_FILE_FILTER = "java",
 		EDIT_BUTTON_TEXT = "Edit";
 
-	private String
+	private static String //ehh static.
 		editorDirectory = EDITOR_DIRECTORY,
 		packagePrefix = PACKAGE_PREFIX,
 		editorParamFileExtension = EDITOR_PARAMETER_FILE_EXTENSION,

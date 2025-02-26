@@ -16,12 +16,17 @@ public class ActionListenerEditor extends ListenerEditor
 		EDITOR_PARAMETER_FILE_FILTER = "java",
 		EDIT_BUTTON_TEXT = "Edit";
 	
-	private String
+	private static String //ehh static.
 		editorDirectory = EDITOR_DIRECTORY,
 		packagePrefix = PACKAGE_PREFIX,
 		editorParamFileExtension = EDITOR_PARAMETER_FILE_EXTENSION,
 		editorParamFileFilter = EDITOR_PARAMETER_FILE_FILTER,
 		editButtonText = EDIT_BUTTON_TEXT;
+	
+	public ActionListenerEditor()
+	{
+		super();
+	}
 	
 	@Override
 	public String getParameterDefintionString() 
