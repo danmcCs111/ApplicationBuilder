@@ -94,9 +94,9 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
-			if(e.getSource() instanceof AbstractButton)
+			if(e.getSource() instanceof JButtonLengthLimited)//TODO
 			{
-				AbstractButton ab = (AbstractButton) e.getSource();
+				JButtonLengthLimited ab = (JButtonLengthLimited) e.getSource();
 				PicLabelMouseListener.highLightLabel(ab, e.getID() == (ActionEvent.ACTION_PERFORMED));
 			}
 		}

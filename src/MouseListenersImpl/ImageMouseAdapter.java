@@ -18,7 +18,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -257,9 +256,9 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		ImageIcon ii = new ImageIcon(useImage);
 		JLabel picLabel = new JLabel(ii);
 		
-		if(component instanceof AbstractButton)//TODO
+		if(component instanceof JButtonLengthLimited)//TODO
 		{
-			AbstractButton ab = (AbstractButton) component;
+			JButtonLengthLimited ab = (JButtonLengthLimited) component;
 			MouseDragListener mouseDragListener = new MouseDragListener(f, ab, picLabel);
 			picLabel.addMouseMotionListener(mouseDragListener);
 			picLabel.addMouseListener(mouseDragListener);

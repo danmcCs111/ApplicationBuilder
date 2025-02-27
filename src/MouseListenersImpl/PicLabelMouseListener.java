@@ -14,6 +14,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
 import Properties.LoggingMessages;
+import WidgetComponents.JButtonLengthLimited;
 
 
 public class PicLabelMouseListener extends MouseAdapter 
@@ -31,12 +32,12 @@ public class PicLabelMouseListener extends MouseAdapter
 		PicLabelMouseListener.connectedLabels.add(label);
 	}
 	
-	public static void highLightLabel(AbstractButton ab, boolean on)
+	public static void highLightLabel(JButtonLengthLimited ab, boolean on)
 	{
 		LoggingMessages.printOut("highlight label.");
 		for(JLabel l : PicLabelMouseListener.connectedLabels)
 		{
-			if(l.getName().equals(ab.getText()))
+			if(l.getName().equals(ab.getFullLengthText()))
 			{
 				l.setBorder(on
 					? HIGHLIGHT_BORDER
@@ -57,7 +58,7 @@ public class PicLabelMouseListener extends MouseAdapter
 			for(ActionListener al : connectedButton.getActionListeners())
 			{
 				al.actionPerformed(new ActionEvent(connectedButton, 1, "Open From Image"));
-				highLightLabel(connectedButton, true);
+				highLightLabel((JButtonLengthLimited) connectedButton, true);
 			}
 		}
 	}

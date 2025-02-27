@@ -10,6 +10,7 @@ import javax.swing.AbstractButton;
 import ActionListeners.ArrayActionListener;
 import MouseListenersImpl.PicLabelMouseListener;
 import Properties.LoggingMessages;
+import WidgetComponents.JButtonLengthLimited;
 
 public class LaunchActionListener implements ActionListener
 {
@@ -57,7 +58,7 @@ public class LaunchActionListener implements ActionListener
 				ArrayActionListener aal = (ArrayActionListener)lastButtonParent;
 				aal.unselect();
 			}
-			PicLabelMouseListener.highLightLabel(lastButton, false);//TODO interface?
+			PicLabelMouseListener.highLightLabel((JButtonLengthLimited) lastButton, false);//TODO interface?
 		}
 		else
 		{

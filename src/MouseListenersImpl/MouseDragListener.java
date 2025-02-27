@@ -12,6 +12,8 @@ import javax.swing.AbstractButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import WidgetComponents.JButtonLengthLimited;
+
 public class MouseDragListener extends MouseAdapter 
 {
 	private static final int FRAME_AND_TITLE_HEIGHT = 45; 
@@ -47,7 +49,7 @@ public class MouseDragListener extends MouseAdapter
 					for(ActionListener al : component.getActionListeners())
 					{
 						al.actionPerformed(new ActionEvent(component, 1, "Open From Image"));
-						PicLabelMouseListener.highLightLabel(component, true);
+						PicLabelMouseListener.highLightLabel((JButtonLengthLimited) component, true);//TODO
 					}
 				}
 			});
