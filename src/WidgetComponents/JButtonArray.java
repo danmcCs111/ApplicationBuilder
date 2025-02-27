@@ -28,10 +28,10 @@ import Properties.LoggingMessages;
 import Properties.PathUtility;
 import WidgetExtensions.CloseActionExtension;
 import WidgetExtensions.CloseAllActionExtension;
+import WidgetExtensions.ExtendedStringCollection;
 import WidgetExtensions.MouseAdapterArrayExtension;
 import WidgetExtensions.OpenActionExtension;
 import WidgetExtensions.SaveActionExtension;
-import WidgetExtensionsImpl.ExtendedStringCollection;
 import WidgetUtility.FileListOptionGenerator;
 import WidgetUtility.WidgetBuildController;
 
@@ -123,19 +123,19 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 			{
 				if(comp instanceof Component)
 				{
-					if(comp instanceof AbstractButton)
+					if(comp instanceof JButtonLengthLimited)
 					{
-						String txt = ((AbstractButton) comp).getText();
+						String txt = ((JButtonLengthLimited) comp).getFullLengthText();
 						
 						for(String s : stripFilter)
 						{
 							txt = txt.replace(s, "");
 						}
-						if(comp instanceof JButtonLengthLimited && characterLimit != 0)
+						if(characterLimit != 0)
 						{
 							((JButtonLengthLimited) comp).setCharacterLimit(characterLimit);
 						}
-						((AbstractButton) comp).setText(txt);
+						((JButtonLengthLimited) comp).setText(txt);
 					}
 					comp.setForeground(backgroundAndForegroundColor[1]);
 					comp.setBackground(backgroundAndForegroundColor[0]);
@@ -335,7 +335,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 						String [] k = key.split(PROPERTIES_FILE_ARG_DELIMITER);
 						for(Component b : collectionJButtons.get(s))
 						{
-							if(((AbstractButton) b).getText().equals(k[0]))//TODO
+							if(((JButtonLengthLimited) b).getFullLengthText().equals(k[0]))//TODO
 							{
 								for(MouseListener al : b.getMouseListeners())
 								{

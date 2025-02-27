@@ -24,8 +24,8 @@ public class JButtonLengthLimited extends JButton
 	{
 		this.fullLengthText = text;
 		String t = (this.characterLimit != 0 && text.length() > this.characterLimit)
-		? text.substring(0, this.characterLimit-CHARACTER_LIMIT_TEXT.length()) + CHARACTER_LIMIT_TEXT
-		: text;
+			? text.substring(0, this.characterLimit-CHARACTER_LIMIT_TEXT.length()) + CHARACTER_LIMIT_TEXT
+			: text;
 		super.setText(t);
 	}
 

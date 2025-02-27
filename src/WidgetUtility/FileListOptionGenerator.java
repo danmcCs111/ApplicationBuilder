@@ -41,7 +41,7 @@ public class FileListOptionGenerator
 		{
 			for(String fileName: fileNames)
 			{
-				JButton button = new JButtonLengthLimited();
+				JButtonLengthLimited button = new JButtonLengthLimited();
 				button.setText(fileName);
 				button.setName(UrlToValueReader.parse(fileName, path));
 				components.add(button);

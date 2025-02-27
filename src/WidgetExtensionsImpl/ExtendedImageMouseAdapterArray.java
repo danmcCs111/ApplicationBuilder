@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import MouseListenersImpl.ImageMouseAdapter;
 import WidgetExtensions.ExtendedAttributeParam;
+import WidgetExtensions.ExtendedStringCollection;
 import WidgetExtensions.MouseAdapterArrayExtension;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;

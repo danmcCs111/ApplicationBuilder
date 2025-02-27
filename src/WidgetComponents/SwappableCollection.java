@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 
 import ActionListenersImpl.NavigationButtonActionListener;
 import Properties.PathUtility;
-import WidgetExtensionsImpl.ExtendedStringCollection;
+import WidgetExtensions.ExtendedStringCollection;
 
 /**
  * Holds a variable number of Components and controls/rebuilds child JComponents
