@@ -44,7 +44,7 @@ public class WeatherButton extends JPanel
 			comboSelection.add(ACTIONS[i][0]);
 		}
 	}
-	private WeatherButtonListener wbl;
+	private List<WeatherButtonListener> wblListeners = new ArrayList<WeatherButtonListener>();
 	private JButton 
 		weatherButton,
 		keyLocationSelect;
@@ -79,7 +79,7 @@ public class WeatherButton extends JPanel
 				if(keyLocationSelect.getText().equals(KEY_BUTTON_DEFAULT_TEXT))
 				{
 					retRes.add("No Key Selected!");
-					wbl.setResults(retRes);
+					notifyListeners(retRes);
 					return;
 				}
 				String ret = showDialog();
@@ -91,7 +91,7 @@ public class WeatherButton extends JPanel
 					String keyValue = keyNameValue.get(PROPERTIES_FILE_KEY_NAME_VALUE);
 					String output = startWeather(ret, keyValue);
 					retRes = WeatherParser.parse(output);
-					wbl.setResults(retRes);
+					notifyListeners(retRes);
 					return;
 				}
 			}
@@ -101,7 +101,15 @@ public class WeatherButton extends JPanel
 
 	public void setWeatherButtonListener(WeatherButtonListener wbl)
 	{
-		this.wbl = wbl;
+		this.wblListeners.add(wbl);
+	}
+	
+	public void notifyListeners(List<String> results)
+	{
+		for(WeatherButtonListener wbl : wblListeners)
+		{
+			wbl.setResults(results);
+		}
 	}
 	
 	private String startWeather(String option, String keyValue)
