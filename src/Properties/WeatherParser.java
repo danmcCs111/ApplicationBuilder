@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class WeatherParser 
+public class WeatherParser //...using instead of JSON parser as sticking with java se...
 {
 	private static ArrayList<String> valuesKey = new ArrayList<String>();
 	private static HashMap<Integer, String[]> keyAndValues = new HashMap<Integer, String[]>();
