@@ -27,7 +27,9 @@ import Properties.LoggingMessages;
 import WidgetComponents.ApplicationLayoutEditor;
 import WidgetComponents.JButtonArray;
 import WidgetComponents.MenuOption;
+import WidgetComponents.OutputWeatherResultsTextArea;
 import WidgetComponents.SwappableCollection;
+import WidgetComponents.WeatherButton;
 import WidgetComponents.XmlToEditor;
 import WidgetExtensions.ExtendedAttributeParam;
 import WidgetExtensions.ExtendedMethodArgDef;
@@ -45,6 +47,7 @@ import WidgetExtensionsImpl.ExtendedSaveActionListener;
 import WidgetExtensionsImpl.ExtendedScrollBarSetUnit;
 import WidgetExtensionsImpl.ExtendedSetJMenuBarParent;
 import WidgetExtensionsImpl.ExtendedSetViewportView;
+import WidgetExtensionsImpl.ExtendedSetWeatherButtonListener;
 import WidgetExtensionsImpl.ExtendedSetupTaskbar;
 import WidgetExtensionsImpl.ExtendedSwappableHolder;
 import WidgetExtensionsImpl.ExtendedTextStripper;
@@ -68,6 +71,8 @@ public class WidgetAttributes
 		COMPONENT_CLASSES.add(JMenu.class);
 		COMPONENT_CLASSES.add(JMenuItem.class);
 		
+		COMPONENT_CLASSES.add(WeatherButton.class);
+		COMPONENT_CLASSES.add(OutputWeatherResultsTextArea.class);
 		COMPONENT_CLASSES.add(ApplicationLayoutEditor.class);
 		COMPONENT_CLASSES.add(XmlToEditor.class);
 		COMPONENT_CLASSES.add(SystemTray.class);
@@ -124,6 +129,13 @@ public class WidgetAttributes
 		});
 		
 		//EXTENDED WIDGETS
+		EXTENDED_METHODS.put(WeatherButton.class, new String [] {
+				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
+		});
+		EXTENDED_METHODS.put(OutputWeatherResultsTextArea.class, new String [] {
+				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetWeatherButtonListener.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
+		});
 		EXTENDED_METHODS.put(ApplicationLayoutEditor.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetupTaskbar.class, ExtendedMethodArgDef.ExtendedFileSelection.getMethodArgDef()),
 		});

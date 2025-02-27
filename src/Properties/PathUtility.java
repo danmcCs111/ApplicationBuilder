@@ -51,9 +51,10 @@ public interface PathUtility
 		return files;
 	}
 	
-	public static HashMap<String,String> readProperties(String location, String delimter)
+	public static HashMap<String, String> readProperties(String location, String delimter)
 	{
 		HashMap<String,String> props = new HashMap<String,String>();
+		LoggingMessages.printOut(location);
 		File file = new File(location);
 		Scanner sc;
 		

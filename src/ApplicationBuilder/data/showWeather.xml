@@ -1,0 +1,8 @@
+<Build>
+	<JFrame setLayout="java.awt.BorderLayout" setLocation="250, 350" setMaximumSize="350, 0" setMinimumSize="950, 450" setTitle="Weather Output Utility" >
+		<WeatherButton extendedLayoutApplyParent="Center" setName="weather" >
+			<OutputWeatherResultsTextArea extendedLayoutApplyParent="Center" extendedSetWeatherButtonListener="weather" >
+			</OutputWeatherResultsTextArea>
+		</WeatherButton>
+	</JFrame>
+</Build>
