@@ -57,6 +57,8 @@ public class FileSelectionEditor extends JButton implements ParameterEditor
 	@Override
 	public void setComponentValue(Object value) 
 	{
+		if(value instanceof String)
+			return;
 		FileSelection ds = (FileSelection) value;
 		LoggingMessages.printOut(ds.getFullPath());
 		this.setText(ds.getRelativePath());

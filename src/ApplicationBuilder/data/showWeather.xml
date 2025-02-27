@@ -1,5 +1,5 @@
 <Build>
-	<JFrame setLayout="java.awt.BorderLayout" setLocation="250, 350" setMaximumSize="350, 0" setMinimumSize="950, 450" setTitle="Weather Output Utility" setDefaultCloseOperation="3" >
+	<JFrame extendedSetupTaskbar="/src/ApplicationBuilder/weather_xsm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="250, 350" setMaximumSize="350, 0" setMinimumSize="950, 450" setTitle="Weather Output Utility" >
 		<WeatherButtonPanel extendedLayoutApplyParent="Center" setName="weather" >
 			<OutputWeatherResultsTextArea extendedLayoutApplyParent="Center" extendedSetWeatherButtonListener="weather" >
 			</OutputWeatherResultsTextArea>
