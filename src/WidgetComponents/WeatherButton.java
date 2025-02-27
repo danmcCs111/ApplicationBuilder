@@ -14,8 +14,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import Editors.FileSelectionEditor;
 import Properties.WeatherParser;
@@ -35,7 +37,8 @@ public class WeatherButton extends JPanel
 	
 	private static final String [][] ACTIONS = new String [][] {
 			{"Alerts", "alerts.json"},
-			{"Forecast", "forecast.json"}
+			{"Forecast", "forecast.json"},
+			{"Timezone", "timezone.json"}
 	};
 	private static final List<String> comboSelection = new ArrayList<String>();
 	static {
@@ -48,9 +51,12 @@ public class WeatherButton extends JPanel
 	private JButton 
 		weatherButton,
 		keyLocationSelect;
+	private JTextField timezoneText;
+	private JLabel timezoneLabel;
 	private JPanel
 		borderPanel,
-		buttonPanel;
+		buttonPanel,
+		timezonePanel;
 	
 	public WeatherButton()
 	{
@@ -61,16 +67,28 @@ public class WeatherButton extends JPanel
 	{
 		this.setLayout(new BorderLayout());
 		buttonPanel = new JPanel();
+		timezonePanel = new JPanel();
 		borderPanel = new JPanel();
+		timezonePanel.setLayout(new GridLayout());
 		buttonPanel.setLayout(new GridLayout());
 		borderPanel.setLayout(new BorderLayout());
+		
+		timezoneText = new JTextField();
+		timezoneText.setText("london");
+		timezoneLabel = new JLabel();
+		timezoneLabel.setText("Enter Location: ");
+		timezonePanel.add(timezoneLabel);
+		timezonePanel.add(timezoneText);
+		
 		keyLocationSelect = new FileSelectionEditor();
 		keyLocationSelect.setText(KEY_BUTTON_DEFAULT_TEXT);
 		weatherButton = new JButton();
 		weatherButton.setText(WEATHER_BUTTON_TEXT);
 		buttonPanel.add(weatherButton);
 		buttonPanel.add(keyLocationSelect);
+		
 		borderPanel.add(buttonPanel, BorderLayout.WEST);
+		borderPanel.add(timezonePanel, BorderLayout.EAST);
 		
 		weatherButton.addActionListener(new ActionListener() {
 			@Override
@@ -89,7 +107,7 @@ public class WeatherButton extends JPanel
 							keyLocationSelect.getText(), 
 							PROPERTIES_FILE_VALUE_SEPERATOR);
 					String keyValue = keyNameValue.get(PROPERTIES_FILE_KEY_NAME_VALUE);
-					String output = startWeather(ret, keyValue);
+					String output = startWeather(ret, keyValue, timezoneText.getText());
 					retRes = WeatherParser.parse(output);
 					notifyListeners(retRes);
 					return;
@@ -112,7 +130,7 @@ public class WeatherButton extends JPanel
 		}
 	}
 	
-	private String startWeather(String option, String keyValue)
+	private String startWeather(String option, String keyValue, String timezone)
 	{
 		String opt = null;
 		for(int i = 0; i < ACTIONS.length; i++)
@@ -124,7 +142,7 @@ public class WeatherButton extends JPanel
 			}
 		}
 		HttpRequest request = HttpRequest.newBuilder()
-				.uri(URI.create("https://weatherapi-com.p.rapidapi.com/" + opt + "?q=london"))//using london
+				.uri(URI.create("https://weatherapi-com.p.rapidapi.com/" + opt + "?q=" + timezone))//using london
 				.header("x-rapidapi-key", keyValue)
 				.header("x-rapidapi-host", "weatherapi-com.p.rapidapi.com")
 				.method("GET", HttpRequest.BodyPublishers.noBody())
