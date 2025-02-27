@@ -33,7 +33,7 @@ public class OutputWeatherResultsTextArea extends JPanel implements WeatherButto
 		outputWeatherResults.setText(
 			(results == null)
 			? "API Failure!"
-			: LoggingMessages.combine("\n", results)
+			: LoggingMessages.combine("\n\n", results)
 		);
 	}
 
