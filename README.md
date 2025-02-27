@@ -11,3 +11,6 @@
 ![example_collection](https://github.com/user-attachments/assets/497d46c3-a491-418a-8095-14ad6ca39aeb)
 
 ![editor_file_directory](https://github.com/user-attachments/assets/03faf10f-9b9f-4a96-a454-ad3d3e145af7)
+
+
+![central-app](https://github.com/user-attachments/assets/026eacb8-cd18-4ace-bcbf-7e1591ea7fd8)
