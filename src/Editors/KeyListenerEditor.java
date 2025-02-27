@@ -10,7 +10,7 @@ public class KeyListenerEditor extends ListenerEditor
 	private static final long serialVersionUID = 1L;
 
 	private static final String 
-		KEY_LISTENERS_DIRECTORY = "/src/KeyListenersImpl/ ",
+		KEY_LISTENERS_DIRECTORY = "/src/KeyListenersImpl/",
 		PACKAGE_PREFIX = "KeyListenersImpl",
 		EDITOR_PARAMETER_FILE_EXTENSION = ".java",
 		EDITOR_PARAMETER_FILE_FILTER = "java",

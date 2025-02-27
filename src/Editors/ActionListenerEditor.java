@@ -10,7 +10,7 @@ public class ActionListenerEditor extends ListenerEditor
 	private static final long serialVersionUID = 1990L;
 
 	private static final String 
-		EDITOR_DIRECTORY = "/src/ActionListenersImpl/ ",
+		EDITOR_DIRECTORY = "/src/ActionListenersImpl/",
 		PACKAGE_PREFIX = "ActionListenersImpl",
 		EDITOR_PARAMETER_FILE_EXTENSION = ".java",
 		EDITOR_PARAMETER_FILE_FILTER = "java",
