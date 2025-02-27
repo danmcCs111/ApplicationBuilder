@@ -29,7 +29,7 @@ import WidgetComponents.JButtonArray;
 import WidgetComponents.MenuOption;
 import WidgetComponents.OutputWeatherResultsTextArea;
 import WidgetComponents.SwappableCollection;
-import WidgetComponents.WeatherButton;
+import WidgetComponents.WeatherButtonPanel;
 import WidgetComponents.XmlToEditor;
 import WidgetExtensions.ExtendedAttributeParam;
 import WidgetExtensions.ExtendedMethodArgDef;
@@ -71,7 +71,7 @@ public class WidgetAttributes
 		COMPONENT_CLASSES.add(JMenu.class);
 		COMPONENT_CLASSES.add(JMenuItem.class);
 		
-		COMPONENT_CLASSES.add(WeatherButton.class);
+		COMPONENT_CLASSES.add(WeatherButtonPanel.class);
 		COMPONENT_CLASSES.add(OutputWeatherResultsTextArea.class);
 		COMPONENT_CLASSES.add(ApplicationLayoutEditor.class);
 		COMPONENT_CLASSES.add(XmlToEditor.class);
@@ -129,7 +129,7 @@ public class WidgetAttributes
 		});
 		
 		//EXTENDED WIDGETS
-		EXTENDED_METHODS.put(WeatherButton.class, new String [] {
+		EXTENDED_METHODS.put(WeatherButtonPanel.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(OutputWeatherResultsTextArea.class, new String [] {

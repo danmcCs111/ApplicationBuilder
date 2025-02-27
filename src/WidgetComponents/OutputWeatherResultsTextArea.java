@@ -8,8 +8,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import Properties.LoggingMessages;
+import WidgetExtensions.WeatherButtonListenerExtension;
 
-public class OutputWeatherResultsTextArea extends JPanel implements WeatherButtonListener
+public class OutputWeatherResultsTextArea extends JPanel implements WeatherButtonListenerExtension
 {
 
 	private static final long serialVersionUID = 2021L;

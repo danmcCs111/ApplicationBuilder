@@ -21,9 +21,10 @@ import javax.swing.JTextField;
 
 import Editors.FileSelectionEditor;
 import Properties.WeatherParser;
+import WidgetExtensions.WeatherButtonListenerExtension;
 import Properties.PathUtility;
 
-public class WeatherButton extends JPanel
+public class WeatherButtonPanel extends JPanel
 {
 	private static final long serialVersionUID = 2020L;
 	
@@ -47,7 +48,7 @@ public class WeatherButton extends JPanel
 			comboSelection.add(ACTIONS[i][0]);
 		}
 	}
-	private List<WeatherButtonListener> wblListeners = new ArrayList<WeatherButtonListener>();
+	private List<WeatherButtonListenerExtension> wblListeners = new ArrayList<WeatherButtonListenerExtension>();
 	private JButton 
 		weatherButton,
 		keyLocationSelect;
@@ -58,7 +59,7 @@ public class WeatherButton extends JPanel
 		buttonPanel,
 		timezonePanel;
 	
-	public WeatherButton()
+	public WeatherButtonPanel()
 	{
 		buildWidgets();
 	}
@@ -117,14 +118,14 @@ public class WeatherButton extends JPanel
 		this.add(borderPanel, BorderLayout.NORTH);
 	}
 
-	public void setWeatherButtonListener(WeatherButtonListener wbl)
+	public void setWeatherButtonListener(WeatherButtonListenerExtension wbl)
 	{
 		this.wblListeners.add(wbl);
 	}
 	
 	public void notifyListeners(List<String> results)
 	{
-		for(WeatherButtonListener wbl : wblListeners)
+		for(WeatherButtonListenerExtension wbl : wblListeners)
 		{
 			wbl.setResults(results);
 		}

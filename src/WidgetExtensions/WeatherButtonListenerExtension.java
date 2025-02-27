@@ -1,8 +1,8 @@
-package WidgetComponents;
+package WidgetExtensions;
 
 import java.util.List;
 
-public interface WeatherButtonListener 
+public interface WeatherButtonListenerExtension
 {
 	public void setResults(List<String> results);
 }
