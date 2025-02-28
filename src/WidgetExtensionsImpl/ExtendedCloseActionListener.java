@@ -5,10 +5,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
 
-import WidgetComponentInterfaces.ComboListDialogSelectedListener;
 import WidgetComponentInterfaces.DialogParentReferenceContainer;
 import WidgetComponents.ComboSelectionDialog;
 import WidgetExtensions.CloseActionExtension;
+import WidgetExtensions.ComboListDialogSelectedListener;
 import WidgetExtensions.ExtendedAttributeParam;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;

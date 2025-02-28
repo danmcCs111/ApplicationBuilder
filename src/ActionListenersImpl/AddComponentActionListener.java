@@ -10,11 +10,11 @@ import javax.swing.JOptionPane;
 
 import Params.XmlToWidgetGenerator;
 import Properties.LoggingMessages;
-import WidgetComponentInterfaces.ComboListDialogSelectedListener;
 import WidgetComponentInterfaces.DependentRedrawableFrame;
 import WidgetComponentInterfaces.DependentRedrawableFrameListener;
 import WidgetComponentInterfaces.DialogParentReferenceContainer;
 import WidgetComponents.ComboSelectionDialog;
+import WidgetExtensions.ComboListDialogSelectedListener;
 import WidgetExtensions.ExtendedAttributeParam;
 import WidgetExtensions.ExtendedMethodArgDef;
 import WidgetExtensionsImpl.ExtendedLayoutApplyParent;

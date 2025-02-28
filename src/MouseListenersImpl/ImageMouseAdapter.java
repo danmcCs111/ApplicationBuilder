@@ -28,11 +28,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import Params.KeepSelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
-import WidgetComponentInterfaces.ComboListDialogSelectedListener;
 import WidgetComponentInterfaces.DialogParentReferenceContainer;
 import WidgetComponents.ComboSelectionDialog;
 import WidgetComponents.JButtonArray;
 import WidgetComponents.JButtonLengthLimited;
+import WidgetExtensions.ComboListDialogSelectedListener;
 
 public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSelectedListener, DialogParentReferenceContainer
 {
