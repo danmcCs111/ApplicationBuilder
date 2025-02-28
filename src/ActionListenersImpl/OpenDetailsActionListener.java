@@ -8,7 +8,7 @@ import javax.swing.ListSelectionModel;
 
 import Params.XmlToWidgetGenerator;
 import Properties.LoggingMessages;
-import WidgetComponents.RedrawableFrame;
+import WidgetComponentInterfaces.RedrawableFrame;
 import WidgetUtility.WidgetAttributes;
 import WidgetUtility.WidgetCreatorProperty;
 

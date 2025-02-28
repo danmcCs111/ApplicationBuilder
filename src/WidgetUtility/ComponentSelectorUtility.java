@@ -1,4 +1,4 @@
-package WidgetComponents;
+package WidgetUtility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,9 +6,7 @@ import java.util.List;
 import javax.swing.JFrame;
 
 import ObjectTypeConvertersImpl.ClassAndSetters;
-import WidgetUtility.WidgetAttributes;
-import WidgetUtility.WidgetBuildController;
-import WidgetUtility.WidgetCreatorProperty;
+import WidgetComponents.ApplicationLayoutEditor;
 
 public interface ComponentSelectorUtility 
 {

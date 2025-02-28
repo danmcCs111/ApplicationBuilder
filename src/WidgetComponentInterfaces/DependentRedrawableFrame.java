@@ -1,4 +1,4 @@
-package WidgetComponents;
+package WidgetComponentInterfaces;
 
 public abstract class DependentRedrawableFrame extends RedrawableFrame
 {

@@ -4,8 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import Properties.LoggingMessages;
-import WidgetComponents.DependentRedrawableFrame;
-import WidgetComponents.DependentRedrawableFrameListener;
+import WidgetComponentInterfaces.DependentRedrawableFrame;
+import WidgetComponentInterfaces.DependentRedrawableFrameListener;
 import WidgetComponents.EditorToXml;
 import WidgetUtility.WidgetBuildController;
 

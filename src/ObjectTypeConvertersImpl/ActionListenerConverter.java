@@ -6,8 +6,8 @@ import java.util.List;
 
 import ObjectTypeConversion.StringToObjectConverter;
 import Properties.LoggingMessages;
-import WidgetComponents.DependentRedrawableFrame;
-import WidgetComponents.DependentRedrawableFrameListener;
+import WidgetComponentInterfaces.DependentRedrawableFrame;
+import WidgetComponentInterfaces.DependentRedrawableFrameListener;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 

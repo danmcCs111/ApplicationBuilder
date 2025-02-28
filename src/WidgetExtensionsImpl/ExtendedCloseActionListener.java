@@ -5,9 +5,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
 
-import WidgetComponents.ComboListDialogSelectedListener;
+import WidgetComponentInterfaces.ComboListDialogSelectedListener;
+import WidgetComponentInterfaces.DialogParentReferenceContainer;
 import WidgetComponents.ComboSelectionDialog;
-import WidgetComponents.DialogParentReferenceContainer;
 import WidgetExtensions.CloseActionExtension;
 import WidgetExtensions.ExtendedAttributeParam;
 import WidgetUtility.WidgetBuildController;

@@ -1,4 +1,4 @@
-package WidgetComponents;
+package WidgetComponentInterfaces;
 
 import javax.swing.JTabbedPane;
 

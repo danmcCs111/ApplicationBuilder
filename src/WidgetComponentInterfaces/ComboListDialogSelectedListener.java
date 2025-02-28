@@ -1,4 +1,4 @@
-package WidgetComponents;
+package WidgetComponentInterfaces;
 
 import java.util.List;
 

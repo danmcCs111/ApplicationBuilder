@@ -17,6 +17,9 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import WidgetComponentInterfaces.ComboListDialogSelectedListener;
+import WidgetComponentInterfaces.DialogParentReferenceContainer;
+
 
 public class ComboSelectionDialog extends JDialog 
 {

@@ -16,6 +16,7 @@ import javax.swing.event.ListSelectionListener;
 import ActionListenersImpl.OpenDetailsActionListener;
 import ObjectTypeConvertersImpl.ClassAndSetters;
 import Params.XmlToWidgetGenerator;
+import WidgetComponentInterfaces.RedrawableFrame;
 import WidgetUtility.WidgetAttributes;
 import WidgetUtility.WidgetCreatorProperty;
 

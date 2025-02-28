@@ -8,6 +8,9 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 
 import ActionListenersImpl.RemoveEditorTabActionListener;
+import WidgetComponentInterfaces.DependentRedrawableFrame;
+import WidgetComponentInterfaces.DependentRedrawableFrameListener;
+import WidgetComponentInterfaces.TabbedPanel;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 

@@ -28,9 +28,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import Params.KeepSelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
-import WidgetComponents.ComboListDialogSelectedListener;
+import WidgetComponentInterfaces.ComboListDialogSelectedListener;
+import WidgetComponentInterfaces.DialogParentReferenceContainer;
 import WidgetComponents.ComboSelectionDialog;
-import WidgetComponents.DialogParentReferenceContainer;
 import WidgetComponents.JButtonArray;
 import WidgetComponents.JButtonLengthLimited;
 

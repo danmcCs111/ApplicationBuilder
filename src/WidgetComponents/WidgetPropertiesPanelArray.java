@@ -15,6 +15,8 @@ import javax.swing.JPanel;
 import Params.ParameterEditor;
 import Params.ParameterUtility;
 import Params.XmlToWidgetGenerator;
+import WidgetComponentInterfaces.DependentRedrawableFrame;
+import WidgetComponentInterfaces.DependentRedrawableFrameListener;
 import WidgetUtility.WidgetCreatorProperty;
 
 public class WidgetPropertiesPanelArray extends JPanel implements DependentRedrawableFrameListener

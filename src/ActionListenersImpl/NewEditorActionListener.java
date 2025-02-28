@@ -3,8 +3,8 @@ package ActionListenersImpl;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import WidgetComponents.DependentRedrawableFrame;
-import WidgetComponents.DependentRedrawableFrameListener;
+import WidgetComponentInterfaces.DependentRedrawableFrame;
+import WidgetComponentInterfaces.DependentRedrawableFrameListener;
 import WidgetUtility.WidgetBuildController;
 
 public class NewEditorActionListener implements DependentRedrawableFrameListener, ActionListener

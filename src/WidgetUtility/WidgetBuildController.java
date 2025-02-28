@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 import Params.ParameterEditor;
 import Params.XmlToWidgetGenerator;
 import Properties.LoggingMessages;
-import WidgetComponents.PostWidgetBuildProcessing;
+import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetExtensions.ExtendedAttributeParam;
 import WidgetExtensionsImpl.ExtendedLayoutApplyParent;
 import WidgetExtensionsImpl.ExtendedSwappableHolder;

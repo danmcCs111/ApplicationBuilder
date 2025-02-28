@@ -8,8 +8,8 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Properties.PathUtility;
-import WidgetComponents.DependentRedrawableFrame;
-import WidgetComponents.DependentRedrawableFrameListener;
+import WidgetComponentInterfaces.DependentRedrawableFrame;
+import WidgetComponentInterfaces.DependentRedrawableFrameListener;
 import WidgetComponents.EditorToXml;
 import WidgetUtility.WidgetBuildController;
 

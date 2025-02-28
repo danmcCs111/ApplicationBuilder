@@ -4,8 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-import WidgetComponents.ComponentSelectorUtility;
-import WidgetComponents.TabbedPanel;
+import WidgetComponentInterfaces.TabbedPanel;
+import WidgetUtility.ComponentSelectorUtility;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
