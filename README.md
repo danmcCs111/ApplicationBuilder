@@ -1,4 +1,6 @@
 
+* Add Soap Service to interact with database.
+
 * add editor for listeners as well.
 
 ![video_launch](https://github.com/user-attachments/assets/1a8eff64-7255-44c6-b4c2-283b87ca014a)
