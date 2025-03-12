@@ -1,5 +1,5 @@
 <Build>
-	<JFrame setLayout="java.awt.BorderLayout" setLocation="250, 350" setMaximumSize="350, 0" setMinimumSize="550, 400" setTitle="new title" >
+	<JFrame setLayout="java.awt.BorderLayout" setLocation="250, 350" setMaximumSize="350, 0" setMinimumSize="550, 400" setTitle="new title" setDefaultCloseOperation="3" >
 		<SendHttpRequestPanel extendedLayoutApplyParent="North" setLayout="java.awt.GridLayout" >
 		</SendHttpRequestPanel>
 	</JFrame>
