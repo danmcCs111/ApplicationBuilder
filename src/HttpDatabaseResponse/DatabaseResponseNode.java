@@ -28,6 +28,10 @@ public class DatabaseResponseNode
 	@Override
 	public String toString()
 	{
-		return this.nodeName + " " + LoggingMessages.combine(this.nodeAttributes);
+		String att = (this.nodeAttributes != null && !this.nodeAttributes.isEmpty())
+				? LoggingMessages.combine(this.nodeAttributes)
+				: "";
+		return this.nodeName + " " + att; 
+				
 	}
 }

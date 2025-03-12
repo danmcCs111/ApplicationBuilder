@@ -21,24 +21,29 @@ import Properties.LoggingMessages;
 
 public class HttpDatabaseResponse 
 {
-	public static ArrayList<DatabaseResponseNode> parseResponse(String responseBody)
+	private static final String RESULT_TAG = "Result";
+	
+	private ArrayList<ArrayList<DatabaseResponseNode>> databaseResponseNodesFull = new ArrayList<ArrayList<DatabaseResponseNode>>();
+	private ArrayList<DatabaseResponseNode> databaseResponseNodes = new ArrayList<DatabaseResponseNode>();
+	
+	public ArrayList<ArrayList<DatabaseResponseNode>> parseResponse(String responseBody)
 	{
-		return getXml(responseBody);
+		getXml(responseBody);
+		return databaseResponseNodesFull;
 	}
 	
-	public static ArrayList<DatabaseResponseNode> getXml(String response)
+	private void getXml(String response)
 	{
 		int indexOf = response.indexOf("<ResultSet>", 0);
 		LoggingMessages.printOut(indexOf + "");
 		String resopnseXml = response.substring(indexOf, response.length());
 		LoggingMessages.printOut(resopnseXml);
 		
-		return parseXml(resopnseXml);
+		parseXml(resopnseXml);
 	}
 	
-	public static ArrayList<DatabaseResponseNode> parseXml(String responseXml)
+	private void parseXml(String responseXml)
 	{
-		ArrayList<DatabaseResponseNode> databaseNodes = new ArrayList<DatabaseResponseNode>();
 		DocumentBuilderFactory dbFact = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dc;
 		try {
@@ -49,18 +54,21 @@ public class HttpDatabaseResponse
 			e.normalize();
 			
 			NodeList nl = e.getChildNodes();
-			databaseNodes = generateWidgetCreatorPropertyList(nl, null);
+			generateWidgetCreatorPropertyList(nl, null);
+			if(!databaseResponseNodes.isEmpty()) 
+			{
+				databaseResponseNodesFull.add(databaseResponseNodes);
+				databaseResponseNodes = new ArrayList<DatabaseResponseNode>();
+			}
 			
 		} catch (ParserConfigurationException | SAXException | IOException e) {
 			LoggingMessages.printOut("Malformed xml or non-widget build xml chosen: " + e.getMessage());
 			e.printStackTrace();
 		}
-		return databaseNodes;
 	}
 	
-	private static ArrayList<DatabaseResponseNode> generateWidgetCreatorPropertyList(NodeList nl, String parentId)
+	private void generateWidgetCreatorPropertyList(NodeList nl, String parentId)
 	{
-		ArrayList<DatabaseResponseNode> databaseResponseNodes = new ArrayList<DatabaseResponseNode>();
 		if(nl != null)
 		{
 			for(int i = 0; i < nl.getLength(); i++)
@@ -70,23 +78,35 @@ public class HttpDatabaseResponse
 				if(nodeName.equals("#text"))//ignore
 					continue;
 				
+				
 				DatabaseResponseNode databaseNode = generateDatabaseNode(n, parentId);
 				if(databaseNode != null)
 				{
+					LoggingMessages.printOut(databaseNode.toString());
 					databaseResponseNodes.add(databaseNode);
 				}
 				NodeList nl2 = n.getChildNodes();
-				if(n.getChildNodes() != null)
+				if(nl2 != null)
 				{
-					generateWidgetCreatorPropertyList(nl2, null);
+					if(n.getNodeName().equals(RESULT_TAG))
+					{
+						databaseResponseNodesFull.add(databaseResponseNodes);
+						databaseResponseNodes = new ArrayList<DatabaseResponseNode>();
+					}
+					LoggingMessages.printOut(n.getNodeName() + " " + databaseResponseNodesFull.size() + " " + databaseResponseNodes.size());
+					generateWidgetCreatorPropertyList(nl2, n.getNodeName());
 				}
 			}
 		}
-		return databaseResponseNodes;
 	}
 	
-	private static DatabaseResponseNode generateDatabaseNode(Node node, String parentNode)
+	private DatabaseResponseNode generateDatabaseNode(Node node, String parentNode)
 	{
+		LoggingMessages.printOut(node.getNodeName());
+		
+		if(node.getNodeName().equals(RESULT_TAG))
+			return null;
+		
 		ArrayList<String> attributes = new ArrayList<String>();
 		
 		NamedNodeMap nnMap = node.getAttributes();

@@ -41,10 +41,16 @@ public class SendHttpRequestPanel extends JPanel
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String responseBody = execute();
-				ArrayList<DatabaseResponseNode> responseNodes = HttpDatabaseResponse.parseResponse(responseBody);
-				for(DatabaseResponseNode drn : responseNodes)
+				HttpDatabaseResponse hdr = new HttpDatabaseResponse();
+				ArrayList<ArrayList<DatabaseResponseNode>> responseNodes = hdr.parseResponse(responseBody);
+				
+				for(ArrayList<DatabaseResponseNode> drns : responseNodes)
 				{
-					LoggingMessages.printOut(drn.toString());
+					LoggingMessages.printOut("");
+					for(DatabaseResponseNode drn : drns)
+					{
+						LoggingMessages.printOut(drn.toString());
+					}
 				}
 			}
 		});
