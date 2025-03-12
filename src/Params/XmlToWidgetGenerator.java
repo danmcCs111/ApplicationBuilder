@@ -118,10 +118,7 @@ public class XmlToWidgetGenerator
 				List<String> params = paramsList.get(i);
 				StringToObjectConverter sc = stringToObjectConverterList.get(i);
 				
-				//just string with generated extended since loaded off of xml.
-//				os[i]=sc.conversionCall(params.toArray(new String [] {}));
 				os[i]=sc.conversionCallStringXml(params.toArray(new String [] {}));
-//				cs[i]=sc.getDefinitionClass();
 				cs[i]=String.class;
 			}
 			

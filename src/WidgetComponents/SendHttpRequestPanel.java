@@ -2,6 +2,7 @@ package WidgetComponents;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -9,6 +10,9 @@ import javax.swing.JPanel;
 
 import HttpDatabaseRequest.HttpDatabaseRequest;
 import HttpDatabaseRequest.SelectVideosDatabaseRequest;
+import HttpDatabaseResponse.DatabaseResponseNode;
+import HttpDatabaseResponse.HttpDatabaseResponse;
+import Properties.LoggingMessages;
 
 public class SendHttpRequestPanel extends JPanel
 {
@@ -21,7 +25,9 @@ public class SendHttpRequestPanel extends JPanel
 	private static final int
 		PORT_NUMBER = 8000;
 	private static final String [] GET_HTTP_OPTIONS = new String [] {"Query"};
-	private static final String [] REQUEST_OPTIONS = new String [] {SelectVideosDatabaseRequest.SELECT_VIDEOS_SQL_REQUEST};
+	private static final String [] REQUEST_OPTIONS = new String [] {
+			SelectVideosDatabaseRequest.SELECT_WEBSERVICES_SQL_REQUEST, 
+			"Select * from videodatabase.video"};
 	
 	private JButton sendButton;
 	private JComboBox<String> getType;
@@ -34,7 +40,12 @@ public class SendHttpRequestPanel extends JPanel
 		sendButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				execute();
+				String responseBody = execute();
+				ArrayList<DatabaseResponseNode> responseNodes = HttpDatabaseResponse.parseResponse(responseBody);
+				for(DatabaseResponseNode drn : responseNodes)
+				{
+					LoggingMessages.printOut(drn.toString());
+				}
 			}
 		});
 		
