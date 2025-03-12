@@ -16,3 +16,6 @@
 
 
 ![central-app](https://github.com/user-attachments/assets/026eacb8-cd18-4ace-bcbf-7e1591ea7fd8)
+
+
+![server_request_reponse](https://github.com/user-attachments/assets/3652341e-df60-4e0f-acf3-856c7cb2cb4f)
