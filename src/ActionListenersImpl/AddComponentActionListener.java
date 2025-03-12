@@ -154,15 +154,6 @@ public class AddComponentActionListener implements DependentRedrawableFrameListe
 				DIALOG_SELECT_CHILD_COMPONENTS_MESSAGE,
 				this, this);
 		}
-		else//new JFrame.
-		{
-			XmlToWidgetGenerator xmlG = WidgetAttributes.setAttribute(wcpBuild.getClassType(), 
-					ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()));
-			wcpBuild.addXmlToWidgetGenerator(xmlG);
-
-			WidgetBuildController.getInstance().addWidgetCreatorProperty(wcpBuild, true);
-			applicationLayoutEditor.rebuildInnerPanels();
-		}
 	
 	}
 

@@ -1,5 +1,7 @@
 <Build>
-	<JFrame setLayout="java.awt.BorderLayout" setMinimumSize="350, 200" setLocation="550, 500" >
+	<JFrame setLayout="java.awt.BorderLayout" setLocation="550, 500" setMinimumSize="350, 200" >
+		<JTextField extendedLayoutApplyParent="South" >
+		</JTextField>
 		<JPanel extendedLayoutApplyParent="North" setLayout="java.awt.BorderLayout" >
 			<JTextField extendedLayoutApplyParent="West" setText="This is a new field" setToolTipText="touch me!" >
 			</JTextField>
