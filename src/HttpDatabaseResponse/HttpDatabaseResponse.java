@@ -18,7 +18,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import Properties.LoggingMessages;
-import WidgetUtility.WidgetComponent;
 
 public class HttpDatabaseResponse 
 {
@@ -79,11 +78,6 @@ public class HttpDatabaseResponse
 				NodeList nl2 = n.getChildNodes();
 				if(n.getChildNodes() != null)
 				{
-					String counterId = null;
-					if(n != null)
-					{
-						String nodeStr = n.getNodeName();
-					}
 					generateWidgetCreatorPropertyList(nl2, null);
 				}
 			}
