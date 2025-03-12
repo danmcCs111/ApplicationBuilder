@@ -2,17 +2,13 @@ package WidgetComponents;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpRequest.BodyPublisher;
-import java.net.http.HttpResponse;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
+
+import HttpDatabaseRequest.HttpDatabaseRequest;
+import HttpDatabaseRequest.SelectVideosDatabaseRequest;
 
 public class SendHttpRequestPanel extends JPanel
 {
@@ -20,16 +16,16 @@ public class SendHttpRequestPanel extends JPanel
 	
 	private static final String 
 		SEND_BUTTON_TEXT = "Send Http Get",
+		ENDPOINT = "http://localhost:",
 		REQUEST_TYPE_HEADER_KEY = "Get-request-type";
-	
+	private static final int
+		PORT_NUMBER = 8000;
 	private static final String [] GET_HTTP_OPTIONS = new String [] {"Query"};
+	private static final String [] REQUEST_OPTIONS = new String [] {SelectVideosDatabaseRequest.SELECT_VIDEOS_SQL_REQUEST};
 	
 	private JButton sendButton;
 	private JComboBox<String> getType;
-	private JTextArea textArea;
-	
-	private static int
-		PORT_NUMBER = 8000;
+	private JComboBox<String> getRequest;
 
 	public SendHttpRequestPanel()
 	{
@@ -43,32 +39,21 @@ public class SendHttpRequestPanel extends JPanel
 		});
 		
 		getType = new JComboBox<String>(GET_HTTP_OPTIONS);
+		getRequest = new JComboBox<String>(REQUEST_OPTIONS);
 		
-		textArea = new JTextArea();
 		this.add(sendButton);
 		this.add(getType);
-		this.add(textArea);
+		this.add(getRequest);
 	}
 	
 	private String execute()
 	{
-		BodyPublisher bp = HttpRequest.BodyPublishers.ofString(textArea.getText());
-		
-		HttpRequest request = HttpRequest.newBuilder()
-				.uri(URI.create("http://localhost:" + PORT_NUMBER))
-				.header("Test", "value")
-				.header(REQUEST_TYPE_HEADER_KEY, getType.getSelectedItem().toString())
-				.method("GET", bp)
-				.build();
-		HttpResponse<String> response = null;
-		try {
-			response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-			System.out.println(response.body());
-		} catch (IOException | InterruptedException e) {
-			e.printStackTrace();
-		}
-		return response==null
-				? null
-				: response.body();
+		return HttpDatabaseRequest.executeGetRequest(
+				ENDPOINT, 
+				PORT_NUMBER, 
+				getRequest.getSelectedItem().toString(), 
+				REQUEST_TYPE_HEADER_KEY, 
+				getType.getSelectedItem().toString()
+		);
 	}
 }
