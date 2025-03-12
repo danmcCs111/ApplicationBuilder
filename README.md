@@ -15,7 +15,4 @@
 ![editor_file_directory](https://github.com/user-attachments/assets/03faf10f-9b9f-4a96-a454-ad3d3e145af7)
 
 
-![central-app](https://github.com/user-attachments/assets/026eacb8-cd18-4ace-bcbf-7e1591ea7fd8)
-
-
-![server_request_reponse](https://github.com/user-attachments/assets/3652341e-df60-4e0f-acf3-856c7cb2cb4f)
+![test_server_request_response](https://github.com/user-attachments/assets/dc678985-c279-43c5-99be-289b668cdd20)
