@@ -21,7 +21,10 @@ import Properties.LoggingMessages;
 
 public class HttpDatabaseResponse 
 {
-	private static final String RESULT_TAG = "Result";
+	private static final String 
+		CONTENT_TAG = "content=",
+		RESULT_TAG = "Result",
+		RESULT_SET_TAG = "<ResultSet>";
 	
 	private ArrayList<ArrayList<DatabaseResponseNode>> databaseResponseNodesFull = new ArrayList<ArrayList<DatabaseResponseNode>>();
 	private ArrayList<DatabaseResponseNode> databaseResponseNodes = new ArrayList<DatabaseResponseNode>();
@@ -34,10 +37,8 @@ public class HttpDatabaseResponse
 	
 	private void getXml(String response)
 	{
-		int indexOf = response.indexOf("<ResultSet>", 0);
-		LoggingMessages.printOut(indexOf + "");
+		int indexOf = response.indexOf(RESULT_SET_TAG, 0);
 		String resopnseXml = response.substring(indexOf, response.length());
-		LoggingMessages.printOut(resopnseXml);
 		
 		parseXml(resopnseXml);
 	}
@@ -78,11 +79,9 @@ public class HttpDatabaseResponse
 				if(nodeName.equals("#text"))//ignore
 					continue;
 				
-				
 				DatabaseResponseNode databaseNode = generateDatabaseNode(n, parentId);
 				if(databaseNode != null)
 				{
-					LoggingMessages.printOut(databaseNode.toString());
 					databaseResponseNodes.add(databaseNode);
 				}
 				NodeList nl2 = n.getChildNodes();
@@ -93,7 +92,6 @@ public class HttpDatabaseResponse
 						databaseResponseNodesFull.add(databaseResponseNodes);
 						databaseResponseNodes = new ArrayList<DatabaseResponseNode>();
 					}
-					LoggingMessages.printOut(n.getNodeName() + " " + databaseResponseNodesFull.size() + " " + databaseResponseNodes.size());
 					generateWidgetCreatorPropertyList(nl2, n.getNodeName());
 				}
 			}
@@ -102,8 +100,6 @@ public class HttpDatabaseResponse
 	
 	private DatabaseResponseNode generateDatabaseNode(Node node, String parentNode)
 	{
-		LoggingMessages.printOut(node.getNodeName());
-		
 		if(node.getNodeName().equals(RESULT_TAG))
 			return null;
 		
@@ -123,7 +119,7 @@ public class HttpDatabaseResponse
 		
 		if(nodeValue != null && !nodeValue.isBlank())
 		{
-			attributes.add("content=" + nodeValue);
+			attributes.add(CONTENT_TAG + nodeValue);//add as a tag.
 		}
 		
 		return new DatabaseResponseNode(node.getNodeName(), attributes);

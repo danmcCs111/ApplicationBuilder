@@ -27,5 +27,4 @@ public class SelectVideosDatabaseRequest implements HttpDatabaseRequest
 		);
 		return response;
 	}
-	
 }
