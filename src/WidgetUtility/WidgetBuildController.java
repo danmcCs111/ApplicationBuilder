@@ -185,7 +185,7 @@ public class WidgetBuildController
 		
 		for(PostWidgetBuildProcessing pp : postGenerationComponents)//Post build processing.
 		{
-			pp.execute();
+			pp.postExecute();
 		}
 		
 	}

@@ -437,7 +437,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 	}
 
 	@Override
-	public void execute() //perform mouse listener adapter add as post processing TODO include in xml.
+	public void postExecute() //perform mouse listener adapter add as post processing TODO include in xml.
 	{
 		if(JButtonArray.pathAndMouseAdapter == null || JButtonArray.pathAndMouseAdapter.isEmpty())
 		{

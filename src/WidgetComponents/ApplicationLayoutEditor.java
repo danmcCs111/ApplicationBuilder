@@ -53,7 +53,7 @@ public class ApplicationLayoutEditor extends DependentRedrawableFrame implements
 	}
 
 	@Override
-	public void execute() 
+	public void postExecute() 
 	{
 		//advance to remove focus from layout editor.
 		WidgetBuildController.getInstance().newWidgetBuild();

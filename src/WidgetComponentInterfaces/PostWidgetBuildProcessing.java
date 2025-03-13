@@ -2,5 +2,5 @@ package WidgetComponentInterfaces;
 
 public interface PostWidgetBuildProcessing 
 {
-	public abstract void execute();
+	public abstract void postExecute();
 }

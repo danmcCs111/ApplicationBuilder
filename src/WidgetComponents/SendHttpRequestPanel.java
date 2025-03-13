@@ -74,7 +74,7 @@ public class SendHttpRequestPanel extends JPanel implements PostWidgetBuildProce
 	}
 
 	@Override
-	public void execute() 
+	public void postExecute() 
 	{
 		if(swsq == null)
 		{
