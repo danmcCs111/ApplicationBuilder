@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -22,8 +23,8 @@ import Properties.LoggingMessages;
 public class HttpDatabaseResponse 
 {
 	private static final String 
-		CONTENT_TAG = "content=",
-		RESULT_TAG = "Result",
+		CONTENT_TAG = "content",
+		RESULT_NODE_NAME = "Result",
 		RESULT_SET_TAG = "<ResultSet>";
 	
 	private ArrayList<ArrayList<DatabaseResponseNode>> databaseResponseNodesFull = new ArrayList<ArrayList<DatabaseResponseNode>>();
@@ -87,7 +88,7 @@ public class HttpDatabaseResponse
 				NodeList nl2 = n.getChildNodes();
 				if(nl2 != null)
 				{
-					if(n.getNodeName().equals(RESULT_TAG))
+					if(n.getNodeName().equals(RESULT_NODE_NAME))
 					{
 						databaseResponseNodesFull.add(databaseResponseNodes);
 						databaseResponseNodes = new ArrayList<DatabaseResponseNode>();
@@ -100,10 +101,10 @@ public class HttpDatabaseResponse
 	
 	private DatabaseResponseNode generateDatabaseNode(Node node, String parentNode)
 	{
-		if(node.getNodeName().equals(RESULT_TAG))
+		if(node.getNodeName().equals(RESULT_NODE_NAME))
 			return null;
 		
-		ArrayList<String> attributes = new ArrayList<String>();
+		HashMap<String, String> attributes = new HashMap<String, String>();
 		
 		NamedNodeMap nnMap = node.getAttributes();
 		if(nnMap == null)
@@ -113,13 +114,14 @@ public class HttpDatabaseResponse
 		}
 		for(int j = 0;  j < nnMap.getLength(); j++)
 		{
-			attributes.add(nnMap.item(j).toString());
+			Node tn = nnMap.item(j);
+			attributes.put(tn.getNodeName(), tn.getNodeValue());
 		}
 		String nodeValue = node.getTextContent();
 		
 		if(nodeValue != null && !nodeValue.isBlank())
 		{
-			attributes.add(CONTENT_TAG + nodeValue);//add as a tag.
+			attributes.put(CONTENT_TAG, nodeValue);//add as a tag.
 		}
 		
 		return new DatabaseResponseNode(node.getNodeName(), attributes);

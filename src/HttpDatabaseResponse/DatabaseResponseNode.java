@@ -1,15 +1,15 @@
 package HttpDatabaseResponse;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import Properties.LoggingMessages;
 
 public class DatabaseResponseNode 
 {
 	private String nodeName;
-	private ArrayList<String> nodeAttributes;
+	private HashMap<String, String> nodeAttributes;
 	
-	public DatabaseResponseNode(String nodeName, ArrayList<String> nodeAttributes)
+	public DatabaseResponseNode(String nodeName, HashMap<String, String> nodeAttributes)
 	{
 		this.nodeName = nodeName;
 		this.nodeAttributes = nodeAttributes;
@@ -20,7 +20,7 @@ public class DatabaseResponseNode
 		return this.nodeName;
 	}
 	
-	public ArrayList<String> getNodeAttributes()
+	public HashMap<String, String> getNodeAttributes()
 	{
 		return this.nodeAttributes;
 	}
@@ -29,9 +29,8 @@ public class DatabaseResponseNode
 	public String toString()
 	{
 		String att = (this.nodeAttributes != null && !this.nodeAttributes.isEmpty())
-				? LoggingMessages.combine(this.nodeAttributes)
+				? LoggingMessages.combine(this.nodeAttributes.values()) + " " + LoggingMessages.combine(this.nodeAttributes.keySet()) 
 				: "";
 		return this.nodeName + " " + att; 
-				
 	}
 }

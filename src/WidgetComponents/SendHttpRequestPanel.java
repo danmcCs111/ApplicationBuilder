@@ -9,7 +9,7 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
 import HttpDatabaseRequest.HttpDatabaseRequest;
-import HttpDatabaseRequest.SelectVideosDatabaseRequest;
+import HttpDatabaseRequest.SelectWebServiceQueries;
 import HttpDatabaseResponse.DatabaseResponseNode;
 import HttpDatabaseResponse.HttpDatabaseResponse;
 import Properties.LoggingMessages;
@@ -25,9 +25,6 @@ public class SendHttpRequestPanel extends JPanel
 	private static final int
 		PORT_NUMBER = 8000;
 	private static final String [] GET_HTTP_OPTIONS = new String [] {"Query"};
-	private static final String [] REQUEST_OPTIONS = new String [] {
-			SelectVideosDatabaseRequest.SELECT_WEBSERVICES_SQL_REQUEST, 
-			"Select * from videodatabase.video"};
 	
 	private JButton sendButton;
 	private JComboBox<String> getType;
@@ -55,8 +52,9 @@ public class SendHttpRequestPanel extends JPanel
 			}
 		});
 		
+		SelectWebServiceQueries swsq = new SelectWebServiceQueries();
 		getType = new JComboBox<String>(GET_HTTP_OPTIONS);
-		getRequest = new JComboBox<String>(REQUEST_OPTIONS);
+		getRequest = new JComboBox<String>(swsq.getQueryOptions());
 		
 		this.add(sendButton);
 		this.add(getType);
@@ -65,6 +63,9 @@ public class SendHttpRequestPanel extends JPanel
 	
 	private String execute()
 	{
+		SelectWebServiceQueries swsq = new SelectWebServiceQueries();
+		LoggingMessages.printOut(swsq.getQueryOptions());
+		
 		return HttpDatabaseRequest.executeGetRequest(
 				ENDPOINT, 
 				PORT_NUMBER, 
