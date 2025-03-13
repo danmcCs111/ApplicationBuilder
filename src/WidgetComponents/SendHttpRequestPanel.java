@@ -13,8 +13,9 @@ import HttpDatabaseRequest.SelectWebServiceQueries;
 import HttpDatabaseResponse.DatabaseResponseNode;
 import HttpDatabaseResponse.HttpDatabaseResponse;
 import Properties.LoggingMessages;
+import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 
-public class SendHttpRequestPanel extends JPanel
+public class SendHttpRequestPanel extends JPanel implements PostWidgetBuildProcessing
 {
 	private static final long serialVersionUID = 3000L;
 	
@@ -29,6 +30,7 @@ public class SendHttpRequestPanel extends JPanel
 	private JButton sendButton;
 	private JComboBox<String> getType;
 	private JComboBox<String> getRequest;
+	private SelectWebServiceQueries swsq;
 
 	public SendHttpRequestPanel()
 	{
@@ -37,7 +39,7 @@ public class SendHttpRequestPanel extends JPanel
 		sendButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String responseBody = execute();
+				String responseBody = executeRequest();
 				HttpDatabaseResponse hdr = new HttpDatabaseResponse();
 				ArrayList<ArrayList<DatabaseResponseNode>> responseNodes = hdr.parseResponse(responseBody);
 				
@@ -52,20 +54,16 @@ public class SendHttpRequestPanel extends JPanel
 			}
 		});
 		
-		SelectWebServiceQueries swsq = new SelectWebServiceQueries();
 		getType = new JComboBox<String>(GET_HTTP_OPTIONS);
-		getRequest = new JComboBox<String>(swsq.getQueryOptions());
+		getRequest = new JComboBox<String>();
 		
 		this.add(sendButton);
 		this.add(getType);
 		this.add(getRequest);
 	}
 	
-	private String execute()
+	private String executeRequest()
 	{
-		SelectWebServiceQueries swsq = new SelectWebServiceQueries();
-		LoggingMessages.printOut(swsq.getQueryOptions());
-		
 		return HttpDatabaseRequest.executeGetRequest(
 				ENDPOINT, 
 				PORT_NUMBER, 
@@ -73,5 +71,18 @@ public class SendHttpRequestPanel extends JPanel
 				REQUEST_TYPE_HEADER_KEY, 
 				getType.getSelectedItem().toString()
 		);
+	}
+
+	@Override
+	public void execute() 
+	{
+		if(swsq == null)
+		{
+			swsq = new SelectWebServiceQueries();
+		}
+		this.remove(getRequest);
+		getRequest = new JComboBox<String>(swsq.getQueryOptions());
+		this.add(getRequest);
+		this.getRootPane().validate();
 	}
 }

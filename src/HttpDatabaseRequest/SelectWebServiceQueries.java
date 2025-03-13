@@ -4,8 +4,9 @@ import java.util.ArrayList;
 
 import HttpDatabaseResponse.DatabaseResponseNode;
 import HttpDatabaseResponse.HttpDatabaseResponse;
+import Properties.LoggingMessages;
 
-public class SelectWebServiceQueries implements HttpDatabaseRequest
+public class SelectWebServiceQueries 
 {
 	public static final String 
 		SELECT_WEBSERVICES_SQL_REQUEST = "select * from videodatabase.Webservice";//TODO
@@ -23,6 +24,7 @@ public class SelectWebServiceQueries implements HttpDatabaseRequest
 	
 	public SelectWebServiceQueries()
 	{
+		LoggingMessages.printOut(".Build." + SelectWebServiceQueries.class.getName());
 		queryOptions = collectQueryOptions();
 	}
 	
