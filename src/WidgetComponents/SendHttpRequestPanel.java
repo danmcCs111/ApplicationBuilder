@@ -14,6 +14,7 @@ import HttpDatabaseResponse.DatabaseResponseNode;
 import HttpDatabaseResponse.HttpDatabaseResponse;
 import Properties.LoggingMessages;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
+import WidgetExtensions.DatabaseResponseNodeListenerExtension;
 
 public class SendHttpRequestPanel extends JPanel implements PostWidgetBuildProcessing
 {
@@ -31,6 +32,7 @@ public class SendHttpRequestPanel extends JPanel implements PostWidgetBuildProce
 	private JComboBox<String> getType;
 	private JComboBox<String> getRequest;
 	private SelectWebServiceQueries swsq;
+	private DatabaseResponseNodeListenerExtension drnle;
 
 	public SendHttpRequestPanel()
 	{
@@ -51,6 +53,7 @@ public class SendHttpRequestPanel extends JPanel implements PostWidgetBuildProce
 						LoggingMessages.printOut(drn.toString());
 					}
 				}
+				drnle.setResults(responseNodes);
 			}
 		});
 		
@@ -84,5 +87,10 @@ public class SendHttpRequestPanel extends JPanel implements PostWidgetBuildProce
 		getRequest = new JComboBox<String>(swsq.getQueryOptions());
 		this.add(getRequest);
 		this.getRootPane().validate();
+	}
+
+	public void setDatabaseResponseNodeListener(DatabaseResponseNodeListenerExtension drnle) 
+	{
+		this.drnle = drnle;
 	}
 }

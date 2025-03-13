@@ -1,6 +1,8 @@
 <Build>
 	<JFrame setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="250, 350" setMaximumSize="350, 0" setMinimumSize="550, 400" setTitle="new title" >
-		<SendHttpRequestPanel extendedLayoutApplyParent="West" setLayout="java.awt.FlowLayout" >
+		<DatabaseResponseNodeTextArea extendedDatabaseResponseNodeListener="httpRequestPanel" extendedLayoutApplyParent="Center" >
+		</DatabaseResponseNodeTextArea>
+		<SendHttpRequestPanel extendedLayoutApplyParent="North" setLayout="java.awt.FlowLayout" setName="httpRequestPanel" >
 		</SendHttpRequestPanel>
 	</JFrame>
 </Build>

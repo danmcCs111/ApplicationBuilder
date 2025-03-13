@@ -25,6 +25,7 @@ import ObjectTypeConvertersImpl.ClassTextAdapter;
 import Params.XmlToWidgetGenerator;
 import Properties.LoggingMessages;
 import WidgetComponents.ApplicationLayoutEditor;
+import WidgetComponents.DatabaseResponseNodeTextArea;
 import WidgetComponents.JButtonArray;
 import WidgetComponents.MenuOption;
 import WidgetComponents.OutputWeatherResultsTextArea;
@@ -41,6 +42,7 @@ import WidgetExtensionsImpl.ExtendedArrayProcessingPath;
 import WidgetExtensionsImpl.ExtendedCalculationPad;
 import WidgetExtensionsImpl.ExtendedCloseActionListener;
 import WidgetExtensionsImpl.ExtendedCloseAllActionListener;
+import WidgetExtensionsImpl.ExtendedDatabaseResponseNodeListener;
 import WidgetExtensionsImpl.ExtendedLayoutApplyParent;
 import WidgetExtensionsImpl.ExtendedImageMouseAdapterArray;
 import WidgetExtensionsImpl.ExtendedOpenActionListener;
@@ -73,6 +75,7 @@ public class WidgetAttributes
 		COMPONENT_CLASSES.add(JMenuItem.class);
 		
 		COMPONENT_CLASSES.add(WeatherButtonPanel.class);
+		COMPONENT_CLASSES.add(DatabaseResponseNodeTextArea.class);
 		COMPONENT_CLASSES.add(SendHttpRequestPanel.class);
 		COMPONENT_CLASSES.add(OutputWeatherResultsTextArea.class);
 		COMPONENT_CLASSES.add(ApplicationLayoutEditor.class);
@@ -133,6 +136,10 @@ public class WidgetAttributes
 		//EXTENDED WIDGETS
 		EXTENDED_METHODS.put(WeatherButtonPanel.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
+		});
+		EXTENDED_METHODS.put(DatabaseResponseNodeTextArea.class, new String [] {
+				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedDatabaseResponseNodeListener.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(SendHttpRequestPanel.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
