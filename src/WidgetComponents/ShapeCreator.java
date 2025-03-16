@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.CubicCurve2D;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -36,19 +37,21 @@ public class ShapeCreator extends JPanel
 			"Enter Control Point 2"
 	};
 	private static Dimension CONTROL_POINT_SIZE = new Dimension(5,5);
-	public Point [] curvePoints = new Point [4];
-	ArrayList<Point> controlPoints = new ArrayList<Point>();
-	
-	private Mode mode;
-	private int directionsIndex = 0; 
-	
-	private ArrayList<Shape> shapes = new ArrayList<Shape>();
-	private JSlider slider;
-	private JPanel top, draw;
+	private Point [] curvePoints = new Point [4];
+	private ArrayList<ArrayList<Point>> listControlPoints = new ArrayList<ArrayList<Point>>();
 	private int 
 		scaleFactor = 1,
 		width = 100,
-		height = 100;
+		height = 100,
+		directionsIndex = 0, 
+		controlPointSelectedIndex = -1,
+		controlPointShapeSelectedIndex = -1,
+		numShapes = 0;
+	private boolean mousePressed = false;
+	private Mode mode;
+	private ArrayList<Shape> shapes = new ArrayList<Shape>();
+	private JSlider slider;
+	private JPanel top, draw;
 	
 	public ShapeCreator()
 	{
@@ -77,7 +80,7 @@ public class ShapeCreator extends JPanel
 		c.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				clearOdometer();
+				clearAll();
 			}
 		});
 		l.setText(slider.getValue()+"");
@@ -93,12 +96,62 @@ public class ShapeCreator extends JPanel
 		
 		draw.addMouseListener(new MouseAdapter() {
 			@Override
+			public void mousePressed(MouseEvent e) 
+			{
+				mousePressed = true;
+				LoggingMessages.printOut(mousePressed + "");
+				if(mode == null && mousePressed)
+				{
+					Point p = getRelativePoint(e);
+					LoggingMessages.printOut(p + "");
+					int count = 0, outerCount = 0;
+					for(ArrayList<Point> controlPoints : listControlPoints)
+					{
+						for(Point cp : controlPoints)
+						{
+							if(p.x >= cp.x && p.x <= cp.x + CONTROL_POINT_SIZE.width)
+							{
+								if(p.y >= cp.y && p.y <= cp.y + CONTROL_POINT_SIZE.height)
+								{
+									controlPointSelectedIndex = count;
+									controlPointShapeSelectedIndex = outerCount;
+									break;
+								}
+							}
+							count++;
+						}
+						outerCount++;
+					}
+				}
+			}
+			
+			@Override
+			public void mouseReleased(MouseEvent e) 
+			{
+				super.mouseReleased(e);
+				mousePressed = false;
+				if(controlPointSelectedIndex != -1)
+				{
+					Point p = getRelativePoint(e);
+					listControlPoints.get(controlPointShapeSelectedIndex).set(controlPointSelectedIndex, p);
+					Shape s = shapes.get(controlPointShapeSelectedIndex);
+					if(s instanceof CurveShape)
+					{
+						ArrayList<Point> cps = listControlPoints.get(controlPointShapeSelectedIndex);
+						s = new CurveShape();
+						((CubicCurve2D) s).setCurve(cps.get(0), cps.get(2), cps.get(3), cps.get(1));
+						shapes.set(controlPointShapeSelectedIndex, s);
+					}
+					drawAll();
+				}
+				controlPointSelectedIndex = -1;
+			}
+			
+			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(mode == Mode.Curve)
 				{
-					Dimension d = top.getSize();
-					Point p = e.getPoint();
-					p = new Point(p.x, p.y + d.height);
+					Point p = getRelativePoint(e);
 					curvePoints[directionsIndex-1] = p;
 					addControlPoint(p);
 					LoggingMessages.printOut(p + "");
@@ -114,6 +167,7 @@ public class ShapeCreator extends JPanel
 						drawAll();
 						mode = null;
 						directionsLabel.setText("");
+						numShapes++;
 					}
 					else
 					{
@@ -148,6 +202,14 @@ public class ShapeCreator extends JPanel
 		this.scaleFactor = scaleFactor;
 	}
 	
+	protected Point getRelativePoint(MouseEvent e)
+	{
+		Dimension d = top.getSize();
+		Point p = e.getPoint();
+		p = new Point(p.x, p.y + d.height);
+		return p;
+	}
+	
 	protected void stretchSize()
 	{
 		int val = slider.getValue();//0-100
@@ -159,7 +221,7 @@ public class ShapeCreator extends JPanel
 	protected void drawAll()
 	{
 		stretchSize();
-		clearOdometer();
+		clearAll();
 		Graphics2D g2d = (Graphics2D) this.getGraphics();
 		g2d.setColor(Color.black);
 		for(Shape s : shapes)
@@ -169,12 +231,16 @@ public class ShapeCreator extends JPanel
 				g2d.draw(s);
 			}
 		}
-		drawControlPoints(controlPoints);
+		drawControlPoints(listControlPoints);
 	}
 	
 	protected void addControlPoint(Point p)
 	{
-		controlPoints.add(p);
+		if(listControlPoints.size() <= numShapes)
+		{
+			listControlPoints.add(new ArrayList<Point>());
+		}
+		listControlPoints.get(numShapes).add(p);
 		drawControlPoint(p);
 	}
 	
@@ -186,15 +252,18 @@ public class ShapeCreator extends JPanel
 		g2d.setColor(Color.black);
 		g2d.draw(r);
 	}
-	protected void drawControlPoints(ArrayList<Point> controlPoints)
+	protected void drawControlPoints(ArrayList<ArrayList<Point>> listOfControlPoints)
 	{
-		for(Point p : controlPoints)
+		for(ArrayList<Point> controlPoints : listOfControlPoints)
 		{
-			drawControlPoint(p);
+			for(Point p : controlPoints)
+			{
+				drawControlPoint(p);
+			}
 		}
 	}
 	
-	protected void clearOdometer()
+	protected void clearAll()
 	{
 		Graphics2D g2d = (Graphics2D) this.getGraphics();
 		super.paint(g2d);
