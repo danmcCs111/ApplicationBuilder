@@ -156,8 +156,13 @@ public class AddComponentActionListener implements DependentRedrawableFrameListe
 		}
 		else//new JFrame.
  		{
- 			XmlToWidgetGenerator xmlG = WidgetAttributes.setAttribute(wcpBuild.getClassType(), 
- 					ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()));
+ 			XmlToWidgetGenerator xmlG = WidgetAttributes.setAttribute(
+ 					wcpBuild.getClassType(), 
+ 					ExtendedAttributeParam.getMethodDefinition(
+ 							ExtendedLayoutApplyParent.class, 
+ 							ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()
+ 					)
+ 			);
  			wcpBuild.addXmlToWidgetGenerator(xmlG);
  
  			WidgetBuildController.getInstance().addWidgetCreatorProperty(wcpBuild, true);
@@ -181,8 +186,13 @@ public class AddComponentActionListener implements DependentRedrawableFrameListe
 			ComponentSelectorUtility.setParentRefIdOnComponents(chosenSelection, wcpBuild.getRefWithID());
 		}
 		
-		XmlToWidgetGenerator xmlG = WidgetAttributes.setAttribute(wcpBuild.getClassType(), 
-				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()));
+		XmlToWidgetGenerator xmlG = WidgetAttributes.setAttribute(
+				wcpBuild.getClassType(), 
+				ExtendedAttributeParam.getMethodDefinition(
+						ExtendedLayoutApplyParent.class, 
+						ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()
+				)
+		);
 		wcpBuild.addXmlToWidgetGenerator(xmlG);
 
 		WidgetBuildController.getInstance().addWidgetCreatorProperty(wcpBuild, true);

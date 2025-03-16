@@ -227,7 +227,9 @@ public class WidgetBuildController
 				{
 					List<WidgetCreatorProperty> sublist = getWidgetCreatorProperties().subList(
 						indexAfter+1, getWidgetCreatorProperties().size());
-					getWidgetReader().setWidgetCreatorProperties(new ArrayList<WidgetCreatorProperty>(getWidgetCreatorProperties().subList(0, indexAfter+1)));
+					getWidgetReader().setWidgetCreatorProperties(
+							new ArrayList<WidgetCreatorProperty>(getWidgetCreatorProperties().subList(0, indexAfter+1))
+					);
 					getWidgetCreatorProperties().add(wcpReplace);
 					getWidgetCreatorProperties().addAll(sublist);
 					LoggingMessages.printOut("index after. " + indexAfter);

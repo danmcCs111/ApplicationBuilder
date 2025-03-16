@@ -149,7 +149,10 @@ public class WidgetReader
 			attributes.add(nnMap.item(j).toString());
 		}
 		
-		return new WidgetCreatorProperty(node.getNodeName()+WidgetComponent.ID_SPLIT+WidgetComponent.getCountId(), 
-				attributes, parentNode);
+		return new WidgetCreatorProperty (
+				node.getNodeName()+WidgetComponent.ID_SPLIT+WidgetComponent.getCountId(), 
+				attributes, 
+				parentNode
+		);
 	}
 }
