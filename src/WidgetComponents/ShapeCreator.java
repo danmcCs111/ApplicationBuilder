@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Label;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -41,7 +42,7 @@ public class ShapeCreator extends JPanel
 	private Mode mode;
 	private int directionsIndex = 0; 
 	
-	private CurveShape curveShape;
+	private ArrayList<Shape> shapes = new ArrayList<Shape>();
 	private JSlider slider;
 	private JPanel top, draw;
 	private int 
@@ -61,7 +62,7 @@ public class ShapeCreator extends JPanel
 		b.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				drawShape();
+				drawAll();
 			}
 		});
 		Label l = new Label();
@@ -106,9 +107,10 @@ public class ShapeCreator extends JPanel
 						LoggingMessages.printOut(LoggingMessages.combine(curvePoints));
 						directionsIndex = -1;
 						addCurve.setVisible(true);
-						curveShape = new CurveShape();
+						CurveShape curveShape = new CurveShape();
 						curveShape.setCurve(curvePoints[0], curvePoints[2], curvePoints[3], curvePoints[1]);
-						drawShape();
+						shapes.add(curveShape);
+						drawAll();
 						mode = null;
 					}
 					directionsLabel.setText(directions[++directionsIndex]);
@@ -149,15 +151,18 @@ public class ShapeCreator extends JPanel
 		//TODO
 	}
 
-	protected void drawShape() 
+	protected void drawAll()
 	{
 		stretchSize();
 		clearOdometer();
 		Graphics2D g2d = (Graphics2D) this.getGraphics();
 		g2d.setColor(Color.black);
-		if(curveShape != null)
+		for(Shape s : shapes)
 		{
-			g2d.draw(curveShape);
+			if(s != null)
+			{
+				g2d.draw(s);
+			}
 		}
 		drawControlPoints(controlPoints);
 	}
@@ -168,7 +173,7 @@ public class ShapeCreator extends JPanel
 		drawControlPoint(p);
 	}
 	
-	protected void drawControlPoint(Point p) 
+	protected void drawControlPoint(Point p)
 	{
 		Rectangle r = new Rectangle(p);
 		r.setSize(CONTROL_POINT_SIZE.width, CONTROL_POINT_SIZE.height);
@@ -176,7 +181,7 @@ public class ShapeCreator extends JPanel
 		g2d.setColor(Color.black);
 		g2d.draw(r);
 	}
-	protected void drawControlPoints(ArrayList<Point> controlPoints) 
+	protected void drawControlPoints(ArrayList<Point> controlPoints)
 	{
 		for(Point p : controlPoints)
 		{
@@ -184,7 +189,7 @@ public class ShapeCreator extends JPanel
 		}
 	}
 	
-	protected void clearOdometer() 
+	protected void clearOdometer()
 	{
 		Graphics2D g2d = (Graphics2D) this.getGraphics();
 		super.paint(g2d);
