@@ -1,0 +1,6 @@
+<Build>
+	<JFrame setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="250, 350" setMaximumSize="350, 0" setMinimumSize="550, 400" setTitle="new title" >
+		<ShapeCreator extendedLayoutApplyParent="" setHeight="150" setScaleFactor="1" setWidth="150" >
+		</ShapeCreator>
+	</JFrame>
+</Build>

@@ -28,6 +28,7 @@ import WidgetComponents.ApplicationLayoutEditor;
 import WidgetComponents.DatabaseResponseNodeTextArea;
 import WidgetComponents.JButtonArray;
 import WidgetComponents.MenuOption;
+import WidgetComponents.ShapeCreator;
 import WidgetComponents.OutputWeatherResultsTextArea;
 import WidgetComponents.SendHttpRequestPanel;
 import WidgetComponents.SwappableCollection;
@@ -76,6 +77,7 @@ public class WidgetAttributes
 		
 		COMPONENT_CLASSES.add(WeatherButtonPanel.class);
 		COMPONENT_CLASSES.add(DatabaseResponseNodeTextArea.class);
+		COMPONENT_CLASSES.add(ShapeCreator.class);
 		COMPONENT_CLASSES.add(SendHttpRequestPanel.class);
 		COMPONENT_CLASSES.add(OutputWeatherResultsTextArea.class);
 		COMPONENT_CLASSES.add(ApplicationLayoutEditor.class);
@@ -135,6 +137,9 @@ public class WidgetAttributes
 		
 		//EXTENDED WIDGETS
 		EXTENDED_METHODS.put(WeatherButtonPanel.class, new String [] {
+				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
+		});
+		EXTENDED_METHODS.put(ShapeCreator.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(DatabaseResponseNodeTextArea.class, new String [] {
