@@ -42,6 +42,7 @@ public class ShapeCreator extends JPanel
 	private ArrayList<ArrayList<Point>> 
 		listControlPoints = new ArrayList<ArrayList<Point>>(),
 		listControlPointsScaled = new ArrayList<ArrayList<Point>>();
+	private double sliderLastValue = 50;
 	private int 
 		scaleFactor = 1,
 		directionsIndex = 0, 
@@ -108,7 +109,7 @@ public class ShapeCreator extends JPanel
 					Point p = getRelativePoint(e);
 					LoggingMessages.printOut(p + "");
 					int count = 0, outerCount = 0;
-					for(ArrayList<Point> controlPoints : listControlPoints)
+					for(ArrayList<Point> controlPoints : listControlPointsScaled)
 					{
 						for(Point cp : controlPoints)
 						{
@@ -136,14 +137,14 @@ public class ShapeCreator extends JPanel
 				if(controlPointSelectedIndex != -1)
 				{
 					Point p = getRelativePoint(e);
-					listControlPoints.get(controlPointShapeSelectedIndex).set(controlPointSelectedIndex, p);
-					Shape s = shapes.get(controlPointShapeSelectedIndex);
+					listControlPointsScaled.get(controlPointShapeSelectedIndex).set(controlPointSelectedIndex, p);
+					Shape s = shapesScaled.get(controlPointShapeSelectedIndex);
 					if(s instanceof CurveShape)
 					{
-						ArrayList<Point> cps = listControlPoints.get(controlPointShapeSelectedIndex);
+						ArrayList<Point> cps = listControlPointsScaled.get(controlPointShapeSelectedIndex);
 						s = new CurveShape();
 						((CubicCurve2D) s).setCurve(cps.get(0), cps.get(2), cps.get(3), cps.get(1));
-						shapes.set(controlPointShapeSelectedIndex, s);
+						shapesScaled.set(controlPointShapeSelectedIndex, s);
 					}
 					drawAll();
 				}
@@ -203,7 +204,7 @@ public class ShapeCreator extends JPanel
 		return p;
 	}
 	
-	protected void stretchSize()
+	protected void scaleSize()
 	{
 		for(int i = 0; i < numShapes; i++)
 		{
@@ -252,17 +253,25 @@ public class ShapeCreator extends JPanel
 	protected double scale(double original)
 	{
 		int val = slider.getValue();//0-100
-		double resize = (original * ((val / 50.0) * scaleFactor));
+		double resize = (original * ((val / sliderLastValue) * scaleFactor));
 		return resize;
 	}
 
 	protected void drawAll()
 	{
-		createCopyShapesAndControlPoints();
-		stretchSize();
+		if(sliderLastValue != slider.getValue())
+		{
+			scaleSize();
+		}
+		else if(shapesScaled.size() != shapes.size() || listControlPointsScaled.size() != listControlPoints.size())
+		{
+			createCopyShapesAndControlPoints();
+		}
+		
 		clearAll();
 		drawShapes(shapesScaled);
 		drawControlPoints(listControlPointsScaled);
+		sliderLastValue = slider.getValue();
 	}
 	
 	protected void createCopyShapesAndControlPoints()
