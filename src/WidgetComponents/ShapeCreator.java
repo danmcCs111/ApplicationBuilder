@@ -14,6 +14,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.CubicCurve2D;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -38,18 +39,20 @@ public class ShapeCreator extends JPanel
 	};
 	private static Dimension CONTROL_POINT_SIZE = new Dimension(5,5);
 	private Point [] curvePoints = new Point [4];
-	private ArrayList<ArrayList<Point>> listControlPoints = new ArrayList<ArrayList<Point>>();
+	private ArrayList<ArrayList<Point>> 
+		listControlPoints = new ArrayList<ArrayList<Point>>(),
+		listControlPointsScaled = new ArrayList<ArrayList<Point>>();
 	private int 
 		scaleFactor = 1,
-		width = 100,
-		height = 100,
 		directionsIndex = 0, 
 		controlPointSelectedIndex = -1,
 		controlPointShapeSelectedIndex = -1,
 		numShapes = 0;
 	private boolean mousePressed = false;
 	private Mode mode;
-	private ArrayList<Shape> shapes = new ArrayList<Shape>();
+	private ArrayList<Shape> 
+		shapes = new ArrayList<Shape>(),
+		shapesScaled = new ArrayList<Shape>();
 	private JSlider slider;
 	private JPanel top, draw;
 	
@@ -187,16 +190,6 @@ public class ShapeCreator extends JPanel
 		this.add(draw, BorderLayout.CENTER);
 	}
 	
-	public void setWidth(int width)
-	{
-		this.width = width;
-	}
-	
-	public void setHeight(int height)
-	{
-		this.height = height;
-	}
-	
 	public void setScaleFactor(int scaleFactor)
 	{
 		this.scaleFactor = scaleFactor;
@@ -212,26 +205,74 @@ public class ShapeCreator extends JPanel
 	
 	protected void stretchSize()
 	{
+		for(int i = 0; i < numShapes; i++)
+		{
+			Shape s = shapesScaled.get(i);
+			if(s instanceof CurveShape)
+			{
+				CurveShape cs = ((CurveShape) s);
+				
+				Point pCtrl1 = new Point(
+						(int)scale(cs.getCtrlP1().getX()), 
+						(int)scale(cs.getCtrlP1().getY())
+				);
+				Point pCtrl2 = new Point(
+						(int)scale(cs.getCtrlP2().getX()), 
+						(int)scale(cs.getCtrlP2().getY())
+				);
+				Point p1 = new Point(
+						(int)scale(cs.getP1().getX()), 
+						(int)scale(cs.getP1().getY())
+				);
+				Point p2 = new Point(
+						(int)scale(cs.getP2().getX()), 
+						(int)scale(cs.getP2().getY())
+				);
+				
+				cs = new CurveShape();
+				cs.setCurve(p1, pCtrl1, pCtrl2, p2);
+				shapesScaled.set(i, cs);
+			}
+			ArrayList<Point> ps = listControlPointsScaled.get(i);
+			for(int j = 0; j < ps.size(); j++)
+			{
+				Point p = ps.get(j);
+				Point pRe = new Point((int)scale(p.getX()), (int)scale(p.getY()));
+				ps.set(j, pRe);
+			}
+			listControlPointsScaled.set(i, ps);
+		}
+	}
+	
+	protected int scale(int original)
+	{
+		return (int) scale((double)original);
+	}
+	
+	protected double scale(double original)
+	{
 		int val = slider.getValue();//0-100
-		int resizeWidth = (int) (width * ((val / 50.0) * scaleFactor));
-		int resizeHeight = (int) (height * ((val / 50.0) * scaleFactor));
-		//TODO
+		double resize = (original * ((val / 50.0) * scaleFactor));
+		return resize;
 	}
 
 	protected void drawAll()
 	{
+		createCopyShapesAndControlPoints();
 		stretchSize();
 		clearAll();
-		Graphics2D g2d = (Graphics2D) this.getGraphics();
-		g2d.setColor(Color.black);
-		for(Shape s : shapes)
+		drawShapes(shapesScaled);
+		drawControlPoints(listControlPointsScaled);
+	}
+	
+	protected void createCopyShapesAndControlPoints()
+	{
+		shapesScaled = (ArrayList<Shape>) shapes.stream().collect(Collectors.toList());
+		listControlPointsScaled = new ArrayList<ArrayList<Point>>();
+		for(ArrayList<Point> controlPoints : listControlPoints)
 		{
-			if(s != null)
-			{
-				g2d.draw(s);
-			}
+			listControlPointsScaled.add((ArrayList<Point>) controlPoints.stream().collect(Collectors.toList()));
 		}
-		drawControlPoints(listControlPoints);
 	}
 	
 	protected void addControlPoint(Point p)
@@ -244,6 +285,19 @@ public class ShapeCreator extends JPanel
 		drawControlPoint(p);
 	}
 	
+	protected void drawShape(Shape shape)
+	{
+		Graphics2D g2d = (Graphics2D) this.getGraphics();
+		g2d.setColor(Color.black);
+		g2d.draw(shape);
+	}
+	protected void drawShapes(ArrayList<Shape> shapes)
+	{
+		for(Shape s : shapes)
+		{
+			drawShape(s);
+		}
+	}
 	protected void drawControlPoint(Point p)
 	{
 		Rectangle r = new Rectangle(p);
