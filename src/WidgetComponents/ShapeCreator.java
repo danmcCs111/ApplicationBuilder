@@ -28,14 +28,14 @@ public class ShapeCreator extends JPanel
 {
 	private static final long serialVersionUID = 3005L;
 	
-	private static Dimension CONTROL_POINT_SIZE = new Dimension(5,5);
-	private static String [] directions = new String [] {
+	private static final String [] CURVE_DIRECTIONS = new String [] {
 			"",
 			"Enter x, y", 
 			"Enter x2, y2", 
 			"Enter Control Point 1", 
 			"Enter Control Point 2"
 	};
+	private static Dimension CONTROL_POINT_SIZE = new Dimension(5,5);
 	public Point [] curvePoints = new Point [4];
 	ArrayList<Point> controlPoints = new ArrayList<Point>();
 	
@@ -56,7 +56,7 @@ public class ShapeCreator extends JPanel
 		top = new JPanel();
 		draw = new JPanel();
 		
-		JLabel directionsLabel = new JLabel(directions[directionsIndex]);
+		JLabel directionsLabel = new JLabel();
 		
 		JButton b = new JButton("draw");
 		b.addActionListener(new ActionListener() {
@@ -86,7 +86,7 @@ public class ShapeCreator extends JPanel
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				mode = Mode.Curve;
-				directionsLabel.setText(directions[++directionsIndex]);
+				directionsLabel.setText(mode.getDirections()[++directionsIndex]);
 				addCurve.setVisible(false);
 			}
 		});
@@ -102,18 +102,23 @@ public class ShapeCreator extends JPanel
 					curvePoints[directionsIndex-1] = p;
 					addControlPoint(p);
 					LoggingMessages.printOut(p + "");
-					if(directionsIndex + 1 >= directions.length)
+					
+					if(directionsIndex + 1 >= mode.getDirections().length)
 					{
 						LoggingMessages.printOut(LoggingMessages.combine(curvePoints));
-						directionsIndex = -1;
+						directionsIndex = 0;
 						addCurve.setVisible(true);
 						CurveShape curveShape = new CurveShape();
 						curveShape.setCurve(curvePoints[0], curvePoints[2], curvePoints[3], curvePoints[1]);
 						shapes.add(curveShape);
 						drawAll();
 						mode = null;
+						directionsLabel.setText("");
 					}
-					directionsLabel.setText(directions[++directionsIndex]);
+					else
+					{
+						directionsLabel.setText(mode.getDirections()[++directionsIndex]);
+					}
 				}
 			}
 		});
@@ -197,18 +202,24 @@ public class ShapeCreator extends JPanel
 	
 	private enum Mode
 	{
-		Curve("Curve");
+		Curve("Curve", CURVE_DIRECTIONS);
 		
 		private String modeText;
+		private String [] directions;
 		
-		private Mode(String modeText)
+		private Mode(String modeText, String [] directions)
 		{
 			this.modeText = modeText;
+			this.directions = directions;
 		}
 		
 		public String getModeText()
 		{
 			return this.modeText;
+		}
+		public String [] getDirections()
+		{
+			return this.directions;
 		}
 	}
 	
