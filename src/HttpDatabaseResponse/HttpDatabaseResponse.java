@@ -56,7 +56,7 @@ public class HttpDatabaseResponse
 			e.normalize();
 			
 			NodeList nl = e.getChildNodes();
-			generateDatabaseNodeList(nl, null);
+			generateDatabaseNodeList(nl);
 			if(!databaseResponseNodes.isEmpty()) 
 			{
 				databaseResponseNodesFull.add(databaseResponseNodes);
@@ -69,7 +69,7 @@ public class HttpDatabaseResponse
 		}
 	}
 	
-	private void generateDatabaseNodeList(NodeList nl, String parentId)
+	private void generateDatabaseNodeList(NodeList nl)
 	{
 		if(nl != null)
 		{
@@ -80,7 +80,7 @@ public class HttpDatabaseResponse
 				if(nodeName.equals("#text"))//ignore
 					continue;
 				
-				DatabaseResponseNode databaseNode = generateDatabaseNode(n, parentId);
+				DatabaseResponseNode databaseNode = generateDatabaseNode(n);
 				if(databaseNode != null)
 				{
 					databaseResponseNodes.add(databaseNode);
@@ -93,13 +93,13 @@ public class HttpDatabaseResponse
 						databaseResponseNodesFull.add(databaseResponseNodes);
 						databaseResponseNodes = new ArrayList<DatabaseResponseNode>();
 					}
-					generateDatabaseNodeList(nl2, n.getNodeName());
+					generateDatabaseNodeList(nl2);
 				}
 			}
 		}
 	}
 	
-	private DatabaseResponseNode generateDatabaseNode(Node node, String parentNode)
+	private DatabaseResponseNode generateDatabaseNode(Node node)
 	{
 		if(node.getNodeName().equals(RESULT_NODE_NAME))
 			return null;
