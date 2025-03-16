@@ -56,7 +56,7 @@ public class HttpDatabaseResponse
 			e.normalize();
 			
 			NodeList nl = e.getChildNodes();
-			generateWidgetCreatorPropertyList(nl, null);
+			generateDatabaseNodeList(nl, null);
 			if(!databaseResponseNodes.isEmpty()) 
 			{
 				databaseResponseNodesFull.add(databaseResponseNodes);
@@ -69,7 +69,7 @@ public class HttpDatabaseResponse
 		}
 	}
 	
-	private void generateWidgetCreatorPropertyList(NodeList nl, String parentId)
+	private void generateDatabaseNodeList(NodeList nl, String parentId)
 	{
 		if(nl != null)
 		{
@@ -93,7 +93,7 @@ public class HttpDatabaseResponse
 						databaseResponseNodesFull.add(databaseResponseNodes);
 						databaseResponseNodes = new ArrayList<DatabaseResponseNode>();
 					}
-					generateWidgetCreatorPropertyList(nl2, n.getNodeName());
+					generateDatabaseNodeList(nl2, n.getNodeName());
 				}
 			}
 		}
