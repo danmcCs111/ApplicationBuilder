@@ -1,4 +1,4 @@
-To Contain Application functionality behind a series of editors.
+Keep Application functionality behind an editor.
 * add editor for listeners as well.
 
 ![video_launch](https://github.com/user-attachments/assets/1a8eff64-7255-44c6-b4c2-283b87ca014a)
