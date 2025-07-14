@@ -1,8 +1,6 @@
 package WidgetExtensionsImpl;
 
-import javax.swing.JButton;
-
-import ActionListenersImpl.LoadVideosActionListener;
+import Editors.CommandBuildEditor;
 import WidgetExtensions.ExtendedAttributeParam;
 import WidgetUtility.WidgetCreatorProperty;
 
@@ -12,10 +10,13 @@ public class ExtendedLoadVideos implements ExtendedAttributeParam
 	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 
 	{
 		Object m = widgetProperties.getInstance();
-		if(m instanceof JButton)
+		if(m instanceof CommandBuildEditor)
 		{
-			JButton b = ((JButton)m);
-			b.addActionListener(new LoadVideosActionListener());
+			CommandBuildEditor b = ((CommandBuildEditor)m);
+			if(arg0 != null && !arg0.equals(""))
+			{
+				b.setComponentValue(arg0);
+			}
 		}
 	}
 

@@ -6,8 +6,8 @@ import ObjectTypeConversion.StringToObjectConverter;
 public class CommandBuildConverter implements StringToObjectConverter
 {
 	@Override
-	public int numberOfArgs() {
-		// TODO Auto-generated method stub
+	public int numberOfArgs() 
+	{
 		return 1;
 	}
 
@@ -34,8 +34,7 @@ public class CommandBuildConverter implements StringToObjectConverter
 	@Override
 	public String conversionCallStringXml(String... args) 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return args[0];
 	}
 	
 }

@@ -7,13 +7,15 @@ public class CommandBuild
 		DELIMITER_PARAMETER_OPTION = "\\|";
 	
 	private String 
-		command;
+		command,
+		commandXmlArg;
 	private String [] 
 		parameters,
 		commandLineOptions;
 	
 	public CommandBuild(String arg)
 	{
+		commandXmlArg = arg;
 		String command = "";
 		String [] 
 				commandLineTmp = arg.split(DELIMITER_COMMANDLINE_OPTION),
@@ -58,6 +60,26 @@ public class CommandBuild
 		this.commandLineOptions = commandLineOptions;
 	}
 	
+	public String getCommand()
+	{
+		return command;
+	}
+	
+	public String [] getCommandOptions()
+	{
+		return commandLineOptions;
+	}
+	
+	public String [] getParameters()
+	{
+		return parameters;
+	}
+	
+	public String getCommandXmlString()
+	{
+		return this.commandXmlArg;
+	}
+	
 	public String [] getArgs()
 	{
 		String [] args = new String[1 + commandLineOptions.length + parameters.length];
@@ -77,18 +99,4 @@ public class CommandBuild
 		return args;
 	}
 	
-//	public static void main (String [] args)
-//	{
-//		CommandBuild cb = new CommandBuild("new.sh @-i @-c |this |is |it");
-//		LoggingMessages.printOut(cb.getArgs());
-//		
-//		CommandBuild cb2 = new CommandBuild("new.sh @-i @-c |this is it");
-//		LoggingMessages.printOut(cb2.getArgs());
-//		
-//		CommandBuild cb3 = new CommandBuild("new.sh |this is it");
-//		LoggingMessages.printOut(cb3.getArgs());
-//		
-//		CommandBuild cb4 = new CommandBuild("new.sh ");
-//		LoggingMessages.printOut(cb4.getArgs());
-//	}
 }

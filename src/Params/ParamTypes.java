@@ -4,6 +4,7 @@ import ObjectTypeConversion.StringToObjectConverter;
 import ObjectTypeConvertersImpl.ActionListenerConverter;
 import ObjectTypeConvertersImpl.BooleanConverter;
 import ObjectTypeConvertersImpl.ColorConverter;
+import ObjectTypeConvertersImpl.CommandBuildConverter;
 import ObjectTypeConvertersImpl.DimensionConverter;
 import ObjectTypeConvertersImpl.DirectorySelectionConverter;
 import ObjectTypeConvertersImpl.FileSelectionConverter;
@@ -27,7 +28,8 @@ public enum ParamTypes
 	KeyListener(new KeyListenerConverter()),
 	DirectorySelection(new DirectorySelectionConverter()),
 	FileSelection(new FileSelectionConverter()),
-	Dimension(new DimensionConverter());
+	Dimension(new DimensionConverter()),
+	CommandBuild(new CommandBuildConverter());
 	
 	private StringToObjectConverter converter;
 	private String defintionName;
