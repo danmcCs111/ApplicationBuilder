@@ -3,6 +3,7 @@ package ActionListenersImpl;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import Actions.LoadVideos;
 import Properties.LoggingMessages;
 
 public class ReloadActionListener implements ActionListener
@@ -11,6 +12,6 @@ public class ReloadActionListener implements ActionListener
 	public void actionPerformed(ActionEvent e) 
 	{
 		LoggingMessages.printOut("Reload");
-		
+		LoadVideos.loadYoutubeScrape();//TODO make generic
 	}
 }

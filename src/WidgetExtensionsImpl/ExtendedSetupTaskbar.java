@@ -22,7 +22,7 @@ public class ExtendedSetupTaskbar implements ExtendedAttributeParam
 		try {
 			img = ImageIO.read(file);
 			frame.setIconImage(img);
-		} catch (IOException e) {
+		} catch (IOException e) { 
 			e.printStackTrace();
 		}
 	}

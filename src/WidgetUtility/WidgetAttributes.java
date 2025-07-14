@@ -45,6 +45,7 @@ import WidgetExtensionsImpl.ExtendedCloseActionListener;
 import WidgetExtensionsImpl.ExtendedCloseAllActionListener;
 import WidgetExtensionsImpl.ExtendedDatabaseResponseNodeListener;
 import WidgetExtensionsImpl.ExtendedLayoutApplyParent;
+import WidgetExtensionsImpl.ExtendedLoadVideos;
 import WidgetExtensionsImpl.ExtendedImageMouseAdapterArray;
 import WidgetExtensionsImpl.ExtendedOpenActionListener;
 import WidgetExtensionsImpl.ExtendedSaveActionListener;
@@ -100,6 +101,7 @@ public class WidgetAttributes
 		EXTENDED_METHODS.put(JButton.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedActionListenerSubType.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedLoadVideos.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedActionListenerConnectedComponent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(JTextField.class, new String [] {

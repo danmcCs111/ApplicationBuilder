@@ -66,7 +66,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 	private static int indexPos=0;
 	private static boolean isHighlight = true;
 	private static JButton highlightButton = null;
-	private static final ArrayList<String> indexPaths = new ArrayList<String>();
+	private static ArrayList<String> indexPaths = new ArrayList<String>();
 	private static HashMap<String, ArrayList<Component>> collectionJButtons = new HashMap<String, ArrayList<Component>>();
 	private static HashMap<String, MouseListener> pathAndMouseAdapter;
 	private static ArrayList<String> stripFilter = new ArrayList<String>();

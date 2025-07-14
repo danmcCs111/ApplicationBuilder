@@ -68,7 +68,6 @@ public class BooleanEditor extends JComboBox<String> implements ParameterEditor
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
-		
 	}
 
 }

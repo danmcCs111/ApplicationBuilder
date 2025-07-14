@@ -29,6 +29,14 @@ public interface PathUtility
 		return System.getProperty("user.dir");
 	}
 	
+	public static String getCurrentDirectoryUnix()
+	{
+		String dir = System.getProperty("user.dir");
+		dir = dir.replace("\\", "/");
+		dir = dir.replace("C:", "/c");
+		return dir;
+	}
+	
 	public static String replaceBackslash(String path)
 	{
 		return path.replaceAll("\\\\", "/");
