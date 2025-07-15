@@ -45,6 +45,7 @@ public class CommandDialog extends JDialog
 		this.commandBuildEditor = cbe;
 		this.setTitle(TITLE);
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		this.setLocation(cbe.getRootPane().getParent().getLocation());
 		this.setMinimumSize(MIN_DIMENSION_DIALOG);
 		this.setLayout(new BorderLayout());
 		

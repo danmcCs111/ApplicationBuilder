@@ -18,6 +18,7 @@ public class CommandBuildEditor extends JButton implements ParameterEditor
 	
 	private String commandText = "<Click to Enter Command>";
 	private CommandBuild commandArg;
+	private CommandDialog commandDialog;
 
 	public CommandBuildEditor()
 	{
@@ -26,7 +27,11 @@ public class CommandBuildEditor extends JButton implements ParameterEditor
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				new CommandDialog(CommandBuildEditor.this, commandArg);
+				if(commandDialog != null && commandDialog.isVisible())
+				{
+					commandDialog.dispose();
+				}
+				commandDialog = new CommandDialog(CommandBuildEditor.this, commandArg);
 			}
 		});
 	}
