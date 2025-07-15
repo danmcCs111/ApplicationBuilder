@@ -83,7 +83,7 @@ public class CommandBuild
 	public String [] getArgs()
 	{
 		String [] args = new String[1 + commandLineOptions.length + parameters.length];
-		args[0] = this.command;
+		args[0] = "\"" + this.command + "\"";
 		int count = 1;
 		for(int i = 0; i < commandLineOptions.length; i++)
 		{
@@ -92,7 +92,7 @@ public class CommandBuild
 		}
 		for(int i = 0; i < parameters.length; i++)
 		{
-			args[count] = parameters[i];
+			args[count] = "\"" + parameters[i] + "\"";
 			count++;
 		}
 		

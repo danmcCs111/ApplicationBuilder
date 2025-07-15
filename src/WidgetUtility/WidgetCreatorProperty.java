@@ -150,7 +150,15 @@ public class WidgetCreatorProperty
 	private void splitAttributeNameAndValue(String attribute) 
 	{
 		String[] ss = attribute.split("=");
-		settingsNameAndValue.put(ss[0], ss[1]);
+		String val = ss[1];
+		if(ss.length > 2)
+		{
+			for(int i = 2; i < ss.length; i++)
+			{
+				val += "=" + ss[i];//put equals back;//oops
+			}
+		}
+		settingsNameAndValue.put(ss[0], val);
 		settingsName.add(ss[0]);
 	}
 	private void setRefId(String componentWithID) 

@@ -34,7 +34,7 @@
 				</JMenuItem>
 				<JMenuItem extendedLayoutApplyParent="" extendedSaveActionListener="channels" setText="Save" >
 				</JMenuItem>
-				<JMenuItem addActionListener="ActionListenersImpl.ReloadActionListener" extendedLayoutApplyParent="" extendedLoadVideos="C:\\Program Files\\Git\\git-bash.exe@-i@-c|cd /c/Users/danie/eclipse-workspace/ApplicationBuilder/src/ApplicationBuilder/YoutubeFreeMovies2; pwd; /c/Users/danie/eclipse-workspace/ApplicationBuilder/src/ApplicationBuilder/YoutubeFreeMovies2/youtube_strip.sh /c/Users/danie/OneDrive/Desktop/page_scrapes/view-source_https___www.youtube.com_feed_storefront_bp" setText="Reload" >
+				<JMenuItem addActionListener="ActionListenersImpl.ReloadExecuteProcessActionListener" extendedCommandExecution="C:\\Program Files\\Git\\git-bash.exe@-i@-c|cd /c/Users/danie/eclipse-workspace/ApplicationBuilder/src/ApplicationBuilder/YoutubeFreeMovies2; pwd; ./youtube_strip.sh /c/Users/danie/OneDrive/Desktop/page_scrapes/view-source_https___www.youtube.com_feed_storefront_bp=EgCSAQMI9gOiBQIoBg3D.html" extendedLayoutApplyParent="" setText="Reload" >
 				</JMenuItem>
 				<JMenuItem extendedCloseActionListener="channels" extendedLayoutApplyParent="" setText="Close" >
 				</JMenuItem>
