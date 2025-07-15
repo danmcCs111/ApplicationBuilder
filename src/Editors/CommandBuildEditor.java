@@ -13,6 +13,9 @@ public class CommandBuildEditor extends JButton implements ParameterEditor
 {
 	private static final long serialVersionUID = 1L;
 	
+	private static final int CHARACTER_LIMIT = 100;
+	private static final String LIMIT_POSTFIX = "..";
+	
 	private String commandText = "<Click to Enter Command>";
 	private CommandBuild commandArg;
 
@@ -77,6 +80,22 @@ public class CommandBuildEditor extends JButton implements ParameterEditor
 	public String getParameterDefintionString() 
 	{
 		return CommandBuild.class.getName();
+	}
+	
+	@Override
+	public void setText(String text)
+	{
+		String t;
+		if(text.length() > CHARACTER_LIMIT)
+		{
+			t=text.substring(0, CHARACTER_LIMIT) + LIMIT_POSTFIX;
+		}
+		else
+		{
+			t = text;
+		}
+		super.setToolTipText(text);
+		super.setText(t);
 	}
 	
 }
