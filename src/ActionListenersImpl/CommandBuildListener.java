@@ -4,19 +4,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-import ActionListeners.CommandBuildListener;
 import Actions.CommandExecutor;
 import ObjectTypeConversion.CommandBuild;
 import Properties.LoggingMessages;
 
-public class ReloadExecuteProcessActionListener implements ActionListener, CommandBuildListener
+public class CommandBuildListener implements ActionListener
 {
 	private CommandBuild commandBuild;
 	
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		LoggingMessages.printOut("Reload");
 		try {
 			if(commandBuild != null)
 			{
@@ -28,10 +26,8 @@ public class ReloadExecuteProcessActionListener implements ActionListener, Comma
 		}
 	}
 
-	@Override
 	public void setCommandBuild(CommandBuild commandBuild) 
 	{
 		this.commandBuild = commandBuild;
 	}
 }
-

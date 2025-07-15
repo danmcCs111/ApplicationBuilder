@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
 
-import ActionListeners.CommandBuildListener;
+import ActionListenersImpl.CommandBuildListener;
 import ObjectTypeConversion.CommandBuild;
 import WidgetExtensions.ExtendedAttributeParam;
 import WidgetUtility.WidgetCreatorProperty;
