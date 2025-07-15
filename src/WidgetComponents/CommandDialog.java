@@ -20,7 +20,12 @@ public class CommandDialog extends JDialog
 {
 	private static final long serialVersionUID = 1L;
 	
-	private static final String TITLE = "Command Entry";
+	private static final String 
+		TITLE = "Command Entry",
+		COMMAND_OPTION_LABEL = " + Command Option",
+		PARAMETER_LABEL = " + Parameter",
+		SAVE_BUTTON_LABEL = "Save",
+		CANCEL_BUTTON_LABEL = "Cancel";
 	private static final Dimension MIN_DIMENSION_DIALOG = new Dimension(400, 300);
 	
 	private JPanel 
@@ -29,10 +34,10 @@ public class CommandDialog extends JDialog
 		saveCancelPanelOuter = new JPanel();
 	private JTextField command = new JTextField();
 	private JButton 
-		addCommandOptionButton = new JButton(" + Command Option"),
-		addParameterButton = new JButton(" + Parameter"),
-		saveButton = new JButton("Save"),
-		cancelButton = new JButton("Cancel");
+		addCommandOptionButton = new JButton(COMMAND_OPTION_LABEL),
+		addParameterButton = new JButton(PARAMETER_LABEL),
+		saveButton = new JButton(SAVE_BUTTON_LABEL),
+		cancelButton = new JButton(CANCEL_BUTTON_LABEL);
 	private ArrayList<JTextField> 
 		commandOptions = new ArrayList<JTextField>(),
 		paramters = new ArrayList<JTextField>();
@@ -145,14 +150,14 @@ public class CommandDialog extends JDialog
 		{
 			if(!jt.getText().strip().isBlank())
 			{
-				this.retSelection += "@" + jt.getText();
+				this.retSelection += CommandBuild.DELIMITER_COMMANDLINE_OPTION + jt.getText();
 			}
 		}
 		for(JTextField jt : paramters)
 		{
 			if(!jt.getText().strip().isBlank())
 			{
-				this.retSelection += "|" + jt.getText();
+				this.retSelection += CommandBuild.DELIMITER_PARAMETER_OPTION + jt.getText();
 			}
 		}
 		commandBuildEditor.setComponentValue(new CommandBuild(this.retSelection));

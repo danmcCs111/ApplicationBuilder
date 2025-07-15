@@ -2,7 +2,7 @@ package ObjectTypeConversion;
 
 public class CommandBuild 
 {
-	private static final String 
+	public static final String 
 		DELIMITER_COMMANDLINE_OPTION = "@",
 		DELIMITER_PARAMETER_OPTION = "\\|";
 	
