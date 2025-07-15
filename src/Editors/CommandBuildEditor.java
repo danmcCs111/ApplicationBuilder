@@ -14,9 +14,11 @@ public class CommandBuildEditor extends JButton implements ParameterEditor
 	private static final long serialVersionUID = 1L;
 	
 	private static final int CHARACTER_LIMIT = 100;
-	private static final String LIMIT_POSTFIX = "..";
+	private static final String 
+		LIMIT_POSTFIX = "..",
+		DEFAULT_EDITOR_TEXT = "<Click to Enter Command>";
 	
-	private String commandText = "<Click to Enter Command>";
+	private String commandText = DEFAULT_EDITOR_TEXT;
 	private CommandBuild commandArg;
 	private CommandDialog commandDialog;
 

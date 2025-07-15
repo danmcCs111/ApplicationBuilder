@@ -1,10 +1,12 @@
 package ObjectTypeConversion;
 
+import Properties.PathUtility;
+
 public class CommandBuild 
 {
 	public static final String 
 		DELIMITER_COMMANDLINE_OPTION = "@",
-		DELIMITER_PARAMETER_OPTION = "\\|";
+		DELIMITER_PARAMETER_OPTION = "|";
 	
 	private String 
 		command,
@@ -20,10 +22,10 @@ public class CommandBuild
 		String [] 
 				commandLineTmp = arg.split(DELIMITER_COMMANDLINE_OPTION),
 				commandLine = new String [commandLineTmp.length - 1],
-				parametersTmp = arg.split(DELIMITER_PARAMETER_OPTION),
+				parametersTmp = arg.split(PathUtility.ESCAPE_CHARACTER + DELIMITER_PARAMETER_OPTION),
 				parameters = new String [parametersTmp.length - 1];
 		
-		int index = commandLineTmp[commandLineTmp.length-1].indexOf("|");
+		int index = commandLineTmp[commandLineTmp.length-1].indexOf(DELIMITER_PARAMETER_OPTION);
 		if(index >= 0) commandLineTmp[commandLineTmp.length-1] = commandLineTmp[commandLineTmp.length-1].substring(0, index);
 		
 		int count = 0;
@@ -83,7 +85,7 @@ public class CommandBuild
 	public String [] getArgs()
 	{
 		String [] args = new String[1 + commandLineOptions.length + parameters.length];
-		args[0] = "\"" + this.command + "\"";
+		args[0] = PathUtility.surroundString(this.command , "\"");
 		int count = 1;
 		for(int i = 0; i < commandLineOptions.length; i++)
 		{
@@ -92,7 +94,7 @@ public class CommandBuild
 		}
 		for(int i = 0; i < parameters.length; i++)
 		{
-			args[count] = "\"" + parameters[i] + "\"";
+			args[count] = PathUtility.surroundString(parameters[i], "\"");
 			count++;
 		}
 		
