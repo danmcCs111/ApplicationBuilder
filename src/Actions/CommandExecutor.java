@@ -10,14 +10,22 @@ public class CommandExecutor
 	
 	public static void executeProcess(CommandBuild commandBuild) throws IOException
 	{
+		executeProcess(commandBuild, false);
+	}
+	
+	public static void executeProcess(CommandBuild commandBuild, boolean haltTillComplete) throws IOException
+	{
 		ProcessBuilder pb = new ProcessBuilder(commandBuild.getArgs());
 		runningProcess = pb.start();
-		while(runningProcess.isAlive())
+		if(haltTillComplete)
 		{
-			try {
-				Thread.sleep(1000l);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+			while(runningProcess.isAlive())
+			{
+				try {
+					Thread.sleep(1000l);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}

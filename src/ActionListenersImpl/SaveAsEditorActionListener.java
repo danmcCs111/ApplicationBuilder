@@ -65,7 +65,6 @@ public class SaveAsEditorActionListener implements DependentRedrawableFrameListe
 	}
 	
 	/**
-	 * 
 	 * @return save performed.
 	 */
 	public boolean performSaveAs(DependentRedrawableFrame applicationLayoutEditor)

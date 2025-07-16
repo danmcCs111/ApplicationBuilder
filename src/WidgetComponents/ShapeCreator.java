@@ -43,10 +43,7 @@ public class ShapeCreator extends JPanel
 			"Enter x2, y2"
 	};
 	private static Dimension CONTROL_POINT_SIZE = new Dimension(5,5);
-	private Point [] curvePoints = new Point [4];
-	private ArrayList<ArrayList<Point>> 
-		listControlPoints = new ArrayList<ArrayList<Point>>(),
-		listControlPointsScaled = new ArrayList<ArrayList<Point>>();
+	
 	private double sliderLastValue = 50;
 	private int 
 		scaleFactor = 1,
@@ -55,12 +52,19 @@ public class ShapeCreator extends JPanel
 		controlPointShapeSelectedIndex = -1,
 		numShapes = 0;
 	private boolean mousePressed = false;
-	private Mode mode;
+	private Point [] curvePoints = new Point [4];
+	private ArrayList<ArrayList<Point>> 
+		listControlPoints = new ArrayList<ArrayList<Point>>(),
+		listControlPointsScaled = new ArrayList<ArrayList<Point>>();
 	private ArrayList<Shape> 
 		shapes = new ArrayList<Shape>(),
 		shapesScaled = new ArrayList<Shape>();
+	private Mode mode;
+	
 	private JSlider slider;
-	private JPanel top, draw;
+	private JPanel 
+		top, 
+		draw;
 	
 	public ShapeCreator()
 	{
@@ -157,7 +161,8 @@ public class ShapeCreator extends JPanel
 			}
 			
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseClicked(MouseEvent e) 
+			{
 				if(mode == Mode.Curve)
 				{
 					Point p = getRelativePoint(e);
