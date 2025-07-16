@@ -45,6 +45,7 @@ public class DrawMouseListener extends MouseAdapter
 					{
 						if(p.y >= cp.y && p.y <= cp.y + ShapeCreator.CONTROL_POINT_SIZE.height)
 						{
+							LoggingMessages.printOut("Control Point selected!");
 							sc.setControlPointSelectedIndex(count);
 							sc.setControlPointShapeSelectedIndex(outerCount);
 							break;
@@ -81,7 +82,7 @@ public class DrawMouseListener extends MouseAdapter
 			}
 			sc.drawAll();
 		}
-		controlPointSelectedIndex = -1;
+		sc.setControlPointSelectedIndex(-1);
 	}
 	
 	@Override
@@ -109,14 +110,14 @@ public class DrawMouseListener extends MouseAdapter
 				curveShape.setCurve(curvePoints[0], curvePoints[2], curvePoints[3], curvePoints[1]);
 				shapes.add(curveShape);
 				sc.drawAll();
-				mode = null;
+				sc.setMode(null);
 				directionsLabel.setText("");
 				sc.incrementNumShapes(1);
 			}
 			else
 			{
-				directionsLabel.setText(mode.getDirections()[sc.getDirectionsIndex()]);
 				sc.incrementDirectionsIndex(1);
+				directionsLabel.setText(mode.getDirections()[sc.getDirectionsIndex()]);
 			}
 		}
 	}

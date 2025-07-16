@@ -137,6 +137,11 @@ public class ShapeCreator extends JPanel
 		return this.shapesScaled;
 	}
 	
+	public void setShapesScaled(ArrayList<Shape> shapesRepl)
+	{
+		this.shapesScaled = shapesRepl;
+	}
+	
 	public ArrayList<ArrayList<Point>> getControlPoints()
 	{
 		return this.listControlPoints;
@@ -145,6 +150,11 @@ public class ShapeCreator extends JPanel
 	public ArrayList<ArrayList<Point>> getControlPointsScaled()
 	{
 		return this.listControlPointsScaled;
+	}
+	
+	public void setControlPointsScaled(ArrayList<ArrayList<Point>> listControlPointsScaledRepl)
+	{
+		this.listControlPointsScaled = listControlPointsScaledRepl;
 	}
 	
 	public int getDirectionsIndex()

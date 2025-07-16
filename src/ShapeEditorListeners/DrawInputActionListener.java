@@ -20,8 +20,8 @@ public class DrawInputActionListener implements ActionListener
 	{
 		this.sc.setMode(Mode.Curve);
 		Mode mode = this.sc.getMode();
-		sc.getDirectionsLabel().setText(mode.getDirections()[sc.getDirectionsIndex()]);
 		sc.incrementDirectionsIndex(1);
+		sc.getDirectionsLabel().setText(mode.getDirections()[sc.getDirectionsIndex()]);
 		sc.getAddCurveButton().setVisible(false);
 	}
 	
