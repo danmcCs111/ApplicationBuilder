@@ -13,7 +13,6 @@ import WidgetUtility.WidgetCreatorProperty;
 
 public class ExtendedCloseAllActionListener implements ExtendedAttributeParam
 {
-
 	@Override
 	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 
 	{

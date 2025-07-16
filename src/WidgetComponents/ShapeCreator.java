@@ -8,11 +8,7 @@ import java.awt.Label;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.CubicCurve2D;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -20,11 +16,13 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import Graphics2D.CurveShape;
-import Properties.LoggingMessages;
+import ShapeEditorListeners.ClearActionListener;
+import ShapeEditorListeners.DrawActionListener;
+import ShapeEditorListeners.DrawInputActionListener;
+import ShapeEditorListeners.DrawMouseListener;
+import ShapeEditorListeners.SliderChangeListener;
 
 public class ShapeCreator extends JPanel 
 {
@@ -42,7 +40,7 @@ public class ShapeCreator extends JPanel
 			"Enter x, y", 
 			"Enter x2, y2"
 	};
-	private static Dimension CONTROL_POINT_SIZE = new Dimension(5,5);
+	public static Dimension CONTROL_POINT_SIZE = new Dimension(5,5);
 	
 	private double sliderLastValue = 50;
 	private int 
@@ -62,6 +60,9 @@ public class ShapeCreator extends JPanel
 	private Mode mode;
 	
 	private JSlider slider;
+	private Label sliderLabel;
+	private JLabel directionsLabel;
+	private JButton addCurve;
 	private JPanel 
 		top, 
 		draw;
@@ -69,136 +70,135 @@ public class ShapeCreator extends JPanel
 	public ShapeCreator()
 	{
 		this.setLayout(new BorderLayout());
+		
 		top = new JPanel();
 		draw = new JPanel();
-		
-		JLabel directionsLabel = new JLabel();
-		
+		directionsLabel = new JLabel();
 		JButton b = new JButton("draw");
-		b.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				drawAll();
-			}
-		});
-		Label l = new Label();
+		sliderLabel = new Label();
 		slider = new JSlider();
-		slider.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				l.setText(slider.getValue()+"");
-			}
-		});
 		JButton c = new JButton("clear");
-		c.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				clearAll();
-			}
-		});
-		l.setText(slider.getValue()+"");
-		JButton addCurve = new JButton("Add Cubic Curve");
-		addCurve.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				mode = Mode.Curve;
-				directionsLabel.setText(mode.getDirections()[++directionsIndex]);
-				addCurve.setVisible(false);
-			}
-		});
+		sliderLabel.setText(slider.getValue()+"");
+		addCurve = new JButton("Add Cubic Curve");
 		
-		draw.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) 
-			{
-				mousePressed = true;
-				LoggingMessages.printOut(mousePressed + "");
-				if(mode == null && mousePressed)
-				{
-					Point p = getRelativePoint(e);
-					LoggingMessages.printOut(p + "");
-					int count = 0, outerCount = 0;
-					for(ArrayList<Point> controlPoints : listControlPointsScaled)
-					{
-						for(Point cp : controlPoints)
-						{
-							if(p.x >= cp.x && p.x <= cp.x + CONTROL_POINT_SIZE.width)
-							{
-								if(p.y >= cp.y && p.y <= cp.y + CONTROL_POINT_SIZE.height)
-								{
-									controlPointSelectedIndex = count;
-									controlPointShapeSelectedIndex = outerCount;
-									break;
-								}
-							}
-							count++;
-						}
-						outerCount++;
-					}
-				}
-			}
-			
-			@Override
-			public void mouseReleased(MouseEvent e) 
-			{
-				super.mouseReleased(e);
-				mousePressed = false;
-				if(controlPointSelectedIndex != -1)
-				{
-					Point p = getRelativePoint(e);
-					listControlPointsScaled.get(controlPointShapeSelectedIndex).set(controlPointSelectedIndex, p);
-					Shape s = shapesScaled.get(controlPointShapeSelectedIndex);
-					if(s instanceof CurveShape)
-					{
-						ArrayList<Point> cps = listControlPointsScaled.get(controlPointShapeSelectedIndex);
-						s = new CurveShape();
-						((CubicCurve2D) s).setCurve(cps.get(0), cps.get(2), cps.get(3), cps.get(1));
-						shapesScaled.set(controlPointShapeSelectedIndex, s);
-					}
-					drawAll();
-				}
-				controlPointSelectedIndex = -1;
-			}
-			
-			@Override
-			public void mouseClicked(MouseEvent e) 
-			{
-				if(mode == Mode.Curve)
-				{
-					Point p = getRelativePoint(e);
-					curvePoints[directionsIndex-1] = p;
-					addControlPoint(p);
-					LoggingMessages.printOut(p + "");
-					
-					if(directionsIndex + 1 >= mode.getDirections().length)
-					{
-						LoggingMessages.printOut(LoggingMessages.combine(curvePoints));
-						directionsIndex = 0;
-						addCurve.setVisible(true);
-						CurveShape curveShape = new CurveShape();
-						curveShape.setCurve(curvePoints[0], curvePoints[2], curvePoints[3], curvePoints[1]);
-						shapes.add(curveShape);
-						drawAll();
-						mode = null;
-						directionsLabel.setText("");
-						numShapes++;
-					}
-					else
-					{
-						directionsLabel.setText(mode.getDirections()[++directionsIndex]);
-					}
-				}
-			}
-		});
+		c.addActionListener(new ClearActionListener(this));
+		addCurve.addActionListener(new DrawInputActionListener(this));
+		slider.addChangeListener(new SliderChangeListener(this));
+		b.addActionListener(new DrawActionListener(this));
+		draw.addMouseListener(new DrawMouseListener(this));
 		
 		top.add(directionsLabel);
 		top.add(b);
 		top.add(c);
 		top.add(slider);
-		top.add(l);
+		top.add(sliderLabel);
 		top.add(addCurve);
 		this.add(top, BorderLayout.NORTH);
 		this.add(draw, BorderLayout.CENTER);
+	}
+	
+	public void setMode(Mode mode)
+	{
+		this.mode = mode;
+	}
+	
+	public Mode getMode()
+	{
+		return this.mode;
+	}
+	
+	public JSlider getSlider()
+	{
+		return this.slider;
+	}
+	
+	public Label getSliderLabel()
+	{
+		return this.sliderLabel;
+	}
+	
+	public JLabel getDirectionsLabel()
+	{
+		return this.directionsLabel;
+	}
+	
+	public JButton getAddCurveButton()
+	{
+		return this.addCurve;
+	}
+	
+	public ArrayList<Shape> getShapes()
+	{
+		return this.shapes;
+	}
+	
+	public ArrayList<Shape> getShapesScaled()
+	{
+		return this.shapesScaled;
+	}
+	
+	public ArrayList<ArrayList<Point>> getControlPoints()
+	{
+		return this.listControlPoints;
+	}
+	
+	public ArrayList<ArrayList<Point>> getControlPointsScaled()
+	{
+		return this.listControlPointsScaled;
+	}
+	
+	public int getDirectionsIndex()
+	{
+		return this.directionsIndex;
+	}
+	
+	public void incrementDirectionsIndex(int inc)
+	{
+		this.directionsIndex += inc;
+	}
+	
+	public void setDirectionsIndex(int index)
+	{
+		this.directionsIndex = index;
+	}
+	
+	public int getControlPointSelectedIndex()
+	{
+		return this.controlPointSelectedIndex;
+	}
+	public void incrementControlPointSelectedIndex(int inc)
+	{
+		this.controlPointSelectedIndex += inc;
+	}
+	public void setControlPointSelectedIndex(int index)
+	{
+		this.controlPointSelectedIndex = index;
+	}
+	
+	public int getControlPointShapeSelectedIndex()
+	{
+		return this.controlPointShapeSelectedIndex;
+	}
+	public void incrementControlPointShapeSelectedIndex(int inc)
+	{
+		this.controlPointShapeSelectedIndex += inc;
+	}
+	public void setControlPointShapeSelectedIndex(int index)
+	{
+		this.controlPointShapeSelectedIndex = index;
+	}
+	
+	public int getNumShapes()
+	{
+		return this.numShapes;
+	}
+	public void incrementNumShapes(int inc)
+	{
+		this.numShapes += inc;
+	}
+	public void setNumShapes(int index)
+	{
+		this.numShapes = index;;
 	}
 	
 	public void setScaleFactor(int scaleFactor)
@@ -206,12 +206,27 @@ public class ShapeCreator extends JPanel
 		this.scaleFactor = scaleFactor;
 	}
 	
-	protected Point getRelativePoint(MouseEvent e)
+	public Point getRelativePoint(MouseEvent e)
 	{
 		Dimension d = top.getSize();
 		Point p = e.getPoint();
 		p = new Point(p.x, p.y + d.height);
 		return p;
+	}
+	
+	public void setMousePressed(boolean mousePressed)
+	{
+		this.mousePressed = mousePressed;
+	}
+	
+	public boolean getMousePressed()
+	{
+		return this.mousePressed;
+	}
+	
+	public Point [] getCurvePoints()
+	{
+		return this.curvePoints;
 	}
 	
 	protected void scaleSize()
@@ -267,7 +282,7 @@ public class ShapeCreator extends JPanel
 		return resize;
 	}
 
-	protected void drawAll()
+	public void drawAll()
 	{
 		if(sliderLastValue != slider.getValue())
 		{
@@ -294,7 +309,7 @@ public class ShapeCreator extends JPanel
 		}
 	}
 	
-	protected void addControlPoint(Point p)
+	public void addControlPoint(Point p)
 	{
 		if(listControlPoints.size() <= numShapes)
 		{
@@ -336,13 +351,13 @@ public class ShapeCreator extends JPanel
 		}
 	}
 	
-	protected void clearAll()
+	public void clearAll()
 	{
 		Graphics2D g2d = (Graphics2D) this.getGraphics();
 		super.paint(g2d);
 	}
 	
-	private enum Mode
+	public enum Mode
 	{
 		Line("Line", LINE_DIRECTIONS),
 		Curve("Curve", CURVE_DIRECTIONS);
