@@ -4,27 +4,22 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.Label;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSlider;
 
-import Graphics2D.CurveShape;
 import ShapeEditorListeners.ClearActionListener;
 import ShapeEditorListeners.DrawActionListener;
 import ShapeEditorListeners.DrawInputActionListener;
 import ShapeEditorListeners.DrawMouseListener;
-import ShapeEditorListeners.SliderChangeListener;
 
 public class ShapeCreator extends JPanel 
 {
@@ -56,9 +51,7 @@ public class ShapeCreator extends JPanel
 	
 	public static Dimension CONTROL_POINT_SIZE = new Dimension(5,5);
 	
-	private double sliderLastValue = 50;
 	private int 
-		scaleFactor = 1,
 		directionsIndex = 0, 
 		controlPointSelectedIndex = -1,
 		controlPointShapeSelectedIndex = -1,
@@ -69,17 +62,15 @@ public class ShapeCreator extends JPanel
 	private Point mouseDragStartPoint;
 	private Point [] curvePoints = new Point [4];
 	private ArrayList<ArrayList<Point>> 
-		listControlPoints = new ArrayList<ArrayList<Point>>(),
 		listControlPointsScaled = new ArrayList<ArrayList<Point>>();
 	private ArrayList<Shape> 
-		shapes = new ArrayList<Shape>(),
 		shapesScaled = new ArrayList<Shape>();
 	private Rectangle2D selectTool;
 	private Rectangle2D selectionRect;
 	
-	private JSlider slider;
-	private Label sliderLabel;
-	private JLabel directionsLabel;
+	private JLabel 
+		directionsLabel,
+		operationLabel;
 	private JButton addShape;
 	private JPanel 
 		top, 
@@ -94,17 +85,14 @@ public class ShapeCreator extends JPanel
 		top = new JPanel();
 		draw = new JPanel();
 		directionsLabel = new JLabel();
+		operationLabel = new JLabel(getOperation().getTitleText());
 		JButton b = new JButton("draw");
-		sliderLabel = new Label();
-		slider = new JSlider();
 		JButton c = new JButton("clear");
-		sliderLabel.setText(slider.getValue()+"");
 		addShape = new JButton("+ Add");
 		modeSelections = new JComboBox<ShapeCreator.DrawMode>(DrawMode.values());
 		
 		c.addActionListener(new ClearActionListener(this));
 		addShape.addActionListener(new DrawInputActionListener(this));
-		slider.addChangeListener(new SliderChangeListener(this));
 		b.addActionListener(new DrawActionListener(this));
 		draw.addMouseListener(new DrawMouseListener(this));
 		draw.addMouseMotionListener(new DrawMouseListener(this));
@@ -112,8 +100,7 @@ public class ShapeCreator extends JPanel
 		top.add(directionsLabel);
 		top.add(b);
 		top.add(c);
-		top.add(slider);
-		top.add(sliderLabel);
+		top.add(operationLabel);
 		top.add(addShape);
 		top.add(modeSelections);
 		this.add(top, BorderLayout.NORTH);
@@ -143,21 +130,12 @@ public class ShapeCreator extends JPanel
 	public void setOperation(Operation operation)
 	{
 		this.operation = operation;
+		operationLabel.setText(this.operation.getTitleText());
 	}
 	
 	public Operation getOperation()
 	{
 		return this.operation;
-	}
-	
-	public JSlider getSlider()
-	{
-		return this.slider;
-	}
-	
-	public Label getSliderLabel()
-	{
-		return this.sliderLabel;
 	}
 	
 	public JLabel getDirectionsLabel()
@@ -179,11 +157,6 @@ public class ShapeCreator extends JPanel
 		this.selectionRect = selectionRect;
 	}
 	
-	public ArrayList<Shape> getShapes()
-	{
-		return this.shapes;
-	}
-	
 	public ArrayList<Shape> getShapesScaled()
 	{
 		return this.shapesScaled;
@@ -192,11 +165,6 @@ public class ShapeCreator extends JPanel
 	public void setShapesScaled(ArrayList<Shape> shapesRepl)
 	{
 		this.shapesScaled = shapesRepl;
-	}
-	
-	public ArrayList<ArrayList<Point>> getControlPoints()
-	{
-		return this.listControlPoints;
 	}
 	
 	public ArrayList<ArrayList<Point>> getControlPointsScaled()
@@ -263,11 +231,6 @@ public class ShapeCreator extends JPanel
 		this.numShapes = index;;
 	}
 	
-	public void setScaleFactor(int scaleFactor)
-	{
-		this.scaleFactor = scaleFactor;
-	}
-	
 	public Point getRelativePoint(MouseEvent e)
 	{
 		Dimension d = top.getSize();
@@ -311,93 +274,23 @@ public class ShapeCreator extends JPanel
 		return this.curvePoints;
 	}
 	
-	protected void scaleSize()
-	{
-		for(int i = 0; i < numShapes; i++)
-		{
-			Shape s = shapesScaled.get(i);
-			if(s instanceof CurveShape)
-			{
-				CurveShape cs = ((CurveShape) s);
-				
-				Point pCtrl1 = new Point(
-						(int)scale(cs.getCtrlP1().getX()), 
-						(int)scale(cs.getCtrlP1().getY())
-				);
-				Point pCtrl2 = new Point(
-						(int)scale(cs.getCtrlP2().getX()), 
-						(int)scale(cs.getCtrlP2().getY())
-				);
-				Point p1 = new Point(
-						(int)scale(cs.getP1().getX()), 
-						(int)scale(cs.getP1().getY())
-				);
-				Point p2 = new Point(
-						(int)scale(cs.getP2().getX()), 
-						(int)scale(cs.getP2().getY())
-				);
-				
-				cs = new CurveShape(p1, pCtrl1, pCtrl2, p2);
-				shapesScaled.set(i, cs);
-			}
-			ArrayList<Point> ps = listControlPointsScaled.get(i);
-			for(int j = 0; j < ps.size(); j++)
-			{
-				Point p = ps.get(j);
-				Point pRe = new Point((int)scale(p.getX()), (int)scale(p.getY()));
-				ps.set(j, pRe);
-			}
-			listControlPointsScaled.set(i, ps);
-		}
-	}
-	
-	protected int scale(int original)
-	{
-		return (int) scale((double)original);
-	}
-	
-	protected double scale(double original)
-	{
-		int val = slider.getValue();//0-100
-		double resize = (original * ((val / sliderLastValue) * scaleFactor));
-		return resize;
-	}
-
 	public void drawAll()
 	{
-		if(sliderLastValue != slider.getValue())
-		{
-			scaleSize();
-		}
-		else if(shapesScaled.size() != shapes.size() || listControlPointsScaled.size() != listControlPoints.size())
-		{
-			createCopyShapesAndControlPoints();
-		}
 		
 		clearAll();
 		drawShapes(shapesScaled);
 		if(selectionRect != null) drawShape(selectionRect, Color.gray);
 		drawControlPoints(listControlPointsScaled);
-		sliderLastValue = slider.getValue();
 	}
 	
-	protected void createCopyShapesAndControlPoints()
-	{
-		shapesScaled = (ArrayList<Shape>) shapes.stream().collect(Collectors.toList());
-		listControlPointsScaled = new ArrayList<ArrayList<Point>>();
-		for(ArrayList<Point> controlPoints : listControlPoints)
-		{
-			listControlPointsScaled.add((ArrayList<Point>) controlPoints.stream().collect(Collectors.toList()));
-		}
-	}
 	
 	public void addControlPoint(Point p)
 	{
-		if(listControlPoints.size() <= numShapes)
+		if(listControlPointsScaled.size() <= numShapes)
 		{
-			listControlPoints.add(new ArrayList<Point>());
+			listControlPointsScaled.add(new ArrayList<Point>());
 		}
-		listControlPoints.get(numShapes).add(p);
+		listControlPointsScaled.get(numShapes).add(p);
 		drawControlPoint(p);
 	}
 	
@@ -445,10 +338,21 @@ public class ShapeCreator extends JPanel
 	
 	public enum Operation
 	{
-		Move,
-		Resize,
-		Select,
-		Draw
+		Move	("-----------Move-----------"),
+		Resize	("----------Resize----------"),
+		Select	("----------Select----------"),
+		Draw	("-----------Draw------------");
+		
+		private String titleText;
+		
+		private Operation(String titleText)
+		{
+			this.titleText = titleText;
+		}
+		public String getTitleText()
+		{
+			return this.titleText;
+		}
 	}
 	
 	public enum DrawMode

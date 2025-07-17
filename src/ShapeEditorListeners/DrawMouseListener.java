@@ -136,26 +136,7 @@ public class DrawMouseListener extends MouseAdapter
 				Shape s = shapesScaled.get(controlPointShapeSelectedIndex);
 				ArrayList<Point> cps = listControlPointsScaled.get(controlPointShapeSelectedIndex);
 				
-				if(s instanceof CurveShape)
-				{
-					s = new CurveShape(cps.get(0), cps.get(2), cps.get(3), cps.get(1));
-				}
-				else if(s instanceof Line2D)
-				{
-					s = new Line2D.Double(cps.get(0), cps.get(1));
-				}
-				else if(s instanceof Rectangle2D)
-				{
-					s = new Rectangle2D.Double(
-							cps.get(0).x, cps.get(0).y, 
-							(cps.get(1).x - cps.get(0).x), (cps.get(1).y - cps.get(0).y));
-				}
-				else if(s instanceof Ellipse2D)
-				{
-					s = new Ellipse2D.Double(
-							cps.get(0).x, cps.get(0).y, 
-							(cps.get(1).x - cps.get(0).x), (cps.get(1).y - cps.get(0).y));
-				}
+				s = recalculateShape(s, cps);
 				
 				shapesScaled.set(controlPointShapeSelectedIndex, s);
 			}
@@ -181,7 +162,7 @@ public class DrawMouseListener extends MouseAdapter
 			Point p = sc.getRelativePoint(e);
 			Point [] curvePoints = sc.getCurvePoints();
 			JLabel directionsLabel = sc.getDirectionsLabel();
-			ArrayList<Shape> shapes = sc.getShapes();
+			ArrayList<Shape> shapes = sc.getShapesScaled();
 			
 			curvePoints[directionsIndex-1] = p;
 			sc.addControlPoint(p);
@@ -215,6 +196,7 @@ public class DrawMouseListener extends MouseAdapter
 				sc.drawAll();
 				directionsLabel.setText("");
 				sc.incrementNumShapes(1);
+				sc.getAddCurveButton().setEnabled(true);
 				sc.setOperation(Operation.Select);
 			}
 			else
@@ -237,10 +219,35 @@ public class DrawMouseListener extends MouseAdapter
 		LoggingMessages.printOut("Shift Amount: " + shift);
 	}
 	
+	private Shape recalculateShape(Shape s, ArrayList<Point> cps)
+	{
+		if(s instanceof CurveShape)
+		{
+			s = new CurveShape(cps.get(0), cps.get(2), cps.get(3), cps.get(1));
+		}
+		else if(s instanceof Line2D)
+		{
+			s = new Line2D.Double(cps.get(0), cps.get(1));
+		}
+		else if(s instanceof Rectangle2D)
+		{
+			s = new Rectangle2D.Double(
+					cps.get(0).x, cps.get(0).y, 
+					(cps.get(1).x - cps.get(0).x), (cps.get(1).y - cps.get(0).y));
+		}
+		else if(s instanceof Ellipse2D)
+		{
+			s = new Ellipse2D.Double(
+					cps.get(0).x, cps.get(0).y, 
+					(cps.get(1).x - cps.get(0).x), (cps.get(1).y - cps.get(0).y));
+		}
+		return s;
+	}
+	
 	private void detectBounds(Rectangle2D bounds)
 	{
 		ArrayList<Shape> selectedShapes = new ArrayList<Shape>();
-		for(Shape s : sc.getShapes())
+		for(Shape s : sc.getShapesScaled())
 		{
 			if(bounds.contains(s.getBounds()))
 			{
