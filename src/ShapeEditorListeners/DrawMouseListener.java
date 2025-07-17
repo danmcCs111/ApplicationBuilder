@@ -4,7 +4,6 @@ import java.awt.Point;
 import java.awt.Shape;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.CubicCurve2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
@@ -78,8 +77,7 @@ public class DrawMouseListener extends MouseAdapter
 			if(s instanceof CurveShape)
 			{
 				ArrayList<Point> cps = listControlPointsScaled.get(controlPointShapeSelectedIndex);
-				s = new CurveShape();
-				((CubicCurve2D) s).setCurve(cps.get(0), cps.get(2), cps.get(3), cps.get(1));
+				s = new CurveShape(cps.get(0), cps.get(2), cps.get(3), cps.get(1));
 				shapesScaled.set(controlPointShapeSelectedIndex, s);
 			}
 			if(s instanceof Line2D)
@@ -114,25 +112,22 @@ public class DrawMouseListener extends MouseAdapter
 			{
 				sc.setDirectionsIndex(0);
 				sc.getAddCurveButton().setVisible(true);
-				
-				if(mode == Mode.Line)
+				Shape shape = null;
+				switch(mode)
 				{
-					Line2D lineShape = new Line2D.Double(curvePoints[0], curvePoints[1]);
-					shapes.add(lineShape);
-				}
-				else if(mode == Mode.Curve)
-				{
-					CurveShape curveShape = new CurveShape();
-					curveShape.setCurve(curvePoints[0], curvePoints[2], curvePoints[3], curvePoints[1]);
-					shapes.add(curveShape);
-				}
-				else if(mode == Mode.ellipse)
-				{
-					Ellipse2D ellipseShape = new Ellipse2D.Double(
+				case Mode.Line:
+					shape = new Line2D.Double(curvePoints[0], curvePoints[1]);
+					break;
+				case Mode.Curve:
+					shape = new CurveShape(curvePoints[0], curvePoints[2], curvePoints[3], curvePoints[1]);
+					break;
+				case Mode.ellipse:
+					shape = new Ellipse2D.Double(
 							curvePoints[0].x, curvePoints[0].y, 
 							(curvePoints[1].x - curvePoints[0].x), (curvePoints[1].y - curvePoints[0].y));
-					shapes.add(ellipseShape);
+					break;
 				}
+				shapes.add(shape);
 				sc.drawAll();
 				directionsLabel.setText("");
 				sc.incrementNumShapes(1);

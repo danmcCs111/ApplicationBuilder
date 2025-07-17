@@ -275,8 +275,7 @@ public class ShapeCreator extends JPanel
 						(int)scale(cs.getP2().getY())
 				);
 				
-				cs = new CurveShape();
-				cs.setCurve(p1, pCtrl1, pCtrl2, p2);
+				cs = new CurveShape(p1, pCtrl1, pCtrl2, p2);
 				shapesScaled.set(i, cs);
 			}
 			ArrayList<Point> ps = listControlPointsScaled.get(i);

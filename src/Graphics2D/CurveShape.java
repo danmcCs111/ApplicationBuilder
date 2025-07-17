@@ -6,6 +6,10 @@ import java.awt.geom.Point2D;
 
 public class CurveShape extends CubicCurve2D
 {
+	public CurveShape(Point p1, Point c1, Point c2, Point p2)
+	{
+		this.setCurve(p1, c1, c2, p2);
+	}
 	private double
 		x1,y1,
 		x2,y2,
