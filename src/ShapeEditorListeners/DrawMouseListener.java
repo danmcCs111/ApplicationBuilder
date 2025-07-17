@@ -5,6 +5,7 @@ import java.awt.Shape;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.CubicCurve2D;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 
@@ -124,6 +125,13 @@ public class DrawMouseListener extends MouseAdapter
 					CurveShape curveShape = new CurveShape();
 					curveShape.setCurve(curvePoints[0], curvePoints[2], curvePoints[3], curvePoints[1]);
 					shapes.add(curveShape);
+				}
+				else if(mode == Mode.ellipse)
+				{
+					Ellipse2D ellipseShape = new Ellipse2D.Double(
+							curvePoints[0].x, curvePoints[0].y, 
+							(curvePoints[1].x - curvePoints[0].x), (curvePoints[1].y - curvePoints[0].y));
+					shapes.add(ellipseShape);
 				}
 				sc.drawAll();
 				directionsLabel.setText("");

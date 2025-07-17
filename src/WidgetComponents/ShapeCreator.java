@@ -29,18 +29,25 @@ public class ShapeCreator extends JPanel
 {
 	private static final long serialVersionUID = 3005L;
 	
-	private static final String [] CURVE_DIRECTIONS = new String [] {
+	private static final String [] 
+		CURVE_DIRECTIONS = new String [] {
 			"",
 			"Enter x, y", 
 			"Enter x2, y2", 
 			"Enter Control Point 1", 
 			"Enter Control Point 2"
-	};
-	private static final String [] LINE_DIRECTIONS = new String [] {
+		},
+		LINE_DIRECTIONS = new String [] {
 			"",
 			"Enter x, y", 
 			"Enter x2, y2"
-	};
+		},
+		ELLIPSE_DIRECTIONS = new String [] {
+			"",
+			"Enter x, y",
+			"Enter x2, y2"
+		};
+	
 	public static Dimension CONTROL_POINT_SIZE = new Dimension(5,5);
 	
 	private double sliderLastValue = 50;
@@ -373,7 +380,8 @@ public class ShapeCreator extends JPanel
 	public enum Mode
 	{
 		Line("Line", LINE_DIRECTIONS),
-		Curve("Curve", CURVE_DIRECTIONS);
+		Curve("Curve", CURVE_DIRECTIONS),
+		ellipse("Elipse", ELLIPSE_DIRECTIONS);
 		
 		private String modeText;
 		private String [] directions;
