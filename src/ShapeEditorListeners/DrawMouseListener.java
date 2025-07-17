@@ -1,5 +1,6 @@
 package ShapeEditorListeners;
 
+import java.awt.Color;
 import java.awt.Point;
 import java.awt.Shape;
 import java.awt.event.MouseAdapter;
@@ -29,14 +30,13 @@ public class DrawMouseListener extends MouseAdapter
 	public void mousePressed(MouseEvent e) 
 	{
 		int directionsIndex = sc.getDirectionsIndex();
-		sc.setMousePressed(true);
-		boolean mousePressed = sc.getMousePressed();
 		ArrayList<ArrayList<Point>> listControlPointsScaled = sc.getControlPointsScaled();
+		Point p = sc.getRelativePoint(e);
+		sc.setMousePressed(true);
+		sc.setControlPointSelected(false);
 		
-		LoggingMessages.printOut(sc + "");
-		if(directionsIndex == 0 && mousePressed)
+		if(directionsIndex == 0)
 		{
-			Point p = sc.getRelativePoint(e);
 			LoggingMessages.printOut(p + "");
 			int outerCount = 0;
 			for(ArrayList<Point> controlPoints : listControlPointsScaled)
@@ -49,6 +49,7 @@ public class DrawMouseListener extends MouseAdapter
 						if(p.y >= cp.y && p.y <= cp.y + ShapeCreator.CONTROL_POINT_SIZE.height)
 						{
 							LoggingMessages.printOut("Control Point selected!");
+							sc.setControlPointSelected(true);
 							sc.setControlPointSelectedIndex(count);
 							sc.setControlPointShapeSelectedIndex(outerCount);
 							break;
@@ -58,6 +59,27 @@ public class DrawMouseListener extends MouseAdapter
 				}
 				outerCount++;
 			}
+		}
+		if(!sc.getControlPointSelected())
+		{
+			sc.setMouseDragStartPoint(p);
+		}
+	}
+	
+	@Override
+	public void mouseDragged(MouseEvent e)
+	{
+		int directionsIndex = sc.getDirectionsIndex();
+		if(directionsIndex == 0 && !sc.getControlPointSelected())
+		{
+			Point mouseDragStartPoint = sc.getMouseDragStartPoint();
+			Point nextPoint = sc.getRelativePoint(e);
+			Rectangle2D select = new Rectangle2D.Double(
+					mouseDragStartPoint.x, mouseDragStartPoint.y, 
+					(nextPoint.x - mouseDragStartPoint.x), (nextPoint.y - mouseDragStartPoint.y));
+			
+			sc.drawAll();
+			sc.drawShape(select, Color.red);
 		}
 	}
 	
@@ -101,8 +123,9 @@ public class DrawMouseListener extends MouseAdapter
 			}
 			
 			shapesScaled.set(controlPointShapeSelectedIndex, s);
-			sc.drawAll();
 		}
+		
+		sc.drawAll();
 		sc.setControlPointSelectedIndex(-1);
 	}
 	

@@ -62,7 +62,10 @@ public class ShapeCreator extends JPanel
 		controlPointSelectedIndex = -1,
 		controlPointShapeSelectedIndex = -1,
 		numShapes = 0;
-	private boolean mousePressed = false;
+	private boolean 
+		mousePressed = false,
+		controlPointSelected = false;
+	private Point mouseDragStartPoint;
 	private Point [] curvePoints = new Point [4];
 	private ArrayList<ArrayList<Point>> 
 		listControlPoints = new ArrayList<ArrayList<Point>>(),
@@ -100,6 +103,7 @@ public class ShapeCreator extends JPanel
 		slider.addChangeListener(new SliderChangeListener(this));
 		b.addActionListener(new DrawActionListener(this));
 		draw.addMouseListener(new DrawMouseListener(this));
+		draw.addMouseMotionListener(new DrawMouseListener(this));
 		
 		top.add(directionsLabel);
 		top.add(b);
@@ -239,6 +243,26 @@ public class ShapeCreator extends JPanel
 		return p;
 	}
 	
+	public Point getMouseDragStartPoint()
+	{
+		return mouseDragStartPoint;
+	}
+	
+	public void setMouseDragStartPoint(Point startPoint)
+	{
+		this.mouseDragStartPoint = startPoint;
+	}
+	
+	public boolean getControlPointSelected()
+	{
+		return controlPointSelected;
+	}
+	
+	public void setControlPointSelected(boolean controlPointSelected)
+	{
+		this.controlPointSelected = controlPointSelected;
+	}
+	
 	public void setMousePressed(boolean mousePressed)
 	{
 		this.mousePressed = mousePressed;
@@ -343,13 +367,17 @@ public class ShapeCreator extends JPanel
 		drawControlPoint(p);
 	}
 	
-	protected void drawShape(Shape shape)
+	public void drawShape(Shape shape)
+	{
+		drawShape(shape, Color.black);
+	}
+	public void drawShape(Shape shape, Color c)
 	{
 		Graphics2D g2d = (Graphics2D) this.getGraphics();
-		g2d.setColor(Color.black);
+		g2d.setColor(c);
 		g2d.draw(shape);
 	}
-	protected void drawShapes(ArrayList<Shape> shapes)
+	public void drawShapes(ArrayList<Shape> shapes)
 	{
 		for(Shape s : shapes)
 		{
@@ -377,8 +405,8 @@ public class ShapeCreator extends JPanel
 	
 	public void clearAll()
 	{
-		Graphics2D g2d = (Graphics2D) this.getGraphics();
-		super.paint(g2d);
+		Graphics2D g2d = (Graphics2D) draw.getGraphics();
+		draw.paint(g2d);
 	}
 	
 	public enum Mode
