@@ -81,10 +81,11 @@ public class ShapeCreator extends JPanel
 	private Label sliderLabel;
 	private JLabel directionsLabel;
 	private JButton addShape;
-	private JComboBox<Mode> modeSelections;
 	private JPanel 
 		top, 
 		draw;
+	private JComboBox<DrawMode> modeSelections;
+	private Operation operation = Operation.Select;
 	
 	public ShapeCreator()
 	{
@@ -99,7 +100,7 @@ public class ShapeCreator extends JPanel
 		JButton c = new JButton("clear");
 		sliderLabel.setText(slider.getValue()+"");
 		addShape = new JButton("+ Add");
-		modeSelections = new JComboBox<ShapeCreator.Mode>(Mode.values());
+		modeSelections = new JComboBox<ShapeCreator.DrawMode>(DrawMode.values());
 		
 		c.addActionListener(new ClearActionListener(this));
 		addShape.addActionListener(new DrawInputActionListener(this));
@@ -129,14 +130,24 @@ public class ShapeCreator extends JPanel
 		this.selectTool = selectTool;
 	}
 	
-	public void setMode(Mode mode)
+	public void setMode(DrawMode mode)
 	{
 		this.modeSelections.setSelectedItem(mode);
 	}
 	
-	public Mode getMode()
+	public DrawMode getMode()
 	{
-		return (Mode) this.modeSelections.getSelectedItem();
+		return (DrawMode) this.modeSelections.getSelectedItem();
+	}
+	
+	public void setOperation(Operation operation)
+	{
+		this.operation = operation;
+	}
+	
+	public Operation getOperation()
+	{
+		return this.operation;
 	}
 	
 	public JSlider getSlider()
@@ -159,6 +170,10 @@ public class ShapeCreator extends JPanel
 		return this.addShape;
 	}
 	
+	public Rectangle2D getSelectionRectangle()
+	{
+		return this.selectionRect;
+	}
 	public void setSelectionRectangle(Rectangle2D selectionRect)
 	{
 		this.selectionRect = selectionRect;
@@ -428,7 +443,15 @@ public class ShapeCreator extends JPanel
 		draw.paint(g2d);
 	}
 	
-	public enum Mode
+	public enum Operation
+	{
+		Move,
+		Resize,
+		Select,
+		Draw
+	}
+	
+	public enum DrawMode
 	{
 		Line("Line", LINE_DIRECTIONS),
 		Curve("Curve", CURVE_DIRECTIONS),
@@ -438,7 +461,7 @@ public class ShapeCreator extends JPanel
 		private String modeText;
 		private String [] directions;
 		
-		private Mode(String modeText, String [] directions)
+		private DrawMode(String modeText, String [] directions)
 		{
 			this.modeText = modeText;
 			this.directions = directions;

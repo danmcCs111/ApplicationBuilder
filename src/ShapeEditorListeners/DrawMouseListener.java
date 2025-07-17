@@ -1,6 +1,7 @@
 package ShapeEditorListeners;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Point;
 import java.awt.Shape;
 import java.awt.event.MouseAdapter;
@@ -10,20 +11,65 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import Graphics2D.CurveShape;
 import Properties.LoggingMessages;
 import WidgetComponents.ShapeCreator;
-import WidgetComponents.ShapeCreator.Mode;
+import WidgetComponents.ShapeCreator.DrawMode;
+import WidgetComponents.ShapeCreator.Operation;
 
 public class DrawMouseListener extends MouseAdapter 
 {
 	private ShapeCreator sc;
 	
 	public DrawMouseListener(ShapeCreator sc)
-	{
+	{ 
 		this.sc = sc;
+	}
+	
+	@Override
+	public void mouseDragged(MouseEvent e)
+	{
+		int directionsIndex = sc.getDirectionsIndex();
+		if(sc.getOperation() == Operation.Select && directionsIndex == 0 && !sc.getControlPointSelected())
+		{
+			Point mouseDragStartPoint = sc.getMouseDragStartPoint();
+			Point nextPoint = sc.getRelativePoint(e);
+			Rectangle2D select = new Rectangle2D.Double(
+					mouseDragStartPoint.x, mouseDragStartPoint.y, 
+					(nextPoint.x - mouseDragStartPoint.x), (nextPoint.y - mouseDragStartPoint.y));
+			sc.setSelectTool(select);
+			
+			sc.drawAll();
+			sc.drawShape(select, Color.red);
+		}
+		else if(sc.getOperation() == Operation.Move)
+		{
+			Point mouseDragStartPoint = sc.getMouseDragStartPoint();
+			Point nextPoint = sc.getRelativePoint(e);
+			
+			int diffx = mouseDragStartPoint.x - nextPoint.x;
+			int diffy = mouseDragStartPoint.y - nextPoint.y;
+			applyShiftAmount(new Point(diffx, diffy));
+		}
+	}
+	
+	@Override
+	public void mouseMoved(MouseEvent e)
+	{
+		JFrame frame = (JFrame) sc.getRootPane().getParent();
+		if(sc.getSelectionRectangle() != null && sc.getSelectionRectangle().contains(sc.getRelativePoint(e)))
+		{
+			frame.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
+			sc.setOperation(Operation.Move);
+		}
+		else if(!frame.getCursor().equals(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR)))
+		{
+			frame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+			sc.setOperation(Operation.Select);
+		}
 	}
 	
 	@Override
@@ -34,6 +80,10 @@ public class DrawMouseListener extends MouseAdapter
 		Point p = sc.getRelativePoint(e);
 		sc.setMousePressed(true);
 		sc.setControlPointSelected(false);
+		if(sc.getSelectionRectangle() != null && !sc.getSelectionRectangle().contains(p))
+		{
+			clearSelection();
+		}
 		
 		if(directionsIndex == 0)
 		{
@@ -67,24 +117,6 @@ public class DrawMouseListener extends MouseAdapter
 	}
 	
 	@Override
-	public void mouseDragged(MouseEvent e)
-	{
-		int directionsIndex = sc.getDirectionsIndex();
-		if(directionsIndex == 0 && !sc.getControlPointSelected())
-		{
-			Point mouseDragStartPoint = sc.getMouseDragStartPoint();
-			Point nextPoint = sc.getRelativePoint(e);
-			Rectangle2D select = new Rectangle2D.Double(
-					mouseDragStartPoint.x, mouseDragStartPoint.y, 
-					(nextPoint.x - mouseDragStartPoint.x), (nextPoint.y - mouseDragStartPoint.y));
-			sc.setSelectTool(select);
-			
-			sc.drawAll();
-			sc.drawShape(select, Color.red);
-		}
-	}
-	
-	@Override
 	public void mouseReleased(MouseEvent e) 
 	{
 		super.mouseReleased(e);
@@ -94,41 +126,44 @@ public class DrawMouseListener extends MouseAdapter
 		ArrayList<Shape> shapesScaled = sc.getShapesScaled();
 		ArrayList<ArrayList<Point>> listControlPointsScaled = sc.getControlPointsScaled();
 		
-		if(controlPointSelectedIndex != -1)
+		if(sc.getOperation() == Operation.Select)
 		{
-			Point p = sc.getRelativePoint(e);
-			LoggingMessages.printOut("shape index: " + controlPointShapeSelectedIndex + " controlPoint index:" + controlPointSelectedIndex);
-			listControlPointsScaled.get(controlPointShapeSelectedIndex).set(controlPointSelectedIndex, p);
-			Shape s = shapesScaled.get(controlPointShapeSelectedIndex);
-			ArrayList<Point> cps = listControlPointsScaled.get(controlPointShapeSelectedIndex);
+			if(controlPointSelectedIndex != -1)
+			{
+				Point p = sc.getRelativePoint(e);
+				LoggingMessages.printOut("shape index: " + controlPointShapeSelectedIndex + " controlPoint index:" + controlPointSelectedIndex);
+				listControlPointsScaled.get(controlPointShapeSelectedIndex).set(controlPointSelectedIndex, p);
+				Shape s = shapesScaled.get(controlPointShapeSelectedIndex);
+				ArrayList<Point> cps = listControlPointsScaled.get(controlPointShapeSelectedIndex);
+				
+				if(s instanceof CurveShape)
+				{
+					s = new CurveShape(cps.get(0), cps.get(2), cps.get(3), cps.get(1));
+				}
+				else if(s instanceof Line2D)
+				{
+					s = new Line2D.Double(cps.get(0), cps.get(1));
+				}
+				else if(s instanceof Rectangle2D)
+				{
+					s = new Rectangle2D.Double(
+							cps.get(0).x, cps.get(0).y, 
+							(cps.get(1).x - cps.get(0).x), (cps.get(1).y - cps.get(0).y));
+				}
+				else if(s instanceof Ellipse2D)
+				{
+					s = new Ellipse2D.Double(
+							cps.get(0).x, cps.get(0).y, 
+							(cps.get(1).x - cps.get(0).x), (cps.get(1).y - cps.get(0).y));
+				}
+				
+				shapesScaled.set(controlPointShapeSelectedIndex, s);
+			}
 			
-			if(s instanceof CurveShape)
+			if(sc.getDirectionsIndex() == 0 && !sc.getControlPointSelected() && sc.getSelectTool() != null)
 			{
-				s = new CurveShape(cps.get(0), cps.get(2), cps.get(3), cps.get(1));
+				detectBounds(sc.getSelectTool());
 			}
-			else if(s instanceof Line2D)
-			{
-				s = new Line2D.Double(cps.get(0), cps.get(1));
-			}
-			else if(s instanceof Rectangle2D)
-			{
-				s = new Rectangle2D.Double(
-						cps.get(0).x, cps.get(0).y, 
-						(cps.get(1).x - cps.get(0).x), (cps.get(1).y - cps.get(0).y));
-			}
-			else if(s instanceof Ellipse2D)
-			{
-				s = new Ellipse2D.Double(
-						cps.get(0).x, cps.get(0).y, 
-						(cps.get(1).x - cps.get(0).x), (cps.get(1).y - cps.get(0).y));
-			}
-			
-			shapesScaled.set(controlPointShapeSelectedIndex, s);
-		}
-		
-		if(sc.getDirectionsIndex() == 0 && !sc.getControlPointSelected())
-		{
-			detectBounds(sc.getSelectTool());
 		}
 		
 		sc.drawAll();
@@ -138,7 +173,7 @@ public class DrawMouseListener extends MouseAdapter
 	@Override
 	public void mouseClicked(MouseEvent e) 
 	{
-		Mode mode = sc.getMode();
+		DrawMode mode = sc.getMode();
 		int directionsIndex = sc.getDirectionsIndex();
 		
 		if(directionsIndex > 0)
@@ -159,18 +194,18 @@ public class DrawMouseListener extends MouseAdapter
 				Shape shape = null;
 				switch(mode)
 				{
-				case Mode.Line:
+				case DrawMode.Line:
 					shape = new Line2D.Double(curvePoints[0], curvePoints[1]);
 					break;
-				case Mode.Curve:
+				case DrawMode.Curve:
 					shape = new CurveShape(curvePoints[0], curvePoints[2], curvePoints[3], curvePoints[1]);
 					break;
-				case Mode.ellipse:
+				case DrawMode.ellipse:
 					shape = new Ellipse2D.Double(
 							curvePoints[0].x, curvePoints[0].y, 
 							(curvePoints[1].x - curvePoints[0].x), (curvePoints[1].y - curvePoints[0].y));
 					break;
-				case Mode.rectangle:
+				case DrawMode.rectangle:
 					shape = new Rectangle2D.Double(
 							curvePoints[0].x, curvePoints[0].y, 
 							(curvePoints[1].x - curvePoints[0].x), (curvePoints[1].y - curvePoints[0].y));
@@ -180,6 +215,7 @@ public class DrawMouseListener extends MouseAdapter
 				sc.drawAll();
 				directionsLabel.setText("");
 				sc.incrementNumShapes(1);
+				sc.setOperation(Operation.Select);
 			}
 			else
 			{
@@ -189,7 +225,19 @@ public class DrawMouseListener extends MouseAdapter
 		}
 	}
 	
-	public void detectBounds(Rectangle2D bounds)
+	private void clearSelection()
+	{
+		sc.setSelectionRectangle(null);
+		sc.setSelectTool(null);
+		sc.drawAll();
+	}
+	
+	public void applyShiftAmount(Point shift)
+	{
+		LoggingMessages.printOut("Shift Amount: " + shift);
+	}
+	
+	private void detectBounds(Rectangle2D bounds)
 	{
 		ArrayList<Shape> selectedShapes = new ArrayList<Shape>();
 		for(Shape s : sc.getShapes())
