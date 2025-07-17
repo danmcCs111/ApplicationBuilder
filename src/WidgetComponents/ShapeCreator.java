@@ -75,6 +75,7 @@ public class ShapeCreator extends JPanel
 		shapes = new ArrayList<Shape>(),
 		shapesScaled = new ArrayList<Shape>();
 	private Rectangle2D selectTool;
+	private Rectangle2D selectionRect;
 	
 	private JSlider slider;
 	private Label sliderLabel;
@@ -156,6 +157,11 @@ public class ShapeCreator extends JPanel
 	public JButton getAddCurveButton()
 	{
 		return this.addShape;
+	}
+	
+	public void setSelectionRectangle(Rectangle2D selectionRect)
+	{
+		this.selectionRect = selectionRect;
 	}
 	
 	public ArrayList<Shape> getShapes()
@@ -355,6 +361,7 @@ public class ShapeCreator extends JPanel
 		
 		clearAll();
 		drawShapes(shapesScaled);
+		if(selectionRect != null) drawShape(selectionRect, Color.gray);
 		drawControlPoints(listControlPointsScaled);
 		sliderLastValue = slider.getValue();
 	}

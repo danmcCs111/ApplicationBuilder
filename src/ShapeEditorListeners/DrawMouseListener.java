@@ -191,12 +191,65 @@ public class DrawMouseListener extends MouseAdapter
 	
 	public void detectBounds(Rectangle2D bounds)
 	{
+		ArrayList<Shape> selectedShapes = new ArrayList<Shape>();
 		for(Shape s : sc.getShapes())
 		{
 			if(bounds.contains(s.getBounds()))
 			{
+				selectedShapes.add(s);
 				LoggingMessages.printOut("Selecting: " + s.getClass().getName());
 			}
+		}
+		Point leastXy = null;
+		Point widthHeight = new Point();
+		Point greatestWidthHeight = null;
+		
+		if(!selectedShapes.isEmpty())
+		{
+			for(Shape s : selectedShapes)
+			{
+				if(leastXy == null)
+				{
+					leastXy = new Point(s.getBounds().x, s.getBounds().y);
+				}
+				else
+				{
+					if(leastXy.x > s.getBounds().x)
+					{
+						leastXy.x = s.getBounds().x;
+					}
+					if(leastXy.y > s.getBounds().y)
+					{
+						leastXy.y = s.getBounds().y;
+					}
+				}
+				if(greatestWidthHeight == null)
+				{
+					greatestWidthHeight = new Point(s.getBounds().width + s.getBounds().x, 
+							s.getBounds().height + s.getBounds().y);
+				}
+				else
+				{
+					if(greatestWidthHeight.x < s.getBounds().width + s.getBounds().x)
+					{
+						greatestWidthHeight.x = s.getBounds().width + s.getBounds().x;
+					}
+					if(greatestWidthHeight.y < s.getBounds().height + s.getBounds().y)
+					{
+						greatestWidthHeight.y = s.getBounds().height + s.getBounds().y;
+					}
+				}
+			}
+			widthHeight.x = greatestWidthHeight.x - leastXy.x;
+			widthHeight.y = greatestWidthHeight.y - leastXy.y;
+			Rectangle2D selectionRect = new Rectangle2D.Double(leastXy.x, leastXy.y, widthHeight.x, widthHeight.y);
+			LoggingMessages.printOut(selectionRect + "");
+			sc.setSelectionRectangle(selectionRect);
+			sc.drawAll();
+		}
+		else
+		{
+			sc.setSelectionRectangle(null);
 		}
 	}
 	
