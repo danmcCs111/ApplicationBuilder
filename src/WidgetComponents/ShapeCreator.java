@@ -46,6 +46,11 @@ public class ShapeCreator extends JPanel
 			"",
 			"Enter x, y",
 			"Enter x2, y2"
+		},
+		RECTANGLE_DIRECTIONS= new String [] {
+				"",
+				"Enter x, y",
+				"Enter x2, y2"
 		};
 	
 	public static Dimension CONTROL_POINT_SIZE = new Dimension(5,5);
@@ -380,7 +385,8 @@ public class ShapeCreator extends JPanel
 	{
 		Line("Line", LINE_DIRECTIONS),
 		Curve("Curve", CURVE_DIRECTIONS),
-		ellipse("Elipse", ELLIPSE_DIRECTIONS);
+		ellipse("Elipse", ELLIPSE_DIRECTIONS),
+		rectangle("Rectangle", RECTANGLE_DIRECTIONS);
 		
 		private String modeText;
 		private String [] directions;

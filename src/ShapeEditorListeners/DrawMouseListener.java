@@ -6,6 +6,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
@@ -123,6 +124,11 @@ public class DrawMouseListener extends MouseAdapter
 					break;
 				case Mode.ellipse:
 					shape = new Ellipse2D.Double(
+							curvePoints[0].x, curvePoints[0].y, 
+							(curvePoints[1].x - curvePoints[0].x), (curvePoints[1].y - curvePoints[0].y));
+					break;
+				case Mode.rectangle:
+					shape = new Rectangle2D.Double(
 							curvePoints[0].x, curvePoints[0].y, 
 							(curvePoints[1].x - curvePoints[0].x), (curvePoints[1].y - curvePoints[0].y));
 					break;
