@@ -9,6 +9,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -73,6 +74,7 @@ public class ShapeCreator extends JPanel
 	private ArrayList<Shape> 
 		shapes = new ArrayList<Shape>(),
 		shapesScaled = new ArrayList<Shape>();
+	private Rectangle2D selectTool;
 	
 	private JSlider slider;
 	private Label sliderLabel;
@@ -114,6 +116,16 @@ public class ShapeCreator extends JPanel
 		top.add(modeSelections);
 		this.add(top, BorderLayout.NORTH);
 		this.add(draw, BorderLayout.CENTER);
+	}
+	
+	public Rectangle2D getSelectTool()
+	{
+		return this.selectTool;
+	}
+	
+	public void setSelectTool(Rectangle2D selectTool)
+	{
+		this.selectTool = selectTool;
 	}
 	
 	public void setMode(Mode mode)

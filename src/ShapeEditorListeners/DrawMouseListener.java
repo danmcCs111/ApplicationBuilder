@@ -77,6 +77,7 @@ public class DrawMouseListener extends MouseAdapter
 			Rectangle2D select = new Rectangle2D.Double(
 					mouseDragStartPoint.x, mouseDragStartPoint.y, 
 					(nextPoint.x - mouseDragStartPoint.x), (nextPoint.y - mouseDragStartPoint.y));
+			sc.setSelectTool(select);
 			
 			sc.drawAll();
 			sc.drawShape(select, Color.red);
@@ -123,6 +124,11 @@ public class DrawMouseListener extends MouseAdapter
 			}
 			
 			shapesScaled.set(controlPointShapeSelectedIndex, s);
+		}
+		
+		if(sc.getDirectionsIndex() == 0 && !sc.getControlPointSelected())
+		{
+			detectBounds(sc.getSelectTool());
 		}
 		
 		sc.drawAll();
@@ -179,6 +185,17 @@ public class DrawMouseListener extends MouseAdapter
 			{
 				sc.incrementDirectionsIndex(1);
 				directionsLabel.setText(mode.getDirections()[sc.getDirectionsIndex()]);
+			}
+		}
+	}
+	
+	public void detectBounds(Rectangle2D bounds)
+	{
+		for(Shape s : sc.getShapes())
+		{
+			if(bounds.contains(s.getBounds()))
+			{
+				LoggingMessages.printOut("Selecting: " + s.getClass().getName());
 			}
 		}
 	}
