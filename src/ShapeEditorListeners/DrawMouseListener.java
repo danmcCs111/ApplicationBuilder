@@ -77,27 +77,24 @@ public class DrawMouseListener extends MouseAdapter
 			LoggingMessages.printOut("shape index: " + controlPointShapeSelectedIndex + " controlPoint index:" + controlPointSelectedIndex);
 			listControlPointsScaled.get(controlPointShapeSelectedIndex).set(controlPointSelectedIndex, p);
 			Shape s = shapesScaled.get(controlPointShapeSelectedIndex);
+			ArrayList<Point> cps = listControlPointsScaled.get(controlPointShapeSelectedIndex);
 			
 			if(s instanceof CurveShape)
 			{
-				ArrayList<Point> cps = listControlPointsScaled.get(controlPointShapeSelectedIndex);
 				s = new CurveShape(cps.get(0), cps.get(2), cps.get(3), cps.get(1));
 			}
 			else if(s instanceof Line2D)
 			{
-				ArrayList<Point> cps = listControlPointsScaled.get(controlPointShapeSelectedIndex);
 				s = new Line2D.Double(cps.get(0), cps.get(1));
 			}
 			else if(s instanceof Rectangle2D)
 			{
-				ArrayList<Point> cps = listControlPointsScaled.get(controlPointShapeSelectedIndex);
 				s = new Rectangle2D.Double(
 						cps.get(0).x, cps.get(0).y, 
 						(cps.get(1).x - cps.get(0).x), (cps.get(1).y - cps.get(0).y));
 			}
 			else if(s instanceof Ellipse2D)
 			{
-				ArrayList<Point> cps = listControlPointsScaled.get(controlPointShapeSelectedIndex);
 				s = new Ellipse2D.Double(
 						cps.get(0).x, cps.get(0).y, 
 						(cps.get(1).x - cps.get(0).x), (cps.get(1).y - cps.get(0).y));
