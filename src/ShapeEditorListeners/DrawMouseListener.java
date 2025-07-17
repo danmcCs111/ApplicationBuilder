@@ -38,9 +38,10 @@ public class DrawMouseListener extends MouseAdapter
 		{
 			Point p = sc.getRelativePoint(e);
 			LoggingMessages.printOut(p + "");
-			int count = 0, outerCount = 0;
+			int outerCount = 0;
 			for(ArrayList<Point> controlPoints : listControlPointsScaled)
 			{
+				int count = 0;
 				for(Point cp : controlPoints)
 				{
 					if(p.x >= cp.x && p.x <= cp.x + ShapeCreator.CONTROL_POINT_SIZE.width)
@@ -73,20 +74,36 @@ public class DrawMouseListener extends MouseAdapter
 		if(controlPointSelectedIndex != -1)
 		{
 			Point p = sc.getRelativePoint(e);
+			LoggingMessages.printOut("shape index: " + controlPointShapeSelectedIndex + " controlPoint index:" + controlPointSelectedIndex);
 			listControlPointsScaled.get(controlPointShapeSelectedIndex).set(controlPointSelectedIndex, p);
 			Shape s = shapesScaled.get(controlPointShapeSelectedIndex);
+			
 			if(s instanceof CurveShape)
 			{
 				ArrayList<Point> cps = listControlPointsScaled.get(controlPointShapeSelectedIndex);
 				s = new CurveShape(cps.get(0), cps.get(2), cps.get(3), cps.get(1));
-				shapesScaled.set(controlPointShapeSelectedIndex, s);
 			}
-			if(s instanceof Line2D)
+			else if(s instanceof Line2D)
 			{
 				ArrayList<Point> cps = listControlPointsScaled.get(controlPointShapeSelectedIndex);
 				s = new Line2D.Double(cps.get(0), cps.get(1));
-				shapesScaled.set(controlPointShapeSelectedIndex, s);
 			}
+			else if(s instanceof Rectangle2D)
+			{
+				ArrayList<Point> cps = listControlPointsScaled.get(controlPointShapeSelectedIndex);
+				s = new Rectangle2D.Double(
+						cps.get(0).x, cps.get(0).y, 
+						(cps.get(1).x - cps.get(0).x), (cps.get(1).y - cps.get(0).y));
+			}
+			else if(s instanceof Ellipse2D)
+			{
+				ArrayList<Point> cps = listControlPointsScaled.get(controlPointShapeSelectedIndex);
+				s = new Ellipse2D.Double(
+						cps.get(0).x, cps.get(0).y, 
+						(cps.get(1).x - cps.get(0).x), (cps.get(1).y - cps.get(0).y));
+			}
+			
+			shapesScaled.set(controlPointShapeSelectedIndex, s);
 			sc.drawAll();
 		}
 		sc.setControlPointSelectedIndex(-1);
