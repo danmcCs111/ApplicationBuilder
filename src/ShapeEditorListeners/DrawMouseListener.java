@@ -47,12 +47,13 @@ public class DrawMouseListener extends MouseAdapter
 		}
 		else if(sc.getOperation() == Operation.Move)
 		{
-			Point mouseDragStartPoint = sc.getMouseDragStartPoint();
+			Point mouseDragStartPoint = sc.getMouseDragLastPoint();
 			Point nextPoint = sc.getRelativePoint(e);
 			
 			int diffx = mouseDragStartPoint.x - nextPoint.x;
 			int diffy = mouseDragStartPoint.y - nextPoint.y;
 			applyShiftAmount(new Point(diffx, diffy));
+			sc.setMouseDragLastPoint(nextPoint);
 		}
 	}
 	
@@ -113,6 +114,7 @@ public class DrawMouseListener extends MouseAdapter
 		if(!sc.getControlPointSelected())
 		{
 			sc.setMouseDragStartPoint(p);
+			sc.setMouseDragLastPoint(p);
 		}
 	}
 	
@@ -216,7 +218,28 @@ public class DrawMouseListener extends MouseAdapter
 	
 	public void applyShiftAmount(Point shift)
 	{
-		LoggingMessages.printOut("Shift Amount: " + shift);
+		for(int index : sc.getShapeSelectedIndexes())
+		{
+			ArrayList<Point> shapesControlPoints = sc.getControlPointsScaled().get(index);
+			Shape s = sc.getShapesScaled().get(index);
+			ArrayList<Point> newPoints = new ArrayList<Point>();
+			for(Point p : shapesControlPoints)
+			{
+				newPoints.add(new Point(p.x - shift.x, p.y - shift.y));
+			}
+			for(int i = 0; i < newPoints.size(); i++)
+			{
+				sc.getControlPointsScaled().get(index).set(i, newPoints.get(i));
+			}
+			
+			Shape newShape = recalculateShape(s, newPoints);
+			sc.getShapesScaled().set(index, newShape);
+			
+			Shape selRect = sc.getSelectionRectangle();
+			Rectangle2D newSel = (Rectangle2D) recalculateShape(selRect, newPoints);
+			sc.setSelectionRectangle(newSel);
+		}
+		sc.drawAll();
 	}
 	
 	private Shape recalculateShape(Shape s, ArrayList<Point> cps)
@@ -247,13 +270,16 @@ public class DrawMouseListener extends MouseAdapter
 	private void detectBounds(Rectangle2D bounds)
 	{
 		ArrayList<Shape> selectedShapes = new ArrayList<Shape>();
+		int index = 0;
 		for(Shape s : sc.getShapesScaled())
 		{
 			if(bounds.contains(s.getBounds()))
 			{
 				selectedShapes.add(s);
+				sc.addShapeSelectedIndex(index);
 				LoggingMessages.printOut("Selecting: " + s.getClass().getName());
 			}
+			index++;
 		}
 		Point leastXy = null;
 		Point widthHeight = new Point();

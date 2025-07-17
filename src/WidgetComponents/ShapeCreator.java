@@ -56,10 +56,13 @@ public class ShapeCreator extends JPanel
 		controlPointSelectedIndex = -1,
 		controlPointShapeSelectedIndex = -1,
 		numShapes = 0;
+	private ArrayList<Integer> shapeSelectedIndexes = new ArrayList<Integer>();
 	private boolean 
 		mousePressed = false,
 		controlPointSelected = false;
-	private Point mouseDragStartPoint;
+	private Point 
+		mouseDragStartPoint,
+		mouseDragLastPoint;
 	private Point [] curvePoints = new Point [4];
 	private ArrayList<ArrayList<Point>> 
 		listControlPointsScaled = new ArrayList<ArrayList<Point>>();
@@ -105,6 +108,21 @@ public class ShapeCreator extends JPanel
 		top.add(modeSelections);
 		this.add(top, BorderLayout.NORTH);
 		this.add(draw, BorderLayout.CENTER);
+	}
+	
+	public void addShapeSelectedIndex(int index)
+	{
+		shapeSelectedIndexes.add(index);
+	}
+	
+	public ArrayList<Integer> getShapeSelectedIndexes()
+	{
+		return this.shapeSelectedIndexes;
+	}
+	
+	protected void clearShapeSelectedIndex()
+	{
+		this.shapeSelectedIndexes = new ArrayList<Integer>();
 	}
 	
 	public Rectangle2D getSelectTool()
@@ -155,6 +173,10 @@ public class ShapeCreator extends JPanel
 	public void setSelectionRectangle(Rectangle2D selectionRect)
 	{
 		this.selectionRect = selectionRect;
+		if(selectionRect == null)
+		{
+			clearShapeSelectedIndex();
+		}
 	}
 	
 	public ArrayList<Shape> getShapesScaled()
@@ -237,6 +259,16 @@ public class ShapeCreator extends JPanel
 		Point p = e.getPoint();
 		p = new Point(p.x, p.y + d.height);
 		return p;
+	}
+	
+	public Point getMouseDragLastPoint()
+	{
+		return this.mouseDragLastPoint;
+	}
+	
+	public void setMouseDragLastPoint(Point p)
+	{
+		this.mouseDragLastPoint = p;
 	}
 	
 	public Point getMouseDragStartPoint()
@@ -341,7 +373,7 @@ public class ShapeCreator extends JPanel
 		Move	("-----------Move-----------"),
 		Resize	("----------Resize----------"),
 		Select	("----------Select----------"),
-		Draw	("-----------Draw------------");
+		Draw	("-----------Draw-----------");
 		
 		private String titleText;
 		
