@@ -77,7 +77,8 @@ public class ShapeCreator extends JPanel
 	private JButton addShape;
 	private JPanel 
 		top, 
-		draw;
+		draw,
+		ShapeCreatorEditPanel;
 	private JComboBox<DrawMode> modeSelections;
 	private Operation operation = Operation.Select;
 	
@@ -87,6 +88,8 @@ public class ShapeCreator extends JPanel
 		
 		top = new JPanel();
 		draw = new JPanel();
+		ShapeCreatorEditPanel = new ShapeCreatorEditPanel();
+		
 		directionsLabel = new JLabel();
 		operationLabel = new JLabel(getOperation().getTitleText());
 		JButton b = new JButton("draw");
@@ -107,6 +110,7 @@ public class ShapeCreator extends JPanel
 		top.add(addShape);
 		top.add(modeSelections);
 		this.add(top, BorderLayout.NORTH);
+		this.add(ShapeCreatorEditPanel, BorderLayout.EAST);
 		this.add(draw, BorderLayout.CENTER);
 	}
 	
@@ -255,9 +259,7 @@ public class ShapeCreator extends JPanel
 	
 	public Point getRelativePoint(MouseEvent e)
 	{
-		Dimension d = top.getSize();
 		Point p = e.getPoint();
-		p = new Point(p.x, p.y + d.height);
 		return p;
 	}
 	
@@ -332,7 +334,7 @@ public class ShapeCreator extends JPanel
 	}
 	public void drawShape(Shape shape, Color c)
 	{
-		Graphics2D g2d = (Graphics2D) this.getGraphics();
+		Graphics2D g2d = (Graphics2D) draw.getGraphics();
 		g2d.setColor(c);
 		g2d.draw(shape);
 	}
@@ -347,7 +349,7 @@ public class ShapeCreator extends JPanel
 	{
 		Rectangle r = new Rectangle(p);
 		r.setSize(CONTROL_POINT_SIZE.width, CONTROL_POINT_SIZE.height);
-		Graphics2D g2d = (Graphics2D) this.getGraphics();
+		Graphics2D g2d = (Graphics2D) draw.getGraphics();
 		g2d.setColor(Color.black);
 		g2d.draw(r);
 	}
