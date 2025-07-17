@@ -235,10 +235,19 @@ public class DrawMouseListener extends MouseAdapter
 			Shape newShape = recalculateShape(s, newPoints);
 			sc.getShapesScaled().set(index, newShape);
 			
-			Shape selRect = sc.getSelectionRectangle();
-			Rectangle2D newSel = (Rectangle2D) recalculateShape(selRect, newPoints);
-			sc.setSelectionRectangle(newSel);
 		}
+		
+		Shape selRect = sc.getSelectionRectangle();
+		ArrayList<Point> newPointsRect = new ArrayList<Point>();
+		int height = selRect.getBounds().height;
+		int width = selRect.getBounds().width;
+		int x = selRect.getBounds().x;
+		int y = selRect.getBounds().y;
+		newPointsRect.add(new Point(x - shift.x, y - shift.y));
+		newPointsRect.add(new Point((width - shift.x) + x, (height - shift.y) + y));
+		Rectangle2D newSel = (Rectangle2D) recalculateShape(selRect, newPointsRect);
+		sc.setSelectionRectangle(newSel);
+		
 		sc.drawAll();
 	}
 	
