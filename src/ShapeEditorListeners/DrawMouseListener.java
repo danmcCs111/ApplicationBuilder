@@ -5,6 +5,7 @@ import java.awt.Shape;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.CubicCurve2D;
+import java.awt.geom.Line2D;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
@@ -26,13 +27,13 @@ public class DrawMouseListener extends MouseAdapter
 	@Override
 	public void mousePressed(MouseEvent e) 
 	{
-		Mode mode = sc.getMode();
+		int directionsIndex = sc.getDirectionsIndex();
 		sc.setMousePressed(true);
 		boolean mousePressed = sc.getMousePressed();
 		ArrayList<ArrayList<Point>> listControlPointsScaled = sc.getControlPointsScaled();
 		
 		LoggingMessages.printOut(sc + "");
-		if(mode == null && mousePressed)
+		if(directionsIndex == 0 && mousePressed)
 		{
 			Point p = sc.getRelativePoint(e);
 			LoggingMessages.printOut(p + "");
@@ -80,6 +81,12 @@ public class DrawMouseListener extends MouseAdapter
 				((CubicCurve2D) s).setCurve(cps.get(0), cps.get(2), cps.get(3), cps.get(1));
 				shapesScaled.set(controlPointShapeSelectedIndex, s);
 			}
+			if(s instanceof Line2D)
+			{
+				ArrayList<Point> cps = listControlPointsScaled.get(controlPointShapeSelectedIndex);
+				s = new Line2D.Double(cps.get(0), cps.get(1));
+				shapesScaled.set(controlPointShapeSelectedIndex, s);
+			}
 			sc.drawAll();
 		}
 		sc.setControlPointSelectedIndex(-1);
@@ -89,11 +96,12 @@ public class DrawMouseListener extends MouseAdapter
 	public void mouseClicked(MouseEvent e) 
 	{
 		Mode mode = sc.getMode();
-		if(mode == Mode.Curve)
+		int directionsIndex = sc.getDirectionsIndex();
+		
+		if(directionsIndex > 0)
 		{
 			Point p = sc.getRelativePoint(e);
 			Point [] curvePoints = sc.getCurvePoints();
-			int directionsIndex = sc.getDirectionsIndex();
 			JLabel directionsLabel = sc.getDirectionsLabel();
 			ArrayList<Shape> shapes = sc.getShapes();
 			
@@ -103,14 +111,21 @@ public class DrawMouseListener extends MouseAdapter
 			
 			if(directionsIndex + 1 >= mode.getDirections().length)
 			{
-				LoggingMessages.printOut(LoggingMessages.combine(curvePoints));
 				sc.setDirectionsIndex(0);
 				sc.getAddCurveButton().setVisible(true);
-				CurveShape curveShape = new CurveShape();
-				curveShape.setCurve(curvePoints[0], curvePoints[2], curvePoints[3], curvePoints[1]);
-				shapes.add(curveShape);
+				
+				if(mode == Mode.Line)
+				{
+					Line2D lineShape = new Line2D.Double(curvePoints[0], curvePoints[1]);
+					shapes.add(lineShape);
+				}
+				else if(mode == Mode.Curve)
+				{
+					CurveShape curveShape = new CurveShape();
+					curveShape.setCurve(curvePoints[0], curvePoints[2], curvePoints[3], curvePoints[1]);
+					shapes.add(curveShape);
+				}
 				sc.drawAll();
-				sc.setMode(null);
 				directionsLabel.setText("");
 				sc.incrementNumShapes(1);
 			}

@@ -18,7 +18,6 @@ public class DrawInputActionListener implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		this.sc.setMode(Mode.Curve);
 		Mode mode = this.sc.getMode();
 		sc.incrementDirectionsIndex(1);
 		sc.getDirectionsLabel().setText(mode.getDirections()[sc.getDirectionsIndex()]);

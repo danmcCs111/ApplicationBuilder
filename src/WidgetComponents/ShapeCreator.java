@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
@@ -57,12 +58,12 @@ public class ShapeCreator extends JPanel
 	private ArrayList<Shape> 
 		shapes = new ArrayList<Shape>(),
 		shapesScaled = new ArrayList<Shape>();
-	private Mode mode;
 	
 	private JSlider slider;
 	private Label sliderLabel;
 	private JLabel directionsLabel;
-	private JButton addCurve;
+	private JButton addShape;
+	private JComboBox<Mode> modeSelections;
 	private JPanel 
 		top, 
 		draw;
@@ -79,10 +80,11 @@ public class ShapeCreator extends JPanel
 		slider = new JSlider();
 		JButton c = new JButton("clear");
 		sliderLabel.setText(slider.getValue()+"");
-		addCurve = new JButton("Add Cubic Curve");
+		addShape = new JButton("+ Add");
+		modeSelections = new JComboBox<ShapeCreator.Mode>(Mode.values());
 		
 		c.addActionListener(new ClearActionListener(this));
-		addCurve.addActionListener(new DrawInputActionListener(this));
+		addShape.addActionListener(new DrawInputActionListener(this));
 		slider.addChangeListener(new SliderChangeListener(this));
 		b.addActionListener(new DrawActionListener(this));
 		draw.addMouseListener(new DrawMouseListener(this));
@@ -92,19 +94,20 @@ public class ShapeCreator extends JPanel
 		top.add(c);
 		top.add(slider);
 		top.add(sliderLabel);
-		top.add(addCurve);
+		top.add(addShape);
+		top.add(modeSelections);
 		this.add(top, BorderLayout.NORTH);
 		this.add(draw, BorderLayout.CENTER);
 	}
 	
 	public void setMode(Mode mode)
 	{
-		this.mode = mode;
+		this.modeSelections.setSelectedItem(mode);
 	}
 	
 	public Mode getMode()
 	{
-		return this.mode;
+		return (Mode) this.modeSelections.getSelectedItem();
 	}
 	
 	public JSlider getSlider()
@@ -124,7 +127,7 @@ public class ShapeCreator extends JPanel
 	
 	public JButton getAddCurveButton()
 	{
-		return this.addCurve;
+		return this.addShape;
 	}
 	
 	public ArrayList<Shape> getShapes()
