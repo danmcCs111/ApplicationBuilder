@@ -198,7 +198,7 @@ public class DrawMouseListener extends MouseAdapter
 				sc.incrementNumShapes(1);
 				sc.getAddCurveButton().setEnabled(true);
 				sc.setOperation(Operation.Select);
-				sc.getShapeCreatorEditPanel().generatePointEditor(sc.getNumShapes()-1, curvePoints);
+				sc.getShapeCreatorEditPanel().generatePointEditor(sc.getNumShapes()-1, curvePoints, mode);
 				
 				sc.drawAll();
 			}
