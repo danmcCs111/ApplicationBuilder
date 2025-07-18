@@ -20,7 +20,7 @@ import WidgetComponents.ShapeCreator;
 import WidgetComponents.ShapeCreator.DrawMode;
 import WidgetComponents.ShapeCreator.Operation;
 
-public class DrawMouseListener extends MouseAdapter 
+public class DrawMouseListener extends MouseAdapter implements ControlPointChangedListener 
 {
 	private ShapeCreator sc;
 	
@@ -138,9 +138,10 @@ public class DrawMouseListener extends MouseAdapter
 				Shape s = shapesScaled.get(controlPointShapeSelectedIndex);
 				ArrayList<Point> cps = listControlPointsScaled.get(controlPointShapeSelectedIndex);
 				
-				s = recalculateShape(s, cps);
+				s = sc.recalculateShape(s, cps);
 				
 				shapesScaled.set(controlPointShapeSelectedIndex, s);
+				sc.notifyShapeAndControlPointChangedListener(controlPointShapeSelectedIndex, controlPointSelectedIndex, this);
 			}
 			
 			if(sc.getDirectionsIndex() == 0 && !sc.getControlPointSelected() && sc.getSelectTool() != null)
@@ -194,6 +195,7 @@ public class DrawMouseListener extends MouseAdapter
 					break;
 				}
 				shapes.add(shape);
+				sc.addShapeAndControlPointChangedListener(sc.getNumShapes(), sc.getDirectionsIndex()-1, this);
 				directionsLabel.setText("");
 				sc.incrementNumShapes(1);
 				sc.getAddCurveButton().setEnabled(true);
@@ -204,6 +206,7 @@ public class DrawMouseListener extends MouseAdapter
 			}
 			else
 			{
+				sc.addShapeAndControlPointChangedListener(sc.getNumShapes(), sc.getDirectionsIndex()-1, this);
 				sc.incrementDirectionsIndex(1);
 				directionsLabel.setText(mode.getDirections()[sc.getDirectionsIndex()]);
 			}
@@ -231,9 +234,10 @@ public class DrawMouseListener extends MouseAdapter
 			for(int i = 0; i < newPoints.size(); i++)
 			{
 				sc.getControlPointsScaled().get(index).set(i, newPoints.get(i));
+				sc.notifyShapeAndControlPointChangedListener(index, i, this);
 			}
 			
-			Shape newShape = recalculateShape(s, newPoints);
+			Shape newShape = sc.recalculateShape(s, newPoints);
 			sc.getShapesScaled().set(index, newShape);
 			
 		}
@@ -246,35 +250,11 @@ public class DrawMouseListener extends MouseAdapter
 		int y = selRect.getBounds().y;
 		newPointsRect.add(new Point(x - shift.x, y - shift.y));
 		newPointsRect.add(new Point((width - shift.x) + x, (height - shift.y) + y));
-		Rectangle2D newSel = (Rectangle2D) recalculateShape(selRect, newPointsRect);
+		Rectangle2D newSel = (Rectangle2D) sc.recalculateShape(selRect, newPointsRect);
 		sc.setSelectionRectangle(newSel);
 		
+		
 		sc.drawAll();
-	}
-	
-	private Shape recalculateShape(Shape s, ArrayList<Point> cps)
-	{
-		if(s instanceof CurveShape)
-		{
-			s = new CurveShape(cps.get(0), cps.get(2), cps.get(3), cps.get(1));
-		}
-		else if(s instanceof Line2D)
-		{
-			s = new Line2D.Double(cps.get(0), cps.get(1));
-		}
-		else if(s instanceof Rectangle2D)
-		{
-			s = new Rectangle2D.Double(
-					cps.get(0).x, cps.get(0).y, 
-					(cps.get(1).x - cps.get(0).x), (cps.get(1).y - cps.get(0).y));
-		}
-		else if(s instanceof Ellipse2D)
-		{
-			s = new Ellipse2D.Double(
-					cps.get(0).x, cps.get(0).y, 
-					(cps.get(1).x - cps.get(0).x), (cps.get(1).y - cps.get(0).y));
-		}
-		return s;
 	}
 	
 	private void detectBounds(Rectangle2D bounds)
@@ -342,6 +322,17 @@ public class DrawMouseListener extends MouseAdapter
 		{
 			sc.setSelectionRectangle(null);
 		}
+	}
+
+	@Override
+	public void controlPointChangedNotification(int shapeIndex, int controlPointIndex) 
+	{
+		ArrayList<Point> newPoints = sc.getControlPointsScaled().get(shapeIndex);
+		Shape s = sc.getShapesScaled().get(shapeIndex);
+		Shape newShape = sc.recalculateShape(s, newPoints);
+		sc.getShapesScaled().set(shapeIndex, newShape);
+		
+		sc.drawAll();
 	}
 	
 }

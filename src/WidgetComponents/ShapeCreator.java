@@ -8,15 +8,24 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
 
+import Graphics2D.CurveShape;
 import ShapeEditorListeners.ClearActionListener;
+import ShapeEditorListeners.ControlPointChangedListener;
 import ShapeEditorListeners.DrawActionListener;
 import ShapeEditorListeners.DrawInputActionListener;
 import ShapeEditorListeners.DrawMouseListener;
@@ -58,6 +67,8 @@ public class ShapeCreator extends JPanel
 		controlPointShapeSelectedIndex = -1,
 		numShapes = 0;
 	private ArrayList<Integer> shapeSelectedIndexes = new ArrayList<Integer>();
+	private HashMap<Integer, HashMap<Integer, ArrayList<ControlPointChangedListener>>> shapeAndControlPointChangedListener = 
+			new HashMap<Integer, HashMap<Integer, ArrayList<ControlPointChangedListener>>>();
 	private boolean 
 		mousePressed = false,
 		controlPointSelected = false;
@@ -93,7 +104,10 @@ public class ShapeCreator extends JPanel
 		draw = new JPanel();
 		east = new JPanel();
 		east.setLayout(new BorderLayout());
-		shapeCreatorEditPanel = new ShapeCreatorEditPanel();
+		Border border = BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.gray, Color.gray);
+		border = BorderFactory.createTitledBorder(border, "Edit");
+		east.setBorder(border);
+		shapeCreatorEditPanel = new ShapeCreatorEditPanel(this);
 		east.add(shapeCreatorEditPanel, BorderLayout.NORTH);
 		
 		directionsLabel = new JLabel();
@@ -230,6 +244,7 @@ public class ShapeCreator extends JPanel
 	public void setControlPointsScaled(ArrayList<ArrayList<Point>> listControlPointsScaledRepl)
 	{
 		this.listControlPointsScaled = listControlPointsScaledRepl;
+		//TODO
 	}
 	
 	public int getDirectionsIndex()
@@ -392,6 +407,70 @@ public class ShapeCreator extends JPanel
 	{
 		Graphics2D g2d = (Graphics2D) draw.getGraphics();
 		draw.paint(g2d);
+	}
+	
+	public void notifyShapeAndControlPointChangedListener(int indexShape, int indexControlPoint, ControlPointChangedListener ignoreChangedListener)
+	{
+		if(!this.shapeAndControlPointChangedListener.containsKey(indexShape))
+			return;
+		
+		HashMap<Integer, ArrayList<ControlPointChangedListener>> controlPointChangedListeners = this.shapeAndControlPointChangedListener.get(indexShape);
+		for(ControlPointChangedListener cpcl : controlPointChangedListeners.get(indexControlPoint))
+		{
+			if(!Arrays.asList(ignoreChangedListener).contains(cpcl))
+			{
+				cpcl.controlPointChangedNotification(indexShape, indexControlPoint);
+			}
+		}
+	}
+	
+	public void addShapeAndControlPointChangedListener(int indexShape, int indexControlPoint, ControlPointChangedListener changedListener)
+	{
+		if(!this.shapeAndControlPointChangedListener.containsKey(indexShape))
+		{
+			HashMap<Integer, ArrayList<ControlPointChangedListener>> mapControlPointListeners = new HashMap<Integer, ArrayList<ControlPointChangedListener>>();
+			ArrayList<ControlPointChangedListener> controlPointChangedListeners = new ArrayList<ControlPointChangedListener>();
+			controlPointChangedListeners.add(changedListener);
+			mapControlPointListeners.put(indexControlPoint, controlPointChangedListeners);
+			this.shapeAndControlPointChangedListener.put(indexShape, mapControlPointListeners);
+		}
+		else if(!this.shapeAndControlPointChangedListener.get(indexShape).containsKey(indexControlPoint))
+		{
+			HashMap<Integer, ArrayList<ControlPointChangedListener>> mapControlPointListeners = this.shapeAndControlPointChangedListener.get(indexShape);
+			ArrayList<ControlPointChangedListener> controlPointChangedListeners = new ArrayList<ControlPointChangedListener>();
+			controlPointChangedListeners.add(changedListener);
+			mapControlPointListeners.put(indexControlPoint, controlPointChangedListeners);
+		}
+		else
+		{
+			HashMap<Integer, ArrayList<ControlPointChangedListener>> mapControlPointListeners = this.shapeAndControlPointChangedListener.get(indexShape);
+			mapControlPointListeners.get(indexControlPoint).add(changedListener);
+		}
+	}
+	
+	public Shape recalculateShape(Shape s, ArrayList<Point> cps)
+	{
+		if(s instanceof CurveShape)
+		{
+			s = new CurveShape(cps.get(0), cps.get(2), cps.get(3), cps.get(1));
+		}
+		else if(s instanceof Line2D)
+		{
+			s = new Line2D.Double(cps.get(0), cps.get(1));
+		}
+		else if(s instanceof Rectangle2D)
+		{
+			s = new Rectangle2D.Double(
+					cps.get(0).x, cps.get(0).y, 
+					(cps.get(1).x - cps.get(0).x), (cps.get(1).y - cps.get(0).y));
+		}
+		else if(s instanceof Ellipse2D)
+		{
+			s = new Ellipse2D.Double(
+					cps.get(0).x, cps.get(0).y, 
+					(cps.get(1).x - cps.get(0).x), (cps.get(1).y - cps.get(0).y));
+		}
+		return s;
 	}
 	
 	public enum Operation

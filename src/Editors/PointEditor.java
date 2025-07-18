@@ -3,10 +3,12 @@ package Editors;
 import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.Point;
+import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeListener;
 
 import Params.ParameterEditor;
 
@@ -84,6 +86,11 @@ public class PointEditor extends JPanel implements ParameterEditor
 	public void destroy() {
 		// TODO Auto-generated method stub
 		
+	}
+	public void addChangeListener(ChangeListener cl)
+	{
+		spin1.addChangeListener(cl);
+		spin2.addChangeListener(cl);
 	}
 
 }

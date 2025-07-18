@@ -3,7 +3,6 @@ package WidgetComponents;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Point;
-import java.awt.Shape;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -13,20 +12,20 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
 import Editors.PointEditor;
+import ShapeEditorListeners.ShapePointChangeListener;
 import WidgetComponents.ShapeCreator.DrawMode;
 
-public class ShapeCreatorEditPanel extends JPanel
+public class ShapeCreatorEditPanel extends JPanel 
 {
 	private static final long serialVersionUID = 1L;
 
+	private ShapeCreator sc;
 	private HashMap<Integer, ArrayList<PointEditor>> indexAndPointEditors;
 		
 	
-	public ShapeCreatorEditPanel()
+	public ShapeCreatorEditPanel(ShapeCreator sc)
 	{
-		Border b = BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.gray, Color.gray);
-		b = BorderFactory.createTitledBorder(b, "Edit");
-		this.setBorder(b);
+		this.sc = sc;
 		this.setLayout(new GridLayout(0, 1));
 		
 		indexAndPointEditors = new HashMap<Integer, ArrayList<PointEditor>>();
@@ -38,21 +37,23 @@ public class ShapeCreatorEditPanel extends JPanel
 		JPanel shapeEditPanel = new JPanel();
 		
 		Border b = BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.gray, Color.gray);
-		b = BorderFactory.createTitledBorder(b, "Edit " + dm.getModeText() + "#" + index);
+		b = BorderFactory.createTitledBorder(b, dm.getModeText() + "#" + index);
 		shapeEditPanel.setBorder(b);
 		shapeEditPanel.setLayout(new GridLayout(0, 2));
 		
 		ArrayList<PointEditor> pointEditors = new ArrayList<PointEditor>();
-		
+		int i = 0;
 		for(Point p : points)
 		{
-			if(p != null) //built off an array
+			if(p != null) 
 			{
 				PointEditor pe = new PointEditor();
 				pe.setComponentValue(p);
+				pe.addChangeListener(new ShapePointChangeListener(pe, sc, index, i));
 				pointEditors.add(pe);
 				shapeEditPanel.add(pe);
 			}
+			i++;
 		}
 		this.add(shapeEditPanel);
 		
@@ -68,5 +69,5 @@ public class ShapeCreatorEditPanel extends JPanel
 	{
 		return this.indexAndPointEditors.get(index);
 	}
-	
+
 }
