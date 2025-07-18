@@ -50,7 +50,7 @@ public class ShapeCreator extends JPanel
 				"Enter x2, y2"
 		};
 	
-	public static Dimension CONTROL_POINT_SIZE = new Dimension(5,5);
+	public static Dimension CONTROL_POINT_PIXEL_SIZE = new Dimension(6,6);
 	
 	private int 
 		directionsIndex = 0, 
@@ -372,7 +372,7 @@ public class ShapeCreator extends JPanel
 	protected void drawControlPoint(Point p)
 	{
 		Rectangle r = new Rectangle(p);
-		r.setSize(CONTROL_POINT_SIZE.width, CONTROL_POINT_SIZE.height);
+		r.setSize(CONTROL_POINT_PIXEL_SIZE.width, CONTROL_POINT_PIXEL_SIZE.height);
 		Graphics2D g2d = (Graphics2D) draw.getGraphics();
 		g2d.setColor(Color.black);
 		g2d.draw(r);

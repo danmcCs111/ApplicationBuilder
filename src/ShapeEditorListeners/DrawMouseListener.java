@@ -95,9 +95,9 @@ public class DrawMouseListener extends MouseAdapter
 				int count = 0;
 				for(Point cp : controlPoints)
 				{
-					if(p.x >= cp.x && p.x <= cp.x + ShapeCreator.CONTROL_POINT_SIZE.width)
+					if(p.x >= cp.x && p.x <= cp.x + ShapeCreator.CONTROL_POINT_PIXEL_SIZE.width)
 					{
-						if(p.y >= cp.y && p.y <= cp.y + ShapeCreator.CONTROL_POINT_SIZE.height)
+						if(p.y >= cp.y && p.y <= cp.y + ShapeCreator.CONTROL_POINT_PIXEL_SIZE.height)
 						{
 							LoggingMessages.printOut("Control Point selected!");
 							sc.setControlPointSelected(true);

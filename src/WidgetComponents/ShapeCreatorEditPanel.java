@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.BorderFactory;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
@@ -18,15 +17,13 @@ public class ShapeCreatorEditPanel extends JPanel
 {
 	private static final long serialVersionUID = 1L;
 
-	private JLabel titleLabel = new JLabel("Edit");
 	private HashMap<Integer, ArrayList<PointEditor>> indexAndPointEditors;
 		
 	
 	public ShapeCreatorEditPanel()
 	{
-		this.add(titleLabel);
-		this.add(new JLabel());
 		Border b = BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.gray, Color.gray);
+		b = BorderFactory.createTitledBorder(b, "Edit");
 		this.setBorder(b);
 		this.setLayout(new GridLayout(0, 2));
 		
