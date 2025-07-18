@@ -162,14 +162,13 @@ public class DrawMouseListener extends MouseAdapter
 		if(directionsIndex > 0)
 		{
 			Point p = sc.getRelativePoint(e);
-			Point [] curvePoints = sc.getCurvePoints();
+			Point [] curvePoints = sc.getControlPoints();
 			JLabel directionsLabel = sc.getDirectionsLabel();
 			ArrayList<Shape> shapes = sc.getShapesScaled();
 			
 			curvePoints[directionsIndex-1] = p;
 			sc.addControlPoint(p);
 			LoggingMessages.printOut(p + "");
-			
 			if(directionsIndex + 1 >= mode.getDirections().length)
 			{
 				sc.setDirectionsIndex(0);
@@ -195,11 +194,13 @@ public class DrawMouseListener extends MouseAdapter
 					break;
 				}
 				shapes.add(shape);
-				sc.drawAll();
 				directionsLabel.setText("");
 				sc.incrementNumShapes(1);
 				sc.getAddCurveButton().setEnabled(true);
 				sc.setOperation(Operation.Select);
+				sc.getShapeCreatorEditPanel().generatePointEditor(sc.getNumShapes()-1, curvePoints);
+				
+				sc.drawAll();
 			}
 			else
 			{

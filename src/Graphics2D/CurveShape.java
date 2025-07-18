@@ -100,6 +100,5 @@ public class CurveShape extends CubicCurve2D
 		this.cy2 = ctrly2;
 		this.x2 = x2;
 		this.y2 = y2;
-		
 	}
 }

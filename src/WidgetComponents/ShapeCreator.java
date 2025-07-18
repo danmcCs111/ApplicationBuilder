@@ -20,6 +20,7 @@ import ShapeEditorListeners.ClearActionListener;
 import ShapeEditorListeners.DrawActionListener;
 import ShapeEditorListeners.DrawInputActionListener;
 import ShapeEditorListeners.DrawMouseListener;
+import ShapeEditorListeners.ShapeDrawModeActionListener;
 
 public class ShapeCreator extends JPanel 
 {
@@ -63,7 +64,7 @@ public class ShapeCreator extends JPanel
 	private Point 
 		mouseDragStartPoint,
 		mouseDragLastPoint;
-	private Point [] curvePoints = new Point [4];
+	private Point [] controlPoints;
 	private ArrayList<ArrayList<Point>> 
 		listControlPointsScaled = new ArrayList<ArrayList<Point>>();
 	private ArrayList<Shape> 
@@ -78,7 +79,9 @@ public class ShapeCreator extends JPanel
 	private JPanel 
 		top, 
 		draw,
-		ShapeCreatorEditPanel;
+		east;
+	private ShapeCreatorEditPanel shapeCreatorEditPanel;
+	
 	private JComboBox<DrawMode> modeSelections;
 	private Operation operation = Operation.Select;
 	
@@ -88,7 +91,10 @@ public class ShapeCreator extends JPanel
 		
 		top = new JPanel();
 		draw = new JPanel();
-		ShapeCreatorEditPanel = new ShapeCreatorEditPanel();
+		east = new JPanel();
+		east.setLayout(new BorderLayout());
+		shapeCreatorEditPanel = new ShapeCreatorEditPanel();
+		east.add(shapeCreatorEditPanel, BorderLayout.NORTH);
 		
 		directionsLabel = new JLabel();
 		operationLabel = new JLabel(getOperation().getTitleText());
@@ -96,6 +102,8 @@ public class ShapeCreator extends JPanel
 		JButton c = new JButton("clear");
 		addShape = new JButton("+ Add");
 		modeSelections = new JComboBox<ShapeCreator.DrawMode>(DrawMode.values());
+		modeSelections.addActionListener(new ShapeDrawModeActionListener(this));
+		setMode(DrawMode.Line);//default.
 		
 		c.addActionListener(new ClearActionListener(this));
 		addShape.addActionListener(new DrawInputActionListener(this));
@@ -110,8 +118,23 @@ public class ShapeCreator extends JPanel
 		top.add(addShape);
 		top.add(modeSelections);
 		this.add(top, BorderLayout.NORTH);
-		this.add(ShapeCreatorEditPanel, BorderLayout.EAST);
+		this.add(east, BorderLayout.EAST);
 		this.add(draw, BorderLayout.CENTER);
+	}
+	
+	public Point [] getControlPoints()
+	{
+		return this.controlPoints;
+	}
+	
+	public void setNumberOfPoints(int numberOfPoints)
+	{
+		this.controlPoints = new Point[numberOfPoints];
+	}
+	
+	public ShapeCreatorEditPanel getShapeCreatorEditPanel()
+	{
+		return this.shapeCreatorEditPanel;
 	}
 	
 	public void addShapeSelectedIndex(int index)
@@ -142,11 +165,17 @@ public class ShapeCreator extends JPanel
 	public void setMode(DrawMode mode)
 	{
 		this.modeSelections.setSelectedItem(mode);
+		this.setNumberOfPoints(mode.getNumberOfPoints());
 	}
 	
 	public DrawMode getMode()
 	{
 		return (DrawMode) this.modeSelections.getSelectedItem();
+	}
+	
+	public JComboBox<DrawMode> getModeSelectionCombo()
+	{
+		return this.modeSelections;
 	}
 	
 	public void setOperation(Operation operation)
@@ -303,11 +332,6 @@ public class ShapeCreator extends JPanel
 		return this.mousePressed;
 	}
 	
-	public Point [] getCurvePoints()
-	{
-		return this.curvePoints;
-	}
-	
 	public void drawAll()
 	{
 		
@@ -391,18 +415,20 @@ public class ShapeCreator extends JPanel
 	
 	public enum DrawMode
 	{
-		Line("Line", LINE_DIRECTIONS),
-		Curve("Curve", CURVE_DIRECTIONS),
-		ellipse("Elipse", ELLIPSE_DIRECTIONS),
-		rectangle("Rectangle", RECTANGLE_DIRECTIONS);
+		Line("Line", LINE_DIRECTIONS, 2),
+		Curve("Curve", CURVE_DIRECTIONS, 4),
+		ellipse("Elipse", ELLIPSE_DIRECTIONS, 2),
+		rectangle("Rectangle", RECTANGLE_DIRECTIONS, 2);
 		
 		private String modeText;
 		private String [] directions;
+		private int numberOfPoints;
 		
-		private DrawMode(String modeText, String [] directions)
+		private DrawMode(String modeText, String [] directions, int numberOfPoints)
 		{
 			this.modeText = modeText;
 			this.directions = directions;
+			this.numberOfPoints = numberOfPoints;
 		}
 		
 		public String getModeText()
@@ -412,6 +438,10 @@ public class ShapeCreator extends JPanel
 		public String [] getDirections()
 		{
 			return this.directions;
+		}
+		public int getNumberOfPoints()
+		{
+			return this.numberOfPoints;
 		}
 	}
 	
