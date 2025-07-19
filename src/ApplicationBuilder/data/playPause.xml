@@ -1,7 +1,7 @@
 <Build>
-	<JFrame extendedSetupTaskbar="/src/ApplicationBuilder/launch_xsm.png" setLayout="java.awt.BorderLayout" setLocation="550, 500" setMinimumSize="350, 200" >
+	<JFrame extendedSetupTaskbar="/src/ApplicationBuilder/launch_xsm.png" setLayout="java.awt.BorderLayout" setLocation="550, 500" setMinimumSize="250, 100" setResizable="False" setTitle="Remote" >
 		<JPanel extendedLayoutApplyParent="North" setLayout="java.awt.BorderLayout" >
-			<JTextField extendedLayoutApplyParent="Center" setText="" >
+			<JTextField extendedLayoutApplyParent="Center" setEditable="False" setText="Test" >
 			</JTextField>
 			<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="C:\\Program Files\\Git\\git-bash.exe@-i@-c|/c/Program\ Files/AutoHotkey/v2/AutoHotkey /c/Users/danie/codebase/danmcCs111/AutoHotKey-Utils/play_pause.ahk" extendedLayoutApplyParent="North" setBackground="0, 153, 153" setText="| &gt; |" setToolTipText="" >
 			</JButton>
