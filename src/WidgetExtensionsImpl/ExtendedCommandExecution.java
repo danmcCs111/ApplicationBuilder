@@ -2,7 +2,7 @@ package WidgetExtensionsImpl;
 
 import java.awt.event.ActionListener;
 
-import javax.swing.JMenuItem;
+import javax.swing.AbstractButton;
 
 import ActionListenersImpl.CommandBuildListener;
 import ObjectTypeConversion.CommandBuild;
@@ -15,9 +15,9 @@ public class ExtendedCommandExecution implements ExtendedAttributeParam
 	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 
 	{
 		Object m = widgetProperties.getInstance();
-		if(m instanceof JMenuItem)
+		if(m instanceof AbstractButton)
 		{
-			JMenuItem mi = ((JMenuItem)m);
+			AbstractButton mi = ((AbstractButton)m);
 			if(arg0 != null && !arg0.strip().isEmpty())
 			{
 				for(ActionListener al : mi.getActionListeners())

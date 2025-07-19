@@ -16,9 +16,9 @@ import javax.swing.JLabel;
 
 import Graphics2D.CurveShape;
 import Properties.LoggingMessages;
-import WidgetComponents.ShapeCreator;
-import WidgetComponents.ShapeCreator.DrawMode;
-import WidgetComponents.ShapeCreator.Operation;
+import ShapeWidgetComponents.ShapeCreator;
+import ShapeWidgetComponents.ShapeCreator.DrawMode;
+import ShapeWidgetComponents.ShapeCreator.Operation;
 
 public class DrawMouseListener extends MouseAdapter implements ControlPointChangedListener 
 {

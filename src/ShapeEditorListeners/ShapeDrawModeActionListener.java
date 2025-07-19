@@ -6,8 +6,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
 
 import Properties.LoggingMessages;
-import WidgetComponents.ShapeCreator;
-import WidgetComponents.ShapeCreator.DrawMode;
+import ShapeWidgetComponents.ShapeCreator;
+import ShapeWidgetComponents.ShapeCreator.DrawMode;
 
 public class ShapeDrawModeActionListener implements ActionListener 
 {

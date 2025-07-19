@@ -8,7 +8,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import Editors.PointEditor;
-import WidgetComponents.ShapeCreator;
+import ShapeWidgetComponents.ShapeCreator;
 
 public class ShapePointChangeListener implements ChangeListener, ControlPointChangedListener
 {

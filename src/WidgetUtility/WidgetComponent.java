@@ -13,7 +13,8 @@ public class WidgetComponent
 	public static final String ID_SPLIT = "#";
 	private static final String [] PACKAGE_PREFIXES = new String [] {
 			"java.awt.", 
-			"WidgetComponents.", 
+			"WidgetComponents.",
+			"ShapeWidgetComponents.",
 			"javax.swing."
 	};
 	private static int counter = 0;

@@ -3,7 +3,7 @@ package ShapeEditorListeners;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import WidgetComponents.ShapeCreator;
+import ShapeWidgetComponents.ShapeCreator;
 
 public class ClearActionListener implements ActionListener
 {

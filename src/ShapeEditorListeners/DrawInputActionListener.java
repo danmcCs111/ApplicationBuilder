@@ -3,9 +3,9 @@ package ShapeEditorListeners;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import WidgetComponents.ShapeCreator;
-import WidgetComponents.ShapeCreator.DrawMode;
-import WidgetComponents.ShapeCreator.Operation;
+import ShapeWidgetComponents.ShapeCreator;
+import ShapeWidgetComponents.ShapeCreator.DrawMode;
+import ShapeWidgetComponents.ShapeCreator.Operation;
 
 public class DrawInputActionListener implements ActionListener
 {

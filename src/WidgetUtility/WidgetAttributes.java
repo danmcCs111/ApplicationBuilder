@@ -24,11 +24,11 @@ import ObjectTypeConvertersImpl.ClassAndSetters;
 import ObjectTypeConvertersImpl.ClassTextAdapter;
 import Params.XmlToWidgetGenerator;
 import Properties.LoggingMessages;
+import ShapeWidgetComponents.ShapeCreator;
 import WidgetComponents.ApplicationLayoutEditor;
 import WidgetComponents.DatabaseResponseNodeTextArea;
 import WidgetComponents.JButtonArray;
 import WidgetComponents.MenuOption;
-import WidgetComponents.ShapeCreator;
 import WidgetComponents.OutputWeatherResultsTextArea;
 import WidgetComponents.SendHttpRequestPanel;
 import WidgetComponents.SwappableCollection;
@@ -101,7 +101,8 @@ public class WidgetAttributes
 		EXTENDED_METHODS.put(JButton.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedActionListenerSubType.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
-				ExtendedAttributeParam.getMethodDefinition(ExtendedActionListenerConnectedComponent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
+				ExtendedAttributeParam.getMethodDefinition(ExtendedActionListenerConnectedComponent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedCommandExecution.class, ExtendedMethodArgDef.CommandBuildSelection.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(JTextField.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
