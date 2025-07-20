@@ -20,6 +20,7 @@ import ShapeWidgetComponents.ShapeCreator;
 import ShapeWidgetComponents.ShapeCreator.DrawMode;
 import ShapeWidgetComponents.ShapeCreator.Operation;
 import ShapeWidgetComponents.ShapeStyling;
+import ShapeWidgetComponents.Triangle;
 
 public class DrawMouseListener extends MouseAdapter implements ControlPointChangedListener 
 {
@@ -193,6 +194,9 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 					shape = new Rectangle2D.Double(
 							curvePoints[0].x, curvePoints[0].y, 
 							(curvePoints[1].x - curvePoints[0].x), (curvePoints[1].y - curvePoints[0].y));
+					break;
+				case DrawMode.triangle:
+					shape = new Triangle(curvePoints[0], curvePoints[1], curvePoints[2]);
 					break;
 				}
 				shapes.add(shape);
