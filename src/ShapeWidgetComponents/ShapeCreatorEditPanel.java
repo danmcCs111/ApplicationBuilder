@@ -3,6 +3,8 @@ package ShapeWidgetComponents;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Point;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -11,7 +13,9 @@ import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
+import Editors.ColorEditor;
 import Editors.PointEditor;
+import Properties.LoggingMessages;
 import ShapeEditorListeners.ShapePointChangeListener;
 import ShapeWidgetComponents.ShapeCreator.DrawMode;
 
@@ -26,7 +30,7 @@ public class ShapeCreatorEditPanel extends JPanel
 	public ShapeCreatorEditPanel(ShapeCreator sc)
 	{
 		this.sc = sc;
-		this.setLayout(new GridLayout(0, 1));
+		this.setLayout(new GridLayout(0,1));
 		
 		indexAndPointEditors = new HashMap<Integer, ArrayList<PointEditor>>();
 		
@@ -39,7 +43,7 @@ public class ShapeCreatorEditPanel extends JPanel
 		Border b = BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.gray, Color.gray);
 		b = BorderFactory.createTitledBorder(b, dm.getModeText() + "#" + index);
 		shapeEditPanel.setBorder(b);
-		shapeEditPanel.setLayout(new GridLayout(0, 2));
+		shapeEditPanel.setLayout(new GridLayout(0, 1));
 		
 		ArrayList<PointEditor> pointEditors = new ArrayList<PointEditor>();
 		int i = 0;
@@ -55,6 +59,20 @@ public class ShapeCreatorEditPanel extends JPanel
 			}
 			i++;
 		}
+		ColorEditor ce = new ColorEditor();
+		Color c = sc.getColorPallette();//TODO
+		ce.setComponentValue(c);
+		ce.addPropertyChangeListener(new PropertyChangeListener() {
+			
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) 
+			{
+				LoggingMessages.printOut("color change");
+				ShapeStyling ss = sc.getShapeStyling(index);
+				ss.setColor((Color) ce.getComponentValueObj());
+			}
+		});
+		shapeEditPanel.add(ce);
 		this.add(shapeEditPanel);
 		
 		indexAndPointEditors.put(index, pointEditors);

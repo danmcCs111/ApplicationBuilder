@@ -31,8 +31,9 @@ import ShapeEditorListeners.DrawActionListener;
 import ShapeEditorListeners.DrawInputActionListener;
 import ShapeEditorListeners.DrawMouseListener;
 import ShapeEditorListeners.ShapeDrawModeActionListener;
+import ShapeEditorListeners.ShapeStylingActionListener;
 
-public class ShapeCreator extends JPanel 
+public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 {
 	private static final long serialVersionUID = 3005L;
 	
@@ -88,12 +89,13 @@ public class ShapeCreator extends JPanel
 		directionsLabel,
 		operationLabel;
 	private JButton addShape;
+	private ColorEditor colorEditorTop;
 	private JPanel 
 		top, 
 		draw,
 		east;
 	private ShapeCreatorEditPanel shapeCreatorEditPanel;
-	private ArrayList<ColorEditor> colorEditor = new ArrayList<ColorEditor>();
+	private HashMap<Integer, ShapeStyling> shapeStyling = new HashMap<Integer, ShapeStyling>();
 	
 	private JComboBox<DrawMode> modeSelections;
 	private Operation operation = Operation.Select;
@@ -120,6 +122,8 @@ public class ShapeCreator extends JPanel
 		modeSelections = new JComboBox<ShapeCreator.DrawMode>(DrawMode.values());
 		modeSelections.addActionListener(new ShapeDrawModeActionListener(this));
 		setMode(DrawMode.Line);//default.
+		colorEditorTop = new ColorEditor();
+		colorEditorTop.setComponentValue(Color.black);//TODO
 		
 		c.addActionListener(new ClearActionListener(this));
 		addShape.addActionListener(new DrawInputActionListener(this));
@@ -133,9 +137,25 @@ public class ShapeCreator extends JPanel
 		top.add(operationLabel);
 		top.add(addShape);
 		top.add(modeSelections);
+		top.add(colorEditorTop);
 		this.add(top, BorderLayout.NORTH);
 		this.add(east, BorderLayout.EAST);
 		this.add(draw, BorderLayout.CENTER);
+	}
+	
+	public Color getColorPallette()
+	{
+		return (Color) this.colorEditorTop.getComponentValueObj();
+	}
+	
+	public ShapeStyling getShapeStyling(int shapeIndex)
+	{
+		return this.shapeStyling.get(shapeIndex);
+	}
+	
+	public void setShapeStyling(int shapeIndex, ShapeStyling shapeStyling)
+	{
+		this.shapeStyling.put(shapeIndex, shapeStyling);
 	}
 	
 	public Point [] getControlPoints()
@@ -369,6 +389,16 @@ public class ShapeCreator extends JPanel
 		drawControlPoint(p);
 	}
 	
+	public void drawShapes(ArrayList<Shape> shapes)
+	{
+		int count = 0;//TODO
+		for(Shape s : shapes)
+		{
+			Color c = this.getShapeStyling(count).getColor();
+			drawShape(s, c);
+			count++;
+		}
+	}
 	public void drawShape(Shape shape)
 	{
 		drawShape(shape, Color.black);
@@ -378,13 +408,6 @@ public class ShapeCreator extends JPanel
 		Graphics2D g2d = (Graphics2D) draw.getGraphics();
 		g2d.setColor(c);
 		g2d.draw(shape);
-	}
-	public void drawShapes(ArrayList<Shape> shapes)
-	{
-		for(Shape s : shapes)
-		{
-			drawShape(s);
-		}
 	}
 	protected void drawControlPoint(Point p)
 	{
@@ -524,6 +547,13 @@ public class ShapeCreator extends JPanel
 		{
 			return this.numberOfPoints;
 		}
+	}
+
+	@Override
+	public void notifyStylingChanged(int shapeStyleIndex, ShapeStyling shapeStyling) 
+	{
+		this.setShapeStyling(shapeStyleIndex, shapeStyling);
+		this.drawAll();
 	}
 	
 }
