@@ -205,7 +205,7 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 				sc.incrementNumShapes(1);
 				sc.getAddCurveButton().setEnabled(true);
 				sc.setOperation(Operation.Select);
-				sc.setShapeStyling(sc.getNumShapes()-1, new ShapeStyling(sc.getNumShapes(), shape, sc.getColorPallette(), sc));
+				sc.setShapeStyling(sc.getNumShapes()-1, new ShapeStyling(sc.getNumShapes()-1, shape, sc.getColorPallette(), sc));
 				sc.getShapeCreatorEditPanel().generatePointEditor(sc.getNumShapes()-1, curvePoints, mode);
 				
 				sc.drawAll();
