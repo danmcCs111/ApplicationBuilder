@@ -208,7 +208,14 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 	
 	public void setShapeStyling(int shapeIndex, ShapeStyling shapeStyling)
 	{
-		this.shapeStyling.add(shapeStyling);
+		if(shapeIndex < this.shapeStyling.size())
+		{
+			this.shapeStyling.set(shapeIndex, shapeStyling);
+		}
+		else
+		{
+			this.shapeStyling.add(shapeStyling);
+		}
 	}
 	
 	public Point [] getControlPoints()

@@ -1,8 +1,10 @@
 package ShapeWidgetComponents;
 
+import java.awt.Color;
 import java.awt.Point;
 import java.awt.Shape;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import Properties.LoggingMessages;
 import Properties.PathUtility;
@@ -18,9 +20,9 @@ public class ShapeImportExport
 	private ArrayList<ArrayList<Point>> points;
 	private ArrayList<Shape> shape;
 	private ArrayList<ShapeStyling> shapeStyling;
-	private ArrayList<ArrayList<Integer>> paths;
+	private HashMap<Integer, ArrayList<Integer>> paths;
 	
-	public ShapeImportExport(ArrayList<ArrayList<Point>> points, ArrayList<ShapeStyling> shapeStyling, ArrayList<Shape> shape, ArrayList<ArrayList<Integer>> paths)
+	public ShapeImportExport(ArrayList<ArrayList<Point>> points, ArrayList<ShapeStyling> shapeStyling, ArrayList<Shape> shape, HashMap<Integer, ArrayList<Integer>> paths)
 	{
 		this.points = points;
 		this.shapeStyling = shapeStyling;
@@ -40,7 +42,7 @@ public class ShapeImportExport
 			{
 				type = shape.get(shapeIndex).getClass().getName();
 				content += "<Point>" +  p.x + ", " + p.y + "</Point>" + PathUtility.NEW_LINE;
-				if(paths != null)
+				if(paths != null && paths.containsKey(shapeIndex))
 				{
 					for(int pathVal : paths.get(shapeIndex))
 					{
@@ -48,7 +50,11 @@ public class ShapeImportExport
 					}
 				}
 			}
+			ShapeStyling ss = shapeStyling.get(shapeIndex);
+			Color c = ss.getColor();
+			content += "<Color>" + c.getRed() + ", " + c.getGreen() + ", " + c.getBlue() + "</Color>" + PathUtility.NEW_LINE;
 			xml += "<" + type + ">" + PathUtility.NEW_LINE + content + "</" + type + ">" + PathUtility.NEW_LINE;
+			content = "";
 		}
 		return WIDGETS_SHAPE_OPEN_TAG + PathUtility.NEW_LINE + xml + WIDGETS_SHAPE_CLOSE_TAG;
 	}
