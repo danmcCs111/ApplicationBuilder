@@ -7,6 +7,8 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
@@ -129,13 +131,14 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 		directionsLabel,
 		operationLabel;
 	private JButton addShape;
+	private JButton saveButton;
 	private ColorEditor colorEditorTop;
 	private JPanel 
 		top, 
 		draw,
 		east;
 	private ShapeCreatorEditPanel shapeCreatorEditPanel;
-	private HashMap<Integer, ShapeStyling> shapeStyling = new HashMap<Integer, ShapeStyling>();
+	private ArrayList<ShapeStyling> shapeStyling = new ArrayList<ShapeStyling>();
 	
 	private JComboBox<DrawMode> modeSelections;
 	private Operation operation = Operation.Select;
@@ -159,6 +162,15 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 		JButton b = new JButton("draw");
 		JButton c = new JButton("clear");
 		addShape = new JButton("+ Add");
+		saveButton = new JButton("Save");
+		saveButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				ShapeImportExport sie = new ShapeImportExport(listControlPointsScaled, shapeStyling, shapesScaled, null);
+				sie.performSave();
+			}
+		});
 		modeSelections = new JComboBox<ShapeCreator.DrawMode>(DrawMode.values());
 		modeSelections.addActionListener(new ShapeDrawModeActionListener(this));
 		setMode(DrawMode.Line);//default.
@@ -178,6 +190,7 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 		top.add(addShape);
 		top.add(modeSelections);
 		top.add(colorEditorTop);
+		top.add(saveButton);
 		this.add(top, BorderLayout.NORTH);
 		this.add(east, BorderLayout.EAST);
 		this.add(draw, BorderLayout.CENTER);
@@ -195,7 +208,7 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 	
 	public void setShapeStyling(int shapeIndex, ShapeStyling shapeStyling)
 	{
-		this.shapeStyling.put(shapeIndex, shapeStyling);
+		this.shapeStyling.add(shapeStyling);
 	}
 	
 	public Point [] getControlPoints()
@@ -549,6 +562,8 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 		}
 		return s;
 	}
+	
+	
 	
 	public enum Operation
 	{
