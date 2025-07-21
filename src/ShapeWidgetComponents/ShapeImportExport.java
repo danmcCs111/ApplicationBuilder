@@ -20,7 +20,10 @@ public class ShapeImportExport
 	
 	private static final String 
 		WIDGETS_SHAPE_OPEN_TAG = "<Widgets>",
-		WIDGETS_SHAPE_CLOSE_TAG = "</Widgets>";
+		WIDGETS_SHAPE_CLOSE_TAG = "</Widgets>",
+		FILE_TYPE_TITLE = "XML",
+		FILE_TYPE_FILTER = "xml",
+		DEFAULT_DIRECTORY_RELATIVE =  "/src/ApplicationBuilder/shapes/ ";
 	
 	private ArrayList<ArrayList<Point>> points;
 	private ArrayList<Shape> shape;
@@ -68,7 +71,7 @@ public class ShapeImportExport
 	{
 		String xml = toXml();
 		LoggingMessages.printOut(xml);
-		SaveAsDialog sad = new SaveAsDialog(parent, "XML", "xml", "/src/ApplicationBuilder/shapes/ ");
+		SaveAsDialog sad = new SaveAsDialog(parent, FILE_TYPE_TITLE, FILE_TYPE_FILTER, DEFAULT_DIRECTORY_RELATIVE);
 		File f = sad.getSelectedDirectory();
 		if(f != null)
 		{
@@ -79,7 +82,12 @@ public class ShapeImportExport
 	private void writeXml(File sourceFile, String xml)
 	{
 		try {
-			FileWriter fw = new FileWriter(sourceFile);
+			String filename = sourceFile.getAbsolutePath();
+			if(!filename.endsWith("." + FILE_TYPE_FILTER))
+			{
+				filename += "." + FILE_TYPE_FILTER;
+			}
+			FileWriter fw = new FileWriter(filename);
 			fw.write(xml);
 			fw.close();
 		} catch (IOException e) {
