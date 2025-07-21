@@ -10,6 +10,7 @@ import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.awt.geom.CubicCurve2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
@@ -27,6 +28,7 @@ import javax.swing.border.Border;
 
 import Editors.ColorEditor;
 import Graphics2D.CurveShape;
+import Properties.LoggingMessages;
 import ShapeEditorListeners.ClearActionListener;
 import ShapeEditorListeners.ControlPointChangedListener;
 import ShapeEditorListeners.DrawActionListener;
@@ -141,6 +143,7 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 		east;
 	private ShapeCreatorEditPanel shapeCreatorEditPanel;
 	private ArrayList<ShapeStyling> shapeStyling = new ArrayList<ShapeStyling>();
+	private DrawMouseListener dml;
 	
 	private JComboBox<DrawMode> modeSelections;
 	private Operation operation = Operation.Select;
@@ -179,7 +182,16 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 			public void actionPerformed(ActionEvent e) 
 			{
 				ShapeImportExport sie = new ShapeImportExport(listControlPointsScaled, shapeStyling, shapesScaled, null);
-				sie.openXml(ShapeCreator.this);
+				ArrayList<ShapeElement> shapeElements = sie.openXml(ShapeCreator.this);
+				for(ShapeElement se : shapeElements)
+				{
+					String shapeClassName = se.getShapeClassName();
+					DrawMode dm = DrawMode.getMatchingClassName(shapeClassName);
+					for(Point p : se.getPoints())
+						ShapeCreator.this.addControlPoint(p);
+					ShapeStyling ss = se.getShapeStyling(getNumShapes(), ShapeCreator.this);
+					ShapeCreator.this.constructShape(dm, (Point []) se.getPoints().toArray(new Point [] {}), ss);
+				}
 			}
 		});
 		modeSelections = new JComboBox<ShapeCreator.DrawMode>(DrawMode.values());
@@ -191,8 +203,9 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 		c.addActionListener(new ClearActionListener(this));
 		addShape.addActionListener(new DrawInputActionListener(this));
 		b.addActionListener(new DrawActionListener(this));
-		draw.addMouseListener(new DrawMouseListener(this));
-		draw.addMouseMotionListener(new DrawMouseListener(this));
+		dml = new DrawMouseListener(this);
+		draw.addMouseListener(dml);
+		draw.addMouseMotionListener(dml);
 		
 		top.add(directionsLabel);
 		top.add(b);
@@ -582,6 +595,49 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 		return s;
 	}
 	
+	public Shape constructShape(DrawMode mode, Point [] curvePoints, ShapeStyling shapeStyling)
+	{
+		ArrayList<Shape> shapes = this.getShapesScaled();
+		Shape shape = null;
+		switch(mode)
+		{
+		case DrawMode.Line:
+			shape = new Line2D.Double(curvePoints[0], curvePoints[1]);
+			break;
+		case DrawMode.Curve:
+			shape = new CurveShape(curvePoints[0], curvePoints[2], curvePoints[3], curvePoints[1]);
+			break;
+		case DrawMode.ellipse:
+			shape = new Ellipse2D.Double(
+					curvePoints[0].x, curvePoints[0].y, 
+					(curvePoints[1].x - curvePoints[0].x), (curvePoints[1].y - curvePoints[0].y));
+			break;
+		case DrawMode.rectangle:
+			shape = new Rectangle2D.Double(
+					curvePoints[0].x, curvePoints[0].y, 
+					(curvePoints[1].x - curvePoints[0].x), (curvePoints[1].y - curvePoints[0].y));
+			break;
+		case DrawMode.rectangleCubic:
+			shape = new RectangleCubic(curvePoints[0], curvePoints[1], curvePoints[2], 
+					curvePoints[3], curvePoints[4], curvePoints[5], curvePoints[6], curvePoints[7], curvePoints[8], curvePoints[9], curvePoints[10], curvePoints[11]);
+			break;
+		case DrawMode.triangle:
+			shape = new Triangle(curvePoints[0], curvePoints[1], curvePoints[2]);
+			break;
+		case DrawMode.triangleCubic:
+			shape = new TriangleCubic(curvePoints[0], curvePoints[1], curvePoints[2], 
+					curvePoints[3], curvePoints[4], curvePoints[5], curvePoints[6], curvePoints[7], curvePoints[8]);
+			break;
+		}
+		
+		shapes.add(shape);
+		this.incrementNumShapes(1);
+		this.addShapeAndControlPointChangedListener(this.getNumShapes()-1, this.getDirectionsIndex()-1, dml);
+		this.setShapeStyling(this.getNumShapes()-1, shapeStyling);
+		this.getShapeCreatorEditPanel().generatePointEditor(this.getNumShapes()-1, curvePoints, mode, shapeStyling.getColor());
+		
+		return shape;
+	}
 	
 	
 	public enum Operation
@@ -603,25 +659,44 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 		}
 	}
 	
-	public enum DrawMode
+	public enum DrawMode//TODO
 	{
-		Line("Line", LINE_DIRECTIONS, 2),
-		Curve("Curve", CURVE_DIRECTIONS, 4),
-		ellipse("Elipse", ELLIPSE_DIRECTIONS, 2),
-		rectangle("Rectangle", RECTANGLE_DIRECTIONS, 2),
-		triangle("Triangle", TRIANGLE_DIRECTIONS, 3),
-		triangleCubic("Triangle Cubic", TRIANGLE_CUBIC_DIRECTIONS, 9),
-		rectangleCubic("Rectangle Cubic", RECTANGLE_CUBIC_DIRECTIONS, 12);
+		Line(Line2D.class.getName(), "Line", LINE_DIRECTIONS, 2),
+		Curve(CubicCurve2D.class.getName(), "Curve", CURVE_DIRECTIONS, 4),
+		ellipse(Ellipse2D.class.getName(), "Elipse", ELLIPSE_DIRECTIONS, 2),
+		rectangle(Rectangle2D.class.getName(), "Rectangle", RECTANGLE_DIRECTIONS, 2),
+		triangle(Triangle.class.getName(), "Triangle", TRIANGLE_DIRECTIONS, 3),
+		triangleCubic(TriangleCubic.class.getName(), "Triangle Cubic", TRIANGLE_CUBIC_DIRECTIONS, 9),
+		rectangleCubic(RectangleCubic.class.getName(), "Rectangle Cubic", RECTANGLE_CUBIC_DIRECTIONS, 12);
 		
+		private String className;
 		private String modeText;
 		private String [] directions;
 		private int numberOfPoints;
 		
-		private DrawMode(String modeText, String [] directions, int numberOfPoints)
+		private DrawMode(String className, String modeText, String [] directions, int numberOfPoints)
 		{
+			this.className = className;
 			this.modeText = modeText;
 			this.directions = directions;
 			this.numberOfPoints = numberOfPoints;
+		}
+		
+		public static DrawMode getMatchingClassName(String className)
+		{
+			for(DrawMode dm : DrawMode.values())
+			{
+				if(dm.getClassName().equals(className))
+				{
+					return dm;
+				}
+			}
+			return null;
+		}
+		
+		public String getClassName()
+		{
+			return this.className;
 		}
 		
 		public String getModeText()

@@ -6,23 +6,17 @@ import java.awt.Point;
 import java.awt.Shape;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import Graphics2D.CurveShape;
 import Properties.LoggingMessages;
-import ShapeWidgetComponents.RectangleCubic;
 import ShapeWidgetComponents.ShapeCreator;
 import ShapeWidgetComponents.ShapeCreator.DrawMode;
 import ShapeWidgetComponents.ShapeCreator.Operation;
 import ShapeWidgetComponents.ShapeStyling;
-import ShapeWidgetComponents.Triangle;
-import ShapeWidgetComponents.TriangleCubic;
 
 public class DrawMouseListener extends MouseAdapter implements ControlPointChangedListener 
 {
@@ -170,7 +164,6 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 			Point p = sc.getRelativePoint(e);
 			Point [] curvePoints = sc.getControlPoints();
 			JLabel directionsLabel = sc.getDirectionsLabel();
-			ArrayList<Shape> shapes = sc.getShapesScaled();
 			
 			curvePoints[directionsIndex-1] = p;
 			sc.addControlPoint(p);
@@ -179,51 +172,18 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 			{
 				sc.setDirectionsIndex(0);
 				sc.getAddCurveButton().setVisible(true);
-				Shape shape = null;
-				switch(mode)
-				{
-				case DrawMode.Line:
-					shape = new Line2D.Double(curvePoints[0], curvePoints[1]);
-					break;
-				case DrawMode.Curve:
-					shape = new CurveShape(curvePoints[0], curvePoints[2], curvePoints[3], curvePoints[1]);
-					break;
-				case DrawMode.ellipse:
-					shape = new Ellipse2D.Double(
-							curvePoints[0].x, curvePoints[0].y, 
-							(curvePoints[1].x - curvePoints[0].x), (curvePoints[1].y - curvePoints[0].y));
-					break;
-				case DrawMode.rectangle:
-					shape = new Rectangle2D.Double(
-							curvePoints[0].x, curvePoints[0].y, 
-							(curvePoints[1].x - curvePoints[0].x), (curvePoints[1].y - curvePoints[0].y));
-					break;
-				case DrawMode.rectangleCubic:
-					shape = new RectangleCubic(curvePoints[0], curvePoints[1], curvePoints[2], 
-							curvePoints[3], curvePoints[4], curvePoints[5], curvePoints[6], curvePoints[7], curvePoints[8], curvePoints[9], curvePoints[10], curvePoints[11]);
-					break;
-				case DrawMode.triangle:
-					shape = new Triangle(curvePoints[0], curvePoints[1], curvePoints[2]);
-					break;
-				case DrawMode.triangleCubic:
-					shape = new TriangleCubic(curvePoints[0], curvePoints[1], curvePoints[2], 
-							curvePoints[3], curvePoints[4], curvePoints[5], curvePoints[6], curvePoints[7], curvePoints[8]);
-					break;
-				}
-				shapes.add(shape);
-				sc.addShapeAndControlPointChangedListener(sc.getNumShapes(), sc.getDirectionsIndex()-1, this);
+				
+				sc.constructShape(mode, curvePoints, new ShapeStyling(sc.getNumShapes(), sc.getColorPallette(), sc));
+				
 				directionsLabel.setText("");
-				sc.incrementNumShapes(1);
+				
 				sc.getAddCurveButton().setEnabled(true);
 				sc.setOperation(Operation.Select);
-				sc.setShapeStyling(sc.getNumShapes()-1, new ShapeStyling(sc.getNumShapes()-1, shape, sc.getColorPallette(), sc));
-				sc.getShapeCreatorEditPanel().generatePointEditor(sc.getNumShapes()-1, curvePoints, mode);
 				
 				sc.drawAll();
 			}
 			else
 			{
-				sc.addShapeAndControlPointChangedListener(sc.getNumShapes(), sc.getDirectionsIndex()-1, this);
 				sc.incrementDirectionsIndex(1);
 				directionsLabel.setText(mode.getDirections()[sc.getDirectionsIndex()]);
 			}

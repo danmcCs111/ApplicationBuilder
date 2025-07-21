@@ -1,11 +1,12 @@
 package ShapeWidgetComponents;
 
-import java.awt.Shape;
-import java.lang.reflect.InvocationTargetException;
+import java.awt.Color;
+import java.awt.Point;
 import java.util.ArrayList;
 
 
 import Properties.LoggingMessages;
+import ShapeEditorListeners.ShapeStylingActionListener;
 
 public class ShapeElement 
 {
@@ -16,7 +17,10 @@ public class ShapeElement
 		nodeId,
 		parentNode;
 	private ArrayList<String> attributes;
-	private Shape shape = null;
+	private Class<?> shapeClass = null;
+	
+	private Color color;
+	private ArrayList<Point> controlPoints = new ArrayList<Point>();
 	
 	public ShapeElement(String nodeName, int count, ArrayList<String> attributes, String parentNode)
 	{
@@ -25,23 +29,58 @@ public class ShapeElement
 		this.attributes = attributes;
 		this.parentNode = parentNode;
 		generateNodeClassObject();
+		parseAttributes();
+	}
+	
+	public String getShapeClassName()
+	{
+		return this.shapeClass.getName();
+	}
+	
+	public ArrayList<String> getAttributes()
+	{
+		return this.attributes;
+	}
+	
+	public ShapeStyling getShapeStyling(int index, ShapeStylingActionListener actionListener)
+	{
+		LoggingMessages.printOut(color + "");
+		return new ShapeStyling(index, color, actionListener);
+	}
+	
+	public ArrayList<Point> getPoints()
+	{
+		return this.controlPoints;
 	}
 	
 	private void generateNodeClassObject()
 	{
-		Class <?> c = null;
-		Object o = null;
 		try {
-			c = Class.forName(this.nodeName);
-			try {
-				o = c.getDeclaredConstructor().newInstance();
-			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException
-					| NoSuchMethodException | SecurityException e) {
-				e.printStackTrace();
-			}
-			shape = (Shape) o;
+			this.shapeClass = Class.forName(this.nodeName);
+			LoggingMessages.printOut(shapeClass.getName());
 		} catch (ClassNotFoundException e) {
-		} catch (InstantiationException e) {
+		}
+	}
+	
+	private void parseAttributes()
+	{
+		for(String s : attributes)
+		{
+			s = s.replaceAll("\"", "");
+			if(s.startsWith("Point"))
+			{
+				String valuePoint = s.split("=")[1];
+				String [] points = valuePoint.split(",");
+				Point p = new Point(Integer.parseInt(points[0].strip()), Integer.parseInt(points[1].strip()));
+				controlPoints.add(p);
+			}
+			if(s.startsWith("Color"))
+			{
+				String colorPoints = s.split("=")[1];
+				String [] points = colorPoints.split(",");
+				Color c = new Color(Integer.parseInt(points[0].strip()), Integer.parseInt(points[1].strip()), Integer.parseInt(points[2].strip()));
+				color = c;
+			}
 		}
 	}
 	
@@ -50,4 +89,5 @@ public class ShapeElement
 	{
 		return nodeId + ", " + parentNode + ", " + LoggingMessages.combine(attributes);
 	}
+	
 }

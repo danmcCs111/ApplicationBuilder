@@ -33,10 +33,9 @@ public class ShapeCreatorEditPanel extends JPanel
 		this.setLayout(new GridLayout(0,1));
 		
 		indexAndPointEditors = new HashMap<Integer, ArrayList<PointEditor>>();
-		
 	}
 	
-	public void generatePointEditor(int index, Point [] points, DrawMode dm)
+	public void generatePointEditor(int index, Point [] points, DrawMode dm, Color colorPallette)
 	{
 		JPanel shapeEditPanel = new JPanel();
 		
@@ -60,8 +59,7 @@ public class ShapeCreatorEditPanel extends JPanel
 			i++;
 		}
 		ColorEditor ce = new ColorEditor();
-		Color c = sc.getColorPallette();//TODO
-		ce.setComponentValue(c);
+		ce.setComponentValue(colorPallette);
 		ce.addPropertyChangeListener(new PropertyChangeListener() {
 			
 			@Override
@@ -80,7 +78,7 @@ public class ShapeCreatorEditPanel extends JPanel
 	
 	public void generatePointEditor(int index, ArrayList<Point> points, DrawMode dm)
 	{
-		generatePointEditor(index, points.toArray(new Point[] {}), dm);
+		generatePointEditor(index, points.toArray(new Point[] {}), dm, sc.getColorPallette());
 	}
 	
 	public ArrayList<PointEditor> getPointEditors(int index)

@@ -88,7 +88,7 @@ public class ShapeImportExport
 	
 	private String stripString(String classname)
 	{
-		return classname.replace("$", ".");
+		return classname.split("\\$")[0];
 	}
 	
 	public void performSave(Component parent)
@@ -119,7 +119,7 @@ public class ShapeImportExport
 		}
 	}
 	
-	public void openXml(Component parent)
+	public ArrayList<ShapeElement> openXml(Component parent)
 	{
 		OpenDialog od = new OpenDialog();
 		File f = od.performOpen(parent, FILE_TYPE_TITLE, FILE_TYPE_FILTER, DEFAULT_DIRECTORY_RELATIVE);
@@ -128,6 +128,7 @@ public class ShapeImportExport
 		{
 			LoggingMessages.printOut(se.toString());
 		}
+		return shapeElements;
 	}
 	
 	private void readXml(String sourceFile)
