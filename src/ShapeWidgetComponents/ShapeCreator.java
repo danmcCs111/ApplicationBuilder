@@ -55,16 +55,31 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 			"Enter x, y",
 			"Enter x2, y2"
 		},
-		RECTANGLE_DIRECTIONS= new String [] {
+		RECTANGLE_DIRECTIONS = new String [] {
 				"",
 				"Enter x, y",
 				"Enter x2, y2"
 		},
-		TRIANGLE_DIRECTIONS= new String [] {
+		TRIANGLE_DIRECTIONS = new String [] {
 				"",
 				"Enter x, y",
 				"Enter x2, y2",
 				"Enter x3, y3"
+		},
+		TRIANGLE_CUBIC_DIRECTIONS = new String [] {
+				"",
+				"Enter x, y",
+				"Enter x2, y2",
+				"Enter x3, y3",
+				
+				"Enter control 1, y1",
+				"Enter control 1.2, y1.2",
+				
+				"Enter control 2, y2",
+				"Enter control 2.2, y2.2",
+				
+				"Enter control 3, y3",
+				"Enter control 3.2, y3.2",
 		};
 	
 	public static Dimension CONTROL_POINT_PIXEL_SIZE = new Dimension(6,6);
@@ -493,6 +508,10 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 		{
 			s = new Triangle(cps.get(0), cps.get(1), cps.get(2));
 		}
+		else if(s instanceof TriangleCubic)
+		{
+			s = new TriangleCubic(cps.get(0), cps.get(1), cps.get(2), cps.get(3), cps.get(4), cps.get(5), cps.get(6), cps.get(7), cps.get(8));
+		}
 		else if(s instanceof Rectangle2D)
 		{
 			s = new Rectangle2D.Double(
@@ -533,7 +552,8 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 		Curve("Curve", CURVE_DIRECTIONS, 4),
 		ellipse("Elipse", ELLIPSE_DIRECTIONS, 2),
 		rectangle("Rectangle", RECTANGLE_DIRECTIONS, 2),
-		triangle("Triangle", TRIANGLE_DIRECTIONS, 3);
+		triangle("Triangle", TRIANGLE_DIRECTIONS, 3),
+		triangleCubic("Triangle Cubic", TRIANGLE_CUBIC_DIRECTIONS, 9);
 		
 		private String modeText;
 		private String [] directions;
