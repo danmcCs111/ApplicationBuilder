@@ -39,8 +39,9 @@ public class TriangleCubic implements Shape
 			leastY = points[0].y,
 			mostX = points[0].x,
 			mostY = points[0].y;
-		for(Point p : points)
+		for(int i = 1; i < 4; i++)
 		{
+			Point p = points[i];
 			if(leastX > p.x)
 				leastX = p.x;
 			if(leastY > p.y)
