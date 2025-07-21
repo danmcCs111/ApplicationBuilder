@@ -662,7 +662,7 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 	public enum DrawMode//TODO
 	{
 		Line(Line2D.class.getName(), "Line", LINE_DIRECTIONS, 2),
-		Curve(CubicCurve2D.class.getName(), "Curve", CURVE_DIRECTIONS, 4),
+		Curve(CurveShape.class.getName(), "Curve", CURVE_DIRECTIONS, 4),
 		ellipse(Ellipse2D.class.getName(), "Elipse", ELLIPSE_DIRECTIONS, 2),
 		rectangle(Rectangle2D.class.getName(), "Rectangle", RECTANGLE_DIRECTIONS, 2),
 		triangle(Triangle.class.getName(), "Triangle", TRIANGLE_DIRECTIONS, 3),
