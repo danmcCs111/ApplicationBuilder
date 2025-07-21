@@ -13,6 +13,11 @@ public class Triangle implements Shape
 	Point [] points = new Point [4];
 	Rectangle2D bounds;
 	
+	public Triangle()
+	{
+		
+	}
+	
 	public Triangle(Point p1, Point p2, Point p3)
 	{
 		this.points[0] = p1;

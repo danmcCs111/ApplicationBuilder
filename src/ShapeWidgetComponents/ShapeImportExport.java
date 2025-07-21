@@ -88,7 +88,7 @@ public class ShapeImportExport
 	
 	private String stripString(String classname)
 	{
-		return classname.split("\\$")[0];
+		return classname.replace("$", ".");
 	}
 	
 	public void performSave(Component parent)
@@ -199,7 +199,8 @@ public class ShapeImportExport
 			attributes.add(nnMap.item(j).toString());
 		}
 		return new ShapeElement (
-				node.getNodeName() + counter++, 
+				node.getNodeName(),
+				counter++, 
 				attributes, 
 				parentNode
 		);

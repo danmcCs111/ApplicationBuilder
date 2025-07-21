@@ -1,3 +1,4 @@
 <Widgets>
-<Graphics2D.CurveShape Point0="130, 139" Point1="252, 199" Point2="199, 112" Point3="161, 246" Color="0, 0, 0"  > </Graphics2D.CurveShape>
+<ShapeWidgetComponents.Triangle Point0="219, 104" Point1="147, 207" Point2="285, 205" Color="0, 0, 0"  > </ShapeWidgetComponents.Triangle>
+<java.awt.geom.Line2D.Double Point0="319, 78" Point1="402, 153" Color="0, 0, 0"  > </java.awt.geom.Line2D.Double>
 </Widgets>
