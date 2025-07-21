@@ -168,7 +168,7 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 			public void actionPerformed(ActionEvent e) 
 			{
 				ShapeImportExport sie = new ShapeImportExport(listControlPointsScaled, shapeStyling, shapesScaled, null);
-				sie.performSave();
+				sie.performSave(ShapeCreator.this);
 			}
 		});
 		modeSelections = new JComboBox<ShapeCreator.DrawMode>(DrawMode.values());

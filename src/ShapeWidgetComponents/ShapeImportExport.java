@@ -1,13 +1,18 @@
 package ShapeWidgetComponents;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Point;
 import java.awt.Shape;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import Properties.LoggingMessages;
 import Properties.PathUtility;
+import Properties.SaveAsDialog;
 
 public class ShapeImportExport 
 {
@@ -59,9 +64,27 @@ public class ShapeImportExport
 		return WIDGETS_SHAPE_OPEN_TAG + PathUtility.NEW_LINE + xml + WIDGETS_SHAPE_CLOSE_TAG;
 	}
 	
-	public void performSave()
+	public void performSave(Component parent)
 	{
-		LoggingMessages.printOut(toXml());
+		String xml = toXml();
+		LoggingMessages.printOut(xml);
+		SaveAsDialog sad = new SaveAsDialog(parent, "XML", "xml", "/src/ApplicationBuilder/shapes/ ");
+		File f = sad.getSelectedDirectory();
+		if(f != null)
+		{
+			writeXml(f, xml);
+		}
+	}
+	
+	private void writeXml(File sourceFile, String xml)
+	{
+		try {
+			FileWriter fw = new FileWriter(sourceFile);
+			fw.write(xml);
+			fw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

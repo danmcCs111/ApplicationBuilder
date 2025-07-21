@@ -25,11 +25,12 @@ public class SaveAsDialog
 		this.defaultPathRelative = defaultPathRelative;
 	}
 	
-	public boolean performSave()
+	public File getSelectedDirectory()
 	{
 		JFileChooser jfc = new JFileChooser();
 		jfc.setDialogType(JFileChooser.SAVE_DIALOG);
 		File f = new File(PathUtility.getCurrentDirectory() + defaultPathRelative);
+		LoggingMessages.printOut(f.getAbsolutePath());
 		jfc.setFileFilter(new FileNameExtensionFilter(title, fileFilter));
 		jfc.setSelectedFile(f);
 		
@@ -37,11 +38,9 @@ public class SaveAsDialog
 		File chosenFile = jfc.getSelectedFile();
 		if(chosenFile != null && choice == JFileChooser.APPROVE_OPTION)
 		{
-			EditorToXml.writeXml(chosenFile.getAbsolutePath(),
-					WidgetBuildController.getInstance().getWidgetCreatorProperties());
+			return chosenFile;
 			
-			return true;
 		}
-		return false;
+		return null;
 	}
 }

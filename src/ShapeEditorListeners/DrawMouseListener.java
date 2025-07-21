@@ -70,6 +70,7 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 			frame.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
 			sc.setOperation(Operation.Move);
 		}
+		//TODO detect control points
 		else if(!frame.getCursor().equals(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR)))
 		{
 			frame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
