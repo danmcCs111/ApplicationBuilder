@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 
 import Graphics2D.CurveShape;
 import Properties.LoggingMessages;
+import ShapeWidgetComponents.RectangleCubic;
 import ShapeWidgetComponents.ShapeCreator;
 import ShapeWidgetComponents.ShapeCreator.DrawMode;
 import ShapeWidgetComponents.ShapeCreator.Operation;
@@ -195,6 +196,10 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 					shape = new Rectangle2D.Double(
 							curvePoints[0].x, curvePoints[0].y, 
 							(curvePoints[1].x - curvePoints[0].x), (curvePoints[1].y - curvePoints[0].y));
+					break;
+				case DrawMode.rectangleCubic:
+					shape = new RectangleCubic(curvePoints[0], curvePoints[1], curvePoints[2], 
+							curvePoints[3], curvePoints[4], curvePoints[5], curvePoints[6], curvePoints[7], curvePoints[8], curvePoints[9], curvePoints[10], curvePoints[11]);
 					break;
 				case DrawMode.triangle:
 					shape = new Triangle(curvePoints[0], curvePoints[1], curvePoints[2]);
