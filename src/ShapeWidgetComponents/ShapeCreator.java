@@ -131,7 +131,9 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 		directionsLabel,
 		operationLabel;
 	private JButton addShape;
-	private JButton saveButton;
+	private JButton 
+		saveButton,
+		openButton;
 	private ColorEditor colorEditorTop;
 	private JPanel 
 		top, 
@@ -163,12 +165,21 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 		JButton c = new JButton("clear");
 		addShape = new JButton("+ Add");
 		saveButton = new JButton("Save");
+		openButton = new JButton("Open");
 		saveButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
 				ShapeImportExport sie = new ShapeImportExport(listControlPointsScaled, shapeStyling, shapesScaled, null);
 				sie.performSave(ShapeCreator.this);
+			}
+		});
+		openButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				ShapeImportExport sie = new ShapeImportExport(listControlPointsScaled, shapeStyling, shapesScaled, null);
+				sie.openXml(ShapeCreator.this);
 			}
 		});
 		modeSelections = new JComboBox<ShapeCreator.DrawMode>(DrawMode.values());
@@ -191,6 +202,7 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 		top.add(modeSelections);
 		top.add(colorEditorTop);
 		top.add(saveButton);
+		top.add(openButton);
 		this.add(top, BorderLayout.NORTH);
 		this.add(east, BorderLayout.EAST);
 		this.add(draw, BorderLayout.CENTER);
