@@ -63,10 +63,11 @@ public class ShapeImportExport
 		for(int shapeIndex = 0; shapeIndex < this.shape.size(); shapeIndex++)
 		{
 			int count = 0;
+			String suffixCount = "0";//TODO up to 99
 			for(Point p : points.get(shapeIndex))
 			{
 				type = stripString(shape.get(shapeIndex).getClass().getName());
-				content += "Point" + count + "=\"" +  p.x + ", " + p.y + "\" ";
+				content += "Point" + (count < 10 ? suffixCount : "") + count + "=\"" +  p.x + ", " + p.y + "\" ";
 				if(paths != null && paths.containsKey(shapeIndex))
 				{
 					for(int pathVal : paths.get(shapeIndex))

@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
 
-
 import Properties.LoggingMessages;
 import ShapeEditorListeners.ShapeStylingActionListener;
 
@@ -64,6 +63,7 @@ public class ShapeElement
 	
 	private void parseAttributes()
 	{
+		LoggingMessages.printOut(attributes.size() + "");
 		for(String s : attributes)
 		{
 			s = s.replaceAll("\"", "");

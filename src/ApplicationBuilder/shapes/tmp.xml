@@ -1,5 +1,4 @@
 <Widgets>
-<java.awt.geom.Line2D Point0="170, 124" Point1="318, 189" Color="0, 0, 0"  > </java.awt.geom.Line2D>
-<Graphics2D.CurveShape Point0="158, 225" Point1="282, 284" Point2="241, 207" Point3="196, 314" Color="102, 0, 102"  > </Graphics2D.CurveShape>
-<ShapeWidgetComponents.TriangleCubic Point0="374, 98" Point1="485, 146" Point2="378, 191" Point3="432, 79" Point4="472, 100" Point5="434, 144" Point6="412, 155" Point7="388, 128" Point8="399, 144" Color="0, 0, 0"  > </ShapeWidgetComponents.TriangleCubic>
+<ShapeWidgetComponents.TriangleCubic Point0="200, 80" Point1="272, 180" Point2="142, 184" Point3="211, 127" Point4="225, 153" Point5="213, 167" Point6="191, 168" Point7="178, 149" Point8="189, 126" Color="0, 204, 204"  > </ShapeWidgetComponents.TriangleCubic>
+<ShapeWidgetComponents.RectangleCubic Point00="307, 101" Point01="460, 101" Point02="459, 184" Point03="304, 180" Point04="347, 128" Point05="409, 136" Point06="525, 127" Point07="526, 171" Point08="409, 167" Point09="349, 165" Point10="327, 152" Point11="329, 125" Color="102, 0, 0"  > </ShapeWidgetComponents.RectangleCubic>
 </Widgets>
