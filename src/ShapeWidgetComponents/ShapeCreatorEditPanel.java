@@ -58,28 +58,27 @@ public class ShapeCreatorEditPanel extends JPanel
 			}
 			i++;
 		}
+		ShapeStyling shapeStyling = sc.getShapeStyling(index);
 		ColorEditor ce = new ColorEditor();
-		ce.setComponentValue(colorPallette);
+		ce.setComponentValue(shapeStyling.getDrawColor());
 		ce.addPropertyChangeListener(new PropertyChangeListener() {
 			
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) 
 			{
 				LoggingMessages.printOut("color change");
-				ShapeStyling ss = sc.getShapeStyling(index);
-				ss.setDrawColor((Color) ce.getComponentValueObj());
+				shapeStyling.setDrawColor((Color) ce.getComponentValueObj());
 			}
 		});
 		ColorEditor ceFill = new ColorEditor();
-		ceFill.setComponentValue(colorPallette);
+		ceFill.setComponentValue(shapeStyling.getFillColor());
 		ceFill.addPropertyChangeListener(new PropertyChangeListener() {
 			
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) 
 			{
 				LoggingMessages.printOut("color change");
-				ShapeStyling ss = sc.getShapeStyling(index);
-				ss.setFillColor((Color) ceFill.getComponentValueObj());
+				shapeStyling.setFillColor((Color) ceFill.getComponentValueObj());
 			}
 		});
 		
