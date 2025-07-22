@@ -21,6 +21,7 @@ public class ShapeElement
 	private Color 
 		colorDraw,
 		colorFill;
+	private boolean isCreateStroke = false;
 	private ArrayList<Point> controlPoints = new ArrayList<Point>();
 	
 	public ShapeElement(String nodeName, int count, ArrayList<String> attributes, String parentNode)
@@ -31,6 +32,11 @@ public class ShapeElement
 		this.parentNode = parentNode;
 		generateNodeClassObject();
 		parseAttributes();
+	}
+	
+	public boolean isCreateStroke()
+	{
+		return this.isCreateStroke;
 	}
 	
 	public String getShapeClassName()
@@ -46,7 +52,9 @@ public class ShapeElement
 	public ShapeStyling getShapeStyling(int index, ShapeStylingActionListener actionListener)
 	{
 		LoggingMessages.printOut(colorDraw + "");
-		return new ShapeStyling(index, colorDraw, colorFill, actionListener);
+		ShapeStyling ss = new ShapeStyling(index, colorDraw, colorFill, actionListener);
+		ss.createStrokedShape(isCreateStroke);
+		return ss;
 	}
 	
 	public ArrayList<Point> getPoints()
@@ -76,19 +84,23 @@ public class ShapeElement
 				Point p = new Point(Integer.parseInt(points[0].strip()), Integer.parseInt(points[1].strip()));
 				controlPoints.add(p);
 			}
-			if(s.startsWith("ColorDraw"))
+			else if(s.startsWith("ColorDraw"))
 			{
 				String colorPoints = s.split("=")[1];
 				String [] points = colorPoints.split(",");
 				Color c = new Color(Integer.parseInt(points[0].strip()), Integer.parseInt(points[1].strip()), Integer.parseInt(points[2].strip()));
 				colorDraw = c;
 			}
-			if(s.startsWith("ColorFill"))
+			else if(s.startsWith("ColorFill"))
 			{
 				String colorPoints = s.split("=")[1];
 				String [] points = colorPoints.split(",");
 				Color c = new Color(Integer.parseInt(points[0].strip()), Integer.parseInt(points[1].strip()), Integer.parseInt(points[2].strip()));
 				colorFill = c;
+			}
+			else if(s.startsWith("CreateStroke"))
+			{
+				isCreateStroke = Boolean.parseBoolean(s.split("=")[1]);
 			}
 		}
 	}

@@ -82,6 +82,8 @@ public class ShapeImportExport
 			content += "ColorDraw=\"" + c.getRed() + ", " + c.getGreen() + ", " + c.getBlue() + "\" ";
 			Color cFill = ss.getFillColor();
 			content += "ColorFill=\"" + cFill.getRed() + ", " + cFill.getGreen() + ", " + cFill.getBlue() + "\" ";
+			boolean createStrokedShape = ss.isCreateStrokedShape();
+			content += "CreateStroke=\"" + createStrokedShape + "\" ";
 			
 			xml += "<" + type + " " + content + " > " + "</" + type + ">" + PathUtility.NEW_LINE;
 			content = "";

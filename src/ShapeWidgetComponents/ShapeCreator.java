@@ -1,5 +1,6 @@
 package ShapeWidgetComponents;
 
+import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,6 +9,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
+import java.awt.Stroke;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -149,6 +151,9 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 	
 	private JComboBox<DrawMode> modeSelections;
 	private Operation operation = Operation.Select;
+	private BasicStroke 
+		defaultStroke = new BasicStroke(1),
+		customStroke = new BasicStroke(2);
 	
 	public ShapeCreator()
 	{
@@ -476,7 +481,7 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 		
 		clearAll();
 		drawShapes(shapesScaled);
-		if(selectionRect != null) drawShape(selectionRect);
+		if(selectionRect != null) drawShape(selectionRect, Color.gray);
 		drawControlPoints(listControlPointsScaled);
 	}
 	
@@ -496,24 +501,31 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 		int count = 0;//TODO
 		for(Shape s : shapes)
 		{
-			Color c = this.getShapeStyling(count).getDrawColor();
-			Color fill = this.getShapeStyling(count).getFillColor();//TODO
-			drawShape(s, c, fill);
+			drawShape(s, getShapeStyling(count));
 			count++;
 		}
 	}
-	public void drawShape(Shape shape)
-	{
-		drawShape(shape, Color.gray, null);
-	}
-	public void drawShape(Shape shape, Color c, Color fillColor)
+	public void drawShape(Shape shape, Color c)
 	{
 		Graphics2D g2d = (Graphics2D) draw.getGraphics();
-		drawShape(shape, c, fillColor, g2d);
-		
+		g2d.setColor(c);
+		g2d.draw(shape);
 	}
-	public void drawShape(Shape shape, Color c, Color fillColor, Graphics2D g2d)
+	public void drawShape(Shape shape, ShapeStyling shapeStyling)
 	{
+		Color c = shapeStyling.getDrawColor(); 
+		Color fillColor = shapeStyling.getFillColor();
+		Stroke stroke = shapeStyling.getStroke();
+		Graphics2D g2d = (Graphics2D)draw.getGraphics();
+		
+		if(stroke != null && !g2d.getStroke().equals(stroke) && shapeStyling.isCreateStrokedShape())
+		{
+			g2d.setStroke(stroke);
+			shape = g2d.getStroke().createStrokedShape(shape);
+		}
+		else {
+			g2d.setStroke(defaultStroke);
+		}
 		g2d.setColor(c);
 		g2d.draw(shape);
 		if(fillColor != null)

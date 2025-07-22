@@ -41,7 +41,7 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 			sc.setSelectTool(select);
 			
 			sc.drawAll();
-			sc.drawShape(select, Color.red, null);
+			sc.drawShape(select, Color.red);
 		}
 		else if(sc.getOperation() == Operation.Move)
 		{
@@ -173,7 +173,8 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 				sc.setDirectionsIndex(0);
 				sc.getAddCurveButton().setVisible(true);
 				
-				sc.constructShape(mode, curvePoints, new ShapeStyling(sc.getNumShapes(), sc.getColorPallette(), sc.getColorPallette(),sc));
+				sc.constructShape(mode, curvePoints, new ShapeStyling(
+						sc.getNumShapes(), sc.getColorPallette(), sc.getColorPallette(), sc));
 				
 				directionsLabel.setText("");
 				
@@ -230,6 +231,41 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 		Rectangle2D newSel = (Rectangle2D) sc.recalculateShape(selRect, newPointsRect);
 		sc.setSelectionRectangle(newSel);
 		
+		sc.drawAll();
+	}
+	
+	public void applyScalingAmount(Point shift)
+	{
+		for(int index : sc.getShapeSelectedIndexes())
+		{
+			ArrayList<Point> shapesControlPoints = sc.getControlPointsScaled().get(index);
+			Shape s = sc.getShapesScaled().get(index);
+			ArrayList<Point> newPoints = new ArrayList<Point>();
+			for(Point p : shapesControlPoints)
+			{
+				newPoints.add(new Point(p.x - shift.x, p.y - shift.y));
+			}
+			for(int i = 0; i < newPoints.size(); i++)
+			{
+				sc.getControlPointsScaled().get(index).set(i, newPoints.get(i));
+				sc.notifyShapeAndControlPointChangedListener(index, i, this);
+			}
+			
+			Shape newShape = sc.recalculateShape(s, newPoints);
+			sc.getShapesScaled().set(index, newShape);
+			
+		}
+		
+		Shape selRect = sc.getSelectionRectangle();
+		ArrayList<Point> newPointsRect = new ArrayList<Point>();
+		int height = selRect.getBounds().height;
+		int width = selRect.getBounds().width;
+		int x = selRect.getBounds().x;
+		int y = selRect.getBounds().y;
+		newPointsRect.add(new Point(x - shift.x, y - shift.y));
+		newPointsRect.add(new Point((width - shift.x) + x, (height - shift.y) + y));
+		Rectangle2D newSel = (Rectangle2D) sc.recalculateShape(selRect, newPointsRect);
+		sc.setSelectionRectangle(newSel);
 		
 		sc.drawAll();
 	}

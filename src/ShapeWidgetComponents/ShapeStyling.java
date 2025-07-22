@@ -1,6 +1,8 @@
 package ShapeWidgetComponents;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Stroke;
 
 import ShapeEditorListeners.ShapeStylingActionListener;
 
@@ -11,6 +13,8 @@ public class ShapeStyling
 		drawColor,
 		fillColor;
 	private ShapeStylingActionListener shapeStyleActionListener;
+	private Stroke stroke = new BasicStroke(2);//TODO
+	private boolean createStrokedShape = false;
 	
 	public ShapeStyling(int shapeIndex, Color drawColor, Color fillColor, ShapeStylingActionListener shapeStyleActionListener)
 	{
@@ -18,6 +22,27 @@ public class ShapeStyling
 		this.drawColor = drawColor;
 		this.fillColor = fillColor;
 		this.shapeStyleActionListener = shapeStyleActionListener;
+	}
+	
+	public Stroke getStroke()
+	{
+		return this.stroke;
+	}
+	
+	public void setStroke(Stroke stroke)
+	{
+		this.stroke = stroke;
+	}
+	
+	public void createStrokedShape(boolean create)
+	{
+		this.createStrokedShape = create;
+		shapeStyleActionListener.notifyStylingChanged(shapeIndex, this);
+	}
+	
+	public boolean isCreateStrokedShape()
+	{
+		return this.createStrokedShape;
 	}
 	
 	public Color getDrawColor()

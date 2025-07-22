@@ -3,12 +3,16 @@ package ShapeWidgetComponents;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.BorderFactory;
+import javax.swing.ComboBoxEditor;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
@@ -82,8 +86,17 @@ public class ShapeCreatorEditPanel extends JPanel
 			}
 		});
 		
+		JComboBox<Boolean> createStrokedShape = new JComboBox<Boolean>(new Boolean[] {false,true});
+		createStrokedShape.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				shapeStyling.createStrokedShape((boolean)createStrokedShape.getSelectedItem());
+			}
+		});
+		
 		shapeEditPanel.add(ce);
 		shapeEditPanel.add(ceFill);
+		shapeEditPanel.add(createStrokedShape);
 		this.add(shapeEditPanel);
 		
 		indexAndPointEditors.put(index, pointEditors);
