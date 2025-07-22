@@ -45,7 +45,7 @@ public class ColorEditor extends JButton implements ParameterEditor
 						@Override
 						public void windowClosed(WindowEvent e) {
 							jcc.setColor(ColorEditor.this.getForeground());
-							d = null;
+							d.dispose();
 						}
 					});
 					d.setLayout(new BorderLayout());
@@ -56,7 +56,6 @@ public class ColorEditor extends JButton implements ParameterEditor
 						public void actionPerformed(ActionEvent e) {
 							ColorEditor.this.setForeground((Color)jcc.getColor());
 							d.dispose();
-							d = null;
 						}
 					});
 					JButton cancel = new JButton(CANCEL_BUTTON_TEXT);
@@ -65,7 +64,6 @@ public class ColorEditor extends JButton implements ParameterEditor
 						public void actionPerformed(ActionEvent e) {
 							jcc.setColor(ColorEditor.this.getForeground());
 							d.dispose();
-							d = null;
 						}
 					});
 					JPanel southPane = new JPanel(new BorderLayout());

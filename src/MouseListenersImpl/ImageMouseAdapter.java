@@ -333,8 +333,8 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 			}
 			PathUtility.writeProperties(saveFilePathChosen, properties);
 		}
-		saveChosenSelection = null;//reset.
-		saveFilePathChosen = null;
+		saveChosenSelection.clear();;//reset.
+		saveFilePathChosen = "";
 	}
 	
 	@Override

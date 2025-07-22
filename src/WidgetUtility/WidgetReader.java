@@ -42,7 +42,7 @@ public class WidgetReader
 	
 	public void clearSourceFile()
 	{
-		this.sourceFile = null;
+		this.sourceFile = "";
 	}
 	
 	protected ArrayList<WidgetCreatorProperty> getWidgetCreatorProperties()

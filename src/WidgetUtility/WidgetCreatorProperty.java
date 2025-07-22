@@ -36,11 +36,6 @@ public class WidgetCreatorProperty
 		this.parentNodeTextWithID = parentNodeTextWithID;
 	}
 	
-	public void destroy()
-	{
-		instance = null;
-	}
-	
 	public Object getInstance()
 	{
 		if(instance == null)

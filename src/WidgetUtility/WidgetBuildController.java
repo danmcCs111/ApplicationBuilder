@@ -257,7 +257,7 @@ public class WidgetBuildController
 		{
 			JFrame frame = (JFrame) getWidgetCreatorProperties().get(0).getInstance();
 			frame.setVisible(false);
-			for(WidgetCreatorProperty wcp : getWidgetCreatorProperties()) wcp.destroy();
+//			for(WidgetCreatorProperty wcp : getWidgetCreatorProperties()) wcp.destroy();
 			frame.dispose();
 		}
 	}

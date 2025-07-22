@@ -449,8 +449,16 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 			ImageMouseAdapter ima = (ImageMouseAdapter) JButtonArray.pathAndMouseAdapter.get(key);
 			ima.setupKeepsSelection(collectionJButtons.get(key));
 			
+			outer:
 			for(Component c : collectionJButtons.get(key))
 			{
+				for(MouseListener ml : c.getMouseListeners())//TODO patch fix...
+				{
+					if(ml instanceof ImageMouseAdapter)
+					{
+						continue outer;
+					}
+				}
 				c.addMouseListener(ima);
 			}
 		}
