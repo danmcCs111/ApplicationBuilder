@@ -38,6 +38,8 @@ import ShapeEditorListeners.ControlPointChangedListener;
 import ShapeEditorListeners.DrawActionListener;
 import ShapeEditorListeners.DrawInputActionListener;
 import ShapeEditorListeners.DrawMouseListener;
+import ShapeEditorListeners.OpenShapeActionListener;
+import ShapeEditorListeners.SaveShapeActionListener;
 import ShapeEditorListeners.ShapeDrawModeActionListener;
 import ShapeEditorListeners.ShapeStylingActionListener;
 
@@ -152,8 +154,7 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 	private JComboBox<DrawMode> modeSelections;
 	private Operation operation = Operation.Select;
 	private BasicStroke 
-		defaultStroke = new BasicStroke(1),
-		customStroke = new BasicStroke(2);
+		defaultStroke = new BasicStroke(1);
 	
 	public ShapeCreator()
 	{
@@ -176,31 +177,8 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 		addShape = new JButton("+ Add");
 		saveButton = new JButton("Save");
 		openButton = new JButton("Open");
-		saveButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) 
-			{
-				ShapeImportExport sie = new ShapeImportExport(listControlPointsScaled, shapeStyling, shapesScaled, null);
-				sie.performSave(ShapeCreator.this);
-			}
-		});
-		openButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) 
-			{
-				ShapeImportExport sie = new ShapeImportExport(listControlPointsScaled, shapeStyling, shapesScaled, null);
-				ArrayList<ShapeElement> shapeElements = sie.openXml(ShapeCreator.this);
-				for(ShapeElement se : shapeElements)
-				{
-					String shapeClassName = se.getShapeClassName();
-					DrawMode dm = DrawMode.getMatchingClassName(shapeClassName);
-					for(Point p : se.getPoints())
-						ShapeCreator.this.addControlPoint(p);
-					ShapeStyling ss = se.getShapeStyling(getNumShapes(), ShapeCreator.this);
-					ShapeCreator.this.constructShape(dm, (Point []) se.getPoints().toArray(new Point [] {}), ss);
-				}
-			}
-		});
+		saveButton.addActionListener(new SaveShapeActionListener(this));
+		openButton.addActionListener(new OpenShapeActionListener(this));
 		modeSelections = new JComboBox<ShapeCreator.DrawMode>(DrawMode.values());
 		modeSelections.addActionListener(new ShapeDrawModeActionListener(this));
 		setMode(DrawMode.Line);//default.
@@ -241,6 +219,11 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 		this.add(top, BorderLayout.NORTH);
 		this.add(east, BorderLayout.EAST);
 		this.add(draw, BorderLayout.CENTER);
+	}
+	
+	public ArrayList<ShapeStyling> getShapeStylings()
+	{
+		return this.shapeStyling;
 	}
 	
 	public Color getColorPallette()
@@ -556,7 +539,8 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 	public void clearAll()
 	{
 		Graphics2D g2d = (Graphics2D) draw.getGraphics();
-		draw.paint(g2d);
+		if(draw.isEnabled())
+			draw.paint(g2d);
 	}
 	
 	public void notifyShapeAndControlPointChangedListener(int indexShape, int indexControlPoint, ControlPointChangedListener ignoreChangedListener)

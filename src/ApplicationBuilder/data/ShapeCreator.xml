@@ -1,5 +1,5 @@
 <Build>
-	<JFrame setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="250, 350" setMaximumSize="350, 0" setMinimumSize="800, 650" setTitle="Widget Creator" >
+	<JFrame setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="450, 150" setMaximumSize="350, 0" setMinimumSize="1200, 1000" setTitle="Widget Creator" >
 		<ShapeCreator extendedLayoutApplyParent="" >
 		</ShapeCreator>
 	</JFrame>
