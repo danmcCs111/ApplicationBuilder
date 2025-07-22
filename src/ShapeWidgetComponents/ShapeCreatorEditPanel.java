@@ -11,11 +11,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.BorderFactory;
-import javax.swing.ComboBoxEditor;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import Editors.ColorEditor;
 import Editors.PointEditor;
@@ -94,9 +96,21 @@ public class ShapeCreatorEditPanel extends JPanel
 			}
 		});
 		
+		JSpinner strokeValue = new JSpinner();
+		strokeValue.setValue(shapeStyling.getStrokeWidth());
+		strokeValue.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				// TODO Auto-generated method stub
+				LoggingMessages.printOut("width changed.");
+				shapeStyling.setStrokeWidth((int)strokeValue.getValue());
+			}
+		});
+		
 		shapeEditPanel.add(ce);
 		shapeEditPanel.add(ceFill);
 		shapeEditPanel.add(createStrokedShape);
+		shapeEditPanel.add(strokeValue);
 		this.add(shapeEditPanel);
 		
 		indexAndPointEditors.put(index, pointEditors);

@@ -13,7 +13,8 @@ public class ShapeStyling
 		drawColor,
 		fillColor;
 	private ShapeStylingActionListener shapeStyleActionListener;
-	private Stroke stroke = new BasicStroke(2);//TODO
+	private Stroke stroke;
+	private int strokeWidth = -1;
 	private boolean createStrokedShape = false;
 	
 	public ShapeStyling(int shapeIndex, Color drawColor, Color fillColor, ShapeStylingActionListener shapeStyleActionListener)
@@ -29,9 +30,23 @@ public class ShapeStyling
 		return this.stroke;
 	}
 	
-	public void setStroke(Stroke stroke)
+	public void setStrokeWidth(int strokeWidth)
 	{
-		this.stroke = stroke;
+		this.strokeWidth = strokeWidth;
+		if(strokeWidth <= 0)
+		{
+			createStrokedShape = false;
+		}
+		else
+		{
+			this.stroke = new BasicStroke(this.strokeWidth);
+		}
+		shapeStyleActionListener.notifyStylingChanged(shapeIndex, this);
+	}
+	
+	public int getStrokeWidth()
+	{
+		return this.strokeWidth;
 	}
 	
 	public void createStrokedShape(boolean create)

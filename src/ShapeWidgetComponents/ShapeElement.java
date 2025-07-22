@@ -22,6 +22,7 @@ public class ShapeElement
 		colorDraw,
 		colorFill;
 	private boolean isCreateStroke = false;
+	private int strokeWidth = -1;
 	private ArrayList<Point> controlPoints = new ArrayList<Point>();
 	
 	public ShapeElement(String nodeName, int count, ArrayList<String> attributes, String parentNode)
@@ -39,6 +40,11 @@ public class ShapeElement
 		return this.isCreateStroke;
 	}
 	
+	public int getStrokeWidth()
+	{
+		return this.strokeWidth;
+	}
+	
 	public String getShapeClassName()
 	{
 		return this.shapeClass.getName();
@@ -54,6 +60,7 @@ public class ShapeElement
 		LoggingMessages.printOut(colorDraw + "");
 		ShapeStyling ss = new ShapeStyling(index, colorDraw, colorFill, actionListener);
 		ss.createStrokedShape(isCreateStroke);
+		ss.setStrokeWidth(strokeWidth);
 		return ss;
 	}
 	
@@ -100,7 +107,11 @@ public class ShapeElement
 			}
 			else if(s.startsWith("CreateStroke"))
 			{
-				isCreateStroke = Boolean.parseBoolean(s.split("=")[1]);
+				this.isCreateStroke = Boolean.parseBoolean(s.split("=")[1]);
+			}
+			else if(s.startsWith("StrokeWidth"))
+			{
+				this.strokeWidth = Integer.parseInt(s.split("=")[1]);
 			}
 		}
 	}
