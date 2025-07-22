@@ -67,10 +67,24 @@ public class ShapeCreatorEditPanel extends JPanel
 			{
 				LoggingMessages.printOut("color change");
 				ShapeStyling ss = sc.getShapeStyling(index);
-				ss.setColor((Color) ce.getComponentValueObj());
+				ss.setDrawColor((Color) ce.getComponentValueObj());
 			}
 		});
+		ColorEditor ceFill = new ColorEditor();
+		ceFill.setComponentValue(colorPallette);
+		ceFill.addPropertyChangeListener(new PropertyChangeListener() {
+			
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) 
+			{
+				LoggingMessages.printOut("color change");
+				ShapeStyling ss = sc.getShapeStyling(index);
+				ss.setFillColor((Color) ceFill.getComponentValueObj());
+			}
+		});
+		
 		shapeEditPanel.add(ce);
+		shapeEditPanel.add(ceFill);
 		this.add(shapeEditPanel);
 		
 		indexAndPointEditors.put(index, pointEditors);

@@ -78,8 +78,10 @@ public class ShapeImportExport
 				count++;
 			}
 			ShapeStyling ss = shapeStyling.get(shapeIndex);
-			Color c = ss.getColor();
-			content += "Color=\"" + c.getRed() + ", " + c.getGreen() + ", " + c.getBlue() + "\" ";
+			Color c = ss.getDrawColor();
+			content += "ColorDraw=\"" + c.getRed() + ", " + c.getGreen() + ", " + c.getBlue() + "\" ";
+			Color cFill = ss.getFillColor();
+			content += "ColorFill=\"" + cFill.getRed() + ", " + cFill.getGreen() + ", " + cFill.getBlue() + "\" ";
 			
 			xml += "<" + type + " " + content + " > " + "</" + type + ">" + PathUtility.NEW_LINE;
 			content = "";

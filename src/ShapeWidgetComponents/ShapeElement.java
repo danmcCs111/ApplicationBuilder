@@ -18,7 +18,9 @@ public class ShapeElement
 	private ArrayList<String> attributes;
 	private Class<?> shapeClass = null;
 	
-	private Color color;
+	private Color 
+		colorDraw,
+		colorFill;
 	private ArrayList<Point> controlPoints = new ArrayList<Point>();
 	
 	public ShapeElement(String nodeName, int count, ArrayList<String> attributes, String parentNode)
@@ -43,8 +45,8 @@ public class ShapeElement
 	
 	public ShapeStyling getShapeStyling(int index, ShapeStylingActionListener actionListener)
 	{
-		LoggingMessages.printOut(color + "");
-		return new ShapeStyling(index, color, actionListener);
+		LoggingMessages.printOut(colorDraw + "");
+		return new ShapeStyling(index, colorDraw, colorFill, actionListener);
 	}
 	
 	public ArrayList<Point> getPoints()
@@ -74,12 +76,19 @@ public class ShapeElement
 				Point p = new Point(Integer.parseInt(points[0].strip()), Integer.parseInt(points[1].strip()));
 				controlPoints.add(p);
 			}
-			if(s.startsWith("Color"))
+			if(s.startsWith("ColorDraw"))
 			{
 				String colorPoints = s.split("=")[1];
 				String [] points = colorPoints.split(",");
 				Color c = new Color(Integer.parseInt(points[0].strip()), Integer.parseInt(points[1].strip()), Integer.parseInt(points[2].strip()));
-				color = c;
+				colorDraw = c;
+			}
+			if(s.startsWith("ColorFill"))
+			{
+				String colorPoints = s.split("=")[1];
+				String [] points = colorPoints.split(",");
+				Color c = new Color(Integer.parseInt(points[0].strip()), Integer.parseInt(points[1].strip()), Integer.parseInt(points[2].strip()));
+				colorFill = c;
 			}
 		}
 	}

@@ -6,6 +6,8 @@ then
 	exit
 fi
 
+rm *.url; rm -r images/*
+
 youtube_file=$1
 echo $youtube_file
 

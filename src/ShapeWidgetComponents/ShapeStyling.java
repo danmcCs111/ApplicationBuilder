@@ -7,24 +7,38 @@ import ShapeEditorListeners.ShapeStylingActionListener;
 public class ShapeStyling 
 {
 	private int shapeIndex;
-	private Color color;
+	private Color 
+		drawColor,
+		fillColor;
 	private ShapeStylingActionListener shapeStyleActionListener;
 	
-	public ShapeStyling(int shapeIndex, Color color, ShapeStylingActionListener shapeStyleActionListener)
+	public ShapeStyling(int shapeIndex, Color drawColor, Color fillColor, ShapeStylingActionListener shapeStyleActionListener)
 	{
 		this.shapeIndex = shapeIndex;
-		this.color = color;
+		this.drawColor = drawColor;
+		this.fillColor = fillColor;
 		this.shapeStyleActionListener = shapeStyleActionListener;
 	}
 	
-	public Color getColor()
+	public Color getDrawColor()
 	{
-		return this.color;
+		return this.drawColor;
 	}
 	
-	public void setColor(Color c)
+	public Color getFillColor()
 	{
-		this.color = c;
+		return this.fillColor;
+	}
+	
+	public void setDrawColor(Color c)
+	{
+		this.drawColor = c;
+		shapeStyleActionListener.notifyStylingChanged(shapeIndex, this);
+	}
+	
+	public void setFillColor(Color c)
+	{
+		this.fillColor = c;
 		shapeStyleActionListener.notifyStylingChanged(shapeIndex, this);
 	}
 	

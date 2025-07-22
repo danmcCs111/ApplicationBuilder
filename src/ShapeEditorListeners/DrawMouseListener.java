@@ -41,7 +41,7 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 			sc.setSelectTool(select);
 			
 			sc.drawAll();
-			sc.drawShape(select, Color.red);
+			sc.drawShape(select, Color.red, null);
 		}
 		else if(sc.getOperation() == Operation.Move)
 		{
@@ -173,7 +173,7 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 				sc.setDirectionsIndex(0);
 				sc.getAddCurveButton().setVisible(true);
 				
-				sc.constructShape(mode, curvePoints, new ShapeStyling(sc.getNumShapes(), sc.getColorPallette(), sc));
+				sc.constructShape(mode, curvePoints, new ShapeStyling(sc.getNumShapes(), sc.getColorPallette(), sc.getColorPallette(),sc));
 				
 				directionsLabel.setText("");
 				

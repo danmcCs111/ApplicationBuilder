@@ -476,7 +476,7 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 		
 		clearAll();
 		drawShapes(shapesScaled);
-		if(selectionRect != null) drawShape(selectionRect, Color.gray);
+		if(selectionRect != null) drawShape(selectionRect);
 		drawControlPoints(listControlPointsScaled);
 	}
 	
@@ -496,25 +496,31 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 		int count = 0;//TODO
 		for(Shape s : shapes)
 		{
-			Color c = this.getShapeStyling(count).getColor();
-			drawShape(s, c);
+			Color c = this.getShapeStyling(count).getDrawColor();
+			Color fill = this.getShapeStyling(count).getFillColor();//TODO
+			drawShape(s, c, fill);
 			count++;
 		}
 	}
 	public void drawShape(Shape shape)
 	{
-		drawShape(shape, Color.black);
+		drawShape(shape, Color.gray, null);
 	}
-	public void drawShape(Shape shape, Color c)
+	public void drawShape(Shape shape, Color c, Color fillColor)
 	{
 		Graphics2D g2d = (Graphics2D) draw.getGraphics();
-		drawShape(shape, c, g2d);
+		drawShape(shape, c, fillColor, g2d);
 		
 	}
-	public void drawShape(Shape shape, Color c, Graphics2D g2d)
+	public void drawShape(Shape shape, Color c, Color fillColor, Graphics2D g2d)
 	{
 		g2d.setColor(c);
 		g2d.draw(shape);
+		if(fillColor != null)
+		{
+			g2d.setColor(fillColor);
+			g2d.fill(shape);
+		}
 	}
 	protected void drawControlPoint(Point p)
 	{
@@ -656,7 +662,7 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 		this.incrementNumShapes(1);
 		this.addShapeAndControlPointChangedListener(this.getNumShapes()-1, this.getDirectionsIndex()-1, dml);
 		this.setShapeStyling(this.getNumShapes()-1, shapeStyling);
-		this.getShapeCreatorEditPanel().generatePointEditor(this.getNumShapes()-1, curvePoints, mode, shapeStyling.getColor());
+		this.getShapeCreatorEditPanel().generatePointEditor(this.getNumShapes()-1, curvePoints, mode, shapeStyling.getDrawColor());
 		
 		return shape;
 	}
