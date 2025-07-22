@@ -3,6 +3,8 @@ package ShapeWidgetComponents;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -10,9 +12,13 @@ import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.awt.font.FontRenderContext;
+import java.awt.font.GlyphVector;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.CubicCurve2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
+import java.awt.geom.PathIterator;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -207,6 +213,21 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 		draw.addMouseListener(dml);
 		draw.addMouseMotionListener(dml);
 		
+		JButton drawCharButton = new JButton("draw H");//TODO
+		drawCharButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Graphics2D g2d = (Graphics2D) draw.getGraphics();
+				FontRenderContext frc = g2d.getFontRenderContext();
+				Font f = new Font("serif", Font.PLAIN, 99);
+				FontMetrics fm = ShapeCreator.this.getFontMetrics(f);
+				GlyphVector gv = f.createGlyphVector(frc, "hello");
+				LoggingMessages.printOut(gv.getOutline().toString());
+				g2d.drawGlyphVector(gv, 300, 300);
+			}
+		});
+		
 		top.add(directionsLabel);
 		top.add(b);
 		top.add(c);
@@ -216,6 +237,7 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 		top.add(colorEditorTop);
 		top.add(saveButton);
 		top.add(openButton);
+		top.add(drawCharButton);
 		this.add(top, BorderLayout.NORTH);
 		this.add(east, BorderLayout.EAST);
 		this.add(draw, BorderLayout.CENTER);
@@ -491,6 +513,11 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 	public void drawShape(Shape shape, Color c)
 	{
 		Graphics2D g2d = (Graphics2D) draw.getGraphics();
+		drawShape(shape, c, g2d);
+		
+	}
+	public void drawShape(Shape shape, Color c, Graphics2D g2d)
+	{
 		g2d.setColor(c);
 		g2d.draw(shape);
 	}

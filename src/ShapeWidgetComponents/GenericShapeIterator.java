@@ -8,6 +8,7 @@ import java.util.NoSuchElementException;
 public class GenericShapeIterator implements PathIterator 
 {
 	GenericShape genericShape;
+	PathIterator shapeIterator;
     AffineTransform affine;
     int index;
     int numberOfSteps;
@@ -17,7 +18,7 @@ public class GenericShapeIterator implements PathIterator
     	this.genericShape = genericShape;
     	this.affine = affine;
     }
-	
+    
 	@Override
 	public int getWindingRule() 
 	{
@@ -43,7 +44,6 @@ public class GenericShapeIterator implements PathIterator
 		{
             throw new NoSuchElementException("line iterator out of bounds");
         }
-		
 		ArrayList<Integer> pathIterators = genericShape.getPathIterators();
 		
         int type = pathIterators.get(index);
@@ -67,6 +67,7 @@ public class GenericShapeIterator implements PathIterator
         {
             affine.transform(coords, 0, coords, 0, 1);
         }
+		
         return type;
 	}
 
@@ -78,29 +79,29 @@ public class GenericShapeIterator implements PathIterator
             throw new NoSuchElementException("line iterator out of bounds");
         }
 		
-        int type = (index==0)
-        		?SEG_MOVETO
-        		:SEG_CUBICTO;
-        
-        if(type == SEG_MOVETO || type == SEG_LINETO)
-        {
-        	coords[0] = (double) genericShape.getPoint(index).getX();
-    		coords[1] = (double) genericShape.getPoint(index).getY();
-        }
-        else if(type == SEG_CUBICTO)
-        {
-        	int indexAdjust = numberOfSteps + (index > 1 ? ((index - 1) * 2):0);
-        	coords[0] = (double) genericShape.getPoint(indexAdjust).getX();
-    		coords[1] = (double) genericShape.getPoint(indexAdjust).getY();
-    		coords[2] = (double) genericShape.getPoint(indexAdjust+1).getX();
-    		coords[3] = (double) genericShape.getPoint(indexAdjust+1).getY();
-    		coords[4] = (double) genericShape.getPoint(index).getX();
-    		coords[5] = (double) genericShape.getPoint(index).getY();
-        }
-        if (affine != null) 
-        {
-            affine.transform(coords, 0, coords, 0, 1);
-        }
+	    int type = (index==0)
+	    		?SEG_MOVETO
+	    		:SEG_CUBICTO;
+	    
+	    if(type == SEG_MOVETO || type == SEG_LINETO)
+	    {
+	    	coords[0] = (double) genericShape.getPoint(index).getX();
+			coords[1] = (double) genericShape.getPoint(index).getY();
+	    }
+	    else if(type == SEG_CUBICTO)
+	    {
+	    	int indexAdjust = numberOfSteps + (index > 1 ? ((index - 1) * 2):0);
+	    	coords[0] = (double) genericShape.getPoint(indexAdjust).getX();
+			coords[1] = (double) genericShape.getPoint(indexAdjust).getY();
+			coords[2] = (double) genericShape.getPoint(indexAdjust+1).getX();
+			coords[3] = (double) genericShape.getPoint(indexAdjust+1).getY();
+			coords[4] = (double) genericShape.getPoint(index).getX();
+			coords[5] = (double) genericShape.getPoint(index).getY();
+	    }
+	    if (affine != null) 
+	    {
+	        affine.transform(coords, 0, coords, 0, 1);
+	    }
         return type;
 	}
 
