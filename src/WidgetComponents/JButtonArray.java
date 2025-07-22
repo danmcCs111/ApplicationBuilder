@@ -452,10 +452,12 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 			outer:
 			for(Component c : collectionJButtons.get(key))
 			{
-				for(MouseListener ml : c.getMouseListeners())//TODO patch fix...
+				for(MouseListener ml : c.getMouseListeners())//TODO patch fix...need to get away from static
 				{
 					if(ml instanceof ImageMouseAdapter)
 					{
+						c.removeMouseListener(ml);
+						c.addMouseListener(ima);
 						continue outer;
 					}
 				}
@@ -463,7 +465,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 			}
 		}
 	}
-
+	
 	@Override
 	public void setPathAndMouseListenerAdapter(HashMap<String, MouseListener> pathAndMouseAdapter) 
 	{
