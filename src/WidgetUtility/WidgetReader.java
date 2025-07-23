@@ -125,7 +125,7 @@ public class WidgetReader
 						String nodeStr = n.getNodeName().split(WidgetComponent.ID_SPLIT)[0];
 						WidgetComponent wcType = WidgetComponent.getWidgetComponent(nodeStr);
 						counterId = nodeStr + WidgetComponent.ID_SPLIT + WidgetComponent.nextCountId();
-						LoggingMessages.printOut(wcType.getLabelStr() + " " + counterId);
+//						LoggingMessages.printOut(wcType.getLabelStr() + " " + counterId);
 					}
 					generateWidgetCreatorPropertyList(nl2, counterId);
 				}

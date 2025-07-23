@@ -4,17 +4,12 @@ import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.Stroke;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
-import java.awt.font.FontRenderContext;
-import java.awt.font.GlyphVector;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
@@ -22,28 +17,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
 
-import Editors.ColorEditor;
 import Graphics2D.CurveShape;
-import Properties.LoggingMessages;
-import ShapeEditorListeners.ClearActionListener;
 import ShapeEditorListeners.ControlPointChangedListener;
-import ShapeEditorListeners.DrawActionListener;
-import ShapeEditorListeners.DrawInputActionListener;
 import ShapeEditorListeners.DrawMouseListener;
-import ShapeEditorListeners.OpenShapeActionListener;
-import ShapeEditorListeners.SaveShapeActionListener;
-import ShapeEditorListeners.ShapeDrawModeActionListener;
 import ShapeEditorListeners.ShapeStylingActionListener;
+import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 
-public class ShapeCreator extends JPanel implements ShapeStylingActionListener
+public class ShapeCreator extends JPanel implements ShapeStylingActionListener, PostWidgetBuildProcessing
 {
 	private static final long serialVersionUID = 3005L;
 	
@@ -135,100 +117,48 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 	private Rectangle2D selectTool;
 	private Rectangle2D selectionRect;
 	
-	private JLabel 
-		directionsLabel,
-		operationLabel;
-	private JButton addShape;
-	private JButton 
-		saveButton,
-		openButton;
-	private ColorEditor colorEditorTop;
 	private JPanel 
-		top, 
-		draw,
-		east;
+		draw;
 	private ShapeCreatorEditPanel shapeCreatorEditPanel;
 	private ArrayList<ShapeStyling> shapeStyling = new ArrayList<ShapeStyling>();
 	private DrawMouseListener dml;
 	
-	private JComboBox<DrawMode> modeSelections;
+	private DrawMode mode;
+	
 	private Operation operation = Operation.Select;
 	private BasicStroke 
 		defaultStroke = new BasicStroke(1);
 	
+	private Color colorPallette;
+	
 	public ShapeCreator()
 	{
-		this.setLayout(new BorderLayout());
 		
-		top = new JPanel();
+	}
+	
+	public void buildWidgets()
+	{
 		draw = new JPanel();
-		east = new JPanel();
-		east.setLayout(new BorderLayout());
-		Border border = BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.gray, Color.gray);
-		border = BorderFactory.createTitledBorder(border, "Edit");
-		east.setBorder(border);
-		shapeCreatorEditPanel = new ShapeCreatorEditPanel(this);
-		east.add(shapeCreatorEditPanel, BorderLayout.NORTH);
-		
-		directionsLabel = new JLabel();
-		operationLabel = new JLabel(getOperation().getTitleText());
-		JButton b = new JButton("draw");
-		JButton c = new JButton("clear");
-		addShape = new JButton("+ Add");
-		saveButton = new JButton("Save");
-		openButton = new JButton("Open");
-		saveButton.addActionListener(new SaveShapeActionListener(this));
-		openButton.addActionListener(new OpenShapeActionListener(this));
-		modeSelections = new JComboBox<ShapeCreator.DrawMode>(DrawMode.values());
-		modeSelections.addActionListener(new ShapeDrawModeActionListener(this));
 		setMode(DrawMode.Line);//default.
-		colorEditorTop = new ColorEditor();
-		colorEditorTop.setComponentValue(Color.black);//TODO
-		
-		c.addActionListener(new ClearActionListener(this));
-		addShape.addActionListener(new DrawInputActionListener(this));
-		b.addActionListener(new DrawActionListener(this));
 		dml = new DrawMouseListener(this);
 		draw.addMouseListener(dml);
 		draw.addMouseMotionListener(dml);
-		
-		JButton drawCharButton = new JButton("draw H");//TODO
-		drawCharButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Graphics2D g2d = (Graphics2D) draw.getGraphics();
-				FontRenderContext frc = g2d.getFontRenderContext();
-				Font f = new Font("serif", Font.PLAIN, 99);
-				GlyphVector gv = f.createGlyphVector(frc, "hello");
-				LoggingMessages.printOut(gv.getOutline().toString());
-				g2d.drawGlyphVector(gv, 300, 300);
-			}
-		});
-		
-		top.add(directionsLabel);
-		top.add(b);
-		top.add(c);
-		top.add(operationLabel);
-		top.add(addShape);
-		top.add(modeSelections);
-		top.add(colorEditorTop);
-		top.add(saveButton);
-		top.add(openButton);
-		top.add(drawCharButton);
-		this.add(top, BorderLayout.NORTH);
-		this.add(east, BorderLayout.EAST);
 		this.add(draw, BorderLayout.CENTER);
+	}
+	
+	public Color getColorPallette()
+	{
+		return this.colorPallette;
+	}
+	
+	public void setColorPallette(Color c)
+	{
+		this.colorPallette = c;
 	}
 	
 	public ArrayList<ShapeStyling> getShapeStylings()
 	{
 		return this.shapeStyling;
-	}
-	
-	public Color getColorPallette()
-	{
-		return (Color) this.colorEditorTop.getComponentValueObj();
 	}
 	
 	public ShapeStyling getShapeStyling(int shapeIndex)
@@ -263,6 +193,11 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 		return this.shapeCreatorEditPanel;
 	}
 	
+	public void setShapeCreatorEditPanel(ShapeCreatorEditPanel shapeCreatorEditPanel)
+	{
+		this.shapeCreatorEditPanel = shapeCreatorEditPanel;
+	}
+	
 	public void addShapeSelectedIndex(int index)
 	{
 		shapeSelectedIndexes.add(index);
@@ -288,41 +223,27 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 		this.selectTool = selectTool;
 	}
 	
-	public void setMode(DrawMode mode)
-	{
-		this.modeSelections.setSelectedItem(mode);
-		this.setNumberOfPoints(mode.getNumberOfPoints());
-	}
-	
-	public DrawMode getMode()
-	{
-		return (DrawMode) this.modeSelections.getSelectedItem();
-	}
-	
-	public JComboBox<DrawMode> getModeSelectionCombo()
-	{
-		return this.modeSelections;
-	}
-	
-	public void setOperation(Operation operation)
-	{
-		this.operation = operation;
-		operationLabel.setText(this.operation.getTitleText());
-	}
-	
 	public Operation getOperation()
 	{
 		return this.operation;
 	}
 	
-	public JLabel getDirectionsLabel()
+	public DrawMode getMode()
 	{
-		return this.directionsLabel;
+		return this.mode;
 	}
 	
-	public JButton getAddCurveButton()
+	public void setMode(DrawMode mode)
 	{
-		return this.addShape;
+		this.mode = mode;
+//		this.modeSelections.setSelectedItem(mode);
+		this.setNumberOfPoints(mode.getNumberOfPoints());
+	}
+	
+	public void setOperation(Operation operation)
+	{
+		this.operation = operation;
+//		operationLabel.setText(this.operation.getTitleText());
 	}
 	
 	public Rectangle2D getSelectionRectangle()
@@ -539,8 +460,7 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 	public void clearAll()
 	{
 		Graphics2D g2d = (Graphics2D) draw.getGraphics();
-		if(draw.isEnabled())
-			draw.paint(g2d);
+		draw.paint(g2d);
 	}
 	
 	public void notifyShapeAndControlPointChangedListener(int indexShape, int indexControlPoint, ControlPointChangedListener ignoreChangedListener)
@@ -663,7 +583,6 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 		return shape;
 	}
 	
-	
 	public enum Operation
 	{
 		Move	("-----------Move-----------"),
@@ -742,6 +661,14 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener
 	{
 		this.setShapeStyling(shapeStyleIndex, shapeStyling);
 		this.drawAll();
+	}
+
+	@Override
+	public void postExecute() 
+	{
+		buildWidgets();
+		this.setEnabled(true);
+		this.setVisible(true);
 	}
 	
 }

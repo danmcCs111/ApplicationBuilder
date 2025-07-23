@@ -24,20 +24,31 @@ import Editors.PointEditor;
 import Properties.LoggingMessages;
 import ShapeEditorListeners.ShapePointChangeListener;
 import ShapeWidgetComponents.ShapeCreator.DrawMode;
+import WidgetComponentInterfaces.PostWidgetBuildProcessing;
+import WidgetUtility.WidgetBuildController;
 
-public class ShapeCreatorEditPanel extends JPanel 
+public class ShapeCreatorEditPanel extends JPanel implements PostWidgetBuildProcessing 
 {
 	private static final long serialVersionUID = 1L;
 
 	private ShapeCreator sc;
 	private HashMap<Integer, ArrayList<PointEditor>> indexAndPointEditors;
 		
-	
+	public ShapeCreatorEditPanel()
+	{
+		
+	}
 	public ShapeCreatorEditPanel(ShapeCreator sc)
 	{
 		this.sc = sc;
 		this.setLayout(new GridLayout(0,1));
 		
+		indexAndPointEditors = new HashMap<Integer, ArrayList<PointEditor>>();
+	}
+	
+	public void buildWidgets()
+	{
+		sc = (ShapeCreator) WidgetBuildController.getInstance().findRefByName("ShapeCreator").getInstance();
 		indexAndPointEditors = new HashMap<Integer, ArrayList<PointEditor>>();
 	}
 	
@@ -114,6 +125,8 @@ public class ShapeCreatorEditPanel extends JPanel
 		this.add(shapeEditPanel);
 		
 		indexAndPointEditors.put(index, pointEditors);
+		this.getRootPane().validate();
+		sc.drawAll();
 	}
 	
 	public void generatePointEditor(int index, ArrayList<Point> points, DrawMode dm)
@@ -124,6 +137,15 @@ public class ShapeCreatorEditPanel extends JPanel
 	public ArrayList<PointEditor> getPointEditors(int index)
 	{
 		return this.indexAndPointEditors.get(index);
+	}
+
+	@Override
+	public void postExecute() 
+	{
+		buildWidgets();
+		sc.setShapeCreatorEditPanel(this);
+		this.setEnabled(true);
+		this.setVisible(true);
 	}
 
 }

@@ -8,20 +8,23 @@ import javax.swing.JComboBox;
 import Properties.LoggingMessages;
 import ShapeWidgetComponents.ShapeCreator;
 import ShapeWidgetComponents.ShapeCreator.DrawMode;
+import ShapeWidgetComponents.ShapeCreatorToolBarPanel;
 
 public class ShapeDrawModeActionListener implements ActionListener 
 {
 	private ShapeCreator sc;
+	private ShapeCreatorToolBarPanel sctp;
 	
-	public ShapeDrawModeActionListener(ShapeCreator sc)
+	public ShapeDrawModeActionListener(ShapeCreator sc, ShapeCreatorToolBarPanel sctp)
 	{
 		this.sc = sc;
+		this.sctp = sctp;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		JComboBox<DrawMode> modeSelections = sc.getModeSelectionCombo();
+		JComboBox<DrawMode> modeSelections = sctp.getModeSelectionCombo();
 		LoggingMessages.printOut("mode changed: " + modeSelections.getSelectedItem());
 		sc.setMode((DrawMode) modeSelections.getSelectedItem());
 	}
