@@ -11,6 +11,10 @@ public class CloseProjectActionListener implements ActionListener
 	public void actionPerformed(ActionEvent e) 
 	{
 		WidgetBuildController.getInstance().destroyGeneratedFrame();
+		
+		WidgetBuildController.getInstance().destroyEditors();
+		WidgetBuildController.getInstance().destroyFrameAndCreatorProperties();
+		WidgetBuildController.getInstance().readProperties(WidgetBuildController.getInstance().getFilename());
 	}
 
 }

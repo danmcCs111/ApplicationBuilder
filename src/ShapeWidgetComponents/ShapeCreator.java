@@ -426,16 +426,20 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 	}
 	public void drawShape(Shape shape, Color c)
 	{
-		Graphics2D g2d = (Graphics2D) draw.getGraphics();
+		Graphics2D g2d = (Graphics2D)draw.getGraphics();
+		if(g2d == null)
+			return;
 		g2d.setColor(c);
 		g2d.draw(shape);
 	}
 	public void drawShape(Shape shape, ShapeStyling shapeStyling)
 	{
+		Graphics2D g2d = (Graphics2D)draw.getGraphics();
+		if(g2d == null)
+			return;
 		Color c = shapeStyling.getDrawColor(); 
 		Color fillColor = shapeStyling.getFillColor();
 		Stroke stroke = shapeStyling.getStroke();
-		Graphics2D g2d = (Graphics2D)draw.getGraphics();
 		
 		if(stroke != null && !g2d.getStroke().equals(stroke) && shapeStyling.isCreateStrokedShape())
 		{
@@ -455,9 +459,11 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 	}
 	protected void drawControlPoint(Point p)
 	{
+		Graphics2D g2d = (Graphics2D)draw.getGraphics();
+		if(g2d == null)
+			return;
 		Rectangle r = new Rectangle(p);
 		r.setSize(CONTROL_POINT_PIXEL_SIZE.width, CONTROL_POINT_PIXEL_SIZE.height);
-		Graphics2D g2d = (Graphics2D) draw.getGraphics();
 		g2d.setColor(Color.black);
 		g2d.draw(r);
 	}
@@ -475,7 +481,8 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 	public void clearAll()
 	{
 		Graphics2D g2d = (Graphics2D) draw.getGraphics();
-		draw.paint(g2d);
+		if(g2d != null)
+			draw.paint(g2d);
 	}
 	
 	public void notifyShapeAndControlPointChangedListener(int indexShape, int indexControlPoint, ControlPointChangedListener ignoreChangedListener)

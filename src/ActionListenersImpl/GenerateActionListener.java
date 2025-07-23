@@ -14,6 +14,7 @@ public class GenerateActionListener implements ActionListener
 		{
 			WidgetBuildController.getInstance().destroyGeneratedFrame();
 			WidgetBuildController.getInstance().generateGraphicalInterface(true);
+
 		}	
 	}
 
