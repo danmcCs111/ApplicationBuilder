@@ -10,7 +10,6 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 import Properties.LoggingMessages;
 import ShapeWidgetComponents.ShapeCreator;

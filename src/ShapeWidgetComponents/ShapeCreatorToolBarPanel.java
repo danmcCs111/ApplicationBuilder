@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import Editors.ColorEditor;
+import ShapeEditorListeners.DrawInputActionListener;
 import ShapeEditorListeners.OpenShapeActionListener;
 import ShapeEditorListeners.SaveShapeActionListener;
 import ShapeEditorListeners.ShapeDrawModeActionListener;
@@ -35,21 +36,22 @@ public class ShapeCreatorToolBarPanel extends JPanel implements PostWidgetBuildP
 		shapeCreator = (ShapeCreator) WidgetBuildController.getInstance().findRefByName("ShapeCreator").getInstance();
 		
 		directionsLabel = new JLabel();
-//		operationLabel = new JLabel(shapeCreator.getOperation().getTitleText());
+		operationLabel = new JLabel(shapeCreator.getOperation().getTitleText());
 //		JButton b = new JButton("draw");
 //		JButton c = new JButton("clear");
+		modeSelections = new JComboBox<ShapeCreator.DrawMode>(DrawMode.values());
 		addShape = new JButton("+ Add");
 		saveButton = new JButton("Save");
 		openButton = new JButton("Open");
 		saveButton.addActionListener(new SaveShapeActionListener(shapeCreator));
 		openButton.addActionListener(new OpenShapeActionListener(shapeCreator));
-		modeSelections = new JComboBox<ShapeCreator.DrawMode>(DrawMode.values());
+		addShape.addActionListener(new DrawInputActionListener(shapeCreator));
 		modeSelections.addActionListener(new ShapeDrawModeActionListener(shapeCreator, this));
 		colorEditorTop = new ColorEditor();
 		colorEditorTop.setComponentValue(Color.black);//TODO
 		
-//		this.add(directionsLabel);
-//		this.add(operationLabel);
+		this.add(directionsLabel);
+		this.add(operationLabel);
 		this.add(modeSelections);
 		this.add(addShape);
 		this.add(saveButton);
