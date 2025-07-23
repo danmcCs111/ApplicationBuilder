@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import Graphics2D.CurveShape;
 import ShapeEditorListeners.ControlPointChangedListener;
 import ShapeEditorListeners.DrawMouseListener;
+import ShapeEditorListeners.ShapeDirectionsNotification;
 import ShapeEditorListeners.ShapeStylingActionListener;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 
@@ -131,6 +132,8 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 	
 	private Color colorPallette;
 	
+	private ArrayList<ShapeDirectionsNotification> shapeDirectionsNotification = new ArrayList<ShapeDirectionsNotification>();
+	
 	public ShapeCreator()
 	{
 		
@@ -144,6 +147,19 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 		draw.addMouseListener(dml);
 		draw.addMouseMotionListener(dml);
 		this.add(draw, BorderLayout.CENTER);
+	}
+	
+	public void setDirectionsText(String text)
+	{
+		for(ShapeDirectionsNotification sdn : shapeDirectionsNotification)
+		{
+			sdn.shapeDirectionsUpdate(text);
+		}
+	}
+	
+	public void addShapeDirectionsNotification(ShapeDirectionsNotification sdn)
+	{
+		this.shapeDirectionsNotification.add(sdn);
 	}
 	
 	public Color getColorPallette()
@@ -382,7 +398,6 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 	
 	public void drawAll()
 	{
-		
 		clearAll();
 		drawShapes(shapesScaled);
 		if(selectionRect != null) drawShape(selectionRect, Color.gray);

@@ -162,7 +162,6 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 		{
 			Point p = sc.getRelativePoint(e);
 			Point [] curvePoints = sc.getControlPoints();
-//			JLabel directionsLabel = sc.getDirectionsLabel();
 			
 			curvePoints[directionsIndex-1] = p;
 			sc.addControlPoint(p);
@@ -170,14 +169,12 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 			if(directionsIndex + 1 >= mode.getDirections().length)
 			{
 				sc.setDirectionsIndex(0);
-//				sc.getAddCurveButton().setVisible(true);
 				
 				sc.constructShape(mode, curvePoints, new ShapeStyling(
 						sc.getNumShapes(), sc.getColorPallette(), sc.getColorPallette(), sc));
 				
-//				directionsLabel.setText("");
+				sc.setDirectionsText("");
 				
-//				sc.getAddCurveButton().setEnabled(true);
 				sc.setOperation(Operation.Select);
 				
 				sc.drawAll();
@@ -185,7 +182,7 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 			else
 			{
 				sc.incrementDirectionsIndex(1);
-//				directionsLabel.setText(mode.getDirections()[sc.getDirectionsIndex()]);
+				sc.setDirectionsText(mode.getDirections()[sc.getDirectionsIndex()]);
 			}
 		}
 	}

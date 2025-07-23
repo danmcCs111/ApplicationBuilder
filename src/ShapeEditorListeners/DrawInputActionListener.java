@@ -22,8 +22,7 @@ public class DrawInputActionListener implements ActionListener
 		DrawMode mode = this.sc.getMode();
 		sc.setOperation(Operation.Draw);
 		sc.incrementDirectionsIndex(1);
-//		sc.getDirectionsLabel().setText(mode.getDirections()[sc.getDirectionsIndex()]);
-//		sc.getAddCurveButton().setEnabled(false);
+		sc.setDirectionsText(mode.getDirections()[sc.getDirectionsIndex()]);
 	}
 	
 }

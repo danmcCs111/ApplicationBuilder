@@ -1,6 +1,8 @@
 package ShapeWidgetComponents;
 
 import java.awt.Color;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -11,12 +13,13 @@ import Editors.ColorEditor;
 import ShapeEditorListeners.DrawInputActionListener;
 import ShapeEditorListeners.OpenShapeActionListener;
 import ShapeEditorListeners.SaveShapeActionListener;
+import ShapeEditorListeners.ShapeDirectionsNotification;
 import ShapeEditorListeners.ShapeDrawModeActionListener;
 import ShapeWidgetComponents.ShapeCreator.DrawMode;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetUtility.WidgetBuildController;
 
-public class ShapeCreatorToolBarPanel extends JPanel implements PostWidgetBuildProcessing
+public class ShapeCreatorToolBarPanel extends JPanel implements PostWidgetBuildProcessing, ShapeDirectionsNotification
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -37,8 +40,6 @@ public class ShapeCreatorToolBarPanel extends JPanel implements PostWidgetBuildP
 		
 		directionsLabel = new JLabel();
 		operationLabel = new JLabel(shapeCreator.getOperation().getTitleText());
-//		JButton b = new JButton("draw");
-//		JButton c = new JButton("clear");
 		modeSelections = new JComboBox<ShapeCreator.DrawMode>(DrawMode.values());
 		addShape = new JButton("+ Add");
 		saveButton = new JButton("Save");
@@ -48,6 +49,12 @@ public class ShapeCreatorToolBarPanel extends JPanel implements PostWidgetBuildP
 		addShape.addActionListener(new DrawInputActionListener(shapeCreator));
 		modeSelections.addActionListener(new ShapeDrawModeActionListener(shapeCreator, this));
 		colorEditorTop = new ColorEditor();
+		colorEditorTop.addPropertyChangeListener(new PropertyChangeListener() {
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+				shapeCreator.setColorPallette((Color)colorEditorTop.getComponentValueObj());
+			}
+		});
 		colorEditorTop.setComponentValue(Color.black);//TODO
 		
 		this.add(directionsLabel);
@@ -57,6 +64,8 @@ public class ShapeCreatorToolBarPanel extends JPanel implements PostWidgetBuildP
 		this.add(saveButton);
 		this.add(openButton);
 		this.add(colorEditorTop);
+		
+		shapeCreator.addShapeDirectionsNotification(this);
 	}
 	
 	public ShapeCreator getShapeCreator()
@@ -94,5 +103,19 @@ public class ShapeCreatorToolBarPanel extends JPanel implements PostWidgetBuildP
 	{
 		buildWidgets();
 		this.getRootPane().validate();
+	}
+
+	@Override
+	public void shapeDirectionsUpdate(String updatedDirections) 
+	{
+		directionsLabel.setText(updatedDirections);
+		if(updatedDirections.strip().isBlank())
+		{
+			this.addShape.setEnabled(true);
+		}
+		else if(directionsLabel.getText().isBlank() && !updatedDirections.isBlank())
+		{
+			this.addShape.setEnabled(false);
+		}
 	}
 }
