@@ -34,7 +34,7 @@
 				</JMenuItem>
 				<JMenuItem extendedLayoutApplyParent="" extendedSaveActionListener="channels" setText="Save" >
 				</JMenuItem>
-				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="C:\\Program Files\\Git\\git-bash.exe@-i@-c|cd /c/Users/danie/eclipse-workspace/ApplicationBuilder/src/ApplicationBuilder/YoutubeFreeMovies2; pwd; ./youtube_collect_n_strip.sh /c/Program\ Files/AutoHotkey/v2/AutoHotkey /c/Users/danie/codebase/danmcCs111/AutoHotKey-Utils/youtube_scrape.ahk /c/Users/danie/OneDrive/Desktop/page_scrapes/view-source_https___www.youtube.com_feed_storefront_bp=EgCSAQMI9gOiBQIoBg3D.html" extendedLayoutApplyParent="" setText="Reload" >
+				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="C:\\Program Files\\Git\\git-bash.exe@-i@-c|cd /c/Users/danie/codebase/danmcCs111/ApplicationBuilder/src/ApplicationBuilder/YoutubeFreeMovies2; pwd; ./youtube_collect_n_strip.sh /c/Program\ Files/AutoHotkey/v2/AutoHotkey /c/Users/danie/codebase/danmcCs111/AutoHotKey-Utils/youtube_scrape.ahk /c/Users/danie/OneDrive/Desktop/page_scrapes/view-source_https___www.youtube.com_feed_storefront_bp=EgCSAQMI9gOiBQIoBg3D.html" extendedLayoutApplyParent="" setText="Reload" >
 				</JMenuItem>
 				<JMenuItem extendedCloseActionListener="channels" extendedLayoutApplyParent="" setText="Close" >
 				</JMenuItem>

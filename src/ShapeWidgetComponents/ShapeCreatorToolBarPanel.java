@@ -36,7 +36,7 @@ public class ShapeCreatorToolBarPanel extends JPanel implements PostWidgetBuildP
 	
 	public void buildWidgets()
 	{
-		shapeCreator = (ShapeCreator) WidgetBuildController.getInstance().findRefByName("ShapeCreator").getInstance();
+		shapeCreator = (ShapeCreator) WidgetBuildController.getInstance().findRefByName("ShapeCreator").getInstance();//TODO
 		
 		directionsLabel = new JLabel();
 		operationLabel = new JLabel(shapeCreator.getOperation().getTitleText());

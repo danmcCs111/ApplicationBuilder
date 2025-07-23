@@ -31,6 +31,9 @@ public class ShapeCreatorEditPanel extends JPanel implements PostWidgetBuildProc
 {
 	private static final long serialVersionUID = 1L;
 
+	
+	private static final String SHAPE_TITLE_SUFFIX = "#";
+	
 	private ShapeCreator sc;
 	private HashMap<Integer, ArrayList<PointEditor>> indexAndPointEditors;
 		
@@ -38,17 +41,10 @@ public class ShapeCreatorEditPanel extends JPanel implements PostWidgetBuildProc
 	{
 		
 	}
-	public ShapeCreatorEditPanel(ShapeCreator sc)
-	{
-		this.sc = sc;
-		this.setLayout(new GridLayout(0,1));
-		
-		indexAndPointEditors = new HashMap<Integer, ArrayList<PointEditor>>();
-	}
 	
 	public void buildWidgets()
 	{
-		sc = (ShapeCreator) WidgetBuildController.getInstance().findRefByName("ShapeCreator").getInstance();
+		sc = (ShapeCreator) WidgetBuildController.getInstance().findRefByName("ShapeCreator").getInstance();//TODO
 		indexAndPointEditors = new HashMap<Integer, ArrayList<PointEditor>>();
 	}
 	
@@ -57,9 +53,9 @@ public class ShapeCreatorEditPanel extends JPanel implements PostWidgetBuildProc
 		JPanel shapeEditPanel = new JPanel();
 		
 		Border b = BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.gray, Color.gray);
-		b = BorderFactory.createTitledBorder(b, dm.getModeText() + "#" + index);
+		b = BorderFactory.createTitledBorder(b, dm.getModeText() + SHAPE_TITLE_SUFFIX + index);
 		shapeEditPanel.setBorder(b);
-		shapeEditPanel.setLayout(new GridLayout(0, 1));
+		shapeEditPanel.setLayout(new GridLayout(0, 1));//TODO
 		
 		ArrayList<PointEditor> pointEditors = new ArrayList<PointEditor>();
 		int i = 0;

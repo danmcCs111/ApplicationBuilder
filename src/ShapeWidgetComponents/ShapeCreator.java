@@ -30,7 +30,7 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 {
 	private static final long serialVersionUID = 3005L;
 	
-	private static final String [] 
+	private static final String [] //TODO
 		CURVE_DIRECTIONS = new String [] {
 			"",
 			"Enter x, y", 
@@ -689,8 +689,6 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 	public void postExecute() 
 	{
 		buildWidgets();
-		this.setEnabled(true);
-		this.setVisible(true);
 	}
 	
 }
