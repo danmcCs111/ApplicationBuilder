@@ -1,6 +1,10 @@
 package ShapeWidgetComponents;
 
 import java.awt.Color;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.geom.Line2D;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -9,7 +13,9 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import BezierCurveCalculations.BezierCurveSample;
 import Editors.ColorEditor;
+import Properties.LoggingMessages;
 import ShapeEditorListeners.DrawInputActionListener;
 import ShapeEditorListeners.OpenShapeActionListener;
 import ShapeEditorListeners.SaveShapeActionListener;
@@ -34,6 +40,11 @@ public class ShapeCreatorToolBarPanel extends JPanel implements PostWidgetBuildP
 	private JComboBox<DrawMode> modeSelections;
 	private ShapeCreator shapeCreator; 
 	
+	public ShapeCreatorToolBarPanel()
+	{
+		
+	}
+	
 	public void buildWidgets()
 	{
 		shapeCreator = (ShapeCreator) WidgetBuildController.getInstance().findRefByName("ShapeCreator").getInstance();//TODO
@@ -57,6 +68,26 @@ public class ShapeCreatorToolBarPanel extends JPanel implements PostWidgetBuildP
 		});
 		colorEditorTop.setComponentValue(Color.black);//TODO
 		
+		JButton test = new JButton("draw curve");
+		test.addActionListener(new ActionListener() {
+			private Point 
+				st = new Point(149, 205),
+				c2 = new Point(360, 290),
+				c1 = new Point(278, 219),
+				end = new Point(303, 473),
+				pointOld = st;
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				for(double i = 0.1; i < 1; i+=.01)
+				{
+					Point ret = BezierCurveSample.getPointAtCubicCurve(st, c1, c2, end, i);
+					LoggingMessages.printOut(ret.toString());
+					getShapeCreator().drawShape(new Line2D.Double(pointOld, ret), Color.black);
+					pointOld = ret;
+				}
+			}
+		});
+		
 		this.add(directionsLabel);
 		this.add(operationLabel);
 		this.add(modeSelections);
@@ -64,6 +95,7 @@ public class ShapeCreatorToolBarPanel extends JPanel implements PostWidgetBuildP
 		this.add(saveButton);
 		this.add(openButton);
 		this.add(colorEditorTop);
+		this.add(test);
 		
 		shapeCreator.addShapeDirectionsNotification(this);
 	}
