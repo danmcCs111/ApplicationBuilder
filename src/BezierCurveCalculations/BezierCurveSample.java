@@ -56,4 +56,19 @@ public class BezierCurveSample
 
 		return new Point((int)x, (int)y);
 	}
+	
+	/**
+	 * https://en.wikipedia.org/wiki/B%C3%A9zier_curve
+	 * B(t) = 
+	 *  (1-t) * point 0 +
+	 *  t * point 1
+	 */
+	public static Point getPointAtLine(Point start, Point end, double tStep)
+	{
+		double inverseTStep = (1-tStep);
+		double x = start.getX() * inverseTStep + end.getX() * tStep;
+	    double y = start.getY() * inverseTStep + end.getY() * tStep;
+	    
+	    return new Point((int)x, (int)y);
+	}
 }
