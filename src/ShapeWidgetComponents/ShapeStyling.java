@@ -41,7 +41,14 @@ public class ShapeStyling
 		{
 			this.stroke = new BasicStroke(this.strokeWidth);
 		}
-		shapeStyleActionListener.notifyStylingChanged(shapeIndex, this);
+	}
+	
+	private void notifyChange()
+	{
+		if(shapeIndex > -1 && shapeStyleActionListener != null)
+		{
+			shapeStyleActionListener.notifyStylingChanged(shapeIndex, this);
+		}
 	}
 	
 	public int getStrokeWidth()
@@ -52,7 +59,7 @@ public class ShapeStyling
 	public void createStrokedShape(boolean create)
 	{
 		this.createStrokedShape = create;
-		shapeStyleActionListener.notifyStylingChanged(shapeIndex, this);
+		notifyChange();
 	}
 	
 	public boolean isCreateStrokedShape()
@@ -73,13 +80,13 @@ public class ShapeStyling
 	public void setDrawColor(Color c)
 	{
 		this.drawColor = c;
-		shapeStyleActionListener.notifyStylingChanged(shapeIndex, this);
+		notifyChange();
 	}
 	
 	public void setFillColor(Color c)
 	{
 		this.fillColor = c;
-		shapeStyleActionListener.notifyStylingChanged(shapeIndex, this);
+		notifyChange();
 	}
 	
 }

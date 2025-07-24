@@ -1,6 +1,7 @@
 package ShapeWidgetComponents;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -77,14 +78,16 @@ public class ShapeCreatorToolBarPanel extends JPanel implements PostWidgetBuildP
 			public void actionPerformed(ActionEvent e) {
 				
 				//test
+				Font testFont = new Font("Serif", Font.BOLD, 24);
 				Ellipse2D.Double s = new Ellipse2D.Double(250, 200, 120, 120);
 				AffineTransformSampler afs = new AffineTransformSampler();
+				ShapeStyling ss = new ShapeStyling(-1, Color.blue, Color.blue, null);
 				
 				PathIterator pi = s.getPathIterator(afs);
 				ArrayList<Point> points = new ArrayList<Point>();
 				double numOfSamples = 240.0;
 				points.addAll(afs.samplePoints(pi, s, (1.0/numOfSamples)));
-				ShapePositionOnPoints.drawNumberSequence(points, (Graphics2D)shapeCreator.getGraphics(), 
+				ShapePositionOnPoints.drawNumberSequence(points, (Graphics2D)shapeCreator.getGraphics(), testFont, ss,
 						(int)(numOfSamples/3.0), 1, 12, 3);
 			}
 		});
