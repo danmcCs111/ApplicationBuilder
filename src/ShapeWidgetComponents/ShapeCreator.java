@@ -399,7 +399,7 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 	public void drawAll()
 	{
 		clearAll();
-		drawShapes(shapesScaled);
+		drawShapes(shapesScaled, shapeStyling);
 		if(selectionRect != null) drawShape(selectionRect, Color.gray);
 		drawControlPoints(listControlPointsScaled);
 	}
@@ -415,13 +415,20 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 		drawControlPoint(p);
 	}
 	
-	public void drawShapes(ArrayList<Shape> shapes)
+	public void drawShapes(ArrayList<Shape> shapes, ArrayList<ShapeStyling> shapeStylings)
 	{
 		int count = 0;//TODO
 		for(Shape s : shapes)
 		{
-			drawShape(s, getShapeStyling(count));
+			drawShape(s, shapeStylings.get(count));
 			count++;
+		}
+	}
+	public void drawShapes(ArrayList<Shape> shapes)
+	{
+		for(Shape s : shapes)
+		{
+			drawShape(s, Color.gray);
 		}
 	}
 	public void drawShape(Shape shape, Color c)

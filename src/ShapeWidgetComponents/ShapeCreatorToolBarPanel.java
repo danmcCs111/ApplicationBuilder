@@ -2,17 +2,23 @@ package ShapeWidgetComponents;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Ellipse2D.Double;
 import java.awt.geom.Line2D;
+import java.awt.geom.PathIterator;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import BezierCurveCalculations.AffineTransformSampler;
 import BezierCurveCalculations.BezierCurveSample;
 import Editors.ColorEditor;
 import Properties.LoggingMessages;
@@ -85,6 +91,18 @@ public class ShapeCreatorToolBarPanel extends JPanel implements PostWidgetBuildP
 					getShapeCreator().drawShape(new Line2D.Double(pointOld, ret), Color.black);
 					pointOld = ret;
 				}
+				
+				//test
+				Ellipse2D.Double s = new Ellipse2D.Double(246, 192, 153, 185);
+				AffineTransformSampler afs = new AffineTransformSampler();
+				
+				PathIterator pi = s.getPathIterator(afs);
+				ArrayList<Shape> shapes = afs.sample(pi, s);
+				
+				shapeCreator.drawShapes(shapes);
+				
+				LoggingMessages.printOut(pi + "");
+				LoggingMessages.printOut(s + "");
 			}
 		});
 		
