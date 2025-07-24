@@ -17,8 +17,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import BezierCurveCalculations.AffineTransformSampler;
+import BezierCurveCalculations.ShapePositionOnPoints;
 import Editors.ColorEditor;
-import Properties.LoggingMessages;
 import ShapeEditorListeners.DrawInputActionListener;
 import ShapeEditorListeners.OpenShapeActionListener;
 import ShapeEditorListeners.SaveShapeActionListener;
@@ -77,25 +77,15 @@ public class ShapeCreatorToolBarPanel extends JPanel implements PostWidgetBuildP
 			public void actionPerformed(ActionEvent e) {
 				
 				//test
-				Ellipse2D.Double s = new Ellipse2D.Double(250, 200, 150, 150);
+				Ellipse2D.Double s = new Ellipse2D.Double(250, 200, 120, 120);
 				AffineTransformSampler afs = new AffineTransformSampler();
 				
 				PathIterator pi = s.getPathIterator(afs);
 				ArrayList<Point> points = new ArrayList<Point>();
-				points.addAll(afs.samplePoints(pi, s, (1.0/120.0)));
-				int count = 3;
-				for(int i = 0; i < points.size(); i+=40)
-				{
-					Point p = points.get(i);
-					Graphics2D g2d = (Graphics2D) shapeCreator.getGraphics();
-					g2d.drawString(count+"", p.x, p.y);
-					LoggingMessages.printOut(p.toString());
-					count++;
-					if(count > 12)
-					{
-						count = 1;
-					}
-				}
+				double numOfSamples = 240.0;
+				points.addAll(afs.samplePoints(pi, s, (1.0/numOfSamples)));
+				ShapePositionOnPoints.drawNumberSequence(points, (Graphics2D)shapeCreator.getGraphics(), 
+						(int)(numOfSamples/3.0), 1, 12, 3);
 			}
 		});
 		
