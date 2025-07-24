@@ -1,13 +1,11 @@
 package ShapeWidgetComponents;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.Ellipse2D.Double;
-import java.awt.geom.Line2D;
 import java.awt.geom.PathIterator;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -19,7 +17,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import BezierCurveCalculations.AffineTransformSampler;
-import BezierCurveCalculations.BezierCurveSample;
 import Editors.ColorEditor;
 import Properties.LoggingMessages;
 import ShapeEditorListeners.DrawInputActionListener;
@@ -74,35 +71,31 @@ public class ShapeCreatorToolBarPanel extends JPanel implements PostWidgetBuildP
 		});
 		colorEditorTop.setComponentValue(Color.black);//TODO
 		
-		JButton test = new JButton("draw curve");
+		JButton test = new JButton("draw clock");
 		test.addActionListener(new ActionListener() {
-			private Point 
-				st = new Point(149, 205),
-				c2 = new Point(360, 290),
-				c1 = new Point(278, 219),
-				end = new Point(303, 473),
-				pointOld = st;
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				for(double i = 0.1; i < 1; i+=.01)
-				{
-					Point ret = BezierCurveSample.getPointAtCubicCurve(st, c1, c2, end, i);
-					LoggingMessages.printOut(ret.toString());
-					getShapeCreator().drawShape(new Line2D.Double(pointOld, ret), Color.black);
-					pointOld = ret;
-				}
 				
 				//test
-				Ellipse2D.Double s = new Ellipse2D.Double(246, 192, 153, 185);
+				Ellipse2D.Double s = new Ellipse2D.Double(250, 200, 150, 150);
 				AffineTransformSampler afs = new AffineTransformSampler();
 				
 				PathIterator pi = s.getPathIterator(afs);
-				ArrayList<Shape> shapes = afs.sample(pi, s);
-				
-				shapeCreator.drawShapes(shapes);
-				
-				LoggingMessages.printOut(pi + "");
-				LoggingMessages.printOut(s + "");
+				ArrayList<Point> points = new ArrayList<Point>();
+				points.addAll(afs.samplePoints(pi, s, (1.0/120.0)));
+				int count = 3;
+				for(int i = 0; i < points.size(); i+=40)
+				{
+					Point p = points.get(i);
+					Graphics2D g2d = (Graphics2D) shapeCreator.getGraphics();
+					g2d.drawString(count+"", p.x, p.y);
+					LoggingMessages.printOut(p.toString());
+					count++;
+					if(count > 12)
+					{
+						count = 1;
+					}
+				}
 			}
 		});
 		
