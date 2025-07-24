@@ -4,6 +4,14 @@ import java.awt.Point;
 
 public class BezierCurveSample 
 {
+	/*
+	 * https://en.wikipedia.org/wiki/B%C3%A9zier_curve
+	 * B(t) = 
+	 *  (1-t)^3 * point 0 +
+	 *  3 * (1-t) * t * point 1 +
+	 *  3 * (1-t) * t^2 * point 2 +
+	 *  t^3 * point 3
+	 */
 	public static Point getPointAtCubicCurve(Point start, Point control1, Point control2, Point end, double tStep) 
 	{
 		double 
@@ -25,6 +33,13 @@ public class BezierCurveSample
 		return new Point((int)x, (int)y);
 	}
 	
+	/*
+	 * https://en.wikipedia.org/wiki/B%C3%A9zier_curve
+	 * B(t) = 
+	 *  (1-t)^2 * point 0 +
+	 *  2 * (1-t) * t * point 1 +
+	 *  t^2 point 2
+	 */
 	public static Point getPointAtQuadraticCurve(Point start, Point control1, Point end, double tStep) 
 	{
 		double 
