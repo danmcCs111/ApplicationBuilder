@@ -29,7 +29,7 @@ public class ShapeCreatorEditPanel extends JPanel implements PostWidgetBuildProc
 	
 	private ShapeCreator sc;
 	private HashMap<Integer, ArrayList<PointEditor>> indexAndPointEditors;
-		
+	
 	public ShapeCreatorEditPanel()
 	{
 		

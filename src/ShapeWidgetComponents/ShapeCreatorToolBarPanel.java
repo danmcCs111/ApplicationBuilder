@@ -1,24 +1,14 @@
 package ShapeWidgetComponents;
 
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.PathIterator;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import BezierCurveCalculations.AffineTransformSampler;
-import BezierCurveCalculations.ShapePositionOnPoints;
 import Editors.ColorEditor;
 import ShapeEditorListeners.DrawInputActionListener;
 import ShapeEditorListeners.OpenShapeActionListener;
@@ -72,26 +62,6 @@ public class ShapeCreatorToolBarPanel extends JPanel implements PostWidgetBuildP
 		});
 		colorEditorTop.setComponentValue(Color.black);//TODO
 		
-		JButton test = new JButton("draw clock");
-		test.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				//test
-				Font testFont = new Font("Serif", Font.BOLD, 16);
-				Ellipse2D.Double s = new Ellipse2D.Double(250, 200, 120, 120);
-				AffineTransformSampler afs = new AffineTransformSampler();
-				ShapeStyling ss = new ShapeStyling(-1, Color.blue, Color.blue, null);
-				
-				PathIterator pi = s.getPathIterator(afs);
-				ArrayList<Point> points = new ArrayList<Point>();
-				double numOfSamples = 240.0;
-				points.addAll(afs.samplePoints(pi, s, (1.0/numOfSamples)));
-				ShapePositionOnPoints.drawNumberSequence(points, (Graphics2D)shapeCreator.getGraphics(), testFont, ss,
-						(int)(numOfSamples/3.0), 1, 12, 3);
-			}
-		});
-		
 		this.add(directionsLabel);
 		this.add(operationLabel);
 		this.add(modeSelections);
@@ -99,7 +69,6 @@ public class ShapeCreatorToolBarPanel extends JPanel implements PostWidgetBuildP
 		this.add(saveButton);
 		this.add(openButton);
 		this.add(colorEditorTop);
-		this.add(test);
 		
 		shapeCreator.addShapeDirectionsNotification(this);
 	}
