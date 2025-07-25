@@ -149,6 +149,11 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 		this.add(draw, BorderLayout.CENTER);
 	}
 	
+	public JPanel getDrawPanel()
+	{
+		return this.draw;
+	}
+	
 	public void setDirectionsText(String text)
 	{
 		for(ShapeDirectionsNotification sdn : shapeDirectionsNotification)

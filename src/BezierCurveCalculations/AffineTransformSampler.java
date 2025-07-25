@@ -12,6 +12,17 @@ public class AffineTransformSampler extends AffineTransform
 	private static final long serialVersionUID = 1L;
 	
 	private double [] points = new double [6];
+	private int numOfSteps = 0;
+	
+	public void resetSteps()
+	{
+		numOfSteps = 0;
+	}
+	
+	public int getNumberOfSteps()
+	{
+		return numOfSteps;
+	}
 	
 	public ArrayList<Shape> sampleLineSegments(PathIterator pi, Shape s, double stepInc)
 	{
@@ -31,14 +42,17 @@ public class AffineTransformSampler extends AffineTransform
 			case PathIterator.SEG_CUBICTO:
 				shapes.addAll(collectCubicLineSegmentCollection(points, pointOld, stepInc));
 				pointOld = new Point((int)points[4], (int)points[5]);
+				numOfSteps++;
 				break;
 			case PathIterator.SEG_QUADTO:
 				shapes.addAll(collectQuadraticLineSegmentCollection(points, pointOld, stepInc));
 				pointOld = new Point((int)points[2], (int)points[3]);
+				numOfSteps++;
 				break;
 			case PathIterator.SEG_LINETO:
 				shapes.addAll(collectLineLineSegmentCollection(points, pointOld, stepInc));
 				pointOld = new Point((int)points[0], (int)points[1]);
+				numOfSteps++;
 				break;
 			}
 			
@@ -65,14 +79,17 @@ public class AffineTransformSampler extends AffineTransform
 			case PathIterator.SEG_CUBICTO:
 				pointsCollect.addAll(collectCubicPointCollection(points, pointOld, stepInc));
 				pointOld = new Point((int)points[4], (int)points[5]);
+				numOfSteps++;
 				break;
 			case PathIterator.SEG_QUADTO:
 				pointsCollect.addAll(collectQuadraticPointCollection(points, pointOld, stepInc));
 				pointOld = new Point((int)points[2], (int)points[3]);
+				numOfSteps++;
 				break;
 			case PathIterator.SEG_LINETO:
 				pointsCollect.addAll(collectLinePointCollection(points, pointOld, stepInc));
 				pointOld = new Point((int)points[0], (int)points[1]);
+				numOfSteps++;
 				break;
 			}
 			
