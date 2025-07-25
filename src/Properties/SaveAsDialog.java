@@ -6,9 +6,6 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import WidgetComponents.EditorToXml;
-import WidgetUtility.WidgetBuildController;
-
 public class SaveAsDialog 
 {
 	private String 

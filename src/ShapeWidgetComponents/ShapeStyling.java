@@ -41,6 +41,7 @@ public class ShapeStyling
 		{
 			this.stroke = new BasicStroke(this.strokeWidth);
 		}
+		notifyChange();
 	}
 	
 	private void notifyChange()

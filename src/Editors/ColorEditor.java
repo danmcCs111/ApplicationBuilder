@@ -15,6 +15,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import Graphics2D.GraphicsUtil;
 import Params.ParameterEditor;
 
 public class ColorEditor extends JButton implements ParameterEditor
@@ -39,6 +40,7 @@ public class ColorEditor extends JButton implements ParameterEditor
 				if(d == null)
 				{
 					d = new JDialog();
+					GraphicsUtil.centerWindow(ColorEditor.this.getRootPane().getParent(), d);
 					d.setTitle(titleText);
 					d.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 					d.addWindowListener(new WindowAdapter() {

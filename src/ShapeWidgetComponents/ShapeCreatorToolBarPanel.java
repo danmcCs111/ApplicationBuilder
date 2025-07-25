@@ -78,7 +78,7 @@ public class ShapeCreatorToolBarPanel extends JPanel implements PostWidgetBuildP
 			public void actionPerformed(ActionEvent e) {
 				
 				//test
-				Font testFont = new Font("Serif", Font.BOLD, 24);
+				Font testFont = new Font("Serif", Font.BOLD, 16);
 				Ellipse2D.Double s = new Ellipse2D.Double(250, 200, 120, 120);
 				AffineTransformSampler afs = new AffineTransformSampler();
 				ShapeStyling ss = new ShapeStyling(-1, Color.blue, Color.blue, null);

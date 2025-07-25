@@ -5,23 +5,16 @@ import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.BorderFactory;
-import javax.swing.JComboBox;
+import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
-import Editors.ColorEditor;
 import Editors.PointEditor;
-import Properties.LoggingMessages;
 import ShapeEditorListeners.ShapePointChangeListener;
 import ShapeWidgetComponents.ShapeCreator.DrawMode;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
@@ -52,8 +45,10 @@ public class ShapeCreatorEditPanel extends JPanel implements PostWidgetBuildProc
 	{
 		JPanel shapeEditPanel = new JPanel();
 		
+		String title = dm.getModeText() + SHAPE_TITLE_SUFFIX + index;
+		
 		Border b = BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.gray, Color.gray);
-		b = BorderFactory.createTitledBorder(b, dm.getModeText() + SHAPE_TITLE_SUFFIX + index);
+		b = BorderFactory.createTitledBorder(b, title);
 		shapeEditPanel.setBorder(b);
 		shapeEditPanel.setLayout(new GridLayout(0, 1));//TODO
 		
@@ -71,53 +66,25 @@ public class ShapeCreatorEditPanel extends JPanel implements PostWidgetBuildProc
 			}
 			i++;
 		}
-		ShapeStyling shapeStyling = sc.getShapeStyling(index);
-		ColorEditor ce = new ColorEditor();
-		ce.setComponentValue(shapeStyling.getDrawColor());
-		ce.addPropertyChangeListener(new PropertyChangeListener() {
-			
+		
+		
+		JButton showEditButton = new JButton("editWidget");
+		showEditButton.addActionListener(new ActionListener() {
 			@Override
-			public void propertyChange(PropertyChangeEvent evt) 
+			public void actionPerformed(ActionEvent e) 
 			{
-				LoggingMessages.printOut("color change");
-				shapeStyling.setDrawColor((Color) ce.getComponentValueObj());
-			}
-		});
-		ColorEditor ceFill = new ColorEditor();
-		ceFill.setComponentValue(shapeStyling.getFillColor());
-		ceFill.addPropertyChangeListener(new PropertyChangeListener() {
-			
-			@Override
-			public void propertyChange(PropertyChangeEvent evt) 
-			{
-				LoggingMessages.printOut("color change");
-				shapeStyling.setFillColor((Color) ceFill.getComponentValueObj());
+				if(!ShapeCreatorEditShapeFrame.containsEditor(title))
+				{
+					ShapeStyling shapeStyling = sc.getShapeStyling(index);
+					ShapeCreatorEditShapeFrame scEditFrame = new ShapeCreatorEditShapeFrame(sc);
+					scEditFrame.buildWidgets(shapeStyling, title);
+					scEditFrame.display();
+				}
 			}
 		});
 		
-		JComboBox<Boolean> createStrokedShape = new JComboBox<Boolean>(new Boolean[] {false,true});
-		createStrokedShape.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				shapeStyling.createStrokedShape((boolean)createStrokedShape.getSelectedItem());
-			}
-		});
+		shapeEditPanel.add(showEditButton);
 		
-		JSpinner strokeValue = new JSpinner();
-		strokeValue.setValue(shapeStyling.getStrokeWidth());
-		strokeValue.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				// TODO Auto-generated method stub
-				LoggingMessages.printOut("width changed.");
-				shapeStyling.setStrokeWidth((int)strokeValue.getValue());
-			}
-		});
-		
-		shapeEditPanel.add(ce);
-		shapeEditPanel.add(ceFill);
-		shapeEditPanel.add(createStrokedShape);
-		shapeEditPanel.add(strokeValue);
 		this.add(shapeEditPanel);
 		
 		indexAndPointEditors.put(index, pointEditors);
