@@ -542,6 +542,8 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 		ArrayList<Point> points = new ArrayList<Point>();
 		points.addAll(afs.samplePoints(pi, s, (1.0/ngConfig.getNumberOfSamples())));
 		LoggingMessages.printOut("Number of Steps: " + afs.getNumberOfSteps() + " size " + points.size());
+		if(afs.getNumberOfSteps() == 0)//TODO bug?
+			return;
 		double it = ((ngConfig.getRangeValHigh() - (ngConfig.getRangeValLow()-1)) / afs.getNumberOfSteps());
 		LoggingMessages.printOut(it+"");
 		ShapePositionOnPoints.drawNumberSequence(points, (Graphics2D)this.getDrawPanel().getGraphics(), testFont, selectColor,
