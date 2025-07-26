@@ -16,6 +16,7 @@ public class ShapeStyling
 	private Stroke stroke;
 	private int strokeWidth = -1;
 	private boolean createStrokedShape = false;
+	private NumberGeneratorConfig numberGeneratorConfig;
 	
 	public ShapeStyling(int shapeIndex, Color drawColor, Color fillColor, ShapeStylingActionListener shapeStyleActionListener)
 	{
@@ -23,6 +24,17 @@ public class ShapeStyling
 		this.drawColor = drawColor;
 		this.fillColor = fillColor;
 		this.shapeStyleActionListener = shapeStyleActionListener;
+	}
+	
+	public void setNumberGeneratorConfig(NumberGeneratorConfig numberGeneratorConfig)
+	{
+		this.numberGeneratorConfig = numberGeneratorConfig;
+		notifyChange();
+	}
+	
+	public NumberGeneratorConfig getNumberGeneratorConfig()
+	 {
+		return this.numberGeneratorConfig;
 	}
 	
 	public Stroke getStroke()

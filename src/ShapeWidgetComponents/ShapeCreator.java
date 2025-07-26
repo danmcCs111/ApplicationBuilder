@@ -468,6 +468,11 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 			g2d.setColor(fillColor);
 			g2d.fill(shape);
 		}
+		
+		if(shapeStyling.getNumberGeneratorConfig() != null)//TODO
+		{
+			drawShapeStylingAlgorithm(shape, shapeStyling);
+		}
 	}
 	protected void drawControlPoint(Point p)
 	{
@@ -495,6 +500,31 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 		Graphics2D g2d = (Graphics2D) draw.getGraphics();
 		if(g2d != null)
 			draw.paint(g2d);
+	}
+	
+	public void drawShapeStylingAlgorithm(Shape s, ShapeStyling ss)
+	{
+//		NumberGeneratorConfig numGen = ss.getNumberGeneratorConfig();
+//		LoggingMessages.printOut(numGen.toString());
+//
+//		Font testFont = new Font("Serif", Font.BOLD, numGen.getFontSize()); //TODO
+//		Color selectColor = ss.getNumberGeneratorConfig().getFillColor();
+//		
+//		AffineTransformSampler afs = new AffineTransformSampler();
+//		if(selectColor == null)
+//		{
+//			selectColor = Color.black;
+//		}
+//		
+//		PathIterator pi = s.getPathIterator(afs);
+//		ArrayList<Point> points = new ArrayList<Point>();
+//		afs.resetSteps();
+//		points.addAll(afs.samplePoints(pi, s, (1.0/numGen.getNumberOfSamples())));
+//		LoggingMessages.printOut("Number of Steps: " + afs.getNumberOfSteps() + " size " + points.size());
+//		double it = ((numGen.getRangeValHigh() - (numGen.getRangeValLow()-1)) / afs.getNumberOfSteps());
+//		LoggingMessages.printOut(it+"");
+//		ShapePositionOnPoints.drawNumberSequence(points, (Graphics2D)draw.getGraphics(), testFont, ss,
+//				(numGen.getNumberOfSamples()/it) , numGen.getRangeValLow(), numGen.getRangeValHigh(), numGen.getStartingNumber());
 	}
 	
 	public void notifyShapeAndControlPointChangedListener(int indexShape, int indexControlPoint, ControlPointChangedListener ignoreChangedListener)

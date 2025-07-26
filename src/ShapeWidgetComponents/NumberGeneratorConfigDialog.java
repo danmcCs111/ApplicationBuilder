@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.WindowConstants;
 
-import BezierCurveCalculations.AffineTransformSampler;
+import BezierCurveCalculations.AffineTransformRasterizer;
 import BezierCurveCalculations.ShapePositionOnPoints;
 import Editors.ColorEditor;
 import Graphics2D.GraphicsUtil;
@@ -61,14 +61,16 @@ public class NumberGeneratorConfigDialog extends JDialog
 		saveButton = new JButton(SAVE_BUTTON_LABEL),
 		cancelButton = new JButton(CANCEL_BUTTON_LABEL);
 	
-	private Shape s;
+	private ShapeStyling ss;
 	private ShapeCreator sc;
+	private Shape s;
 	
 	
-	public NumberGeneratorConfigDialog(Container referenceContainer, ShapeCreator sc, Shape s)
+	public NumberGeneratorConfigDialog(Container referenceContainer, ShapeCreator sc, Shape s, ShapeStyling ss)
 	{
 		this.s = s;
 		this.sc = sc;
+		this.ss = ss;
 		this.setTitle(TITLE);
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setMinimumSize(MIN_DIMENSION_DIALOG);
@@ -80,8 +82,6 @@ public class NumberGeneratorConfigDialog extends JDialog
 		setDefaults();
 		buildOptionsPanel();
 		buildSaveCancel();
-		
-		
 		this.setVisible(true);
 	}
 	
@@ -147,23 +147,27 @@ public class NumberGeneratorConfigDialog extends JDialog
 			rangeValHigh = getVal(range2Spinner),
 			startingNumber = getVal(startingNumberSpinner),
 			fontSize = getVal(fontSizeSpinner);
+		Color selectColor = (Color)fillColorEditor.getComponentValueObj();
+		NumberGeneratorConfig ngConfig = new NumberGeneratorConfig(rangeValLow, rangeValHigh, startingNumber, fontSize, selectColor);
+		ss.setNumberGeneratorConfig(ngConfig);
 		
 		Font testFont = new Font("Serif", Font.BOLD, fontSize); //TODO
-		AffineTransformSampler afs = new AffineTransformSampler();
-		Color selectColor = (Color)fillColorEditor.getComponentValueObj();
+		
+		AffineTransformRasterizer afs = new AffineTransformRasterizer();
 		if(selectColor == null)
 		{
 			selectColor = Color.black;
 		}
-		ShapeStyling ss = new ShapeStyling(-1, selectColor, selectColor, null);//TODO
 		
 		PathIterator pi = s.getPathIterator(afs);
 		ArrayList<Point> points = new ArrayList<Point>();
+		afs.resetSteps();
 		points.addAll(afs.samplePoints(pi, s, (1.0/numOfSamples)));
-		LoggingMessages.printOut("Number of Steps: " + afs.getNumberOfSteps());
+		LoggingMessages.printOut("Number of Steps: " + afs.getNumberOfSteps() + " size " + points.size());
 		double it = ((rangeValHigh - (rangeValLow-1)) / afs.getNumberOfSteps());
-		ShapePositionOnPoints.drawNumberSequence(points, (Graphics2D)sc.getDrawPanel().getGraphics(), testFont, ss,
-				(int)(numOfSamples/it), rangeValLow, rangeValHigh, startingNumber);	
+		LoggingMessages.printOut(it+"");
+		ShapePositionOnPoints.drawNumberSequence(points, (Graphics2D)sc.getDrawPanel().getGraphics(), testFont, selectColor,
+				(numOfSamples/it), rangeValLow, rangeValHigh, startingNumber);
 		
 		this.dispose();
 	}
@@ -180,6 +184,7 @@ public class NumberGeneratorConfigDialog extends JDialog
 	
 	private void cancelAction()
 	{
+		ss.setNumberGeneratorConfig(null);//TODO
 		this.dispose();
 	}
 	

@@ -23,6 +23,11 @@ public class ShapeCreatorToolBarPanel extends JPanel implements PostWidgetBuildP
 {
 	private static final long serialVersionUID = 1L;
 	
+	private static final String 
+		ADD_BUTTON_TEXT = "+ Add",
+		SAVE_BUTTON_TEXT = "Save",
+		OPEN_BUTTON_TEXT = "Open";
+	
 	private JButton 
 		saveButton,
 		addShape,
@@ -46,9 +51,9 @@ public class ShapeCreatorToolBarPanel extends JPanel implements PostWidgetBuildP
 		directionsLabel = new JLabel();
 		operationLabel = new JLabel(shapeCreator.getOperation().getTitleText());
 		modeSelections = new JComboBox<ShapeCreator.DrawMode>(DrawMode.values());
-		addShape = new JButton("+ Add");
-		saveButton = new JButton("Save");
-		openButton = new JButton("Open");
+		addShape = new JButton(ADD_BUTTON_TEXT);
+		saveButton = new JButton(SAVE_BUTTON_TEXT);
+		openButton = new JButton(OPEN_BUTTON_TEXT);
 		saveButton.addActionListener(new SaveShapeActionListener(shapeCreator));
 		openButton.addActionListener(new OpenShapeActionListener(shapeCreator));
 		addShape.addActionListener(new DrawInputActionListener(shapeCreator));

@@ -114,7 +114,7 @@ public class ShapeCreatorEditShapeFrame extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				new NumberGeneratorConfigDialog(ShapeCreatorEditShapeFrame.this, sc, s);
+				new NumberGeneratorConfigDialog(ShapeCreatorEditShapeFrame.this, sc, s, shapeStyling);
 			}
 		});
 		
