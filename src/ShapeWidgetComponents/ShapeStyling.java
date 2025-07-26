@@ -44,7 +44,7 @@ public class ShapeStyling
 	public void setNumberGeneratorConfig(NumberGeneratorConfig numberGeneratorConfig, Shape s)
 	{
 		this.numberGeneratorConfig = numberGeneratorConfig;
-		if(s == null)
+		if(s == null || this.numberGeneratorConfig == null)
 		{
 			this.afs = null;
 			this.pi = null;

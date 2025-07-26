@@ -24,6 +24,7 @@ public class ShapeElement
 	private boolean isCreateStroke = false;
 	private int strokeWidth = -1;
 	private ArrayList<Point> controlPoints = new ArrayList<Point>();
+	private NumberGeneratorConfig ngConfig;
 	
 	public ShapeElement(String nodeName, int count, ArrayList<String> attributes, String parentNode)
 	{
@@ -53,6 +54,11 @@ public class ShapeElement
 	public ArrayList<String> getAttributes()
 	{
 		return this.attributes;
+	}
+	
+	public NumberGeneratorConfig getNumberGeneratorConfig()
+	{
+		return this.ngConfig;
 	}
 	
 	public ShapeStyling getShapeStyling(int index, ShapeStylingActionListener actionListener)
@@ -112,6 +118,11 @@ public class ShapeElement
 			else if(s.startsWith("StrokeWidth"))
 			{
 				this.strokeWidth = Integer.parseInt(s.split("=")[1]);
+			}
+			else if(s.startsWith("NumberGeneratorConfig"))
+			{
+				String ngConfigString = s.split("=")[1];
+				this.ngConfig = new NumberGeneratorConfig(ngConfigString);
 			}
 		}
 	}

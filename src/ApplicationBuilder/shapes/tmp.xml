@@ -1,4 +1,4 @@
 <Widgets>
-<java.awt.geom.Ellipse2D Point00="138, 169" Point01="253, 288" ColorDraw="0, 0, 0" ColorFill="0, 255, 204" CreateStroke="true" StrokeWidth="3"  > </java.awt.geom.Ellipse2D>
-<ShapeWidgetComponents.TriangleCubic Point00="186, 162" Point01="258, 257" Point02="143, 270" Point03="205, 214" Point04="217, 231" Point05="212, 243" Point06="188, 240" Point07="179, 231" Point08="185, 215" ColorDraw="204, 0, 102" ColorFill="153, 153, 153" CreateStroke="true" StrokeWidth="4"  > </ShapeWidgetComponents.TriangleCubic>
+<java.awt.geom.Ellipse2D Point00="273, 167" Point01="388, 286" ColorDraw="0, 0, 0" ColorFill="0, 255, 204" CreateStroke="true" StrokeWidth="3" NumberGeneratorConfig="1, 12, 3, 18, 181, 109, 61"  > </java.awt.geom.Ellipse2D>
+<ShapeWidgetComponents.TriangleCubic Point00="321, 160" Point01="393, 255" Point02="278, 268" Point03="340, 212" Point04="352, 229" Point05="347, 241" Point06="323, 238" Point07="314, 229" Point08="320, 213" ColorDraw="204, 0, 102" ColorFill="153, 153, 153" CreateStroke="true" StrokeWidth="4"  > </ShapeWidgetComponents.TriangleCubic>
 </Widgets>

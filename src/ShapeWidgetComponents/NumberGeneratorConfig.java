@@ -23,6 +23,20 @@ public class NumberGeneratorConfig
 		this.fillColor = fillColor;
 	}
 	
+	public NumberGeneratorConfig(String xmlAttributeString)
+	{
+		String [] params = xmlAttributeString.split(",");
+		this.rangeValLow = Integer.parseInt(params[0].strip());
+		this.rangeValHigh = Integer.parseInt(params[1].strip());
+		this.startingNumber = Integer.parseInt(params[2].strip());
+		this.fontSize = Integer.parseInt(params[3].strip());
+		this.fillColor = new Color(
+				Integer.parseInt(params[4].strip()), 
+				Integer.parseInt(params[5].strip()), 
+				Integer.parseInt(params[6].strip())
+		);
+	}
+	
 	public double getNumberOfSamples()
 	{
 		return this.numOfSamples;
@@ -53,6 +67,7 @@ public class NumberGeneratorConfig
 	@Override
 	public String toString()
 	{
-		return LoggingMessages.combine(new Object [] {rangeValLow,rangeValHigh, startingNumber, fontSize, fillColor});
+		return LoggingMessages.combine(new Object [] {rangeValLow, rangeValHigh, startingNumber, fontSize, 
+				fillColor.getRed(), fillColor.getGreen(), fillColor.getBlue()});
 	}
 }

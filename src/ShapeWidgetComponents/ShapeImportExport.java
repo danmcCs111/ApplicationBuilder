@@ -89,6 +89,11 @@ public class ShapeImportExport
 			{
 				content += "StrokeWidth=\"" + strokeWth + "\" ";
 			}
+			NumberGeneratorConfig ngConfig = ss.getNumberGeneratorConfig();
+			if(ngConfig != null)
+			{
+				content += "NumberGeneratorConfig=\"" + ngConfig.toString() + "\" ";
+			}
 			
 			xml += "<" + type + " " + content + " > " + "</" + type + ">" + PathUtility.NEW_LINE;
 			content = "";
