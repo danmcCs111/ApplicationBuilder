@@ -18,7 +18,6 @@ import javax.swing.WindowConstants;
 
 import Editors.ColorEditor;
 import Graphics2D.GraphicsUtil;
-import Properties.LoggingMessages;
 
 public class NumberGeneratorConfigDialog extends JDialog 
 {
@@ -31,6 +30,7 @@ public class NumberGeneratorConfigDialog extends JDialog
 		FONT_SIZE_LABEL = "Font",
 		COLOR_FILL_LABEL = "Color Fill",
 		SAVE_BUTTON_LABEL = "Save",
+		REMOVE_BUTTON_LABEL = "Remove",
 		CANCEL_BUTTON_LABEL = "Cancel";
 	private static final Dimension MIN_DIMENSION_DIALOG = new Dimension(400, 300);
 	
@@ -52,6 +52,7 @@ public class NumberGeneratorConfigDialog extends JDialog
 		fillColorEditor = new ColorEditor();
 	private JButton 
 		saveButton = new JButton(SAVE_BUTTON_LABEL),
+		removeButton = new JButton(REMOVE_BUTTON_LABEL),
 		cancelButton = new JButton(CANCEL_BUTTON_LABEL);
 	
 	private ShapeCreator sc;
@@ -123,7 +124,7 @@ public class NumberGeneratorConfigDialog extends JDialog
 	protected void buildSaveCancel()
 	{
 		saveCancelPanelOuter.setLayout(new BorderLayout());
-		saveCancelPanel.setLayout(new GridLayout(1,2));
+		saveCancelPanel.setLayout(new GridLayout(1,3));
 		
 		saveButton.addActionListener(new ActionListener() {
 			@Override
@@ -132,6 +133,15 @@ public class NumberGeneratorConfigDialog extends JDialog
 			}
 		});
 		saveCancelPanel.add(saveButton);
+		
+		removeButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				removeAction();
+			}
+		});
+		saveCancelPanel.add(removeButton);
 		
 		cancelButton.addActionListener(new ActionListener() {
 			@Override
@@ -173,9 +183,13 @@ public class NumberGeneratorConfigDialog extends JDialog
 	
 	private void cancelAction()
 	{
+		this.dispose();
+	}
+	
+	private void removeAction()
+	{
 		ShapeStyling ss = sc.getShapeStylings().get(index);
-		ss.setNumberGeneratorConfig(null, null);//TODO
-		LoggingMessages.printOut("Cancel");
+		ss.setNumberGeneratorConfig(null, null);
 		this.dispose();
 	}
 	
