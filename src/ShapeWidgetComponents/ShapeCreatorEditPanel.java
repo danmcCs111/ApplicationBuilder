@@ -75,9 +75,8 @@ public class ShapeCreatorEditPanel extends JPanel implements PostWidgetBuildProc
 			{
 				if(!ShapeCreatorEditShapeFrame.containsEditor(title))
 				{
-					ShapeStyling shapeStyling = sc.getShapeStyling(index);
 					ShapeCreatorEditShapeFrame scEditFrame = new ShapeCreatorEditShapeFrame(sc);
-					scEditFrame.buildWidgets(shapeStyling, sc.getShapesScaled().get(index), title);
+					scEditFrame.buildWidgets(sc, index, title);
 					scEditFrame.display();
 				}
 			}

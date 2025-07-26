@@ -9,15 +9,10 @@ import java.util.ArrayList;
 
 public class AffineTransformRasterizer extends AffineTransform 
 {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 16545461L;
 	
 	private double [] points = new double [6];
 	private int numOfSteps = 0;
-	
-	public void resetSteps()
-	{
-		numOfSteps = 0;
-	}
 	
 	public int getNumberOfSteps()
 	{

@@ -4,6 +4,7 @@ import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -12,6 +13,7 @@ import java.awt.Stroke;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
+import java.awt.geom.PathIterator;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,7 +21,10 @@ import java.util.HashMap;
 
 import javax.swing.JPanel;
 
+import BezierCurveCalculations.AffineTransformRasterizer;
+import BezierCurveCalculations.ShapePositionOnPoints;
 import Graphics2D.CurveShape;
+import Properties.LoggingMessages;
 import ShapeEditorListeners.ControlPointChangedListener;
 import ShapeEditorListeners.DrawMouseListener;
 import ShapeEditorListeners.ShapeDirectionsNotification;
@@ -504,27 +509,32 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 	
 	public void drawShapeStylingAlgorithm(Shape s, ShapeStyling ss)
 	{
-//		NumberGeneratorConfig numGen = ss.getNumberGeneratorConfig();
-//		LoggingMessages.printOut(numGen.toString());
-//
-//		Font testFont = new Font("Serif", Font.BOLD, numGen.getFontSize()); //TODO
-//		Color selectColor = ss.getNumberGeneratorConfig().getFillColor();
-//		
-//		AffineTransformSampler afs = new AffineTransformSampler();
-//		if(selectColor == null)
-//		{
-//			selectColor = Color.black;
-//		}
-//		
-//		PathIterator pi = s.getPathIterator(afs);
-//		ArrayList<Point> points = new ArrayList<Point>();
-//		afs.resetSteps();
-//		points.addAll(afs.samplePoints(pi, s, (1.0/numGen.getNumberOfSamples())));
-//		LoggingMessages.printOut("Number of Steps: " + afs.getNumberOfSteps() + " size " + points.size());
-//		double it = ((numGen.getRangeValHigh() - (numGen.getRangeValLow()-1)) / afs.getNumberOfSteps());
-//		LoggingMessages.printOut(it+"");
-//		ShapePositionOnPoints.drawNumberSequence(points, (Graphics2D)draw.getGraphics(), testFont, ss,
-//				(numGen.getNumberOfSamples()/it) , numGen.getRangeValLow(), numGen.getRangeValHigh(), numGen.getStartingNumber());
+		NumberGeneratorConfig ngConfig = ss.getNumberGeneratorConfig();
+		Color selectColor = ngConfig.getFillColor();
+		
+		Font testFont = new Font("Serif", Font.BOLD, ngConfig.getFontSize()); //TODO
+		PathIterator pi = ss.getPathIterator();
+		AffineTransformRasterizer afs = ss.getAffineTransform();
+		
+		LoggingMessages.printOut("Number of Steps: " + afs.getNumberOfSteps());
+		if(afs == null || pi == null)
+		{
+			return;
+		}
+		
+		if(selectColor == null)
+		{
+			selectColor = Color.black;
+		}
+		
+		ArrayList<Point> points = new ArrayList<Point>();
+		points.addAll(afs.samplePoints(pi, s, (1.0/ngConfig.getNumberOfSamples())));
+		LoggingMessages.printOut("Number of Steps: " + afs.getNumberOfSteps() + " size " + points.size());
+		double it = ((ngConfig.getRangeValHigh() - (ngConfig.getRangeValLow()-1)) / afs.getNumberOfSteps());
+		LoggingMessages.printOut(it+"");
+		ShapePositionOnPoints.drawNumberSequence(points, (Graphics2D)this.getDrawPanel().getGraphics(), testFont, selectColor,
+				(ngConfig.getNumberOfSamples()/it), ngConfig.getRangeValLow(), ngConfig.getRangeValHigh(), ngConfig.getStartingNumber());
+		
 	}
 	
 	public void notifyShapeAndControlPointChangedListener(int indexShape, int indexControlPoint, ControlPointChangedListener ignoreChangedListener)

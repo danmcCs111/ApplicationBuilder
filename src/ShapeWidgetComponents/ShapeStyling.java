@@ -2,8 +2,11 @@ package ShapeWidgetComponents;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Shape;
 import java.awt.Stroke;
+import java.awt.geom.PathIterator;
 
+import BezierCurveCalculations.AffineTransformRasterizer;
 import ShapeEditorListeners.ShapeStylingActionListener;
 
 public class ShapeStyling 
@@ -17,6 +20,8 @@ public class ShapeStyling
 	private int strokeWidth = -1;
 	private boolean createStrokedShape = false;
 	private NumberGeneratorConfig numberGeneratorConfig;
+	private PathIterator pi;
+	private AffineTransformRasterizer afs; 
 	
 	public ShapeStyling(int shapeIndex, Color drawColor, Color fillColor, ShapeStylingActionListener shapeStyleActionListener)
 	{
@@ -26,9 +31,38 @@ public class ShapeStyling
 		this.shapeStyleActionListener = shapeStyleActionListener;
 	}
 	
-	public void setNumberGeneratorConfig(NumberGeneratorConfig numberGeneratorConfig)
+	public void setShape(Shape s)
+	{
+		if(numberGeneratorConfig != null)
+		{
+			this.afs = new AffineTransformRasterizer();
+			this.pi = s.getPathIterator(afs);
+		}
+	}
+	
+	public PathIterator getPathIterator()
+	{
+		return this.pi;
+	}
+	
+	public AffineTransformRasterizer getAffineTransform()
+	{
+		return this.afs;
+	}
+	
+	public void setNumberGeneratorConfig(NumberGeneratorConfig numberGeneratorConfig, Shape s)
 	{
 		this.numberGeneratorConfig = numberGeneratorConfig;
+		if(s == null)
+		{
+			this.afs = null;
+			this.pi = null;
+		}
+		else
+		{
+			this.afs = new AffineTransformRasterizer();
+			this.pi = s.getPathIterator(afs);
+		}
 		notifyChange();
 	}
 	
@@ -101,5 +135,5 @@ public class ShapeStyling
 		this.fillColor = c;
 		notifyChange();
 	}
-	
+
 }

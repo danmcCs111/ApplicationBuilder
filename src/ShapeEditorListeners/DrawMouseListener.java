@@ -213,6 +213,9 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 			
 			Shape newShape = sc.recalculateShape(s, newPoints);
 			sc.getShapesScaled().set(index, newShape);
+			ShapeStyling ss = sc.getShapeStyling(index);
+			ss.setShape(newShape);
+			sc.getShapeStylings().set(index, ss);
 			
 		}
 		

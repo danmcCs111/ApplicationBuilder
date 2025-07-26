@@ -76,8 +76,10 @@ public class ShapeCreatorEditShapeFrame extends JFrame
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 	
-	public void buildWidgets(ShapeStyling shapeStyling, Shape s, String title)
+	public void buildWidgets(ShapeCreator sc, int index, String title)
 	{
+		ShapeStyling shapeStyling = sc.getShapeStylings().get(index);
+		
 		this.title = title;
 		JComponent parentPanel = new JPanel();
 		
@@ -114,7 +116,7 @@ public class ShapeCreatorEditShapeFrame extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				new NumberGeneratorConfigDialog(ShapeCreatorEditShapeFrame.this, sc, s, shapeStyling);
+				new NumberGeneratorConfigDialog(ShapeCreatorEditShapeFrame.this, sc, index);
 			}
 		});
 		
