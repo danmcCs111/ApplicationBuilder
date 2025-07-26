@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -116,7 +115,7 @@ public class ShapeCreatorEditShapeFrame extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				new NumberGeneratorConfigDialog(ShapeCreatorEditShapeFrame.this, sc, index);
+				new NumberGeneratorConfigDialog(ShapeCreatorEditShapeFrame.this, shapeStyling.getNumberGeneratorConfig(), sc, index);
 			}
 		});
 		

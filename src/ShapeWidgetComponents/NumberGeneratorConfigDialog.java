@@ -56,10 +56,25 @@ public class NumberGeneratorConfigDialog extends JDialog
 	
 	private ShapeCreator sc;
 	private int index;
+	private NumberGeneratorConfig ngConfig;
 	
 	
 	public NumberGeneratorConfigDialog(Container referenceContainer, ShapeCreator sc, int index)
 	{
+		this(referenceContainer, null, sc, index);
+	}
+	
+	public NumberGeneratorConfigDialog(Container referenceContainer, NumberGeneratorConfig ngConfig, ShapeCreator sc, int index)
+	{
+		if(ngConfig == null)
+		{
+			this.ngConfig = new NumberGeneratorConfig(1, 12, 3, 18, Color.black);
+		}
+		else
+		{
+			this.ngConfig = ngConfig;
+		}
+		
 		this.sc = sc;
 		this.index = index;
 		this.setTitle(TITLE);
@@ -70,18 +85,19 @@ public class NumberGeneratorConfigDialog extends JDialog
 		
 		innerPanel.setLayout(new GridLayout(0, 2));
 		
-		setDefaults();
+		setDefaults(this.ngConfig);
 		buildOptionsPanel();
 		buildSaveCancel();
 		this.setVisible(true);
 	}
 	
-	protected void setDefaults()//TODO remove
+	protected void setDefaults(NumberGeneratorConfig ngConfig)
 	{
-		range1Spinner.setValue(1);
-		range2Spinner.setValue(12);
-		startingNumberSpinner.setValue(3);
-		fontSizeSpinner.setValue(18);
+		range1Spinner.setValue(ngConfig.getRangeValLow());
+		range2Spinner.setValue(ngConfig.getRangeValHigh());
+		startingNumberSpinner.setValue(ngConfig.getStartingNumber());
+		fontSizeSpinner.setValue(ngConfig.getFontSize());
+		fillColorEditor.setComponentValue(ngConfig.getFillColor());
 	}
 	
 	protected void buildOptionsPanel()
@@ -100,7 +116,6 @@ public class NumberGeneratorConfigDialog extends JDialog
 		innerPanel.add(fontSizeSpinner);
 		
 		innerPanel.add(fillColorLabel);
-		fillColorEditor.setComponentValue(Color.black);
 		innerPanel.add(fillColorEditor);
 		this.add(innerPanel, BorderLayout.NORTH);
 	}
