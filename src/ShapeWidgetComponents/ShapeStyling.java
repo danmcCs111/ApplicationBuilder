@@ -31,15 +31,6 @@ public class ShapeStyling
 		this.shapeStyleActionListener = shapeStyleActionListener;
 	}
 	
-	public void setShape(Shape s)
-	{
-		if(numberGeneratorConfig != null)
-		{
-			this.afs = new AffineTransformRasterizer();
-			this.pi = s.getPathIterator(afs);
-		}
-	}
-	
 	public PathIterator getPathIterator()
 	{
 		return this.pi;
@@ -64,6 +55,20 @@ public class ShapeStyling
 			this.pi = s.getPathIterator(afs);
 		}
 		notifyChange();
+	}
+	
+	public void updateNumberGeneratorConfig( Shape s)
+	{
+		if(s == null)
+		{
+			this.afs = null;
+			this.pi = null;
+		}
+		else
+		{
+			this.afs = new AffineTransformRasterizer();
+			this.pi = s.getPathIterator(afs);
+		}
 	}
 	
 	public NumberGeneratorConfig getNumberGeneratorConfig()

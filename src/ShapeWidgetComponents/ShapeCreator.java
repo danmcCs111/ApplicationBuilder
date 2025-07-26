@@ -412,6 +412,7 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 		drawShapes(shapesScaled, shapeStyling);
 		if(selectionRect != null) drawShape(selectionRect, Color.gray);
 		drawControlPoints(listControlPointsScaled);
+		drawGenerators(shapesScaled, shapeStyling);
 	}
 	
 	
@@ -423,6 +424,21 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 		}
 		listControlPointsScaled.get(numShapes).add(p);
 		drawControlPoint(p);
+	}
+	
+	public void drawGenerators(ArrayList<Shape> shapes, ArrayList<ShapeStyling> shapeStylings)
+	{
+		int count = 0;
+		for(Shape s : shapes)
+		{
+			ShapeStyling ss = shapeStylings.get(count);
+			if(ss.getNumberGeneratorConfig() != null)
+			{
+				ss.updateNumberGeneratorConfig(s);
+				drawShapeStylingAlgorithm(s, ss);
+			}
+			count++;
+		}
 	}
 	
 	public void drawShapes(ArrayList<Shape> shapes, ArrayList<ShapeStyling> shapeStylings)
@@ -474,10 +490,6 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 			g2d.fill(shape);
 		}
 		
-		if(shapeStyling.getNumberGeneratorConfig() != null)//TODO
-		{
-			drawShapeStylingAlgorithm(shape, shapeStyling);
-		}
 	}
 	protected void drawControlPoint(Point p)
 	{

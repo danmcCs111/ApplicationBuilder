@@ -18,6 +18,7 @@ import javax.swing.WindowConstants;
 
 import Editors.ColorEditor;
 import Graphics2D.GraphicsUtil;
+import Properties.LoggingMessages;
 
 public class NumberGeneratorConfigDialog extends JDialog 
 {
@@ -159,6 +160,7 @@ public class NumberGeneratorConfigDialog extends JDialog
 	{
 		ShapeStyling ss = sc.getShapeStylings().get(index);
 		ss.setNumberGeneratorConfig(null, null);//TODO
+		LoggingMessages.printOut("Cancel");
 		this.dispose();
 	}
 	
