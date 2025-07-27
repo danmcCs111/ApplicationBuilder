@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 
 import Properties.LoggingMessages;
-import ShapeWidgetComponents.NumberGeneratorConfig;
 import ShapeWidgetComponents.ShapeCreator;
 import ShapeWidgetComponents.ShapeCreator.Operation;
 import ShapeWidgetComponents.ShapeDrawingCollection;
@@ -331,6 +330,7 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 			Rectangle2D selectionRect = new Rectangle2D.Double(leastXy.x, leastXy.y, widthHeight.x, widthHeight.y);
 			LoggingMessages.printOut(selectionRect + "");
 			sc.setSelectionRectangle(selectionRect);
+			
 			sc.drawAll();
 		}
 		else
