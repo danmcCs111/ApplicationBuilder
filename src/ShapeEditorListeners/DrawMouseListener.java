@@ -13,9 +13,9 @@ import javax.swing.JFrame;
 
 import Properties.LoggingMessages;
 import ShapeWidgetComponents.ShapeCreator;
-import ShapeWidgetComponents.ShapeCreator.DrawMode;
 import ShapeWidgetComponents.ShapeCreator.Operation;
 import ShapeWidgetComponents.ShapeStyling;
+import ShapeWidgetComponents.ShapeUtils.DrawMode;
 
 public class DrawMouseListener extends MouseAdapter implements ControlPointChangedListener 
 {

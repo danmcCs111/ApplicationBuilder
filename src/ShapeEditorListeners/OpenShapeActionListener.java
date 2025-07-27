@@ -10,7 +10,7 @@ import ShapeWidgetComponents.ShapeCreator;
 import ShapeWidgetComponents.ShapeElement;
 import ShapeWidgetComponents.ShapeImportExport;
 import ShapeWidgetComponents.ShapeStyling;
-import ShapeWidgetComponents.ShapeCreator.DrawMode;
+import ShapeWidgetComponents.ShapeUtils.DrawMode;
 
 public class OpenShapeActionListener implements ActionListener 
 {

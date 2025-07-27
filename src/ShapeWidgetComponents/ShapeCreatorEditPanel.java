@@ -16,7 +16,7 @@ import javax.swing.border.Border;
 
 import Editors.PointEditor;
 import ShapeEditorListeners.ShapePointChangeListener;
-import ShapeWidgetComponents.ShapeCreator.DrawMode;
+import ShapeWidgetComponents.ShapeUtils.DrawMode;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetUtility.WidgetBuildController;
 

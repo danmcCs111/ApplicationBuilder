@@ -1,2 +1,4 @@
-Child's Play (1988)@1416@264=C:\Users\danie\eclipse-workspace\ApplicationBuilder/src/ApplicationBuilder/YoutubeFreeMovies/images/
-Darkness Falls (2003)@812@489=C:\Users\danie\eclipse-workspace\ApplicationBuilder/src/ApplicationBuilder/YoutubeFreeMovies/images/
+Tim Burton's Corpse Bride@79@884=./src/ApplicationBuilder/YoutubeFreeMovies2
+When Worlds Collide@26@529=./src/ApplicationBuilder/YoutubeFreeMovies2
+Windtalkers@104@698=./src/ApplicationBuilder/YoutubeFreeMovies2
+The Doctor@5@788=./src/ApplicationBuilder/YoutubeFreeMovies2

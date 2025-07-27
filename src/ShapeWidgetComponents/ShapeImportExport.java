@@ -28,8 +28,6 @@ import Properties.SaveAsDialog;
 
 public class ShapeImportExport 
 {
-	private static final long serialVersionUID = 1L;
-	
 	private static final String 
 		WIDGETS_SHAPE_OPEN_TAG = "<Widgets>",
 		WIDGETS_SHAPE_CLOSE_TAG = "</Widgets>",
@@ -164,7 +162,6 @@ public class ShapeImportExport
 			
 		} catch (ParserConfigurationException | SAXException | IOException e) {
 			LoggingMessages.printOut("Malformed xml or non-widget build xml chosen: " + e.getMessage());
-			LoggingMessages.printOut("Cause: " + LoggingMessages.combine(e.getStackTrace()));
 		}
 	}
 	

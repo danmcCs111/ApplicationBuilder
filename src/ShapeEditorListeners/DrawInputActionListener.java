@@ -4,8 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import ShapeWidgetComponents.ShapeCreator;
-import ShapeWidgetComponents.ShapeCreator.DrawMode;
 import ShapeWidgetComponents.ShapeCreator.Operation;
+import ShapeWidgetComponents.ShapeUtils.DrawMode;
 
 public class DrawInputActionListener implements ActionListener
 {

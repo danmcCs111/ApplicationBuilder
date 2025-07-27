@@ -15,7 +15,7 @@ import ShapeEditorListeners.OpenShapeActionListener;
 import ShapeEditorListeners.SaveShapeActionListener;
 import ShapeEditorListeners.ShapeDirectionsNotification;
 import ShapeEditorListeners.ShapeDrawModeActionListener;
-import ShapeWidgetComponents.ShapeCreator.DrawMode;
+import ShapeWidgetComponents.ShapeUtils.DrawMode;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetUtility.WidgetBuildController;
 
@@ -50,7 +50,7 @@ public class ShapeCreatorToolBarPanel extends JPanel implements PostWidgetBuildP
 		
 		directionsLabel = new JLabel();
 		operationLabel = new JLabel(shapeCreator.getOperation().getTitleText());
-		modeSelections = new JComboBox<ShapeCreator.DrawMode>(DrawMode.values());
+		modeSelections = new JComboBox<DrawMode>(DrawMode.values());
 		addShape = new JButton(ADD_BUTTON_TEXT);
 		saveButton = new JButton(SAVE_BUTTON_TEXT);
 		openButton = new JButton(OPEN_BUTTON_TEXT);

@@ -27,7 +27,7 @@ public class ShapeCreatorEditShapeFrame extends JFrame
 {
 	private static final long serialVersionUID = 1L;
 	
-	private static final Dimension EDITOR_FRAME_SIZE = new Dimension(500,150);
+	private static final Dimension EDITOR_FRAME_SIZE = new Dimension(550,150);
 	
 	private ShapeCreator sc;
 	private String title = "";
@@ -119,6 +119,17 @@ public class ShapeCreatorEditShapeFrame extends JFrame
 			}
 		});
 		
+		JButton scaleShape = new JButton("Scale Shape");
+		scaleShape.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				new ScaleDialog(sc.getRootPane().getParent(), sc, index);
+				
+			}
+		});
+		
 		JComboBox<Boolean> createStrokedShape = new JComboBox<Boolean>(new Boolean[] {false,true});
 		createStrokedShape.addActionListener(new ActionListener() {
 			@Override
@@ -140,6 +151,7 @@ public class ShapeCreatorEditShapeFrame extends JFrame
 		innerPanel.add(ce);
 		innerPanel.add(ceFill);
 		innerPanel.add(applyShapeNumberGenerator);
+		innerPanel.add(scaleShape);
 		innerPanel.add(createStrokedShape);
 		innerPanel.add(strokeValue);
 		

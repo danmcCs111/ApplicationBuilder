@@ -11,93 +11,26 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 import javax.swing.JPanel;
 
 import BezierCurveCalculations.AffineTransformRasterizer;
 import BezierCurveCalculations.ShapePositionOnPoints;
-import Graphics2D.CurveShape;
 import Properties.LoggingMessages;
 import ShapeEditorListeners.ControlPointChangedListener;
 import ShapeEditorListeners.DrawMouseListener;
 import ShapeEditorListeners.ShapeDirectionsNotification;
 import ShapeEditorListeners.ShapeStylingActionListener;
+import ShapeWidgetComponents.ShapeUtils.DrawMode;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 
 public class ShapeCreator extends JPanel implements ShapeStylingActionListener, PostWidgetBuildProcessing
 {
 	private static final long serialVersionUID = 3005L;
-	
-	private static final String [] //TODO
-		CURVE_DIRECTIONS = new String [] {
-			"",
-			"Enter x, y", 
-			"Enter x2, y2", 
-			"Enter Control Point 1", 
-			"Enter Control Point 2"
-		},
-		LINE_DIRECTIONS = new String [] {
-			"",
-			"Enter x, y", 
-			"Enter x2, y2"
-		},
-		ELLIPSE_DIRECTIONS = new String [] {
-			"",
-			"Enter x, y",
-			"Enter x2, y2"
-		},
-		RECTANGLE_DIRECTIONS = new String [] {
-				"",
-				"Enter x, y",
-				"Enter x2, y2"
-		},
-		RECTANGLE_CUBIC_DIRECTIONS = new String [] {
-				"",
-				"Enter x, y",
-				"Enter x2, y2",
-				"Enter x3, y3",
-				"Enter x4, y4",
-				
-				"Enter control 1, y1",
-				"Enter control 1.2, y1.2",
-				
-				"Enter control 2, y2",
-				"Enter control 2.2, y2.2",
-				
-				"Enter control 3, y3",
-				"Enter control 3.2, y3.2",
-				
-				"Enter control 4, y4",
-				"Enter control 4.2, y4.2",
-		},
-		TRIANGLE_DIRECTIONS = new String [] {
-				"",
-				"Enter x, y",
-				"Enter x2, y2",
-				"Enter x3, y3"
-		},
-		TRIANGLE_CUBIC_DIRECTIONS = new String [] {
-				"",
-				"Enter x, y",
-				"Enter x2, y2",
-				"Enter x3, y3",
-				
-				"Enter control 1, y1",
-				"Enter control 1.2, y1.2",
-				
-				"Enter control 2, y2",
-				"Enter control 2.2, y2.2",
-				
-				"Enter control 3, y3",
-				"Enter control 3.2, y3.2",
-		};
 	
 	public static Dimension CONTROL_POINT_PIXEL_SIZE = new Dimension(6,6);
 	
@@ -152,6 +85,219 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 		draw.addMouseListener(dml);
 		draw.addMouseMotionListener(dml);
 		this.add(draw, BorderLayout.CENTER);
+	}
+	
+	public void drawAll()
+	{
+		clearAll();
+		drawShapes(shapesScaled, shapeStyling);
+		if(selectionRect != null) drawShape(selectionRect, Color.gray);
+		drawControlPoints(listControlPointsScaled);
+		drawGenerators(shapesScaled, shapeStyling);
+	}
+	
+	
+	public void addControlPoint(Point p)
+	{
+		if(listControlPointsScaled.size() <= numShapes)
+		{
+			listControlPointsScaled.add(new ArrayList<Point>());
+		}
+		listControlPointsScaled.get(numShapes).add(p);
+		drawControlPoint(p);
+	}
+	
+	public void drawGenerators(ArrayList<Shape> shapes, ArrayList<ShapeStyling> shapeStylings)
+	{
+		int count = 0;
+		for(Shape s : shapes)
+		{
+			ShapeStyling ss = shapeStylings.get(count);
+			if(ss.getNumberGeneratorConfig() != null)
+			{
+				ss.updateNumberGeneratorConfig(s);
+				drawShapeStylingAlgorithm(s, ss);
+			}
+			count++;
+		}
+	}
+	
+	public void drawShapes(ArrayList<Shape> shapes, ArrayList<ShapeStyling> shapeStylings)
+	{
+		int count = 0;
+		for(Shape s : shapes)
+		{
+			drawShape(s, shapeStylings.get(count));
+			count++;
+		}
+	}
+	public void drawShapes(ArrayList<Shape> shapes)
+	{
+		for(Shape s : shapes)
+		{
+			drawShape(s, Color.gray);
+		}
+	}
+	public void drawShape(Shape shape, Color c)
+	{
+		Graphics2D g2d = (Graphics2D)draw.getGraphics();
+		if(g2d == null)
+			return;
+		g2d.setColor(c);
+		g2d.draw(shape);
+	}
+	public void drawShape(Shape shape, ShapeStyling shapeStyling)
+	{
+		Graphics2D g2d = (Graphics2D)draw.getGraphics();
+		if(g2d == null)
+			return;
+		Color c = shapeStyling.getDrawColor(); 
+		Color fillColor = shapeStyling.getFillColor();
+		Stroke stroke = shapeStyling.getStroke();
+		
+		if(stroke != null && !g2d.getStroke().equals(stroke) && shapeStyling.isCreateStrokedShape())
+		{
+			g2d.setStroke(stroke);
+			shape = g2d.getStroke().createStrokedShape(shape);
+		}
+		else {
+			g2d.setStroke(defaultStroke);
+		}
+		g2d.setColor(c);
+		g2d.draw(shape);
+		if(fillColor != null)
+		{
+			g2d.setColor(fillColor);
+			g2d.fill(shape);
+		}
+		
+	}
+	protected void drawControlPoint(Point p)
+	{
+		Graphics2D g2d = (Graphics2D)draw.getGraphics();
+		if(g2d == null)
+			return;
+		Rectangle r = new Rectangle(p);
+		r.setSize(CONTROL_POINT_PIXEL_SIZE.width, CONTROL_POINT_PIXEL_SIZE.height);
+		g2d.setColor(Color.black);
+		g2d.draw(r);
+	}
+	protected void drawControlPoints(ArrayList<ArrayList<Point>> listOfControlPoints)
+	{
+		for(ArrayList<Point> controlPoints : listOfControlPoints)
+		{
+			for(Point p : controlPoints)
+			{
+				drawControlPoint(p);
+			}
+		}
+	}
+	
+	public void clearAll()
+	{
+		Graphics2D g2d = (Graphics2D) draw.getGraphics();
+		if(g2d != null)
+			draw.paint(g2d);
+	}
+	
+	public void drawShapeStylingAlgorithm(Shape s, ShapeStyling ss)
+	{
+		NumberGeneratorConfig ngConfig = ss.getNumberGeneratorConfig();
+		Color selectColor = ngConfig.getFillColor();
+		
+		Font testFont = new Font("Serif", Font.BOLD, ngConfig.getFontSize()); //TODO
+		PathIterator pi = ss.getPathIterator();
+		AffineTransformRasterizer afs = ss.getAffineTransform();
+		
+		LoggingMessages.printOut("Number of Steps: " + afs.getNumberOfSteps());
+		if(afs == null || pi == null)
+		{
+			return;
+		}
+		
+		if(selectColor == null)
+		{
+			selectColor = Color.black;
+		}
+		
+		ArrayList<Point> points = new ArrayList<Point>();
+		points.addAll(afs.samplePoints(pi, s, (1.0/ngConfig.getNumberOfSamples())));
+		LoggingMessages.printOut("Number of Steps: " + afs.getNumberOfSteps() + " size " + points.size());
+		if(afs.getNumberOfSteps() == 0)//TODO bug?
+			return;
+		double it = ((ngConfig.getRangeValHigh() - (ngConfig.getRangeValLow()-1)) / afs.getNumberOfSteps());
+		LoggingMessages.printOut(it+"");
+		ShapePositionOnPoints.drawNumberSequence(points, (Graphics2D)this.getDrawPanel().getGraphics(), testFont, selectColor,
+				(ngConfig.getNumberOfSamples()/it), ngConfig.getRangeValLow(), ngConfig.getRangeValHigh(), ngConfig.getStartingNumber());
+		
+	}
+	
+	public void notifyShapeAndControlPointsChangedListener(int indexShape)
+	{
+		notifyShapeAndControlPointsChangedListener(indexShape, null);
+	}
+	public void notifyShapeAndControlPointsChangedListener(int indexShape, ControlPointChangedListener ignorechangedListener)
+	{
+		for(int i = 0; i < listControlPointsScaled.get(indexShape).size(); i++)
+		{
+			notifyShapeAndControlPointChangedListener(indexShape, i, ignorechangedListener);
+		}
+	}
+	public void notifyShapeAndControlPointChangedListener(int indexShape, int indexControlPoint, ControlPointChangedListener ignorechangedListener)
+	{
+		if(!this.shapeAndControlPointChangedListener.containsKey(indexShape))
+			return;
+		
+		HashMap<Integer, ArrayList<ControlPointChangedListener>> controlPointChangedListeners = this.shapeAndControlPointChangedListener.get(indexShape);
+		for(ControlPointChangedListener cpcl : controlPointChangedListeners.get(indexControlPoint))
+		{
+			if(ignorechangedListener != null && !ignorechangedListener.equals(cpcl))
+			{
+				cpcl.controlPointChangedNotification(indexShape, indexControlPoint);
+			}
+		}
+	}
+	
+	public void addShapeAndControlPointChangedListener(int indexShape, int indexControlPoint, ControlPointChangedListener changedListener)
+	{
+		if(!this.shapeAndControlPointChangedListener.containsKey(indexShape))
+		{
+			HashMap<Integer, ArrayList<ControlPointChangedListener>> mapControlPointListeners = new HashMap<Integer, ArrayList<ControlPointChangedListener>>();
+			ArrayList<ControlPointChangedListener> controlPointChangedListeners = new ArrayList<ControlPointChangedListener>();
+			controlPointChangedListeners.add(changedListener);
+			mapControlPointListeners.put(indexControlPoint, controlPointChangedListeners);
+			this.shapeAndControlPointChangedListener.put(indexShape, mapControlPointListeners);
+		}
+		else if(!this.shapeAndControlPointChangedListener.get(indexShape).containsKey(indexControlPoint))
+		{
+			HashMap<Integer, ArrayList<ControlPointChangedListener>> mapControlPointListeners = this.shapeAndControlPointChangedListener.get(indexShape);
+			ArrayList<ControlPointChangedListener> controlPointChangedListeners = new ArrayList<ControlPointChangedListener>();
+			controlPointChangedListeners.add(changedListener);
+			mapControlPointListeners.put(indexControlPoint, controlPointChangedListeners);
+		}
+		else
+		{
+			HashMap<Integer, ArrayList<ControlPointChangedListener>> mapControlPointListeners = this.shapeAndControlPointChangedListener.get(indexShape);
+			mapControlPointListeners.get(indexControlPoint).add(changedListener);
+		}
+	}
+	
+	public Shape recalculateShape(Shape s, ArrayList<Point> cps)
+	{
+		return ShapeUtils.recalculateShape(s, cps);
+	}
+	
+	public Shape constructShape(DrawMode mode, Point [] curvePoints, ShapeStyling shapeStyling)
+	{
+		Shape shape = ShapeUtils.constructShape(mode, curvePoints, shapeStyling);
+		
+		shapesScaled.add(shape);
+		this.incrementNumShapes(1);
+		this.addShapeAndControlPointChangedListener(this.getNumShapes()-1, this.getDirectionsIndex()-1, dml);
+		this.setShapeStyling(this.getNumShapes()-1, shapeStyling);
+		this.getShapeCreatorEditPanel().generatePointEditor(this.getNumShapes()-1, curvePoints, mode, shapeStyling.getDrawColor());
+		
+		return shape;
 	}
 	
 	public JPanel getDrawPanel()
@@ -406,271 +552,6 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 		return this.mousePressed;
 	}
 	
-	public void drawAll()
-	{
-		clearAll();
-		drawShapes(shapesScaled, shapeStyling);
-		if(selectionRect != null) drawShape(selectionRect, Color.gray);
-		drawControlPoints(listControlPointsScaled);
-		drawGenerators(shapesScaled, shapeStyling);
-	}
-	
-	
-	public void addControlPoint(Point p)
-	{
-		if(listControlPointsScaled.size() <= numShapes)
-		{
-			listControlPointsScaled.add(new ArrayList<Point>());
-		}
-		listControlPointsScaled.get(numShapes).add(p);
-		drawControlPoint(p);
-	}
-	
-	public void drawGenerators(ArrayList<Shape> shapes, ArrayList<ShapeStyling> shapeStylings)
-	{
-		int count = 0;
-		for(Shape s : shapes)
-		{
-			ShapeStyling ss = shapeStylings.get(count);
-			if(ss.getNumberGeneratorConfig() != null)
-			{
-				ss.updateNumberGeneratorConfig(s);
-				drawShapeStylingAlgorithm(s, ss);
-			}
-			count++;
-		}
-	}
-	
-	public void drawShapes(ArrayList<Shape> shapes, ArrayList<ShapeStyling> shapeStylings)
-	{
-		int count = 0;//TODO
-		for(Shape s : shapes)
-		{
-			drawShape(s, shapeStylings.get(count));
-			count++;
-		}
-	}
-	public void drawShapes(ArrayList<Shape> shapes)
-	{
-		for(Shape s : shapes)
-		{
-			drawShape(s, Color.gray);
-		}
-	}
-	public void drawShape(Shape shape, Color c)
-	{
-		Graphics2D g2d = (Graphics2D)draw.getGraphics();
-		if(g2d == null)
-			return;
-		g2d.setColor(c);
-		g2d.draw(shape);
-	}
-	public void drawShape(Shape shape, ShapeStyling shapeStyling)
-	{
-		Graphics2D g2d = (Graphics2D)draw.getGraphics();
-		if(g2d == null)
-			return;
-		Color c = shapeStyling.getDrawColor(); 
-		Color fillColor = shapeStyling.getFillColor();
-		Stroke stroke = shapeStyling.getStroke();
-		
-		if(stroke != null && !g2d.getStroke().equals(stroke) && shapeStyling.isCreateStrokedShape())
-		{
-			g2d.setStroke(stroke);
-			shape = g2d.getStroke().createStrokedShape(shape);
-		}
-		else {
-			g2d.setStroke(defaultStroke);
-		}
-		g2d.setColor(c);
-		g2d.draw(shape);
-		if(fillColor != null)
-		{
-			g2d.setColor(fillColor);
-			g2d.fill(shape);
-		}
-		
-	}
-	protected void drawControlPoint(Point p)
-	{
-		Graphics2D g2d = (Graphics2D)draw.getGraphics();
-		if(g2d == null)
-			return;
-		Rectangle r = new Rectangle(p);
-		r.setSize(CONTROL_POINT_PIXEL_SIZE.width, CONTROL_POINT_PIXEL_SIZE.height);
-		g2d.setColor(Color.black);
-		g2d.draw(r);
-	}
-	protected void drawControlPoints(ArrayList<ArrayList<Point>> listOfControlPoints)
-	{
-		for(ArrayList<Point> controlPoints : listOfControlPoints)
-		{
-			for(Point p : controlPoints)
-			{
-				drawControlPoint(p);
-			}
-		}
-	}
-	
-	public void clearAll()
-	{
-		Graphics2D g2d = (Graphics2D) draw.getGraphics();
-		if(g2d != null)
-			draw.paint(g2d);
-	}
-	
-	public void drawShapeStylingAlgorithm(Shape s, ShapeStyling ss)
-	{
-		NumberGeneratorConfig ngConfig = ss.getNumberGeneratorConfig();
-		Color selectColor = ngConfig.getFillColor();
-		
-		Font testFont = new Font("Serif", Font.BOLD, ngConfig.getFontSize()); //TODO
-		PathIterator pi = ss.getPathIterator();
-		AffineTransformRasterizer afs = ss.getAffineTransform();
-		
-		LoggingMessages.printOut("Number of Steps: " + afs.getNumberOfSteps());
-		if(afs == null || pi == null)
-		{
-			return;
-		}
-		
-		if(selectColor == null)
-		{
-			selectColor = Color.black;
-		}
-		
-		ArrayList<Point> points = new ArrayList<Point>();
-		points.addAll(afs.samplePoints(pi, s, (1.0/ngConfig.getNumberOfSamples())));
-		LoggingMessages.printOut("Number of Steps: " + afs.getNumberOfSteps() + " size " + points.size());
-		if(afs.getNumberOfSteps() == 0)//TODO bug?
-			return;
-		double it = ((ngConfig.getRangeValHigh() - (ngConfig.getRangeValLow()-1)) / afs.getNumberOfSteps());
-		LoggingMessages.printOut(it+"");
-		ShapePositionOnPoints.drawNumberSequence(points, (Graphics2D)this.getDrawPanel().getGraphics(), testFont, selectColor,
-				(ngConfig.getNumberOfSamples()/it), ngConfig.getRangeValLow(), ngConfig.getRangeValHigh(), ngConfig.getStartingNumber());
-		
-	}
-	
-	public void notifyShapeAndControlPointChangedListener(int indexShape, int indexControlPoint, ControlPointChangedListener ignoreChangedListener)
-	{
-		if(!this.shapeAndControlPointChangedListener.containsKey(indexShape))
-			return;
-		
-		HashMap<Integer, ArrayList<ControlPointChangedListener>> controlPointChangedListeners = this.shapeAndControlPointChangedListener.get(indexShape);
-		for(ControlPointChangedListener cpcl : controlPointChangedListeners.get(indexControlPoint))
-		{
-			if(!Arrays.asList(ignoreChangedListener).contains(cpcl))
-			{
-				cpcl.controlPointChangedNotification(indexShape, indexControlPoint);
-			}
-		}
-	}
-	
-	public void addShapeAndControlPointChangedListener(int indexShape, int indexControlPoint, ControlPointChangedListener changedListener)
-	{
-		if(!this.shapeAndControlPointChangedListener.containsKey(indexShape))
-		{
-			HashMap<Integer, ArrayList<ControlPointChangedListener>> mapControlPointListeners = new HashMap<Integer, ArrayList<ControlPointChangedListener>>();
-			ArrayList<ControlPointChangedListener> controlPointChangedListeners = new ArrayList<ControlPointChangedListener>();
-			controlPointChangedListeners.add(changedListener);
-			mapControlPointListeners.put(indexControlPoint, controlPointChangedListeners);
-			this.shapeAndControlPointChangedListener.put(indexShape, mapControlPointListeners);
-		}
-		else if(!this.shapeAndControlPointChangedListener.get(indexShape).containsKey(indexControlPoint))
-		{
-			HashMap<Integer, ArrayList<ControlPointChangedListener>> mapControlPointListeners = this.shapeAndControlPointChangedListener.get(indexShape);
-			ArrayList<ControlPointChangedListener> controlPointChangedListeners = new ArrayList<ControlPointChangedListener>();
-			controlPointChangedListeners.add(changedListener);
-			mapControlPointListeners.put(indexControlPoint, controlPointChangedListeners);
-		}
-		else
-		{
-			HashMap<Integer, ArrayList<ControlPointChangedListener>> mapControlPointListeners = this.shapeAndControlPointChangedListener.get(indexShape);
-			mapControlPointListeners.get(indexControlPoint).add(changedListener);
-		}
-	}
-	
-	public Shape recalculateShape(Shape s, ArrayList<Point> cps)
-	{
-		if(s instanceof CurveShape)
-		{
-			s = new CurveShape(cps.get(0), cps.get(2), cps.get(3), cps.get(1));
-		}
-		else if(s instanceof Line2D)
-		{
-			s = new Line2D.Double(cps.get(0), cps.get(1));
-		}
-		else if(s instanceof Triangle)
-		{
-			s = new Triangle(cps.get(0), cps.get(1), cps.get(2));
-		}
-		else if(s instanceof TriangleCubic)
-		{
-			s = new TriangleCubic(cps.get(0), cps.get(1), cps.get(2), cps.get(3), cps.get(4), cps.get(5), cps.get(6), cps.get(7), cps.get(8));
-		}
-		else if(s instanceof Rectangle2D)
-		{
-			s = new Rectangle2D.Double(
-					cps.get(0).x, cps.get(0).y, 
-					(cps.get(1).x - cps.get(0).x), (cps.get(1).y - cps.get(0).y));
-		}
-		else if(s instanceof RectangleCubic)
-		{
-			s = new RectangleCubic(cps.get(0), cps.get(1), cps.get(2), cps.get(3), cps.get(4), cps.get(5), cps.get(6), cps.get(7), cps.get(8), cps.get(9), cps.get(10), cps.get(11));
-		}
-		else if(s instanceof Ellipse2D)
-		{
-			s = new Ellipse2D.Double(
-					cps.get(0).x, cps.get(0).y, 
-					(cps.get(1).x - cps.get(0).x), (cps.get(1).y - cps.get(0).y));
-		}
-		return s;
-	}
-	
-	public Shape constructShape(DrawMode mode, Point [] curvePoints, ShapeStyling shapeStyling)
-	{
-		ArrayList<Shape> shapes = this.getShapesScaled();
-		Shape shape = null;
-		switch(mode)
-		{
-		case DrawMode.Line:
-			shape = new Line2D.Double(curvePoints[0], curvePoints[1]);
-			break;
-		case DrawMode.Curve:
-			shape = new CurveShape(curvePoints[0], curvePoints[2], curvePoints[3], curvePoints[1]);
-			break;
-		case DrawMode.ellipse:
-			shape = new Ellipse2D.Double(
-					curvePoints[0].x, curvePoints[0].y, 
-					(curvePoints[1].x - curvePoints[0].x), (curvePoints[1].y - curvePoints[0].y));
-			break;
-		case DrawMode.rectangle:
-			shape = new Rectangle2D.Double(
-					curvePoints[0].x, curvePoints[0].y, 
-					(curvePoints[1].x - curvePoints[0].x), (curvePoints[1].y - curvePoints[0].y));
-			break;
-		case DrawMode.rectangleCubic:
-			shape = new RectangleCubic(curvePoints[0], curvePoints[1], curvePoints[2], 
-					curvePoints[3], curvePoints[4], curvePoints[5], curvePoints[6], curvePoints[7], curvePoints[8], curvePoints[9], curvePoints[10], curvePoints[11]);
-			break;
-		case DrawMode.triangle:
-			shape = new Triangle(curvePoints[0], curvePoints[1], curvePoints[2]);
-			break;
-		case DrawMode.triangleCubic:
-			shape = new TriangleCubic(curvePoints[0], curvePoints[1], curvePoints[2], 
-					curvePoints[3], curvePoints[4], curvePoints[5], curvePoints[6], curvePoints[7], curvePoints[8]);
-			break;
-		}
-		
-		shapes.add(shape);
-		this.incrementNumShapes(1);
-		this.addShapeAndControlPointChangedListener(this.getNumShapes()-1, this.getDirectionsIndex()-1, dml);
-		this.setShapeStyling(this.getNumShapes()-1, shapeStyling);
-		this.getShapeCreatorEditPanel().generatePointEditor(this.getNumShapes()-1, curvePoints, mode, shapeStyling.getDrawColor());
-		
-		return shape;
-	}
-	
 	public enum Operation
 	{
 		Move	("-----------Move-----------"),
@@ -690,60 +571,6 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 		}
 	}
 	
-	public enum DrawMode//TODO
-	{
-		Line(Line2D.class.getName(), "Line", LINE_DIRECTIONS, 2),
-		Curve(CurveShape.class.getName(), "Curve", CURVE_DIRECTIONS, 4),
-		ellipse(Ellipse2D.class.getName(), "Elipse", ELLIPSE_DIRECTIONS, 2),
-		rectangle(Rectangle2D.class.getName(), "Rectangle", RECTANGLE_DIRECTIONS, 2),
-		triangle(Triangle.class.getName(), "Triangle", TRIANGLE_DIRECTIONS, 3),
-		triangleCubic(TriangleCubic.class.getName(), "Triangle Cubic", TRIANGLE_CUBIC_DIRECTIONS, 9),
-		rectangleCubic(RectangleCubic.class.getName(), "Rectangle Cubic", RECTANGLE_CUBIC_DIRECTIONS, 12);
-		
-		private String className;
-		private String modeText;
-		private String [] directions;
-		private int numberOfPoints;
-		
-		private DrawMode(String className, String modeText, String [] directions, int numberOfPoints)
-		{
-			this.className = className;
-			this.modeText = modeText;
-			this.directions = directions;
-			this.numberOfPoints = numberOfPoints;
-		}
-		
-		public static DrawMode getMatchingClassName(String className)
-		{
-			for(DrawMode dm : DrawMode.values())
-			{
-				if(dm.getClassName().equals(className))
-				{
-					return dm;
-				}
-			}
-			return null;
-		}
-		
-		public String getClassName()
-		{
-			return this.className;
-		}
-		
-		public String getModeText()
-		{
-			return this.modeText;
-		}
-		public String [] getDirections()
-		{
-			return this.directions;
-		}
-		public int getNumberOfPoints()
-		{
-			return this.numberOfPoints;
-		}
-	}
-
 	@Override
 	public void notifyStylingChanged(int shapeStyleIndex, ShapeStyling shapeStyling) 
 	{
