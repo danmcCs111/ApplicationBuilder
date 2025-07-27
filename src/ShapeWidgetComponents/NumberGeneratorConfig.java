@@ -1,7 +1,12 @@
 package ShapeWidgetComponents;
 
 import java.awt.Color;
+import java.awt.Point;
+import java.awt.Shape;
+import java.awt.geom.PathIterator;
+import java.util.ArrayList;
 
+import BezierCurveCalculations.AffineTransformRasterizer;
 import Properties.LoggingMessages;
 
 public class NumberGeneratorConfig 
@@ -13,17 +18,21 @@ public class NumberGeneratorConfig
 		startingNumber = 3,
 		fontSize = 18;
 	private Color fillColor = Color.black; 
+	ArrayList<Point> points;
+	AffineTransformRasterizer afs;
+	double it;
 	
-	public NumberGeneratorConfig(int rangeValLow, int rangeValHigh, int startingNumber, int fontSize, Color fillColor)
+	public NumberGeneratorConfig(Shape s, ShapeStyling ss, int rangeValLow, int rangeValHigh, int startingNumber, int fontSize, Color fillColor)
 	{
 		this.rangeValLow = rangeValLow;
 		this.rangeValHigh = rangeValHigh;
 		this.startingNumber = startingNumber;
 		this.fontSize = fontSize;
 		this.fillColor = fillColor;
+		generateNumberGraphics(s, ss);
 	}
 	
-	public NumberGeneratorConfig(String xmlAttributeString)
+	public NumberGeneratorConfig(Shape s, ShapeStyling ss, String xmlAttributeString)
 	{
 		String [] params = xmlAttributeString.split(",");
 		this.rangeValLow = Integer.parseInt(params[0].strip());
@@ -35,6 +44,7 @@ public class NumberGeneratorConfig
 				Integer.parseInt(params[5].strip()), 
 				Integer.parseInt(params[6].strip())
 		);
+		generateNumberGraphics(s, ss);
 	}
 	
 	public double getNumberOfSamples()
@@ -62,6 +72,35 @@ public class NumberGeneratorConfig
 	public Color getFillColor()
 	{
 		return this.fillColor;
+	}
+	
+	public ArrayList<Point> getPoints()
+	{
+		return this.points;
+	}
+	
+	public AffineTransformRasterizer getAffineTransformRasterizer()
+	{
+		return this.afs;
+	}
+	
+	public double getSampleSkipDivide()
+	{
+		return this.it;
+	}
+	
+	
+	public void generateNumberGraphics(Shape s, ShapeStyling ss)
+	{
+		PathIterator pi = ss.getPathIterator();
+		this.afs = ss.getAffineTransform();
+		points = new ArrayList<Point>();
+		points.addAll(afs.samplePoints(pi, s, (1.0/getNumberOfSamples())));
+		LoggingMessages.printOut("Number of Steps: " + afs.getNumberOfSteps() + " size " + points.size());
+		if(afs.getNumberOfSteps() == 0)//TODO bug?
+			return;
+		it = ((getRangeValHigh() - (getRangeValLow()-1)) / afs.getNumberOfSteps());
+		LoggingMessages.printOut("Sample skip divide: " + it);
 	}
 	
 	@Override

@@ -38,7 +38,7 @@ public class OpenShapeActionListener implements ActionListener
 				shapeCreator.addControlPoint(p);
 			ShapeStyling ss = se.getShapeStyling(shapeCreator.getNumShapes(), shapeCreator);
 			Shape s = shapeCreator.constructShape(dm, (Point []) se.getPoints().toArray(new Point [] {}), ss);
-			ss.setNumberGeneratorConfig(se.getNumberGeneratorConfig(), s);
+//			ss.setNumberGeneratorConfig(se.getNumberGeneratorConfig(), s);
 		}
 	}
 }

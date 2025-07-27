@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 
 import Properties.LoggingMessages;
+import ShapeWidgetComponents.NumberGeneratorConfig;
 import ShapeWidgetComponents.ShapeCreator;
 import ShapeWidgetComponents.ShapeCreator.Operation;
 import ShapeWidgetComponents.ShapeDrawingCollection;
@@ -215,6 +216,8 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 			
 			Shape newShape = sc.recalculateShape(s, newPoints);
 			sc.getShapes().set(index, newShape);
+			ShapeStyling ss = sc.getShapeStyling(index);
+			ss.updateNumberGeneratorConfig(newShape);
 			
 		}
 		
@@ -251,6 +254,8 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 			
 			Shape newShape = sc.recalculateShape(s, newPoints);
 			sc.getShapes().set(index, newShape);
+			ShapeStyling ss = sc.getShapeStyling(index);
+			ss.updateNumberGeneratorConfig(newShape);
 		}
 		
 		Shape selRect = sc.getSelectionRectangle();
@@ -341,6 +346,8 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 		Shape s = sc.getShapes().get(shapeIndex);
 		Shape newShape = sc.recalculateShape(s, newPoints);
 		sc.getShapes().set(shapeIndex, newShape);
+		ShapeStyling ss = sc.getShapeStyling(shapeIndex);
+		ss.updateNumberGeneratorConfig(newShape);
 		
 		sc.drawAll();
 	}

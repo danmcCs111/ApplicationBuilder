@@ -69,7 +69,10 @@ public class NumberGeneratorConfigDialog extends JDialog
 	{
 		if(ngConfig == null)
 		{
-			this.ngConfig = new NumberGeneratorConfig(1, 12, 3, 18, Color.black);
+			sc.getShapeStyling(index).updateNumberGeneratorConfig(sc.getShapes().get(index));
+			this.ngConfig = new NumberGeneratorConfig(
+					sc.getShapes().get(index), sc.getShapeStyling(index),
+					1, 12, 3, 18, Color.black);
 		}
 		else
 		{
@@ -165,8 +168,11 @@ public class NumberGeneratorConfigDialog extends JDialog
 			startingNumber = getVal(startingNumberSpinner),
 			fontSize = getVal(fontSizeSpinner);
 		Color selectColor = (Color)fillColorEditor.getComponentValueObj();
-		NumberGeneratorConfig ngConfig = new NumberGeneratorConfig(rangeValLow, rangeValHigh, startingNumber, fontSize, selectColor);
-		ss.setNumberGeneratorConfig(ngConfig, s);
+		ss.updateNumberGeneratorConfig(s);
+		NumberGeneratorConfig ngConfig = new NumberGeneratorConfig(
+				s, ss,
+				rangeValLow, rangeValHigh, startingNumber, fontSize, selectColor);
+		ss.setNumberGeneratorConfig(ngConfig);
 		
 		this.dispose();
 	}
@@ -189,7 +195,7 @@ public class NumberGeneratorConfigDialog extends JDialog
 	private void removeAction()
 	{
 		ShapeStyling ss = sc.getShapeStylings().get(index);
-		ss.setNumberGeneratorConfig(null, null);
+		ss.setNumberGeneratorConfig(null);
 		this.dispose();
 	}
 	

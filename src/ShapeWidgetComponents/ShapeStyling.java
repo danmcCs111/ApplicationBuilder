@@ -41,23 +41,13 @@ public class ShapeStyling
 		return this.afs;
 	}
 	
-	public void setNumberGeneratorConfig(NumberGeneratorConfig numberGeneratorConfig, Shape s)
+	public void setNumberGeneratorConfig(NumberGeneratorConfig ngConfig)
 	{
-		this.numberGeneratorConfig = numberGeneratorConfig;
-		if(s == null || this.numberGeneratorConfig == null)
-		{
-			this.afs = null;
-			this.pi = null;
-		}
-		else
-		{
-			this.afs = new AffineTransformRasterizer();
-			this.pi = s.getPathIterator(afs);
-		}
+		this.numberGeneratorConfig = ngConfig;
 		notifyChange();
 	}
 	
-	public void updateNumberGeneratorConfig( Shape s)
+	public void updateNumberGeneratorConfig(Shape s)
 	{
 		if(s == null)
 		{
@@ -68,6 +58,10 @@ public class ShapeStyling
 		{
 			this.afs = new AffineTransformRasterizer();
 			this.pi = s.getPathIterator(afs);
+			if(numberGeneratorConfig != null)
+			{
+				numberGeneratorConfig.generateNumberGraphics(s, this);
+			}
 		}
 	}
 	

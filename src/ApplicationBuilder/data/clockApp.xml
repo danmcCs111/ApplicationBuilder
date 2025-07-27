@@ -1,0 +1,6 @@
+<Build>
+	<JFrame extendedSetupTaskbar="/src/ApplicationBuilder/weather_sm.png" setLayout="java.awt.BorderLayout" setMinimumSize="200, 200" setResizable="False" setTitle="Clock App" setDefaultCloseOperation="3" >
+		<ClockApp extendedLayoutApplyParent="Center" >
+		</ClockApp>
+	</JFrame>
+</Build>

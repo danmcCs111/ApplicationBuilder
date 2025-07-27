@@ -24,6 +24,7 @@ import ObjectTypeConvertersImpl.ClassAndSetters;
 import ObjectTypeConvertersImpl.ClassTextAdapter;
 import Params.XmlToWidgetGenerator;
 import Properties.LoggingMessages;
+import ShapeWidgetComponents.ClockApp;
 import ShapeWidgetComponents.ShapeCreator;
 import ShapeWidgetComponents.ShapeCreatorEditPanel;
 import ShapeWidgetComponents.ShapeCreatorToolBarPanel;
@@ -83,6 +84,7 @@ public class WidgetAttributes
 		COMPONENT_CLASSES.add(ShapeCreator.class);
 		COMPONENT_CLASSES.add(ShapeCreatorToolBarPanel.class);
 		COMPONENT_CLASSES.add(ShapeCreatorEditPanel.class);
+		COMPONENT_CLASSES.add(ClockApp.class);
 		COMPONENT_CLASSES.add(SendHttpRequestPanel.class);
 		COMPONENT_CLASSES.add(OutputWeatherResultsTextArea.class);
 		COMPONENT_CLASSES.add(ApplicationLayoutEditor.class);
@@ -155,6 +157,9 @@ public class WidgetAttributes
 		EXTENDED_METHODS.put(ShapeCreatorEditPanel.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetViewportView.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
+		});
+		EXTENDED_METHODS.put(ClockApp.class, new String [] {
+				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(DatabaseResponseNodeTextArea.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),

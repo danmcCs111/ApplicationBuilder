@@ -8,7 +8,6 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.Stroke;
-import java.awt.geom.PathIterator;
 import java.util.ArrayList;
 
 import BezierCurveCalculations.AffineTransformRasterizer;
@@ -26,10 +25,14 @@ public interface ShapeDrawingCollectionGraphics
 	
 	public static void drawAll(Container drawPanel, ShapeDrawingCollection sdc, Shape selectionRect)
 	{
+		drawAll(drawPanel, sdc, selectionRect, true);
+	}
+	public static void drawAll(Container drawPanel, ShapeDrawingCollection sdc, Shape selectionRect, boolean drawControlPoints)
+	{
 		clearAll(drawPanel);
 		drawShapes(drawPanel, sdc);
 		if(selectionRect != null) drawShape(drawPanel, selectionRect, Color.gray);
-		drawControlPoints(drawPanel, sdc);
+		if(drawControlPoints) drawControlPoints(drawPanel, sdc);
 		drawGenerators(drawPanel, sdc);
 	}
 	
@@ -115,32 +118,27 @@ public interface ShapeDrawingCollectionGraphics
 	public static void drawShapeStylingAlgorithm(Container drawPanel, Shape s, ShapeStyling ss)
 	{
 		NumberGeneratorConfig ngConfig = ss.getNumberGeneratorConfig();
+		if(ngConfig == null)
+			return;
 		Color selectColor = ngConfig.getFillColor();
-		
 		Font testFont = new Font("Serif", Font.BOLD, ngConfig.getFontSize()); //TODO
-		PathIterator pi = ss.getPathIterator();
-		AffineTransformRasterizer afs = ss.getAffineTransform();
+		AffineTransformRasterizer afs = ngConfig.getAffineTransformRasterizer();
+		ArrayList<Point> points = ngConfig.getPoints();
+		double it = ngConfig.getSampleSkipDivide();
 		
-		LoggingMessages.printOut("Number of Steps: " + afs.getNumberOfSteps());
-		if(afs == null || pi == null)
+		if(afs == null)
 		{
 			return;
 		}
-		
 		if(selectColor == null)
 		{
 			selectColor = Color.black;
 		}
 		
-		ArrayList<Point> points = new ArrayList<Point>();
-		points.addAll(afs.samplePoints(pi, s, (1.0/ngConfig.getNumberOfSamples())));
-		LoggingMessages.printOut("Number of Steps: " + afs.getNumberOfSteps() + " size " + points.size());
-		if(afs.getNumberOfSteps() == 0)//TODO bug?
-			return;
-		double it = ((ngConfig.getRangeValHigh() - (ngConfig.getRangeValLow()-1)) / afs.getNumberOfSteps());
+		LoggingMessages.printOut("Number of Steps: " + afs.getNumberOfSteps());
 		LoggingMessages.printOut(it+"");
+		
 		ShapePositionOnPoints.drawNumberSequence(points, (Graphics2D)drawPanel.getGraphics(), testFont, selectColor,
 				(ngConfig.getNumberOfSamples()/it), ngConfig.getRangeValLow(), ngConfig.getRangeValHigh(), ngConfig.getStartingNumber());
-		
 	}
 }

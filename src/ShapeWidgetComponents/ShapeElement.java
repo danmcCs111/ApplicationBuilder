@@ -28,12 +28,15 @@ public class ShapeElement
 	private int strokeWidth = -1;
 	private ArrayList<Point> controlPoints = new ArrayList<Point>();
 	private NumberGeneratorConfig ngConfig;
+	private String ngConfigString;
 	private Shape shape;
+	private int count;
 	
 	public ShapeElement(String nodeName, int count, ArrayList<String> attributes, String parentNode)
 	{
 		this.nodeName = nodeName;
 		this.nodeId = nodeName + ID_SPLITTER + count;
+		this.count = count;
 		this.attributes = attributes;
 		this.parentNode = parentNode;
 		generateNodeClassObject();
@@ -81,6 +84,13 @@ public class ShapeElement
 		ShapeStyling ss = new ShapeStyling(indexIdToApply, colorDraw, colorFill, actionListener);
 		ss.createStrokedShape(isCreateStroke);
 		ss.setStrokeWidth(strokeWidth);
+//		LoggingMessages.printOut(ngConfigString);
+		if(ngConfigString != null && !ngConfigString.isBlank())
+		{
+			ss.updateNumberGeneratorConfig(getShape(ss));
+			this.ngConfig = new NumberGeneratorConfig(getShape(ss), ss, ngConfigString);
+			ss.setNumberGeneratorConfig(ngConfig);
+		}
 		return ss;
 	}
 	
@@ -135,8 +145,9 @@ public class ShapeElement
 			}
 			else if(s.startsWith("NumberGeneratorConfig"))
 			{
-				String ngConfigString = s.split("=")[1];
-				this.ngConfig = new NumberGeneratorConfig(ngConfigString);
+				ngConfigString = s.split("=")[1];
+//				getShapeStyling(count, null);
+//				this.ngConfig = new NumberGeneratorConfig(ngConfigString);
 			}
 		}
 	}
