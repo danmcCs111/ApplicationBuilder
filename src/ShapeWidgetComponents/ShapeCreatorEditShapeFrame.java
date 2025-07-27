@@ -28,7 +28,7 @@ public class ShapeCreatorEditShapeFrame extends JFrame
 {
 	private static final long serialVersionUID = 1L;
 	
-	private static final Dimension EDITOR_FRAME_SIZE = new Dimension(650,150);
+	private static final Dimension EDITOR_FRAME_SIZE = new Dimension(750,150);
 	
 	private ShapeCreator sc;
 	private String title = "";

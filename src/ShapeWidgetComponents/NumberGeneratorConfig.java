@@ -89,7 +89,6 @@ public class NumberGeneratorConfig
 		return this.it;
 	}
 	
-	
 	public void generateNumberGraphics(Shape s, ShapeStyling ss)
 	{
 		PathIterator pi = ss.getPathIterator();
