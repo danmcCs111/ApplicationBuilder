@@ -91,7 +91,7 @@ public class ScaleDialog extends JDialog
 	
 	private void applyAction()
 	{
-		ArrayList<Point> sPoints = sc.getControlPointsScaled().get(index);
+		ArrayList<Point> sPoints = sc.getControlPointsForShapes().get(index);
 		
 		double scaleFactor = scalingSlider.getValue();
 		scaleFactor /= 100;//adjust to percentage.
@@ -99,11 +99,11 @@ public class ScaleDialog extends JDialog
 		
 		LoggingMessages.printOut("Entered scale factor: " + scaleFactor);
 		
-		ArrayList<Point> controlPoints = ShapeUtils.scaleControlPoints(sc.getShapesScaled().get(index), sPoints, scaleFactor);
-		Shape s = ShapeUtils.recalculateShape(sc.getShapesScaled().get(index), controlPoints);
+		ArrayList<Point> controlPoints = ShapeUtils.scaleControlPoints(sc.getShapes().get(index), sPoints, scaleFactor);
+		Shape s = ShapeUtils.recalculateShape(sc.getShapes().get(index), controlPoints);
 		
-		sc.getShapesScaled().set(index, s);
-		sc.getControlPointsScaled().set(index, controlPoints);
+		sc.getShapes().set(index, s);
+		sc.getControlPointsForShapes().set(index, controlPoints);
 		sc.notifyShapeAndControlPointsChangedListener(index);
 		
 		this.dispose();

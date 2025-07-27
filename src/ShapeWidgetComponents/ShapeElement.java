@@ -2,10 +2,13 @@ package ShapeWidgetComponents;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.awt.Shape;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import Properties.LoggingMessages;
 import ShapeEditorListeners.ShapeStylingActionListener;
+import ShapeWidgetComponents.ShapeUtils.DrawMode;
 
 public class ShapeElement 
 {
@@ -25,6 +28,7 @@ public class ShapeElement
 	private int strokeWidth = -1;
 	private ArrayList<Point> controlPoints = new ArrayList<Point>();
 	private NumberGeneratorConfig ngConfig;
+	private Shape shape;
 	
 	public ShapeElement(String nodeName, int count, ArrayList<String> attributes, String parentNode)
 	{
@@ -34,6 +38,16 @@ public class ShapeElement
 		this.parentNode = parentNode;
 		generateNodeClassObject();
 		parseAttributes();
+	}
+	
+	public Shape getShape(ShapeStyling ss)
+	{
+		if(shape == null)
+		{
+			DrawMode dm = DrawMode.getMatchingClassName(getShapeClassName());
+			shape = ShapeUtils.constructShape(dm, controlPoints.toArray(new Point[]{}), ss);
+		}
+		return shape;
 	}
 	
 	public boolean isCreateStroke()
@@ -61,10 +75,10 @@ public class ShapeElement
 		return this.ngConfig;
 	}
 	
-	public ShapeStyling getShapeStyling(int index, ShapeStylingActionListener actionListener)
+	public ShapeStyling getShapeStyling(int indexIdToApply, ShapeStylingActionListener actionListener)
 	{
 		LoggingMessages.printOut(colorDraw + "");
-		ShapeStyling ss = new ShapeStyling(index, colorDraw, colorFill, actionListener);
+		ShapeStyling ss = new ShapeStyling(indexIdToApply, colorDraw, colorFill, actionListener);
 		ss.createStrokedShape(isCreateStroke);
 		ss.setStrokeWidth(strokeWidth);
 		return ss;

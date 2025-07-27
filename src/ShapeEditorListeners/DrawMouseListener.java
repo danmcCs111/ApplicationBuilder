@@ -75,7 +75,7 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 	public void mousePressed(MouseEvent e) 
 	{
 		int directionsIndex = sc.getDirectionsIndex();
-		ArrayList<ArrayList<Point>> listControlPointsScaled = sc.getControlPointsScaled();
+		ArrayList<ArrayList<Point>> listControlPointsScaled = sc.getControlPointsForShapes();
 		Point p = sc.getRelativePoint(e);
 		sc.setMousePressed(true);
 		sc.setControlPointSelected(false);
@@ -123,8 +123,8 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 		sc.setMousePressed(false);
 		int controlPointShapeSelectedIndex = sc.getControlPointShapeSelectedIndex();
 		int controlPointSelectedIndex = sc.getControlPointSelectedIndex();
-		ArrayList<Shape> shapesScaled = sc.getShapesScaled();
-		ArrayList<ArrayList<Point>> listControlPointsScaled = sc.getControlPointsScaled();
+		ArrayList<Shape> shapesScaled = sc.getShapes();
+		ArrayList<ArrayList<Point>> listControlPointsScaled = sc.getControlPointsForShapes();
 		
 		if(sc.getOperation() == Operation.Select)
 		{
@@ -199,8 +199,8 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 	{
 		for(int index : sc.getShapeSelectedIndexes())
 		{
-			ArrayList<Point> shapesControlPoints = sc.getControlPointsScaled().get(index);
-			Shape s = sc.getShapesScaled().get(index);
+			ArrayList<Point> shapesControlPoints = sc.getControlPointsForShapes().get(index);
+			Shape s = sc.getShapes().get(index);
 			ArrayList<Point> newPoints = new ArrayList<Point>();
 			for(Point p : shapesControlPoints)
 			{
@@ -208,12 +208,12 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 			}
 			for(int i = 0; i < newPoints.size(); i++)
 			{
-				sc.getControlPointsScaled().get(index).set(i, newPoints.get(i));
+				sc.getControlPointsForShapes().get(index).set(i, newPoints.get(i));
 				sc.notifyShapeAndControlPointChangedListener(index, i, this);
 			}
 			
 			Shape newShape = sc.recalculateShape(s, newPoints);
-			sc.getShapesScaled().set(index, newShape);
+			sc.getShapes().set(index, newShape);
 			
 		}
 		
@@ -235,8 +235,8 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 	{
 		for(int index : sc.getShapeSelectedIndexes())
 		{
-			ArrayList<Point> shapesControlPoints = sc.getControlPointsScaled().get(index);
-			Shape s = sc.getShapesScaled().get(index);
+			ArrayList<Point> shapesControlPoints = sc.getControlPointsForShapes().get(index);
+			Shape s = sc.getShapes().get(index);
 			ArrayList<Point> newPoints = new ArrayList<Point>();
 			for(Point p : shapesControlPoints)
 			{
@@ -244,12 +244,12 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 			}
 			for(int i = 0; i < newPoints.size(); i++)
 			{
-				sc.getControlPointsScaled().get(index).set(i, newPoints.get(i));
+				sc.getControlPointsForShapes().get(index).set(i, newPoints.get(i));
 				sc.notifyShapeAndControlPointChangedListener(index, i, this);
 			}
 			
 			Shape newShape = sc.recalculateShape(s, newPoints);
-			sc.getShapesScaled().set(index, newShape);
+			sc.getShapes().set(index, newShape);
 		}
 		
 		Shape selRect = sc.getSelectionRectangle();
@@ -270,7 +270,7 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 	{
 		ArrayList<Shape> selectedShapes = new ArrayList<Shape>();
 		int index = 0;
-		for(Shape s : sc.getShapesScaled())
+		for(Shape s : sc.getShapes())
 		{
 			if(bounds.contains(s.getBounds()))
 			{
@@ -336,10 +336,10 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 	@Override
 	public void controlPointChangedNotification(int shapeIndex, int controlPointIndex) 
 	{
-		ArrayList<Point> newPoints = sc.getControlPointsScaled().get(shapeIndex);
-		Shape s = sc.getShapesScaled().get(shapeIndex);
+		ArrayList<Point> newPoints = sc.getControlPointsForShapes().get(shapeIndex);
+		Shape s = sc.getShapes().get(shapeIndex);
 		Shape newShape = sc.recalculateShape(s, newPoints);
-		sc.getShapesScaled().set(shapeIndex, newShape);
+		sc.getShapes().set(shapeIndex, newShape);
 		
 		sc.drawAll();
 	}

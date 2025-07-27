@@ -31,11 +31,11 @@ public class ShapePointChangeListener implements ChangeListener, ControlPointCha
 	public void stateChanged(ChangeEvent e) 
 	{
 		Point newPoint = (Point) pe.getComponentValueObj();
-		ArrayList<Point> newPoints = sc.getControlPointsScaled().get(shapeIndex);
+		ArrayList<Point> newPoints = sc.getControlPointsForShapes().get(shapeIndex);
 		newPoints.set(controlPointIndex, newPoint);
-		Shape s = sc.getShapesScaled().get(shapeIndex);
+		Shape s = sc.getShapes().get(shapeIndex);
 		Shape newShape = sc.recalculateShape(s, newPoints);
-		sc.getShapesScaled().set(shapeIndex, newShape);
+		sc.getShapes().set(shapeIndex, newShape);
 		
 		sc.notifyShapeAndControlPointChangedListener(shapeIndex, controlPointIndex, this);
 		
@@ -45,7 +45,7 @@ public class ShapePointChangeListener implements ChangeListener, ControlPointCha
 	@Override
 	public void controlPointChangedNotification(int shapeIndex, int controlPointIndex) 
 	{
-		Point newPoint = sc.getControlPointsScaled().get(shapeIndex).get(controlPointIndex);
+		Point newPoint = sc.getControlPointsForShapes().get(shapeIndex).get(controlPointIndex);
 		this.pe.setComponentValue(newPoint);
 	}
 

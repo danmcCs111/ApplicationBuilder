@@ -44,12 +44,20 @@ public class ShapeImportExport
 	ShapeElement shapeElement;
 	private int counter = 0; 
 	
-	public ShapeImportExport(ArrayList<ArrayList<Point>> points, ArrayList<ShapeStyling> shapeStyling, ArrayList<Shape> shape, HashMap<Integer, ArrayList<Integer>> paths)
+	public ShapeImportExport(ArrayList<ArrayList<Point>> points, 
+			ArrayList<ShapeStyling> shapeStyling, 
+			ArrayList<Shape> shape, 
+			HashMap<Integer, ArrayList<Integer>> paths)
 	{
 		this.points = points;
 		this.shapeStyling = shapeStyling;
 		this.shape = shape;
 		this.paths = paths;
+	}
+	
+	public ShapeImportExport()
+	{
+		
 	}
 	
 	private String toXml()
@@ -130,6 +138,16 @@ public class ShapeImportExport
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public ArrayList<ShapeElement> openXml(File f)
+	{
+		readXml(f.getAbsolutePath());
+		for(ShapeElement se : shapeElements)
+		{
+			LoggingMessages.printOut(se.toString());
+		}
+		return shapeElements;
 	}
 	
 	public ArrayList<ShapeElement> openXml(Component parent)

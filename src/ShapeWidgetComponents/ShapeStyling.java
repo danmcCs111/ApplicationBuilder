@@ -140,5 +140,5 @@ public class ShapeStyling
 		this.fillColor = c;
 		notifyChange();
 	}
-
+	
 }

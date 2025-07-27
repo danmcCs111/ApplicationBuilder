@@ -39,6 +39,8 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 		controlPointSelectedIndex = -1,
 		controlPointShapeSelectedIndex = -1,
 		numShapes = 0;
+	private ShapeDrawingCollection sdc;
+	
 	private ArrayList<Integer> shapeSelectedIndexes = new ArrayList<Integer>();
 	private HashMap<Integer, HashMap<Integer, ArrayList<ControlPointChangedListener>>> shapeAndControlPointChangedListener = 
 			new HashMap<Integer, HashMap<Integer, ArrayList<ControlPointChangedListener>>>();
@@ -49,17 +51,12 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 		mouseDragStartPoint,
 		mouseDragLastPoint;
 	private Point [] controlPoints;
-	private ArrayList<ArrayList<Point>> 
-		listControlPointsScaled = new ArrayList<ArrayList<Point>>();
-	private ArrayList<Shape> 
-		shapesScaled = new ArrayList<Shape>();
 	private Rectangle2D selectTool;
 	private Rectangle2D selectionRect;
 	
 	private JPanel 
 		draw;
 	private ShapeCreatorEditPanel shapeCreatorEditPanel;
-	private ArrayList<ShapeStyling> shapeStyling = new ArrayList<ShapeStyling>();
 	private DrawMouseListener dml;
 	
 	private DrawMode mode;
@@ -74,7 +71,7 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 	
 	public ShapeCreator()
 	{
-		
+		sdc = new ShapeDrawingCollection();//TODO
 	}
 	
 	public void buildWidgets()
@@ -90,20 +87,20 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 	public void drawAll()
 	{
 		clearAll();
-		drawShapes(shapesScaled, shapeStyling);
+		drawShapes(this.getShapes(), this.getShapeStylings());
 		if(selectionRect != null) drawShape(selectionRect, Color.gray);
-		drawControlPoints(listControlPointsScaled);
-		drawGenerators(shapesScaled, shapeStyling);
+		drawControlPoints(this.getControlPointsForShapes());
+		drawGenerators(this.getShapes(), this.getShapeStylings());
 	}
 	
 	
 	public void addControlPoint(Point p)
 	{
-		if(listControlPointsScaled.size() <= numShapes)
+		if(this.getControlPointsForShapes().size() <= numShapes)
 		{
-			listControlPointsScaled.add(new ArrayList<Point>());
+			this.getControlPointsForShapes().add(new ArrayList<Point>());
 		}
-		listControlPointsScaled.get(numShapes).add(p);
+		this.getControlPointsForShapes().get(numShapes).add(p);
 		drawControlPoint(p);
 	}
 	
@@ -238,7 +235,7 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 	}
 	public void notifyShapeAndControlPointsChangedListener(int indexShape, ControlPointChangedListener ignorechangedListener)
 	{
-		for(int i = 0; i < listControlPointsScaled.get(indexShape).size(); i++)
+		for(int i = 0; i < getControlPointsForShapes().get(indexShape).size(); i++)
 		{
 			notifyShapeAndControlPointChangedListener(indexShape, i, ignorechangedListener);
 		}
@@ -291,7 +288,7 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 	{
 		Shape shape = ShapeUtils.constructShape(mode, curvePoints, shapeStyling);
 		
-		shapesScaled.add(shape);
+		sdc.getShapes().add(shape);
 		this.incrementNumShapes(1);
 		this.addShapeAndControlPointChangedListener(this.getNumShapes()-1, this.getDirectionsIndex()-1, dml);
 		this.setShapeStyling(this.getNumShapes()-1, shapeStyling);
@@ -330,23 +327,23 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 	
 	public ArrayList<ShapeStyling> getShapeStylings()
 	{
-		return this.shapeStyling;
+		return sdc.getShapeStylings();
 	}
 	
 	public ShapeStyling getShapeStyling(int shapeIndex)
 	{
-		return this.shapeStyling.get(shapeIndex);
+		return this.getShapeStylings().get(shapeIndex);
 	}
 	
 	public void setShapeStyling(int shapeIndex, ShapeStyling shapeStyling)
 	{
-		if(shapeIndex < this.shapeStyling.size())
+		if(shapeIndex < this.getShapeStylings().size())
 		{
-			this.shapeStyling.set(shapeIndex, shapeStyling);
+			this.getShapeStylings().set(shapeIndex, shapeStyling);
 		}
 		else
 		{
-			this.shapeStyling.add(shapeStyling);
+			this.getShapeStylings().add(shapeStyling);
 		}
 	}
 	
@@ -408,14 +405,12 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 	public void setMode(DrawMode mode)
 	{
 		this.mode = mode;
-//		this.modeSelections.setSelectedItem(mode);
 		this.setNumberOfPoints(mode.getNumberOfPoints());
 	}
 	
 	public void setOperation(Operation operation)
 	{
 		this.operation = operation;
-//		operationLabel.setText(this.operation.getTitleText());
 	}
 	
 	public Rectangle2D getSelectionRectangle()
@@ -431,25 +426,24 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 		}
 	}
 	
-	public ArrayList<Shape> getShapesScaled()
+	public ArrayList<Shape> getShapes()
 	{
-		return this.shapesScaled;
+		return this.sdc.getShapes();
 	}
 	
-	public void setShapesScaled(ArrayList<Shape> shapesRepl)
+	public void setShapes(ArrayList<Shape> shapesRepl)
 	{
-		this.shapesScaled = shapesRepl;
+		this.sdc.setShapes(shapesRepl);
 	}
 	
-	public ArrayList<ArrayList<Point>> getControlPointsScaled()
+	public ArrayList<ArrayList<Point>> getControlPointsForShapes()
 	{
-		return this.listControlPointsScaled;
+		return this.sdc.getShapeControlPoints();
 	}
 	
-	public void setControlPointsScaled(ArrayList<ArrayList<Point>> listControlPointsScaledRepl)
+	public void setControlPointsForShapes(ArrayList<ArrayList<Point>> listControlPointsScaledRepl)
 	{
-		this.listControlPointsScaled = listControlPointsScaledRepl;
-		//TODO
+		this.sdc.setShapeControlPoints(listControlPointsScaledRepl);
 	}
 	
 	public int getDirectionsIndex()

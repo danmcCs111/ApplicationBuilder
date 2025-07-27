@@ -24,7 +24,6 @@ import WidgetUtility.WidgetBuildController;
 public class ShapeCreatorEditPanel extends JPanel implements PostWidgetBuildProcessing 
 {
 	private static final long serialVersionUID = 1L;
-
 	
 	private static final String SHAPE_TITLE_SUFFIX = "#";
 	

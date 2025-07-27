@@ -22,9 +22,9 @@ public class SaveShapeActionListener implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		ArrayList <ArrayList <Point>>  listControlPointsScaled = shapeCreator.getControlPointsScaled();
+		ArrayList <ArrayList <Point>>  listControlPointsScaled = shapeCreator.getControlPointsForShapes();
 		ArrayList <ShapeStyling> shapeStyling = shapeCreator.getShapeStylings();
-		ArrayList<Shape> shapesScaled = shapeCreator.getShapesScaled();
+		ArrayList<Shape> shapesScaled = shapeCreator.getShapes();
 		ShapeImportExport sie = new ShapeImportExport(listControlPointsScaled, shapeStyling, shapesScaled, null);
 		sie.performSave(shapeCreator);
 	}

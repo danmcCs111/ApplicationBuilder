@@ -158,7 +158,7 @@ public class NumberGeneratorConfigDialog extends JDialog
 	private void saveAction()
 	{
 		ShapeStyling ss = sc.getShapeStylings().get(index);
-		Shape s = sc.getShapesScaled().get(index);
+		Shape s = sc.getShapes().get(index);
 		int 
 			rangeValLow = getVal(range1Spinner),
 			rangeValHigh = getVal(range2Spinner),
