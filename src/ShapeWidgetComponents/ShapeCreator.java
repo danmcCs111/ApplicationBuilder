@@ -1,26 +1,16 @@
 package ShapeWidgetComponents;
 
-import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.Shape;
-import java.awt.Stroke;
 import java.awt.event.MouseEvent;
-import java.awt.geom.PathIterator;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.JPanel;
 
-import BezierCurveCalculations.AffineTransformRasterizer;
-import BezierCurveCalculations.ShapePositionOnPoints;
-import Properties.LoggingMessages;
 import ShapeEditorListeners.ControlPointChangedListener;
 import ShapeEditorListeners.DrawMouseListener;
 import ShapeEditorListeners.ShapeDirectionsNotification;
@@ -31,8 +21,6 @@ import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 public class ShapeCreator extends JPanel implements ShapeStylingActionListener, PostWidgetBuildProcessing
 {
 	private static final long serialVersionUID = 3005L;
-	
-	public static Dimension CONTROL_POINT_PIXEL_SIZE = new Dimension(6,6);
 	
 	private int 
 		directionsIndex = 0, 
@@ -62,8 +50,6 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 	private DrawMode mode;
 	
 	private Operation operation = Operation.Select;
-	private BasicStroke 
-		defaultStroke = new BasicStroke(1);
 	
 	private Color colorPallette;
 	
@@ -84,149 +70,46 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 		this.add(draw, BorderLayout.CENTER);
 	}
 	
-	public void drawAll()
+	public void clearAll()
 	{
-		clearAll();
-		drawShapes(this.getShapes(), this.getShapeStylings());
-		if(selectionRect != null) drawShape(selectionRect, Color.gray);
-		drawControlPoints(this.getControlPointsForShapes());
-		drawGenerators(this.getShapes(), this.getShapeStylings());
+		ShapeDrawingCollectionGraphics.clearAll(draw);
 	}
 	
-	
-	public void addControlPoint(Point p)
+	public void drawAll()
 	{
-		if(this.getControlPointsForShapes().size() <= numShapes)
-		{
-			this.getControlPointsForShapes().add(new ArrayList<Point>());
-		}
-		this.getControlPointsForShapes().get(numShapes).add(p);
-		drawControlPoint(p);
+		ShapeDrawingCollectionGraphics.drawAll(draw, sdc, selectionRect);
 	}
 	
 	public void drawGenerators(ArrayList<Shape> shapes, ArrayList<ShapeStyling> shapeStylings)
 	{
-		int count = 0;
-		for(Shape s : shapes)
-		{
-			ShapeStyling ss = shapeStylings.get(count);
-			if(ss.getNumberGeneratorConfig() != null)
-			{
-				ss.updateNumberGeneratorConfig(s);
-				drawShapeStylingAlgorithm(s, ss);
-			}
-			count++;
-		}
+		ShapeDrawingCollectionGraphics.drawGenerators(draw, sdc);
 	}
 	
 	public void drawShapes(ArrayList<Shape> shapes, ArrayList<ShapeStyling> shapeStylings)
 	{
-		int count = 0;
-		for(Shape s : shapes)
-		{
-			drawShape(s, shapeStylings.get(count));
-			count++;
-		}
-	}
-	public void drawShapes(ArrayList<Shape> shapes)
-	{
-		for(Shape s : shapes)
-		{
-			drawShape(s, Color.gray);
-		}
+		ShapeDrawingCollectionGraphics.drawShapes(draw, sdc);
 	}
 	public void drawShape(Shape shape, Color c)
 	{
-		Graphics2D g2d = (Graphics2D)draw.getGraphics();
-		if(g2d == null)
-			return;
-		g2d.setColor(c);
-		g2d.draw(shape);
+		ShapeDrawingCollectionGraphics.drawShape(draw, shape, c);
 	}
 	public void drawShape(Shape shape, ShapeStyling shapeStyling)
 	{
-		Graphics2D g2d = (Graphics2D)draw.getGraphics();
-		if(g2d == null)
-			return;
-		Color c = shapeStyling.getDrawColor(); 
-		Color fillColor = shapeStyling.getFillColor();
-		Stroke stroke = shapeStyling.getStroke();
-		
-		if(stroke != null && !g2d.getStroke().equals(stroke) && shapeStyling.isCreateStrokedShape())
-		{
-			g2d.setStroke(stroke);
-			shape = g2d.getStroke().createStrokedShape(shape);
-		}
-		else {
-			g2d.setStroke(defaultStroke);
-		}
-		g2d.setColor(c);
-		g2d.draw(shape);
-		if(fillColor != null)
-		{
-			g2d.setColor(fillColor);
-			g2d.fill(shape);
-		}
+		ShapeDrawingCollectionGraphics.drawShape(draw, shape, shapeStyling);
 		
 	}
 	protected void drawControlPoint(Point p)
 	{
-		Graphics2D g2d = (Graphics2D)draw.getGraphics();
-		if(g2d == null)
-			return;
-		Rectangle r = new Rectangle(p);
-		r.setSize(CONTROL_POINT_PIXEL_SIZE.width, CONTROL_POINT_PIXEL_SIZE.height);
-		g2d.setColor(Color.black);
-		g2d.draw(r);
+		ShapeDrawingCollectionGraphics.drawControlPoint(draw, p);
 	}
 	protected void drawControlPoints(ArrayList<ArrayList<Point>> listOfControlPoints)
 	{
-		for(ArrayList<Point> controlPoints : listOfControlPoints)
-		{
-			for(Point p : controlPoints)
-			{
-				drawControlPoint(p);
-			}
-		}
-	}
-	
-	public void clearAll()
-	{
-		Graphics2D g2d = (Graphics2D) draw.getGraphics();
-		if(g2d != null)
-			draw.paint(g2d);
+		ShapeDrawingCollectionGraphics.drawControlPoints(draw, sdc);
 	}
 	
 	public void drawShapeStylingAlgorithm(Shape s, ShapeStyling ss)
 	{
-		NumberGeneratorConfig ngConfig = ss.getNumberGeneratorConfig();
-		Color selectColor = ngConfig.getFillColor();
-		
-		Font testFont = new Font("Serif", Font.BOLD, ngConfig.getFontSize()); //TODO
-		PathIterator pi = ss.getPathIterator();
-		AffineTransformRasterizer afs = ss.getAffineTransform();
-		
-		LoggingMessages.printOut("Number of Steps: " + afs.getNumberOfSteps());
-		if(afs == null || pi == null)
-		{
-			return;
-		}
-		
-		if(selectColor == null)
-		{
-			selectColor = Color.black;
-		}
-		
-		ArrayList<Point> points = new ArrayList<Point>();
-		points.addAll(afs.samplePoints(pi, s, (1.0/ngConfig.getNumberOfSamples())));
-		LoggingMessages.printOut("Number of Steps: " + afs.getNumberOfSteps() + " size " + points.size());
-		if(afs.getNumberOfSteps() == 0)//TODO bug?
-			return;
-		double it = ((ngConfig.getRangeValHigh() - (ngConfig.getRangeValLow()-1)) / afs.getNumberOfSteps());
-		LoggingMessages.printOut(it+"");
-		ShapePositionOnPoints.drawNumberSequence(points, (Graphics2D)this.getDrawPanel().getGraphics(), testFont, selectColor,
-				(ngConfig.getNumberOfSamples()/it), ngConfig.getRangeValLow(), ngConfig.getRangeValHigh(), ngConfig.getStartingNumber());
-		
+		ShapeDrawingCollectionGraphics.drawShapeStylingAlgorithm(draw, s, ss);
 	}
 	
 	public void notifyShapeAndControlPointsChangedListener(int indexShape)
@@ -300,6 +183,16 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 	public JPanel getDrawPanel()
 	{
 		return this.draw;
+	}
+	
+	public void addControlPoint(Point p)
+	{
+		if(this.getControlPointsForShapes().size() <= numShapes)
+		{
+			this.getControlPointsForShapes().add(new ArrayList<Point>());
+		}
+		this.getControlPointsForShapes().get(numShapes).add(p);
+		drawControlPoint(p);
 	}
 	
 	public void setDirectionsText(String text)

@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import Properties.LoggingMessages;
 import ShapeWidgetComponents.ShapeCreator;
 import ShapeWidgetComponents.ShapeCreator.Operation;
+import ShapeWidgetComponents.ShapeDrawingCollection;
 import ShapeWidgetComponents.ShapeStyling;
 import ShapeWidgetComponents.ShapeUtils.DrawMode;
 
@@ -93,9 +94,9 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 				int count = 0;
 				for(Point cp : controlPoints)
 				{
-					if(p.x >= cp.x && p.x <= cp.x + ShapeCreator.CONTROL_POINT_PIXEL_SIZE.width)
+					if(p.x >= cp.x && p.x <= cp.x + ShapeDrawingCollection.CONTROL_POINT_PIXEL_SIZE.width)
 					{
-						if(p.y >= cp.y && p.y <= cp.y + ShapeCreator.CONTROL_POINT_PIXEL_SIZE.height)
+						if(p.y >= cp.y && p.y <= cp.y + ShapeDrawingCollection.CONTROL_POINT_PIXEL_SIZE.height)
 						{
 							LoggingMessages.printOut("Control Point selected!");
 							sc.setControlPointSelected(true);

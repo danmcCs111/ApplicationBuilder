@@ -1,11 +1,16 @@
 package ShapeWidgetComponents;
 
+import java.awt.BasicStroke;
+import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Shape;
 import java.util.ArrayList;
 
 public class ShapeDrawingCollection 
 {
+	public static Dimension CONTROL_POINT_PIXEL_SIZE = new Dimension(6,6);
+	public static final BasicStroke defaultStroke = new BasicStroke(1);
+	
 	ArrayList<Shape> shapes = new ArrayList<Shape>();
 	ArrayList<ArrayList<Point>> shapeControlPoints = new ArrayList<ArrayList<Point>>();
 	ArrayList<ShapeStyling> shapeStylings = new ArrayList<ShapeStyling>();

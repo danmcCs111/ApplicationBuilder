@@ -1,0 +1,146 @@
+package ShapeWidgetComponents;
+
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.Shape;
+import java.awt.Stroke;
+import java.awt.geom.PathIterator;
+import java.util.ArrayList;
+
+import BezierCurveCalculations.AffineTransformRasterizer;
+import BezierCurveCalculations.ShapePositionOnPoints;
+import Properties.LoggingMessages;
+
+public interface ShapeDrawingCollectionGraphics 
+{
+	public static void clearAll(Container drawPanel)
+	{
+		Graphics2D g2d = (Graphics2D) drawPanel.getGraphics();
+		if(g2d != null)
+			drawPanel.paint(g2d);
+	}
+	
+	public static void drawAll(Container drawPanel, ShapeDrawingCollection sdc, Shape selectionRect)
+	{
+		clearAll(drawPanel);
+		drawShapes(drawPanel, sdc);
+		if(selectionRect != null) drawShape(drawPanel, selectionRect, Color.gray);
+		drawControlPoints(drawPanel, sdc);
+		drawGenerators(drawPanel, sdc);
+	}
+	
+	public static void drawGenerators(Container drawPanel, ShapeDrawingCollection sdc)
+	{
+		int count = 0;
+		for(Shape s : sdc.getShapes())
+		{
+			ShapeStyling ss = sdc.getShapeStylings().get(count);
+			if(ss.getNumberGeneratorConfig() != null)
+			{
+				ss.updateNumberGeneratorConfig(s);
+				drawShapeStylingAlgorithm(drawPanel, s, ss);
+			}
+			count++;
+		}
+	}
+	
+	public static void drawShapes(Container drawPanel, ShapeDrawingCollection sdc)
+	{
+		int count = 0;
+		for(Shape s : sdc.getShapes())
+		{
+			drawShape(drawPanel, s, sdc.getShapeStylings().get(count));
+			count++;
+		}
+	}
+	public static void drawShape(Container drawPanel, Shape shape, Color c)
+	{
+		Graphics2D g2d = (Graphics2D)drawPanel.getGraphics();
+		if(g2d == null)
+			return;
+		g2d.setColor(c);
+		g2d.draw(shape);
+	}
+	public static void drawShape(Container drawPanel, Shape shape, ShapeStyling shapeStyling)
+	{
+		Graphics2D g2d = (Graphics2D)drawPanel.getGraphics();
+		if(g2d == null)
+			return;
+		Color c = shapeStyling.getDrawColor(); 
+		Color fillColor = shapeStyling.getFillColor();
+		Stroke stroke = shapeStyling.getStroke();
+		
+		if(stroke != null && !g2d.getStroke().equals(stroke) && shapeStyling.isCreateStrokedShape())
+		{
+			g2d.setStroke(stroke);
+			shape = g2d.getStroke().createStrokedShape(shape);
+		}
+		else {
+			g2d.setStroke(ShapeDrawingCollection.defaultStroke);
+		}
+		g2d.setColor(c);
+		g2d.draw(shape);
+		if(fillColor != null)
+		{
+			g2d.setColor(fillColor);
+			g2d.fill(shape);
+		}
+		
+	}
+	public static void drawControlPoint(Container drawPanel, Point p)
+	{
+		Graphics2D g2d = (Graphics2D)drawPanel.getGraphics();
+		if(g2d == null)
+			return;
+		Rectangle r = new Rectangle(p);
+		r.setSize(ShapeDrawingCollection.CONTROL_POINT_PIXEL_SIZE.width, ShapeDrawingCollection.CONTROL_POINT_PIXEL_SIZE.height);
+		g2d.setColor(Color.black);
+		g2d.draw(r);
+	}
+	public static void drawControlPoints(Container drawPanel, ShapeDrawingCollection sdc)
+	{
+		for(ArrayList<Point> controlPoints : sdc.getShapeControlPoints())
+		{
+			for(Point p : controlPoints)
+			{
+				drawControlPoint(drawPanel, p);
+			}
+		}
+	}
+	
+	public static void drawShapeStylingAlgorithm(Container drawPanel, Shape s, ShapeStyling ss)
+	{
+		NumberGeneratorConfig ngConfig = ss.getNumberGeneratorConfig();
+		Color selectColor = ngConfig.getFillColor();
+		
+		Font testFont = new Font("Serif", Font.BOLD, ngConfig.getFontSize()); //TODO
+		PathIterator pi = ss.getPathIterator();
+		AffineTransformRasterizer afs = ss.getAffineTransform();
+		
+		LoggingMessages.printOut("Number of Steps: " + afs.getNumberOfSteps());
+		if(afs == null || pi == null)
+		{
+			return;
+		}
+		
+		if(selectColor == null)
+		{
+			selectColor = Color.black;
+		}
+		
+		ArrayList<Point> points = new ArrayList<Point>();
+		points.addAll(afs.samplePoints(pi, s, (1.0/ngConfig.getNumberOfSamples())));
+		LoggingMessages.printOut("Number of Steps: " + afs.getNumberOfSteps() + " size " + points.size());
+		if(afs.getNumberOfSteps() == 0)//TODO bug?
+			return;
+		double it = ((ngConfig.getRangeValHigh() - (ngConfig.getRangeValLow()-1)) / afs.getNumberOfSteps());
+		LoggingMessages.printOut(it+"");
+		ShapePositionOnPoints.drawNumberSequence(points, (Graphics2D)drawPanel.getGraphics(), testFont, selectColor,
+				(ngConfig.getNumberOfSamples()/it), ngConfig.getRangeValLow(), ngConfig.getRangeValHigh(), ngConfig.getStartingNumber());
+		
+	}
+}
