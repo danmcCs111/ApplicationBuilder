@@ -2,7 +2,7 @@ package BezierCurveCalculations;
 
 import java.awt.Point;
 
-public class BezierCurveSample 
+public interface BezierCurveSample 
 {
 	/*
 	 * https://en.wikipedia.org/wiki/B%C3%A9zier_curve

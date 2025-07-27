@@ -70,7 +70,7 @@ public class ClockRunnable implements Runnable
 		} while(true);
 	}
 	
-	public void getTimeWarp(Ellipse2D boundsShape)
+	private void getTimeWarp(Ellipse2D boundsShape)
 	{
 		int hourDeg = getDegIndex(Calendar.HOUR);
 		int minuteDeg = getDegIndex(Calendar.MINUTE);
@@ -90,7 +90,7 @@ public class ClockRunnable implements Runnable
 		
 	}
 	
-	public int getDegIndex(int calSelect)
+	private int getDegIndex(int calSelect)
 	{
 		Calendar cal = Calendar.getInstance();
 		int deg = 0;
@@ -120,7 +120,7 @@ public class ClockRunnable implements Runnable
 		return deg-1;
 	}
 	
-	public void setup(Ellipse2D boundsShape)
+	private void setup(Ellipse2D boundsShape)
 	{
 		if(boundsShape == null)
 		{
