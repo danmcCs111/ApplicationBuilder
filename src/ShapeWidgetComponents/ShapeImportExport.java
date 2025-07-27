@@ -100,6 +100,7 @@ public class ShapeImportExport
 			{
 				content += "NumberGeneratorConfig=\"" + ngConfig.toString() + "\" ";
 			}
+			content += "SkipShapeDraw=\"" + ss.skipShapeDraw() + "\"";
 			
 			xml += "<" + type + " " + content + " > " + "</" + type + ">" + PathUtility.NEW_LINE;
 			content = "";

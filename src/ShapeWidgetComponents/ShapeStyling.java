@@ -18,7 +18,9 @@ public class ShapeStyling
 	private ShapeStylingActionListener shapeStyleActionListener;
 	private Stroke stroke;
 	private int strokeWidth = -1;
-	private boolean createStrokedShape = false;
+	private boolean 
+		createStrokedShape = false,
+		skipShapeDraw = false;
 	private NumberGeneratorConfig numberGeneratorConfig;
 	private PathIterator pi;
 	private AffineTransformRasterizer afs; 
@@ -29,6 +31,17 @@ public class ShapeStyling
 		this.drawColor = drawColor;
 		this.fillColor = fillColor;
 		this.shapeStyleActionListener = shapeStyleActionListener;
+	}
+	
+	public void setSkipShapeDraw(boolean skipShapeDraw)
+	{
+		this.skipShapeDraw = skipShapeDraw;
+		notifyChange();
+	}
+	
+	public boolean skipShapeDraw()
+	{
+		return this.skipShapeDraw;
 	}
 	
 	public PathIterator getPathIterator()

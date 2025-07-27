@@ -11,6 +11,7 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -151,12 +152,24 @@ public class ShapeCreatorEditShapeFrame extends JFrame
 			}
 		});
 		
+		JCheckBox skipShapeDraw = new JCheckBox();
+		skipShapeDraw.setText("Skip Shape Draw");
+		skipShapeDraw.setSelected(shapeStyling.skipShapeDraw());
+		skipShapeDraw.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				shapeStyling.setSkipShapeDraw(skipShapeDraw.getSelectedObjects() != null);
+			}
+		});
+		
 		innerPanel.add(ce);
 		innerPanel.add(ceFill);
 		innerPanel.add(applyShapeNumberGenerator);
 		innerPanel.add(scaleShape);
 		innerPanel.add(createStrokedShape);
 		innerPanel.add(strokeValue);
+		innerPanel.add(skipShapeDraw);
 		
 		parentPanel.add(innerPanel, BorderLayout.EAST);
 		

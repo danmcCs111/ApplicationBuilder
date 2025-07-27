@@ -18,6 +18,12 @@ public class ClockRunnable implements Runnable
 	@Override
 	public void run() 
 	{
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		ShapeDrawingCollectionGraphics.drawAll(drawContainer, sdc, null, false);
 		LoggingMessages.printOut("draw: " + sdc);
 		do
@@ -27,7 +33,8 @@ public class ClockRunnable implements Runnable
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			ShapeDrawingCollectionGraphics.drawAll(drawContainer, sdc, null, false);
+//			ShapeDrawingCollectionGraphics.drawGenerators(drawContainer, sdc);
+			ShapeDrawingCollectionGraphics.drawShapes(drawContainer, sdc);
 			LoggingMessages.printOut("draw: " + sdc);
 		} while(true);
 	}

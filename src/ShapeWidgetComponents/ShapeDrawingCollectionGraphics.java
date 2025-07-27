@@ -71,7 +71,7 @@ public interface ShapeDrawingCollectionGraphics
 	public static void drawShape(Container drawPanel, Shape shape, ShapeStyling shapeStyling)
 	{
 		Graphics2D g2d = (Graphics2D)drawPanel.getGraphics();
-		if(g2d == null)
+		if(g2d == null || shapeStyling.skipShapeDraw())
 			return;
 		Color c = shapeStyling.getDrawColor(); 
 		Color fillColor = shapeStyling.getFillColor();
@@ -138,7 +138,15 @@ public interface ShapeDrawingCollectionGraphics
 		LoggingMessages.printOut("Number of Steps: " + afs.getNumberOfSteps());
 		LoggingMessages.printOut(it+"");
 		
-		ShapePositionOnPoints.drawNumberSequence(points, (Graphics2D)drawPanel.getGraphics(), testFont, selectColor,
-				(ngConfig.getNumberOfSamples()/it), ngConfig.getRangeValLow(), ngConfig.getRangeValHigh(), ngConfig.getStartingNumber());
+		ShapePositionOnPoints.drawNumberSequence(
+				points, 
+				(Graphics2D)drawPanel.getGraphics(), 
+				testFont, 
+				selectColor,
+				(ngConfig.getNumberOfSamples()/it), 
+				ngConfig.getRangeValLow(), 
+				ngConfig.getRangeValHigh(), 
+				ngConfig.getStartingNumber()
+		);
 	}
 }

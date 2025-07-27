@@ -26,7 +26,7 @@ public class ClockApp extends JPanel implements PostWidgetBuildProcessing, Shape
 	{
 		sdc = new ShapeDrawingCollection();
 		ShapeImportExport sie = new ShapeImportExport();
-		File f = new File(PathUtility.getCurrentDirectory() +  "/src/ApplicationBuilder/shapes/tmp.xml");
+		File f = new File(PathUtility.getCurrentDirectory() +  "/src/ApplicationBuilder/shapes/circle.xml");
 		ArrayList<ShapeElement> shapeElements = sie.openXml(f);
 		int count = 0;
 		for(ShapeElement se : shapeElements)
@@ -35,8 +35,6 @@ public class ClockApp extends JPanel implements PostWidgetBuildProcessing, Shape
 			sdc.addShapeControlPoints(se.getPoints());
 			ShapeStyling ss = se.getShapeStyling(count, this);
 			Shape s = se.getShape(ss);
-//			NumberGeneratorConfig ngConfig = se.getNumberGeneratorConfig();
-//			ss.setNumberGeneratorConfig(s);
 			sdc.addShape(s);
 			sdc.addShapeStyling(ss);
 			

@@ -3,7 +3,6 @@ package ShapeWidgetComponents;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.Shape;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import Properties.LoggingMessages;
@@ -30,13 +29,12 @@ public class ShapeElement
 	private NumberGeneratorConfig ngConfig;
 	private String ngConfigString;
 	private Shape shape;
-	private int count;
+	boolean skipShapeDraw = false;
 	
 	public ShapeElement(String nodeName, int count, ArrayList<String> attributes, String parentNode)
 	{
 		this.nodeName = nodeName;
 		this.nodeId = nodeName + ID_SPLITTER + count;
-		this.count = count;
 		this.attributes = attributes;
 		this.parentNode = parentNode;
 		generateNodeClassObject();
@@ -82,9 +80,9 @@ public class ShapeElement
 	{
 		LoggingMessages.printOut(colorDraw + "");
 		ShapeStyling ss = new ShapeStyling(indexIdToApply, colorDraw, colorFill, actionListener);
+		ss.setSkipShapeDraw(skipShapeDraw);
 		ss.createStrokedShape(isCreateStroke);
 		ss.setStrokeWidth(strokeWidth);
-//		LoggingMessages.printOut(ngConfigString);
 		if(ngConfigString != null && !ngConfigString.isBlank())
 		{
 			ss.updateNumberGeneratorConfig(getShape(ss));
@@ -146,8 +144,10 @@ public class ShapeElement
 			else if(s.startsWith("NumberGeneratorConfig"))
 			{
 				ngConfigString = s.split("=")[1];
-//				getShapeStyling(count, null);
-//				this.ngConfig = new NumberGeneratorConfig(ngConfigString);
+			}
+			else if(s.startsWith("SkipShapeDraw"))
+			{
+				skipShapeDraw = Boolean.parseBoolean(s.split("=")[1]);
 			}
 		}
 	}
