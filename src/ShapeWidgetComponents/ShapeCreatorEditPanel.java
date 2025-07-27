@@ -1,5 +1,6 @@
 package ShapeWidgetComponents;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Point;
@@ -43,7 +44,9 @@ public class ShapeCreatorEditPanel extends JPanel implements PostWidgetBuildProc
 	
 	public void generatePointEditor(int index, Point [] points, DrawMode dm, Color colorPallette)
 	{
-		JPanel shapeEditPanel = new JPanel();
+		JPanel 
+			shapeEditPanel = new JPanel(),
+			shapeEditOuterPanel = new JPanel();
 		
 		String title = dm.getModeText() + SHAPE_TITLE_SUFFIX + index;
 		
@@ -51,7 +54,8 @@ public class ShapeCreatorEditPanel extends JPanel implements PostWidgetBuildProc
 		b = BorderFactory.createTitledBorder(b, title);
 		shapeEditPanel.setBorder(b);
 		shapeEditPanel.setLayout(new GridLayout(0, 1));//TODO
-		
+		shapeEditOuterPanel.setLayout(new BorderLayout());
+//		shapeEditOuterPanel.setLayout(new BoxLayout(shapeEditOuterPanel, BoxLayout.PAGE_AXIS));
 		ArrayList<PointEditor> pointEditors = new ArrayList<PointEditor>();
 		int i = 0;
 		for(Point p : points)
@@ -83,11 +87,13 @@ public class ShapeCreatorEditPanel extends JPanel implements PostWidgetBuildProc
 		});
 		
 		shapeEditPanel.add(showEditButton);
+//		shapeEditOuterPanel.add(shapeEditPanel);
+		shapeEditOuterPanel.add(shapeEditPanel, BorderLayout.NORTH);
 		
-		this.add(shapeEditPanel);
+		this.add(shapeEditOuterPanel);
 		
 		indexAndPointEditors.put(index, pointEditors);
-		this.getRootPane().validate();
+		this.getRootPane().getParent().validate();
 		sc.drawAll();
 	}
 	
