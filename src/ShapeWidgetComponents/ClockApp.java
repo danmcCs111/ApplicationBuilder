@@ -1,9 +1,11 @@
 package ShapeWidgetComponents;
 
 import java.awt.Shape;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import Properties.LoggingMessages;
@@ -41,6 +43,9 @@ public class ClockApp extends JPanel implements PostWidgetBuildProcessing, Shape
 			LoggingMessages.printOut(ss.toString());
 			count++;
 		}
+		ClockMouseDragListener ml = new ClockMouseDragListener(this);
+		this.addMouseListener(ml);//TODO
+		this.addMouseMotionListener(ml);//TODO
 	}
 
 	public void postExecute() 
@@ -56,5 +61,6 @@ public class ClockApp extends JPanel implements PostWidgetBuildProcessing, Shape
 		// TODO Auto-generated method stub
 		
 	}
+	
 	
 }

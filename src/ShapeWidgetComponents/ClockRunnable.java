@@ -7,7 +7,6 @@ import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.PathIterator;
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -66,7 +65,6 @@ public class ClockRunnable implements Runnable
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-//			ShapeDrawingCollectionGraphics.drawShapes(drawContainer, sdc);
 			getTimeWarp(clockEllipse);
 			LoggingMessages.printOut("draw: " + sdc);
 		} while(true);
@@ -132,8 +130,7 @@ public class ClockRunnable implements Runnable
 		this.afs = new AffineTransformRasterizer();
 		this.pi = boundsShape.getPathIterator(afs);
 		
-		Rectangle2D bounds = boundsShape.getBounds2D();
-		centerPoint = new Point((int)bounds.getCenterX(), (int)bounds.getCenterY());
+		centerPoint = new Point((int)boundsShape.getCenterX(), (int)boundsShape.getCenterY());
 		points = getPoints(boundsShape, pi, afs);
 	}
 	
