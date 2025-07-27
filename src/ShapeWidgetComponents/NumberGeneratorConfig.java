@@ -11,7 +11,7 @@ import Properties.LoggingMessages;
 
 public class NumberGeneratorConfig 
 {
-	private double numOfSamples = 240.0;
+	private double numOfSamples = 90.0;
 	private int 
 		rangeValLow = 1,
 		rangeValHigh = 12,

@@ -1,11 +1,9 @@
 package ShapeWidgetComponents;
 
 import java.awt.Shape;
-import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import Properties.LoggingMessages;

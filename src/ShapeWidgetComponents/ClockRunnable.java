@@ -37,7 +37,7 @@ public class ClockRunnable implements Runnable
 		{
 			if(s instanceof Ellipse2D)
 			{
-				if(sdc.getShapeStylings().get(count).getNumberGeneratorConfig() != null)
+				if(sdc.getShapeStylings().get(count).getNumberGeneratorConfig() == null)//TODO
 				{
 					clockEllipse = (Ellipse2D) s;
 					break;
@@ -130,7 +130,7 @@ public class ClockRunnable implements Runnable
 		this.afs = new AffineTransformRasterizer();
 		this.pi = boundsShape.getPathIterator(afs);
 		
-		centerPoint = new Point((int)boundsShape.getCenterX(), (int)boundsShape.getCenterY());
+		centerPoint = new Point((int)(boundsShape.getCenterX()), (int)(boundsShape.getCenterY()));
 		points = getPoints(boundsShape, pi, afs);
 	}
 	

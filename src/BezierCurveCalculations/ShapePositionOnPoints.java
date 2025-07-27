@@ -29,7 +29,9 @@ public interface ShapePositionOnPoints
 		for(int i = 0; i < points.size(); i+=pointCollectionIndexSkipCount)
 		{
 			Point p = points.get(i);
-			GlyphVector gv = g2d.getFont().createGlyphVector(frc, count+"");
+			String numDisplay = count + "";
+			fontPixelSize(g2d, myFont, numDisplay);
+			GlyphVector gv = g2d.getFont().createGlyphVector(frc, numDisplay);
 			
 			g2d.drawGlyphVector(gv, p.x, p.y);
 			count++;
@@ -38,5 +40,12 @@ public interface ShapePositionOnPoints
 				count = sequenceRangeStart;
 			}
 		}
+	}
+	
+	public static int fontPixelSize(Graphics2D g2d, Font font, String test)
+	{
+		int width = g2d.getFontMetrics(font).stringWidth(test); 
+//		LoggingMessages.printOut(test + " width: " + width);
+		return width;
 	}
 }

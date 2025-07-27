@@ -1,0 +1,5 @@
+<Widgets>
+<java.awt.geom.Ellipse2D Point00="46, 38" Point01="146, 138" ColorDraw="255, 255, 255" ColorFill="204, 255, 255" CreateStroke="false" SkipShapeDraw="false" > </java.awt.geom.Ellipse2D>
+<java.awt.geom.Ellipse2D Point00="31, 33" Point01="151, 153" ColorDraw="255, 51, 51" ColorFill="255, 255, 255" CreateStroke="false" NumberGeneratorConfig="1, 12, 3, 18, 0, 0, 0" SkipShapeDraw="true" > </java.awt.geom.Ellipse2D>
+<java.awt.geom.Ellipse2D Point00="20, 11" Point01="172, 163" ColorDraw="51, 0, 51" ColorFill="255, 102, 102" CreateStroke="true" StrokeWidth="7" SkipShapeDraw="false" > </java.awt.geom.Ellipse2D>
+</Widgets>
