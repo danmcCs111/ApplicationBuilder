@@ -28,19 +28,7 @@ public class ClockApp extends JPanel implements PostWidgetBuildProcessing, Shape
 		ShapeImportExport sie = new ShapeImportExport();
 		File f = new File(PathUtility.getCurrentDirectory() +  "/src/ApplicationBuilder/shapes/circle.xml");//TODO
 		ArrayList<ShapeElement> shapeElements = sie.openXml(f);
-		int count = 0;
-		for(ShapeElement se : shapeElements)
-		{
-			LoggingMessages.printOut(se.toString());
-			sdc.addShapeControlPoints(se.getPoints());
-			ShapeStyling ss = se.getShapeStyling(count, this);
-			Shape s = se.getShape(ss);
-			sdc.addShape(s);
-			sdc.addShapeStyling(ss);
-			
-			LoggingMessages.printOut(ss.toString());
-			count++;
-		}
+		sdc.addShapeImports(shapeElements,this);
 		ClockMouseDragListener ml = new ClockMouseDragListener(this);
 		this.addMouseListener(ml);
 		this.addMouseMotionListener(ml);

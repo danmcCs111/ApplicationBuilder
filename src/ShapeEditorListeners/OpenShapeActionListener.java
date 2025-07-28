@@ -7,10 +7,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import ShapeWidgetComponents.ShapeCreator;
+import ShapeWidgetComponents.ShapeDrawingCollection;
 import ShapeWidgetComponents.ShapeElement;
 import ShapeWidgetComponents.ShapeImportExport;
 import ShapeWidgetComponents.ShapeStyling;
-import ShapeWidgetComponents.ShapeUtils.DrawMode;
 
 public class OpenShapeActionListener implements ActionListener 
 {
@@ -30,14 +30,9 @@ public class OpenShapeActionListener implements ActionListener
 		ShapeImportExport sie = new ShapeImportExport(listControlPointsScaled, shapeStyling, shapesScaled, null);
 		
 		ArrayList<ShapeElement> shapeElements = sie.openXml(shapeCreator);
-		for(ShapeElement se : shapeElements)
-		{
-			String shapeClassName = se.getShapeClassName();
-			DrawMode dm = DrawMode.getMatchingClassName(shapeClassName);
-			for(Point p : se.getPoints())
-				shapeCreator.addControlPoint(p);
-			ShapeStyling ss = se.getShapeStyling(shapeCreator.getNumShapes(), shapeCreator);
-			shapeCreator.constructShape(dm, (Point []) se.getPoints().toArray(new Point [] {}), ss);
-		}
+		ShapeDrawingCollection sdc = shapeCreator.getShapeDrawingCollection();
+		sdc.addShapeImportedListener(shapeCreator);
+		sdc.addShapeImports(shapeElements, shapeCreator);
+		
 	}
 }

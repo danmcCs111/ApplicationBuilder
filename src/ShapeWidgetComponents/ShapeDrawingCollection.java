@@ -6,14 +6,52 @@ import java.awt.Point;
 import java.awt.Shape;
 import java.util.ArrayList;
 
+import Properties.LoggingMessages;
+import ShapeEditorListeners.AddShapesImportedListener;
+import ShapeEditorListeners.ShapeStylingActionListener;
+
 public class ShapeDrawingCollection 
 {
 	public static Dimension CONTROL_POINT_PIXEL_SIZE = new Dimension(6,6);
 	public static final BasicStroke defaultStroke = new BasicStroke(1);
 	
-	ArrayList<Shape> shapes = new ArrayList<Shape>();
 	ArrayList<ArrayList<Point>> shapeControlPoints = new ArrayList<ArrayList<Point>>();
+	ArrayList<Shape> shapes = new ArrayList<Shape>();
 	ArrayList<ShapeStyling> shapeStylings = new ArrayList<ShapeStyling>();
+	ArrayList<AddShapesImportedListener> asils = new ArrayList<AddShapesImportedListener>();
+	
+	public ShapeDrawingCollection()
+	{
+		
+	}
+	
+	public void addShapeImportedListener(AddShapesImportedListener asil)
+	{
+		asils.add(asil);
+	}
+	
+	
+	public void addShapeImports(ArrayList<ShapeElement> shapeElements, ShapeStylingActionListener ssal)
+	{
+		int count = shapes.size();
+		for(ShapeElement se : shapeElements)
+		{
+			LoggingMessages.printOut(se.toString());
+			this.addShapeControlPoints(se.getPoints());
+			ShapeStyling ss = se.getShapeStyling(count, ssal);
+			Shape s = se.getShape(ss);
+			this.addShapeStyling(ss);
+			this.addShape(s);
+			
+			LoggingMessages.printOut(ss.toString());
+			for(AddShapesImportedListener asil : asils)
+			{
+				asil.notifyImported(se);
+			}
+			
+			count++;
+		}
+	}
 	
 	public void addShape(Shape s)
 	{

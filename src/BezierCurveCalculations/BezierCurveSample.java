@@ -66,8 +66,11 @@ public interface BezierCurveSample
 	public static Point getPointAtLine(Point start, Point end, double tStep)
 	{
 		double inverseTStep = (1-tStep);
-		double x = start.getX() * inverseTStep + end.getX() * tStep;
-	    double y = start.getY() * inverseTStep + end.getY() * tStep;
+		
+		double x = start.getX() * inverseTStep + 
+				end.getX() * tStep;
+	    double y = start.getY() * inverseTStep + 
+	    		end.getY() * tStep;
 	    
 	    return new Point((int)x, (int)y);
 	}

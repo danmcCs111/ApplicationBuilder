@@ -11,6 +11,7 @@ import java.util.HashMap;
 
 import javax.swing.JPanel;
 
+import ShapeEditorListeners.AddShapesImportedListener;
 import ShapeEditorListeners.ControlPointChangedListener;
 import ShapeEditorListeners.DrawMouseListener;
 import ShapeEditorListeners.ShapeDirectionsNotification;
@@ -18,15 +19,14 @@ import ShapeEditorListeners.ShapeStylingActionListener;
 import ShapeWidgetComponents.ShapeUtils.DrawMode;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 
-public class ShapeCreator extends JPanel implements ShapeStylingActionListener, PostWidgetBuildProcessing
+public class ShapeCreator extends JPanel implements ShapeStylingActionListener, PostWidgetBuildProcessing, AddShapesImportedListener
 {
 	private static final long serialVersionUID = 3005L;
 	
 	private int 
 		directionsIndex = 0, 
 		controlPointSelectedIndex = -1,
-		controlPointShapeSelectedIndex = -1,
-		numShapes = 0;
+		controlPointShapeSelectedIndex = -1;
 	private ShapeDrawingCollection sdc;
 	
 	private ArrayList<Integer> shapeSelectedIndexes = new ArrayList<Integer>();
@@ -170,14 +170,16 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 	public Shape constructShape(DrawMode mode, Point [] curvePoints, ShapeStyling shapeStyling)
 	{
 		Shape shape = ShapeUtils.constructShape(mode, curvePoints, shapeStyling);
-		
 		sdc.getShapes().add(shape);
-		this.incrementNumShapes(1);
-		this.addShapeAndControlPointChangedListener(this.getNumShapes()-1, this.getDirectionsIndex()-1, dml);
 		this.setShapeStyling(this.getNumShapes()-1, shapeStyling);
-		this.getShapeCreatorEditPanel().generatePointEditor(this.getNumShapes()-1, curvePoints, mode, shapeStyling.getDrawColor());
+		generatePointEditor(getMode(), curvePoints, shapeStyling);
 		
 		return shape;
+	}
+	
+	public void generatePointEditor(DrawMode mode, Point [] curvePoints, ShapeStyling shapeStyling)
+	{
+		this.getShapeCreatorEditPanel().generatePointEditor(this.getNumShapes()-1, curvePoints, mode, shapeStyling.getDrawColor());
 	}
 	
 	public JPanel getDrawPanel()
@@ -187,11 +189,11 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 	
 	public void addControlPoint(Point p)
 	{
-		if(this.getControlPointsForShapes().size() <= numShapes)
+		if(this.getControlPointsForShapes().size() <= getNumShapes())
 		{
 			this.getControlPointsForShapes().add(new ArrayList<Point>());
 		}
-		this.getControlPointsForShapes().get(numShapes).add(p);
+		this.getControlPointsForShapes().get(getNumShapes()).add(p);
 		drawControlPoint(p);
 	}
 	
@@ -319,6 +321,11 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 		}
 	}
 	
+	public ShapeDrawingCollection getShapeDrawingCollection()
+	{
+		return this.sdc;
+	}
+	
 	public ArrayList<Shape> getShapes()
 	{
 		return this.sdc.getShapes();
@@ -382,17 +389,8 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 	
 	public int getNumShapes()
 	{
-		return this.numShapes;
+		return this.sdc.getShapes().size();
 	}
-	public void incrementNumShapes(int inc)
-	{
-		this.numShapes += inc;
-	}
-	public void setNumShapes(int index)
-	{
-		this.numShapes = index;;
-	}
-	
 	public Point getRelativePoint(MouseEvent e)
 	{
 		Point p = e.getPoint();
@@ -469,6 +467,12 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 	public void postExecute() 
 	{
 		buildWidgets();
+	}
+
+	@Override
+	public void notifyImported(ShapeElement se) 
+	{
+		generatePointEditor(se.getDrawMode(), (Point [])se.getPoints().toArray(new Point [] {}), this.getShapeStyling(getNumShapes()-1));
 	}
 	
 }

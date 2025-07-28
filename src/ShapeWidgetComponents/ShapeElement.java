@@ -45,10 +45,15 @@ public class ShapeElement
 	{
 		if(shape == null)
 		{
-			DrawMode dm = DrawMode.getMatchingClassName(getShapeClassName());
+			DrawMode dm = this.getDrawMode();
 			shape = ShapeUtils.constructShape(dm, controlPoints.toArray(new Point[]{}), ss);
 		}
 		return shape;
+	}
+	
+	public DrawMode getDrawMode()
+	{
+		 return DrawMode.getMatchingClassName(getShapeClassName());
 	}
 	
 	public boolean isCreateStroke()
