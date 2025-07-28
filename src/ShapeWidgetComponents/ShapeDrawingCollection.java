@@ -27,7 +27,10 @@ public class ShapeDrawingCollection
 	
 	public void addShapeImportedListener(AddShapesImportedListener asil)
 	{
-		asils.add(asil);
+		if(!asils.contains(asil))
+		{
+			asils.add(asil);
+		}
 	}
 	
 	

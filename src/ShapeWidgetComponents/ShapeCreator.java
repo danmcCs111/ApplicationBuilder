@@ -171,7 +171,7 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 	{
 		Shape shape = ShapeUtils.constructShape(mode, curvePoints, shapeStyling);
 		sdc.getShapes().add(shape);
-		this.setShapeStyling(this.getNumShapes()-1, shapeStyling);
+		sdc.addShapeStyling(shapeStyling);
 		generatePointEditor(getMode(), curvePoints, shapeStyling);
 		
 		return shape;
