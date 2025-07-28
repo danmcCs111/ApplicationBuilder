@@ -22,11 +22,11 @@ public class ClockApp extends JPanel implements PostWidgetBuildProcessing, Shape
 		
 	}
 	
-	public void buildLayout()
+	public void buildWidgets()
 	{
 		sdc = new ShapeDrawingCollection();
 		ShapeImportExport sie = new ShapeImportExport();
-		File f = new File(PathUtility.getCurrentDirectory() +  "/src/ApplicationBuilder/shapes/circle.xml");
+		File f = new File(PathUtility.getCurrentDirectory() +  "/src/ApplicationBuilder/shapes/circle.xml");//TODO
 		ArrayList<ShapeElement> shapeElements = sie.openXml(f);
 		int count = 0;
 		for(ShapeElement se : shapeElements)
@@ -42,13 +42,13 @@ public class ClockApp extends JPanel implements PostWidgetBuildProcessing, Shape
 			count++;
 		}
 		ClockMouseDragListener ml = new ClockMouseDragListener(this);
-		this.addMouseListener(ml);//TODO
-		this.addMouseMotionListener(ml);//TODO
+		this.addMouseListener(ml);
+		this.addMouseMotionListener(ml);
 	}
 
 	public void postExecute() 
 	{
-		buildLayout();
+		buildWidgets();
 		ClockRunnable cr = new ClockRunnable(this, sdc);
 		Thread t = new Thread(cr);
 		t.start();
@@ -59,6 +59,5 @@ public class ClockApp extends JPanel implements PostWidgetBuildProcessing, Shape
 		// TODO Auto-generated method stub
 		
 	}
-	
 	
 }

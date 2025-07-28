@@ -27,7 +27,6 @@ public class ClockRunnable implements Runnable
 	private Point centerPoint;
 	private ArrayList<Point> points;
 	
-	
 	public ClockRunnable(Container drawContainer, ShapeDrawingCollection sdc)
 	{
 		this.drawContainer = drawContainer;
@@ -110,13 +109,9 @@ public class ClockRunnable implements Runnable
 			break;
 		}
 		
-		if(deg > 90)
-		{
-			deg -= 90;
-		}
-		else {
-			deg += 270;
-		}
+		deg += (deg > 90)
+			? -90
+			: 270;
 		return deg-1;
 	}
 	
