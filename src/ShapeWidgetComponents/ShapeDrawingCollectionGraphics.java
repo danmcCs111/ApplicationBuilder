@@ -122,7 +122,7 @@ public interface ShapeDrawingCollectionGraphics
 		if(ngConfig == null)
 			return;
 		Color selectColor = ngConfig.getFillColor();
-		Font testFont = new Font("Serif", Font.BOLD, ngConfig.getFontSize()); //TODO
+		Font testFont = ngConfig.getFont();
 		AffineTransformRasterizer afs = ngConfig.getAffineTransformRasterizer();
 		ArrayList<Point> points = ngConfig.getPoints();
 		double it = ngConfig.getSampleSkipDivide();

@@ -1,6 +1,7 @@
 package ShapeWidgetComponents;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Point;
 import java.awt.Shape;
 import java.awt.geom.PathIterator;
@@ -18,6 +19,7 @@ public class NumberGeneratorConfig
 		startingNumber = 3,
 		fontSize = 18;
 	private Color fillColor = Color.black; 
+	private Font testFont = null;
 	ArrayList<Point> points;
 	AffineTransformRasterizer afs;
 	double it;
@@ -27,7 +29,7 @@ public class NumberGeneratorConfig
 		this.rangeValLow = rangeValLow;
 		this.rangeValHigh = rangeValHigh;
 		this.startingNumber = startingNumber;
-		this.fontSize = fontSize;
+		setFontSize(fontSize);
 		this.fillColor = fillColor;
 		generateNumberGraphics(s, ss);
 	}
@@ -38,7 +40,7 @@ public class NumberGeneratorConfig
 		this.rangeValLow = Integer.parseInt(params[0].strip());
 		this.rangeValHigh = Integer.parseInt(params[1].strip());
 		this.startingNumber = Integer.parseInt(params[2].strip());
-		this.fontSize = Integer.parseInt(params[3].strip());
+		setFontSize(Integer.parseInt(params[3].strip()));
 		this.fillColor = new Color(
 				Integer.parseInt(params[4].strip()), 
 				Integer.parseInt(params[5].strip()), 
@@ -67,6 +69,16 @@ public class NumberGeneratorConfig
 	public int getFontSize()
 	{
 		return this.fontSize;
+	}
+	public void setFontSize(int fontSize)
+	{
+		this.fontSize = fontSize;
+		testFont = new Font("Serif", Font.BOLD, getFontSize());//TODO
+	}
+	
+	public Font getFont()
+	{
+		return this.testFont;
 	}
 	
 	public Color getFillColor()
