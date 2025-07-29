@@ -13,11 +13,9 @@ public class GenerateActionListener implements ActionListener
 		if(WidgetBuildController.getInstance().getWidgetCreatorProperties() != null)
 		{
 			WidgetBuildController.getInstance().destroyGeneratedFrame();
-
-			
 			WidgetBuildController.getInstance().destroyEditors();
-			WidgetBuildController.getInstance().destroyFrameAndCreatorProperties();
-			WidgetBuildController.getInstance().readProperties(WidgetBuildController.getInstance().getFilename());
+			WidgetBuildController.getInstance().destroyFrame();
+			
 			WidgetBuildController.getInstance().generateGraphicalInterface(true);
 		}	
 	}

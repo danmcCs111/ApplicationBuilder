@@ -152,7 +152,10 @@ public class WidgetBuildController
 			List<XmlToWidgetGenerator> orderedGenerators = orderGenerators(generators);
 			for(XmlToWidgetGenerator g : orderedGenerators)
 			{
-				if(replaceWithEditorValues) g.replaceParamsListWithParamEditors();
+				if(replaceWithEditorValues) 
+				{
+					g.replaceParamsListWithParamEditors();
+				}
 				Class<? extends ExtendedAttributeParam> c = getExtendedAttribute(g.getMethodName());
 				if(c != null)
 				{
@@ -368,6 +371,11 @@ public class WidgetBuildController
 			//return null
 		}
 		return c;
+	}
+	
+	public void destroyFrame()
+	{
+		destroyGeneratedFrame();
 	}
 	
 	public void destroyFrameAndCreatorProperties()

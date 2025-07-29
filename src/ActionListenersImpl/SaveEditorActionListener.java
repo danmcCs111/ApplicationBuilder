@@ -35,11 +35,14 @@ public class SaveEditorActionListener implements DependentRedrawableFrameListene
 		}
 		else
 		{
+			
 			EditorToXml.writeXml(WidgetBuildController.getInstance().getFilename(),
 					WidgetBuildController.getInstance().getWidgetCreatorProperties());
 			
 			WidgetBuildController.getInstance().readProperties(WidgetBuildController.getInstance().getFilename());
+			
 			applicationLayoutEditor.rebuildInnerPanels();
+			
 		}
 	}
 }
