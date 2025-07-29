@@ -107,11 +107,11 @@ public class NumberGeneratorConfig
 		this.afs = ss.getAffineTransform();
 		points = new ArrayList<Point>();
 		points.addAll(afs.samplePoints(pi, s, (1.0/getNumberOfSamples())));
-		LoggingMessages.printOut("Number of Steps: " + afs.getNumberOfSteps() + " size " + points.size());
+//		LoggingMessages.printOut("Number of Steps: " + afs.getNumberOfSteps() + " size " + points.size());
 		if(afs.getNumberOfSteps() == 0)//TODO bug?
 			return;
 		it = ((getRangeValHigh() - (getRangeValLow()-1)) / afs.getNumberOfSteps());
-		LoggingMessages.printOut("Sample skip divide: " + it);
+//		LoggingMessages.printOut("Sample skip divide: " + it);
 	}
 	
 	@Override

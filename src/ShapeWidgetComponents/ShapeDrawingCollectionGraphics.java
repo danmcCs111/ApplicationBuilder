@@ -12,7 +12,6 @@ import java.util.ArrayList;
 
 import BezierCurveCalculations.AffineTransformRasterizer;
 import BezierCurveCalculations.ShapePositionOnPoints;
-import Properties.LoggingMessages;
 
 public interface ShapeDrawingCollectionGraphics 
 {
@@ -53,7 +52,6 @@ public interface ShapeDrawingCollectionGraphics
 	
 	public static void drawShapes(Container drawPanel, ShapeDrawingCollection sdc)
 	{
-		LoggingMessages.printOut(sdc.getShapeStylings().size() + "");
 		int count = 0;
 		for(Shape s : sdc.getShapes())
 		{
@@ -135,9 +133,6 @@ public interface ShapeDrawingCollectionGraphics
 		{
 			selectColor = Color.black;
 		}
-		
-		LoggingMessages.printOut("Number of Steps: " + afs.getNumberOfSteps());
-		LoggingMessages.printOut(it+"");
 		
 		ShapePositionOnPoints.drawNumberSequence(
 				points, 

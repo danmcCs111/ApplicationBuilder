@@ -25,12 +25,12 @@ public interface ShapePositionOnPoints
 		
 		int count = startSequenceNum;
 		g2d.setColor(fillColor);
-		LoggingMessages.printOut(pointCollectionIndexSkipCount + " skips");
+//		LoggingMessages.printOut(pointCollectionIndexSkipCount + " skips");
 		for(int i = 0; i < points.size(); i+=pointCollectionIndexSkipCount)
 		{
 			Point p = points.get(i);
 			String numDisplay = count + "";
-			fontPixelSize(g2d, myFont, numDisplay);
+//			fontPixelSize(g2d, myFont, numDisplay);
 			GlyphVector gv = g2d.getFont().createGlyphVector(frc, numDisplay);
 			
 			g2d.drawGlyphVector(gv, p.x, p.y);
