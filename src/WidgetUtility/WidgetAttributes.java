@@ -57,6 +57,7 @@ import WidgetExtensionsImpl.ExtendedSetJMenuBarParent;
 import WidgetExtensionsImpl.ExtendedSetViewportView;
 import WidgetExtensionsImpl.ExtendedSetWeatherButtonListener;
 import WidgetExtensionsImpl.ExtendedSetupTaskbar;
+import WidgetExtensionsImpl.ExtendedShapeDrawingCollectionLoader;
 import WidgetExtensionsImpl.ExtendedSwappableHolder;
 import WidgetExtensionsImpl.ExtendedTextStripper;
 import WidgetExtensionsImpl.ExtendedTitleSwitcher;
@@ -159,7 +160,8 @@ public class WidgetAttributes
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetViewportView.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(ClockApp.class, new String [] {
-				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
+				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedShapeDrawingCollectionLoader.class, ExtendedMethodArgDef.ExtendedFileSelection.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(DatabaseResponseNodeTextArea.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),

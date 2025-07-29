@@ -1,15 +1,13 @@
 package ShapeWidgetComponents;
 
-import java.io.File;
-import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-import Properties.PathUtility;
 import ShapeEditorListeners.ShapeStylingActionListener;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
+import WidgetExtensions.ShapeDrawingCollectionLoad;
 
-public class ClockApp extends JPanel implements PostWidgetBuildProcessing, ShapeStylingActionListener
+public class ClockApp extends JPanel implements PostWidgetBuildProcessing, ShapeStylingActionListener, ShapeDrawingCollectionLoad
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -20,21 +18,8 @@ public class ClockApp extends JPanel implements PostWidgetBuildProcessing, Shape
 		
 	}
 	
-	public void buildWidgets()
-	{
-		sdc = new ShapeDrawingCollection();
-		ShapeImportExport sie = new ShapeImportExport();
-		File f = new File(PathUtility.getCurrentDirectory() +  "/src/ApplicationBuilder/shapes/circle.xml");//TODO
-		ArrayList<ShapeElement> shapeElements = sie.openXml(f);
-		sdc.addShapeImports(shapeElements,this);
-//		ClockMouseDragListener ml = new ClockMouseDragListener(this);
-//		this.addMouseListener(ml);
-//		this.addMouseMotionListener(ml);
-	}
-
 	public void postExecute() 
 	{
-		buildWidgets();
 		ClockRunnable cr = new ClockRunnable(this, sdc);
 		Thread t = new Thread(cr);
 		t.start();
@@ -44,6 +29,12 @@ public class ClockApp extends JPanel implements PostWidgetBuildProcessing, Shape
 	public void notifyStylingChanged(int shapeStyleIndex, ShapeStyling shapeStyling) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void loadedShapeDrawingCollection(ShapeDrawingCollection sdc) 
+	{
+		this.sdc = sdc;
 	}
 	
 }
