@@ -10,7 +10,7 @@ public class ClockApp extends JPanel implements PostWidgetBuildProcessing, Shape
 {
 	private static final long serialVersionUID = 1L;
 	
-	private ShapeDrawingCollection sdc = new ShapeDrawingCollection();
+	private ShapeDrawingCollection sdc;
 	private ClockRunnable cr;
 
 	public ClockApp()
@@ -19,11 +19,6 @@ public class ClockApp extends JPanel implements PostWidgetBuildProcessing, Shape
 	}
 	
 	@Override
-	public ShapeDrawingCollection getShapeDrawingCollection()
-	{
-		return this.sdc;
-	}
-	
 	public void postExecute() 
 	{
 		cr = new ClockRunnable(this, sdc);
@@ -38,6 +33,12 @@ public class ClockApp extends JPanel implements PostWidgetBuildProcessing, Shape
 		{
 			sdc.addShapeStyling(shapeStyling);
 		}
+	}
+
+	@Override
+	public void addShapeDrawingCollection(ShapeDrawingCollection sdc) 
+	{
+		this.sdc = sdc;
 	}
 
 }

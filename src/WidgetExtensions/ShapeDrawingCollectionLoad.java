@@ -5,5 +5,6 @@ import ShapeWidgetComponents.ShapeDrawingCollection;
 
 public interface ShapeDrawingCollectionLoad extends ShapeStylingActionListener 
 {
-	public ShapeDrawingCollection getShapeDrawingCollection();
+//	public ShapeDrawingCollection getShapeDrawingCollection();
+	public void addShapeDrawingCollection(ShapeDrawingCollection sdc);
 }

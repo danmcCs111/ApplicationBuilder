@@ -33,7 +33,6 @@ public class ShapeDrawingCollection
 		}
 	}
 	
-	
 	public void addShapeImports(ArrayList<ShapeElement> shapeElements, ShapeStylingActionListener ssal)
 	{
 		for(ShapeElement se : shapeElements)

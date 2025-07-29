@@ -19,7 +19,8 @@ public class ExtendedShapeDrawingCollectionLoader implements ExtendedAttributePa
 	{
 		ShapeDrawingCollectionLoad sdcL = (ShapeDrawingCollectionLoad) widgetProperties.getInstance();
 		File file = new File(new FileSelection(arg0).getFullPath());
-		ShapeDrawingCollection sdc = sdcL.getShapeDrawingCollection();
+		ShapeDrawingCollection sdc = new ShapeDrawingCollection();
+		sdcL.addShapeDrawingCollection(sdc);
 		ShapeImportExport sie = new ShapeImportExport();
 		ArrayList<ShapeElement> shapeElements = sie.openXml(file);
 		
