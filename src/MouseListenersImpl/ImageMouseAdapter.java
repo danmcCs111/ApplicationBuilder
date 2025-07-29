@@ -52,6 +52,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 	private static final ArrayList<KeepSelection> keeps = new ArrayList<KeepSelection>();//The whole app
 	private ArrayList<KeepSelection> keepsCurrentCollection = new ArrayList<KeepSelection>();//instance
 	private JFrame f;
+	private ArrayList<JFrame> frames = new ArrayList<JFrame>();
 	private JFrame parentFrame;
 	private List<String> saveChosenSelection = null;
 	private String saveFilePathChosen = null;
@@ -234,6 +235,8 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		KeepSelection ks = getAllStoredKeepSelection(fullText);
 		
 		f = new JFrame();
+		frames.add(f);
+		
 		f.setTitle(title);
 		f.setUndecorated(true);
 		

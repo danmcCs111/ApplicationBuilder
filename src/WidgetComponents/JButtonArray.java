@@ -7,6 +7,7 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.List;
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -75,8 +77,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 	
 	public JButtonArray()
 	{
-		//startup
-		super();
+		
 	}
 	
 	public static final ActionListener highlightActionListener = new ActionListener() 
@@ -464,6 +465,13 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 				c.addMouseListener(ima);
 			}
 		}
+		JFrame f = (JFrame) this.getRootPane().getParent();//close?
+		f.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent e) {
+				closeAll();
+			}
+		});
 	}
 	
 	@Override

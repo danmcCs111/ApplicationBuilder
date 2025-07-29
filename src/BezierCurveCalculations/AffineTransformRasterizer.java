@@ -195,7 +195,17 @@ public class AffineTransformRasterizer extends AffineTransform
             int numPts)
 	{
 		super.transform(srcPts, srcOff, dstPts, dstOff, numPts);
-		points = dstPts; 
+		for(int i = 0; i < points.length; i++)
+		{
+			if(i < dstPts.length)
+			{
+				points[i] = dstPts[i];
+			}
+			else
+			{
+				points[i] = 0.0;
+			}
+		}
 	}
 
 }

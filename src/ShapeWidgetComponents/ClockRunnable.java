@@ -56,7 +56,6 @@ public class ClockRunnable implements Runnable
 			e.printStackTrace();
 		}
 		ShapeDrawingCollectionGraphics.drawAll(drawContainer, sdc, null, false);
-		LoggingMessages.printOut("draw: " + sdc);
 		do
 		{
 			try {
@@ -65,7 +64,6 @@ public class ClockRunnable implements Runnable
 				e.printStackTrace();
 			}
 			getTimeWarp(clockEllipse);
-			LoggingMessages.printOut("draw: " + sdc);
 		} while(true);
 	}
 	
@@ -74,8 +72,6 @@ public class ClockRunnable implements Runnable
 		int hourDeg = getDegIndex(Calendar.HOUR);
 		int minuteDeg = getDegIndex(Calendar.MINUTE);
 		int secondDeg = getDegIndex(Calendar.SECOND);
-		
-		System.out.println("hour degrees: " + hourDeg + "points length: " + points.size());
 		
 		hourHand.setLine(centerPoint, points.get(hourDeg));
 		minuteHand.setLine(centerPoint, points.get(minuteDeg));
@@ -89,7 +85,7 @@ public class ClockRunnable implements Runnable
 		
 	}
 	
-	private int getDegIndex(int calSelect)
+	private static int getDegIndex(int calSelect)
 	{
 		Calendar cal = Calendar.getInstance();
 		int deg = 0;
@@ -129,7 +125,7 @@ public class ClockRunnable implements Runnable
 		points = getPoints(boundsShape, pi, afs);
 	}
 	
-	private ArrayList<Point> getPoints(Shape s, PathIterator pi, AffineTransformRasterizer afs)
+	private static ArrayList<Point> getPoints(Shape s, PathIterator pi, AffineTransformRasterizer afs)
 	{
 		ArrayList<Point> points = new ArrayList<Point>();
 		points.addAll(afs.samplePoints(pi, s, (1.0/90.0)));
