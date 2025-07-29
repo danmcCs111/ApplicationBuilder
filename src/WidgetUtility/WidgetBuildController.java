@@ -1,10 +1,14 @@
 package WidgetUtility;
 
 import java.awt.Component;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.AbstractButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
@@ -258,9 +262,9 @@ public class WidgetBuildController
 	{
 		if(getWidgetCreatorProperties() != null && !getWidgetCreatorProperties().isEmpty())
 		{
-			JFrame frame = (JFrame) getWidgetCreatorProperties().get(0).getInstance();//TODO
-//			frame.setVisible(false);
-//			for(WidgetCreatorProperty wcp : getWidgetCreatorProperties()) wcp.destroy();
+			JFrame frame = (JFrame) getWidgetCreatorProperties().get(0).getInstance();//TODO memory leaks in layout editor
+			for(WidgetCreatorProperty wcp : getWidgetCreatorProperties()) wcp.destroy();
+			frame.getContentPane().removeAll();
 			frame.dispose();
 		}
 	}
@@ -376,6 +380,30 @@ public class WidgetBuildController
 	public void destroyFrame()
 	{
 		destroyGeneratedFrame();
+	}
+	
+	public void clearListeners()
+	{
+		for(WidgetCreatorProperty wcp : getWidgetCreatorProperties())
+		{
+			Object o = wcp.getInstance();
+			if(o instanceof Component)
+			{
+				Component c = ((Component) o);
+				for(MouseListener ml : c.getMouseListeners())
+					c.removeMouseListener(ml);
+				for(MouseMotionListener mml : c.getMouseMotionListeners())
+					c.removeMouseMotionListener(mml);
+			}
+			if(o instanceof AbstractButton)
+			{
+				AbstractButton ab = (AbstractButton) o;
+				for(ActionListener al : ab.getActionListeners())
+				{
+					ab.removeActionListener(al);
+				}
+			}
+		}
 	}
 	
 	public void destroyFrameAndCreatorProperties()
