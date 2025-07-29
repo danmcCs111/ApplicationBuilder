@@ -41,12 +41,12 @@ public class ShapeElement
 		parseAttributes();
 	}
 	
-	public Shape getShape(ShapeStyling ss)
+	public Shape getShape()
 	{
 		if(shape == null)
 		{
 			DrawMode dm = this.getDrawMode();
-			shape = ShapeUtils.constructShape(dm, controlPoints.toArray(new Point[]{}), ss);
+			shape = ShapeUtils.constructShape(dm, controlPoints.toArray(new Point[]{}));
 		}
 		return shape;
 	}
@@ -90,8 +90,8 @@ public class ShapeElement
 		ss.setStrokeWidth(strokeWidth);
 		if(ngConfigString != null && !ngConfigString.isBlank())
 		{
-			ss.updateNumberGeneratorConfig(getShape(ss));
-			this.ngConfig = new NumberGeneratorConfig(getShape(ss), ss, ngConfigString);
+			ss.updateNumberGeneratorConfig(getShape());
+			this.ngConfig = new NumberGeneratorConfig(getShape(), ss, ngConfigString);
 			ss.setNumberGeneratorConfig(ngConfig);
 		}
 		return ss;

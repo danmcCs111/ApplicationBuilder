@@ -11,6 +11,7 @@ import java.util.HashMap;
 
 import javax.swing.JPanel;
 
+import Properties.LoggingMessages;
 import ShapeEditorListeners.AddShapesImportedListener;
 import ShapeEditorListeners.ControlPointChangedListener;
 import ShapeEditorListeners.DrawMouseListener;
@@ -167,12 +168,14 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 		return ShapeUtils.recalculateShape(s, cps);
 	}
 	
-	public Shape constructShape(DrawMode mode, Point [] curvePoints, ShapeStyling shapeStyling)
+	public Shape constructShape(DrawMode mode, Point [] curvePoints)
 	{
-		Shape shape = ShapeUtils.constructShape(mode, curvePoints, shapeStyling);
-		sdc.getShapes().add(shape);
+		Shape shape = ShapeUtils.constructShape(mode, curvePoints);
+		ShapeStyling shapeStyling = new ShapeStyling(getNumShapes(), getColorPallette(), getColorPallette(), this);
+		sdc.addShape(shape);
+		LoggingMessages.printOut(getColorPallette()+"");
 		sdc.addShapeStyling(shapeStyling);
-		generatePointEditor(getMode(), curvePoints, shapeStyling);
+		generatePointEditor(mode, curvePoints, shapeStyling);
 		
 		return shape;
 	}

@@ -147,7 +147,7 @@ public class ShapeUtils
 		return newPoints;
 	}
 	
-	public static Shape constructShape(DrawMode mode, Point [] curvePoints, ShapeStyling shapeStyling)
+	public static Shape constructShape(DrawMode mode, Point [] curvePoints)
 	{
 		Shape shape = null;
 		switch(mode)

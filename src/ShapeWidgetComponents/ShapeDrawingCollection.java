@@ -15,10 +15,10 @@ public class ShapeDrawingCollection
 	public static Dimension CONTROL_POINT_PIXEL_SIZE = new Dimension(6,6);
 	public static final BasicStroke defaultStroke = new BasicStroke(1);
 	
-	ArrayList<ArrayList<Point>> shapeControlPoints = new ArrayList<ArrayList<Point>>();
-	ArrayList<Shape> shapes = new ArrayList<Shape>();
-	ArrayList<ShapeStyling> shapeStylings = new ArrayList<ShapeStyling>();
-	ArrayList<AddShapesImportedListener> asils = new ArrayList<AddShapesImportedListener>();
+	private ArrayList<ArrayList<Point>> shapeControlPoints = new ArrayList<ArrayList<Point>>();
+	private ArrayList<Shape> shapes = new ArrayList<Shape>();
+	private ArrayList<ShapeStyling> shapeStylings = new ArrayList<ShapeStyling>();
+	private ArrayList<AddShapesImportedListener> asils = new ArrayList<AddShapesImportedListener>();
 	
 	public ShapeDrawingCollection()
 	{
@@ -36,24 +36,22 @@ public class ShapeDrawingCollection
 	
 	public void addShapeImports(ArrayList<ShapeElement> shapeElements, ShapeStylingActionListener ssal)
 	{
-		int count = shapes.size();
 		for(ShapeElement se : shapeElements)
 		{
+			int count = shapes.size();
 			LoggingMessages.printOut(se.toString());
 			this.addShapeControlPoints(se.getPoints());
-			ShapeStyling ss = se.getShapeStyling(count, ssal);
-			Shape s = se.getShape(ss);
-			this.addShapeStyling(ss);
+			Shape s = se.getShape();
+			se.getShapeStyling(count, ssal);//added through notify
 			this.addShape(s);
 			
-			LoggingMessages.printOut(ss.toString());
 			for(AddShapesImportedListener asil : asils)
 			{
 				asil.notifyImported(se);
 			}
-			
-			count++;
 		}
+		LoggingMessages.printOut("style size: " + shapeStylings.size());
+		
 	}
 	
 	public void addShape(Shape s)
@@ -68,6 +66,7 @@ public class ShapeDrawingCollection
 	
 	public void addShapeStyling(ShapeStyling ss)
 	{
+		LoggingMessages.printOut("added: " + ss.getDrawColor() + this.shapeStylings.size());
 		this.shapeStylings.add(ss);
 	}
 	

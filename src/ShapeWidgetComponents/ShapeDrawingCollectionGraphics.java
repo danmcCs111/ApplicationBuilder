@@ -53,6 +53,7 @@ public interface ShapeDrawingCollectionGraphics
 	
 	public static void drawShapes(Container drawPanel, ShapeDrawingCollection sdc)
 	{
+		LoggingMessages.printOut(sdc.getShapeStylings().size() + "");
 		int count = 0;
 		for(Shape s : sdc.getShapes())
 		{
