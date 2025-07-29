@@ -75,21 +75,22 @@ public interface ShapeDrawingCollectionGraphics
 		Color c = shapeStyling.getDrawColor(); 
 		Color fillColor = shapeStyling.getFillColor();
 		Stroke stroke = shapeStyling.getStroke();
+		Shape s = shape;
 		
 		if(stroke != null && !g2d.getStroke().equals(stroke) && shapeStyling.isCreateStrokedShape())
 		{
 			g2d.setStroke(stroke);
-			shape = g2d.getStroke().createStrokedShape(shape);
+			s = g2d.getStroke().createStrokedShape(shape);
 		}
 		else {
 			g2d.setStroke(ShapeDrawingCollection.defaultStroke);
 		}
 		g2d.setColor(c);
-		g2d.draw(shape);
+		g2d.draw(s);
 		if(fillColor != null)
 		{
 			g2d.setColor(fillColor);
-			g2d.fill(shape);
+			g2d.fill(s);
 		}
 		
 	}
