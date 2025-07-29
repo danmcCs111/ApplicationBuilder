@@ -259,7 +259,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		if(component instanceof JButtonLengthLimited)//TODO
 		{
 			JButtonLengthLimited ab = (JButtonLengthLimited) component;
-			MouseDragListener mouseDragListener = new MouseDragListener(f, ab, picLabel);
+			FrameMouseDragListener mouseDragListener = new FrameMouseDragListener(f, ab, picLabel);
 			picLabel.addMouseMotionListener(mouseDragListener);
 			picLabel.addMouseListener(mouseDragListener);
 			picLabel.setName(ks.getText());

@@ -11,6 +11,9 @@ import ObjectTypeConvertersImpl.FileSelectionConverter;
 import ObjectTypeConvertersImpl.IntConverter;
 import ObjectTypeConvertersImpl.KeyListenerConverter;
 import ObjectTypeConvertersImpl.LayoutManagerConverter;
+import ObjectTypeConvertersImpl.MouseAdapterConverter;
+import ObjectTypeConvertersImpl.MouseListenerConverter;
+import ObjectTypeConvertersImpl.MouseMotionListenerConverter;
 import ObjectTypeConvertersImpl.PointConverter;
 import ObjectTypeConvertersImpl.StringConverter;
 import ObjectTypeConvertersImpl.WindowListenerConverter;
@@ -24,6 +27,9 @@ public enum ParamTypes
 	Point(new PointConverter()),
 	Boolean(new BooleanConverter()),
 	ActionListener(new ActionListenerConverter()),
+	mouseListener(new MouseListenerConverter()),
+	mouseAdapter(new MouseAdapterConverter()),
+	mouseMotionListener(new MouseMotionListenerConverter()),
 	WindowListener(new WindowListenerConverter()),
 	KeyListener(new KeyListenerConverter()),
 	DirectorySelection(new DirectorySelectionConverter()),

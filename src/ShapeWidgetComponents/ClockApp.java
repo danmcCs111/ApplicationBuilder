@@ -1,12 +1,10 @@
 package ShapeWidgetComponents;
 
-import java.awt.Shape;
 import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-import Properties.LoggingMessages;
 import Properties.PathUtility;
 import ShapeEditorListeners.ShapeStylingActionListener;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
@@ -29,9 +27,9 @@ public class ClockApp extends JPanel implements PostWidgetBuildProcessing, Shape
 		File f = new File(PathUtility.getCurrentDirectory() +  "/src/ApplicationBuilder/shapes/circle.xml");//TODO
 		ArrayList<ShapeElement> shapeElements = sie.openXml(f);
 		sdc.addShapeImports(shapeElements,this);
-		ClockMouseDragListener ml = new ClockMouseDragListener(this);
-		this.addMouseListener(ml);
-		this.addMouseMotionListener(ml);
+//		ClockMouseDragListener ml = new ClockMouseDragListener(this);
+//		this.addMouseListener(ml);
+//		this.addMouseMotionListener(ml);
 	}
 
 	public void postExecute() 
