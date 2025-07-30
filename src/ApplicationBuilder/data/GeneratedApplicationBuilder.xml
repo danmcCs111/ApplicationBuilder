@@ -6,9 +6,9 @@
 				</JButton>
 			</JPanel>
 			<JPanel extendedLayoutApplyParent="West" setLayout="java.awt.GridLayout" >
-				<JButton addActionListener="ActionListenersImpl.GenerateActionListener" extendedLayoutApplyParent="" setForeground="0, 114, 197" setText="Generate" >
+				<JButton addActionListener="ActionListenersImpl.GenerateActionListener" extendedLayoutApplyParent="" setForeground="0, 114, 197" setText="Generate" setEnabled="False" >
 				</JButton>
-				<JButton addActionListener="ActionListenersImpl.CloseProjectActionListener" extendedLayoutApplyParent="" setForeground="150, 0, 51" setName="ExitActionListener" setText="X Close Generation" >
+				<JButton addActionListener="ActionListenersImpl.CloseProjectActionListener" extendedLayoutApplyParent="" setForeground="150, 0, 51" setName="ExitActionListener" setText="X Close Generation" setEnabled="False" >
 				</JButton>
 			</JPanel>
 			<JPanel extendedLayoutApplyParent="East" setLayout="java.awt.GridLayout" >
