@@ -1,30 +1,30 @@
 <Build>
-	<ApplicationLayoutEditor extendedSetupTaskbar=".\src\ApplicationBuilder\build-icon_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="350, 20" setMinimumSize="680, 600" setTitle="Application Layout Editor" >
+	<ApplicationLayoutEditor extendedSetupTaskbar="/src/ApplicationBuilder/build-icon_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="350, 20" setMinimumSize="680, 600" setTitle="Application Layout Editor" >
 		<JPanel extendedLayoutApplyParent="South" setLayout="java.awt.BorderLayout" >
 			<JPanel extendedLayoutApplyParent="Center" >
-				<JButton addActionListener="ActionListeners.SaveEditorActionListener" extendedLayoutApplyParent="Center" setForeground="0, 51, 0" setText="Save" >
+				<JButton addActionListener="ActionListenersImpl.SaveEditorActionListener" extendedLayoutApplyParent="Center" setForeground="0, 51, 0" setText="Save" >
 				</JButton>
 			</JPanel>
 			<JPanel extendedLayoutApplyParent="West" setLayout="java.awt.GridLayout" >
-				<JButton addActionListener="ActionListeners.GenerateActionListener" extendedLayoutApplyParent="" setForeground="0, 114, 197" setText="Generate" >
+				<JButton addActionListener="ActionListenersImpl.GenerateActionListener" extendedLayoutApplyParent="" setForeground="0, 114, 197" setText="Generate" >
 				</JButton>
-				<JButton addActionListener="ActionListeners.CloseProjectActionListener" extendedLayoutApplyParent="" setForeground="150, 0, 51" setName="ExitActionListener" setText="X Close Generation" >
+				<JButton addActionListener="ActionListenersImpl.CloseProjectActionListener" extendedLayoutApplyParent="" setForeground="150, 0, 51" setName="ExitActionListener" setText="X Close Generation" >
 				</JButton>
 			</JPanel>
 			<JPanel extendedLayoutApplyParent="East" setLayout="java.awt.GridLayout" >
-				<JButton addActionListener="ActionListeners.OpenParameterEditorActionListener" extendedLayoutApplyParent="" setText="Add Property" >
+				<JButton addActionListener="ActionListenersImpl.OpenParameterEditorActionListener" extendedLayoutApplyParent="" setText="Add Property" >
 				</JButton>
-				<JButton addActionListener="ActionListeners.AddComponentActionListener" extendedLayoutApplyParent="" setText="Add Component" >
+				<JButton addActionListener="ActionListenersImpl.AddComponentActionListener" extendedLayoutApplyParent="" setText="Add Component" >
 				</JButton>
 			</JPanel>
 		</JPanel>
 		<JMenuBar extendedSetJMenuBarParent="" >
 			<JMenu extendedLayoutApplyParent="" setText="File" >
-				<JMenuItem addActionListener="ActionListeners.NewEditorActionListener" extendedLayoutApplyParent="" setText="New" >
+				<JMenuItem addActionListener="ActionListenersImpl.NewEditorActionListener" extendedLayoutApplyParent="" setText="New" >
 				</JMenuItem>
-				<JMenuItem addActionListener="ActionListeners.OpenFileActionListener" extendedLayoutApplyParent="" setText="Open" >
+				<JMenuItem addActionListener="ActionListenersImpl.OpenFileActionListener" extendedLayoutApplyParent="" setText="Open" >
 				</JMenuItem>
-				<JMenuItem addActionListener="ActionListeners.SaveAsEditorActionListener" extendedLayoutApplyParent="" setText="Save As" >
+				<JMenuItem addActionListener="ActionListenersImpl.SaveAsEditorActionListener" extendedLayoutApplyParent="" setText="Save As" >
 				</JMenuItem>
 			</JMenu>
 		</JMenuBar>
