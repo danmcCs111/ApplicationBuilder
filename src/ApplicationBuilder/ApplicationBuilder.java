@@ -6,7 +6,7 @@ import WidgetUtility.WidgetBuildController;
 public class ApplicationBuilder
 {
 	public static final String DEFAULT_APPLICATION_EDITOR_PATH = PathUtility.getCurrentDirectory() + 
-			"/" +  "src/ApplicationBuilder/data/GeneratedApplicationBuilder.xml";
+			"/src/ApplicationBuilder/data/GeneratedApplicationBuilder.xml";
 	
 	public static void main(String [] args)
 	{

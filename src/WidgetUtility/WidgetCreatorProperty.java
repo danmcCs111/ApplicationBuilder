@@ -10,7 +10,7 @@ import Properties.LoggingMessages;
 
 public class WidgetCreatorProperty 
 {
-	private static final String 
+	public static final String 
 		ID_SUFFIX_REGEX = "#[0-9]*";
 	
 	private Object instance;
@@ -136,10 +136,10 @@ public class WidgetCreatorProperty
 		return getRefWithID().equals(refWithId);
 	}
 	
-	public void addXmlToWidgetGenerator(XmlToWidgetGenerator xmlToWidgetGenerator)
+	public void addXmlToWidgetGenerator(ArrayList<XmlToWidgetGenerator> xmlToWidgetGenerator)
 	{
 		if(xmlToWidgetGenerator != null)
-			xmlToWidgetGenerators.add(xmlToWidgetGenerator);
+			xmlToWidgetGenerators.addAll(xmlToWidgetGenerator);
 	}
 	
 	public ArrayList<XmlToWidgetGenerator> getXmlToWidgetGenerators()

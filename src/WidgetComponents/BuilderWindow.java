@@ -113,7 +113,7 @@ public class BuilderWindow extends RedrawableFrame
 		{
 			for(XmlToWidgetGenerator xwg : wcp.getXmlToWidgetGenerators())
 			{
-				if(s.contains(xwg.getMethodName()))
+				if(s.contains(xwg.getMethodName()) && !s.startsWith("add"))
 				{
 					continue nextSel;
 				}

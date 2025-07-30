@@ -201,11 +201,11 @@ public class WidgetAttributes
 	}
 	
 
-	public static XmlToWidgetGenerator setAttribute(ClassTypeHandler classTypeHandler, String method, String ... params)
+	public static ArrayList<XmlToWidgetGenerator> setAttribute(ClassTypeHandler classTypeHandler, String method, String ... params)
 	{
 		JScrollPane pane = new JScrollPane();
 		pane.setVisible(false);
-		XmlToWidgetGenerator xmlToWidgetGenerator = null;
+		ArrayList<XmlToWidgetGenerator> xmlToWidgetGenerator = new ArrayList<XmlToWidgetGenerator>();
 		ClassAndSetters tmp = ClassTypeHandler.getClassAndSetters(classTypeHandler);
 		String setter = null; 
 		if(tmp != null)
@@ -213,13 +213,13 @@ public class WidgetAttributes
 			setter = tmp.getSetter(method);
 			if(setter != null)
 			{
-				xmlToWidgetGenerator = ClassTextAdapter.functionCall(tmp.getClazz(), setter, method, params);
+				xmlToWidgetGenerator.addAll(ClassTextAdapter.functionCall(tmp.getClazz(), setter, method, params));
 			}
 		}
 		return xmlToWidgetGenerator;
 	}
 	
-	public static XmlToWidgetGenerator setAttribute(ClassTypeHandler classTypeHandler, String method, String params)
+	public static ArrayList<XmlToWidgetGenerator> setAttribute(ClassTypeHandler classTypeHandler, String method, String params)
 	{
 		List<String> paramList = new ArrayList<String>();
 		
@@ -236,7 +236,7 @@ public class WidgetAttributes
 		return setAttribute(classTypeHandler, method,  paramList.toArray(new String []{}));
 	}
 	
-	public static XmlToWidgetGenerator setAttribute(ClassTypeHandler classTypeHandler, String methodDef)
+	public static ArrayList<XmlToWidgetGenerator> setAttribute(ClassTypeHandler classTypeHandler, String methodDef)
 	{
 		methodDef = methodDef.replaceAll("\\[.*", "");
 		methodDef = methodDef.trim();

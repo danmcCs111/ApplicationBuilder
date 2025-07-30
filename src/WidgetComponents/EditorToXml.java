@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import ObjectTypeConvertersImpl.ClassTextAdapter;
 import Params.ParameterEditor;
 import Params.XmlToWidgetGenerator;
 import Properties.LoggingMessages;
@@ -97,11 +98,13 @@ public class EditorToXml
 			}
 			
 			sb.append(OPEN_BRACKET_OPEN + wcp.getRef() + " ");
+			ArrayList<String> methodNames = new ArrayList<String>();
 			for(XmlToWidgetGenerator xwg : wcp.getXmlToWidgetGenerators())
 			{
 				String 
 					metName = xwg.getMethodName(),
 					parWrite = "";
+				
 				for(int i = 0; i < xwg.getParameterEditors().size(); i++)
 				{
 					ParameterEditor pe = xwg.getParameterEditors().get(i);
@@ -119,7 +122,18 @@ public class EditorToXml
 						parWrite = parWrite.replaceAll(replChar, repl);
 					}
 				}
-				sb.append(metName + "=\"" + parWrite + "\" ");
+				
+				if(methodNames.contains(metName))
+				{
+					sb = new StringBuilder(sb.substring(0, sb.length()-2));
+					sb.append(ClassTextAdapter.PARAM_MULTIPLIER + parWrite + "\" ");
+				}
+				else 
+				{
+					sb.append(metName + "=\"" + parWrite + "\" ");
+				}
+				
+				methodNames.add(metName);
 			}
 			sb.append(OPEN_BRACKET_CLOSE + System.lineSeparator());
 			lastParentRefWithID = wcp.getParentRefWithID() == null ? lastParentRefWithID : wcp.getParentRefWithID();

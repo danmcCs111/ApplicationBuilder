@@ -2,6 +2,7 @@ package ActionListenersImpl;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JList;
 import javax.swing.ListSelectionModel;
@@ -41,7 +42,7 @@ public class OpenDetailsActionListener implements ActionListener
 			for(Object o : componentMethods.getSelectedValuesList())
 			{
 				LoggingMessages.printOut(o.toString());
-				XmlToWidgetGenerator xmlG = WidgetAttributes.setAttribute(wcp.getClassType(), o+"");
+				ArrayList<XmlToWidgetGenerator> xmlG = WidgetAttributes.setAttribute(wcp.getClassType(), o+"");
 				wcp.addXmlToWidgetGenerator(xmlG);
 				
 				rFrameParent.rebuildInnerPanels();

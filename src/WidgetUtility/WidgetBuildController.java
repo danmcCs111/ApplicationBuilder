@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import Params.ParameterEditor;
 import Params.XmlToWidgetGenerator;
 import Properties.LoggingMessages;
+import Properties.PathUtility;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetExtensions.ExtendedAttributeParam;
 import WidgetExtensionsImpl.ExtendedLayoutApplyParent;
@@ -51,6 +52,11 @@ public class WidgetBuildController
 		getInstance(++selInstance);
 		widgetReaders.add(new WidgetReader(null));
 		WidgetComponent.resetIDCounter();	
+	}
+	
+	public String getTemporaryFile()
+	{
+		return PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/data/tmp.xml";
 	}
 	
 	public String getFilename()

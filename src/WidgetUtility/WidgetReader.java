@@ -73,7 +73,7 @@ public class WidgetReader
 			for(String s : wcp.getSettingsName())
 			{
 				String val = wcp.getSettingsNameAndValue().get(s);
-				XmlToWidgetGenerator xmlToWidgetGenerator = WidgetAttributes.setAttribute(wcp.getClassType(), s, val);
+				ArrayList<XmlToWidgetGenerator> xmlToWidgetGenerator = WidgetAttributes.setAttribute(wcp.getClassType(), s, val);
 				wcp.addXmlToWidgetGenerator(xmlToWidgetGenerator);
 			}
 		}

@@ -11,9 +11,11 @@ import Properties.LoggingMessages;
 
 public class ClassTextAdapter 
 {
-	public static XmlToWidgetGenerator functionCall(Class<?> component, String methodDefintion, String method, String ... params)
+	public static final String PARAM_MULTIPLIER = "#";
+	
+	public static ArrayList<XmlToWidgetGenerator> functionCall(Class<?> component, String methodDefintion, String method, String ... params)
 	{
-		XmlToWidgetGenerator methodParams = null;
+		ArrayList<XmlToWidgetGenerator> methodParams = new ArrayList<XmlToWidgetGenerator>();
 		ArrayList<String> paramDefList = parseParameterListFromMethodDefintion(methodDefintion);
 		int count = 0;
 		
@@ -22,22 +24,42 @@ public class ClassTextAdapter
 		{
 			LoggingMessages.printOut("param: " + p);
 			StringToObjectConverter stringToObjectConverter = ParamTypes.getParamType(p).getConverter();
-			List<String> argParams = new ArrayList<String>();
+			ArrayList<List<String>> argParams = new ArrayList<List<String>>();
+			argParams.add(new ArrayList<String>());
 			
 			if(params.length-count >= stringToObjectConverter.numberOfArgs())
 			{
 				for(int i = 0; i < stringToObjectConverter.numberOfArgs(); i++)//loop through the xml args per method def param
 				{
-					argParams.add(params[count + i]);
+					String param = params[count + i];
+					if(param.contains(PARAM_MULTIPLIER))
+					{
+						String [] multiplier = param.split(PARAM_MULTIPLIER);
+						for(int j = 0; j < multiplier.length; j++)
+						{
+							if(j == argParams.size())
+							{
+								argParams.add(new ArrayList<String>());
+							}
+							argParams.get(j).add(multiplier[j]);
+						}
+					}
+					else
+					{
+						argParams.get(0).add(param);
+					}
 				}
 			}
-			if(methodParams == null)
+			if(methodParams == null || methodParams.isEmpty())
 			{
-				methodParams = new XmlToWidgetGenerator(stringToObjectConverter, method, argParams);
+				for(List<String> argP : argParams)
+				{
+					methodParams.add(new XmlToWidgetGenerator(stringToObjectConverter, method, argP));
+				}
 			}
 			else
 			{
-				methodParams.addNextParams(stringToObjectConverter, argParams);
+				methodParams.get(0).addNextParams(stringToObjectConverter, argParams.get(0));//only multiplier on single args for now.
 			}
 			count += stringToObjectConverter.numberOfArgs();
 		}
