@@ -1,9 +1,15 @@
 package ObjectTypeConversion;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
+import ObjectTypeConvertersImpl.IntConverter;
 import Params.ParamTypes;
 import Properties.LoggingMessages;
 
@@ -55,8 +61,10 @@ public class WeatherReading
 			Object o = queryValues.get(key);
 			if(dayOfTheWeek.contains(key))
 			{
+				Date d = getDate((String) o);
+				LoggingMessages.printOut(d.toString());
 				query += "Date" + ", ";//Convert to date... primary key (date + zip code / location)
-				values += "'" + key + " " + o + "', ";
+				values += "" + d.getTime() + ", ";
 			}
 			else
 			{
@@ -79,11 +87,37 @@ public class WeatherReading
 		
 		query += ")";
 		values += ")";
-		query += "\n" + values;
+		query += "\n VALUES " + values;
 		
 		LoggingMessages.printOut(query);
 		
 		return query;
+	}
+	
+	private Date getDate(String date)
+	{
+		String time = date.substring(date.length()-5);
+		String dateSt = date.replaceAll("at", "").replaceAll("pm", "").replaceAll("am", "");
+		dateSt = dateSt.substring(0, dateSt.length()-2);
+		IntConverter sc = new IntConverter();
+		int hour = (int) sc.conversionCall(time.substring(0, time.length()-2).strip());
+		
+		if(time.endsWith("pm") && hour != 12)
+		{
+			hour += 12;
+		}
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR) + 1;//index?
+		
+		SimpleDateFormat fmt = new SimpleDateFormat("MMMM dd hh YYYY", Locale.US);
+		Date d = null;
+		try {
+			d = fmt.parse(dateSt + hour + " " + year);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		return d;
 	}
 	
 	private void loadWeatherReading(HashMap<String, String> reading)
