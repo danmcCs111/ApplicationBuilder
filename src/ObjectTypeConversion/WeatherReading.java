@@ -62,7 +62,6 @@ public class WeatherReading
 			if(dayOfTheWeek.contains(key))
 			{
 				Date d = getDate((String) o);
-				LoggingMessages.printOut(d.toString());
 				query += "Date" + ", ";//Convert to date... primary key (date + zip code / location)
 				values += "" + d.getTime() + ", ";
 			}
@@ -107,15 +106,17 @@ public class WeatherReading
 			hour += 12;
 		}
 		Calendar cal = Calendar.getInstance();
-		int year = cal.get(Calendar.YEAR) + 1;//index?
+		int year = cal.get(Calendar.YEAR);//index?
 		
-		SimpleDateFormat fmt = new SimpleDateFormat("MMMM dd hh YYYY", Locale.US);
+		LoggingMessages.printOut("before parse: " + dateSt.strip() + " " + hour + " " + year);
+		SimpleDateFormat fmt = new SimpleDateFormat("MMMM dd HH yyyy", Locale.US);
 		Date d = null;
 		try {
-			d = fmt.parse(dateSt + hour + " " + year);
+			d = fmt.parse(dateSt.strip() + " " + hour + " " + year);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		LoggingMessages.printOut("After parse: " + d.toString());
 		
 		return d;
 	}
