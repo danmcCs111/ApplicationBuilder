@@ -1,14 +1,16 @@
 package ObjectTypeConversion;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import Properties.LoggingMessages;
+import WidgetComponents.GraphViewer;
 
 public class WeatherGrabCsvConverter extends CsvConverter
 {
 	private ArrayList<HashMap<String, String>> csvValues = new ArrayList<HashMap<String,String>>();
-	private ArrayList<WeatherReading> weatherReadings = new ArrayList<WeatherReading>();
+	private HashMap<Date, WeatherReading> weatherReadings = new HashMap<Date, WeatherReading>();
 	
 	private static final ArrayList<Valuefilter> valueFiltersAndKeys = new ArrayList<Valuefilter>();
 	static 
@@ -40,8 +42,13 @@ public class WeatherGrabCsvConverter extends CsvConverter
 		
 		for(HashMap<String, String> reading : csvValues)
 		{
-			weatherReadings.add(new WeatherReading(reading));
+			WeatherReading wr = new WeatherReading(reading);
+			weatherReadings.put(wr.getDate(), wr);
 		}
+		
+		GraphViewer gv = new GraphViewer();
+		gv.setReadings(weatherReadings);
+		gv.readingToPlot("Temperature");
 		
 	}
 

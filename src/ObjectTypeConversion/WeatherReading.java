@@ -39,6 +39,7 @@ public class WeatherReading
 	
 	private HashMap<String, ValueModifier> valueModifiers = new HashMap<String, WeatherReading.ValueModifier>();
 	private HashMap<String, Object> queryValues = new HashMap<String, Object>();
+	private Date date;
 	
 	public WeatherReading(HashMap<String, String> reading)
 	{
@@ -49,6 +50,11 @@ public class WeatherReading
 	public HashMap<String, Object> getQueryValues()
 	{
 		return this.queryValues;
+	}
+	
+	public Date getDate()
+	{
+		return this.date;
 	}
 	
 	public String buildQuery() //TODO.
@@ -62,6 +68,7 @@ public class WeatherReading
 			if(dayOfTheWeek.contains(key))
 			{
 				Date d = getDate((String) o);
+				this.date = d;
 				query += "Date" + ", ";//Convert to date... primary key (date + zip code / location)
 				values += "" + d.getTime() + ", ";
 			}
@@ -106,7 +113,7 @@ public class WeatherReading
 			hour += 12;
 		}
 		Calendar cal = Calendar.getInstance();
-		int year = cal.get(Calendar.YEAR);//index?
+		int year = cal.get(Calendar.YEAR);
 		
 		LoggingMessages.printOut("before parse: " + dateSt.strip() + " " + hour + " " + year);
 		SimpleDateFormat fmt = new SimpleDateFormat("MMMM dd HH yyyy", Locale.US);
