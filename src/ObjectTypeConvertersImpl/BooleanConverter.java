@@ -4,9 +4,9 @@ import ObjectTypeConversion.StringToObjectConverter;
 
 public class BooleanConverter implements StringToObjectConverter 
 {
-
 	@Override
-	public int numberOfArgs() {
+	public int numberOfArgs() 
+	{
 		return 1;
 	}
 

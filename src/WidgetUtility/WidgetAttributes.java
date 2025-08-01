@@ -49,6 +49,7 @@ import WidgetExtensionsImpl.ExtendedCloseAllActionListener;
 import WidgetExtensionsImpl.ExtendedDatabaseResponseNodeListener;
 import WidgetExtensionsImpl.ExtendedLayoutApplyParent;
 import WidgetExtensionsImpl.ExtendedCommandExecution;
+import WidgetExtensionsImpl.ExtendedCsvReader;
 import WidgetExtensionsImpl.ExtendedImageMouseAdapterArray;
 import WidgetExtensionsImpl.ExtendedOpenActionListener;
 import WidgetExtensionsImpl.ExtendedSaveActionListener;
@@ -109,7 +110,8 @@ public class WidgetAttributes
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedActionListenerSubType.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedActionListenerConnectedComponent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
-				ExtendedAttributeParam.getMethodDefinition(ExtendedCommandExecution.class, ExtendedMethodArgDef.CommandBuildSelection.getMethodArgDef())
+				ExtendedAttributeParam.getMethodDefinition(ExtendedCommandExecution.class, ExtendedMethodArgDef.CommandBuildSelection.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedCsvReader.class, ExtendedMethodArgDef.CsvReaderSelection.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(JTextField.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())

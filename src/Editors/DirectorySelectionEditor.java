@@ -19,7 +19,7 @@ public class DirectorySelectionEditor extends JButton implements ParameterEditor
 	private static final String
 		DIRECTORY_SELECT_DIALOG_TITLE_TEXT = "Select Directory",
 		END_DIRECTORY_SUFFIX = "/ ";
-	private JFileChooser jcc;
+	protected JFileChooser jcc;
 
 	public DirectorySelectionEditor()
 	{

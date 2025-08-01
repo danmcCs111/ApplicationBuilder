@@ -5,8 +5,10 @@ import ObjectTypeConvertersImpl.ActionListenerConverter;
 import ObjectTypeConvertersImpl.BooleanConverter;
 import ObjectTypeConvertersImpl.ColorConverter;
 import ObjectTypeConvertersImpl.CommandBuildConverter;
+import ObjectTypeConvertersImpl.CsvReaderConverter;
 import ObjectTypeConvertersImpl.DimensionConverter;
 import ObjectTypeConvertersImpl.DirectorySelectionConverter;
+import ObjectTypeConvertersImpl.DoubleConverter;
 import ObjectTypeConvertersImpl.FileSelectionConverter;
 import ObjectTypeConvertersImpl.IntConverter;
 import ObjectTypeConvertersImpl.KeyListenerConverter;
@@ -17,15 +19,18 @@ import ObjectTypeConvertersImpl.MouseMotionListenerConverter;
 import ObjectTypeConvertersImpl.PointConverter;
 import ObjectTypeConvertersImpl.StringConverter;
 import ObjectTypeConvertersImpl.WindowListenerConverter;
+import Properties.LoggingMessages;
 
 public enum ParamTypes 
 {
 	String(new StringConverter()),
 	Int(new IntConverter()),
+	Double(new DoubleConverter()),
+	Point(new PointConverter()),
+	Dimension(new DimensionConverter()),
+	Boolean(new BooleanConverter()),
 	Color(new ColorConverter()),
 	LayoutManager(new LayoutManagerConverter()),
-	Point(new PointConverter()),
-	Boolean(new BooleanConverter()),
 	ActionListener(new ActionListenerConverter()),
 	mouseListener(new MouseListenerConverter()),
 	mouseAdapter(new MouseAdapterConverter()),
@@ -33,8 +38,8 @@ public enum ParamTypes
 	WindowListener(new WindowListenerConverter()),
 	KeyListener(new KeyListenerConverter()),
 	DirectorySelection(new DirectorySelectionConverter()),
+	CsvReader(new CsvReaderConverter()),
 	FileSelection(new FileSelectionConverter()),
-	Dimension(new DimensionConverter()),
 	CommandBuild(new CommandBuildConverter());
 	
 	private StringToObjectConverter converter;
@@ -69,6 +74,7 @@ public enum ParamTypes
 	 */
 	public static ParamTypes getParamType(String definitionName)
 	{
+		LoggingMessages.printOut(definitionName);
 		ParamTypes retP = null;
 		for(ParamTypes pt : ParamTypes.values())
 		{

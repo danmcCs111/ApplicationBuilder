@@ -1,32 +1,6 @@
 <Build>
-	<ApplicationLayoutEditor extendedSetupTaskbar="/src/ApplicationBuilder/build-icon_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="350, 20" setMinimumSize="680, 600" setTitle="Application Layout Editor" >
-		<JPanel extendedLayoutApplyParent="South" setLayout="java.awt.BorderLayout" >
-			<JPanel extendedLayoutApplyParent="Center" >
-				<JButton addActionListener="ActionListenersImpl.SaveEditorActionListener" extendedLayoutApplyParent="Center" setForeground="0, 51, 0" setText="Save" >
-				</JButton>
-			</JPanel>
-			<JPanel extendedLayoutApplyParent="West" setLayout="java.awt.GridLayout" >
-				<JButton addActionListener="ActionListenersImpl.GenerateActionListener" extendedLayoutApplyParent="" setForeground="0, 114, 197" setText="Generate" >
-				</JButton>
-				<JButton addActionListener="ActionListenersImpl.CloseProjectActionListener" extendedLayoutApplyParent="" setForeground="150, 0, 51" setName="ExitActionListener" setText="X Close Generation" >
-				</JButton>
-			</JPanel>
-			<JPanel extendedLayoutApplyParent="East" setLayout="java.awt.GridLayout" >
-				<JButton addActionListener="ActionListenersImpl.OpenParameterEditorActionListener" extendedLayoutApplyParent="" setText="Add Property" >
-				</JButton>
-				<JButton addActionListener="ActionListenersImpl.AddComponentActionListener" extendedLayoutApplyParent="" setText="Add Component" >
-				</JButton>
-			</JPanel>
-		</JPanel>
-		<JMenuBar extendedSetJMenuBarParent="" >
-			<JMenu extendedLayoutApplyParent="" setText="File" >
-				<JMenuItem addActionListener="ActionListenersImpl.NewEditorActionListener" extendedLayoutApplyParent="" setText="New" >
-				</JMenuItem>
-				<JMenuItem addActionListener="ActionListenersImpl.OpenFileActionListener" extendedLayoutApplyParent="" setText="Open" >
-				</JMenuItem>
-				<JMenuItem addActionListener="ActionListenersImpl.SaveAsEditorActionListener" extendedLayoutApplyParent="" setText="Save As" >
-				</JMenuItem>
-			</JMenu>
-		</JMenuBar>
-	</ApplicationLayoutEditor>
+	<JFrame extendedSetupTaskbar="/src/ApplicationBuilder/weather_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setMinimumSize="210, 210" setResizable="False" >
+		<ClockApp addMouseListener="MouseListenersImpl.ClockMouseDragListener" addMouseMotionListener="MouseListenersImpl.ClockMouseDragListener" extendedLayoutApplyParent="Center" extendedShapeDrawingCollectionLoader="/src/ApplicationBuilder/shapes/clock-new.xml" >
+		</ClockApp>
+	</JFrame>
 </Build>
