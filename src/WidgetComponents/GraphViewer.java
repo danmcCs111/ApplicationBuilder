@@ -30,9 +30,9 @@ public class GraphViewer extends JPanel
 	public void readingToPlot(String key)
 	{
 		HashMap<Date, Number> plotPoints = new HashMap<Date, Number>();
-		Date 
-			dateLow = null,
-			dateHigh = null;
+		Number 
+			numberLow = null,
+			numberHigh = null;
 		
 		for(Date d : readings.keySet())
 		{
@@ -46,13 +46,13 @@ public class GraphViewer extends JPanel
 			plotPoints.put(d, (Number) plotPointValue);
 			
 			//discover range
-			if(dateLow == null || dateLow.after(d))
+			if(numberLow == null || numberLow.doubleValue() > ((Number)plotPointValue).doubleValue())
 			{
-				dateLow = d;
+				numberLow = (Number)plotPointValue;
 			}
-			if(dateHigh == null || dateHigh.before(d))
+			if(numberHigh == null || numberHigh.doubleValue() < ((Number)plotPointValue).doubleValue())
 			{
-				dateHigh = d;
+				numberHigh = (Number)plotPointValue;
 			}
 		}
 		//Generate graph.
@@ -60,14 +60,15 @@ public class GraphViewer extends JPanel
 		Collections.sort(sorted);
 		for(Date d : sorted)
 		{
-			findX(600, dateHigh, dateLow, d);
+			findX(600, sorted.get(sorted.size()-1), sorted.get(0), d);
+			findY(600, numberHigh, numberLow, Integer.parseInt(""+readings.get(d).temperature));
 		}
 	}
 	
 	public int findX(int panelWidth, Date dateHigh, Date dateLow, Date d)
 	{
 		int 
-			x = 0,
+			xPoint = 0,
 			pad = 10,
 			negPad = 20;
 		double 
@@ -80,11 +81,36 @@ public class GraphViewer extends JPanel
 		time -= lowTime;//get over start point amount.
 		double spread = highTime - lowTime;//percentage of spread.
 		
-		int xPoint = (int)((time / spread) * panelWidth);
+		xPoint = (int)((time / spread) * panelWidth);
 		
 		xPoint += pad;
 		LoggingMessages.printOut("Date: " + d.toString() + "|  x point: " + xPoint);
 		
-		return x;
+		return xPoint;
+	}
+	
+	public int findY(int panelHeight, Number numberHigh, Number numberLow, Number d)
+	{
+		int 
+			yPoint = 0,
+			pad = 10,
+			negPad = 20;
+		double 
+			highTime = numberHigh.doubleValue(),
+			lowTime = numberLow.doubleValue();
+		double time = d.doubleValue();
+		
+		panelHeight -= negPad;
+		
+		time -= lowTime;//get over start point amount.
+		double spread = highTime - lowTime;//percentage of spread.
+		
+		
+		yPoint = (int)((time / spread) * panelHeight);
+		
+		yPoint += pad;
+		LoggingMessages.printOut("Value: " + d.toString() + "|  y point: " + yPoint);
+		
+		return yPoint;
 	}
 }
