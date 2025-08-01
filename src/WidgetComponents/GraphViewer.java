@@ -61,7 +61,7 @@ public class GraphViewer extends JPanel
 		for(Date d : sorted)
 		{
 			findX(600, sorted.get(sorted.size()-1), sorted.get(0), d);
-			findY(600, numberHigh, numberLow, Integer.parseInt(""+readings.get(d).temperature));
+			findY(600, numberHigh, numberLow, Integer.parseInt(""+readings.get(d).temperature));//Test.
 		}
 	}
 	
@@ -89,27 +89,27 @@ public class GraphViewer extends JPanel
 		return xPoint;
 	}
 	
-	public int findY(int panelHeight, Number numberHigh, Number numberLow, Number d)
+	public int findY(int panelHeight, Number numberHigh, Number numberLow, Number num)
 	{
 		int 
 			yPoint = 0,
 			pad = 10,
 			negPad = 20;
 		double 
-			highTime = numberHigh.doubleValue(),
-			lowTime = numberLow.doubleValue();
-		double time = d.doubleValue();
+			highNumber = numberHigh.doubleValue(),
+			lowNumber = numberLow.doubleValue();
+		double number = num.doubleValue();
 		
 		panelHeight -= negPad;
 		
-		time -= lowTime;//get over start point amount.
-		double spread = highTime - lowTime;//percentage of spread.
+		number -= lowNumber;//get over start point amount.
+		double spread = highNumber - lowNumber;//percentage of spread.
 		
 		
-		yPoint = (int)((time / spread) * panelHeight);
+		yPoint = (int)((number / spread) * panelHeight);
 		
 		yPoint += pad;
-		LoggingMessages.printOut("Value: " + d.toString() + "|  y point: " + yPoint);
+		LoggingMessages.printOut("Value: " + num.toString() + "|  y point: " + yPoint);
 		
 		return yPoint;
 	}
