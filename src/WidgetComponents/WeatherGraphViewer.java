@@ -9,10 +9,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import ActionListeners.CsvReaderSubscriber;
+import ObjectTypeConversion.CsvReader;
+import ObjectTypeConversion.WeatherGrabCsvConverter;
 import ObjectTypeConversion.WeatherReading;
+import Properties.LoggingMessages;
 import ShapeWidgetComponents.ShapeDrawingCollectionGraphics;
 
-public class WeatherGraphViewer extends GraphViewer 
+public class WeatherGraphViewer extends GraphViewer implements CsvReaderSubscriber
 {
 	private static final long serialVersionUID = 1L;
 	private HashMap<Date, WeatherReading> readings;
@@ -28,7 +32,7 @@ public class WeatherGraphViewer extends GraphViewer
 		this.readings = readings;
 	}
 	
-	public void readingToPlot(String key)
+	public void plotReading(String key)
 	{
 		HashMap<Date, Number> plotPoints = new HashMap<Date, Number>();
 		Number 
@@ -58,8 +62,8 @@ public class WeatherGraphViewer extends GraphViewer
 		}
 		//Generate graph.
 		int 
-			height = 600,//this.getHeight();
-			width = 600;//this.getWidth();
+			height = this.getHeight(),
+			width = this.getWidth();
 		this.xYPoints = new HashMap<Date, Point>();
 		List<Date> sorted = Arrays.asList(readings.keySet().toArray(new Date[] {}));
 		Collections.sort(sorted);
@@ -76,19 +80,29 @@ public class WeatherGraphViewer extends GraphViewer
 	
 	private void visualize(HashMap<Date, Point> xYPoints, String key)
 	{
-		int plotsize = 6;
+		int plotsize = 4;
 		
 		ShapeDrawingCollectionGraphics.clearAll(this);
 		for(Date d : xYPoints.keySet())
 		{
 			Point p = xYPoints.get(d);
 			Ellipse2D ellipse = new Ellipse2D.Double(
-					p.x- (plotsize / 2), 
-					p.y- (plotsize / 2), 
+					p.x - (plotsize / 2), 
+					p.y - (plotsize / 2), 
 					plotsize, 
-					plotsize);
+					plotsize
+			);
 			ShapeDrawingCollectionGraphics.drawShape(this, ellipse, Color.blue);
 		}
+	}
+
+	@Override
+	public void notify(CsvReader csvReader) 
+	{
+		LoggingMessages.printOut("notify.");
+		WeatherGrabCsvConverter wgc = new WeatherGrabCsvConverter(csvReader);
+		setReadings(wgc.getWeatherReadings());//?
+		plotReading("Temperature");
 	}
 
 }

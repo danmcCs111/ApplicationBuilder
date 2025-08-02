@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.HashMap;
 
 import Properties.LoggingMessages;
-import WidgetComponents.WeatherGraphViewer;
 
 public class WeatherGrabCsvConverter extends CsvConverter
 {
@@ -46,10 +45,11 @@ public class WeatherGrabCsvConverter extends CsvConverter
 			weatherReadings.put(wr.getDate(), wr);
 		}
 		
-		WeatherGraphViewer gv = new WeatherGraphViewer();//TODO.
-		gv.setReadings(weatherReadings);
-		gv.readingToPlot("Temperature");
-		
+	}
+	
+	public HashMap<Date, WeatherReading> getWeatherReadings()
+	{
+		return this.weatherReadings;
 	}
 
 	public ArrayList<HashMap<String, String>> getValues()

@@ -6,6 +6,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.AbstractButton;
@@ -24,6 +25,8 @@ import WidgetExtensionsImpl.ExtendedTextStripper;
 
 public class WidgetBuildController 
 {
+	private HashMap<String, Object> appObjs = new HashMap<String, Object>();
+	
 	private static final String EXTENSIONS_PACKAGE_NAME = "WidgetExtensionsImpl";
 	
 	private static final Class<?> [] FIRST_ORDERED_GENERATORS = new Class<?> [] {
@@ -52,6 +55,16 @@ public class WidgetBuildController
 		getInstance(++selInstance);
 		widgetReaders.add(new WidgetReader(null));
 		WidgetComponent.resetIDCounter();	
+	}
+	
+	public void setAppObject(String key, Object o)
+	{
+		appObjs.put(key, o);
+	}
+	
+	public Object getAppObject(String key)
+	{
+		return appObjs.get(key);
 	}
 	
 	public String getTemporaryFile()

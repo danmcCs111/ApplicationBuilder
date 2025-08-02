@@ -49,7 +49,7 @@ public abstract class GraphViewer extends JPanel
 		number -= lowNumber;//get over start point amount.
 		double spread = highNumber - lowNumber;//percentage of spread.
 		
-		yPoint = (int)((number / spread) * panelHeight);
+		yPoint = (int)((1.0-(number / spread)) * panelHeight);
 		
 		yPoint += pad;
 		LoggingMessages.printOut("Value: " + num.toString() + "|  y point: " + yPoint);

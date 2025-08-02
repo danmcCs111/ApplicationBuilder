@@ -36,12 +36,14 @@ import WidgetComponents.OutputWeatherResultsTextArea;
 import WidgetComponents.SendHttpRequestPanel;
 import WidgetComponents.SwappableCollection;
 import WidgetComponents.WeatherButtonPanel;
+import WidgetComponents.WeatherGraphViewer;
 import WidgetComponents.XmlToEditor;
 import WidgetExtensions.ExtendedAttributeParam;
 import WidgetExtensions.ExtendedMethodArgDef;
 import WidgetExtensionsImpl.ExtendedActionListenerArray;
 import WidgetExtensionsImpl.ExtendedActionListenerConnectedComponent;
 import WidgetExtensionsImpl.ExtendedActionListenerSubType;
+import WidgetExtensionsImpl.ExtendedAddCsvSubscriber;
 import WidgetExtensionsImpl.ExtendedArrayProcessingPath;
 import WidgetExtensionsImpl.ExtendedCalculationPad;
 import WidgetExtensionsImpl.ExtendedCloseActionListener;
@@ -87,6 +89,7 @@ public class WidgetAttributes
 		COMPONENT_CLASSES.add(ShapeCreatorToolBarPanel.class);
 		COMPONENT_CLASSES.add(ShapeCreatorEditPanel.class);
 		COMPONENT_CLASSES.add(ClockApp.class);
+		COMPONENT_CLASSES.add(WeatherGraphViewer.class);
 		COMPONENT_CLASSES.add(SendHttpRequestPanel.class);
 		COMPONENT_CLASSES.add(OutputWeatherResultsTextArea.class);
 		COMPONENT_CLASSES.add(ApplicationLayoutEditor.class);
@@ -101,17 +104,17 @@ public class WidgetAttributes
 	static {
 		EXTENDED_METHODS.put(JFrame.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetupTaskbar.class, ExtendedMethodArgDef.ExtendedFileSelection.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedCsvReader.class, ExtendedMethodArgDef.CsvReaderSelection.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(JPanel.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
-				ExtendedAttributeParam.getMethodDefinition(ExtendedSetViewportView.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetViewportView.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 		});
 		EXTENDED_METHODS.put(JButton.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedActionListenerSubType.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedActionListenerConnectedComponent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
-				ExtendedAttributeParam.getMethodDefinition(ExtendedCommandExecution.class, ExtendedMethodArgDef.CommandBuildSelection.getMethodArgDef()),
-				ExtendedAttributeParam.getMethodDefinition(ExtendedCsvReader.class, ExtendedMethodArgDef.CsvReaderSelection.getMethodArgDef())
+				ExtendedAttributeParam.getMethodDefinition(ExtendedCommandExecution.class, ExtendedMethodArgDef.CommandBuildSelection.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(JTextField.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
@@ -168,6 +171,10 @@ public class WidgetAttributes
 		EXTENDED_METHODS.put(DatabaseResponseNodeTextArea.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedDatabaseResponseNodeListener.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
+		});
+		EXTENDED_METHODS.put(WeatherGraphViewer.class, new String [] {
+				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedAddCsvSubscriber.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(SendHttpRequestPanel.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
