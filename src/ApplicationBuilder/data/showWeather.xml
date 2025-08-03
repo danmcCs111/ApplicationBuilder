@@ -1,6 +1,6 @@
 <Build>
-	<JFrame extendedCsvReader="C:\Users\danie\codebase\danmcCs111\PlayrightCopyUrl\PlayrightVideo\GrabFolder\Weather\weather_grab_2025_7_31_9_29.csv" extendedSetupTaskbar="/src/ApplicationBuilder/weather_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setMinimumSize="700, 600" setResizable="False" setTitle="weather" setLocation="300, 250" >
-		<WeatherGraphViewer extendedCsvAddSubscriber="" extendedLayoutApplyParent="Center" >
+	<JFrame extendedCsvReader="C:\Users\danie\codebase\danmcCs111\PlayrightCopyUrl\PlayrightVideo\GrabFolder\Weather\weather_grab_2025_7_31_9_29.csv" extendedSetupTaskbar="/src/ApplicationBuilder/weather_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="300, 250" setMinimumSize="700, 600" setResizable="False" setTitle="weather" >
+		<WeatherGraphViewer extendedCsvAddSubscriber="" extendedLayoutApplyParent="Center" setLabelMarkerLen="10" setPad="85" setPlotColor="51, 51, 255" setPlotSize="4" setTimelineColor="204, 204, 204" setTimelineLabelColor="51, 51, 51" >
 		</WeatherGraphViewer>
 		<JPanel extendedLayoutApplyParent="North" setLayout="java.awt.FlowLayout" >
 			<JButton addActionListener="ActionListenersImpl.CsvReaderListener" extendedLayoutApplyParent="" setName="csvReader" setText="grab weather csv" >

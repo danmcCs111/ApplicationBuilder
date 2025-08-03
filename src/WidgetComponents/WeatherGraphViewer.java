@@ -36,14 +36,22 @@ public class WeatherGraphViewer extends GraphViewer implements CsvReaderSubscrib
 		PAD = 85,
 		PLOT_SIZE = 4,
 		LABEL_MARKER_LEN = 10;
+	private int
+		pad = PAD,
+		plotSize = PLOT_SIZE,
+		labelMarkerLen = LABEL_MARKER_LEN;
 	
 	private static final Color 
 		PLOT_COLOR = Color.blue,
 		TIMELINE_COLOR = Color.gray,
 		TIMELINE_LABEL_COLOR = Color.gray;
+	private Color
+		plotColor = PLOT_COLOR,
+		timeLineColor = TIMELINE_COLOR,
+		timeLineLabelColor = TIMELINE_LABEL_COLOR;
 	
 	private static final SimpleDateFormat 
-		SDF_TIMELINE = new SimpleDateFormat("MMM, dd: h a"),
+		SDF_TIMELINE = new SimpleDateFormat("MMM, dd: h a"),//TODO converter
 		SDF_TOOLTIP = new SimpleDateFormat("MMM, dd: h a");
 	
 	private HashMap<Date, WeatherReading> readings;
@@ -135,22 +143,22 @@ public class WeatherGraphViewer extends GraphViewer implements CsvReaderSubscrib
 		{
 			Point p = xYPoints.get(d);
 			Ellipse2D ellipse = new Ellipse2D.Double(
-					p.x - (PLOT_SIZE / 2), 
-					p.y - (PLOT_SIZE / 2), 
-					PLOT_SIZE, 
-					PLOT_SIZE
+					p.x - (plotSize / 2), 
+					p.y - (plotSize / 2), 
+					plotSize, 
+					plotSize
 			);
-			addShape(ellipse, PLOT_COLOR);
+			addShape(ellipse, plotColor);
 			
-			visualizeXBorder(xYPoints, PAD-(PLOT_SIZE/2));
-			visualizeYBorder(plotPoints, PAD-(PLOT_SIZE/2));
+			visualizeXBorder(xYPoints, pad-(plotSize/2));
+			visualizeYBorder(plotPoints, pad-(plotSize/2));
 			WeatherGraphMouseMotionListener wgListener = new WeatherGraphMouseMotionListener(
 					xYPoints,
 					plotPoints, 
-					PAD,
-					this.getWidth() - PAD,
-					PAD,
-					this.getHeight() - PAD,
+					pad,
+					this.getWidth() - pad,
+					pad,
+					this.getHeight() - pad,
 					SDF_TOOLTIP,
 					this);
 			for(MouseMotionListener ml : this.getMouseMotionListeners())
@@ -175,24 +183,24 @@ public class WeatherGraphViewer extends GraphViewer implements CsvReaderSubscrib
 		
 		Line2D xLabelLow = new Line2D.Double(
 				pad, this.getSize().getHeight()-pad, 
-				pad, this.getSize().getHeight()-pad+LABEL_MARKER_LEN);
+				pad, this.getSize().getHeight()-pad+labelMarkerLen);
 		
 		Line2D xLabelHigh = new Line2D.Double(
 				this.getSize().getWidth()-pad, this.getSize().getHeight()-pad, 
-				this.getSize().getWidth()-pad, this.getSize().getHeight()-pad+LABEL_MARKER_LEN);
+				this.getSize().getWidth()-pad, this.getSize().getHeight()-pad+labelMarkerLen);
 		
-		addShape(xBorder, TIMELINE_COLOR);
-		addShape(xLabelLow, TIMELINE_COLOR);
-		addShape(xLabelHigh, TIMELINE_COLOR);
+		addShape(xBorder, timeLineColor);
+		addShape(xLabelLow, timeLineColor);
+		addShape(xLabelHigh, timeLineColor);
 		
-		Point lowPoint = new Point(pad, (int)this.getSize().getHeight()-pad+(LABEL_MARKER_LEN*2));
-		Point highPoint = new Point((int)this.getSize().getWidth()-pad, (int)this.getSize().getHeight()-pad+(LABEL_MARKER_LEN*2));
+		Point lowPoint = new Point(pad, (int)this.getSize().getHeight()-pad+(labelMarkerLen*2));
+		Point highPoint = new Point((int)this.getSize().getWidth()-pad, (int)this.getSize().getHeight()-pad+(labelMarkerLen*2));
 		
 		String strHigh = SDF_TIMELINE.format(dateHigh);
 		String strLow = SDF_TIMELINE.format(dateLow);
 		
-		addGlyph(strLow, lowPoint, TIMELINE_LABEL_COLOR);
-		addGlyph(strHigh, highPoint, TIMELINE_LABEL_COLOR);
+		addGlyph(strLow, lowPoint, timeLineLabelColor);
+		addGlyph(strHigh, highPoint, timeLineLabelColor);
 	}
 	
 	private void visualizeYBorder(HashMap<Date, Number> xYPoints, int pad)
@@ -207,20 +215,20 @@ public class WeatherGraphViewer extends GraphViewer implements CsvReaderSubscrib
 				pad, pad);
 		Line2D yLabelLow = new Line2D.Double(
 				pad, this.getSize().getHeight()-pad, 
-				pad-LABEL_MARKER_LEN, this.getSize().getHeight()-pad);
+				pad-labelMarkerLen, this.getSize().getHeight()-pad);
 		Line2D yLabelHigh = new Line2D.Double(
 				pad, pad, 
-				pad-LABEL_MARKER_LEN, pad);
+				pad-labelMarkerLen, pad);
 		
-		addShape(yBorder, TIMELINE_COLOR);
-		addShape(yLabelLow, TIMELINE_COLOR);
-		addShape(yLabelHigh, TIMELINE_COLOR);
+		addShape(yBorder, timeLineColor);
+		addShape(yLabelLow, timeLineColor);
+		addShape(yLabelHigh, timeLineColor);
 		
-		Point lowPoint = new Point(pad-(LABEL_MARKER_LEN * 2), (int) (this.getSize().getHeight()-pad));
-		Point highPoint = new Point(pad-(LABEL_MARKER_LEN * 2), pad);
+		Point lowPoint = new Point(pad-(labelMarkerLen * 2), (int) (this.getSize().getHeight()-pad));
+		Point highPoint = new Point(pad-(labelMarkerLen * 2), pad);
 		
-		addGlyph(valueLow + "", lowPoint, TIMELINE_LABEL_COLOR);
-		addGlyph(valueHigh + "", highPoint, TIMELINE_LABEL_COLOR);
+		addGlyph(valueLow + "", lowPoint, timeLineLabelColor);
+		addGlyph(valueHigh + "", highPoint, timeLineLabelColor);
 	}
 	
 	public void draw()
@@ -239,19 +247,45 @@ public class WeatherGraphViewer extends GraphViewer implements CsvReaderSubscrib
 		}
 	}
 	
-	public void addGlyph(String glyph, Point p, Color drawColor)
+	private void addGlyph(String glyph, Point p, Color drawColor)
 	{
 		ShapeStyling ss = new ShapeStyling(0, drawColor, drawColor, null);//TODO
 		glyphDrawingCollection.addGlyph(p, glyph);
 		glyphDrawingCollection.addShapeStylingGlyphs(p, ss);
 	}
 	
-	public void addShape(Shape s, Color drawColor)
+	private void addShape(Shape s, Color drawColor)
 	{
 		int index = shapeDrawingCollection.getShapes().size();
 		ShapeStyling ss = new ShapeStyling(index, drawColor, drawColor, null);
 		shapeDrawingCollection.addShape(s);
 		shapeDrawingCollection.addShapeStyling(ss);
+	}
+	
+	public void setPlotColor(Color plotColor)
+	{
+		this.plotColor = plotColor;
+	}
+	public void setTimelineColor(Color timeLineColor)
+	{
+		this.timeLineColor = timeLineColor;
+	}
+	public void setTimelineLabelColor(Color timeLineLabelColor)
+	{
+		this.timeLineLabelColor = timeLineLabelColor;
+	}
+	
+	public void setPad(int pad)
+	{
+		this.pad = pad;
+	}
+	public void setPlotSize(int plotSize)
+	{
+		this.plotSize = plotSize;
+	}
+	public void setLabelMarkerLen(int labelMarkerLen)
+	{
+		this.labelMarkerLen = labelMarkerLen;
 	}
 
 	@Override

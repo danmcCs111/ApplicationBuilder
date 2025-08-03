@@ -1,14 +1,12 @@
 <Build>
-	<JFrame extendedSetupTaskbar="/src/ApplicationBuilder/build-icon_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="450, 150" setMaximumSize="350, 0" setMinimumSize="1200, 1000" setTitle="Widget Creator" >
-		<ShapeCreator extendedLayoutApplyParent="Center" setLayout="java.awt.BorderLayout" setName="ShapeCreator" >
-			<JPanel extendedLayoutApplyParent="East" setLayout="java.awt.BorderLayout" >
-				<JScrollPane extendedLayoutApplyParent="Center" extendedScrollBarSetUnit="15" setName="scrollPane" >
-					<ShapeCreatorEditPanel extendedLayoutApplyParent="" extendedSetViewportView="" setLayout="java.awt.GridLayout" >
-					</ShapeCreatorEditPanel>
-				</JScrollPane>
-			</JPanel>
-			<ShapeCreatorToolBarPanel extendedLayoutApplyParent="North" setLayout="java.awt.FlowLayout" >
-			</ShapeCreatorToolBarPanel>
-		</ShapeCreator>
+	<JFrame extendedCsvReader="C:\Users\danie\codebase\danmcCs111\PlayrightCopyUrl\PlayrightVideo\GrabFolder\Weather\weather_grab_2025_7_31_9_29.csv" extendedSetupTaskbar="/src/ApplicationBuilder/weather_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="300, 250" setMinimumSize="700, 600" setResizable="False" setTitle="weather" >
+		<WeatherGraphViewer extendedCsvAddSubscriber="" extendedLayoutApplyParent="Center" setLabelMarkerLen="10" setPad="85" setPlotColor="51, 51, 255" setPlotSize="4" setTimelineColor="204, 204, 204" setTimelineLabelColor="51, 51, 51" >
+		</WeatherGraphViewer>
+		<JPanel extendedLayoutApplyParent="North" setLayout="java.awt.FlowLayout" >
+			<JButton addActionListener="ActionListenersImpl.CsvReaderListener" extendedLayoutApplyParent="" setName="csvReader" setText="grab weather csv" >
+			</JButton>
+			<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="C:\\Program Files\\Git\\git-bash.exe@-c@-i|/c/Users/danie/codebase/danmcCs111/PlayrightCopyUrl/PlayrightVideo/grabWeather.sh" extendedLayoutApplyParent="" setText="Weather Update" setToolTipText="" >
+			</JButton>
+		</JPanel>
 	</JFrame>
 </Build>
