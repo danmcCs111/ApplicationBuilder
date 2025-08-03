@@ -8,8 +8,6 @@ import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
 import java.util.ArrayList;
 
-import Properties.LoggingMessages;
-
 public interface ShapePositionOnPoints 
 {
 	public static void drawNumberSequence(

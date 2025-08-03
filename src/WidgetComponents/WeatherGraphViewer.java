@@ -180,11 +180,9 @@ public class WeatherGraphViewer extends GraphViewer implements CsvReaderSubscrib
 		Line2D xBorder = new Line2D.Double(
 				pad, this.getSize().getHeight()-pad, 
 				this.getSize().getWidth()-pad, this.getSize().getHeight()-pad);
-		
 		Line2D xLabelLow = new Line2D.Double(
 				pad, this.getSize().getHeight()-pad, 
 				pad, this.getSize().getHeight()-pad+labelMarkerLen);
-		
 		Line2D xLabelHigh = new Line2D.Double(
 				this.getSize().getWidth()-pad, this.getSize().getHeight()-pad, 
 				this.getSize().getWidth()-pad, this.getSize().getHeight()-pad+labelMarkerLen);

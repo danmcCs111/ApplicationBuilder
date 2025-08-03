@@ -33,6 +33,7 @@ import WidgetComponents.DatabaseResponseNodeTextArea;
 import WidgetComponents.JButtonArray;
 import WidgetComponents.MenuOption;
 import WidgetComponents.OutputWeatherResultsTextArea;
+import WidgetComponents.ScheduledCommandExecutor;
 import WidgetComponents.SendHttpRequestPanel;
 import WidgetComponents.SwappableCollection;
 import WidgetComponents.WeatherButtonPanel;
@@ -91,6 +92,7 @@ public class WidgetAttributes
 		COMPONENT_CLASSES.add(ShapeCreatorEditPanel.class);
 		COMPONENT_CLASSES.add(ClockApp.class);
 		COMPONENT_CLASSES.add(WeatherGraphViewer.class);
+		COMPONENT_CLASSES.add(ScheduledCommandExecutor.class);
 		COMPONENT_CLASSES.add(SendHttpRequestPanel.class);
 		COMPONENT_CLASSES.add(OutputWeatherResultsTextArea.class);
 		COMPONENT_CLASSES.add(ApplicationLayoutEditor.class);
@@ -177,6 +179,9 @@ public class WidgetAttributes
 		EXTENDED_METHODS.put(WeatherGraphViewer.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedCsvAddSubscriber.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
+		});
+		EXTENDED_METHODS.put(ScheduledCommandExecutor.class, new String [] {
+				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(SendHttpRequestPanel.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
