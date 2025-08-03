@@ -127,8 +127,8 @@ public class WeatherGraphViewer extends GraphViewer implements CsvReaderSubscrib
 		for(Date d : sorted)
 		{
 			Point p = new Point();
-			p.x = findX(width, PAD, sorted.get(sorted.size()-1), sorted.get(0), d);
-			p.y = findY(height, PAD, numberHigh, numberLow, Integer.parseInt(""+readings.get(d).getQueryValues().get(key)));//Test.
+			p.x = findX(width, pad, sorted.get(sorted.size()-1), sorted.get(0), d);
+			p.y = findY(height, pad, numberHigh, numberLow, Integer.parseInt(""+readings.get(d).getQueryValues().get(key)));//Test.
 			this.xYPoints.put(d, p);
 		}
 		shapeDrawingCollection = new ShapeDrawingCollection();
