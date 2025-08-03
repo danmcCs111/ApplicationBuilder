@@ -47,6 +47,7 @@ public class WavReader
 			);
 			
 			playAudio();
+			
 		} catch (UnsupportedAudioFileException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -66,19 +67,6 @@ public class WavReader
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		} catch (LineUnavailableException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void readAudio(AudioFormat af)
-	{
-		DataLine.Info info = new DataLine.Info(SourceDataLine.class, af);
-		SourceDataLine sourceLine = null;
-        try {
-			sourceLine = (SourceDataLine) AudioSystem.getLine(info);
-			sourceLine.open(af);
-			sourceLine.start();
 		} catch (LineUnavailableException e) {
 			e.printStackTrace();
 		}
