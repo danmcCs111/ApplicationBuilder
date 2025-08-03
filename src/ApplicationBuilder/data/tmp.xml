@@ -1,7 +1,11 @@
 <Build>
-	<JFrame extendedWavReader="C:\Users\danie\Downloads\sample-3s.wav" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setMinimumSize="600, 600" setTitle="Wav Reader" >
-		<JPanel extendedLayoutApplyParent="North" >
-			<JButton addActionListener="ActionListenersImpl.WavReaderListener" extendedLayoutApplyParent="" setText="Read Wav" >
+	<JFrame extendedCsvReader="C:\Users\danie\codebase\danmcCs111\PlayrightCopyUrl\PlayrightVideo\GrabFolder\Weather\weather_grab_2025_7_31_9_29.csv" extendedSetupTaskbar="/src/ApplicationBuilder/weather_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setMinimumSize="700, 600" setResizable="False" setTitle="weather" >
+		<WeatherGraphViewer extendedCsvAddSubscriber="" extendedLayoutApplyParent="Center" >
+		</WeatherGraphViewer>
+		<JPanel extendedLayoutApplyParent="North" setLayout="java.awt.FlowLayout" >
+			<JButton addActionListener="ActionListenersImpl.CsvReaderListener" extendedLayoutApplyParent="" setName="csvReader" setText="grab weather csv" >
+			</JButton>
+			<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="C:\\Program Files\\Git\\git-bash.exe@-c@-i|/c/Users/danie/codebase/danmcCs111/PlayrightCopyUrl/PlayrightVideo/grabWeather.sh" extendedLayoutApplyParent="" setText="Weather Update" setToolTipText="" >
 			</JButton>
 		</JPanel>
 	</JFrame>

@@ -16,6 +16,8 @@ import javax.swing.JTextArea;
 
 public class WeatherGraphMouseMotionListener implements MouseMotionListener
 {
+	private static final int TOOL_ABOVE_OFFSET = 10;//TODO
+	
 	private List<Integer> xPoints;
 	private HashMap<Date, Number> plotPoints;
 	private HashMap<Integer, Date> xLocationAndDate = new HashMap<Integer, Date>();
@@ -106,7 +108,7 @@ public class WeatherGraphMouseMotionListener implements MouseMotionListener
 		
 		f.setLocation(
 				parent.getLocation().x + parent.getRootPane().getParent().getX() + xClosest, 
-				parent.getLocation().y + parent.getRootPane().getParent().getY() + toolTipLoc.y);
+				parent.getLocation().y + parent.getRootPane().getParent().getY() + toolTipLoc.y - TOOL_ABOVE_OFFSET);
 		
 		f.pack();
 		f.setVisible(true);
