@@ -1,6 +1,5 @@
 package WidgetComponents;
 
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
@@ -28,7 +27,6 @@ public class ScheduledCommandExecutor extends JPanel implements PostWidgetBuildP
 	
 	public void buildWidgets()
 	{
-		this.setLayout(new GridLayout(0,1));
 		CommandBuildEditor cbe = new CommandBuildEditor();
 		this.add(cbe);
 		String [] options = buildTimePickerOptions(timeGap);
@@ -111,6 +109,7 @@ public class ScheduledCommandExecutor extends JPanel implements PostWidgetBuildP
 	public void postExecute() 
 	{
 		buildWidgets();
+		this.getRootPane().getParent().validate();
 	}
 	
 }

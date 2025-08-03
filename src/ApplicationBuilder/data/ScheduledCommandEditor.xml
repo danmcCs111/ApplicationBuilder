@@ -1,6 +1,6 @@
 <Build>
 	<JFrame extendedSetupTaskbar="/src/ApplicationBuilder/build-icon_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="300, 300" setMinimumSize="450, 550" setTitle="Scheduled Command Editor" >
-		<ScheduledCommandExecutor extendedLayoutApplyParent="North" setTimeGapDivisionsPerDay="48" >
+		<ScheduledCommandExecutor extendedLayoutApplyParent="North" setTimeGapDivisionsPerDay="48" setLayout="java.awt.GridLayout" >
 		</ScheduledCommandExecutor>
 	</JFrame>
 </Build>
