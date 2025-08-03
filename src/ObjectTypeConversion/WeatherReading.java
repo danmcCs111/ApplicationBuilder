@@ -23,20 +23,6 @@ public class WeatherReading
 			"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"
 	});
 	
-	public String 
-		dayOfWeek,
-		surfaceWind;
-	
-	public int 
-		temperature,
-		heatIndex,
-		dewPoint,
-		rain,
-		thunder,
-		precipitationPotential,
-		relativeHumidity,
-		skyCover;
-	
 	private HashMap<String, ValueModifier> valueModifiers = new HashMap<String, WeatherReading.ValueModifier>();
 	private HashMap<String, Object> queryValues = new HashMap<String, Object>();
 	private Date date;
@@ -137,14 +123,6 @@ public class WeatherReading
 			
 			if(vdt == null)
 			{
-				if(key.equals("Surface Wind"))
-				{
-					surfaceWind = value;
-				}
-				else //day of week;
-				{
-					dayOfWeek = value;
-				}
 				LoggingMessages.printOut(key + " | " + value);
 				queryValues.put(key, value.strip());
 			}
@@ -165,40 +143,6 @@ public class WeatherReading
 				
 				int val = (int) stc.conversionCall(value);
 				
-				switch(vdt)
-				{
-					case temperature:
-						temperature = val;
-						break;
-					
-					case heatIndex:
-						heatIndex = val;
-						break;
-						
-					case dewPoint:
-						dewPoint = val;
-						break;
-						
-					case rain:
-						rain = val;
-						break;
-						
-					case thunder:
-						thunder = val;
-						break;
-						
-					case precipitationPotential:
-						precipitationPotential = val;
-						break;
-						
-					case relativeHumidity:
-						relativeHumidity = val;
-						break;
-						
-					case skyCover:
-						skyCover = val;
-						break;
-				}
 				LoggingMessages.printOut(key + " | " + val);
 				queryValues.put(key, val);
 			}
