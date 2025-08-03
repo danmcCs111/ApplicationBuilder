@@ -15,6 +15,7 @@ import ShapeEditorListeners.OpenShapeActionListener;
 import ShapeEditorListeners.SaveShapeActionListener;
 import ShapeEditorListeners.ShapeDirectionsNotification;
 import ShapeEditorListeners.ShapeDrawModeActionListener;
+import ShapeWidgetComponents.ShapeCreator.Operation;
 import ShapeWidgetComponents.ShapeUtils.DrawMode;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetUtility.WidgetBuildController;
@@ -127,5 +128,11 @@ public class ShapeCreatorToolBarPanel extends JPanel implements PostWidgetBuildP
 		{
 			this.addShape.setEnabled(false);
 		}
+	}
+
+	@Override
+	public void shapeOperationUpdate(Operation updatedOperation) 
+	{
+		operationLabel.setText(updatedOperation.getTitleText());
 	}
 }

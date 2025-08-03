@@ -309,6 +309,10 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 	public void setOperation(Operation operation)
 	{
 		this.operation = operation;
+		for(ShapeDirectionsNotification sdn : shapeDirectionsNotification)
+		{
+			sdn.shapeOperationUpdate(operation);
+		}
 	}
 	
 	public Rectangle2D getSelectionRectangle()
