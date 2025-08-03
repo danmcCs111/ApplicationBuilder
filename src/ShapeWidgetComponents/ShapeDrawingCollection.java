@@ -32,7 +32,7 @@ public class ShapeDrawingCollection
 			asils.add(asil);
 		}
 	}
-	
+
 	public void addShapeImports(ArrayList<ShapeElement> shapeElements, ShapeStylingActionListener ssal)
 	{
 		for(ShapeElement se : shapeElements)
