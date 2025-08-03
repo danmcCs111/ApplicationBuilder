@@ -2,6 +2,8 @@ package WidgetComponents;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
@@ -12,6 +14,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 
 import ActionListeners.CsvReaderSubscriber;
@@ -49,7 +52,15 @@ public class WeatherGraphViewer extends GraphViewer implements CsvReaderSubscrib
 		comboSelect.addItem("Sky Cover");
 		comboSelect.addItem("Heat Index");
 		comboSelect.addItem("Dewpoint");
+		JButton plotButton = new JButton("Plot");
+		plotButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				plotReading((String) comboSelect.getSelectedItem());
+			}
+		});
 		this.add(comboSelect);
+		this.add(plotButton);
 	}
 	
 	public void setReadings(HashMap<Date, WeatherReading> readings)
