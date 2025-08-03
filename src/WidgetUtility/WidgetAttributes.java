@@ -43,7 +43,7 @@ import WidgetExtensions.ExtendedMethodArgDef;
 import WidgetExtensionsImpl.ExtendedActionListenerArray;
 import WidgetExtensionsImpl.ExtendedActionListenerConnectedComponent;
 import WidgetExtensionsImpl.ExtendedActionListenerSubType;
-import WidgetExtensionsImpl.ExtendedAddCsvSubscriber;
+import WidgetExtensionsImpl.ExtendedCsvAddSubscriber;
 import WidgetExtensionsImpl.ExtendedArrayProcessingPath;
 import WidgetExtensionsImpl.ExtendedCalculationPad;
 import WidgetExtensionsImpl.ExtendedCloseActionListener;
@@ -58,12 +58,13 @@ import WidgetExtensionsImpl.ExtendedSaveActionListener;
 import WidgetExtensionsImpl.ExtendedScrollBarSetUnit;
 import WidgetExtensionsImpl.ExtendedSetJMenuBarParent;
 import WidgetExtensionsImpl.ExtendedSetViewportView;
-import WidgetExtensionsImpl.ExtendedSetWeatherButtonListener;
+import WidgetExtensionsImpl.ExtendedWeatherButtonAddActionListener;
 import WidgetExtensionsImpl.ExtendedSetupTaskbar;
 import WidgetExtensionsImpl.ExtendedShapeDrawingCollectionLoader;
 import WidgetExtensionsImpl.ExtendedSwappableHolder;
 import WidgetExtensionsImpl.ExtendedTextStripper;
 import WidgetExtensionsImpl.ExtendedTitleSwitcher;
+import WidgetExtensionsImpl.ExtendedWavReader;
 
 public class WidgetAttributes 
 {
@@ -104,7 +105,8 @@ public class WidgetAttributes
 	static {
 		EXTENDED_METHODS.put(JFrame.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetupTaskbar.class, ExtendedMethodArgDef.ExtendedFileSelection.getMethodArgDef()),
-				ExtendedAttributeParam.getMethodDefinition(ExtendedCsvReader.class, ExtendedMethodArgDef.CsvReaderSelection.getMethodArgDef())
+				ExtendedAttributeParam.getMethodDefinition(ExtendedCsvReader.class, ExtendedMethodArgDef.CsvReaderSelection.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedWavReader.class, ExtendedMethodArgDef.WavReaderSelection.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(JPanel.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
@@ -174,14 +176,14 @@ public class WidgetAttributes
 		});
 		EXTENDED_METHODS.put(WeatherGraphViewer.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
-				ExtendedAttributeParam.getMethodDefinition(ExtendedAddCsvSubscriber.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
+				ExtendedAttributeParam.getMethodDefinition(ExtendedCsvAddSubscriber.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(SendHttpRequestPanel.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(OutputWeatherResultsTextArea.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
-				ExtendedAttributeParam.getMethodDefinition(ExtendedSetWeatherButtonListener.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
+				ExtendedAttributeParam.getMethodDefinition(ExtendedWeatherButtonAddActionListener.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(ApplicationLayoutEditor.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetupTaskbar.class, ExtendedMethodArgDef.ExtendedFileSelection.getMethodArgDef()),

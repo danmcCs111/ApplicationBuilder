@@ -18,6 +18,7 @@ import ObjectTypeConvertersImpl.MouseListenerConverter;
 import ObjectTypeConvertersImpl.MouseMotionListenerConverter;
 import ObjectTypeConvertersImpl.PointConverter;
 import ObjectTypeConvertersImpl.StringConverter;
+import ObjectTypeConvertersImpl.WavReaderConverter;
 import ObjectTypeConvertersImpl.WindowListenerConverter;
 import Properties.LoggingMessages;
 
@@ -39,6 +40,7 @@ public enum ParamTypes
 	KeyListener(new KeyListenerConverter()),
 	DirectorySelection(new DirectorySelectionConverter()),
 	CsvReader(new CsvReaderConverter()),
+	WavReader(new WavReaderConverter()),
 	FileSelection(new FileSelectionConverter()),
 	CommandBuild(new CommandBuildConverter());
 	

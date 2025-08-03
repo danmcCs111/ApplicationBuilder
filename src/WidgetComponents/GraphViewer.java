@@ -9,12 +9,11 @@ public abstract class GraphViewer extends JPanel
 {
 	private static final long serialVersionUID = 1L;
 
-	public int findX(int panelWidth, Date dateHigh, Date dateLow, Date d)
+	public int findX(int panelWidth, int pad, Date dateHigh, Date dateLow, Date d)
 	{
 		int 
 			xPoint = 0,
-			pad = 10,
-			negPad = 20;
+			negPad = pad * 2;
 		double 
 			highTime = dateHigh.getTime(),
 			lowTime = dateLow.getTime();
@@ -33,12 +32,11 @@ public abstract class GraphViewer extends JPanel
 		return xPoint;
 	}
 	
-	public int findY(int panelHeight, Number numberHigh, Number numberLow, Number num)
+	public int findY(int panelHeight, int pad, Number numberHigh, Number numberLow, Number num)
 	{
 		int 
 			yPoint = 0,
-			pad = 10,
-			negPad = 20;
+			negPad = pad * 2;
 		double 
 			highNumber = numberHigh.doubleValue(),
 			lowNumber = numberLow.doubleValue();

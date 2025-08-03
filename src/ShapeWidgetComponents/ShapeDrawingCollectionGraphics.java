@@ -8,6 +8,8 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.Stroke;
+import java.awt.font.FontRenderContext;
+import java.awt.font.GlyphVector;
 import java.util.ArrayList;
 
 import BezierCurveCalculations.AffineTransformRasterizer;
@@ -113,6 +115,16 @@ public interface ShapeDrawingCollectionGraphics
 				drawControlPoint(drawPanel, p);
 			}
 		}
+	}
+	
+	public static void drawGlyph(Container drawPanel, String text, Point p, Font font, Color fillColor)
+	{
+		Graphics2D g2d = (Graphics2D)drawPanel.getGraphics();
+		FontRenderContext frc = g2d.getFontRenderContext();
+		g2d.setFont(font);
+		g2d.setColor(fillColor);
+		GlyphVector gv = g2d.getFont().createGlyphVector(frc, text);
+		g2d.drawGlyphVector(gv, p.x, p.y);
 	}
 	
 	public static void drawShapeStylingAlgorithm(Container drawPanel, Shape s, ShapeStyling ss)

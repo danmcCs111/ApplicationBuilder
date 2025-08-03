@@ -47,7 +47,9 @@ public class ShapeCreatorEditPanel extends JPanel implements PostWidgetBuildProc
 			shapeEditPanel = new JPanel(),
 			shapeEditOuterPanel = new JPanel();
 		
-		String title = dm.getModeText() + SHAPE_TITLE_SUFFIX + index;
+		ShapeStyling shapeStyling = sc.getShapeStyling(index);
+		
+		String title = dm.getModeText() + SHAPE_TITLE_SUFFIX + shapeStyling.getIndex();
 		
 		Border b = BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.gray, Color.gray);
 		b = BorderFactory.createTitledBorder(b, title);
@@ -63,7 +65,7 @@ public class ShapeCreatorEditPanel extends JPanel implements PostWidgetBuildProc
 			{
 				PointEditor pe = new PointEditor();
 				pe.setComponentValue(p);
-				pe.addChangeListener(new ShapePointChangeListener(pe, sc, index, i));
+				pe.addChangeListener(new ShapePointChangeListener(pe, sc, shapeStyling, i));
 				pointEditors.add(pe);
 				shapeEditPanel.add(pe);
 			}
@@ -79,13 +81,29 @@ public class ShapeCreatorEditPanel extends JPanel implements PostWidgetBuildProc
 				if(!ShapeCreatorEditShapeFrame.containsEditor(title))
 				{
 					ShapeCreatorEditShapeFrame scEditFrame = new ShapeCreatorEditShapeFrame(sc);
-					scEditFrame.buildWidgets(sc, index, title);
+					scEditFrame.buildWidgets(sc, shapeStyling.getIndex(), title);
 					scEditFrame.display();
 				}
 			}
 		});
 		
+		JButton deleteButton = new JButton("Delete");
+		deleteButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				sc.getShapeDrawingCollection().remove(shapeStyling.getIndex());
+				
+				shapeEditPanel.removeAll();
+				shapeEditOuterPanel.removeAll();
+				ShapeCreatorEditPanel.this.remove(shapeEditOuterPanel);
+				ShapeCreatorEditPanel.this.validate();
+				sc.drawAll();
+			}
+		});
+		
 		shapeEditPanel.add(showEditButton);
+		shapeEditPanel.add(deleteButton);
 //		shapeEditOuterPanel.add(shapeEditPanel);
 		shapeEditOuterPanel.add(shapeEditPanel, BorderLayout.NORTH);
 		

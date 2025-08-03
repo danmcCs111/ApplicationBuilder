@@ -34,6 +34,7 @@ public class ScaleDialog extends JDialog
 	private JSlider scalingSlider = new JSlider(-100, 100, 0);
 	private JLabel scalingLabel = new JLabel(SCALE_LABEL);
 	private ShapeCreator sc;
+	private ShapeStyling ss;
 	private JButton 
 		applyButton = new JButton(APPLY_BUTTON_LABEL),
 		cancelButton = new JButton(CANCEL_BUTTON_LABEL);
@@ -42,12 +43,10 @@ public class ScaleDialog extends JDialog
 		saveCancelPanel = new JPanel(),
 		saveCancelPanelOuter = new JPanel();
 	
-	private int index;
-	
-	public ScaleDialog(Container referenceContainer, ShapeCreator sc, int index)
+	public ScaleDialog(Container referenceContainer, ShapeCreator sc, ShapeStyling ss)
 	{
 		this.sc = sc;
-		this.index = index;
+		this.ss = ss;
 		
 		this.setTitle(TITLE);
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -91,7 +90,7 @@ public class ScaleDialog extends JDialog
 	
 	private void applyAction()
 	{
-		ArrayList<Point> sPoints = sc.getControlPointsForShapes().get(index);
+		ArrayList<Point> sPoints = sc.getControlPointsForShapes().get(ss.getIndex());
 		
 		double scaleFactor = scalingSlider.getValue();
 		scaleFactor /= 100;//adjust to percentage.
@@ -99,12 +98,12 @@ public class ScaleDialog extends JDialog
 		
 		LoggingMessages.printOut("Entered scale factor: " + scaleFactor);
 		
-		ArrayList<Point> controlPoints = ShapeUtils.scaleControlPoints(sc.getShapes().get(index), sPoints, scaleFactor);
-		Shape s = ShapeUtils.recalculateShape(sc.getShapes().get(index), controlPoints);
+		ArrayList<Point> controlPoints = ShapeUtils.scaleControlPoints(sc.getShapes().get(ss.getIndex()), sPoints, scaleFactor);
+		Shape s = ShapeUtils.recalculateShape(sc.getShapes().get(ss.getIndex()), controlPoints);
 		
-		sc.getShapes().set(index, s);
-		sc.getControlPointsForShapes().set(index, controlPoints);
-		sc.notifyShapeAndControlPointsChangedListener(index);
+		sc.getShapes().set(ss.getIndex(), s);
+		sc.getControlPointsForShapes().set(ss.getIndex(), controlPoints);
+		sc.notifyShapeAndControlPointsChangedListener(ss);
 		
 		this.dispose();
 	}

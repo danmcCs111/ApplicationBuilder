@@ -1,6 +1,8 @@
 package ShapeEditorListeners;
 
+import ShapeWidgetComponents.ShapeStyling;
+
 public interface ControlPointChangedListener 
 {
-	public void controlPointChangedNotification(int shapeIndex, int ControlPointIndex);
+	public void controlPointChangedNotification(ShapeStyling ss, int ControlPointIndex);
 }

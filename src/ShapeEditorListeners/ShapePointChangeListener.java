@@ -9,43 +9,44 @@ import javax.swing.event.ChangeListener;
 
 import Editors.PointEditor;
 import ShapeWidgetComponents.ShapeCreator;
+import ShapeWidgetComponents.ShapeStyling;
 
 public class ShapePointChangeListener implements ChangeListener, ControlPointChangedListener
 {
 	private ShapeCreator sc;
+	ShapeStyling ss;
 	private PointEditor pe;
 	private int
-		shapeIndex,
 		controlPointIndex;
 	
-	public ShapePointChangeListener(PointEditor pe, ShapeCreator shapeCreator, int shapeIndex, int controlPointIndex)
+	public ShapePointChangeListener(PointEditor pe, ShapeCreator shapeCreator, ShapeStyling ss, int controlPointIndex)
 	{
 		this.sc = shapeCreator;
+		this.ss = ss;
 		this.pe = pe;
-		this.shapeIndex = shapeIndex;
 		this.controlPointIndex = controlPointIndex;
-		sc.addShapeAndControlPointChangedListener(shapeIndex, controlPointIndex, this);
+		sc.addShapeAndControlPointChangedListener(ss, controlPointIndex, this);
 	}
 	
 	@Override
 	public void stateChanged(ChangeEvent e) 
 	{
 		Point newPoint = (Point) pe.getComponentValueObj();
-		ArrayList<Point> newPoints = sc.getControlPointsForShapes().get(shapeIndex);
+		ArrayList<Point> newPoints = sc.getControlPointsForShapes().get(ss.getIndex());
 		newPoints.set(controlPointIndex, newPoint);
-		Shape s = sc.getShapes().get(shapeIndex);
+		Shape s = sc.getShapes().get(ss.getIndex());
 		Shape newShape = sc.recalculateShape(s, newPoints);
-		sc.getShapes().set(shapeIndex, newShape);
+		sc.getShapes().set(ss.getIndex(), newShape);
 		
-		sc.notifyShapeAndControlPointChangedListener(shapeIndex, controlPointIndex, this);
+		sc.notifyShapeAndControlPointChangedListener(ss, controlPointIndex, this);
 		
 		sc.drawAll();
 	}
 	
 	@Override
-	public void controlPointChangedNotification(int shapeIndex, int controlPointIndex) 
+	public void controlPointChangedNotification(ShapeStyling ss, int controlPointIndex) 
 	{
-		Point newPoint = sc.getControlPointsForShapes().get(shapeIndex).get(controlPointIndex);
+		Point newPoint = sc.getControlPointsForShapes().get(ss.getIndex()).get(controlPointIndex);
 		this.pe.setComponentValue(newPoint);
 	}
 

@@ -1,0 +1,8 @@
+<Build>
+	<JFrame extendedWavReader="C:\Users\danie\Downloads\sample-3s.wav" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setMinimumSize="600, 600" setTitle="Wav Reader" >
+		<JPanel extendedLayoutApplyParent="North" >
+			<JButton addActionListener="ActionListenersImpl.WavReaderListener" extendedLayoutApplyParent="" setText="Read Wav" >
+			</JButton>
+		</JPanel>
+	</JFrame>
+</Build>

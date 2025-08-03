@@ -1,5 +1,6 @@
 <Widgets>
-<java.awt.geom.Line2D Point00="166, 127" Point01="337, 195" ColorDraw="0, 0, 0" ColorFill="0, 0, 0"  > </java.awt.geom.Line2D>
-<java.awt.geom.Ellipse2D Point00="175, 201" Point01="249, 294" ColorDraw="102, 255, 204" ColorFill="0, 255, 51"  > </java.awt.geom.Ellipse2D>
-<java.awt.geom.Ellipse2D Point00="340, 58" Point01="473, 138" ColorDraw="255, 102, 102" ColorFill="0, 204, 153"  > </java.awt.geom.Ellipse2D>
+<java.awt.geom.Ellipse2D Point00="308, 200" Point01="408, 300" ColorDraw="0, 255, 255" ColorFill="0, 102, 153" CreateStroke="true" StrokeWidth="7" SkipShapeDraw="false" > </java.awt.geom.Ellipse2D>
+<java.awt.geom.Ellipse2D Point00="293, 195" Point01="413, 315" ColorDraw="0, 0, 0" ColorFill="255, 255, 255" CreateStroke="false" NumberGeneratorConfig="1, 12, 3, 18, 0, 0, 0" SkipShapeDraw="true" > </java.awt.geom.Ellipse2D>
+<java.awt.geom.Line2D Point00="505, 178" Point01="629, 265" ColorDraw="0, 0, 0" ColorFill="0, 0, 0" CreateStroke="false" SkipShapeDraw="false" > </java.awt.geom.Line2D>
+<java.awt.geom.Rectangle2D Point00="469, 418" Point01="630, 515" ColorDraw="0, 0, 0" ColorFill="0, 0, 0" CreateStroke="false" SkipShapeDraw="false" > </java.awt.geom.Rectangle2D>
 </Widgets>

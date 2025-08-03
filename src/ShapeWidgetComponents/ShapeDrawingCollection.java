@@ -53,6 +53,20 @@ public class ShapeDrawingCollection
 		
 	}
 	
+	public void remove(int index)
+	{
+		for(ShapeStyling ss : this.shapeStylings)
+		{
+			if(ss.getIndex() > index)
+			{
+				ss.setIndex(ss.getIndex()-1);
+			}
+		}
+		this.shapes.remove(index);
+		this.shapeStylings.remove(index);
+		this.shapeControlPoints.remove(index);
+	}
+	
 	public void addShape(Shape s)
 	{
 		this.shapes.add(s);

@@ -33,6 +33,16 @@ public class ShapeStyling
 		this.shapeStyleActionListener = shapeStyleActionListener;
 	}
 	
+	public int getIndex()
+	{
+		return this.shapeIndex;
+	}
+	
+	public void setIndex(int index)
+	{
+		this.shapeIndex = index;
+	}
+	
 	public void setSkipShapeDraw(boolean skipShapeDraw)
 	{
 		this.skipShapeDraw = skipShapeDraw;

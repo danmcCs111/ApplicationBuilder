@@ -31,8 +31,8 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 	private ShapeDrawingCollection sdc;
 	
 	private ArrayList<Integer> shapeSelectedIndexes = new ArrayList<Integer>();
-	private HashMap<Integer, HashMap<Integer, ArrayList<ControlPointChangedListener>>> shapeAndControlPointChangedListener = 
-			new HashMap<Integer, HashMap<Integer, ArrayList<ControlPointChangedListener>>>();
+	private HashMap<ShapeStyling, HashMap<Integer, ArrayList<ControlPointChangedListener>>> shapeAndControlPointChangedListener = 
+			new HashMap<ShapeStyling, HashMap<Integer, ArrayList<ControlPointChangedListener>>>();
 	private boolean 
 		mousePressed = false,
 		controlPointSelected = false;
@@ -113,52 +113,52 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 		ShapeDrawingCollectionGraphics.drawShapeStylingAlgorithm(draw, s, ss);
 	}
 	
-	public void notifyShapeAndControlPointsChangedListener(int indexShape)
+	public void notifyShapeAndControlPointsChangedListener(ShapeStyling ss)
 	{
-		notifyShapeAndControlPointsChangedListener(indexShape, null);
+		notifyShapeAndControlPointsChangedListener(ss, null);
 	}
-	public void notifyShapeAndControlPointsChangedListener(int indexShape, ControlPointChangedListener ignorechangedListener)
+	public void notifyShapeAndControlPointsChangedListener(ShapeStyling ss, ControlPointChangedListener ignorechangedListener)
 	{
-		for(int i = 0; i < getControlPointsForShapes().get(indexShape).size(); i++)
+		for(int i = 0; i < getControlPointsForShapes().get(ss.getIndex()).size(); i++)
 		{
-			notifyShapeAndControlPointChangedListener(indexShape, i, ignorechangedListener);
+			notifyShapeAndControlPointChangedListener(ss, i, ignorechangedListener);
 		}
 	}
-	public void notifyShapeAndControlPointChangedListener(int indexShape, int indexControlPoint, ControlPointChangedListener ignorechangedListener)
+	public void notifyShapeAndControlPointChangedListener(ShapeStyling ss, int indexControlPoint, ControlPointChangedListener ignorechangedListener)
 	{
-		if(!this.shapeAndControlPointChangedListener.containsKey(indexShape))
+		if(!this.shapeAndControlPointChangedListener.containsKey(ss))
 			return;
 		
-		HashMap<Integer, ArrayList<ControlPointChangedListener>> controlPointChangedListeners = this.shapeAndControlPointChangedListener.get(indexShape);
+		HashMap<Integer, ArrayList<ControlPointChangedListener>> controlPointChangedListeners = this.shapeAndControlPointChangedListener.get(ss);
 		for(ControlPointChangedListener cpcl : controlPointChangedListeners.get(indexControlPoint))
 		{
 			if(ignorechangedListener != null && !ignorechangedListener.equals(cpcl))
 			{
-				cpcl.controlPointChangedNotification(indexShape, indexControlPoint);
+				cpcl.controlPointChangedNotification(ss, indexControlPoint);
 			}
 		}
 	}
 	
-	public void addShapeAndControlPointChangedListener(int indexShape, int indexControlPoint, ControlPointChangedListener changedListener)
+	public void addShapeAndControlPointChangedListener(ShapeStyling ss, int indexControlPoint, ControlPointChangedListener changedListener)
 	{
-		if(!this.shapeAndControlPointChangedListener.containsKey(indexShape))
+		if(!this.shapeAndControlPointChangedListener.containsKey(ss))
 		{
 			HashMap<Integer, ArrayList<ControlPointChangedListener>> mapControlPointListeners = new HashMap<Integer, ArrayList<ControlPointChangedListener>>();
 			ArrayList<ControlPointChangedListener> controlPointChangedListeners = new ArrayList<ControlPointChangedListener>();
 			controlPointChangedListeners.add(changedListener);
 			mapControlPointListeners.put(indexControlPoint, controlPointChangedListeners);
-			this.shapeAndControlPointChangedListener.put(indexShape, mapControlPointListeners);
+			this.shapeAndControlPointChangedListener.put(ss, mapControlPointListeners);
 		}
-		else if(!this.shapeAndControlPointChangedListener.get(indexShape).containsKey(indexControlPoint))
+		else if(!this.shapeAndControlPointChangedListener.get(ss).containsKey(indexControlPoint))
 		{
-			HashMap<Integer, ArrayList<ControlPointChangedListener>> mapControlPointListeners = this.shapeAndControlPointChangedListener.get(indexShape);
+			HashMap<Integer, ArrayList<ControlPointChangedListener>> mapControlPointListeners = this.shapeAndControlPointChangedListener.get(ss);
 			ArrayList<ControlPointChangedListener> controlPointChangedListeners = new ArrayList<ControlPointChangedListener>();
 			controlPointChangedListeners.add(changedListener);
 			mapControlPointListeners.put(indexControlPoint, controlPointChangedListeners);
 		}
 		else
 		{
-			HashMap<Integer, ArrayList<ControlPointChangedListener>> mapControlPointListeners = this.shapeAndControlPointChangedListener.get(indexShape);
+			HashMap<Integer, ArrayList<ControlPointChangedListener>> mapControlPointListeners = this.shapeAndControlPointChangedListener.get(ss);
 			mapControlPointListeners.get(indexControlPoint).add(changedListener);
 		}
 	}

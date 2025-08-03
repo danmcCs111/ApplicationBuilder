@@ -129,7 +129,7 @@ public class ShapeCreatorEditShapeFrame extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				new ScaleDialog(sc.getRootPane().getParent(), sc, index);
+				new ScaleDialog(sc.getRootPane().getParent(), sc, shapeStyling);
 				
 			}
 		});

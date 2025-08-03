@@ -131,6 +131,7 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 		{
 			if(controlPointSelectedIndex != -1)
 			{
+				ShapeStyling ss = sc.getShapeStyling(controlPointShapeSelectedIndex); 
 				Point p = sc.getRelativePoint(e);
 				LoggingMessages.printOut("shape index: " + controlPointShapeSelectedIndex + " controlPoint index:" + controlPointSelectedIndex);
 				listControlPointsScaled.get(controlPointShapeSelectedIndex).set(controlPointSelectedIndex, p);
@@ -140,7 +141,7 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 				s = sc.recalculateShape(s, cps);
 				
 				shapesScaled.set(controlPointShapeSelectedIndex, s);
-				sc.notifyShapeAndControlPointChangedListener(controlPointShapeSelectedIndex, controlPointSelectedIndex, this);
+				sc.notifyShapeAndControlPointChangedListener(ss, controlPointSelectedIndex, this);
 				
 			}
 			
@@ -201,6 +202,7 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 		{
 			ArrayList<Point> shapesControlPoints = sc.getControlPointsForShapes().get(index);
 			Shape s = sc.getShapes().get(index);
+			ShapeStyling ss = sc.getShapeStyling(index);
 			ArrayList<Point> newPoints = new ArrayList<Point>();
 			for(Point p : shapesControlPoints)
 			{
@@ -209,12 +211,11 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 			for(int i = 0; i < newPoints.size(); i++)
 			{
 				sc.getControlPointsForShapes().get(index).set(i, newPoints.get(i));
-				sc.notifyShapeAndControlPointChangedListener(index, i, this);
+				sc.notifyShapeAndControlPointChangedListener(ss, i, this);
 			}
 			
 			Shape newShape = sc.recalculateShape(s, newPoints);
 			sc.getShapes().set(index, newShape);
-			ShapeStyling ss = sc.getShapeStyling(index);
 			ss.updateNumberGeneratorConfig(newShape);
 			
 		}
@@ -239,6 +240,7 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 		{
 			ArrayList<Point> shapesControlPoints = sc.getControlPointsForShapes().get(index);
 			Shape s = sc.getShapes().get(index);
+			ShapeStyling ss = sc.getShapeStyling(index);
 			ArrayList<Point> newPoints = new ArrayList<Point>();
 			for(Point p : shapesControlPoints)
 			{
@@ -247,12 +249,11 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 			for(int i = 0; i < newPoints.size(); i++)
 			{
 				sc.getControlPointsForShapes().get(index).set(i, newPoints.get(i));
-				sc.notifyShapeAndControlPointChangedListener(index, i, this);
+				sc.notifyShapeAndControlPointChangedListener(ss, i, this);
 			}
 			
 			Shape newShape = sc.recalculateShape(s, newPoints);
 			sc.getShapes().set(index, newShape);
-			ShapeStyling ss = sc.getShapeStyling(index);
 			ss.updateNumberGeneratorConfig(newShape);
 		}
 		
@@ -279,7 +280,7 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 			if(bounds.contains(s.getBounds()))
 			{
 				selectedShapes.add(s);
-				sc.addShapeSelectedIndex(index);
+				sc.addShapeSelectedIndex(sc.getShapeStyling(index).getIndex());
 				LoggingMessages.printOut("Selecting: " + s.getClass().getName());
 			}
 			index++;
@@ -339,13 +340,12 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 	}
 
 	@Override
-	public void controlPointChangedNotification(int shapeIndex, int controlPointIndex) 
+	public void controlPointChangedNotification(ShapeStyling ss, int controlPointIndex) 
 	{
-		ArrayList<Point> newPoints = sc.getControlPointsForShapes().get(shapeIndex);
-		Shape s = sc.getShapes().get(shapeIndex);
+		ArrayList<Point> newPoints = sc.getControlPointsForShapes().get(ss.getIndex());
+		Shape s = sc.getShapes().get(ss.getIndex());
 		Shape newShape = sc.recalculateShape(s, newPoints);
-		sc.getShapes().set(shapeIndex, newShape);
-		ShapeStyling ss = sc.getShapeStyling(shapeIndex);
+		sc.getShapes().set(ss.getIndex(), newShape);
 		ss.updateNumberGeneratorConfig(newShape);
 		
 		sc.drawAll();

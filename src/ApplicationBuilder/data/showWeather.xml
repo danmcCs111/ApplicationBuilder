@@ -1,8 +1,12 @@
 <Build>
-	<JFrame extendedSetupTaskbar="/src/ApplicationBuilder/weather_xsm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="250, 350" setMaximumSize="350, 0" setMinimumSize="950, 450" setTitle="Weather Output Utility" >
-		<WeatherButtonPanel extendedLayoutApplyParent="Center" setName="weather" >
-			<OutputWeatherResultsTextArea extendedLayoutApplyParent="Center" extendedSetWeatherButtonListener="weather" >
-			</OutputWeatherResultsTextArea>
-		</WeatherButtonPanel>
+	<JFrame extendedCsvReader="C:\Users\danie\codebase\danmcCs111\PlayrightCopyUrl\PlayrightVideo\GrabFolder\Weather\weather_grab_2025_7_31_9_29.csv" extendedSetupTaskbar="/src/ApplicationBuilder/weather_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setMinimumSize="700, 600" setTitle="weather" setResizable="False" >
+		<WeatherGraphViewer extendedCsvAddSubscriber="" extendedLayoutApplyParent="Center" >
+		</WeatherGraphViewer>
+		<JPanel extendedLayoutApplyParent="North" setLayout="java.awt.FlowLayout" >
+			<JButton addActionListener="ActionListenersImpl.CsvReaderListener" extendedLayoutApplyParent="" setName="csvReader" setText="grab weather csv" >
+			</JButton>
+			<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="C:\\Program Files\\Git\\git-bash.exe@-c@-i|/c/Users/danie/codebase/danmcCs111/PlayrightCopyUrl/PlayrightVideo/grabWeather.sh" extendedLayoutApplyParent="" setText="Weather Update" setToolTipText="" >
+			</JButton>
+		</JPanel>
 	</JFrame>
 </Build>
