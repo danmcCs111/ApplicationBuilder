@@ -26,19 +26,6 @@ public class ScheduledCommandImportExport extends XmlNodeReader
 	
 	public String toXmlFromEditorList(List<ScheduledCommandEditor> sces)//editor collection obj?
 	{
-		
-//		String retStr = "";
-//		retStr += "<" + SCHEDULED_COMMAND_PARENT_TAG + "> " + PathUtility.NEW_LINE; 
-//		for(int i = 0; i < scs.size(); i++)
-//		{
-//			retStr += "<" + SCHEDULED_COMMAND_TAG;
-//			ScheduledCommand sc = (ScheduledCommand) scs.get(i).getComponentValueObj();
-//			retStr += sc.getXmlAttributesString() + " > ";
-//			retStr += "</" + SCHEDULED_COMMAND_TAG + ">" + PathUtility.NEW_LINE;
-//		}
-//		retStr += "</" + SCHEDULED_COMMAND_PARENT_TAG + ">";
-//		return retStr;
-		
 		ArrayList<ScheduledCommand> scs = new ArrayList<ScheduledCommand>();
 		for(ScheduledCommandEditor sce : sces)
 		{
@@ -53,8 +40,9 @@ public class ScheduledCommandImportExport extends XmlNodeReader
 		retStr += "<" + SCHEDULED_COMMAND_PARENT_TAG + "> " + PathUtility.NEW_LINE; 
 		for(int i = 0; i < scs.size(); i++)
 		{
-			retStr += "<" + SCHEDULED_COMMAND_TAG;
 			ScheduledCommand sc = (ScheduledCommand) scs.get(i);
+			if(sc == null) continue;
+			retStr += "<" + SCHEDULED_COMMAND_TAG + " ";
 			retStr += sc.getXmlAttributesString() + " > ";
 			retStr += "</" + SCHEDULED_COMMAND_TAG + ">" + PathUtility.NEW_LINE;
 		}

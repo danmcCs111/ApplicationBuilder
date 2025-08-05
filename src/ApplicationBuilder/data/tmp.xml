@@ -1,6 +1,6 @@
 <Build>
 	<JFrame extendedSetupTaskbar="/src/ApplicationBuilder/build-icon_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="300, 300" setMinimumSize="450, 550" setTitle="Scheduled Command Editor" >
-		<ScheduledCommandList extendedLayoutApplyParent="North" setName="scheduledCommandList" >
+		<ScheduledCommandList extendedLayoutApplyParent="North" setLayout="java.awt.GridLayout" setName="scheduledCommandList" >
 		</ScheduledCommandList>
 		<JMenuBar extendedSetJMenuBarParent="" >
 			<JMenu extendedLayoutApplyParent="" setText="File" >

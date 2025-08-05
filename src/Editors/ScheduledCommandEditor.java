@@ -15,7 +15,6 @@ import javax.swing.JFrame;
 import Actions.ScheduledCommand;
 import Graphics2D.GraphicsUtil;
 import Params.ParameterEditor;
-import Properties.LoggingMessages;
 import WidgetComponents.ScheduledCommandExecutor;
 
 public class ScheduledCommandEditor extends JButton implements ParameterEditor
@@ -47,12 +46,15 @@ public class ScheduledCommandEditor extends JButton implements ParameterEditor
 				f.add(sce, BorderLayout.NORTH);
 				sce.setLayout(new GridLayout(0,1));
 				sce.postExecute();
+				if(sc != null)
+				{
+					sce.setScheduledCommand(sc);
+				}
 				GraphicsUtil.rightEdgeTopWindow(ScheduledCommandEditor.this.getRootPane().getParent(), f);
 				f.addWindowListener(new WindowAdapter() {
 					@Override
 					public void windowClosed(WindowEvent e) {
-						LoggingMessages.printOut("closed");
-						sc = sce.getScheduledCommand();
+						setComponentValue(sce.getScheduledCommand());
 					}
 				});
 			}
@@ -76,12 +78,15 @@ public class ScheduledCommandEditor extends JButton implements ParameterEditor
 		if(value instanceof String)
 			return;
 		this.sc = (ScheduledCommand) value;
+		this.setText(sc.getCommandBuild().getCommandXmlString());
 	}
 
 	@Override
 	public String[] getComponentValue() 
 	{
-		return new String[] {this.sc.toString()};//TODO.
+		return (this.sc == null)
+				? null
+				: new String[] {this.sc.toString()};//TODO.
 	}
 
 	@Override

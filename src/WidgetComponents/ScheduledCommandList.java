@@ -1,5 +1,7 @@
 package WidgetComponents;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -9,7 +11,6 @@ import Editors.ScheduledCommandEditor;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetExtensions.OpenActionExtension;
 import WidgetExtensions.SaveActionExtension;
-
 public class ScheduledCommandList extends JPanel implements PostWidgetBuildProcessing, SaveActionExtension, OpenActionExtension
 {
 	private static final long serialVersionUID = 1L;
@@ -17,17 +18,27 @@ public class ScheduledCommandList extends JPanel implements PostWidgetBuildProce
 	private ArrayList<ScheduledCommandEditor> scheduledCommandEditors = new ArrayList<ScheduledCommandEditor>();
 	private ScheduledCommandImportExport scie = new ScheduledCommandImportExport();
 	private ArrayList<ScheduledCommand> scs; 
+	private ScheduledCommandEditor blankEditor;
+	private ActionListener blankListener;
 	
 	public ScheduledCommandList()
 	{
-		
+		blankListener = new ActionListener() 
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				if(!ScheduledCommandList.this.checkBlankEditorIsEmpty())
+				{
+					addBlankEditor();
+				}
+			}
+		};
 	}
 	
 	public void buildWidgets()
 	{
-		ScheduledCommandEditor blankEditor = new ScheduledCommandEditor();
-		scheduledCommandEditors.add(blankEditor);
-		this.add(blankEditor);
+		addBlankEditor();
 	}
 	
 	private void buildWidgets(ArrayList<ScheduledCommand> scs)
@@ -39,13 +50,31 @@ public class ScheduledCommandList extends JPanel implements PostWidgetBuildProce
 			scheduledCommandEditors.add(scEditor);
 			this.add(scEditor);
 		}
+		this.getRootPane().getParent().validate();
+	}
+	
+	private void addBlankEditor()
+	{
+		if(blankEditor != null)
+		{
+			blankEditor.removeActionListener(blankListener);
+		}
+		blankEditor = new ScheduledCommandEditor();
+		scheduledCommandEditors.add(blankEditor);
+		blankEditor.addActionListener(blankListener);
+		this.add(blankEditor);
+	}
+	
+	public boolean checkBlankEditorIsEmpty()
+	{
+		return (blankEditor.getComponentValueObj() != null);
 	}
 
 	@Override
 	public void postExecute() 
 	{
 		buildWidgets();
-		this.validate();
+		this.getRootPane().getParent().validate();
 	}
 
 	@Override

@@ -13,7 +13,9 @@ public class ScheduledCommand
 		DELIMITER_COMMANDLINE_OPTION = ",",
 		DELIMITER_WEEKDAY = "@",
 		SCHEDULE_ATTRIBUTE = "Schedule",
-		COMMAND_ATTRIBUTE = "Command";
+		COMMAND_ATTRIBUTE = "Command",
+		AM = "AM",
+		PM = "PM";
 	
 	private String 
 		dayOfWeek,
@@ -87,7 +89,7 @@ public class ScheduledCommand
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.HOUR, hour);
 		cal.set(Calendar.MINUTE, minute);
-		cal.set(Calendar.AM_PM, amOrpm.equals("pm") ? 0 : 1);
+		cal.set(Calendar.AM_PM, amOrpm.equals(PM) ? 1 : 0);
 		
 		return cal.getTime();
 	}

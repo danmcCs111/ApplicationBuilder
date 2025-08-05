@@ -2,7 +2,12 @@ package WidgetComponents;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -23,10 +28,35 @@ public class ScheduledCommandExecutor extends JPanel implements PostWidgetBuildP
 	
 	private JComboBox<String> timeOptions;
 	private CommandBuildEditor cbe;
+	private JCheckBox [] daysOfWeek;
+	private JCheckBox everyDay;
 	
 	public ScheduledCommandExecutor()
 	{
 		
+	}
+	
+	public void setScheduledCommand(ScheduledCommand sc)
+	{
+		cbe.setComponentValue(sc.getCommandBuild());
+		String dayOfWk = sc.getDayOfWeek();
+		List<String> scSelDayWeek = Arrays.asList(dayOfWk.split(ScheduledCommand.DELIMITER_WEEKDAY));
+		for(JCheckBox jc : daysOfWeek)
+		{
+			if(scSelDayWeek.contains(jc.getText()))
+			{
+				jc.setSelected(true);
+			}
+		}
+		if(scSelDayWeek.contains(everyDay.getText()))
+		{
+			everyDay.setSelected(true);
+		}
+		Date d = sc.getDate();
+		SimpleDateFormat fmt = new SimpleDateFormat("hh:mm a", Locale.US);
+		String date = fmt.format(d);
+		LoggingMessages.printOut(date);
+		timeOptions.setSelectedItem(date);
 	}
 	
 	public ScheduledCommand getScheduledCommand()
@@ -44,7 +74,7 @@ public class ScheduledCommandExecutor extends JPanel implements PostWidgetBuildP
 		this.add(cbe);
 		this.add(timeOptions);
 		
-		JCheckBox [] daysOfWeek = new JCheckBox[] {
+		daysOfWeek = new JCheckBox[] {
 				new JCheckBox("Sunday"),
 				new JCheckBox("Monday"),
 				new JCheckBox("Tuesday"),
@@ -53,7 +83,7 @@ public class ScheduledCommandExecutor extends JPanel implements PostWidgetBuildP
 				new JCheckBox("Friday"),
 				new JCheckBox("Saturday")
 		};
-		JCheckBox everyDay = new JCheckBox("Everyday");
+		everyDay = new JCheckBox("Everyday");
 		
 		for(JCheckBox cb : daysOfWeek)
 		{
@@ -76,7 +106,7 @@ public class ScheduledCommandExecutor extends JPanel implements PostWidgetBuildP
 		
 		double div = 24.0 / numberOfOptions;
 		int minInc = (int)(div * 60.0);
-		options[0] = "12:00 am";
+		options[0] = "12:00 " + ScheduledCommand.AM;
 		for(int i = 1; i < numberOfOptions; i++)
 		{
 			cal.add(Calendar.MINUTE, minInc);
@@ -92,7 +122,7 @@ public class ScheduledCommandExecutor extends JPanel implements PostWidgetBuildP
 					? "0" 
 					: "";
 			
-			options[i] = ((hour==0) ?"12" :hourFill + hour) + ":" + minuteFill + minute + " " + ((amOrPm == 0) ? "pm" : "am");
+			options[i] = ((hour==0) ?"12" :hourFill + hour) + ":" + minuteFill + minute + " " + ((amOrPm == 0) ? ScheduledCommand.AM : ScheduledCommand.PM);
 		}
 		
 		return options;
@@ -130,7 +160,23 @@ public class ScheduledCommandExecutor extends JPanel implements PostWidgetBuildP
 		ScheduledCommand sc = new ScheduledCommand();
 		sc.setCommandBuild(cb);
 		sc.setHourMinuteAmOrPm(hour, minute, amPm);
-		sc.setDayOfWeek("Friday");
+		String dayOfWk = "";
+		for(JCheckBox t : daysOfWeek)
+		{
+			if(t.isSelected())
+			{
+				dayOfWk += t.getText() + ScheduledCommand.DELIMITER_WEEKDAY;
+			}
+		}
+		if(everyDay.isSelected())
+		{
+			dayOfWk += everyDay.getText() + ScheduledCommand.DELIMITER_WEEKDAY;
+		}
+		if(!dayOfWk.isEmpty())
+		{
+			dayOfWk = dayOfWk.substring(0, dayOfWk.length()-1);
+		}
+		sc.setDayOfWeek(dayOfWk);
 		
 		return sc;
 	}
@@ -139,7 +185,7 @@ public class ScheduledCommandExecutor extends JPanel implements PostWidgetBuildP
 	public void postExecute() 
 	{
 		buildWidgets();
-		this.getRootPane().getParent().validate();
+		this.getRootPane().validate();
 	}
 	
 }
