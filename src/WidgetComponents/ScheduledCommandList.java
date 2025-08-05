@@ -50,7 +50,7 @@ public class ScheduledCommandList extends JPanel implements PostWidgetBuildProce
 
 	@Override
 	public void performSave() {
-		String xml = scie.toXml(scheduledCommandEditors);
+		String xml = scie.toXmlFromEditorList(scheduledCommandEditors);
 		scie.performSave(this, xml);
 	}
 
