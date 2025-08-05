@@ -1,14 +1,10 @@
 package ShapeEditorListeners;
 
-import java.awt.Point;
-import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import ShapeWidgetComponents.ShapeCreator;
 import ShapeWidgetComponents.ShapeImportExport;
-import ShapeWidgetComponents.ShapeStyling;
 
 public class SaveShapeActionListener implements ActionListener 
 {
@@ -22,10 +18,7 @@ public class SaveShapeActionListener implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		ArrayList <ArrayList <Point>>  listControlPointsScaled = shapeCreator.getControlPointsForShapes();
-		ArrayList <ShapeStyling> shapeStyling = shapeCreator.getShapeStylings();
-		ArrayList<Shape> shapesScaled = shapeCreator.getShapes();
-		ShapeImportExport sie = new ShapeImportExport(listControlPointsScaled, shapeStyling, shapesScaled, null);
+		ShapeImportExport sie = new ShapeImportExport(shapeCreator.getShapeDrawingCollection(), null);
 		sie.performSave(shapeCreator);
 	}
 }

@@ -8,7 +8,11 @@ import Properties.XmlNodeReader;
 
 public class ScheduledCommandImportExport extends XmlNodeReader
 {
-
+	
+	public ScheduledCommandImportExport()
+	{
+		
+	}
 	
 	@Override
 	public Object createNewObjectFromNode(Node n, ArrayList<String> attributes, int counter, String parentNode) {

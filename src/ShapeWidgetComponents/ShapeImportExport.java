@@ -35,14 +35,11 @@ public class ShapeImportExport extends XmlNodeReader
 	ArrayList<ShapeElement> shapeElements = new ArrayList<ShapeElement>();
 	ShapeElement shapeElement;
 	
-	public ShapeImportExport(ArrayList<ArrayList<Point>> points, 
-			ArrayList<ShapeStyling> shapeStyling, 
-			ArrayList<Shape> shape, 
-			HashMap<Integer, ArrayList<Integer>> paths)
+	public ShapeImportExport(ShapeDrawingCollection sdc, HashMap<Integer, ArrayList<Integer>> paths)
 	{
-		this.points = points;
-		this.shapeStyling = shapeStyling;
-		this.shape = shape;
+		this.points = sdc.getShapeControlPoints();
+		this.shapeStyling = sdc.getShapeStylings();
+		this.shape = sdc.getShapes();
 		this.paths = paths;
 	}
 	
