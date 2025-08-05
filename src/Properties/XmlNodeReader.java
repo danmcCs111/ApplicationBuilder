@@ -40,7 +40,7 @@ public abstract class XmlNodeReader
 		return elements;
 	}
 	
-	private void readXml(String sourceFile)
+	protected void readXml(String sourceFile)
 	{
 		if(sourceFile == null)
 			return;
@@ -83,7 +83,7 @@ public abstract class XmlNodeReader
 					if(n != null)
 					{
 						String nodeStr = n.getNodeName();
-						counterId = nodeStr + counter;
+						counterId = getCounterId(nodeStr, counter);
 						LoggingMessages.printOut(nodeStr + " " + counterId);
 					}
 					readXml(nl2, counterId);
@@ -107,7 +107,16 @@ public abstract class XmlNodeReader
 		{
 			attributes.add(nnMap.item(j).toString());
 		}
-		return createNewObjectFromNode(node, attributes, counter, parentNode);
+		
+		Object o = createNewObjectFromNode(node, attributes, counter, parentNode);
+		counter++;
+		
+		return o;
+	}
+	
+	protected String getCounterId(String nodeStr, int counter)
+	{
+		return nodeStr + counter;
 	}
 	
 	public abstract Object createNewObjectFromNode(Node n, ArrayList<String> attributes, int counter, String parentNode);

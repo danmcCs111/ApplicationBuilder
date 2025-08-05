@@ -9,6 +9,7 @@ import Properties.XmlNodeReader;
 public class ScheduledCommandImportExport extends XmlNodeReader
 {
 
+	
 	@Override
 	public Object createNewObjectFromNode(Node n, ArrayList<String> attributes, int counter, String parentNode) {
 		// TODO Auto-generated method stub

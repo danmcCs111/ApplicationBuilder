@@ -137,7 +137,7 @@ public class ShapeImportExport extends XmlNodeReader
 	{
 		return new ShapeElement (
 				n.getNodeName(),
-				counter++, 
+				counter, 
 				attributes, 
 				parentNode
 		);
