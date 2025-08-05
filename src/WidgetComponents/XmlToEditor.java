@@ -46,7 +46,6 @@ public class XmlToEditor extends TabbedPanel implements DependentRedrawableFrame
 	{
 		this.removeAll();
 		editorFrame.remove(this);
-		editorFrame.repaint();
 		editorFrame.validate();
 	}
 	

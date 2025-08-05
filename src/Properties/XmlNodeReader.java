@@ -19,12 +19,17 @@ import org.xml.sax.SAXException;
 
 public abstract class XmlNodeReader 
 {
-	ArrayList<Object> elements = new ArrayList<Object>();
+	private ArrayList<Object> elements = new ArrayList<Object>();
 	private int counter = 0;
 	
 	public ArrayList<?> getArrayList()
 	{
 		return this.elements;
+	}
+	
+	protected void clearArrayList()
+	{
+		elements = new ArrayList<Object>();
 	}
 	
 	public ArrayList<?> openXml(File f)

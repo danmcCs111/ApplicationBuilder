@@ -7,6 +7,8 @@ import java.util.Calendar;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
+
+import Actions.ScheduledCommand;
 import Editors.CommandBuildEditor;
 import Properties.LoggingMessages;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
@@ -23,6 +25,12 @@ public class ScheduledCommandExecutor extends JPanel implements PostWidgetBuildP
 	public ScheduledCommandExecutor()
 	{
 		
+	}
+	
+//	public ScheduledCommand getScheduledCommand()
+	{
+		
+//		return new ScheduledCommand(null);
 	}
 	
 	public void buildWidgets()

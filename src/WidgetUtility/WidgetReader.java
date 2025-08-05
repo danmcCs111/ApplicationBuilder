@@ -56,6 +56,7 @@ public class WidgetReader extends XmlNodeReader
 	public void clearWidgetCreatorProperties()
 	{
 		this.widgetCreatorProperties = new ArrayList<WidgetCreatorProperty>();
+		clearArrayList();
 	}
 	
 	public ArrayList<WidgetCreatorProperty> collectWidgetCreatorProperties()
