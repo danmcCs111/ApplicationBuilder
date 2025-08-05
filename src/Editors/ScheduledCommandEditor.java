@@ -8,10 +8,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import ActionListeners.EditorStateChangeListener;
 import Actions.ScheduledCommand;
 import Graphics2D.GraphicsUtil;
 import Params.ParameterEditor;
@@ -22,6 +24,8 @@ public class ScheduledCommandEditor extends JButton implements ParameterEditor
 	private static final long serialVersionUID = 1L;
 	
 	private ScheduledCommand sc = null;
+	private ArrayList<EditorStateChangeListener> editorChangeListeners = new ArrayList<EditorStateChangeListener>();
+	private ArrayList<EditorStateChangeListener> editorChangeListenersRemove = new ArrayList<EditorStateChangeListener>();
 	
 	public ScheduledCommandEditor()
 	{
@@ -55,10 +59,36 @@ public class ScheduledCommandEditor extends JButton implements ParameterEditor
 					@Override
 					public void windowClosed(WindowEvent e) {
 						setComponentValue(sce.getScheduledCommand());
+						notifyEditorChangeListener();
 					}
 				});
 			}
 		});
+	}
+	
+	public void addEditorChangeListener(EditorStateChangeListener editorChangeListener)
+	{
+		editorChangeListeners.add(editorChangeListener);
+	}
+	
+	public void removeEditorChangeListener(EditorStateChangeListener editorChangeListener)
+	{
+		if(editorChangeListeners.contains(editorChangeListener))
+		{
+			editorChangeListenersRemove.add(editorChangeListener);
+		}
+	}
+	
+	private void notifyEditorChangeListener()
+	{
+		for(EditorStateChangeListener escl : editorChangeListenersRemove)
+		{
+			editorChangeListeners.remove(escl);
+		}
+		for(EditorStateChangeListener escl : editorChangeListeners)
+		{
+			escl.notifyEditorChanged();
+		}
 	}
 
 	@Override
@@ -78,7 +108,7 @@ public class ScheduledCommandEditor extends JButton implements ParameterEditor
 		if(value instanceof String)
 			return;
 		this.sc = (ScheduledCommand) value;
-		this.setText(sc.getCommandBuild().getCommandXmlString());
+		if(sc != null && sc.getCommandBuild() != null) this.setText(sc.getCommandBuild().getCommandXmlString());
 	}
 
 	@Override

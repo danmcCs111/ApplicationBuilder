@@ -6,12 +6,13 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import ActionListeners.EditorStateChangeListener;
 import Actions.ScheduledCommand;
 import Editors.ScheduledCommandEditor;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetExtensions.OpenActionExtension;
 import WidgetExtensions.SaveActionExtension;
-public class ScheduledCommandList extends JPanel implements PostWidgetBuildProcessing, SaveActionExtension, OpenActionExtension
+public class ScheduledCommandList extends JPanel implements PostWidgetBuildProcessing, SaveActionExtension, OpenActionExtension, EditorStateChangeListener
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -19,21 +20,10 @@ public class ScheduledCommandList extends JPanel implements PostWidgetBuildProce
 	private ScheduledCommandImportExport scie = new ScheduledCommandImportExport();
 	private ArrayList<ScheduledCommand> scs; 
 	private ScheduledCommandEditor blankEditor;
-	private ActionListener blankListener;
 	
 	public ScheduledCommandList()
 	{
-		blankListener = new ActionListener() 
-		{
-			@Override
-			public void actionPerformed(ActionEvent e) 
-			{
-				if(!ScheduledCommandList.this.checkBlankEditorIsEmpty())
-				{
-					addBlankEditor();
-				}
-			}
-		};
+		
 	}
 	
 	public void buildWidgets()
@@ -55,14 +45,23 @@ public class ScheduledCommandList extends JPanel implements PostWidgetBuildProce
 	
 	private void addBlankEditor()
 	{
-		if(blankEditor != null)
+		if( blankEditor == null || 
+			(((ScheduledCommand)blankEditor.getComponentValueObj()) != null && 
+			((ScheduledCommand)blankEditor.getComponentValueObj()).getCommandBuild() != null)
+		) //filled requirements
 		{
-			blankEditor.removeActionListener(blankListener);
+			if(blankEditor != null)
+			{
+				blankEditor.removeEditorChangeListener(this);
+			}
+			blankEditor = new ScheduledCommandEditor();
+			blankEditor.addEditorChangeListener(this);
+			scheduledCommandEditors.add(blankEditor);
+			this.add(blankEditor);
+			this.getRootPane().getParent().validate();
 		}
-		blankEditor = new ScheduledCommandEditor();
-		scheduledCommandEditors.add(blankEditor);
-		blankEditor.addActionListener(blankListener);
-		this.add(blankEditor);
+		//else not filled requirements and already active
+		
 	}
 	
 	public boolean checkBlankEditorIsEmpty()
@@ -94,6 +93,12 @@ public class ScheduledCommandList extends JPanel implements PostWidgetBuildProce
 				scie.getDefaultDirectoryRelative()
 		);
 		buildWidgets(scs);
+	}
+
+	@Override
+	public void notifyEditorChanged() 
+	{
+		addBlankEditor();//TODO.
 	}
 
 }
