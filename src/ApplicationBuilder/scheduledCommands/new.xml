@@ -1,0 +1,3 @@
+<ScheduledCommands> 
+<ScheduledCommandSchedule="12,0,Friday,am" Command="ls@-ltr" > </ScheduledCommand>
+</ScheduledCommands>

@@ -11,6 +11,7 @@ public class ScheduledCommand
 {
 	public static final String 
 		DELIMITER_COMMANDLINE_OPTION = ",",
+		DELIMITER_WEEKDAY = "@",
 		SCHEDULE_ATTRIBUTE = "Schedule",
 		COMMAND_ATTRIBUTE = "Command";
 	
@@ -94,13 +95,13 @@ public class ScheduledCommand
 	public String getXmlAttributesString()
 	{
 		return
-			SCHEDULE_ATTRIBUTE + "=" + 
+			SCHEDULE_ATTRIBUTE + "=\"" + 
 			this.hour + DELIMITER_COMMANDLINE_OPTION +
 			this.minute + DELIMITER_COMMANDLINE_OPTION +
 			this.dayOfWeek + DELIMITER_COMMANDLINE_OPTION + 
-			this.amOrpm + " " +
-			COMMAND_ATTRIBUTE + "=" + 
-			commandBuild.getCommandXmlString();
+			this.amOrpm + "\" " +
+			COMMAND_ATTRIBUTE + "=\"" + 
+			commandBuild.getCommandXmlString() + "\"";
 	}
 	
 }

@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,11 +15,11 @@ import javax.swing.JFrame;
 import Actions.ScheduledCommand;
 import Graphics2D.GraphicsUtil;
 import Params.ParameterEditor;
+import Properties.LoggingMessages;
 import WidgetComponents.ScheduledCommandExecutor;
 
 public class ScheduledCommandEditor extends JButton implements ParameterEditor
 {
-	
 	private static final long serialVersionUID = 1L;
 	
 	private ScheduledCommand sc = null;
@@ -46,6 +48,13 @@ public class ScheduledCommandEditor extends JButton implements ParameterEditor
 				sce.setLayout(new GridLayout(0,1));
 				sce.postExecute();
 				GraphicsUtil.rightEdgeTopWindow(ScheduledCommandEditor.this.getRootPane().getParent(), f);
+				f.addWindowListener(new WindowAdapter() {
+					@Override
+					public void windowClosed(WindowEvent e) {
+						LoggingMessages.printOut("closed");
+						sc = sce.getScheduledCommand();
+					}
+				});
 			}
 		});
 	}
