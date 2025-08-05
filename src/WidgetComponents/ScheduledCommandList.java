@@ -58,7 +58,6 @@ public class ScheduledCommandList extends JPanel implements PostWidgetBuildProce
 			blankEditor.addEditorChangeListener(this);
 			scheduledCommandEditors.add(blankEditor);
 			this.add(blankEditor);
-			this.getRootPane().getParent().validate();
 		}
 		//else not filled requirements and already active
 		
@@ -92,13 +91,17 @@ public class ScheduledCommandList extends JPanel implements PostWidgetBuildProce
 				scie.getFileTypeFilter(), 
 				scie.getDefaultDirectoryRelative()
 		);
+		this.remove(blankEditor);
 		buildWidgets(scs);
+		this.add(blankEditor);//reposition.
+		this.getRootPane().getParent().validate();
 	}
 
 	@Override
 	public void notifyEditorChanged() 
 	{
 		addBlankEditor();//TODO.
+		this.getRootPane().getParent().validate();
 	}
 
 }
