@@ -28,6 +28,6 @@ public class GraphicsUtil
 		int rw = referenceComponent.getWidth();
 		int h = comp.getHeight();
 		
-		comp.setLocation(new Point(loc.x + (rw), loc.y + (h * numberOfMatchedVisible-1)));
+		comp.setLocation(new Point(loc.x + (rw), loc.y + (h * (numberOfMatchedVisible-1) )));
 	}
 }
