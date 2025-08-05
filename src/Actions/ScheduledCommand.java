@@ -10,7 +10,9 @@ import ObjectTypeConversion.CommandBuild;
 public class ScheduledCommand 
 {
 	public static final String 
-		DELIMITER_COMMANDLINE_OPTION = ",";
+		DELIMITER_COMMANDLINE_OPTION = ",",
+		SCHEDULE_ATTRIBUTE = "Schedule",
+		COMMAND_ATTRIBUTE = "Command";
 	
 	private String 
 		dayOfWeek,
@@ -35,7 +37,7 @@ public class ScheduledCommand
 		for(String s : attributes)
 		{
 			s = s.replaceAll("\"", "");
-			if(s.startsWith("Schedule"))
+			if(s.startsWith(SCHEDULE_ATTRIBUTE))
 			{
 				String arg = s.split("=")[1];
 				String [] args = arg.split(DELIMITER_COMMANDLINE_OPTION);
@@ -44,7 +46,7 @@ public class ScheduledCommand
 				this.dayOfWeek = args[2].strip();
 				this.amOrpm = args[3].strip();
 			}
-			else if(s.startsWith("Command"))
+			else if(s.startsWith(COMMAND_ATTRIBUTE))
 			{
 				String arg = s.split("=")[1];
 				this.commandBuild = new CommandBuild(arg);
@@ -89,12 +91,16 @@ public class ScheduledCommand
 		return cal.getTime();
 	}
 	
-	public String getXmlString()
+	public String getXmlAttributesString()
 	{
-		return 
-				this.hour + DELIMITER_COMMANDLINE_OPTION +
-				this.minute + DELIMITER_COMMANDLINE_OPTION +
-				this.dayOfWeek + DELIMITER_COMMANDLINE_OPTION + 
-				this.amOrpm; 
+		return
+			SCHEDULE_ATTRIBUTE + "=" + 
+			this.hour + DELIMITER_COMMANDLINE_OPTION +
+			this.minute + DELIMITER_COMMANDLINE_OPTION +
+			this.dayOfWeek + DELIMITER_COMMANDLINE_OPTION + 
+			this.amOrpm + " " +
+			COMMAND_ATTRIBUTE + "=" + 
+			commandBuild.getCommandXmlString();
 	}
+	
 }

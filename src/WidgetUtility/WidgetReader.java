@@ -87,5 +87,23 @@ public class WidgetReader extends XmlNodeReader
 	{
 		return nodeStr + WidgetComponent.ID_SPLIT + WidgetComponent.nextCountId();
 	}
+
+	@Override
+	public String getFileTypeTitle() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getFileTypeFilter() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getDefaultDirectoryRelative() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

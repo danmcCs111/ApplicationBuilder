@@ -2,6 +2,7 @@ package Properties;
 
 import java.awt.Component;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -120,4 +121,35 @@ public abstract class XmlNodeReader
 	}
 	
 	public abstract Object createNewObjectFromNode(Node n, ArrayList<String> attributes, int counter, String parentNode);
+	
+	public abstract String getFileTypeTitle();
+	public abstract String getFileTypeFilter();
+	public abstract String getDefaultDirectoryRelative();
+	
+	public void performSave(Component parent, String xml)
+	{
+		LoggingMessages.printOut(xml);
+		SaveAsDialog sad = new SaveAsDialog(parent, getFileTypeTitle(), getFileTypeFilter(), getDefaultDirectoryRelative());
+		File f = sad.getSelectedDirectory();
+		if(f != null)
+		{
+			writeXml(f, xml);
+		}
+	}
+	
+	private void writeXml(File sourceFile, String xml)
+	{
+		try {
+			String filename = sourceFile.getAbsolutePath();
+			if(!filename.endsWith("." + getFileTypeFilter()))
+			{
+				filename += "." + getFileTypeFilter();
+			}
+			FileWriter fw = new FileWriter(filename);
+			fw.write(xml);
+			fw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

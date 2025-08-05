@@ -1,19 +1,13 @@
 package ShapeWidgetComponents;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Point;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.w3c.dom.Node;
 
-import Properties.LoggingMessages;
 import Properties.PathUtility;
-import Properties.SaveAsDialog;
 import Properties.XmlNodeReader;
 
 public class ShapeImportExport extends XmlNodeReader
@@ -34,7 +28,7 @@ public class ShapeImportExport extends XmlNodeReader
 		
 	}
 	
-	private String toXml(ShapeDrawingCollection sdc, HashMap<Integer, ArrayList<Integer>> paths)
+	public String toXml(ShapeDrawingCollection sdc, HashMap<Integer, ArrayList<Integer>> paths)
 	{
 		String 
 			type = "",
@@ -87,34 +81,6 @@ public class ShapeImportExport extends XmlNodeReader
 		return classname.split("\\$")[0];
 	}
 	
-	public void performSave(Component parent, ShapeDrawingCollection sdc, HashMap<Integer, ArrayList<Integer>> paths)
-	{
-		String xml = toXml(sdc, paths);
-		LoggingMessages.printOut(xml);
-		SaveAsDialog sad = new SaveAsDialog(parent, FILE_TYPE_TITLE, FILE_TYPE_FILTER, DEFAULT_DIRECTORY_RELATIVE);
-		File f = sad.getSelectedDirectory();
-		if(f != null)
-		{
-			writeXml(f, xml);
-		}
-	}
-	
-	private void writeXml(File sourceFile, String xml)
-	{
-		try {
-			String filename = sourceFile.getAbsolutePath();
-			if(!filename.endsWith("." + FILE_TYPE_FILTER))
-			{
-				filename += "." + FILE_TYPE_FILTER;
-			}
-			FileWriter fw = new FileWriter(filename);
-			fw.write(xml);
-			fw.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
 	@Override
 	public Object createNewObjectFromNode(Node n, ArrayList<String> attributes, int counter, String parentNode) 
 	{
@@ -124,6 +90,24 @@ public class ShapeImportExport extends XmlNodeReader
 				attributes, 
 				parentNode
 		);
+	}
+
+	@Override
+	public String getFileTypeTitle() 
+	{
+		return FILE_TYPE_TITLE;
+	}
+
+	@Override
+	public String getFileTypeFilter() 
+	{
+		return FILE_TYPE_FILTER;
+	}
+
+	@Override
+	public String getDefaultDirectoryRelative() 
+	{
+		return DEFAULT_DIRECTORY_RELATIVE;
 	}
 
 }
