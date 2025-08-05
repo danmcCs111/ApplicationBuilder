@@ -6,11 +6,11 @@ import javax.swing.JPanel;
 
 import Actions.ScheduledCommand;
 import Editors.ScheduledCommandEditor;
-import WidgetComponentInterfaces.OpenActionSubscriber;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
-import WidgetComponentInterfaces.SaveActionSubscriber;
+import WidgetExtensions.OpenActionExtension;
+import WidgetExtensions.SaveActionExtension;
 
-public class ScheduledCommandList extends JPanel implements PostWidgetBuildProcessing, SaveActionSubscriber, OpenActionSubscriber
+public class ScheduledCommandList extends JPanel implements PostWidgetBuildProcessing, SaveActionExtension, OpenActionExtension
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -49,8 +49,7 @@ public class ScheduledCommandList extends JPanel implements PostWidgetBuildProce
 	}
 
 	@Override
-	public void save() 
-	{
+	public void performSave() {
 		String xml = "";
 		for(ScheduledCommandEditor sce : scheduledCommandEditors)
 		{
@@ -61,9 +60,14 @@ public class ScheduledCommandList extends JPanel implements PostWidgetBuildProce
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void open() 
+	public void performOpen() 
 	{
-		scs = (ArrayList<ScheduledCommand>) scie.openXml(this, scie.getFileTypeTitle(), scie.getFileTypeFilter(), scie.getDefaultDirectoryRelative());
+		scs = (ArrayList<ScheduledCommand>) scie.openXml(
+				this, 
+				scie.getFileTypeTitle(), 
+				scie.getFileTypeFilter(), 
+				scie.getDefaultDirectoryRelative()
+		);
 		buildWidgets(scs);
 	}
 

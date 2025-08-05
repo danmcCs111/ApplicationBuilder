@@ -3,6 +3,7 @@ package WidgetExtensionsImpl;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.AbstractButton;
 import javax.swing.JMenuItem;
 
 import WidgetExtensions.ExtendedAttributeParam;
@@ -20,8 +21,8 @@ public class ExtendedOpenActionListener implements ExtendedAttributeParam
 		Object m = widgetProperties.getInstance();
 		if(m instanceof JMenuItem)
 		{
-			JMenuItem mi = (JMenuItem) m;
-			mi.addActionListener(new ActionListener() {
+			AbstractButton ab = (AbstractButton) m;
+			ab.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					WidgetCreatorProperty wcp = WidgetBuildController.getInstance().findRefByName(name);

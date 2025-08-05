@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 
 import Actions.ScheduledCommand;
 import Editors.CommandBuildEditor;
+import ObjectTypeConversion.CommandBuild;
 import Properties.LoggingMessages;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 
@@ -21,21 +22,22 @@ public class ScheduledCommandExecutor extends JPanel implements PostWidgetBuildP
 	private int timeGap = TIME_GAP;
 	
 	private JComboBox<String> timeOptions;
+	private CommandBuildEditor cbe;
 	
 	public ScheduledCommandExecutor()
 	{
 		
 	}
 	
-//	public ScheduledCommand getScheduledCommand()
+	public ScheduledCommand getScheduledCommand()
 	{
 		
-//		return new ScheduledCommand(null);
+		return buildScheduledCommand();
 	}
 	
 	public void buildWidgets()
 	{
-		CommandBuildEditor cbe = new CommandBuildEditor();
+		cbe = new CommandBuildEditor();
 		String [] options = buildTimePickerOptions(timeGap);
 		timeOptions = new JComboBox<String>(options);
 		
@@ -114,7 +116,25 @@ public class ScheduledCommandExecutor extends JPanel implements PostWidgetBuildP
 	{
 		this.timeGap = timeGap;
 	}
-
+	
+	private ScheduledCommand buildScheduledCommand()
+	{
+		String option = (String) timeOptions.getSelectedItem();
+		String [] sp = option.split(":");
+		int hour = Integer.parseInt(sp[0]);
+		String [] minAmPM = sp[1].split(" ");
+		int minute = Integer.parseInt(minAmPM[0]);
+		String amPm = minAmPM[1];//TODO
+		
+		CommandBuild cb = (CommandBuild) cbe.getComponentValueObj();
+		ScheduledCommand sc = new ScheduledCommand();
+		sc.setCommandBuild(cb);
+		sc.setHourMinuteAmOrPm(hour, minute, amPm);
+		sc.setDayOfWeek("Friday");
+		
+		return sc;
+	}
+	
 	@Override
 	public void postExecute() 
 	{
