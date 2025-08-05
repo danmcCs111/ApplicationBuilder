@@ -22,7 +22,8 @@ public class ExtendedShapeDrawingCollectionLoader implements ExtendedAttributePa
 		ShapeDrawingCollection sdc = new ShapeDrawingCollection();
 		sdcL.addShapeDrawingCollection(sdc);
 		ShapeImportExport sie = new ShapeImportExport();
-		ArrayList<ShapeElement> shapeElements = sie.openXml(file);
+		@SuppressWarnings("unchecked")
+		ArrayList<ShapeElement> shapeElements = (ArrayList<ShapeElement>) sie.openXml(file);
 		
 		sdc.addShapeImports(shapeElements, sdcL);
 			

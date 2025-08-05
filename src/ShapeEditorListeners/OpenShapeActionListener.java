@@ -29,7 +29,12 @@ public class OpenShapeActionListener implements ActionListener
 		ArrayList<Shape> shapesScaled = shapeCreator.getShapes();
 		ShapeImportExport sie = new ShapeImportExport(listControlPointsScaled, shapeStyling, shapesScaled, null);
 		
-		ArrayList<ShapeElement> shapeElements = sie.openXml(shapeCreator);
+		@SuppressWarnings("unchecked")
+		ArrayList<ShapeElement> shapeElements = (ArrayList<ShapeElement>) sie.openXml(shapeCreator, 
+				ShapeImportExport.FILE_TYPE_TITLE, 
+				ShapeImportExport.FILE_TYPE_FILTER, 
+				ShapeImportExport.DEFAULT_DIRECTORY_RELATIVE);
+		
 		ShapeDrawingCollection sdc = shapeCreator.getShapeDrawingCollection();
 		sdc.addShapeImportedListener(shapeCreator);
 		sdc.addShapeImports(shapeElements, shapeCreator);

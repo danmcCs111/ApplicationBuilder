@@ -1,3 +1,9 @@
 <Widgets>
-<java.awt.geom.Ellipse2D Point00="250, 200" Point01="600, 500" ColorDraw="0, 0, 0" ColorFill="0, 0, 0" CreateStroke="false"  > </java.awt.geom.Ellipse2D>
+<java.awt.geom.Ellipse2D Point00="41, 25" Point01="141, 125" ColorDraw="255, 255, 255" ColorFill="204, 255, 255" CreateStroke="false" SkipShapeDraw="false" > </java.awt.geom.Ellipse2D>
+<java.awt.geom.Ellipse2D Point00="26, 20" Point01="146, 140" ColorDraw="0, 0, 0" ColorFill="255, 255, 255" CreateStroke="false" NumberGeneratorConfig="1, 12, 3, 18, 0, 0, 0" SkipShapeDraw="true" > </java.awt.geom.Ellipse2D>
+<Graphics2D.CurveShape Point00="186, 282" Point01="324, 369" Point02="310, 276" Point03="236, 367" ColorDraw="153, 255, 153" ColorFill="0, 204, 153" CreateStroke="true" StrokeWidth="16" SkipShapeDraw="false" > </Graphics2D.CurveShape>
+<java.awt.geom.Ellipse2D Point00="346, 283" Point01="566, 488" ColorDraw="0, 0, 0" ColorFill="255, 255, 255" CreateStroke="true" StrokeWidth="2" SkipShapeDraw="false" > </java.awt.geom.Ellipse2D>
+<java.awt.geom.Ellipse2D Point00="395, 327" Point01="510, 446" ColorDraw="0, 0, 0" ColorFill="0, 255, 204" CreateStroke="true" StrokeWidth="3" SkipShapeDraw="false" > </java.awt.geom.Ellipse2D>
+<ShapeWidgetComponents.TriangleCubic Point00="429, 192" Point01="510, 438" Point02="395, 451" Point03="457, 395" Point04="469, 412" Point05="464, 424" Point06="440, 421" Point07="431, 412" Point08="437, 396" ColorDraw="204, 0, 102" ColorFill="153, 153, 153" CreateStroke="true" StrokeWidth="20" SkipShapeDraw="false" > </ShapeWidgetComponents.TriangleCubic>
+<ShapeWidgetComponents.TriangleCubic Point00="616, 141" Point01="706, 234" Point02="567, 284" Point03="685, 130" Point04="727, 168" Point05="641, 213" Point06="611, 243" Point07="615, 204" Point08="624, 175" ColorDraw="204, 102, 255" ColorFill="51, 255, 51" CreateStroke="true" StrokeWidth="5" SkipShapeDraw="false" > </ShapeWidgetComponents.TriangleCubic>
 </Widgets>

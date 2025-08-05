@@ -63,7 +63,7 @@ public class KeyListenerConverter implements StringToObjectConverter
 	@Override
 	public String conversionCallStringXml(String... args) 
 	{
-		return null;
+		return args[0];
 	}
 
 }

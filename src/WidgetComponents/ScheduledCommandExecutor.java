@@ -28,9 +28,10 @@ public class ScheduledCommandExecutor extends JPanel implements PostWidgetBuildP
 	public void buildWidgets()
 	{
 		CommandBuildEditor cbe = new CommandBuildEditor();
-		this.add(cbe);
 		String [] options = buildTimePickerOptions(timeGap);
 		timeOptions = new JComboBox<String>(options);
+		
+		this.add(cbe);
 		this.add(timeOptions);
 		
 		JCheckBox [] daysOfWeek = new JCheckBox[] {
@@ -53,7 +54,6 @@ public class ScheduledCommandExecutor extends JPanel implements PostWidgetBuildP
 		this.add(everyDay);
 		
 		LoggingMessages.printOut(options);
-		
 	}
 	
 	public String [] buildTimePickerOptions(double numberOfOptions)
@@ -70,17 +70,19 @@ public class ScheduledCommandExecutor extends JPanel implements PostWidgetBuildP
 		for(int i = 1; i < numberOfOptions; i++)
 		{
 			cal.add(Calendar.MINUTE, minInc);
-			int hour = cal.get(Calendar.HOUR);
-			int minute = cal.get(Calendar.MINUTE);
-			int amOrPm = cal.get(Calendar.AM_PM);
-			String hourFill = hour < 10 
+			int 
+				hour = cal.get(Calendar.HOUR),
+				minute = cal.get(Calendar.MINUTE),
+				amOrPm = cal.get(Calendar.AM_PM);
+			String 
+				hourFill = (hour < 10) 
 					? "0" 
-					: "";
-			String minuteFill = (minute < 10) 
+					: "",
+				minuteFill = (minute < 10) 
 					? "0" 
 					: "";
 			
-			options[i] = ((hour==0) ?"12" :hourFill + hour) + ":" + minuteFill + minute + " " + ((amOrPm == 0) ? "am" : "pm");
+			options[i] = ((hour==0) ?"12" :hourFill + hour) + ":" + minuteFill + minute + " " + ((amOrPm == 0) ? "pm" : "am");
 		}
 		
 		return options;
