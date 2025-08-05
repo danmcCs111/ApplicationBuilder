@@ -2,6 +2,7 @@ package WidgetComponents;
 
 import javax.swing.JPanel;
 
+import Editors.ScheduledCommandEditor;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 
 public class ScheduledCommandList extends JPanel implements PostWidgetBuildProcessing
@@ -15,13 +16,15 @@ public class ScheduledCommandList extends JPanel implements PostWidgetBuildProce
 	
 	public void buildWidgets()
 	{
-		
+		ScheduledCommandImportExport scie = new ScheduledCommandImportExport();
+		this.add(new ScheduledCommandEditor());
 	}
 
 	@Override
 	public void postExecute() 
 	{
-		
+		buildWidgets();
+		this.validate();
 	}
 
 }
