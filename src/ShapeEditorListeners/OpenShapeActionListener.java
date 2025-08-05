@@ -21,7 +21,7 @@ public class OpenShapeActionListener implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		ShapeImportExport sie = new ShapeImportExport(shapeCreator.getShapeDrawingCollection(), null);
+		ShapeImportExport sie = new ShapeImportExport();
 		
 		@SuppressWarnings("unchecked")
 		ArrayList<ShapeElement> shapeElements = (ArrayList<ShapeElement>) sie.openXml(shapeCreator, 

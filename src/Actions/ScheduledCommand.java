@@ -1,14 +1,16 @@
 package Actions;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import ObjectTypeConversion.CommandBuild;
 
 public class ScheduledCommand 
 {
 	public static final String 
-		DELIMITER_COMMANDLINE_OPTION = "@";
+		DELIMITER_COMMANDLINE_OPTION = ",";
 	
 	private String 
 		dayOfWeek,
@@ -18,13 +20,36 @@ public class ScheduledCommand
 		minute;
 	private CommandBuild commandBuild;
 	
-	public ScheduledCommand(String arg)
+	public ScheduledCommand()
 	{
-		String [] args = arg.split(DELIMITER_COMMANDLINE_OPTION);
-		hour = Integer.parseInt(args[0]);
-		minute = Integer.parseInt(args[1]);
-		dayOfWeek = args[2];
-		amOrpm = args[3];
+		
+	}
+	
+	public ScheduledCommand(String [] attributes)
+	{
+		this(Arrays.asList(attributes));
+	}
+	
+	public ScheduledCommand(List<String> attributes)
+	{
+		for(String s : attributes)
+		{
+			s = s.replaceAll("\"", "");
+			if(s.startsWith("Schedule"))
+			{
+				String arg = s.split("=")[1];
+				String [] args = arg.split(DELIMITER_COMMANDLINE_OPTION);
+				this.hour = Integer.parseInt(args[0].strip());
+				this.minute = Integer.parseInt(args[1].strip());
+				this.dayOfWeek = args[2].strip();
+				this.amOrpm = args[3].strip();
+			}
+			else if(s.startsWith("Command"))
+			{
+				String arg = s.split("=")[1];
+				this.commandBuild = new CommandBuild(arg);
+			}
+		}
 	}
 	
 	public void setCommandBuild(CommandBuild commandBuild)
@@ -62,5 +87,14 @@ public class ScheduledCommand
 		cal.set(Calendar.AM_PM, amOrpm.equals("pm") ? 0 : 1);
 		
 		return cal.getTime();
+	}
+	
+	public String getXmlString()
+	{
+		return 
+				this.hour + DELIMITER_COMMANDLINE_OPTION +
+				this.minute + DELIMITER_COMMANDLINE_OPTION +
+				this.dayOfWeek + DELIMITER_COMMANDLINE_OPTION + 
+				this.amOrpm; 
 	}
 }

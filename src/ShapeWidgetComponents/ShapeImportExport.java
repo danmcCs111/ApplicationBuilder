@@ -3,7 +3,6 @@ package ShapeWidgetComponents;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Point;
-import java.awt.Shape;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -27,40 +26,27 @@ public class ShapeImportExport extends XmlNodeReader
 		FILE_TYPE_FILTER = "xml",
 		DEFAULT_DIRECTORY_RELATIVE =  "/src/ApplicationBuilder/shapes/ ";
 	
-	private ArrayList<ArrayList<Point>> points;
-	private ArrayList<Shape> shape;
-	private ArrayList<ShapeStyling> shapeStyling;
-	private HashMap<Integer, ArrayList<Integer>> paths;
-	
 	ArrayList<ShapeElement> shapeElements = new ArrayList<ShapeElement>();
 	ShapeElement shapeElement;
-	
-	public ShapeImportExport(ShapeDrawingCollection sdc, HashMap<Integer, ArrayList<Integer>> paths)
-	{
-		this.points = sdc.getShapeControlPoints();
-		this.shapeStyling = sdc.getShapeStylings();
-		this.shape = sdc.getShapes();
-		this.paths = paths;
-	}
 	
 	public ShapeImportExport()
 	{
 		
 	}
 	
-	private String toXml()
+	private String toXml(ShapeDrawingCollection sdc, HashMap<Integer, ArrayList<Integer>> paths)
 	{
 		String 
 			type = "",
 			content = "",
 			xml = "";
-		for(int shapeIndex = 0; shapeIndex < this.shape.size(); shapeIndex++)
+		for(int shapeIndex = 0; shapeIndex < sdc.getShapes().size(); shapeIndex++)
 		{
 			int count = 0;
 			String suffixCount = "0";//TODO up to 99
-			for(Point p : points.get(shapeIndex))
+			for(Point p : sdc.getShapeControlPoints().get(shapeIndex))
 			{
-				type = stripString(shape.get(shapeIndex).getClass().getName());
+				type = stripString(sdc.getShapes().get(shapeIndex).getClass().getName());
 				content += "Point" + (count < 10 ? suffixCount : "") + count + "=\"" +  p.x + ", " + p.y + "\" ";
 				if(paths != null && paths.containsKey(shapeIndex))
 				{
@@ -71,7 +57,7 @@ public class ShapeImportExport extends XmlNodeReader
 				}
 				count++;
 			}
-			ShapeStyling ss = shapeStyling.get(shapeIndex);
+			ShapeStyling ss = sdc.getShapeStylings().get(shapeIndex);
 			Color c = ss.getDrawColor();
 			content += "ColorDraw=\"" + c.getRed() + ", " + c.getGreen() + ", " + c.getBlue() + "\" ";
 			Color cFill = ss.getFillColor();
@@ -101,9 +87,9 @@ public class ShapeImportExport extends XmlNodeReader
 		return classname.split("\\$")[0];
 	}
 	
-	public void performSave(Component parent)
+	public void performSave(Component parent, ShapeDrawingCollection sdc, HashMap<Integer, ArrayList<Integer>> paths)
 	{
-		String xml = toXml();
+		String xml = toXml(sdc, paths);
 		LoggingMessages.printOut(xml);
 		SaveAsDialog sad = new SaveAsDialog(parent, FILE_TYPE_TITLE, FILE_TYPE_FILTER, DEFAULT_DIRECTORY_RELATIVE);
 		File f = sad.getSelectedDirectory();

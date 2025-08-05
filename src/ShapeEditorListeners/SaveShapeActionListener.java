@@ -18,7 +18,7 @@ public class SaveShapeActionListener implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		ShapeImportExport sie = new ShapeImportExport(shapeCreator.getShapeDrawingCollection(), null);
-		sie.performSave(shapeCreator);
+		ShapeImportExport sie = new ShapeImportExport();
+		sie.performSave(shapeCreator, shapeCreator.getShapeDrawingCollection(), null);
 	}
 }

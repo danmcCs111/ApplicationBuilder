@@ -2,6 +2,7 @@ package ObjectTypeConvertersImpl;
 
 import Actions.ScheduledCommand;
 import ObjectTypeConversion.StringToObjectConverter;
+import Properties.LoggingMessages;
 
 public class ScheduledCommandConverter implements StringToObjectConverter
 {
@@ -9,7 +10,7 @@ public class ScheduledCommandConverter implements StringToObjectConverter
 	@Override
 	public int numberOfArgs() 
 	{
-		return 1;
+		return 2;
 	}
 
 	@Override
@@ -21,20 +22,20 @@ public class ScheduledCommandConverter implements StringToObjectConverter
 	@Override
 	public Object getDefaultNullValue() 
 	{
-		return new ScheduledCommand("");
+		return new ScheduledCommand();
 	}
 
 	@Override
 	public Object conversionCall(String... args) {
 		return conversionCallIsBlankCheck(args)
 				? getDefaultNullValue()
-				: new ScheduledCommand(args[0]);
+				: new ScheduledCommand(args);
 	}
 
 	@Override
 	public String conversionCallStringXml(String... args) 
 	{
-		return args[0];
+		return LoggingMessages.combine(args);
 	}
 
 }
