@@ -1,4 +1,4 @@
 <ScheduledCommands> 
-<ScheduledCommand Schedule="12,30,Everyday,PM" Command="ls@-ltr" > </ScheduledCommand>
-<ScheduledCommand Schedule="1,0,Tuesday@Wednesday,AM" Command="ls" > </ScheduledCommand>
+<ScheduledCommand Schedule="10,45,PM,Everyday" Command="ls@-ltr" > </ScheduledCommand>
+<ScheduledCommand Schedule="1,0,AM,Tuesday@Wednesday" Command="ls" > </ScheduledCommand>
 </ScheduledCommands>

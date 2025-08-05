@@ -46,8 +46,8 @@ public class ScheduledCommand
 				String [] args = arg.split(DELIMITER_COMMANDLINE_OPTION);
 				this.hour = Integer.parseInt(args[0].strip());
 				this.minute = Integer.parseInt(args[1].strip());
-				this.dayOfWeek = args[2].strip();
-				this.amOrpm = args[3].strip();
+				this.amOrpm = args[2].strip();
+				this.dayOfWeek = args[3].strip();
 			}
 			else if(s.startsWith(COMMAND_ATTRIBUTE))
 			{
@@ -100,8 +100,8 @@ public class ScheduledCommand
 			SCHEDULE_ATTRIBUTE + "=\"" + 
 			this.hour + DELIMITER_COMMANDLINE_OPTION +
 			this.minute + DELIMITER_COMMANDLINE_OPTION +
-			this.dayOfWeek + DELIMITER_COMMANDLINE_OPTION + 
-			this.amOrpm + "\" " +
+			this.amOrpm + DELIMITER_COMMANDLINE_OPTION +
+			this.dayOfWeek + "\" " + 
 			COMMAND_ATTRIBUTE + "=\"" + 
 			commandBuild.getCommandXmlString() + "\"";
 	}

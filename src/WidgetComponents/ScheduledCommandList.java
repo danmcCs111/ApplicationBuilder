@@ -1,7 +1,5 @@
 package WidgetComponents;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -12,6 +10,7 @@ import Editors.ScheduledCommandEditor;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetExtensions.OpenActionExtension;
 import WidgetExtensions.SaveActionExtension;
+
 public class ScheduledCommandList extends JPanel implements PostWidgetBuildProcessing, SaveActionExtension, OpenActionExtension, EditorStateChangeListener
 {
 	private static final long serialVersionUID = 1L;
