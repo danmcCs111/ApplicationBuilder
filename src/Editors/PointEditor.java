@@ -3,7 +3,6 @@ package Editors;
 import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.Point;
-import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 import javax.swing.JSpinner;

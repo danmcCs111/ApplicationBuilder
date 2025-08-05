@@ -82,9 +82,9 @@ public class ScheduledCommandEditor extends JButton implements ParameterEditor
 	}
 
 	@Override
-	public String getComponentXMLOutput() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getComponentXMLOutput() 
+	{
+		return sc.getXmlAttributesString();
 	}
 
 	@Override
