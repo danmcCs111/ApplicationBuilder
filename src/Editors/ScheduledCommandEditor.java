@@ -8,30 +8,31 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import ActionListeners.EditorStateChangeListener;
 import Actions.ScheduledCommand;
+import EditorAbstract.EditorState;
+import EditorAbstract.EditorStateChangedDistributor;
 import Graphics2D.GraphicsUtil;
 import Params.ParameterEditor;
 import WidgetComponents.ScheduledCommandExecutor;
 
-public class ScheduledCommandEditor extends JButton implements ParameterEditor
+public class ScheduledCommandEditor extends JButton implements ParameterEditor, EditorState
 {
 	private static final long serialVersionUID = 1L;
 	
+	private static final String DEFAULT_TEXT = "Edit Command";
+	
 	private ScheduledCommand sc = null;
-	private ArrayList<EditorStateChangeListener> editorChangeListeners = new ArrayList<EditorStateChangeListener>();
-	private ArrayList<EditorStateChangeListener> editorChangeListenersRemove = new ArrayList<EditorStateChangeListener>();
+	private EditorStateChangedDistributor editorStateChangedDistributor = new EditorStateChangedDistributor(this);
 	
 	public ScheduledCommandEditor()
 	{
 		if(sc == null || sc.getCommandBuild() == null)
 		{
-			this.setText("Edit Command");
+			this.setText(DEFAULT_TEXT);
 		}
 		else
 		{
@@ -59,38 +60,13 @@ public class ScheduledCommandEditor extends JButton implements ParameterEditor
 					@Override
 					public void windowClosed(WindowEvent e) {
 						setComponentValue(sce.getScheduledCommand());
-						notifyEditorChangeListener();
+						editorStateChangedDistributor.notifyEditorChangeListener();
 					}
 				});
 			}
 		});
 	}
 	
-	public void addEditorChangeListener(EditorStateChangeListener editorChangeListener)
-	{
-		editorChangeListeners.add(editorChangeListener);
-	}
-	
-	public void removeEditorChangeListener(EditorStateChangeListener editorChangeListener)
-	{
-		if(editorChangeListeners.contains(editorChangeListener))
-		{
-			editorChangeListenersRemove.add(editorChangeListener);
-		}
-	}
-	
-	private void notifyEditorChangeListener()
-	{
-		for(EditorStateChangeListener escl : editorChangeListenersRemove)
-		{
-			editorChangeListeners.remove(escl);
-		}
-		for(EditorStateChangeListener escl : editorChangeListeners)
-		{
-			escl.notifyEditorChanged();
-		}
-	}
-
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
@@ -109,6 +85,7 @@ public class ScheduledCommandEditor extends JButton implements ParameterEditor
 			return;
 		this.sc = (ScheduledCommand) value;
 		if(sc != null && sc.getCommandBuild() != null) this.setText(sc.getCommandBuild().getCommandXmlString());
+		else this.setText(DEFAULT_TEXT);
 	}
 
 	@Override
@@ -135,6 +112,12 @@ public class ScheduledCommandEditor extends JButton implements ParameterEditor
 	public String getParameterDefintionString() 
 	{
 		return ScheduledCommand.class.getName();
+	}
+
+	@Override
+	public EditorStateChangedDistributor getEditorStateChangedDistributor() 
+	{
+		return editorStateChangedDistributor;
 	}
 	
 }
