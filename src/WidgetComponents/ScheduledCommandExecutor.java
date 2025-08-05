@@ -24,12 +24,14 @@ public class ScheduledCommandExecutor extends JPanel implements PostWidgetBuildP
 	private static final long serialVersionUID = 1L;
 	
 	private static final int TIME_GAP = 96;
+	private static final String TIME_FORMAT = "hh:mm a";//TODO
 	private int timeGap = TIME_GAP;
 	
 	private JComboBox<String> timeOptions;
 	private CommandBuildEditor cbe;
 	private JCheckBox [] daysOfWeek;
 	private JCheckBox everyDay;
+	private boolean singleRunDay = true;
 	
 	public ScheduledCommandExecutor()
 	{
@@ -53,7 +55,7 @@ public class ScheduledCommandExecutor extends JPanel implements PostWidgetBuildP
 			everyDay.setSelected(true);
 		}
 		Date d = sc.getDate();
-		SimpleDateFormat fmt = new SimpleDateFormat("hh:mm a", Locale.US);
+		SimpleDateFormat fmt = new SimpleDateFormat(TIME_FORMAT, Locale.US);
 		String date = fmt.format(d);
 		LoggingMessages.printOut(date);
 		timeOptions.setSelectedItem(date);
@@ -61,11 +63,22 @@ public class ScheduledCommandExecutor extends JPanel implements PostWidgetBuildP
 	
 	public ScheduledCommand getScheduledCommand()
 	{
-		
 		return buildScheduledCommand();
 	}
 	
 	public void buildWidgets()
+	{
+		if(singleRunDay)
+		{
+			buildSingleRunDay();
+		}
+		else
+		{
+			//TODO.
+		}
+	}
+	
+	public void buildSingleRunDay()
 	{
 		cbe = new CommandBuildEditor();
 		String [] options = buildTimePickerOptions(timeGap);
