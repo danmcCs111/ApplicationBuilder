@@ -1,5 +1,5 @@
 <ScheduledCommands> 
-<ScheduledCommand Schedule="12,30,AM,Everyday" Command="C:\\Program Files\\Git\\git-bash.exe@-c@-i|pwd; read -p Press\ any\ key\ to\ exit" > </ScheduledCommand>
-<ScheduledCommand Schedule="12,30,AM,Everyday" Command="C:\\Program Files\\Git\\git-bash.exe@-c@-i|ls -ltr; read -p Press\ any\ key\ to\ exit" > </ScheduledCommand>
-<ScheduledCommand Schedule="12,30,AM,Tuesday@Wednesday" Command="C:\\Program Files\\Git\\git-bash.exe@-c@-i|ls; read -p Press\ any\ key\ to\ exit" > </ScheduledCommand>
+<ScheduledCommand Schedule="12,0,PM,Everyday" Command="C:\\Program Files\\Git\\git-bash.exe@-c@-i|pwd; read -p Press\ any\ key\ to\ exit" > </ScheduledCommand>
+<ScheduledCommand Schedule="12,0,PM,Everyday" Command="C:\\Program Files\\Git\\git-bash.exe@-c@-i|ls -ltr; read -p Press\ any\ key\ to\ exit" > </ScheduledCommand>
+<ScheduledCommand Schedule="12,0,PM,Tuesday@Wednesday" Command="C:\\Program Files\\Git\\git-bash.exe@-c@-i|ls; read -p Press\ any\ key\ to\ exit" > </ScheduledCommand>
 </ScheduledCommands>

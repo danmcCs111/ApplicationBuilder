@@ -31,11 +31,8 @@ public class ExtendedScheduledCommandStartActionListener implements ExtendedAttr
 		Calendar cal = Calendar.getInstance();
 		String today = SDF_DAY_OF_WEEK.format(cal.getTime());
 		List<String> dayz = Arrays.asList(dayOfWeek.split(ScheduledCommand.DELIMITER_WEEKDAY));
-		if(dayz.contains(today) || dayz.contains(ScheduledCommand.EVERYDAY_STR))
-		{
-			return true;
-		}
-		return false;
+		
+		return (dayz.contains(today) || dayz.contains(ScheduledCommand.EVERYDAY_STR));
 	}
 	
 	private Runnable getRunnable(ScheduledCommandExecuteExtension scee)
@@ -48,7 +45,9 @@ public class ExtendedScheduledCommandStartActionListener implements ExtendedAttr
 				try {
 					
 					int lastMinute = 0;
-					boolean running = false;
+					boolean 
+						running = false,
+						tmpRunning = false;
 					
 					while(true)
 					{
@@ -69,7 +68,7 @@ public class ExtendedScheduledCommandStartActionListener implements ExtendedAttr
 							{
 								CommandBuild cb = sc.getCommandBuild();
 								CommandExecutor.executeProcess(cb);
-								running = true;
+								tmpRunning = true;
 							}
 							if(lastMinute != nowMinute)
 							{
@@ -77,10 +76,12 @@ public class ExtendedScheduledCommandStartActionListener implements ExtendedAttr
 								LoggingMessages.printOut("is today? " + isDay + " | " + sc.getHour() + " " + sc.getMinute() + " " + sc.getAmOrPm() + " " + sc.getCommandBuild().getCommandXmlString());
 							}
 						}
+						running = tmpRunning;
 						if(lastMinute != nowMinute)//reset after a minute change
 						{
 							LoggingMessages.printOut("");
 							running = false;
+							tmpRunning = false;
 						}
 						lastMinute = nowMinute;
 						Thread.sleep(WAIT_INTERVAL);

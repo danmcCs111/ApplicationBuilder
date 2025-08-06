@@ -115,7 +115,7 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 		
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.MINUTE, 0);
-		cal.set(Calendar.HOUR, 12);
+		cal.set(Calendar.HOUR, 0);
 		
 		double div = 24.0 / numberOfOptions;
 		int minInc = (int)(div * 60.0);
