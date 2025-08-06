@@ -17,7 +17,7 @@ import EditorAbstract.EditorState;
 import EditorAbstract.EditorStateChangedDistributor;
 import Graphics2D.GraphicsUtil;
 import Params.ParameterEditor;
-import WidgetComponents.ScheduledCommandExecutor;
+import WidgetComponents.ScheduledCommandExecutionEditor;
 
 public class ScheduledCommandEditor extends JButton implements ParameterEditor, EditorState
 {
@@ -38,12 +38,13 @@ public class ScheduledCommandEditor extends JButton implements ParameterEditor, 
 		{
 			this.setText(sc.getCommandBuild().getCommandXmlString());
 		}
-		this.addActionListener(new ActionListener() {
-			
+		this.addActionListener(new ActionListener() 
+		{
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) 
+			{
 				JFrame f = new JFrame(ScheduledCommandEditor.this.getText());
-				ScheduledCommandExecutor sce = new ScheduledCommandExecutor();//TODO.
+				ScheduledCommandExecutionEditor sce = new ScheduledCommandExecutionEditor();//TODO.
 				f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				f.setMinimumSize(new Dimension(400, 550));
 				f.setLayout(new BorderLayout());
@@ -56,7 +57,8 @@ public class ScheduledCommandEditor extends JButton implements ParameterEditor, 
 					sce.setScheduledCommand(sc);
 				}
 				GraphicsUtil.rightEdgeTopWindow(ScheduledCommandEditor.this.getRootPane().getParent(), f);
-				f.addWindowListener(new WindowAdapter() {
+				f.addWindowListener(new WindowAdapter() 
+				{
 					@Override
 					public void windowClosed(WindowEvent e) {
 						setComponentValue(sce.getScheduledCommand());

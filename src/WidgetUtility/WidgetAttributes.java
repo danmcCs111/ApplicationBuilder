@@ -33,7 +33,7 @@ import WidgetComponents.DatabaseResponseNodeTextArea;
 import WidgetComponents.JButtonArray;
 import WidgetComponents.MenuOption;
 import WidgetComponents.OutputWeatherResultsTextArea;
-import WidgetComponents.ScheduledCommandExecutor;
+import WidgetComponents.ScheduledCommandExecutionEditor;
 import WidgetComponents.ScheduledCommandList;
 import WidgetComponents.SendHttpRequestPanel;
 import WidgetComponents.SwappableCollection;
@@ -57,6 +57,7 @@ import WidgetExtensionsImpl.ExtendedCsvReader;
 import WidgetExtensionsImpl.ExtendedImageMouseAdapterArray;
 import WidgetExtensionsImpl.ExtendedOpenActionListener;
 import WidgetExtensionsImpl.ExtendedSaveActionListener;
+import WidgetExtensionsImpl.ExtendedScheduledCommandStartActionListener;
 import WidgetExtensionsImpl.ExtendedScrollBarSetUnit;
 import WidgetExtensionsImpl.ExtendedSetJMenuBarParent;
 import WidgetExtensionsImpl.ExtendedSetViewportView;
@@ -93,7 +94,7 @@ public class WidgetAttributes
 		COMPONENT_CLASSES.add(ShapeCreatorEditPanel.class);
 		COMPONENT_CLASSES.add(ClockApp.class);
 		COMPONENT_CLASSES.add(WeatherGraphViewer.class);
-		COMPONENT_CLASSES.add(ScheduledCommandExecutor.class);
+		COMPONENT_CLASSES.add(ScheduledCommandExecutionEditor.class);
 		COMPONENT_CLASSES.add(ScheduledCommandList.class);
 		COMPONENT_CLASSES.add(SendHttpRequestPanel.class);
 		COMPONENT_CLASSES.add(OutputWeatherResultsTextArea.class);
@@ -120,7 +121,8 @@ public class WidgetAttributes
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedActionListenerSubType.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedActionListenerConnectedComponent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
-				ExtendedAttributeParam.getMethodDefinition(ExtendedCommandExecution.class, ExtendedMethodArgDef.CommandBuildSelection.getMethodArgDef())
+				ExtendedAttributeParam.getMethodDefinition(ExtendedCommandExecution.class, ExtendedMethodArgDef.CommandBuildSelection.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedScheduledCommandStartActionListener.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(JTextField.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
@@ -182,7 +184,7 @@ public class WidgetAttributes
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedCsvAddSubscriber.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
-		EXTENDED_METHODS.put(ScheduledCommandExecutor.class, new String [] {
+		EXTENDED_METHODS.put(ScheduledCommandExecutionEditor.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(ScheduledCommandList.class, new String [] {

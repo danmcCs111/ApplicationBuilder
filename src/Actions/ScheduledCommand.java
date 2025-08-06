@@ -15,7 +15,8 @@ public class ScheduledCommand
 		SCHEDULE_ATTRIBUTE = "Schedule",
 		COMMAND_ATTRIBUTE = "Command",
 		AM = "AM",
-		PM = "PM";
+		PM = "PM",
+		EVERYDAY_STR = "Everyday";
 	
 	private String 
 		dayOfWeek,
@@ -82,6 +83,21 @@ public class ScheduledCommand
 	public String getDayOfWeek()
 	{
 		return this.dayOfWeek;
+	}
+	
+	public int getHour()
+	{
+		return this.hour;
+	}
+	
+	public int getMinute()
+	{
+		return this.hour;
+	}
+	
+	public int getAmOrPm()
+	{
+		return this.amOrpm.equals(PM) ? 1 : 0;
 	}
 	
 	public Date getDate()

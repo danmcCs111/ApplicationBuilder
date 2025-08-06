@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import ObjectTypeConversion.CommandBuild;
+import Properties.LoggingMessages;
 
 public class CommandExecutor 
 {
@@ -19,6 +20,7 @@ public class CommandExecutor
 		ProcessBuilder pb = new ProcessBuilder(commandBuild.getArgs());
 		pb.redirectErrorStream(true);
 		runningProcess = pb.start();
+		LoggingMessages.printOut(commandBuild.getCommand() + " - executed");
 		try (InputStream inputStream = runningProcess.getInputStream()) {
 			//required for java jar launch
 		}
