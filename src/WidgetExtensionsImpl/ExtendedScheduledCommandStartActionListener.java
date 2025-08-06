@@ -45,23 +45,26 @@ public class ExtendedScheduledCommandStartActionListener implements ExtendedAttr
 			public void run() 
 			{
 				try {
-					ArrayList<ScheduledCommand> scs = getScheduledCommands(scee);//can alter while running...
-					for(ScheduledCommand sc : scs)
+					while(true)
 					{
-						boolean isDay = isToday(sc.getDayOfWeek());
-						Calendar cal = Calendar.getInstance();
-						int 
-							nowHour = cal.get(Calendar.HOUR),
-							nowMinute = cal.get(Calendar.MINUTE),
-							nowAmOrPm = cal.get(Calendar.AM_PM);
-						
-						if(isDay && nowHour == sc.getHour() && nowMinute == sc.getMinute() && nowAmOrPm == sc.getAmOrPm())
+						ArrayList<ScheduledCommand> scs = getScheduledCommands(scee);//can alter while running...
+						for(ScheduledCommand sc : scs)
 						{
-							CommandBuild cb = sc.getCommandBuild();
-							CommandExecutor.executeProcess(cb);
+							boolean isDay = isToday(sc.getDayOfWeek());
+							Calendar cal = Calendar.getInstance();
+							int 
+								nowHour = cal.get(Calendar.HOUR),
+								nowMinute = cal.get(Calendar.MINUTE),
+								nowAmOrPm = cal.get(Calendar.AM_PM);
+							
+							if(isDay && nowHour == sc.getHour() && nowMinute == sc.getMinute() && nowAmOrPm == sc.getAmOrPm())
+							{
+								CommandBuild cb = sc.getCommandBuild();
+								CommandExecutor.executeProcess(cb);
+							}
 						}
+						Thread.sleep(WAIT_INTERVAL);
 					}
-					Thread.sleep(WAIT_INTERVAL);
 				} catch (InterruptedException | IOException e) {
 					e.printStackTrace();
 				}
