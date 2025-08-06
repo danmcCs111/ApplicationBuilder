@@ -47,7 +47,7 @@ public class ExtendedScheduledCommandStartActionListener implements ExtendedAttr
 			{
 				try {
 					int 
-						resetCount = 60 / WAIT_INTERVAL,
+						resetCount = 60000 / WAIT_INTERVAL,
 						count = resetCount;
 					
 					while(true)
@@ -75,8 +75,11 @@ public class ExtendedScheduledCommandStartActionListener implements ExtendedAttr
 								LoggingMessages.printOut("Now: " + nowHour + " " + nowMinute + " " + nowAmOrPm + "");
 								LoggingMessages.printOut("is today? " + isDay + " | " + sc.getHour() + " " + sc.getMinute() + " " + sc.getAmOrPm() + " " + sc.getCommandBuild().getCommandXmlString());
 								LoggingMessages.printOut("");
-								count = 0;
 							}
+						}
+						if(count == resetCount)
+						{
+							count = 0;
 						}
 						count++;
 						Thread.sleep(WAIT_INTERVAL);
