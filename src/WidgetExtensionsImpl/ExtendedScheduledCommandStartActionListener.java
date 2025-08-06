@@ -46,6 +46,10 @@ public class ExtendedScheduledCommandStartActionListener implements ExtendedAttr
 			public void run() 
 			{
 				try {
+					int 
+						resetCount = 60 / WAIT_INTERVAL,
+						count = resetCount;
+					
 					while(true)
 					{
 						ArrayList<ScheduledCommand> scs = getScheduledCommands(scee);//can alter while running...
@@ -54,18 +58,27 @@ public class ExtendedScheduledCommandStartActionListener implements ExtendedAttr
 							nowHour = cal.get(Calendar.HOUR),
 							nowMinute = cal.get(Calendar.MINUTE),
 							nowAmOrPm = cal.get(Calendar.AM_PM);
+						if(nowHour == 0)
+						{
+							nowHour = 12;
+						}
 						for(ScheduledCommand sc : scs)
 						{
 							boolean isDay = isToday(sc.getDayOfWeek());
-							LoggingMessages.printOut("Now: " + nowHour + " " + nowMinute + " " + nowAmOrPm + "");
-							LoggingMessages.printOut("is today? " + isDay + " | " + sc.getHour() + " " + sc.getMinute() + " " + sc.getAmOrPm() + " " + sc.getCommandBuild().getCommandXmlString());
 							if(isDay && nowHour == sc.getHour() && nowMinute == sc.getMinute() && nowAmOrPm == sc.getAmOrPm())
 							{
 								CommandBuild cb = sc.getCommandBuild();
 								CommandExecutor.executeProcess(cb);
 							}
+							if(count == resetCount)
+							{
+								LoggingMessages.printOut("Now: " + nowHour + " " + nowMinute + " " + nowAmOrPm + "");
+								LoggingMessages.printOut("is today? " + isDay + " | " + sc.getHour() + " " + sc.getMinute() + " " + sc.getAmOrPm() + " " + sc.getCommandBuild().getCommandXmlString());
+								LoggingMessages.printOut("");
+								count = 0;
+							}
 						}
-						LoggingMessages.printOut("");
+						count++;
 						Thread.sleep(WAIT_INTERVAL);
 					}
 				} catch (InterruptedException | IOException e) {

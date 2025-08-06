@@ -103,7 +103,7 @@ public class ScheduledCommand
 	public Date getDate()
 	{
 		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.HOUR, hour);
+		cal.set(Calendar.HOUR, hour == 12 ? 0 : hour);
 		cal.set(Calendar.MINUTE, minute);
 		cal.set(Calendar.AM_PM, amOrpm.equals(PM) ? 1 : 0);
 		
