@@ -29,4 +29,4 @@ do
 	echo $filename $padding " | Line Count - " $linecount " | Running Total - " $total
 done
 echo "total line count: " $total
-read -p "Press any key to exit"
+read -p "Press Enter to exit"
