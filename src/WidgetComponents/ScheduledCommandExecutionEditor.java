@@ -1,7 +1,11 @@
 package WidgetComponents;
 
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -9,10 +13,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
+import Actions.CommandExecutor;
 import Actions.ScheduledCommand;
 import Editors.CommandBuildEditor;
 import ObjectTypeConversion.CommandBuild;
@@ -80,12 +86,20 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 	
 	public void buildSingleRunDay()
 	{
+		JPanel 
+			outerPanel = new JPanel(),
+			innerPanel = new JPanel(),
+			innerPanelControl = new JPanel();
+		outerPanel.setLayout(new BorderLayout());
+		innerPanel.setLayout(new GridLayout(0,1));
+		innerPanelControl.setLayout(new BorderLayout());
+		
 		cbe = new CommandBuildEditor();
 		String [] options = buildTimePickerOptions(timeGap);
 		timeOptions = new JComboBox<String>(options);
 		
-		this.add(cbe);
-		this.add(timeOptions);
+		innerPanel.add(cbe);
+		innerPanel.add(timeOptions);
 		
 		daysOfWeek = new JCheckBox[] {
 				new JCheckBox("Sunday"),
@@ -101,10 +115,30 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 		for(JCheckBox cb : daysOfWeek)
 		{
 			cb.addActionListener(buildToggleActionListener(everyDay));
-			this.add(cb);
+			innerPanel.add(cb);
 		}
 		everyDay.addActionListener(buildToggleActionListener(daysOfWeek));
-		this.add(everyDay);
+		innerPanel.add(everyDay);
+		
+		JButton runButton = new JButton("Run");
+		runButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(getScheduledCommand() != null && getScheduledCommand().getCommandBuild() != null)
+				{
+					CommandBuild cb = getScheduledCommand().getCommandBuild();
+					try {
+						CommandExecutor.executeProcess(cb);
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
+		innerPanelControl.add(runButton, BorderLayout.WEST);
+		outerPanel.add(innerPanel, BorderLayout.NORTH);
+		outerPanel.add(innerPanelControl, BorderLayout.SOUTH);
+		this.add(outerPanel);
 		
 		LoggingMessages.printOut(options);
 	}
