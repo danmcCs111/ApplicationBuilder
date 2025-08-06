@@ -92,7 +92,7 @@ public class ScheduledCommand
 	
 	public int getMinute()
 	{
-		return this.hour;
+		return this.minute;
 	}
 	
 	public int getAmOrPm()

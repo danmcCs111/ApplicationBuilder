@@ -14,6 +14,7 @@ import javax.swing.AbstractButton;
 import Actions.CommandExecutor;
 import Actions.ScheduledCommand;
 import ObjectTypeConversion.CommandBuild;
+import Properties.LoggingMessages;
 import WidgetExtensions.ExtendedAttributeParam;
 import WidgetExtensions.ScheduledCommandExecuteExtension;
 import WidgetUtility.WidgetBuildController;
@@ -30,7 +31,7 @@ public class ExtendedScheduledCommandStartActionListener implements ExtendedAttr
 		Calendar cal = Calendar.getInstance();
 		String today = SDF_DAY_OF_WEEK.format(cal.getTime());
 		List<String> dayz = Arrays.asList(dayOfWeek.split(ScheduledCommand.DELIMITER_WEEKDAY));
-		if(dayz.contains(today) || today.equals(ScheduledCommand.EVERYDAY_STR))
+		if(dayz.contains(today) || dayz.contains(ScheduledCommand.EVERYDAY_STR))
 		{
 			return true;
 		}
@@ -48,21 +49,23 @@ public class ExtendedScheduledCommandStartActionListener implements ExtendedAttr
 					while(true)
 					{
 						ArrayList<ScheduledCommand> scs = getScheduledCommands(scee);//can alter while running...
+						Calendar cal = Calendar.getInstance();
+						int 
+							nowHour = cal.get(Calendar.HOUR),
+							nowMinute = cal.get(Calendar.MINUTE),
+							nowAmOrPm = cal.get(Calendar.AM_PM);
 						for(ScheduledCommand sc : scs)
 						{
 							boolean isDay = isToday(sc.getDayOfWeek());
-							Calendar cal = Calendar.getInstance();
-							int 
-								nowHour = cal.get(Calendar.HOUR),
-								nowMinute = cal.get(Calendar.MINUTE),
-								nowAmOrPm = cal.get(Calendar.AM_PM);
-							
+							LoggingMessages.printOut("Now: " + nowHour + " " + nowMinute + " " + nowAmOrPm + "");
+							LoggingMessages.printOut("is today? " + isDay + " | " + sc.getHour() + " " + sc.getMinute() + " " + sc.getAmOrPm() + " " + sc.getCommandBuild().getCommandXmlString());
 							if(isDay && nowHour == sc.getHour() && nowMinute == sc.getMinute() && nowAmOrPm == sc.getAmOrPm())
 							{
 								CommandBuild cb = sc.getCommandBuild();
 								CommandExecutor.executeProcess(cb);
 							}
 						}
+						LoggingMessages.printOut("");
 						Thread.sleep(WAIT_INTERVAL);
 					}
 				} catch (InterruptedException | IOException e) {
