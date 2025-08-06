@@ -46,9 +46,9 @@ public class ExtendedScheduledCommandStartActionListener implements ExtendedAttr
 			public void run() 
 			{
 				try {
-					int 
-						resetCount = 60000 / WAIT_INTERVAL,
-						count = resetCount;
+					
+					int lastMinute = 0;
+					boolean running = false;
 					
 					while(true)
 					{
@@ -65,23 +65,24 @@ public class ExtendedScheduledCommandStartActionListener implements ExtendedAttr
 						for(ScheduledCommand sc : scs)
 						{
 							boolean isDay = isToday(sc.getDayOfWeek());
-							if(isDay && nowHour == sc.getHour() && nowMinute == sc.getMinute() && nowAmOrPm == sc.getAmOrPm())
+							if(!running && isDay && nowHour == sc.getHour() && nowMinute == sc.getMinute() && nowAmOrPm == sc.getAmOrPm())
 							{
 								CommandBuild cb = sc.getCommandBuild();
 								CommandExecutor.executeProcess(cb);
+								running = true;
 							}
-							if(count == resetCount)
+							if(lastMinute != nowMinute)
 							{
 								LoggingMessages.printOut("Now: " + nowHour + " " + nowMinute + " " + nowAmOrPm + "");
 								LoggingMessages.printOut("is today? " + isDay + " | " + sc.getHour() + " " + sc.getMinute() + " " + sc.getAmOrPm() + " " + sc.getCommandBuild().getCommandXmlString());
-								LoggingMessages.printOut("");
 							}
 						}
-						if(count == resetCount)
+						if(lastMinute != nowMinute)//reset after a minute change
 						{
-							count = 0;
+							LoggingMessages.printOut("");
+							running = false;
 						}
-						count++;
+						lastMinute = nowMinute;
 						Thread.sleep(WAIT_INTERVAL);
 					}
 				} catch (InterruptedException | IOException e) {
