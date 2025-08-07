@@ -12,6 +12,7 @@ import java.util.List;
 import javax.swing.AbstractButton;
 
 import Actions.CommandExecutor;
+import Actions.Schedule;
 import Actions.ScheduledCommand;
 import ObjectTypeConversion.CommandBuild;
 import Properties.LoggingMessages;
@@ -30,9 +31,9 @@ public class ExtendedScheduledCommandStartActionListener implements ExtendedAttr
 	{
 		Calendar cal = Calendar.getInstance();
 		String today = SDF_DAY_OF_WEEK.format(cal.getTime());
-		List<String> dayz = Arrays.asList(dayOfWeek.split(ScheduledCommand.DELIMITER_WEEKDAY));
+		List<String> dayz = Arrays.asList(dayOfWeek.split(Schedule.DELIMITER_WEEKDAY));
 		
-		return (dayz.contains(today) || dayz.contains(ScheduledCommand.EVERYDAY_STR));
+		return (dayz.contains(today) || dayz.contains(Schedule.EVERYDAY_STR));
 	}
 	
 	private Runnable getRunnable(ScheduledCommandExecuteExtension scee)
@@ -63,17 +64,20 @@ public class ExtendedScheduledCommandStartActionListener implements ExtendedAttr
 						}
 						for(ScheduledCommand sc : scs)
 						{
-							boolean isDay = isToday(sc.getDayOfWeek());
-							if(!running && isDay && nowHour == sc.getHour() && nowMinute == sc.getMinute() && nowAmOrPm == sc.getAmOrPm())
+							for(Schedule sch : sc.getSchedules())
 							{
-								CommandBuild cb = sc.getCommandBuild();
-								CommandExecutor.executeProcess(cb);
-								tmpRunning = true;
-							}
-							if(lastMinute != nowMinute)
-							{
-								LoggingMessages.printOut("Now: " + nowHour + " " + nowMinute + " " + nowAmOrPm + "");
-								LoggingMessages.printOut("is today? " + isDay + " | " + sc.getHour() + " " + sc.getMinute() + " " + sc.getAmOrPm() + " " + sc.getCommandBuild().getCommandXmlString());
+								boolean isDay = isToday(sch.getDayOfWeek());
+								if(!running && isDay && nowHour == sch.getHour() && nowMinute == sch.getMinute() && nowAmOrPm == sch.getAmOrPm())
+								{
+									CommandBuild cb = sc.getCommandBuild();
+									CommandExecutor.executeProcess(cb);
+									tmpRunning = true;
+								}
+								if(lastMinute != nowMinute)
+								{
+									LoggingMessages.printOut("Now: " + nowHour + " " + nowMinute + " " + nowAmOrPm + "");
+									LoggingMessages.printOut("is today? " + isDay + " | " + sch.getHour() + " " + sch.getMinute() + " " + sch.getAmOrPm() + " " + sc.getCommandBuild().getCommandXmlString());
+								}
 							}
 						}
 						running = tmpRunning;

@@ -60,7 +60,8 @@ public class ScheduledCommandEditor extends JButton implements ParameterEditor, 
 				f.addWindowListener(new WindowAdapter() 
 				{
 					@Override
-					public void windowClosed(WindowEvent e) {
+					public void windowClosed(WindowEvent e) 
+					{
 						setComponentValue(sce.getScheduledCommand());
 						editorStateChangedDistributor.notifyEditorChangeListener();
 					}
