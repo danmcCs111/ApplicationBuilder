@@ -8,6 +8,8 @@
 		</ScheduledCommandList>
 		<JMenuBar extendedSetJMenuBarParent="" >
 			<JMenu extendedLayoutApplyParent="" setText="File" >
+				<JMenuItem extendedLayoutApplyParent="" setText="New" extendedNewFileActionListener="scheduledCommandList" >
+				</JMenuItem>
 				<JMenuItem extendedLayoutApplyParent="" extendedSaveActionListener="scheduledCommandList" setText="Save" >
 				</JMenuItem>
 				<JMenuItem extendedLayoutApplyParent="" extendedOpenActionListener="scheduledCommandList" setText="Open" >

@@ -1,0 +1,3 @@
+<ScheduledCommands> 
+<ScheduledCommand Schedule="12,0,AM,|" Command="chrome" > </ScheduledCommand>
+</ScheduledCommands>

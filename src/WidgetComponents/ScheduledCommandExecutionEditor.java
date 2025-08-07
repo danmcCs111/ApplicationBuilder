@@ -26,7 +26,8 @@ import ObjectTypeConversion.CommandBuild;
 import Properties.LoggingMessages;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 
-public class ScheduledCommandExecutionEditor extends JPanel implements PostWidgetBuildProcessing {
+public class ScheduledCommandExecutionEditor extends JPanel implements PostWidgetBuildProcessing 
+{
 	private static final long serialVersionUID = 1L;
 
 	private static final int TIME_GAP = 96;
@@ -42,7 +43,8 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 	private JPanel innerPanel = new JPanel();
 	private JButton addTimeButton = new JButton("+ Add Run Time"); 
 
-	public ScheduledCommandExecutionEditor() {
+	public ScheduledCommandExecutionEditor() 
+	{
 
 	}
 
@@ -52,14 +54,17 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 		
 		cbe.setComponentValue(sc.getCommandBuild());
 		String dayOfWk = sc.getSchedules().get(0).getDayOfWeek();
-		List<String> scSelDayWeek = Arrays.asList(dayOfWk.split(Schedule.DELIMITER_WEEKDAY));
-		for (JCheckBox jc : daysOfWeek) {
-			if (scSelDayWeek.contains(jc.getText())) {
-				jc.setSelected(true);
+		if(dayOfWk != null)
+		{
+			List<String> scSelDayWeek = Arrays.asList(dayOfWk.split(Schedule.DELIMITER_WEEKDAY));
+			for (JCheckBox jc : daysOfWeek) {
+				if (scSelDayWeek.contains(jc.getText())) {
+					jc.setSelected(true);
+				}
 			}
-		}
-		if (scSelDayWeek.contains(everyDay.getText())) {
-			everyDay.setSelected(true);
+			if (scSelDayWeek.contains(everyDay.getText())) {
+				everyDay.setSelected(true);
+			}
 		}
 		for (int i = 0; i < sc.getSchedules().size(); i++) 
 		{

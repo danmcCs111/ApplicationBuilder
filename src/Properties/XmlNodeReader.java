@@ -27,7 +27,7 @@ public abstract class XmlNodeReader
 		return this.elements;
 	}
 	
-	protected void clearArrayList()
+	public void clearArrayList()
 	{
 		elements = new ArrayList<Object>();
 	}

@@ -37,7 +37,6 @@ public class ScheduledCommand
 				{
 					Schedule sch = new Schedule(a);
 					schedules.add(sch);
-					LoggingMessages.printOut(sch + "arg");
 				}
 			}
 			else if(s.startsWith(Schedule.COMMAND_ATTRIBUTE))

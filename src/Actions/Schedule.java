@@ -34,7 +34,10 @@ public class Schedule
 		this.hour = Integer.parseInt(args[0].strip());
 		this.minute = Integer.parseInt(args[1].strip());
 		this.amOrpm = args[2];
-		this.dayOfWeek = args[3];
+		if(args.length >= 4)
+		{
+			this.dayOfWeek = args[3];
+		}
 	}
 	
 	public void setHourMinuteAmOrPm(int hour, int minute, String amOrpm)

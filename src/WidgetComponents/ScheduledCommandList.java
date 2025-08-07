@@ -9,11 +9,12 @@ import Actions.ScheduledCommand;
 import Editors.ScheduledCommandEditor;
 import Params.ParameterEditor;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
+import WidgetExtensions.FileNewActionExtension;
 import WidgetExtensions.OpenActionExtension;
 import WidgetExtensions.SaveActionExtension;
 import WidgetExtensions.ScheduledCommandExecuteExtension;
 
-public class ScheduledCommandList extends JPanel implements PostWidgetBuildProcessing, SaveActionExtension, OpenActionExtension, EditorStateChangeListener, ScheduledCommandExecuteExtension
+public class ScheduledCommandList extends JPanel implements PostWidgetBuildProcessing, FileNewActionExtension, SaveActionExtension, OpenActionExtension, EditorStateChangeListener, ScheduledCommandExecuteExtension
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -45,6 +46,11 @@ public class ScheduledCommandList extends JPanel implements PostWidgetBuildProce
 		this.getRootPane().getParent().validate();
 	}
 	
+	private void clearWidgets()
+	{
+		this.removeAll();
+	}
+	
 	private void addBlankEditor(ScheduledCommandEditor pe)
 	{
 		if( blankEditor == null || checkEditorFilledState(pe))
@@ -73,6 +79,20 @@ public class ScheduledCommandList extends JPanel implements PostWidgetBuildProce
 	{
 		return (blankEditor.getComponentValueObj() != null);
 	}
+	
+	private void clearEditor()
+	{
+		scie.clearArrayList();
+		scheduledCommandEditors.clear();
+		if(scs != null)
+		{
+			scs.clear();
+			scs.add((ScheduledCommand) blankEditor.getComponentValueObj());
+		}
+		scheduledCommandEditors.add(blankEditor);
+		clearWidgets();
+		this.add(blankEditor);
+	}
 
 	@Override
 	public void postExecute() 
@@ -80,9 +100,17 @@ public class ScheduledCommandList extends JPanel implements PostWidgetBuildProce
 		buildWidgets();
 		this.getRootPane().getParent().validate();
 	}
+	
+	@Override
+	public void performNewFile() 
+	{
+		clearEditor();
+		this.getRootPane().getParent().validate();
+	}
 
 	@Override
-	public void performSave() {
+	public void performSave() 
+	{
 		String xml = scie.toXmlFromEditorList(scheduledCommandEditors);
 		scie.performSave(this, xml);
 	}
@@ -91,6 +119,7 @@ public class ScheduledCommandList extends JPanel implements PostWidgetBuildProce
 	@Override
 	public void performOpen() 
 	{
+		clearEditor();
 		scs = (ArrayList<ScheduledCommand>) scie.openXml(
 				this, 
 				scie.getFileTypeTitle(), 
@@ -98,6 +127,7 @@ public class ScheduledCommandList extends JPanel implements PostWidgetBuildProce
 				scie.getDefaultDirectoryRelative()
 		);
 		this.remove(blankEditor);
+		clearWidgets();
 		buildWidgets(scs);
 		this.add(blankEditor);//reposition.
 		this.getRootPane().getParent().validate();
