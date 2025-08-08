@@ -14,7 +14,9 @@ import WidgetExtensions.OpenActionExtension;
 import WidgetExtensions.SaveActionExtension;
 import WidgetExtensions.ScheduledCommandExecuteExtension;
 
-public class ScheduledCommandList extends JPanel implements PostWidgetBuildProcessing, FileNewActionExtension, SaveActionExtension, OpenActionExtension, EditorStateChangeListener, ScheduledCommandExecuteExtension
+public class ScheduledCommandList extends JPanel implements PostWidgetBuildProcessing, 
+	FileNewActionExtension, SaveActionExtension, OpenActionExtension, 
+	EditorStateChangeListener, ScheduledCommandExecuteExtension
 {
 	private static final long serialVersionUID = 1L;
 	

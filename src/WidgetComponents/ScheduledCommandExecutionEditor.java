@@ -165,16 +165,28 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.MINUTE, 0);
 		cal.set(Calendar.HOUR, 0);
+		cal.set(Calendar.AM_PM, 0);
 
 		double div = 24.0 / numberOfOptions;
 		int minInc = (int) (div * 60.0);
 		options[0] = "12:00 " + Schedule.AM;
-		for (int i = 1; i < numberOfOptions; i++) {
+		for (int i = 1; i < numberOfOptions; i++) 
+		{
 			cal.add(Calendar.MINUTE, minInc);
-			int hour = cal.get(Calendar.HOUR), minute = cal.get(Calendar.MINUTE), amOrPm = cal.get(Calendar.AM_PM);
-			String hourFill = (hour < 10) ? "0" : "", minuteFill = (minute < 10) ? "0" : "";
+			int 
+				hour = cal.get(Calendar.HOUR), 
+				minute = cal.get(Calendar.MINUTE), 
+				amOrPm = cal.get(Calendar.AM_PM);
+			String 
+				hourFill = (hour < 10) 
+					? "0" 
+					: "", 
+				minuteFill = (minute < 10) 
+					? "0" 
+					: "";
 
-			options[i] = ((hour == 0) ? "12" : hourFill + hour) + ":" + minuteFill + minute + " "
+			options[i] = 
+					((hour == 0) ? "12" : hourFill + hour) + ":" + minuteFill + minute + " "
 					+ ((amOrPm == 0) ? Schedule.AM : Schedule.PM);
 		}
 
@@ -201,15 +213,19 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 	private ScheduledCommand buildScheduledCommand(ScheduledCommand sc) 
 	{
 		String dayOfWk = "";
-		for (JCheckBox t : daysOfWeek) {
-			if (t.isSelected()) {
+		for (JCheckBox t : daysOfWeek) 
+		{
+			if (t.isSelected()) 
+			{
 				dayOfWk += t.getText() + Schedule.DELIMITER_WEEKDAY;
 			}
 		}
-		if (everyDay.isSelected()) {
+		if (everyDay.isSelected()) 
+		{
 			dayOfWk += everyDay.getText() + Schedule.DELIMITER_WEEKDAY;
 		}
-		if (!dayOfWk.isEmpty()) {
+		if (!dayOfWk.isEmpty()) 
+		{
 			dayOfWk = dayOfWk.substring(0, dayOfWk.length() - 1);
 		}
 		
