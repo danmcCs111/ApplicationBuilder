@@ -206,7 +206,11 @@ public class ScheduledCommandList extends JPanel implements PostWidgetBuildProce
 		ArrayList<ScheduledCommand> tmp = new ArrayList<ScheduledCommand>();
 		for(ScheduledCommandEditor sce : scheduledCommandEditors)
 		{
-			tmp.add((ScheduledCommand) sce.getComponentValueObj());
+			ScheduledCommand sc = (ScheduledCommand) sce.getComponentValueObj();
+			if(sc != null)
+			{
+				tmp.add(sc);
+			}
 		}
 		return tmp;
 	}
