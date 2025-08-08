@@ -42,6 +42,10 @@ public abstract class XmlNodeReader
 	{
 		OpenDialog od = new OpenDialog();
 		File f = od.performOpen(parent, title, fileTypeFilter, defaultDirectoryRelative);
+		if(f == null)
+		{
+			return null;
+		}
 		readXml(f.getAbsolutePath());
 		return elements;
 	}

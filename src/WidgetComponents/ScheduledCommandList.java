@@ -159,13 +159,15 @@ public class ScheduledCommandList extends JPanel implements PostWidgetBuildProce
 	@Override
 	public void performOpen() 
 	{
-		clearEditor();
 		ArrayList<ScheduledCommand> tmp = (ArrayList<ScheduledCommand>) scie.openXml(
 				this, 
 				scie.getFileTypeTitle(), 
 				scie.getFileTypeFilter(), 
 				scie.getDefaultDirectoryRelative()
 		);
+		if(tmp == null)
+			return;
+		clearEditor();
 		this.remove(blankEditor);
 		clearWidgets();
 		buildWidgets(tmp);
