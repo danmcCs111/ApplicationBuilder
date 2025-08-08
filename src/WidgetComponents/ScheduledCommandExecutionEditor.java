@@ -36,7 +36,6 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 	private int timeGap = TIME_GAP;
 
 	private ArrayList<JComboBox<String>> timeOptions = new ArrayList<JComboBox<String>>();
-	private ArrayList<JButton> timeOptionDeleteButtonList = new ArrayList<JButton>();
 	private HashMap<Integer, JPanel> timeOptionDeletePanelList = new HashMap<Integer, JPanel>();
 	int indexCount = 0;
 	
@@ -289,7 +288,6 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 		{
 			innerPanel.add(timePanel);
 		}
-		timeOptionDeleteButtonList.add(addTimeButton);
 		for(JCheckBox cb : daysOfWeek)
 		{
 			innerPanel.add(cb);
