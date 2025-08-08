@@ -48,6 +48,7 @@ public class ScheduledCommandEditor extends JButton implements ParameterEditor, 
 				f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				f.setMinimumSize(new Dimension(400, 550));
 				f.setLayout(new BorderLayout());
+				GraphicsUtil.rightEdgeTopWindow(ScheduledCommandEditor.this.getRootPane().getParent(), f);
 				f.setVisible(true);
 				f.add(sce, BorderLayout.NORTH);
 				sce.setLayout(new GridLayout(0,1));
@@ -56,7 +57,6 @@ public class ScheduledCommandEditor extends JButton implements ParameterEditor, 
 				{
 					sce.setScheduledCommand(sc);
 				}
-				GraphicsUtil.rightEdgeTopWindow(ScheduledCommandEditor.this.getRootPane().getParent(), f);
 				f.addWindowListener(new WindowAdapter() 
 				{
 					@Override

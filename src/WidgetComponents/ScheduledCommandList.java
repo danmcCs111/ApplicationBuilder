@@ -1,13 +1,19 @@
 package WidgetComponents;
 
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import ActionListeners.EditorStateChangeListener;
 import Actions.ScheduledCommand;
 import Editors.ScheduledCommandEditor;
 import Params.ParameterEditor;
+import Properties.LoggingMessages;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetExtensions.FileNewActionExtension;
 import WidgetExtensions.OpenActionExtension;
@@ -22,7 +28,9 @@ public class ScheduledCommandList extends JPanel implements PostWidgetBuildProce
 	
 	private ArrayList<ScheduledCommandEditor> scheduledCommandEditors = new ArrayList<ScheduledCommandEditor>();
 	private ScheduledCommandImportExport scie = new ScheduledCommandImportExport();
-	private ArrayList<ScheduledCommand> scs; 
+	private HashMap<Integer, JPanel> commandEditorDeleteButtonList = new HashMap<Integer, JPanel>();
+	private int indexCount = 0;
+	
 	private ScheduledCommandEditor blankEditor;
 	
 	public ScheduledCommandList()
@@ -42,8 +50,9 @@ public class ScheduledCommandList extends JPanel implements PostWidgetBuildProce
 			ScheduledCommandEditor scEditor = new ScheduledCommandEditor();
 			scEditor.setComponentValue(sc);
 			scEditor.getEditorStateChangedDistributor().addEditorChangeListener(this);
+			addDeleteButton(scEditor);
+			
 			scheduledCommandEditors.add(scEditor);
-			this.add(scEditor);
 		}
 		this.getRootPane().getParent().validate();
 	}
@@ -82,15 +91,44 @@ public class ScheduledCommandList extends JPanel implements PostWidgetBuildProce
 		return (blankEditor.getComponentValueObj() != null);
 	}
 	
+	private void removeTimeOption(int index)
+	{
+		LoggingMessages.printOut(index + "");
+		int remIndex = scheduledCommandEditors.indexOf(commandEditorDeleteButtonList.get(index).getComponent(1));
+		JPanel p = commandEditorDeleteButtonList.get(index);
+		scheduledCommandEditors.remove(remIndex);//2nd.
+		commandEditorDeleteButtonList.remove(index);
+		
+		this.remove(p);
+		this.validate();
+		this.getRootPane().getParent().validate();
+	}
+	
+	private void addDeleteButton(ScheduledCommandEditor sde)
+	{
+		JPanel scPanel = new JPanel();
+		scPanel.setLayout(new BorderLayout());
+		JButton deleteButton = new JButton("X");
+		int count = indexCount;
+		deleteButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				removeTimeOption(count);
+			}
+		});
+		commandEditorDeleteButtonList.put(count, scPanel);
+		
+		scPanel.add(deleteButton, BorderLayout.WEST);
+		scPanel.add(sde, BorderLayout.CENTER);
+		this.add(scPanel);
+		
+		indexCount++;
+	}
+	
 	private void clearEditor()
 	{
 		scie.clearArrayList();
 		scheduledCommandEditors.clear();
-		if(scs != null)
-		{
-			scs.clear();
-			scs.add((ScheduledCommand) blankEditor.getComponentValueObj());
-		}
 		scheduledCommandEditors.add(blankEditor);
 		clearWidgets();
 		this.add(blankEditor);
@@ -122,7 +160,7 @@ public class ScheduledCommandList extends JPanel implements PostWidgetBuildProce
 	public void performOpen() 
 	{
 		clearEditor();
-		scs = (ArrayList<ScheduledCommand>) scie.openXml(
+		ArrayList<ScheduledCommand> tmp = (ArrayList<ScheduledCommand>) scie.openXml(
 				this, 
 				scie.getFileTypeTitle(), 
 				scie.getFileTypeFilter(), 
@@ -130,7 +168,7 @@ public class ScheduledCommandList extends JPanel implements PostWidgetBuildProce
 		);
 		this.remove(blankEditor);
 		clearWidgets();
-		buildWidgets(scs);
+		buildWidgets(tmp);
 		this.add(blankEditor);//reposition.
 		this.getRootPane().getParent().validate();
 	}
@@ -141,14 +179,16 @@ public class ScheduledCommandList extends JPanel implements PostWidgetBuildProce
 		ScheduledCommandEditor sde = (ScheduledCommandEditor) editor;
 		if(sde.equals(blankEditor))
 		{
+			if(checkEditorFilledState(sde))
+			{
+				addDeleteButton(sde);
+			}
 			addBlankEditor(sde);
 		}
 		else
 		{
-			//check
 			if(!checkEditorFilledState(sde))
 			{
-				//remove blank and make current blank
 				this.remove(sde);
 				blankEditor.getEditorStateChangedDistributor().removeEditorChangeListener(this);
 //				blankEditor.destroy();//TODO.
@@ -163,7 +203,12 @@ public class ScheduledCommandList extends JPanel implements PostWidgetBuildProce
 	@Override
 	public ArrayList<ScheduledCommand> getScheduledCommands() 
 	{
-		return scs;
+		ArrayList<ScheduledCommand> tmp = new ArrayList<ScheduledCommand>();
+		for(ScheduledCommandEditor sce : scheduledCommandEditors)
+		{
+			tmp.add((ScheduledCommand) sce.getComponentValueObj());
+		}
+		return tmp;
 	}
 
 }
