@@ -32,12 +32,10 @@ import WidgetComponents.ApplicationLayoutEditor;
 import WidgetComponents.DatabaseResponseNodeTextArea;
 import WidgetComponents.JButtonArray;
 import WidgetComponents.MenuOption;
-import WidgetComponents.OutputWeatherResultsTextArea;
 import WidgetComponents.ScheduledCommandExecutionEditor;
 import WidgetComponents.ScheduledCommandList;
 import WidgetComponents.SendHttpRequestPanel;
 import WidgetComponents.SwappableCollection;
-import WidgetComponents.WeatherButtonPanel;
 import WidgetComponents.WeatherGraphViewer;
 import WidgetComponents.XmlToEditor;
 import WidgetExtensions.ExtendedAttributeParam;
@@ -62,7 +60,6 @@ import WidgetExtensionsImpl.ExtendedScheduledCommandStartActionListener;
 import WidgetExtensionsImpl.ExtendedScrollBarSetUnit;
 import WidgetExtensionsImpl.ExtendedSetJMenuBarParent;
 import WidgetExtensionsImpl.ExtendedSetViewportView;
-import WidgetExtensionsImpl.ExtendedWeatherButtonAddActionListener;
 import WidgetExtensionsImpl.ExtendedSetupTaskbar;
 import WidgetExtensionsImpl.ExtendedShapeDrawingCollectionLoader;
 import WidgetExtensionsImpl.ExtendedSwappableHolder;
@@ -88,7 +85,6 @@ public class WidgetAttributes
 		COMPONENT_CLASSES.add(JMenu.class);
 		COMPONENT_CLASSES.add(JMenuItem.class);
 		
-		COMPONENT_CLASSES.add(WeatherButtonPanel.class);
 		COMPONENT_CLASSES.add(DatabaseResponseNodeTextArea.class);
 		COMPONENT_CLASSES.add(ShapeCreator.class);
 		COMPONENT_CLASSES.add(ShapeCreatorToolBarPanel.class);
@@ -98,7 +94,6 @@ public class WidgetAttributes
 		COMPONENT_CLASSES.add(ScheduledCommandExecutionEditor.class);
 		COMPONENT_CLASSES.add(ScheduledCommandList.class);
 		COMPONENT_CLASSES.add(SendHttpRequestPanel.class);
-		COMPONENT_CLASSES.add(OutputWeatherResultsTextArea.class);
 		COMPONENT_CLASSES.add(ApplicationLayoutEditor.class);
 		COMPONENT_CLASSES.add(XmlToEditor.class);
 		COMPONENT_CLASSES.add(SystemTray.class);
@@ -161,9 +156,6 @@ public class WidgetAttributes
 		});
 		
 		//EXTENDED WIDGETS
-		EXTENDED_METHODS.put(WeatherButtonPanel.class, new String [] {
-				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
-		});
 		EXTENDED_METHODS.put(ShapeCreator.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
@@ -194,10 +186,6 @@ public class WidgetAttributes
 		});
 		EXTENDED_METHODS.put(SendHttpRequestPanel.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
-		});
-		EXTENDED_METHODS.put(OutputWeatherResultsTextArea.class, new String [] {
-				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
-				ExtendedAttributeParam.getMethodDefinition(ExtendedWeatherButtonAddActionListener.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(ApplicationLayoutEditor.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetupTaskbar.class, ExtendedMethodArgDef.ExtendedFileSelection.getMethodArgDef()),
