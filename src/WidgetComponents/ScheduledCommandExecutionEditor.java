@@ -102,15 +102,10 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 		innerPanelControl.setLayout(new BorderLayout());
 
 		cbe = new CommandBuildEditor();
-		String[] options = buildTimePickerOptions(timeGap);
-		timeOptions.add(new JComboBox<String>(options));
 
 		innerPanel.add(cbe);
 		innerPanel.add(addTimeButton);
-		for (JComboBox<String> to : timeOptions) {
-			innerPanel.add(to);
-		}
-
+		
 		daysOfWeek = new JCheckBox[] 
 		{ 
 				new JCheckBox("Sunday"), 
@@ -123,6 +118,7 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 		};
 		everyDay = new JCheckBox(Schedule.EVERYDAY_STR);
 
+		addTimeOption();
 		for (JCheckBox cb : daysOfWeek) 
 		{
 			cb.addActionListener(buildToggleActionListener(everyDay));
@@ -159,7 +155,7 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 		this.add(outerPanel);
 		
 		scheduledCommand = buildScheduledCommand(new ScheduledCommand());
-		LoggingMessages.printOut(options);
+//		LoggingMessages.printOut(options);
 	}
 
 	public String[] buildTimePickerOptions(double numberOfOptions) 
@@ -260,19 +256,12 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 		JComboBox<String> newTime = new JComboBox<String>(options);
 		JPanel timePanel = new JPanel();
 		timePanel.setLayout(new BorderLayout());
-		if(timeOptions.size() > 0)
-		{
-			timeOptionDeletePanelList.put(indexCount, timePanel);
-			addDeleteButton(indexCount);
-			timePanel.add(newTime, BorderLayout.CENTER);
-			timeOptions.add(newTime);
-			indexCount++;
-		}
-		else
-		{
-			timeOptions.add(newTime);
-			indexCount++;
-		}
+		
+		timeOptionDeletePanelList.put(indexCount, timePanel);
+		addDeleteButton(indexCount);
+		timePanel.add(newTime, BorderLayout.CENTER);
+		timeOptions.add(newTime);
+		indexCount++;
 		
 		for(JCheckBox cb : daysOfWeek)
 		{
@@ -280,14 +269,7 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 		}
 		innerPanel.remove(everyDay);
 		
-		if(timeOptions.size()==0)
-		{
-			innerPanel.add(newTime);
-		}
-		else
-		{
-			innerPanel.add(timePanel);
-		}
+		innerPanel.add(timePanel);
 		for(JCheckBox cb : daysOfWeek)
 		{
 			innerPanel.add(cb);
@@ -300,7 +282,6 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 	{
 		innerPanel.remove(cbe);
 		innerPanel.remove(addTimeButton);
-		innerPanel.remove(timeOptions.get(0));
 		for(JPanel p : timeOptionDeletePanelList.values())
 			innerPanel.remove(p);
 		for(JCheckBox cb : daysOfWeek)
@@ -308,13 +289,11 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 			innerPanel.remove(cb);
 		}
 		innerPanel.remove(everyDay);
-
 		timeOptions.remove(timeOptionDeletePanelList.get(index).getComponent(1));
 		timeOptionDeletePanelList.remove(index);
 		
 		innerPanel.add(cbe);
 		innerPanel.add(addTimeButton);
-		innerPanel.add(timeOptions.get(0));
 		for(JPanel p : timeOptionDeletePanelList.values())
 			innerPanel.add(p);
 		for(JCheckBox cb : daysOfWeek)
@@ -336,6 +315,10 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 				ScheduledCommandExecutionEditor.this.removeTimeOption(index);
 			}
 		});
+		if(index == 0)
+		{
+			delButton.setEnabled(false);
+		}
 		timeOptionDeletePanelList.get(index).add(delButton, BorderLayout.WEST);
 	}
 	
