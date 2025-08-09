@@ -17,6 +17,7 @@ public class WeatherReading
 {
 	public static final String 
 		NUMBER_STRIP = "[\\(\\)\\/a-zA-Z\\%\\\\]",
+		DATABASE = "WeatherDatabase",
 		TABLE = "WeatherReading";
 	
 	public static final List<String> dayOfTheWeek = (List<String>) Arrays.asList(new String [] {
@@ -45,7 +46,7 @@ public class WeatherReading
 	
 	public String buildQuery() //TODO.
 	{
-		String query = "INSERT INTO " + TABLE + " (";
+		String query = "INSERT INTO " + DATABASE + "." + TABLE + " (";
 		String values = "(";
 		
 		for(String key : queryValues.keySet())
@@ -55,12 +56,12 @@ public class WeatherReading
 			{
 				Date d = getDate((String) o);
 				this.date = d;
-				query += "Date" + ", ";//Convert to date... primary key (date + zip code / location)
-				values += "" + d.getTime() + ", ";
+				query += "Date" + "_" + TABLE + "_" + DATABASE + ", ";//Convert to date... primary key (date + zip code / location)
+				values += "(SELECT FROM_UNIXTIME(" + (d.getTime() / 1000) + ")), "; //milliseconds to seconds
 			}
 			else
 			{
-				query += key + ", ";
+				query += key.replaceAll(" ", "") + "_" + TABLE + "_" + DATABASE + ", ";
 				String clazzName = o.getClass().getName();
 				
 				if(clazzName.equals(Integer.class.getName()))

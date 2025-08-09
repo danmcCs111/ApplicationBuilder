@@ -6,6 +6,10 @@ import javax.swing.JPanel;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetExtensions.ShapeDrawingCollectionLoad;
 
+/**
+ * Visual demonstrating the JVMs expanding memory and the increased performance over time. 
+ * 
+ */
 public class ClockApp extends JPanel implements PostWidgetBuildProcessing, ShapeDrawingCollectionLoad
 {
 	private static final long serialVersionUID = 1L;
