@@ -18,6 +18,11 @@ public class CommandBuild
 	public CommandBuild(String arg)
 	{
 		commandXmlArg = arg;
+		if(!arg.contains(DELIMITER_COMMANDLINE_OPTION) && !arg.contains(DELIMITER_PARAMETER_OPTION))
+		{
+			command = arg;
+			return;
+		}
 		String command = "";
 		String [] 
 				commandLineTmp = arg.split(DELIMITER_COMMANDLINE_OPTION),
@@ -84,6 +89,10 @@ public class CommandBuild
 	
 	public String [] getArgs()
 	{
+		if(commandLineOptions == null || parameters == null)
+		{
+			return new String [] {this.command};
+		}
 		String [] args = new String[1 + commandLineOptions.length + parameters.length];
 		args[0] = PathUtility.surroundString(this.command , "\"");
 		int count = 1;
