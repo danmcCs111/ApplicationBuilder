@@ -38,6 +38,7 @@ public class HttpDatabaseResponse
 	
 	private void getXml(String response)
 	{
+		LoggingMessages.printOut("http response: " + response);
 		int indexOf = response.indexOf(RESULT_SET_TAG, 0);
 		String resopnseXml = response.substring(indexOf, response.length());
 		

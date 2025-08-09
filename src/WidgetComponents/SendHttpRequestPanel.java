@@ -11,19 +11,21 @@ import javax.swing.JPanel;
 import HttpDatabaseRequest.HttpDatabaseRequest;
 import HttpDatabaseRequest.SelectWebServiceQueries;
 import HttpDatabaseResponse.DatabaseResponseNode;
+import HttpDatabaseResponse.DatabaseSelection;
 import HttpDatabaseResponse.HttpDatabaseResponse;
 import Properties.LoggingMessages;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetExtensions.DatabaseResponseNodeListenerExtension;
 
-public class SendHttpRequestPanel extends JPanel implements PostWidgetBuildProcessing
+public class SendHttpRequestPanel extends JPanel implements PostWidgetBuildProcessing, DatabaseSelection
 {
 	private static final long serialVersionUID = 3000L;
 	
 	private static final String 
 		SEND_BUTTON_TEXT = "Send Http Get",
 		ENDPOINT = "http://localhost:",
-		REQUEST_TYPE_HEADER_KEY = "Get-request-type";
+		REQUEST_TYPE_HEADER_KEY = "Get-request-type",
+		DATABASE = "WeatherDatabase";
 	private static final int
 		PORT_NUMBER = 8000;
 	private static final String [] GET_HTTP_OPTIONS = new String [] {"Query"};
@@ -82,7 +84,7 @@ public class SendHttpRequestPanel extends JPanel implements PostWidgetBuildProce
 	{
 		if(swsq == null)
 		{
-			swsq = new SelectWebServiceQueries();
+			swsq = new SelectWebServiceQueries(getDatabase());
 		}
 		this.remove(getRequest);
 		getRequest = new JComboBox<String>(swsq.getQueryOptions());
@@ -93,5 +95,11 @@ public class SendHttpRequestPanel extends JPanel implements PostWidgetBuildProce
 	public void setDatabaseResponseNodeListener(DatabaseResponseNodeListenerExtension drnle) 
 	{
 		this.drnleList.add(drnle);
+	}
+
+	@Override
+	public String getDatabase() 
+	{
+		return DATABASE;
 	}
 }

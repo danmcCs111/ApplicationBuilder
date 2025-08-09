@@ -9,7 +9,7 @@ import Properties.LoggingMessages;
 public class SelectWebServiceQueries 
 {
 	public static final String 
-		SELECT_WEBSERVICES_SQL_REQUEST = "select * from videodatabase.Webservice";//TODO
+		SELECT_WEBSERVICES_SQL_REQUEST = ".Webservice";//TODO
 	
 	private static final String 
 		ENDPOINT = "http://localhost:",
@@ -22,10 +22,10 @@ public class SelectWebServiceQueries
 	
 	private String [] queryOptions;
 	
-	public SelectWebServiceQueries()
+	public SelectWebServiceQueries(String database)
 	{
 		LoggingMessages.printOut(".Build." + SelectWebServiceQueries.class.getName());
-		queryOptions = collectQueryOptions();
+		queryOptions = collectQueryOptions(database);
 	}
 	
 	public String [] getQueryOptions()
@@ -60,12 +60,12 @@ public class SelectWebServiceQueries
 		return queries;
 	}
 	
-	private static String [] collectQueryOptions()
+	private static String [] collectQueryOptions(String database)
 	{
 		String response = HttpDatabaseRequest.executeGetRequest(
 				ENDPOINT,
 				PORT_NUMBER,
-				SELECT_WEBSERVICES_SQL_REQUEST,
+				"Select * from " + database + SELECT_WEBSERVICES_SQL_REQUEST,
 				REQUEST_TYPE_HEADER_KEY,
 				REQUEST_TYPE_HEADER_VALUE
 		);
