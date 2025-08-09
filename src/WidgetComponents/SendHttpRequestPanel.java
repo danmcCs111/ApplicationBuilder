@@ -26,6 +26,7 @@ public class SendHttpRequestPanel extends JPanel implements PostWidgetBuildProce
 		ENDPOINT = "http://localhost:",
 		REQUEST_TYPE_HEADER_KEY = "Get-request-type",
 		DATABASE = "WeatherDatabase";
+	private String database = DATABASE;
 	private static final int
 		PORT_NUMBER = 8000;
 	private static final String [] GET_HTTP_OPTIONS = new String [] {"Query"};
@@ -68,6 +69,11 @@ public class SendHttpRequestPanel extends JPanel implements PostWidgetBuildProce
 		this.add(getRequest);
 	}
 	
+	public void setDatabase(String database)
+	{
+		this.database = database;
+	}
+	
 	private String executeRequest()
 	{
 		return HttpDatabaseRequest.executeGetRequest(
@@ -100,6 +106,6 @@ public class SendHttpRequestPanel extends JPanel implements PostWidgetBuildProce
 	@Override
 	public String getDatabase() 
 	{
-		return DATABASE;
+		return database;
 	}
 }
