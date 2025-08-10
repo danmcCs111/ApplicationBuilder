@@ -1,6 +1,6 @@
 <Build>
-	<JFrame setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="250, 350" setMinimumSize="850, 550" setTitle="Database Query Tool" >
-		<SendHttpRequestPanel extendedLayoutApplyParent="North" setDatabase="videodatabase" setLayout="java.awt.FlowLayout" setName="httpRequestPanel" >
+	<JFrame setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="250, 350" setMinimumSize="850, 550" setTitle="Database Query Tool" extendedSetupTaskbar="/src/ApplicationBuilder/build-icon_sm.png" >
+		<SendHttpRequestPanel extendedLayoutApplyParent="North" setDatabase="WeatherDatabase" setLayout="java.awt.FlowLayout" setName="httpRequestPanel" >
 		</SendHttpRequestPanel>
 		<DatabaseResponseNodeTextArea extendedDatabaseResponseNodeListener="httpRequestPanel" extendedLayoutApplyParent="Center" >
 		</DatabaseResponseNodeTextArea>
