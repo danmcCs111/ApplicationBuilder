@@ -40,32 +40,37 @@ public class ScheduledCommandEditor extends JButton implements ParameterEditor, 
 		}
 		this.addActionListener(new ActionListener() 
 		{
+			JFrame f = null;
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				JFrame f = new JFrame(ScheduledCommandEditor.this.getText());
-				ScheduledCommandExecutionEditor sce = new ScheduledCommandExecutionEditor();//TODO.
-				f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				f.setMinimumSize(new Dimension(400, 550));
-				f.setLayout(new BorderLayout());
-				GraphicsUtil.rightEdgeTopWindow(ScheduledCommandEditor.this.getRootPane().getParent(), f);
-				f.setVisible(true);
-				f.add(sce, BorderLayout.NORTH);
-				sce.setLayout(new GridLayout(0,1));
-				sce.postExecute();
-				if(sc != null)
+				if(f == null)//TODO
 				{
-					sce.setScheduledCommand(sc);
-				}
-				f.addWindowListener(new WindowAdapter() 
-				{
-					@Override
-					public void windowClosed(WindowEvent e) 
+					f = new JFrame(ScheduledCommandEditor.this.getText());
+					ScheduledCommandExecutionEditor sce = new ScheduledCommandExecutionEditor();//TODO.
+					f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					f.setMinimumSize(new Dimension(400, 550));
+					f.setLayout(new BorderLayout());
+					GraphicsUtil.rightEdgeTopWindow(ScheduledCommandEditor.this.getRootPane().getParent(), f);
+					f.setVisible(true);
+					f.add(sce, BorderLayout.NORTH);
+					sce.setLayout(new GridLayout(0,1));
+					sce.postExecute();
+					if(sc != null)
 					{
-						setComponentValue(sce.getScheduledCommand());
-						editorStateChangedDistributor.notifyEditorChangeListener();
+						sce.setScheduledCommand(sc);
 					}
-				});
+					f.addWindowListener(new WindowAdapter() 
+					{
+						@Override
+						public void windowClosed(WindowEvent e) 
+						{
+							setComponentValue(sce.getScheduledCommand());
+							editorStateChangedDistributor.notifyEditorChangeListener();
+							f = null;
+						}
+					});
+				}
 			}
 		});
 	}
