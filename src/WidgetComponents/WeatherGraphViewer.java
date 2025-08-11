@@ -99,10 +99,22 @@ public class WeatherGraphViewer extends GraphViewer implements CsvReaderSubscrib
 			plotPanel = new JPanel(),
 			outerPanel = new JPanel();
 		
+		JButton getQueryResults = new JButton("Get Results");
+		getQueryResults.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String ret = getSqlDateStatement(spin, spin2);
+				getSql(ret);
+				
+				plotReading((String) comboSelect.getSelectedItem());
+			}
+		});
+		
 		timePanel.add(dateLabel);
 		timePanel.add(spin);
 		timePanel.add(dateLabel2);
 		timePanel.add(spin2);
+		timePanel.add(getQueryResults);
 		
 		comboSelect.addItem("Temperature");
 		comboSelect.addItem("Rain");
@@ -116,10 +128,6 @@ public class WeatherGraphViewer extends GraphViewer implements CsvReaderSubscrib
 		plotButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String ret = getSqlDateStatement(spin, spin2);
-				LoggingMessages.printOut(ret);
-				getSql(ret);
-				
 				plotReading((String) comboSelect.getSelectedItem());
 			}
 		});
@@ -143,14 +151,11 @@ public class WeatherGraphViewer extends GraphViewer implements CsvReaderSubscrib
 	{
 		String ret = "Select * from " + WeatherReading.DATABASE + "." + WeatherReading.TABLE + " \n" ;
 		ret += "WHERE Date_" + WeatherReading.TABLE + "_" + WeatherReading.DATABASE + " BETWEEN ";
-		LoggingMessages.printOut(spin1.getValue().toString());
 		Date 
 			d1 = (Date) spin1.getValue(),
 			d2 = (Date) spin2.getValue();
 		ret += SQLUtility.getDateToMySqlString(d1) + " AND ";
 		ret += SQLUtility.getDateToMySqlString(d2);
-		
-		LoggingMessages.printOut(spin2.getValue().toString());
 		
 		return ret;
 	}
@@ -173,7 +178,6 @@ public class WeatherGraphViewer extends GraphViewer implements CsvReaderSubscrib
 		{
 			WeatherReading wr = new WeatherReading(nodeValues, WeatherReading.TABLE, WeatherReading.DATABASE);
 			Date d = wr.getDate();
-			LoggingMessages.printOut(d + " " + wr);
 			if(d != null)
 			{
 				readings.put(d, wr);
@@ -192,7 +196,6 @@ public class WeatherGraphViewer extends GraphViewer implements CsvReaderSubscrib
 		{
 			WeatherReading wr = readings.get(d);
 			Object plotPointValue = wr.getQueryValues().get(key);
-			LoggingMessages.printOut(plotPointValue + " plot point value");
 			if(plotPointValue == null)
 				continue;
 			
