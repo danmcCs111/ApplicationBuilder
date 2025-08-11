@@ -6,6 +6,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
+import HttpDatabaseRequest.HttpDatabaseRequest;
+import HttpDatabaseRequest.SelectWebServiceQueries;
 import ObjectTypeConversion.CommandBuild;
 import ObjectTypeConversion.CsvReader;
 import ObjectTypeConversion.WeatherGrabCsvConverter;
@@ -37,10 +39,22 @@ public class WeatherDatabaseUpdater
 			cr.read();
 			WeatherGrabCsvConverter wgcc = new WeatherGrabCsvConverter(cr);
 			HashMap<Date, WeatherReading> weatherReadings = wgcc.getWeatherReadings();
+			String query = "";
 			for(Date dt : weatherReadings.keySet())
 			{
-				LoggingMessages.printOut(weatherReadings.get(dt).buildQuery());
+				query += weatherReadings.get(dt).buildQuery() + "; ";
 			}
+			LoggingMessages.printOut("");
+			
+			LoggingMessages.printOut(query);
+			HttpDatabaseRequest.executeGetRequest
+			(
+					SelectWebServiceQueries.ENDPOINT,
+					SelectWebServiceQueries.PORT_NUMBER,
+					query,
+					SelectWebServiceQueries.REQUEST_TYPE_HEADER_KEY,
+					"Update"
+			);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

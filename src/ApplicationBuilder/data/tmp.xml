@@ -1,8 +1,20 @@
 <Build>
-	<JFrame extendedSetupTaskbar="/src/ApplicationBuilder/build-icon_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="250, 350" setMinimumSize="850, 550" setTitle="Database Query Tool" >
-		<SendHttpRequestPanel extendedLayoutApplyParent="North" setDatabase="WeatherDatabase" setLayout="java.awt.FlowLayout" setName="httpRequestPanel" >
-		</SendHttpRequestPanel>
-		<DatabaseResponseNodeTextArea extendedDatabaseResponseNodeListener="httpRequestPanel" extendedLayoutApplyParent="Center" >
-		</DatabaseResponseNodeTextArea>
+	<JFrame extendedSetupTaskbar="/src/ApplicationBuilder/build-icon_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="300, 300" setMinimumSize="450, 550" setTitle="Scheduled Command Editor" >
+		<JPanel extendedLayoutApplyParent="South" setLayout="java.awt.FlowLayout" >
+			<JButton extendedLayoutApplyParent="" extendedScheduledCommandStartActionListener="scheduledCommandList" setText="Run" setToolTipText="Start Execution Scheduler" >
+			</JButton>
+		</JPanel>
+		<ScheduledCommandList extendedLayoutApplyParent="North" setLayout="java.awt.GridLayout" setName="scheduledCommandList" >
+		</ScheduledCommandList>
+		<JMenuBar extendedSetJMenuBarParent="" >
+			<JMenu extendedLayoutApplyParent="" setText="File" >
+				<JMenuItem extendedLayoutApplyParent="" extendedNewFileActionListener="scheduledCommandList" setText="New" >
+				</JMenuItem>
+				<JMenuItem extendedLayoutApplyParent="" extendedSaveActionListener="scheduledCommandList" setText="Save" >
+				</JMenuItem>
+				<JMenuItem extendedLayoutApplyParent="" extendedOpenActionListener="scheduledCommandList" setText="Open" >
+				</JMenuItem>
+			</JMenu>
+		</JMenuBar>
 	</JFrame>
 </Build>

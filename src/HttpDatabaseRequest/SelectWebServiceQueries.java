@@ -11,13 +11,13 @@ public class SelectWebServiceQueries
 	public static final String 
 		SELECT_WEBSERVICES_SQL_REQUEST = ".Webservice";//TODO
 	
-	private static final String 
+	public static final String 
 		ENDPOINT = "http://localhost:",
 		REQUEST_TYPE_HEADER_KEY = "Get-request-type",
 		REQUEST_TYPE_HEADER_VALUE = "Query",
 		WEBSERVICE_QUERY_TAG_NAME = "WebserviceQuery",
 		WEBSERVICE_QUERY_ATTRIBUTE_NAME = "content";
-	private static final int
+	public static final int
 		PORT_NUMBER = 8000;
 	
 	private String [] queryOptions;
