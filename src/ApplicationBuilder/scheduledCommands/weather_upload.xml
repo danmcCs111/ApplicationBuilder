@@ -1,3 +1,3 @@
 <ScheduledCommands> 
-<ScheduledCommand Schedule="9,0,AM,Everyday|" Command="java@-cp|C:\\Users\\danie\\codebase\\danmcCs111\\ApplicationBuilder\\Application Builder.jar|Actions.WeatherDatabaseUpdater|C:\\Users\\danie\\codebase\\danmcCs111\\PlayrightCopyUrl\\PlayrightVideo\\GrabFolder\\Weather\\ |/c/Users/danie/codebase/danmcCs111/PlayrightCopyUrl/PlayrightVideo/collectWeatherToCsv.sh" > </ScheduledCommand>
+<ScheduledCommand Schedule="9,0,AM,Everyday|" Command="java@-cp|C:\\Users\\danie\\codebase\\danmcCs111\\ApplicationBuilder\\Application Builder.jar|Actions.WeatherDatabaseUpdater|C:\\Users\\danie\\codebase\\danmcCs111\\PlayrightCopyUrl\\PlayrightVideo\\GrabFolder\\Weather\\|/c/Users/danie/codebase/danmcCs111/PlayrightCopyUrl/PlayrightVideo/collectWeatherToCsv.sh" > </ScheduledCommand>
 </ScheduledCommands>
