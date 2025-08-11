@@ -94,6 +94,7 @@ public class WeatherGrabCsvConverter extends CsvConverter
 				for(int i = 0; i < key.length; i++)
 				{
 					String k = key[i];
+					String strippedKey = k.replaceAll(" ", "");
 					String [] sp = s.split(k);
 					int indexStart = s.indexOf(k);
 					
@@ -123,9 +124,9 @@ public class WeatherGrabCsvConverter extends CsvConverter
 								place = sp[0].substring(0, indexStart);
 							}
 						}
-						foundKey = k;
+						foundKey = strippedKey;
 						place = valueFiltersAndKeys.get(count).StringFilterValue(place);
-						filtered.put(k, place);
+						filtered.put(strippedKey, place);
 					}
 				}
 				count++;

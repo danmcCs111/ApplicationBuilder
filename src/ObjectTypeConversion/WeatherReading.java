@@ -53,6 +53,62 @@ public class WeatherReading
 		return this.date;
 	}
 	
+	private void loadWeatherReading(ArrayList<DatabaseResponseNode> value, String table, String database)
+	{
+		for(DatabaseResponseNode drn : value)
+		{
+			String key = "";
+			key = drn.getNodeName().replace("_"+table, "");
+			key = key.replace("_"+database, "");
+			String classTypeName = drn.getNodeAttributes().get(DatabaseResponseNode.CLASS_TYPE_KEY);
+			String contentValue = drn.getNodeAttributes().get(DatabaseResponseNode.CONTENT_KEY);
+			ParamTypes pt = ParamTypes.getParamType(classTypeName);
+			
+			Object o = pt.getConverter().conversionCall(contentValue);
+			if(o instanceof Timestamp)
+			{
+				if(key.equals("Date"))
+				{
+					date = (Date) o;
+				}
+			}
+			LoggingMessages.printOut(key + " " + o);
+			queryValues.put(key, o);
+		}
+	}
+	
+	private void loadWeatherReading(HashMap<String, String> reading)
+	{
+		for(String key : reading.keySet())
+		{
+			String value = reading.get(key);
+			ValueDataType vdt = ValueDataType.getDataTypeFromKey(key);
+			
+			if(vdt == null)
+			{
+				queryValues.put(key, value.strip());
+			}
+			else
+			{
+				StringToObjectConverter stc = ParamTypes.getParamType(vdt.clazzType.getName()).getConverter();
+				value = value.replaceAll(NUMBER_STRIP, "");
+				
+				for(ValueModifier vm : ValueModifier.values())
+				{
+					if(value.contains(vm.modifier)) 
+					{
+						valueModifiers.put(key, vm);
+						value = value.replaceAll(vm.modifier, "").strip();
+					}
+				}
+				
+				int val = (int) stc.conversionCall(value);
+				
+				queryValues.put(key, val);
+			}
+		}
+	}
+	
 	public String buildQuery() //TODO.
 	{
 		String query = "REPLACE INTO " + DATABASE + "." + TABLE + " (";
@@ -70,7 +126,7 @@ public class WeatherReading
 			}
 			else
 			{
-				query += key.replaceAll(" ", "") + "_" + TABLE + "_" + DATABASE + ", ";
+				query += key+ "_" + TABLE + "_" + DATABASE + ", ";
 				String clazzName = o.getClass().getName();
 				
 				if(clazzName.equals(Integer.class.getName()))
@@ -124,65 +180,6 @@ public class WeatherReading
 		return d;
 	}
 	
-	private void loadWeatherReading(ArrayList<DatabaseResponseNode> value, String table, String database)
-	{
-		for(DatabaseResponseNode drn : value)
-		{
-			String key = "";
-			key = drn.getNodeName().replace("_"+table, "");
-			key = key.replace("_"+database, "");
-			String classTypeName = drn.getNodeAttributes().get(DatabaseResponseNode.CLASS_TYPE_KEY);
-			String contentValue = drn.getNodeAttributes().get(DatabaseResponseNode.CONTENT_KEY);
-			ParamTypes pt = ParamTypes.getParamType(classTypeName);
-			
-			Object o = pt.getConverter().conversionCall(contentValue);
-			if(o instanceof Timestamp)
-			{
-				if(key.equals("Date"))
-				{
-					date = (Date) o;
-				}
-			}
-			LoggingMessages.printOut(key + " " + o);
-			queryValues.put(key, o);
-		}
-	}
-	
-	private void loadWeatherReading(HashMap<String, String> reading)
-	{
-		for(String key : reading.keySet())
-		{
-			String value = reading.get(key);
-			ValueDataType vdt = ValueDataType.getDataTypeFromKey(key);
-			
-			if(vdt == null)
-			{
-				LoggingMessages.printOut(key + " | " + value);
-				queryValues.put(key, value.strip());
-			}
-			else
-			{
-				
-				StringToObjectConverter stc = ParamTypes.getParamType(vdt.clazzType.getName()).getConverter();
-				value = value.replaceAll(NUMBER_STRIP, "");
-				
-				for(ValueModifier vm : ValueModifier.values())
-				{
-					if(value.contains(vm.modifier)) 
-					{
-						valueModifiers.put(key, vm);
-						value = value.replaceAll(vm.modifier, "").strip();
-					}
-				}
-				
-				int val = (int) stc.conversionCall(value);
-				
-				LoggingMessages.printOut(key + " | " + val);
-				queryValues.put(key, val);
-			}
-		}
-	}
-	
 	protected enum ValueModifier
 	{
 		none("", ""),
@@ -217,10 +214,10 @@ public class WeatherReading
 		temperature("Temperature", int.class, NUMBER_STRIP),
 		rain("Rain", int.class, NUMBER_STRIP),
 		thunder("Thunder", int.class, NUMBER_STRIP),
-		precipitationPotential("Precipitation Potential", int.class, NUMBER_STRIP),
-		relativeHumidity("Relative Humidity", int.class, NUMBER_STRIP),
-		skyCover("Sky Cover", int.class, NUMBER_STRIP),
-		heatIndex("Heat Index", int.class, NUMBER_STRIP),
+		precipitationPotential("PrecipitationPotential", int.class, NUMBER_STRIP),
+		relativeHumidity("RelativeHumidity", int.class, NUMBER_STRIP),
+		skyCover("SkyCover", int.class, NUMBER_STRIP),
+		heatIndex("HeatIndex", int.class, NUMBER_STRIP),
 		dewPoint("Dewpoint", int.class, NUMBER_STRIP);
 		
 		public String keyValue = "";
