@@ -46,7 +46,7 @@ public class WeatherReading
 	
 	public String buildQuery() //TODO.
 	{
-		String query = "INSERT INTO " + DATABASE + "." + TABLE + " (";
+		String query = "REPLACE INTO " + DATABASE + "." + TABLE + " (";
 		String values = "(";
 		
 		for(String key : queryValues.keySet())
