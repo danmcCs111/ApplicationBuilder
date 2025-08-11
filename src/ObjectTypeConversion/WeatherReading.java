@@ -1,7 +1,9 @@
 package ObjectTypeConversion;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -9,6 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+import HttpDatabaseRequest.SQLUtility;
+import HttpDatabaseResponse.DatabaseResponseNode;
 import ObjectTypeConvertersImpl.IntConverter;
 import Params.ParamTypes;
 import Properties.LoggingMessages;
@@ -34,6 +38,11 @@ public class WeatherReading
 		buildQuery();
 	}
 	
+	public WeatherReading(ArrayList<DatabaseResponseNode> value, String table, String database)
+	{
+		loadWeatherReading(value, table, database);
+	}
+	
 	public HashMap<String, Object> getQueryValues()
 	{
 		return this.queryValues;
@@ -57,7 +66,7 @@ public class WeatherReading
 				Date d = getDate((String) o);
 				this.date = d;
 				query += "Date" + "_" + TABLE + "_" + DATABASE + ", ";//Convert to date... primary key (date + zip code / location)
-				values += "(SELECT FROM_UNIXTIME(" + (d.getTime() / 1000) + ")), "; //milliseconds to seconds
+				values += SQLUtility.getDateToMySqlString(d) + ", "; //milliseconds to seconds
 			}
 			else
 			{
@@ -113,6 +122,30 @@ public class WeatherReading
 		LoggingMessages.printOut("After parse: " + d.toString());
 		
 		return d;
+	}
+	
+	private void loadWeatherReading(ArrayList<DatabaseResponseNode> value, String table, String database)
+	{
+		for(DatabaseResponseNode drn : value)
+		{
+			String key = "";
+			key = drn.getNodeName().replace("_"+table, "");
+			key = key.replace("_"+database, "");
+			String classTypeName = drn.getNodeAttributes().get(DatabaseResponseNode.CLASS_TYPE_KEY);
+			String contentValue = drn.getNodeAttributes().get(DatabaseResponseNode.CONTENT_KEY);
+			ParamTypes pt = ParamTypes.getParamType(classTypeName);
+			
+			Object o = pt.getConverter().conversionCall(contentValue);
+			if(o instanceof Timestamp)
+			{
+				if(key.equals("Date"))
+				{
+					date = (Date) o;
+				}
+			}
+			LoggingMessages.printOut(key + " " + o);
+			queryValues.put(key, o);
+		}
 	}
 	
 	private void loadWeatherReading(HashMap<String, String> reading)

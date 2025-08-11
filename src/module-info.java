@@ -9,4 +9,5 @@ module ApplicationBuilder {
 	requires java.datatransfer;
 	requires java.net.http;
 	requires java.base;
+	requires java.sql;
 }

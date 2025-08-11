@@ -11,6 +11,7 @@ import ObjectTypeConvertersImpl.DirectorySelectionConverter;
 import ObjectTypeConvertersImpl.DoubleConverter;
 import ObjectTypeConvertersImpl.FileSelectionConverter;
 import ObjectTypeConvertersImpl.IntConverter;
+import ObjectTypeConvertersImpl.IntegerConverter;
 import ObjectTypeConvertersImpl.KeyListenerConverter;
 import ObjectTypeConvertersImpl.LayoutManagerConverter;
 import ObjectTypeConvertersImpl.MouseAdapterConverter;
@@ -18,6 +19,7 @@ import ObjectTypeConvertersImpl.MouseListenerConverter;
 import ObjectTypeConvertersImpl.MouseMotionListenerConverter;
 import ObjectTypeConvertersImpl.PointConverter;
 import ObjectTypeConvertersImpl.StringConverter;
+import ObjectTypeConvertersImpl.TimestampConverter;
 import ObjectTypeConvertersImpl.WavReaderConverter;
 import ObjectTypeConvertersImpl.WindowListenerConverter;
 import Properties.LoggingMessages;
@@ -26,11 +28,13 @@ public enum ParamTypes
 {
 	String(new StringConverter()),
 	Int(new IntConverter()),
+	Integer(new IntegerConverter()),
 	Double(new DoubleConverter()),
 	Point(new PointConverter()),
 	Dimension(new DimensionConverter()),
 	Boolean(new BooleanConverter()),
 	Color(new ColorConverter()),
+	Timestamp(new TimestampConverter()),
 	LayoutManager(new LayoutManagerConverter()),
 	ActionListener(new ActionListenerConverter()),
 	mouseListener(new MouseListenerConverter()),

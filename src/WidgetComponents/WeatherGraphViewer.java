@@ -1,6 +1,7 @@
 package WidgetComponents;
 
 import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.Shape;
 import java.awt.event.ActionEvent;
@@ -9,7 +10,9 @@ import java.awt.event.MouseMotionListener;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -17,8 +20,17 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
 
 import ActionListeners.CsvReaderSubscriber;
+import HttpDatabaseRequest.HttpDatabaseRequest;
+import HttpDatabaseRequest.SQLUtility;
+import HttpDatabaseRequest.SelectWebServiceQueries;
+import HttpDatabaseResponse.DatabaseResponseNode;
+import HttpDatabaseResponse.HttpDatabaseResponse;
 import ObjectTypeConversion.CsvReader;
 import ObjectTypeConversion.WeatherGrabCsvConverter;
 import ObjectTypeConversion.WeatherReading;
@@ -64,28 +76,109 @@ public class WeatherGraphViewer extends GraphViewer implements CsvReaderSubscrib
 	
 	public WeatherGraphViewer()
 	{
+		JLabel 
+			dateLabel = new JLabel("Between: "),
+			dateLabel2 = new JLabel(" + ");
+		
+		Calendar cal1 = Calendar.getInstance(),
+				cal2 = Calendar.getInstance();
+		cal1.add(Calendar.DAY_OF_MONTH, -1);
+		Date
+			d1 = cal1.getTime(),
+			d2 = cal2.getTime();
+		
+		SpinnerDateModel 
+			model = new SpinnerDateModel(d1, null, null, java.util.Calendar.DAY_OF_MONTH),
+			model2 = new SpinnerDateModel(d2, null, null, java.util.Calendar.DAY_OF_MONTH);
+		
+		JSpinner 
+			spin = new JSpinner(model),
+			spin2 = new JSpinner(model2);
+		JPanel 
+			timePanel = new JPanel(),
+			plotPanel = new JPanel(),
+			outerPanel = new JPanel();
+		
+		timePanel.add(dateLabel);
+		timePanel.add(spin);
+		timePanel.add(dateLabel2);
+		timePanel.add(spin2);
+		
 		comboSelect.addItem("Temperature");
 		comboSelect.addItem("Rain");
 		comboSelect.addItem("Thunder");
-		comboSelect.addItem("Precipitation Potential");
-		comboSelect.addItem("Relative Humidity");
-		comboSelect.addItem("Sky Cover");
-		comboSelect.addItem("Heat Index");
+		comboSelect.addItem("PrecipitationPotential");
+		comboSelect.addItem("RelativeHumidity");
+		comboSelect.addItem("SkyCover");
+		comboSelect.addItem("HeatIndex");
 		comboSelect.addItem("Dewpoint");
 		JButton plotButton = new JButton("Plot");
 		plotButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				String ret = getSqlDateStatement(spin, spin2);
+				LoggingMessages.printOut(ret);
+				getSql(ret);
+				
 				plotReading((String) comboSelect.getSelectedItem());
 			}
 		});
-		this.add(comboSelect);
-		this.add(plotButton);
+		
+		plotPanel.add(comboSelect);
+		plotPanel.add(plotButton);
+		
+		outerPanel.setLayout(new GridLayout(0,1));//TODO.
+		outerPanel.add(timePanel);
+		outerPanel.add(plotPanel);
+		
+		this.add(outerPanel);
 	}
 	
 	public void setReadings(HashMap<Date, WeatherReading> readings)
 	{
 		this.readings = readings;
+	}
+	
+	private String getSqlDateStatement(JSpinner spin1, JSpinner spin2)//TODO.
+	{
+		String ret = "Select * from " + WeatherReading.DATABASE + "." + WeatherReading.TABLE + " \n" ;
+		ret += "WHERE Date_" + WeatherReading.TABLE + "_" + WeatherReading.DATABASE + " BETWEEN ";
+		LoggingMessages.printOut(spin1.getValue().toString());
+		Date 
+			d1 = (Date) spin1.getValue(),
+			d2 = (Date) spin2.getValue();
+		ret += SQLUtility.getDateToMySqlString(d1) + " AND ";
+		ret += SQLUtility.getDateToMySqlString(d2);
+		
+		LoggingMessages.printOut(spin2.getValue().toString());
+		
+		return ret;
+	}
+	
+	private void getSql(String query)
+	{
+		readings = new HashMap<Date, WeatherReading>();
+		String response = HttpDatabaseRequest.executeGetRequest
+		(
+			SelectWebServiceQueries.ENDPOINT,
+			SelectWebServiceQueries.PORT_NUMBER,
+			query,
+			SelectWebServiceQueries.REQUEST_TYPE_HEADER_KEY,
+			SelectWebServiceQueries.REQUEST_TYPE_HEADER_VALUE
+		);
+		
+		HttpDatabaseResponse hdr = new HttpDatabaseResponse();
+		ArrayList <ArrayList <DatabaseResponseNode>> drns = hdr.parseResponse(response);
+		for(ArrayList<DatabaseResponseNode> nodeValues : drns)
+		{
+			WeatherReading wr = new WeatherReading(nodeValues, WeatherReading.TABLE, WeatherReading.DATABASE);
+			Date d = wr.getDate();
+			LoggingMessages.printOut(d + " " + wr);
+			if(d != null)
+			{
+				readings.put(d, wr);
+			}
+		}
 	}
 	
 	public void plotReading(String key)
@@ -99,6 +192,10 @@ public class WeatherGraphViewer extends GraphViewer implements CsvReaderSubscrib
 		{
 			WeatherReading wr = readings.get(d);
 			Object plotPointValue = wr.getQueryValues().get(key);
+			LoggingMessages.printOut(plotPointValue + " plot point value");
+			if(plotPointValue == null)
+				continue;
+			
 			if(!(plotPointValue instanceof Number))
 			{
 				return; //value not plot point.

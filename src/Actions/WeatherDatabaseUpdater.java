@@ -42,7 +42,7 @@ public class WeatherDatabaseUpdater
 			String query = "";
 			for(Date dt : weatherReadings.keySet())
 			{
-				query += weatherReadings.get(dt).buildQuery() + "; ";
+				query += weatherReadings.get(dt).buildQuery() + "; \n";
 			}
 			LoggingMessages.printOut("");
 			

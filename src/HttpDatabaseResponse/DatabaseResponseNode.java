@@ -6,6 +6,9 @@ import Properties.LoggingMessages;
 
 public class DatabaseResponseNode 
 {
+	public static final String 
+		CLASS_TYPE_KEY = "classType",
+		CONTENT_KEY = "content";
 	private String nodeName;
 	private HashMap<String, String> nodeAttributes;
 	
