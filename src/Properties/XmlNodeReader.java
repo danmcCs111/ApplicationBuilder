@@ -161,4 +161,15 @@ public abstract class XmlNodeReader
 			e.printStackTrace();
 		}
 	}
+	
+	public static String getValueFromAttributeString(String attribute)
+	{
+		String ret = "";
+		String [] arg = attribute.split("=");
+		for(int i = 1; i < arg.length; i++)
+		{
+			ret += arg[i];
+		}
+		return ret;
+	}
 }

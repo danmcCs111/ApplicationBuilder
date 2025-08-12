@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import ObjectTypeConversion.CommandBuild;
+import Properties.XmlNodeReader;
 
 public class ScheduledCommand 
 {
@@ -28,7 +29,7 @@ public class ScheduledCommand
 			s = s.replaceAll("\"", "");
 			if(s.startsWith(Schedule.SCHEDULE_ATTRIBUTE))
 			{
-				String arg = s.split("=")[1];
+				String arg = XmlNodeReader.getValueFromAttributeString(s);
 				String [] spl = arg.split(Schedule.DELIMITER_SCHEDULE);
 				for(String a : spl)
 				{
@@ -38,7 +39,7 @@ public class ScheduledCommand
 			}
 			else if(s.startsWith(Schedule.COMMAND_ATTRIBUTE))
 			{
-				String arg = s.split("=")[1];
+				String arg = XmlNodeReader.getValueFromAttributeString(s);
 				this.commandBuild = new CommandBuild(arg);
 			}
 		}

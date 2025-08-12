@@ -6,6 +6,7 @@ import java.awt.Shape;
 import java.util.ArrayList;
 
 import Properties.LoggingMessages;
+import Properties.XmlNodeReader;
 import ShapeEditorListeners.ShapeStylingActionListener;
 import ShapeWidgetComponents.ShapeUtils.DrawMode;
 
@@ -119,40 +120,40 @@ public class ShapeElement
 			s = s.replaceAll("\"", "");
 			if(s.startsWith("Point"))
 			{
-				String valuePoint = s.split("=")[1];
+				String valuePoint = XmlNodeReader.getValueFromAttributeString(s);
 				String [] points = valuePoint.split(",");
 				Point p = new Point(Integer.parseInt(points[0].strip()), Integer.parseInt(points[1].strip()));
 				controlPoints.add(p);
 			}
 			else if(s.startsWith("ColorDraw"))
 			{
-				String colorPoints = s.split("=")[1];
+				String colorPoints = XmlNodeReader.getValueFromAttributeString(s);
 				String [] points = colorPoints.split(",");
 				Color c = new Color(Integer.parseInt(points[0].strip()), Integer.parseInt(points[1].strip()), Integer.parseInt(points[2].strip()));
 				colorDraw = c;
 			}
 			else if(s.startsWith("ColorFill"))
 			{
-				String colorPoints = s.split("=")[1];
+				String colorPoints = XmlNodeReader.getValueFromAttributeString(s);
 				String [] points = colorPoints.split(",");
 				Color c = new Color(Integer.parseInt(points[0].strip()), Integer.parseInt(points[1].strip()), Integer.parseInt(points[2].strip()));
 				colorFill = c;
 			}
 			else if(s.startsWith("CreateStroke"))
 			{
-				this.isCreateStroke = Boolean.parseBoolean(s.split("=")[1]);
+				this.isCreateStroke = Boolean.parseBoolean(XmlNodeReader.getValueFromAttributeString(s));
 			}
 			else if(s.startsWith("StrokeWidth"))
 			{
-				this.strokeWidth = Integer.parseInt(s.split("=")[1]);
+				this.strokeWidth = Integer.parseInt(XmlNodeReader.getValueFromAttributeString(s));
 			}
 			else if(s.startsWith("NumberGeneratorConfig"))
 			{
-				ngConfigString = s.split("=")[1];
+				ngConfigString = XmlNodeReader.getValueFromAttributeString(s);
 			}
 			else if(s.startsWith("SkipShapeDraw"))
 			{
-				skipShapeDraw = Boolean.parseBoolean(s.split("=")[1]);
+				skipShapeDraw = Boolean.parseBoolean(XmlNodeReader.getValueFromAttributeString(s));
 			}
 		}
 	}
