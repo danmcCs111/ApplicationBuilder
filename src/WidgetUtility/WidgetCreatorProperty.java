@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import Params.XmlToWidgetGenerator;
 import Properties.LoggingMessages;
+import Properties.XmlNodeReader;
 
 public class WidgetCreatorProperty 
 {
@@ -149,17 +150,10 @@ public class WidgetCreatorProperty
 
 	private void splitAttributeNameAndValue(String attribute) 
 	{
-		String[] ss = attribute.split("=");
-		String val = ss[1];
-		if(ss.length > 2)
-		{
-			for(int i = 2; i < ss.length; i++)
-			{
-				val += "=" + ss[i];//put equals back;//oops
-			}
-		}
-		settingsNameAndValue.put(ss[0], val);
-		settingsName.add(ss[0]);
+		String key = attribute.split("=")[0];
+		String val = XmlNodeReader.getValueFromAttributeString(attribute);
+		settingsNameAndValue.put(key, val);
+		settingsName.add(key);
 	}
 	private void setRefId(String componentWithID) 
 	{
