@@ -168,7 +168,7 @@ public abstract class XmlNodeReader
 		String [] arg = attribute.split("=");
 		for(int i = 1; i < arg.length; i++)
 		{
-			ret += arg[i];
+			ret += arg[i] + ((i+1 < arg.length)?"=":"");
 		}
 		return ret;
 	}
