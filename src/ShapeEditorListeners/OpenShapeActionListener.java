@@ -24,7 +24,8 @@ public class OpenShapeActionListener implements ActionListener
 		ShapeImportExport sie = new ShapeImportExport();
 		
 		@SuppressWarnings("unchecked")
-		ArrayList<ShapeElement> shapeElements = (ArrayList<ShapeElement>) sie.openXml(shapeCreator, 
+		ArrayList<ShapeElement> shapeElements = (
+				ArrayList<ShapeElement>) sie.openXml(shapeCreator, 
 				ShapeImportExport.FILE_TYPE_TITLE, 
 				ShapeImportExport.FILE_TYPE_FILTER, 
 				ShapeImportExport.DEFAULT_DIRECTORY_RELATIVE);
