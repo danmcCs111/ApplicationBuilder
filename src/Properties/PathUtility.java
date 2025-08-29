@@ -35,14 +35,21 @@ public interface PathUtility
 	public static String getCurrentDirectoryUnix()
 	{
 		String dir = System.getProperty("user.dir");
-		dir = dir.replace("\\", "/");
-		dir = dir.replace("C:", "/c");
+		dir = getPathLinux(dir);
 		return dir;
+	}
+	
+	public static String getPathLinux(String path)
+	{
+		path = replaceBackslash(path);
+		path = path.replace("C:", "/c");
+		return path;
 	}
 	
 	public static String replaceBackslash(String path)
 	{
-		return path.replaceAll("\\\\", "/");
+		path = path.replaceAll("\\\\", "/");
+		return path;
 	}
 	
 	public static String surroundString(String target, String surround)

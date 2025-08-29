@@ -13,6 +13,7 @@ import ObjectTypeConversion.CsvReader;
 import ObjectTypeConversion.WeatherGrabCsvConverter;
 import ObjectTypeConversion.WeatherReading;
 import Properties.LoggingMessages;
+import Properties.PathUtility;
 
 public class WeatherDatabaseUpdater 
 {
@@ -29,13 +30,18 @@ public class WeatherDatabaseUpdater
 	{
 		Date d = Calendar.getInstance().getTime();
 		String suffix = SDF_FILE.format(d);
-		LoggingMessages.printOut(suffix);//TODO. filename as param.
+		String 
+			htmlFile = PathUtility.getPathLinux(weatherFileLocation + CSV_FILE_PREFIX + suffix + ".html"),
+			csvFile = weatherFileLocation + CSV_FILE_PREFIX + suffix + ".csv";
+		
+		LoggingMessages.printOut(htmlFile);
+		
 		cb = new CommandBuild(GIT_BASH);
-		cb.setCommand(GIT_BASH, OPTIONS, new String [] {uploadScriptPath});
+		cb.setCommand(GIT_BASH, OPTIONS, new String [] {uploadScriptPath + " " + htmlFile});
 		try {
 			CommandExecutor.executeProcess(cb, true);
 			
-			CsvReader cr = new CsvReader(weatherFileLocation + CSV_FILE_PREFIX + suffix + ".csv");
+			CsvReader cr = new CsvReader(csvFile);
 			cr.read();
 			WeatherGrabCsvConverter wgcc = new WeatherGrabCsvConverter(cr);
 			HashMap<Date, WeatherReading> weatherReadings = wgcc.getWeatherReadings();

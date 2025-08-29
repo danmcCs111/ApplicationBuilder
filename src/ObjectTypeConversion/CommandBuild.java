@@ -60,11 +60,11 @@ public class CommandBuild
 		this.parameters = parameters;
 	}
 	
-	public void setCommand(String command, String [] parameters, String [] commandLineOptions)
+	public void setCommand(String command, String [] commandLineOptions, String [] parameters)
 	{
 		this.command = command;
-		this.parameters = parameters;
 		this.commandLineOptions = commandLineOptions;
+		this.parameters = parameters;
 	}
 	
 	public String getCommand()
