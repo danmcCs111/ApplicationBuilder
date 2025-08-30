@@ -26,7 +26,7 @@ public class WeatherDatabaseUpdater
 	
 	private CommandBuild cb;
 	
-	public WeatherDatabaseUpdater(String weatherFileLocation, String uploadScriptPath)
+	public WeatherDatabaseUpdater(String weatherFileLocation, String uploadScriptPath, String zipCode)
 	{
 		Date d = Calendar.getInstance().getTime();
 		String suffix = SDF_FILE.format(d);
@@ -37,7 +37,7 @@ public class WeatherDatabaseUpdater
 		LoggingMessages.printOut(htmlFile);
 		
 		cb = new CommandBuild(GIT_BASH);
-		cb.setCommand(GIT_BASH, OPTIONS, new String [] {uploadScriptPath + " " + htmlFile});
+		cb.setCommand(GIT_BASH, OPTIONS, new String [] {uploadScriptPath + " " + htmlFile + " " + zipCode});
 		try {
 			CommandExecutor.executeProcess(cb, true);
 			
@@ -75,9 +75,10 @@ public class WeatherDatabaseUpdater
 	{
 		String 
 			weatherFileLocation = args[0],
-			uploadScriptPath = args[1];
+			uploadScriptPath = args[1],
+			zipCode = args[2];
 		
-		WeatherDatabaseUpdater wdu = new WeatherDatabaseUpdater(weatherFileLocation, uploadScriptPath);
+		WeatherDatabaseUpdater wdu = new WeatherDatabaseUpdater(weatherFileLocation, uploadScriptPath, zipCode);
 		LoggingMessages.printOut(wdu.getCommandBuild().getArgs());
 	}
 }
