@@ -29,8 +29,8 @@ public class WeatherDatabaseUpdater
 	public WeatherDatabaseUpdater(String weatherFileLocation, String uploadScriptPath, String zipCode)
 	{
 		Date d = Calendar.getInstance().getTime();
-		String suffix = SDF_FILE.format(d);
 		String 
+			suffix = SDF_FILE.format(d),
 			htmlFile = PathUtility.getPathLinux(weatherFileLocation + CSV_FILE_PREFIX + suffix + ".html"),
 			csvFile = weatherFileLocation + CSV_FILE_PREFIX + suffix + ".csv";
 		
