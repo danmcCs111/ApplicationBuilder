@@ -1,12 +1,13 @@
 #!/bin/bash
+cd "$(dirname "$0")"
+
 scriptDirectory="$1"
 tubiDirectory=`pwd`
 
 scriptName="/GrabScripts/collectAllTubiUrls.sh"
-tubiFolder="/GrabFolder/Tubi/*.url"
+tubiUrls="/GrabFolder/Tubi/*.url"
 
 script=$scriptDirectory$scriptName
 
-$script
-cp $script$tubiFolder $tubiDirectory
-
+#$script
+cp $scriptDirectory$tubiUrls $tubiDirectory
