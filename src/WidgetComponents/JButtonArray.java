@@ -63,8 +63,8 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 	
 	private static String keepsFileLocation;
 	public static Color []
-		backgroundAndForegroundColor = new Color [] {new JButton().getBackground(), new JButton().getForeground()},
-		highlightBackgroundAndForegroundColor = new Color [] {backgroundAndForegroundColor[0], backgroundAndForegroundColor[1]};
+		foregroundAndBackgroundColor = new Color [] {new JButton().getForeground(), new JButton().getBackground()},
+		highlightBackgroundAndForegroundColor = new Color [] {foregroundAndBackgroundColor[0], foregroundAndBackgroundColor[1]};
 	private static int indexPos=0;
 	private static boolean isHighlight = true;
 	private static JButton highlightButton = null;
@@ -142,8 +142,8 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 						}
 						((JButtonLengthLimited) comp).setText(txt);
 					}
-					comp.setForeground(backgroundAndForegroundColor[1]);
-					comp.setBackground(backgroundAndForegroundColor[0]);
+					comp.setForeground(foregroundAndBackgroundColor[0]);
+					comp.setBackground(foregroundAndBackgroundColor[1]);
 					addHighlightButtonActionListener((JButton)comp);
 					jbuts.add((JButton) comp);
 					this.add(comp);
@@ -262,7 +262,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 	{
 		for(int i = 0; i < backgroundOrForeground.length; i++)
 		{
-			JButtonArray.backgroundAndForegroundColor[backgroundOrForeground[i]] = c[i];
+			JButtonArray.foregroundAndBackgroundColor[backgroundOrForeground[i]] = c[i];
 		}
 		
 		for(List<Component> buts : collectionJButtons.values())
@@ -271,8 +271,8 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 			{
 				for(int bof : backgroundOrForeground)
 				{
-					if(bof == 1) but.setForeground(JButtonArray.backgroundAndForegroundColor[bof]);
-					else but.setBackground(JButtonArray.backgroundAndForegroundColor[bof]);
+					if(bof == 1) but.setForeground(JButtonArray.foregroundAndBackgroundColor[bof]);
+					else but.setBackground(JButtonArray.foregroundAndBackgroundColor[bof]);
 				}
 			}
 		}
@@ -280,7 +280,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 	
 	private static void setHighlightForegroundAndBackground(boolean highlight)
 	{
-		Color [] color = highlight ? highlightBackgroundAndForegroundColor : backgroundAndForegroundColor;
+		Color [] color = highlight ? highlightBackgroundAndForegroundColor : foregroundAndBackgroundColor;
 		highlightButton.setForeground(color[1]);
 		highlightButton.setBackground(color[0]);
 	}
