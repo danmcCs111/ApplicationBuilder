@@ -202,17 +202,18 @@ public class WidgetBuildController
 			LoggingMessages.printNewLine();
 		}
 		
+		
 		if(getWidgetCreatorProperties() != null && !getWidgetCreatorProperties().isEmpty())
 		{
 			JFrame frame = (JFrame) getWidgetCreatorProperties().get(0).getInstance();
+			for(PostWidgetBuildProcessing pp : postGenerationComponents)//Post build processing.
+			{
+				pp.postExecute();
+			}
 			frame.setVisible(true);
 			printComponents((JComponent) frame.getComponent(0));
 		}
 		
-		for(PostWidgetBuildProcessing pp : postGenerationComponents)//Post build processing.
-		{
-			pp.postExecute();
-		}
 		
 	}
 	

@@ -64,7 +64,7 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 	private static String keepsFileLocation;
 	public static Color []
 		foregroundAndBackgroundColor = new Color [] {new JButton().getForeground(), new JButton().getBackground()},
-		highlightBackgroundAndForegroundColor = new Color [] {foregroundAndBackgroundColor[0], foregroundAndBackgroundColor[1]};
+		highlightForegroundAndBackgroundColor = new Color [] {foregroundAndBackgroundColor[0], foregroundAndBackgroundColor[1]};
 	private static int indexPos=0;
 	private static boolean isHighlight = true;
 	private static JButton highlightButton = null;
@@ -192,12 +192,12 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 	
 	public static void setHighlightForegroundColor(Color c)
 	{
-		JButtonArray.highlightBackgroundAndForegroundColor[1] = c;
+		JButtonArray.highlightForegroundAndBackgroundColor[0] = c;
 	}
 	
 	public static void setHighlightBackgroundColor(Color c)
 	{
-		JButtonArray.highlightBackgroundAndForegroundColor[0] = c;
+		JButtonArray.highlightForegroundAndBackgroundColor[1] = c;
 	}
 	
 	public void addHighlightButtonActionListener(JButton but)
@@ -240,17 +240,17 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 	
 	public void setArrayForeground(Color c)
 	{
-		setArrayColor(c, 1);
+		setArrayColor(c, 0);
 	}
 	
 	public void setArrayBackground(Color c)
 	{
-		setArrayColor(c, 0);
+		setArrayColor(c, 1);
 	}
 	
 	public void setArrayForegroundAndBackground(Color cF, Color cB)
 	{
-		setArrayColor(new Color [] {cB, cF}, new int [] {0,1});
+		setArrayColor(new Color [] {cF, cB}, new int [] {0,1});
 	}
 	
 	private void setArrayColor(Color c, int backgroundOrForeground )
@@ -280,9 +280,9 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 	
 	private static void setHighlightForegroundAndBackground(boolean highlight)
 	{
-		Color [] color = highlight ? highlightBackgroundAndForegroundColor : foregroundAndBackgroundColor;
-		highlightButton.setForeground(color[1]);
-		highlightButton.setBackground(color[0]);
+		Color [] color = highlight ? highlightForegroundAndBackgroundColor : foregroundAndBackgroundColor;
+		highlightButton.setForeground(color[0]);
+		highlightButton.setBackground(color[1]);
 	}
 	
 	public static boolean isHighlightButton(AbstractButton ab)
