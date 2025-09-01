@@ -9,5 +9,5 @@ tubiUrls="/GrabFolder/Tubi/*.url"
 
 script=$scriptDirectory$scriptName
 
-#$script
+$script
 cp $scriptDirectory$tubiUrls $tubiDirectory
