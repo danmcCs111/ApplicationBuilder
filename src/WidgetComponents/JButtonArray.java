@@ -80,6 +80,11 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 		
 	}
 	
+	public void setSkipImageLoading(boolean skip)
+	{
+		KeepSelection.skip = skip;
+	}
+	
 	public static final ActionListener highlightActionListener = new ActionListener() 
 	{
 		@Override

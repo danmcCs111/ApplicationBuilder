@@ -30,21 +30,29 @@ public class KeepSelection
 	private BufferedImage 
 		img,
 		defaultImg;
+	public static boolean skip = false;
 	
 	public KeepSelection(String path, String text)
 	{
 		this.path = path;
 		this.text = text;
-		this.fileLocation = PathUtility.getCurrentDirectory() + PathUtility.removeCurrentWorkingDirectoryFromPath(path)  + IMAGES_RELATIVE_PATH + toPngFilename();
+		this.fileLocation = PathUtility.getCurrentDirectory() + 
+				PathUtility.removeCurrentWorkingDirectoryFromPath(path)  + 
+				IMAGES_RELATIVE_PATH + toPngFilename();
 		File file = new File(this.fileLocation);
 		File fileDefault = new File(DEFAULT_IMG);
 		try {
-			img = ImageIO.read(file);
+			if(!skip)
+			{
+				img = ImageIO.read(file);
+			}
 		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
 			try {
 				defaultImg = ImageIO.read(fileDefault);
-			} catch (IOException e1) {
-				e1.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
 		}
 	}
