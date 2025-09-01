@@ -8,6 +8,7 @@ public enum ExtendedMethodArgDef
 	CsvReaderSelection(" [ObjectTypeConversion.CsvReader arg0]"),
 	WavReaderSelection(" [ObjectTypeConversion.WavReader arg0]"),
 	ExtendedScrollBarSetUnit(" [int arg0]"),
+	ImageMouseAdapter(" [java.lang.String arg0, boolean arg1]"),
 	ExtendedAttributeStringParam(" [java.lang.String arg0]");
 	
 	private String methodArgDef;

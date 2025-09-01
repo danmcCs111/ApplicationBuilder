@@ -4,9 +4,10 @@ import javax.swing.JComponent;
 
 import ActionListeners.ActionListenerSubTypeExtension;
 import WidgetExtensions.ExtendedAttributeParam;
+import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class ExtendedActionListenerConnectedComponent implements ExtendedAttributeParam
+public class ExtendedActionListenerConnectedComponent implements ExtendedAttributeStringParam
 {
 	@Override
 	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 

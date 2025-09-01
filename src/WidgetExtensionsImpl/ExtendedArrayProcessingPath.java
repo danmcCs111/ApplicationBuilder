@@ -7,9 +7,10 @@ import Properties.LoggingMessages;
 import Properties.PathUtility;
 import WidgetComponents.SwappableCollection;
 import WidgetExtensions.ExtendedAttributeParam;
+import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class ExtendedArrayProcessingPath implements ExtendedAttributeParam
+public class ExtendedArrayProcessingPath implements ExtendedAttributeStringParam
 {
 	@Override
 	public void applyMethod(String path, WidgetCreatorProperty widgetProperties)

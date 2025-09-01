@@ -9,11 +9,11 @@ import java.awt.event.ComponentEvent;
 import javax.swing.JComponent;
 
 import Properties.LoggingMessages;
-import WidgetExtensions.ExtendedAttributeParam;
+import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class ExtendedCalculationPad implements ExtendedAttributeParam
+public class ExtendedCalculationPad implements ExtendedAttributeStringParam
 {
 	private Component 
 		thisComp,

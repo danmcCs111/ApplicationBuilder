@@ -5,10 +5,10 @@ import java.awt.event.ActionListener;
 
 import ActionListeners.ArrayActionListener;
 import ObjectTypeConvertersImpl.ActionListenerConverter;
-import WidgetExtensions.ExtendedAttributeParam;
+import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class ExtendedActionListenerArray implements ExtendedAttributeParam 
+public class ExtendedActionListenerArray implements ExtendedAttributeStringParam 
 {
 	@Override
 	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 

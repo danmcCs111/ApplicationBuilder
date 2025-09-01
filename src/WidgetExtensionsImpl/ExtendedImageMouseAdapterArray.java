@@ -14,8 +14,7 @@ public class ExtendedImageMouseAdapterArray implements ExtendedAttributeParam
 {
 	private static HashMap<String, MouseListener> pathAndMouseAdapter;
 	
-	@Override
-	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 
+	public void applyMethod(String arg0, boolean isSingleClick, WidgetCreatorProperty widgetProperties) 
 	{
 		WidgetCreatorProperty wcp = WidgetBuildController.getInstance().findRefByName(arg0);
 		ExtendedStringCollection esc = (ExtendedStringCollection) wcp.getInstance();
@@ -25,7 +24,7 @@ public class ExtendedImageMouseAdapterArray implements ExtendedAttributeParam
 		{
 			pathAndMouseAdapter.put(
 					key, 
-					new ImageMouseAdapter(WidgetBuildController.getInstance().getFrame(), key)
+					new ImageMouseAdapter(WidgetBuildController.getInstance().getFrame(), key, isSingleClick)
 			);
 		}
 		mae.setPathAndMouseListenerAdapter(pathAndMouseAdapter);

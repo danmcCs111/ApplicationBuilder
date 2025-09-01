@@ -2,11 +2,11 @@ package WidgetExtensionsImpl;
 
 import WidgetComponents.SendHttpRequestPanel;
 import WidgetExtensions.DatabaseResponseNodeListenerExtension;
-import WidgetExtensions.ExtendedAttributeParam;
+import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class ExtendedDatabaseResponseNodeListener implements ExtendedAttributeParam
+public class ExtendedDatabaseResponseNodeListener implements ExtendedAttributeStringParam
 {
 	@Override
 	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 

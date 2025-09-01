@@ -7,11 +7,11 @@ import javax.swing.JMenuItem;
 
 import WidgetExtensions.CloseActionExtension;
 import WidgetExtensions.CloseAllActionExtension;
-import WidgetExtensions.ExtendedAttributeParam;
+import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class ExtendedCloseAllActionListener implements ExtendedAttributeParam
+public class ExtendedCloseAllActionListener implements ExtendedAttributeStringParam
 {
 	@Override
 	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 

@@ -8,11 +8,11 @@ import ObjectTypeConversion.FileSelection;
 import ShapeWidgetComponents.ShapeDrawingCollection;
 import ShapeWidgetComponents.ShapeElement;
 import ShapeWidgetComponents.ShapeImportExport;
-import WidgetExtensions.ExtendedAttributeParam;
+import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetExtensions.ShapeDrawingCollectionLoad;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class ExtendedShapeDrawingCollectionLoader implements ExtendedAttributeParam  
+public class ExtendedShapeDrawingCollectionLoader implements ExtendedAttributeStringParam  
 {
 	@Override
 	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 

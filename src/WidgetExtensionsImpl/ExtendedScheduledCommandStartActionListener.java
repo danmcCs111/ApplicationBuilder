@@ -16,12 +16,12 @@ import Actions.Schedule;
 import Actions.ScheduledCommand;
 import ObjectTypeConversion.CommandBuild;
 import Properties.LoggingMessages;
-import WidgetExtensions.ExtendedAttributeParam;
+import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetExtensions.ScheduledCommandExecuteExtension;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class ExtendedScheduledCommandStartActionListener implements ExtendedAttributeParam
+public class ExtendedScheduledCommandStartActionListener implements ExtendedAttributeStringParam
 {
 	public static final int WAIT_INTERVAL = 5000;
 	

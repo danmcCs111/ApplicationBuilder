@@ -6,10 +6,10 @@ import javax.swing.AbstractButton;
 import ActionListeners.ActionListenerSubTypeExtension;
 import Properties.LoggingMessages;
 import WidgetComponents.Direction;
-import WidgetExtensions.ExtendedAttributeParam;
+import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class ExtendedActionListenerSubType implements ExtendedAttributeParam
+public class ExtendedActionListenerSubType implements ExtendedAttributeStringParam
 {
 	@Override
 	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 

@@ -3,12 +3,12 @@ package WidgetExtensionsImpl;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 
-import WidgetExtensions.ExtendedAttributeParam;
+import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
 //TODO clean up these extended classes...
-public class ExtendedSetJMenuBarParent implements ExtendedAttributeParam
+public class ExtendedSetJMenuBarParent implements ExtendedAttributeStringParam
 {
 	@Override
 	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 

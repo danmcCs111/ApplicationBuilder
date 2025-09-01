@@ -4,11 +4,11 @@ import java.awt.Component;
 
 import javax.swing.JScrollPane;
 
-import WidgetExtensions.ExtendedAttributeParam;
+import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class ExtendedSetViewportView implements ExtendedAttributeParam
+public class ExtendedSetViewportView implements ExtendedAttributeStringParam
 {
 	@Override
 	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 

@@ -1,11 +1,11 @@
 package WidgetExtensionsImpl;
 
 import ObjectTypeConversion.CsvReader;
-import WidgetExtensions.ExtendedAttributeParam;
+import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class ExtendedCsvReader implements ExtendedAttributeParam 
+public class ExtendedCsvReader implements ExtendedAttributeStringParam 
 {
 	@Override
 	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 

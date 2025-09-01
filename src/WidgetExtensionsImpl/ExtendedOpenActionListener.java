@@ -6,12 +6,12 @@ import java.awt.event.ActionListener;
 import javax.swing.AbstractButton;
 import javax.swing.JMenuItem;
 
-import WidgetExtensions.ExtendedAttributeParam;
+import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetExtensions.OpenActionExtension;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class ExtendedOpenActionListener implements ExtendedAttributeParam
+public class ExtendedOpenActionListener implements ExtendedAttributeStringParam
 {
 	
 	@Override

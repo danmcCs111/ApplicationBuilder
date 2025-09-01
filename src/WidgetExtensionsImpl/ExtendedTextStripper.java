@@ -1,10 +1,10 @@
 package WidgetExtensionsImpl;
 
 import ActionListeners.ArrayActionListener;
-import WidgetExtensions.ExtendedAttributeParam;
+import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class ExtendedTextStripper implements ExtendedAttributeParam
+public class ExtendedTextStripper implements ExtendedAttributeStringParam
 {
 	@Override
 	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties)

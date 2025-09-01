@@ -57,7 +57,9 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 	private List<String> saveChosenSelection = null;
 	private String saveFilePathChosen = null;
 	private String path;
-	private boolean keepFrame = false;
+	private boolean 
+		keepFrame = false,
+		singleClick = false;
 		
 	public ImageMouseAdapter(JFrame parentFrame, String path)
 	{
@@ -65,7 +67,18 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		this.path = path;
 	}
 	
-	//required.
+	public ImageMouseAdapter(JFrame parentFrame, String path, boolean singleClick)
+	{
+		this.parentFrame = parentFrame;
+		this.path = path;
+		this.singleClick = singleClick;
+	}
+	
+	public void setSingleClick(boolean singleClick)
+	{
+		this.singleClick = singleClick;
+	}
+	
 	public void setupKeepsSelection(List<Component> components)
 	{
 		for(Component c : components)
@@ -266,7 +279,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 			picLabel.addMouseMotionListener(mouseDragListener);
 			picLabel.addMouseListener(mouseDragListener);
 			picLabel.setName(ks.getText());
-			picLabel.addMouseListener(new PicLabelMouseListener(ab, picLabel));
+			picLabel.addMouseListener(new PicLabelMouseListener(ab, picLabel, singleClick));
 			if(JButtonArray.isHighlightButton(ab))//TODO add interface.?
 			{
 				PicLabelMouseListener.highLightLabel(ab, true);

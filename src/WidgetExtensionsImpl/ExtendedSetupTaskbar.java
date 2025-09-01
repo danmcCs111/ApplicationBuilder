@@ -8,10 +8,10 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import ObjectTypeConversion.FileSelection;
-import WidgetExtensions.ExtendedAttributeParam;
+import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class ExtendedSetupTaskbar implements ExtendedAttributeParam 
+public class ExtendedSetupTaskbar implements ExtendedAttributeStringParam 
 {
 	@Override
 	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 

@@ -5,12 +5,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.AbstractButton;
 
-import WidgetExtensions.ExtendedAttributeParam;
+import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetExtensions.FileNewActionExtension;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class ExtendedNewFileActionListener implements ExtendedAttributeParam
+public class ExtendedNewFileActionListener implements ExtendedAttributeStringParam
 {
 	@Override
 	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 

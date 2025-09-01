@@ -9,6 +9,7 @@ import java.util.List;
 import ObjectTypeConversion.StringToObjectConverter;
 import Properties.LoggingMessages;
 import WidgetExtensions.ExtendedAttributeParam;
+import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
@@ -113,17 +114,37 @@ public class XmlToWidgetGenerator
 		try {
 			Object [] os = new Object [stringToObjectConverterList.size() + 1];//ADD [number] for params listed additionally
 			Class<?> [] cs = new Class<?> [stringToObjectConverterList.size() + 1];
-			for(int i = 0; i < stringToObjectConverterList.size(); i++)
-			{
-				List<String> params = paramsList.get(i);
-				StringToObjectConverter sc = stringToObjectConverterList.get(i);
-				
-				os[i]=sc.conversionCallStringXml(params.toArray(new String [] {}));
-				cs[i]=String.class;
-			}
 			
-			cs[cs.length-1] = WidgetCreatorProperty.class;//additional added params for extended methods
-			os[os.length-1] = widgetProperties;
+			List<Class<?>> interfaces = Arrays.asList(extendedAttr.getInterfaces());
+			
+			if(interfaces.contains(ExtendedAttributeStringParam.class))
+			{
+				for(int i = 0; i < stringToObjectConverterList.size(); i++)
+				{
+					List<String> params = paramsList.get(i);
+					StringToObjectConverter sc = stringToObjectConverterList.get(i);
+					
+					os[i]=sc.conversionCallStringXml(params.toArray(new String [] {}));
+					cs[i]=String.class;
+				}
+				
+				cs[cs.length-1] = WidgetCreatorProperty.class;//additional added params for extended methods
+				os[os.length-1] = widgetProperties;
+			}
+			else if(interfaces.contains(ExtendedAttributeParam.class))
+			{
+				for(int i = 0; i < stringToObjectConverterList.size(); i++)
+				{
+					List<String> params = paramsList.get(i);
+					StringToObjectConverter sc = stringToObjectConverterList.get(i);
+					
+					os[i]=sc.conversionCall(params.toArray(new String [] {}));
+					cs[i]=sc.getDefinitionClass();
+				}
+				
+				cs[cs.length-1] = WidgetCreatorProperty.class;//additional added params for extended methods
+				os[os.length-1] = widgetProperties;
+			}
 			
 			Object tmp = extendedAttr.getDeclaredConstructor().newInstance();
 			LoggingMessages.printOut(tmp+" " + cs[0] + " " + cs[1]);

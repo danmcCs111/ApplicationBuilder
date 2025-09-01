@@ -13,8 +13,6 @@ public interface ExtendedAttributeParam
 		PATHS_DELIMITER = ";",
 		ARG_DELIMITER = "@";
 	
-	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties);
-	
 	public static String getMethodDefinition(Class<? extends ExtendedAttributeParam> clazz, String methodArgDef) 
 	{
 		String [] className = clazz.getName().split("\\.");

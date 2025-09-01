@@ -18,7 +18,7 @@ import Params.XmlToWidgetGenerator;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
-import WidgetExtensions.ExtendedAttributeParam;
+import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetExtensionsImpl.ExtendedLayoutApplyParent;
 import WidgetExtensionsImpl.ExtendedSwappableHolder;
 import WidgetExtensionsImpl.ExtendedTextStripper;
@@ -179,7 +179,7 @@ public class WidgetBuildController
 				{
 					g.replaceParamsListWithParamEditors();
 				}
-				Class<? extends ExtendedAttributeParam> c = getExtendedAttribute(g.getMethodName());
+				Class<? extends ExtendedAttributeStringParam> c = getExtendedAttribute(g.getMethodName());
 				if(c != null)
 				{
 					String parent = w.getParentRefWithID();
@@ -384,12 +384,12 @@ public class WidgetBuildController
 	}
 	
 	@SuppressWarnings("unchecked")
-	private Class<? extends ExtendedAttributeParam> getExtendedAttribute(String methodName)
+	private Class<? extends ExtendedAttributeStringParam> getExtendedAttribute(String methodName)
 	{
 		String me = methodName.substring(0, 1).toUpperCase() + methodName.substring(1);
-		Class<? extends ExtendedAttributeParam> c = null;
+		Class<? extends ExtendedAttributeStringParam> c = null;
 		try {
-			c = (Class<? extends ExtendedAttributeParam>) 
+			c = (Class<? extends ExtendedAttributeStringParam>) 
 					Class.forName(EXTENSIONS_PACKAGE_NAME + "." + me);
 		} catch (ClassNotFoundException e) {
 			//return null

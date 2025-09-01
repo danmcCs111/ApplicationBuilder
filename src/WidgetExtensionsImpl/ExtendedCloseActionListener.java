@@ -9,11 +9,11 @@ import WidgetComponentInterfaces.DialogParentReferenceContainer;
 import WidgetComponents.ComboSelectionDialog;
 import WidgetExtensions.CloseActionExtension;
 import WidgetExtensions.ComboListDialogSelectedListener;
-import WidgetExtensions.ExtendedAttributeParam;
+import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class ExtendedCloseActionListener implements ExtendedAttributeParam
+public class ExtendedCloseActionListener implements ExtendedAttributeStringParam
 {
 
 	public static final String 

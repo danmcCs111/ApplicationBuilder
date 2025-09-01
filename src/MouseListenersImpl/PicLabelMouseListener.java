@@ -25,11 +25,13 @@ public class PicLabelMouseListener extends MouseAdapter
 		EMPTY_BORDER = BorderFactory.createEmptyBorder(),
 		HIGHLIGHT_BORDER = new BevelBorder(BevelBorder.RAISED, Color.blue, Color.blue);
 	private AbstractButton connectedButton;
+	public boolean singleClick = false;
 	
-	public PicLabelMouseListener(AbstractButton connectedButton, JLabel label)
+	public PicLabelMouseListener(AbstractButton connectedButton, JLabel label, boolean singleClick)
 	{
 		this.connectedButton = connectedButton;
 		PicLabelMouseListener.connectedLabels.add(label);
+		setSingleClick(singleClick);
 	}
 	
 	public static void highLightLabel(JButtonLengthLimited ab, boolean on)
@@ -50,15 +52,22 @@ public class PicLabelMouseListener extends MouseAdapter
 		}
 	}
 	
+	public void setSingleClick(boolean singleClick)
+	{
+		this.singleClick = singleClick;
+	}
+	
 	public void mouseClicked(MouseEvent e)
 	{
-//		if(e.getClickCount() == 2)//require double click
-		if(e.getButton() == MouseEvent.BUTTON1)
+		if(singleClick || e.getClickCount() == 2)//require double click
 		{
-			for(ActionListener al : connectedButton.getActionListeners())
+			if(e.getButton() == MouseEvent.BUTTON1)
 			{
-				al.actionPerformed(new ActionEvent(connectedButton, 1, "Open From Image"));
-				highLightLabel((JButtonLengthLimited) connectedButton, true);
+				for(ActionListener al : connectedButton.getActionListeners())
+				{
+					al.actionPerformed(new ActionEvent(connectedButton, 1, "Open From Image"));
+					highLightLabel((JButtonLengthLimited) connectedButton, true);
+				}
 			}
 		}
 	}

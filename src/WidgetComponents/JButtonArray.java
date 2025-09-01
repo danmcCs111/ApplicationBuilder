@@ -48,7 +48,8 @@ import WidgetUtility.WidgetBuildController;
  * 
  * TODO use a collection of inner panels and switch during toggle?
  */
-public class JButtonArray extends JPanel implements ArrayActionListener, CharacterLimited, SaveActionExtension, OpenActionExtension, CloseActionExtension, ComboListDialogSelectedListener, DialogParentReferenceContainer, CloseAllActionExtension, MouseAdapterArrayExtension, PostWidgetBuildProcessing
+public class JButtonArray extends JPanel implements ArrayActionListener, CharacterLimited, SaveActionExtension, OpenActionExtension, CloseActionExtension, 
+ComboListDialogSelectedListener, DialogParentReferenceContainer, CloseAllActionExtension, MouseAdapterArrayExtension, PostWidgetBuildProcessing
 {
 	private static final long serialVersionUID = 1883L;
 	
@@ -61,7 +62,6 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 		PROPERTIES_FILE_EXTENSION = "\\.txt",
 		PROPERTIES_FILE_ARG_DELIMITER = "@",
 		PROPERTIES_FILE_DELIMITER = "=";
-	
 	
 	public static Dimension
 		DIM_DEFAULT_PIC = new Dimension(300,80),
@@ -88,6 +88,18 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 	public JButtonArray()
 	{
 		
+	}
+	
+	public void setSingleClick(boolean singleClick)
+	{
+		for(String key : pathAndMouseAdapter.keySet())
+		{
+			MouseListener ml = pathAndMouseAdapter.get(key);
+			if(ml instanceof ImageMouseAdapter)
+			{
+				((ImageMouseAdapter) ml).setSingleClick(singleClick);
+			}
+		}
 	}
 	
 	public void setScaledWidthHeight(Dimension widthHeight)

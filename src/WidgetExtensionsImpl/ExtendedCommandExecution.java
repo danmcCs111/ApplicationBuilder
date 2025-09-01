@@ -6,10 +6,10 @@ import javax.swing.AbstractButton;
 
 import ActionListenersImpl.CommandBuildListener;
 import ObjectTypeConversion.CommandBuild;
-import WidgetExtensions.ExtendedAttributeParam;
+import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class ExtendedCommandExecution implements ExtendedAttributeParam 
+public class ExtendedCommandExecution implements ExtendedAttributeStringParam
 {
 	@Override
 	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 
