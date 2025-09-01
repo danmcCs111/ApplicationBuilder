@@ -28,7 +28,7 @@ public class KeepSelection
 	private Image 
 		img,
 		defaultImg;
-	public static boolean skip = false;
+	public static boolean skip = true;
 	
 	public KeepSelection(String path, String text)
 	{
@@ -39,22 +39,7 @@ public class KeepSelection
 				IMAGES_RELATIVE_PATH + toPngFilename();
 		File file = new File(this.fileLocation);
 		File fileDefault = new File(DEFAULT_IMG);
-		try {
-			if(!skip)
-			{
-				Image tmpImg = ImageIO.read(file);
-				img = tmpImg.getScaledInstance(
-						JButtonArray.SCALED_WIDTH_HEIGHT.width, 
-						JButtonArray.SCALED_WIDTH_HEIGHT.height, 0);
-			}
-		} catch (IOException e) {
-			//
-		}
-		try {
-			defaultImg = ImageIO.read(fileDefault);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		setupImage(skip, file, fileDefault);
 	}
 	
 	public void setFrame(JFrame frame)
@@ -84,6 +69,10 @@ public class KeepSelection
 	
 	public Image getImg()
 	{
+		if(img == null)
+		{
+			setupImage(false, new File(this.fileLocation), new File(DEFAULT_IMG));
+		}
 		return img != null
 			? img
 			: defaultImg;
@@ -91,6 +80,10 @@ public class KeepSelection
 	
 	public Dimension getSize()
 	{
+		if(img == null)
+		{
+			setupImage(false, new File(this.fileLocation), new File(DEFAULT_IMG));
+		}
 		return img != null
 			? JButtonArray.DIM_PIC
 			: JButtonArray.DIM_DEFAULT_PIC;
@@ -99,6 +92,29 @@ public class KeepSelection
 	public String toPngFilename()
 	{
 		return this.text + ".png";
+	}
+	
+	private Image setupImage(boolean skip, File file, File fileDefault)
+	{
+		Image retImage = null;
+		try {
+			if(!skip && img == null)
+			{
+				retImage = ImageIO.read(file);
+				retImage = retImage.getScaledInstance(
+						JButtonArray.SCALED_WIDTH_HEIGHT.width, 
+						JButtonArray.SCALED_WIDTH_HEIGHT.height, 0);
+				img = retImage;
+			}
+		} catch (IOException e) {
+			try {
+				defaultImg = ImageIO.read(fileDefault);
+				retImage = defaultImg;
+			} catch (IOException e2) {
+				e2.printStackTrace();
+			}
+		}
+		return retImage;
 	}
 	
 	@Override
