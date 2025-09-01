@@ -1,8 +1,8 @@
 package Params;
 
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Point;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,22 +12,20 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import Properties.PathUtility;
+import WidgetComponents.JButtonArray;
 
 public class KeepSelection
 {
 	private static final String 
 		DEFAULT_IMG = PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/launch_xsm.png",
 		IMAGES_RELATIVE_PATH = "/images/";
-	private static final Dimension //TODO
-		DIM_DEFAULT_PIC = new Dimension(300,80),
-		DIM_PIC = new Dimension(300,470);
 	
 	private String 
 		path,
 		text;
 	String fileLocation;
 	private JFrame frame;
-	private BufferedImage 
+	private Image 
 		img,
 		defaultImg;
 	public static boolean skip = false;
@@ -44,16 +42,18 @@ public class KeepSelection
 		try {
 			if(!skip)
 			{
-				img = ImageIO.read(file);
+				Image tmpImg = ImageIO.read(file);
+				img = tmpImg.getScaledInstance(
+						JButtonArray.SCALED_WIDTH_HEIGHT.width, 
+						JButtonArray.SCALED_WIDTH_HEIGHT.height, 0);
 			}
 		} catch (IOException e) {
+			//
+		}
+		try {
+			defaultImg = ImageIO.read(fileDefault);
+		} catch (IOException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				defaultImg = ImageIO.read(fileDefault);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 	
@@ -82,7 +82,7 @@ public class KeepSelection
 		return this.path;
 	}
 	
-	public BufferedImage getImg()
+	public Image getImg()
 	{
 		return img != null
 			? img
@@ -92,8 +92,8 @@ public class KeepSelection
 	public Dimension getSize()
 	{
 		return img != null
-			? DIM_PIC
-			: DIM_DEFAULT_PIC;
+			? JButtonArray.DIM_PIC
+			: JButtonArray.DIM_DEFAULT_PIC;
 	}
 	
 	public String toPngFilename()

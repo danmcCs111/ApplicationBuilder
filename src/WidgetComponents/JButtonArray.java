@@ -3,6 +3,7 @@ package WidgetComponents;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -61,6 +62,15 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 		PROPERTIES_FILE_ARG_DELIMITER = "@",
 		PROPERTIES_FILE_DELIMITER = "=";
 	
+	
+	public static Dimension
+		DIM_DEFAULT_PIC = new Dimension(300,80),
+		PIC_PAD = new Dimension(5,	20),
+		SCALED_WIDTH_HEIGHT = new Dimension(279, 402),
+		DIM_PIC = new Dimension(
+				JButtonArray.SCALED_WIDTH_HEIGHT.width + PIC_PAD.width,
+				JButtonArray.SCALED_WIDTH_HEIGHT.height + PIC_PAD.height);
+	
 	private static String keepsFileLocation;
 	public static Color []
 		foregroundAndBackgroundColor = new Color [] {new JButton().getForeground(), new JButton().getBackground()},
@@ -78,6 +88,22 @@ public class JButtonArray extends JPanel implements ArrayActionListener, Charact
 	public JButtonArray()
 	{
 		
+	}
+	
+	public void setScaledWidthHeight(Dimension widthHeight)
+	{
+		SCALED_WIDTH_HEIGHT = widthHeight;
+		DIM_PIC = new Dimension(
+				JButtonArray.SCALED_WIDTH_HEIGHT.width + PIC_PAD.width,
+				JButtonArray.SCALED_WIDTH_HEIGHT.height + PIC_PAD.height);
+	}
+	
+	public void setPicturePadWidthHeight(Dimension widthHeight)
+	{
+		PIC_PAD = widthHeight;
+		DIM_PIC = new Dimension(
+				JButtonArray.SCALED_WIDTH_HEIGHT.width + PIC_PAD.width,
+				JButtonArray.SCALED_WIDTH_HEIGHT.height + PIC_PAD.height);
 	}
 	
 	public void setSkipImageLoading(boolean skip)

@@ -3,6 +3,7 @@ package MouseListenersImpl;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.MenuItem;
 import java.awt.Point;
 import java.awt.PopupMenu;
@@ -13,7 +14,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -253,7 +253,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		p2.add(l, BorderLayout.CENTER);
 		p.add(p2, BorderLayout.NORTH);
 		
-		BufferedImage useImage = null;
+		Image useImage = null;
 		f.setMinimumSize(ks.getSize());
 		useImage = ks.getImg();
 		ImageIcon ii = new ImageIcon(useImage);
