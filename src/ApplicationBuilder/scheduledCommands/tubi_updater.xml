@@ -1,4 +1,5 @@
 <ScheduledCommands> 
+<ScheduledCommand Schedule="12,0,AM,|" Command="C:\\Program Files\\Git\\git-bash.exe@-c|/c/Users/danie/codebase/danmcCs111/ApplicationBuilder/src/ApplicationBuilder/Tubi/importRetryTubiImages.sh /c/Users/danie/codebase/danmcCs111/PlayrightCopyUrl/PlayrightVideo/" > </ScheduledCommand>
 <ScheduledCommand Schedule="12,0,AM,|" Command="C:\\Program Files\\Git\\git-bash.exe@-c|/c/Users/danie/codebase/danmcCs111/ApplicationBuilder/src/ApplicationBuilder/Tubi/importTubiImages.sh /c/Users/danie/codebase/danmcCs111/PlayrightCopyUrl/PlayrightVideo/" > </ScheduledCommand>
 <ScheduledCommand Schedule="4,30,PM,Monday|" Command="C:\\Program Files\\Git\\git-bash.exe@-c|/c/Users/danie/codebase/danmcCs111/ApplicationBuilder/src/ApplicationBuilder/Tubi/importTubi.sh /c/Users/danie/codebase/danmcCs111/PlayrightCopyUrl/PlayrightVideo/" > </ScheduledCommand>
 </ScheduledCommands>
