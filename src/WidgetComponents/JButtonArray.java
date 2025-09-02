@@ -110,6 +110,11 @@ ComboListDialogSelectedListener, DialogParentReferenceContainer, CloseAllActionE
 		}
 	}
 	
+	public void setDimensionDefaultPic(Dimension dim)
+	{
+		DIM_DEFAULT_PIC = dim;
+	}
+	
 	public void setScaledWidthHeight(Dimension widthHeight)
 	{
 		SCALED_WIDTH_HEIGHT = widthHeight;

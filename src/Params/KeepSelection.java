@@ -185,5 +185,6 @@ public class KeepSelection implements ShapeDrawingCollectionLoad
 	@Override
 	public void addShapeDrawingCollection(ShapeDrawingCollection sdc) 
 	{
+		//
 	}
 }
