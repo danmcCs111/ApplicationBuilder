@@ -1,8 +1,10 @@
 package Params;
 
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,17 +13,23 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
-import ObjectTypeConversion.FileSelection;
+import Properties.LoggingMessages;
 import Properties.PathUtility;
+import ShapeWidgetComponents.ShapeDrawingCollection;
+import ShapeWidgetComponents.ShapeDrawingCollectionGraphics;
+import ShapeWidgetComponents.ShapeElement;
+import ShapeWidgetComponents.ShapeImportExport;
+import ShapeWidgetComponents.ShapeStyling;
 import WidgetComponents.JButtonArray;
+import WidgetExtensions.ShapeDrawingCollectionLoad;
 
-public class KeepSelection
+public class KeepSelection implements ShapeDrawingCollectionLoad
 {
 	private static final String 
 		IMAGES_RELATIVE_PATH = "/images/";
 	
 	private static String 
-		DEFAULT_IMG = PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/launch_xsm.png";
+		DEFAULT_IMG = PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/shapes/Default-Play-Image.xml";
 	
 	private String 
 		path,
@@ -29,11 +37,12 @@ public class KeepSelection
 	String fileLocation;
 	private JFrame frame;
 	private Image 
-		img,
+		img;
+	private static Image
 		defaultImg;
 	public static boolean 
-		skip = true,
-		defaultImage = false;
+		skip = true;
+	private static ShapeDrawingCollection sdc = new ShapeDrawingCollection();;
 	
 	public KeepSelection(String path, String text)
 	{
@@ -47,14 +56,22 @@ public class KeepSelection
 		setupImage(skip, file, fileDefault);
 	}
 	
-	public void setDefaultImage(FileSelection fs)
+	private Image getDefaultImage(File defaultImageLocation)
 	{
-		DEFAULT_IMG = fs.getFullPath();
-	}
-	
-	public void setEnableDefaultImage(boolean defaultImage)
-	{
-		KeepSelection.defaultImage = defaultImage;
+		if(defaultImg == null)
+		{
+			LoggingMessages.printOut(defaultImageLocation.getAbsolutePath());
+			ShapeImportExport sie = new ShapeImportExport();
+			@SuppressWarnings("unchecked")
+			ArrayList<ShapeElement> shapeElements = (ArrayList<ShapeElement>) sie.openXml(defaultImageLocation);
+			sdc.addShapeImports(shapeElements, this);
+			sdc.getShapes();
+	        BufferedImage bufferedImage = new BufferedImage(JButtonArray.DIM_DEFAULT_PIC.width, JButtonArray.DIM_DEFAULT_PIC.height, BufferedImage.TYPE_INT_RGB);
+	        Graphics2D g2d = bufferedImage.createGraphics();
+        	ShapeDrawingCollectionGraphics.drawShapes(g2d, sdc);
+	        defaultImg = bufferedImage;
+		}
+		return defaultImg;
 	}
 	
 	public void setFrame(JFrame frame)
@@ -123,19 +140,8 @@ public class KeepSelection
 				retImage = img;
 			}
 		} catch (IOException e) {
-			try {
-				if(defaultImage)
-				{
-					defaultImg = ImageIO.read(fileDefault);
-				}
-				else
-				{
-					defaultImg = null;
-				}
-				retImage = defaultImg;
-			} catch (IOException e2) {
-				e2.printStackTrace();
-			}
+			getDefaultImage(fileDefault);
+			retImage = defaultImg;
 		}
 		return retImage;
 	}
@@ -168,5 +174,19 @@ public class KeepSelection
 			convList.add(k.getText());
 		}
 		return convList;
+	}
+
+	@Override
+	public void notifyStylingChanged(int shapeStyleIndex, ShapeStyling shapeStyling) 
+	{
+		if(sdc.getShapeStylings().size() <= shapeStyleIndex)
+		{
+			sdc.addShapeStyling(shapeStyling);
+		}
+	}
+
+	@Override
+	public void addShapeDrawingCollection(ShapeDrawingCollection sdc) 
+	{
 	}
 }

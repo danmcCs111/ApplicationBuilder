@@ -1,6 +1,7 @@
 package WidgetComponents;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.Shape;
@@ -335,7 +336,7 @@ public class WeatherGraphViewer extends GraphViewer implements CsvReaderSubscrib
 		{
 			ShapeStyling ss = shapeDrawingCollection.getShapeStylings().get(i);
 			Shape s = shapeDrawingCollection.getShapes().get(i);
-			ShapeDrawingCollectionGraphics.drawShape(this, s, ss.getDrawColor());
+			ShapeDrawingCollectionGraphics.drawShape((Graphics2D)this.getGraphics(), s, ss.getDrawColor());
 		}
 		for(Point p : glyphDrawingCollection.getGlyphs().keySet())
 		{

@@ -30,14 +30,19 @@ public interface ShapeDrawingCollectionGraphics
 	}
 	public static void drawAll(Container drawPanel, ShapeDrawingCollection sdc, Shape selectionRect, boolean drawControlPoints)
 	{
+		Graphics2D g2d = (Graphics2D) drawPanel.getGraphics();
 		clearAll(drawPanel);
-		drawShapes(drawPanel, sdc);
-		if(selectionRect != null) drawShape(drawPanel, selectionRect, Color.gray);
-		if(drawControlPoints) drawControlPoints(drawPanel, sdc);
-		drawGenerators(drawPanel, sdc);
+		drawShapes(g2d, sdc);
+		if(selectionRect != null) drawShape(g2d, selectionRect, Color.gray);
+		if(drawControlPoints) drawControlPoints(g2d, sdc);
+		drawGenerators(g2d, sdc);
 	}
 	
-	public static void drawGenerators(Container drawPanel, ShapeDrawingCollection sdc)
+	public static void drawGenerators(Container draw, ShapeDrawingCollection sdc)
+	{
+		drawGenerators((Graphics2D)draw.getGraphics(), sdc);
+	}
+	public static void drawGenerators(Graphics2D g2d, ShapeDrawingCollection sdc)
 	{
 		int count = 0;
 		for(Shape s : sdc.getShapes())
@@ -46,7 +51,7 @@ public interface ShapeDrawingCollectionGraphics
 			if(ss.getNumberGeneratorConfig() != null)
 			{
 				ss.updateNumberGeneratorConfig(s);
-				drawShapeStylingAlgorithm(drawPanel, s, ss);
+				drawShapeStylingAlgorithm(g2d, s, ss);
 			}
 			count++;
 		}
@@ -54,24 +59,35 @@ public interface ShapeDrawingCollectionGraphics
 	
 	public static void drawShapes(Container drawPanel, ShapeDrawingCollection sdc)
 	{
+		drawShapes((Graphics2D)drawPanel.getGraphics(), sdc);
+	}
+	public static void drawShapes(Graphics2D g2d, ShapeDrawingCollection sdc)
+	{
 		int count = 0;
 		for(Shape s : sdc.getShapes())
 		{
-			drawShape(drawPanel, s, sdc.getShapeStylings().get(count));
+			drawShape(g2d, s, sdc.getShapeStylings().get(count));
 			count++;
 		}
 	}
-	public static void drawShape(Container drawPanel, Shape shape, Color c)
+	public static void drawShape(Container draw, Shape shape, Color c)
 	{
-		Graphics2D g2d = (Graphics2D)drawPanel.getGraphics();
+		drawShape((Graphics2D)draw.getGraphics(), shape, c);
+	}
+	public static void drawShape(Graphics2D g2d, Shape shape, Color c)
+	{
 		if(g2d == null)
 			return;
 		g2d.setColor(c);
 		g2d.draw(shape);
 	}
-	public static void drawShape(Container drawPanel, Shape shape, ShapeStyling shapeStyling)
+	
+	public static void drawShape(Container draw, Shape shape, ShapeStyling shapeStyling)
 	{
-		Graphics2D g2d = (Graphics2D)drawPanel.getGraphics();
+		drawShape((Graphics2D)draw.getGraphics(), shape, shapeStyling);
+	}
+	public static void drawShape(Graphics2D g2d, Shape shape, ShapeStyling shapeStyling)
+	{
 		if(g2d == null || shapeStyling.skipShapeDraw())
 			return;
 		Color c = shapeStyling.getDrawColor(); 
@@ -96,30 +112,41 @@ public interface ShapeDrawingCollectionGraphics
 		}
 		
 	}
-	public static void drawControlPoint(Container drawPanel, Point p)
+	public static void drawControlPoint(Container draw, Point p)
 	{
-		Graphics2D g2d = (Graphics2D)drawPanel.getGraphics();
+		drawControlPoint((Graphics2D)draw.getGraphics(), p);
+	}
+	public static void drawControlPoint(Graphics2D g2d, Point p)
+	{
 		if(g2d == null)
 			return;
 		Rectangle r = new Rectangle(p);
 		r.setSize(ShapeDrawingCollection.CONTROL_POINT_PIXEL_SIZE.width, ShapeDrawingCollection.CONTROL_POINT_PIXEL_SIZE.height);
+		g2d.setStroke(ShapeDrawingCollection.defaultStroke);
 		g2d.setColor(Color.black);
 		g2d.draw(r);
 	}
-	public static void drawControlPoints(Container drawPanel, ShapeDrawingCollection sdc)
+	public static void drawControlPoints(Container draw, ShapeDrawingCollection sdc)
+	{
+		drawControlPoints((Graphics2D)draw.getGraphics(), sdc);
+	}
+	public static void drawControlPoints(Graphics2D g2d, ShapeDrawingCollection sdc)
 	{
 		for(ArrayList<Point> controlPoints : sdc.getShapeControlPoints())
 		{
 			for(Point p : controlPoints)
 			{
-				drawControlPoint(drawPanel, p);
+				drawControlPoint(g2d, p);
 			}
 		}
 	}
 	
-	public static void drawGlyph(Container drawPanel, String text, Point p, Font font, Color fillColor)
+	public static void drawGlyph(Container draw, String text, Point p, Font font, Color fillColor)
 	{
-		Graphics2D g2d = (Graphics2D)drawPanel.getGraphics();
+		drawGlyph((Graphics2D)draw.getGraphics(), text, p, font, fillColor);
+	}
+	public static void drawGlyph(Graphics2D g2d, String text, Point p, Font font, Color fillColor)
+	{
 		FontRenderContext frc = g2d.getFontRenderContext();
 		g2d.setFont(font);
 		g2d.setColor(fillColor);
@@ -127,7 +154,11 @@ public interface ShapeDrawingCollectionGraphics
 		g2d.drawGlyphVector(gv, p.x, p.y);
 	}
 	
-	public static void drawShapeStylingAlgorithm(Container drawPanel, Shape s, ShapeStyling ss)
+	public static void drawShapeStylingAlgorithm(Container draw, Shape s, ShapeStyling ss)
+	{
+		drawShapeStylingAlgorithm((Graphics2D)draw.getGraphics(), s, ss);
+	}
+	public static void drawShapeStylingAlgorithm(Graphics2D g2d, Shape s, ShapeStyling ss)
 	{
 		NumberGeneratorConfig ngConfig = ss.getNumberGeneratorConfig();
 		if(ngConfig == null)
@@ -149,7 +180,7 @@ public interface ShapeDrawingCollectionGraphics
 		
 		ShapePositionOnPoints.drawNumberSequence(
 				points, 
-				(Graphics2D)drawPanel.getGraphics(), 
+				g2d, 
 				testFont, 
 				selectColor,
 				(ngConfig.getNumberOfSamples()/it), 

@@ -64,7 +64,7 @@ ComboListDialogSelectedListener, DialogParentReferenceContainer, CloseAllActionE
 		PROPERTIES_FILE_DELIMITER = "=";
 	
 	public static Dimension
-		DIM_DEFAULT_PIC = new Dimension(300,80),
+		DIM_DEFAULT_PIC = new Dimension(279,150),
 		PIC_PAD = new Dimension(5,	20),
 		SCALED_WIDTH_HEIGHT = new Dimension(279, 402),
 		DIM_PIC = new Dimension(
