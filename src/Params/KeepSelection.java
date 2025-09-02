@@ -28,9 +28,6 @@ public class KeepSelection implements ShapeDrawingCollectionLoad
 	private static final String 
 		IMAGES_RELATIVE_PATH = "/images/";
 	
-	private static String 
-		DEFAULT_IMG = PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/shapes/Default-Play-Image.xml";
-	
 	private String 
 		path,
 		text;
@@ -52,7 +49,7 @@ public class KeepSelection implements ShapeDrawingCollectionLoad
 				PathUtility.removeCurrentWorkingDirectoryFromPath(path)  + 
 				IMAGES_RELATIVE_PATH + toPngFilename();
 		File file = new File(this.fileLocation);
-		File fileDefault = new File(DEFAULT_IMG);
+		File fileDefault = new File(JButtonArray.DEFAULT_IMG);
 		setupImage(skip, file, fileDefault);
 	}
 	
@@ -103,7 +100,7 @@ public class KeepSelection implements ShapeDrawingCollectionLoad
 	{
 		if(img == null)
 		{
-			setupImage(false, new File(this.fileLocation), new File(DEFAULT_IMG));
+			setupImage(false, new File(this.fileLocation), new File(JButtonArray.DEFAULT_IMG));
 		}
 		return img != null
 			? img
@@ -114,7 +111,7 @@ public class KeepSelection implements ShapeDrawingCollectionLoad
 	{
 		if(img == null)
 		{
-			setupImage(false, new File(this.fileLocation), new File(DEFAULT_IMG));
+			setupImage(false, new File(this.fileLocation), new File(JButtonArray.DEFAULT_IMG));
 		}
 		return img != null
 			? JButtonArray.DIM_PIC

@@ -26,6 +26,7 @@ import ActionListeners.ArrayActionListener;
 import MouseListenersImpl.ImageMouseAdapter;
 import MouseListenersImpl.PicLabelMouseListener;
 import ObjectTypeConversion.DirectorySelection;
+import ObjectTypeConversion.FileSelection;
 import Params.KeepSelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
@@ -70,6 +71,8 @@ ComboListDialogSelectedListener, DialogParentReferenceContainer, CloseAllActionE
 		DIM_PIC = new Dimension(
 				JButtonArray.SCALED_WIDTH_HEIGHT.width + PIC_PAD.width,
 				JButtonArray.SCALED_WIDTH_HEIGHT.height + PIC_PAD.height);
+	public static String 
+		DEFAULT_IMG = PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/shapes/Default-Play-Image.xml";
 	
 	private static String keepsFileLocation;
 	public static Color []
@@ -88,6 +91,11 @@ ComboListDialogSelectedListener, DialogParentReferenceContainer, CloseAllActionE
 	public JButtonArray()
 	{
 		
+	}
+	
+	public void setDefaultImageXmlPath(FileSelection fs)
+	{
+		DEFAULT_IMG = fs.getFullPath();
 	}
 	
 	public void setSingleClick(boolean singleClick)
