@@ -11,14 +11,17 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
+import ObjectTypeConversion.FileSelection;
 import Properties.PathUtility;
 import WidgetComponents.JButtonArray;
 
 public class KeepSelection
 {
 	private static final String 
-		DEFAULT_IMG = PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/launch_xsm.png",
 		IMAGES_RELATIVE_PATH = "/images/";
+	
+	private static String 
+		DEFAULT_IMG = PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/launch_xsm.png";
 	
 	private String 
 		path,
@@ -28,7 +31,9 @@ public class KeepSelection
 	private Image 
 		img,
 		defaultImg;
-	public static boolean skip = true;
+	public static boolean 
+		skip = true,
+		defaultImage = false;
 	
 	public KeepSelection(String path, String text)
 	{
@@ -40,6 +45,16 @@ public class KeepSelection
 		File file = new File(this.fileLocation);
 		File fileDefault = new File(DEFAULT_IMG);
 		setupImage(skip, file, fileDefault);
+	}
+	
+	public void setDefaultImage(FileSelection fs)
+	{
+		DEFAULT_IMG = fs.getFullPath();
+	}
+	
+	public void setEnableDefaultImage(boolean defaultImage)
+	{
+		KeepSelection.defaultImage = defaultImage;
 	}
 	
 	public void setFrame(JFrame frame)
@@ -101,14 +116,22 @@ public class KeepSelection
 			if(!skip && img == null)
 			{
 				retImage = ImageIO.read(file);
-				retImage = retImage.getScaledInstance(
+				img = retImage.getScaledInstance(
 						JButtonArray.SCALED_WIDTH_HEIGHT.width, 
 						JButtonArray.SCALED_WIDTH_HEIGHT.height, 0);
-				img = retImage;
+				retImage = null;
+				retImage = img;
 			}
 		} catch (IOException e) {
 			try {
-				defaultImg = ImageIO.read(fileDefault);
+				if(defaultImage)
+				{
+					defaultImg = ImageIO.read(fileDefault);
+				}
+				else
+				{
+					defaultImg = null;
+				}
 				retImage = defaultImg;
 			} catch (IOException e2) {
 				e2.printStackTrace();

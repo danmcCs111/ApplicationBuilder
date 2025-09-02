@@ -269,30 +269,35 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		Image useImage = null;
 		f.setMinimumSize(ks.getSize());
 		useImage = ks.getImg();
-		ImageIcon ii = new ImageIcon(useImage);
-		JLabel picLabel = new JLabel(ii);
 		
-		if(component instanceof JButtonLengthLimited)//TODO
+		if(useImage != null)
 		{
-			JButtonLengthLimited ab = (JButtonLengthLimited) component;
-			FrameMouseDragListener mouseDragListener = new FrameMouseDragListener(f, ab, picLabel);
-			picLabel.addMouseMotionListener(mouseDragListener);
-			picLabel.addMouseListener(mouseDragListener);
-			picLabel.setName(ks.getText());
-			picLabel.addMouseListener(new PicLabelMouseListener(ab, picLabel, singleClick));
-			if(JButtonArray.isHighlightButton(ab))//TODO add interface.?
+			ImageIcon ii = new ImageIcon(useImage);
+			JLabel picLabel = new JLabel(ii);
+			
+			if(component instanceof JButtonLengthLimited)//TODO
 			{
-				PicLabelMouseListener.highLightLabel(ab, true);
+				JButtonLengthLimited ab = (JButtonLengthLimited) component;
+				FrameMouseDragListener mouseDragListener = new FrameMouseDragListener(f, ab, picLabel);
+				picLabel.addMouseMotionListener(mouseDragListener);
+				picLabel.addMouseListener(mouseDragListener);
+				picLabel.setName(ks.getText());
+				picLabel.addMouseListener(new PicLabelMouseListener(ab, picLabel, singleClick));
+				if(JButtonArray.isHighlightButton(ab))//TODO add interface.?
+				{
+					PicLabelMouseListener.highLightLabel(ab, true);
+				}
 			}
+			
+			p.add(picLabel, BorderLayout.CENTER);
+			
+			f.add(p);
+			f.setResizable(false);
+			f.setLocation((int)loc.getX() + (bounds.width + DIM_PAD.width), 
+					(int)loc.getY() + (bounds.height + DIM_PAD.height));
+			f.setVisible(true);
 		}
 		
-		p.add(picLabel, BorderLayout.CENTER);
-		
-		f.add(p);
-		f.setResizable(false);
-		f.setLocation((int)loc.getX() + (bounds.width + DIM_PAD.width), 
-				(int)loc.getY() + (bounds.height + DIM_PAD.height));
-		f.setVisible(true);
 	}
 	
 	public void writeSave()
