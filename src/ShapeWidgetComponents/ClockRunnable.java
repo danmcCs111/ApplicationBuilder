@@ -2,7 +2,6 @@ package ShapeWidgetComponents;
 
 import java.awt.Color;
 import java.awt.Container;
-import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
@@ -80,10 +79,9 @@ public class ClockRunnable implements Runnable
 		
 		ShapeDrawingCollectionGraphics.drawAll(drawContainer, sdc, null, false);
 		
-		Graphics2D g2d = (Graphics2D) drawContainer.getGraphics();
-		ShapeDrawingCollectionGraphics.drawShape(g2d, hourHand, Color.gray);
-		ShapeDrawingCollectionGraphics.drawShape(g2d, minuteHand, Color.blue);
-		ShapeDrawingCollectionGraphics.drawShape(g2d, secondHand, Color.red);
+		ShapeDrawingCollectionGraphics.drawShape(drawContainer, hourHand, Color.gray);
+		ShapeDrawingCollectionGraphics.drawShape(drawContainer, minuteHand, Color.blue);
+		ShapeDrawingCollectionGraphics.drawShape(drawContainer, secondHand, Color.red);
 		
 	}
 	
