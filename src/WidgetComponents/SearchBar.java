@@ -40,7 +40,6 @@ public class SearchBar extends JPanel
 	public void buildWidgets()
 	{
 		this.setLayout(new BorderLayout());
-		
 		searchField = new JTextField(columnCharacterLength);
 		searchButton = new JButton("Search");
 		searchButton.addActionListener(new ActionListener() {
@@ -52,7 +51,6 @@ public class SearchBar extends JPanel
 				}
 			}
 		});
-		
 		this.add(searchField, BorderLayout.CENTER);
 		this.add(searchButton, BorderLayout.EAST);
 	}

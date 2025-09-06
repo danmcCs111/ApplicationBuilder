@@ -33,23 +33,26 @@ public class ShapeDrawingCollection
 		}
 	}
 
-	public void addShapeImports(ArrayList<ShapeElement> shapeElements, ShapeStylingActionListener ssal)
+	public ArrayList<ShapeStyling> addShapeImports(ArrayList<ShapeElement> shapeElements, ShapeStylingActionListener ssal)
 	{
+		ArrayList<ShapeStyling> sss = new ArrayList<ShapeStyling>();
 		for(ShapeElement se : shapeElements)
 		{
 			int count = shapes.size();
 			LoggingMessages.printOut(se.toString());
 			this.addShapeControlPoints(se.getPoints());
 			Shape s = se.getShape();
-			se.getShapeStyling(count, ssal);//added through notify
+			ShapeStyling ss = se.getShapeStyling(count, ssal);//added through notify
 			this.addShape(s);
-			
 			for(AddShapesImportedListener asil : asils)
 			{
 				asil.notifyImported(se);
 			}
+			sss.add(ss);
 		}
 		LoggingMessages.printOut("style size: " + shapeStylings.size());
+		
+		return sss;
 		
 	}
 	

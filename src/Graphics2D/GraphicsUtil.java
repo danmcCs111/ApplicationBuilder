@@ -1,9 +1,22 @@
 package Graphics2D;
 
+import java.awt.Color;
 import java.awt.Container;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.util.ArrayList;
 
-public class GraphicsUtil 
+import Properties.LoggingMessages;
+import ShapeWidgetComponents.ShapeDrawingCollection;
+import ShapeWidgetComponents.ShapeDrawingCollectionGraphics;
+import ShapeWidgetComponents.ShapeElement;
+import ShapeWidgetComponents.ShapeImportExport;
+import ShapeWidgetComponents.ShapeStyling;
+
+public interface GraphicsUtil 
 {
 	public static void centerWindow(Container referenceComponent, Container comp)
 	{
@@ -30,4 +43,24 @@ public class GraphicsUtil
 		
 		comp.setLocation(new Point(loc.x + (rw), loc.y + (h * (numberOfMatchedVisible) )));
 	}
+	
+	public static Image getImageFromXml(int width, int height, File defaultImageLocation, Color backgroundColor)
+	{
+		Image defaultImg;
+		LoggingMessages.printOut(defaultImageLocation.getAbsolutePath());
+		ShapeImportExport sie = new ShapeImportExport();
+		ShapeDrawingCollection sdc = new ShapeDrawingCollection();
+		@SuppressWarnings("unchecked")
+		ArrayList<ShapeElement> shapeElements = (ArrayList<ShapeElement>) sie.openXml(defaultImageLocation);
+		ArrayList<ShapeStyling> sss = sdc.addShapeImports(shapeElements, null);
+		sdc.setShapeStylings(sss);
+		sdc.getShapes();
+        BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2d = bufferedImage.createGraphics();
+        g2d.setBackground(backgroundColor);
+    	ShapeDrawingCollectionGraphics.drawShapes(g2d, sdc);
+        defaultImg = bufferedImage;
+		return defaultImg;
+	}
+
 }

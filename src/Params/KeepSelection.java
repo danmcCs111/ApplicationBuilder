@@ -1,10 +1,9 @@
 package Params;
 
+import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,12 +12,9 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
-import Properties.LoggingMessages;
+import Graphics2D.GraphicsUtil;
 import Properties.PathUtility;
 import ShapeWidgetComponents.ShapeDrawingCollection;
-import ShapeWidgetComponents.ShapeDrawingCollectionGraphics;
-import ShapeWidgetComponents.ShapeElement;
-import ShapeWidgetComponents.ShapeImportExport;
 import ShapeWidgetComponents.ShapeStyling;
 import WidgetComponents.JButtonArray;
 import WidgetExtensions.ShapeDrawingCollectionLoad;
@@ -57,16 +53,8 @@ public class KeepSelection implements ShapeDrawingCollectionLoad
 	{
 		if(defaultImg == null)
 		{
-			LoggingMessages.printOut(defaultImageLocation.getAbsolutePath());
-			ShapeImportExport sie = new ShapeImportExport();
-			@SuppressWarnings("unchecked")
-			ArrayList<ShapeElement> shapeElements = (ArrayList<ShapeElement>) sie.openXml(defaultImageLocation);
-			sdc.addShapeImports(shapeElements, this);
-			sdc.getShapes();
-	        BufferedImage bufferedImage = new BufferedImage(JButtonArray.DIM_DEFAULT_PIC.width, JButtonArray.DIM_DEFAULT_PIC.height, BufferedImage.TYPE_INT_RGB);
-	        Graphics2D g2d = bufferedImage.createGraphics();
-        	ShapeDrawingCollectionGraphics.drawShapes(g2d, sdc);
-	        defaultImg = bufferedImage;
+			defaultImg = GraphicsUtil.getImageFromXml(
+					JButtonArray.DIM_DEFAULT_PIC.width, JButtonArray.DIM_DEFAULT_PIC.height, defaultImageLocation, Color.black);
 		}
 		return defaultImg;
 	}
