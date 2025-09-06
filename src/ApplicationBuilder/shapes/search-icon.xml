@@ -1,0 +1,4 @@
+<Widgets>
+<java.awt.geom.Line2D Point00="29, 23" Point01="49, 39" ColorDraw="0, 0, 0" ColorFill="204, 204, 204" CreateStroke="true" StrokeWidth="3" SkipShapeDraw="false" > </java.awt.geom.Line2D>
+<java.awt.geom.Ellipse2D Point00="12, 7" Point01="33, 27" ColorDraw="255, 255, 255" ColorFill="204, 204, 204" CreateStroke="true" StrokeWidth="3" SkipShapeDraw="false" > </java.awt.geom.Ellipse2D>
+</Widgets>

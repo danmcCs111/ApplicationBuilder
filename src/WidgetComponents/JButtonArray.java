@@ -49,8 +49,10 @@ import WidgetUtility.WidgetBuildController;
  * 
  * TODO use a collection of inner panels and switch during toggle?
  */
-public class JButtonArray extends JPanel implements ArrayActionListener, CharacterLimited, SaveActionExtension, OpenActionExtension, CloseActionExtension, 
-ComboListDialogSelectedListener, DialogParentReferenceContainer, CloseAllActionExtension, MouseAdapterArrayExtension, PostWidgetBuildProcessing
+public class JButtonArray extends JPanel implements ArrayActionListener, CharacterLimited, 
+SaveActionExtension, OpenActionExtension, CloseActionExtension, CloseAllActionExtension,  
+ComboListDialogSelectedListener, DialogParentReferenceContainer, MouseAdapterArrayExtension,  
+PostWidgetBuildProcessing
 {
 	private static final long serialVersionUID = 1883L;
 	
@@ -82,9 +84,10 @@ ComboListDialogSelectedListener, DialogParentReferenceContainer, CloseAllActionE
 	private static boolean isHighlight = true;
 	private static JButton highlightButton = null;
 	private static ArrayList<String> indexPaths = new ArrayList<String>();
-	private static HashMap<String, ArrayList<Component>> collectionJButtons = new HashMap<String, ArrayList<Component>>();
+	private static HashMap<String, ArrayList<AbstractButton>> collectionJButtons = new HashMap<String, ArrayList<AbstractButton>>();
 	private static HashMap<String, MouseListener> pathAndMouseAdapter;
 	private static ArrayList<String> stripFilter = new ArrayList<String>();
+	private String searchFilterText = "";
 	
 	private int characterLimit=0;
 	
@@ -173,7 +176,7 @@ ComboListDialogSelectedListener, DialogParentReferenceContainer, CloseAllActionE
 	public void addJButtons(String path, List<String> listOf, int index)
 	{
 		LoggingMessages.printOut("load buttons." + listOf.size() + " " + index);
-		ArrayList<Component> jbuts = new ArrayList<Component>();
+		ArrayList<AbstractButton> jbuts = new ArrayList<AbstractButton>();
 		JButtonArray.indexPos = index;
 		
 		clearJButtons();
@@ -216,6 +219,7 @@ ComboListDialogSelectedListener, DialogParentReferenceContainer, CloseAllActionE
 				this.add(but);
 			}
 		}
+		adjustVisibility(searchFilterText);
 		
 		indexPaths.add(path);
 		
@@ -279,7 +283,7 @@ ComboListDialogSelectedListener, DialogParentReferenceContainer, CloseAllActionE
 		}
 	}
 	
-	private void addActionListeners(ArrayList<Component> jButtons)
+	private void addActionListeners(ArrayList<AbstractButton> jButtons)
 	{
 		if(this.actionListener != null && !jButtons.isEmpty())
 		{
@@ -321,7 +325,7 @@ ComboListDialogSelectedListener, DialogParentReferenceContainer, CloseAllActionE
 			JButtonArray.foregroundAndBackgroundColor[backgroundOrForeground[i]] = c[i];
 		}
 		
-		for(List<Component> buts : collectionJButtons.values())
+		for(List<AbstractButton> buts : collectionJButtons.values())
 		{
 			for(Component but : buts)
 			{
@@ -534,6 +538,20 @@ ComboListDialogSelectedListener, DialogParentReferenceContainer, CloseAllActionE
 	public void setPathAndMouseListenerAdapter(HashMap<String, MouseListener> pathAndMouseAdapter) 
 	{
 		JButtonArray.pathAndMouseAdapter = pathAndMouseAdapter;
+	}
+
+	public void adjustVisibility(String searchPattern)//TODO
+	{
+		searchFilterText = searchPattern;
+		
+		for(String key : collectionJButtons.keySet())
+		{
+			for(AbstractButton ab : collectionJButtons.get(key))
+			{
+				ab.setVisible(ab.getText().toLowerCase().contains(searchFilterText.toLowerCase()));//case insensitive
+			}
+		}
+		this.validate();
 	}
 
 }

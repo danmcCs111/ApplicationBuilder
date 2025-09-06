@@ -18,6 +18,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -79,7 +80,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		this.singleClick = singleClick;
 	}
 	
-	public void setupKeepsSelection(List<Component> components)
+	public void setupKeepsSelection(List<AbstractButton> components)
 	{
 		for(Component c : components)
 		{

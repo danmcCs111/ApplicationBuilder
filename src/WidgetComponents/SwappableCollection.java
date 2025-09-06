@@ -10,12 +10,14 @@ import javax.swing.JPanel;
 
 import ActionListenersImpl.NavigationButtonActionListener;
 import Properties.PathUtility;
+import WidgetComponentInterfaces.SearchSubscriber;
+import WidgetExtensions.ExtendedAttributeParam;
 import WidgetExtensions.ExtendedStringCollection;
 
 /**
  * Holds a variable number of Components and controls/rebuilds child JComponents
  */
-public class SwappableCollection extends JPanel implements ExtendedStringCollection
+public class SwappableCollection extends JPanel implements ExtendedStringCollection, SearchSubscriber
 {
 	private static final long serialVersionUID = 1880L;
 	
@@ -64,6 +66,13 @@ public class SwappableCollection extends JPanel implements ExtendedStringCollect
 	public void setTextPathComponent(Component c) 
 	{
 		this.pathTextComponent = c;
+	}
+
+	@Override
+	public void notifySearchText(String searchPattern) 
+	{
+		JButtonArray buttonArray = (JButtonArray) ExtendedAttributeParam.findComponent(JButtonArray.class);
+		buttonArray.adjustVisibility(searchPattern);
 	}
 
 }

@@ -56,6 +56,8 @@ public enum Direction implements ActionListenerExtension
 				else
 					indexReturn = curPosition - 1;
 				break;
+			default:
+				break;
 		}
 		return indexReturn;
 	}

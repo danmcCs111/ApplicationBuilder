@@ -15,7 +15,7 @@ import WidgetComponents.JButtonArray;
 import WidgetComponents.SwappableCollection;
 import WidgetExtensions.ExtendedAttributeParam;
 
-public class NavigationButtonActionListener implements ActionListener, ActionListenerSubTypeExtension 
+public class NavigationButtonActionListener implements ActionListener, ActionListenerSubTypeExtension
 {
 	private static int 
 		curPosition = 0, 
