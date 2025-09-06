@@ -1,5 +1,5 @@
 <Build>
-	<JFrame extendedSetupTaskbar="/src/ApplicationBuilder/build-icon_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="450, 150" setMaximumSize="350, 0" setMinimumSize="1200, 1000" setTitle="Widget Creator" >
+	<JFrame extendedSetupTaskbar="/src/ApplicationBuilder/build-icon_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="450, 150" setMaximumSize="350, 0" setMinimumSize="650, 650" setTitle="Widget Creator" >
 		<ShapeCreator extendedLayoutApplyParent="Center" setLayout="java.awt.BorderLayout" setName="ShapeCreator" >
 			<JPanel extendedLayoutApplyParent="East" setLayout="java.awt.BorderLayout" >
 				<JScrollPane extendedLayoutApplyParent="Center" extendedScrollBarSetUnit="15" setName="scrollPane" >
