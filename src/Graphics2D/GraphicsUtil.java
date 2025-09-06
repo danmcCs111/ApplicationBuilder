@@ -19,7 +19,7 @@ public class GraphicsUtil
 	
 	public static void rightEdgeTopWindow(Container referenceComponent, Container comp)
 	{
-		rightEdgeTopWindow(referenceComponent, comp, 1);
+		rightEdgeTopWindow(referenceComponent, comp, 0);
 	}
 	
 	public static void rightEdgeTopWindow(Container referenceComponent, Container comp, int numberOfMatchedVisible)
@@ -28,6 +28,6 @@ public class GraphicsUtil
 		int rw = referenceComponent.getWidth();
 		int h = comp.getHeight();
 		
-		comp.setLocation(new Point(loc.x + (rw), loc.y + (h * (numberOfMatchedVisible-1) )));
+		comp.setLocation(new Point(loc.x + (rw), loc.y + (h * (numberOfMatchedVisible) )));
 	}
 }
