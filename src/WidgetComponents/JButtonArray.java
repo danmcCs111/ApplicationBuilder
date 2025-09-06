@@ -210,18 +210,14 @@ PostWidgetBuildProcessing
 			}
 			addActionListeners(jbuts);
 			collectionJButtons.put(path, jbuts);
+			
+			indexPaths.add(path);
+			
 		}
 		else
 		{
-			jbuts = collectionJButtons.get(indexPaths.get(JButtonArray.indexPos));
-			for(Component but : jbuts)
-			{
-				this.add(but);
-			}
+			rebuildButtons();
 		}
-		adjustVisibility(searchFilterText);
-		
-		indexPaths.add(path);
 		
 		ExtendedStringCollection esc = getExtendedStringCollection(this);
 		esc.setPathSelected(path);
@@ -268,9 +264,23 @@ PostWidgetBuildProcessing
 		}
 	}
 	
-	public void clearJButtons()
+	private void clearJButtons()
 	{
 		this.removeAll();
+	}
+	
+	private void rebuildButtons()
+	{
+		clearJButtons();
+		for(AbstractButton ab : collectionJButtons.get(indexPaths.get(indexPos)))
+		{
+			if(ab.isVisible())
+			{
+				this.add(ab);
+			}
+		}
+		Container rootCont = getRootPane();
+		rootCont.paintComponents(rootCont.getGraphics());
 	}
 	
 	@Override
@@ -551,7 +561,9 @@ PostWidgetBuildProcessing
 				ab.setVisible(ab.getText().toLowerCase().contains(searchFilterText.toLowerCase()));//case insensitive
 			}
 		}
-		this.validate();
+		rebuildButtons();
 	}
+	
+	
 
 }
