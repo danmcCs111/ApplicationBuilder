@@ -2,7 +2,6 @@ package WidgetComponents;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -80,10 +79,8 @@ PostWidgetBuildProcessing
 	public static Color []
 		foregroundAndBackgroundColor = new Color [] {new JButton().getForeground(), new JButton().getBackground()},
 		highlightForegroundAndBackgroundColor = new Color [] {foregroundAndBackgroundColor[0], foregroundAndBackgroundColor[1]};
-	private static int indexPos=0;
 	private static boolean isHighlight = true;
 	private static JButton highlightButton = null;
-	private static ArrayList<String> indexPaths = new ArrayList<String>();
 	private static HashMap<String, ArrayList<AbstractButton>> collectionJButtons = new HashMap<String, ArrayList<AbstractButton>>();
 	private static HashMap<String, MouseListener> pathAndMouseAdapter;
 	private static ArrayList<String> stripFilter = new ArrayList<String>();
@@ -177,11 +174,11 @@ PostWidgetBuildProcessing
 	{
 		LoggingMessages.printOut("load buttons." + listOf.size() + " " + index);
 		ArrayList<AbstractButton> jbuts = new ArrayList<AbstractButton>();
-		JButtonArray.indexPos = index;
+		SwappableCollection.indexPos = index;
 		
 		clearJButtons();
 		
-		if(!indexPaths.contains(path))
+		if(!SwappableCollection.indexPaths.contains(path))
 		{
 			for(Component comp : FileListOptionGenerator.buildComponents(path, listOf, JButtonLengthLimited.class))
 			{
@@ -211,7 +208,7 @@ PostWidgetBuildProcessing
 			addActionListeners(jbuts);
 			collectionJButtons.put(path, jbuts);
 			
-			indexPaths.add(path);
+			SwappableCollection.indexPaths.add(path);
 			
 		}
 		else
@@ -220,10 +217,10 @@ PostWidgetBuildProcessing
 		}
 		
 		ExtendedStringCollection esc = getExtendedStringCollection(this);
-		esc.setPathSelected(path);
+		if(esc != null)	esc.setPathSelected(path);
 		
-		Container rootCont = getRootPane();
-		rootCont.paintComponents(rootCont.getGraphics());
+		JFrame f = WidgetBuildController.getInstance().getFrame();
+		f.paintComponents(f.getGraphics());
 		
 	}
 	
@@ -272,24 +269,24 @@ PostWidgetBuildProcessing
 	private void rebuildButtons()
 	{
 		clearJButtons();
-		for(AbstractButton ab : collectionJButtons.get(indexPaths.get(indexPos)))
+		for(AbstractButton ab : collectionJButtons.get(SwappableCollection.indexPaths.get(SwappableCollection.indexPos)))
 		{
 			if(ab.isVisible())
 			{
 				this.add(ab);
 			}
 		}
-		Container rootCont = getRootPane();
-		rootCont.paintComponents(rootCont.getGraphics());
+		JFrame f = WidgetBuildController.getInstance().getFrame();
+		f.paintComponents(f.getGraphics());
 	}
 	
 	@Override
 	public void addActionListener(ActionListener actionListener) 
 	{
 		this.actionListener = actionListener;
-		if(collectionJButtons.size()-1 >= indexPos)
+		if(collectionJButtons.size()-1 >= SwappableCollection.indexPos)
 		{
-			addActionListeners(collectionJButtons.get(indexPaths.get(indexPos)));
+			addActionListeners(collectionJButtons.get(SwappableCollection.indexPaths.get(SwappableCollection.indexPos)));
 		}
 	}
 	
@@ -382,7 +379,7 @@ PostWidgetBuildProcessing
 	@Override
 	public void performSave() 
 	{
-		for(MouseListener ml : collectionJButtons.get(indexPaths.get(indexPos)).get(0).getMouseListeners())
+		for(MouseListener ml : collectionJButtons.get(SwappableCollection.indexPaths.get(SwappableCollection.indexPos)).get(0).getMouseListeners())
 		{
 			if(ml instanceof ImageMouseAdapter)
 			{
@@ -459,7 +456,7 @@ PostWidgetBuildProcessing
 	
 	public ImageMouseAdapter getAMouseListener() 
 	{
-		for(MouseListener ml : collectionJButtons.get(indexPaths.get(indexPos)).get(0).getMouseListeners())
+		for(MouseListener ml : collectionJButtons.get(SwappableCollection.indexPaths.get(SwappableCollection.indexPos)).get(0).getMouseListeners())
 		{
 			if(ml instanceof ImageMouseAdapter)
 			{
@@ -535,7 +532,7 @@ PostWidgetBuildProcessing
 				c.addMouseListener(ima);
 			}
 		}
-		JFrame f = (JFrame) this.getRootPane().getParent();//close?
+		JFrame f = WidgetBuildController.getInstance().getFrame();
 		f.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosed(WindowEvent e) {
