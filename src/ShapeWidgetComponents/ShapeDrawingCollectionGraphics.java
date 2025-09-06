@@ -95,7 +95,7 @@ public interface ShapeDrawingCollectionGraphics
 		Stroke stroke = shapeStyling.getStroke();
 		Shape s = shape;
 		
-		if(stroke != null && !g2d.getStroke().equals(stroke) && shapeStyling.isCreateStrokedShape())
+		if(stroke != null && shapeStyling.isCreateStrokedShape())
 		{
 			g2d.setStroke(stroke);
 			s = g2d.getStroke().createStrokedShape(shape);
