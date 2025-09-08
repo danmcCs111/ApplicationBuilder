@@ -3,7 +3,7 @@ package WidgetExtensionsImpl;
 import java.util.HashMap;
 import java.util.List;
 
-import WidgetComponents.JButtonArray;
+import WidgetComponentInterfaces.ButtonArray;
 import WidgetComponents.SwappableCollection;
 import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetUtility.WidgetBuildController;
@@ -14,7 +14,7 @@ public class ExtendedSwappableHolder implements ExtendedAttributeStringParam
 	@Override
 	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 
 	{
-		JButtonArray buttonArray = (JButtonArray) widgetProperties.getInstance();
+		ButtonArray buttonArray = (ButtonArray) widgetProperties.getInstance();
 		SwappableCollection comp = (SwappableCollection) WidgetBuildController.getInstance().findRefByName(arg0).getInstance();
 		
 		//TODO fix. just first path

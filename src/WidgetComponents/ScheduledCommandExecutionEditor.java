@@ -155,7 +155,6 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 		this.add(outerPanel);
 		
 		scheduledCommand = buildScheduledCommand(new ScheduledCommand());
-//		LoggingMessages.printOut(options);
 	}
 
 	public String[] buildTimePickerOptions(double numberOfOptions) 

@@ -29,6 +29,7 @@ import ObjectTypeConversion.FileSelection;
 import Params.KeepSelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
+import WidgetComponentInterfaces.ButtonArray;
 import WidgetComponentInterfaces.CharacterLimited;
 import WidgetComponentInterfaces.DialogParentReferenceContainer;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
@@ -51,7 +52,7 @@ import WidgetUtility.WidgetBuildController;
 public class JButtonArray extends JPanel implements ArrayActionListener, CharacterLimited, 
 SaveActionExtension, OpenActionExtension, CloseActionExtension, CloseAllActionExtension,  
 ComboListDialogSelectedListener, DialogParentReferenceContainer, MouseAdapterArrayExtension,  
-PostWidgetBuildProcessing
+PostWidgetBuildProcessing, ButtonArray
 {
 	private static final long serialVersionUID = 1883L;
 	
@@ -168,60 +169,6 @@ PostWidgetBuildProcessing
 	public void setExpandedArrangementFileRelativeLocation(DirectorySelection directorySelection)
 	{
 		keepsFileLocation = directorySelection.getFullPath();
-	}
-	
-	public void addJButtons(String path, List<String> listOf, int index)
-	{
-		LoggingMessages.printOut("load buttons." + listOf.size() + " " + index);
-		ArrayList<AbstractButton> jbuts = new ArrayList<AbstractButton>();
-		SwappableCollection.indexPos = index;
-		
-		clearJButtons();
-		
-		if(!SwappableCollection.indexPaths.contains(path))
-		{
-			for(Component comp : FileListOptionGenerator.buildComponents(path, listOf, JButtonLengthLimited.class))
-			{
-				if(comp instanceof Component)
-				{
-					if(comp instanceof JButtonLengthLimited)
-					{
-						String txt = ((JButtonLengthLimited) comp).getFullLengthText();
-						
-						for(String s : stripFilter)
-						{
-							txt = txt.replace(s, "");
-						}
-						if(characterLimit != 0)
-						{
-							((JButtonLengthLimited) comp).setCharacterLimit(characterLimit);
-						}
-						((JButtonLengthLimited) comp).setText(txt);
-					}
-					comp.setForeground(foregroundAndBackgroundColor[0]);
-					comp.setBackground(foregroundAndBackgroundColor[1]);
-					addHighlightButtonActionListener((JButton)comp);
-					jbuts.add((JButton) comp);
-					this.add(comp);
-				}
-			}
-			addActionListeners(jbuts);
-			collectionJButtons.put(path, jbuts);
-			
-			SwappableCollection.indexPaths.add(path);
-			
-		}
-		else
-		{
-			rebuildButtons();
-		}
-		
-		ExtendedStringCollection esc = getExtendedStringCollection(this);
-		if(esc != null)	esc.setPathSelected(path);
-		
-		JFrame f = WidgetBuildController.getInstance().getFrame();
-		f.paintComponents(f.getGraphics());
-		
 	}
 	
 	public static ExtendedStringCollection getExtendedStringCollection(Component c)
@@ -355,6 +302,61 @@ PostWidgetBuildProcessing
 	public static boolean isHighlightButton(AbstractButton ab)
 	{
 		return highlightButton == ab;
+	}
+	
+	@Override
+	public void addJButtons(String path, List<String> listOf, int index)
+	{
+		LoggingMessages.printOut("load buttons." + listOf.size() + " " + index);
+		ArrayList<AbstractButton> jbuts = new ArrayList<AbstractButton>();
+		SwappableCollection.indexPos = index;
+		
+		clearJButtons();
+		
+		if(!SwappableCollection.indexPaths.contains(path))
+		{
+			for(Component comp : FileListOptionGenerator.buildComponents(path, listOf, JButtonLengthLimited.class))
+			{
+				if(comp instanceof Component)
+				{
+					if(comp instanceof JButtonLengthLimited)
+					{
+						String txt = ((JButtonLengthLimited) comp).getFullLengthText();
+						
+						for(String s : stripFilter)
+						{
+							txt = txt.replace(s, "");
+						}
+						if(characterLimit != 0)
+						{
+							((JButtonLengthLimited) comp).setCharacterLimit(characterLimit);
+						}
+						((JButtonLengthLimited) comp).setText(txt);
+					}
+					comp.setForeground(foregroundAndBackgroundColor[0]);
+					comp.setBackground(foregroundAndBackgroundColor[1]);
+					addHighlightButtonActionListener((JButton)comp);
+					jbuts.add((JButton) comp);
+					this.add(comp);
+				}
+			}
+			addActionListeners(jbuts);
+			collectionJButtons.put(path, jbuts);
+			
+			SwappableCollection.indexPaths.add(path);
+			
+		}
+		else
+		{
+			rebuildButtons();
+		}
+		
+		ExtendedStringCollection esc = getExtendedStringCollection(this);
+		if(esc != null)	esc.setPathSelected(path);
+		
+		JFrame f = WidgetBuildController.getInstance().getFrame();
+		f.paintComponents(f.getGraphics());
+		
 	}
 
 	@Override

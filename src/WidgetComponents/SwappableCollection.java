@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 
 import ActionListenersImpl.NavigationButtonActionListener;
 import Properties.PathUtility;
+import WidgetComponentInterfaces.ButtonArray;
 import WidgetComponentInterfaces.SearchSubscriber;
 import WidgetExtensions.ExtendedAttributeParam;
 import WidgetExtensions.ExtendedStringCollection;
@@ -74,7 +75,7 @@ public class SwappableCollection extends JPanel implements ExtendedStringCollect
 	{
 		this.pathTextComponent = c;
 		indexPos = 0;
-		JButtonArray buttonArray = (JButtonArray) ExtendedAttributeParam.findComponent(JButtonArray.class);
+		ButtonArray buttonArray = (ButtonArray) ExtendedAttributeParam.findComponent(JButtonArray.class);
 		buttonArray.addJButtons(indexPaths.get(indexPos), pathAndFileList.get(indexPaths.get(indexPos)), indexPos);
 	}
 

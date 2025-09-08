@@ -35,7 +35,7 @@ public class KeepSelection implements ShapeDrawingCollectionLoad
 		defaultImg;
 	public static boolean 
 		skip = true;
-	private static ShapeDrawingCollection sdc = new ShapeDrawingCollection();;
+	private static ShapeDrawingCollection sdc = new ShapeDrawingCollection();
 	
 	public KeepSelection(String path, String text)
 	{

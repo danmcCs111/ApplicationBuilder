@@ -41,7 +41,6 @@ import WidgetComponents.WeatherGraphViewer;
 import WidgetComponents.XmlToEditor;
 import WidgetExtensions.ExtendedAttributeParam;
 import WidgetExtensions.ExtendedMethodArgDef;
-import WidgetExtensionsImpl.ExtendedActionListenerArray;
 import WidgetExtensionsImpl.ExtendedActionListenerConnectedComponent;
 import WidgetExtensionsImpl.ExtendedActionListenerSubType;
 import WidgetExtensionsImpl.ExtendedCsvAddSubscriber;
@@ -205,7 +204,6 @@ public class WidgetAttributes
 		EXTENDED_METHODS.put(JButtonArray.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedArrayProcessingPath.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
-				ExtendedAttributeParam.getMethodDefinition(ExtendedActionListenerArray.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSwappableHolder.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedTextStripper.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedImageMouseAdapterArray.class, ExtendedMethodArgDef.ImageMouseAdapter.getMethodArgDef())
