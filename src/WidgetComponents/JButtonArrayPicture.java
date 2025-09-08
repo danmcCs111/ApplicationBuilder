@@ -1,18 +1,15 @@
 package WidgetComponents;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.imageio.ImageIO;
 import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -20,7 +17,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import ActionListeners.ArrayActionListener;
-import Graphics2D.GraphicsUtil;
 import ObjectTypeConversion.DirectorySelection;
 import ObjectTypeConversion.FileSelection;
 import Properties.LoggingMessages;
@@ -47,13 +43,9 @@ public class JButtonArrayPicture extends JPanel implements ButtonArray, ArrayAct
 		DEFAULT_IMG = PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/shapes/Default-Play-Image.xml";
 	
 	public static Dimension
-		DIM_DEFAULT_PIC = new Dimension(280,150),
-		PIC_PAD = new Dimension(5,	20),
+		DEFAULT_PIC = new Dimension(279, 150),
 		SCALED_DEFAULT_PIC = new Dimension(140, 75),
-		SCALED_WIDTH_HEIGHT = new Dimension(140, 200),
-		DIM_PIC = new Dimension(
-				JButtonArray.SCALED_WIDTH_HEIGHT.width + PIC_PAD.width,
-				JButtonArray.SCALED_WIDTH_HEIGHT.height + PIC_PAD.height);
+		SCALED_WIDTH_HEIGHT = new Dimension(140, 200);
 	
 	private static String keepsFileLocation;
 	private static HashMap<String, ArrayList<AbstractButton>> collectionJButtons = new HashMap<String, ArrayList<AbstractButton>>();
@@ -70,17 +62,15 @@ public class JButtonArrayPicture extends JPanel implements ButtonArray, ArrayAct
 		DEFAULT_IMG = fs.getFullPath();
 	}
 	
-	public void setDimensionDefaultPic(Dimension dim)
+	@Override
+	public String getDefaultImagePath() 
 	{
-		DIM_DEFAULT_PIC = dim;
+		return DEFAULT_IMG;
 	}
 	
-	public void setScaledWidthHeight(Dimension widthHeight)
+	public void setDefaultPic(Dimension widthHeight)
 	{
-		SCALED_WIDTH_HEIGHT = widthHeight;
-		DIM_PIC = new Dimension(
-				JButtonArray.SCALED_WIDTH_HEIGHT.width + PIC_PAD.width,
-				JButtonArray.SCALED_WIDTH_HEIGHT.height + PIC_PAD.height);
+		DEFAULT_PIC = widthHeight;
 	}
 	
 	public void setScaledDefaultPic(Dimension widthHeight)
@@ -88,12 +78,27 @@ public class JButtonArrayPicture extends JPanel implements ButtonArray, ArrayAct
 		SCALED_DEFAULT_PIC = widthHeight;
 	}
 	
-	public void setPicturePadWidthHeight(Dimension widthHeight)
+	public void setScaledWidthHeight(Dimension widthHeight)
 	{
-		PIC_PAD = widthHeight;
-		DIM_PIC = new Dimension(
-				JButtonArray.SCALED_WIDTH_HEIGHT.width + PIC_PAD.width,
-				JButtonArray.SCALED_WIDTH_HEIGHT.height + PIC_PAD.height);
+		SCALED_WIDTH_HEIGHT = widthHeight;
+	}
+	
+	@Override
+	public Dimension getDefaultPicSize() 
+	{
+		return DEFAULT_PIC;
+	}
+	
+	@Override
+	public Dimension getScaledDefaultPic() 
+	{
+		return SCALED_DEFAULT_PIC;
+	}
+
+	@Override
+	public Dimension getScaledWidthHeight() 
+	{
+		return SCALED_WIDTH_HEIGHT;
 	}
 	
 	public void setExpandedArrangementFileRelativeLocation(DirectorySelection directorySelection)
@@ -115,31 +120,6 @@ public class JButtonArrayPicture extends JPanel implements ButtonArray, ArrayAct
 		return img != null
 			? img
 			: defaultImg;
-	}
-	
-	private static Image getDefaultImage(File defaultImageLocation)
-	{
-		Image retImage = null;
-		Image tmpImage = GraphicsUtil.getImageFromXml(
-				JButtonArray.DIM_DEFAULT_PIC.width, JButtonArray.DIM_DEFAULT_PIC.height, defaultImageLocation, Color.black);
-		retImage = tmpImage.getScaledInstance(
-				SCALED_DEFAULT_PIC.width, 
-				SCALED_DEFAULT_PIC.height, 0);
-		return retImage;
-	}
-	
-	private static Image setupImage(File file, File fileDefault)
-	{
-		Image retImage = null;
-		try {
-			Image tmpImage = ImageIO.read(file);
-			retImage = tmpImage.getScaledInstance(
-					SCALED_WIDTH_HEIGHT.width, 
-					SCALED_WIDTH_HEIGHT.height, 0);
-		} catch (IOException e) {
-			retImage = getDefaultImage(fileDefault);
-		}
-		return retImage;
 	}
 	
 	private void clearJButtons()
@@ -197,7 +177,7 @@ public class JButtonArrayPicture extends JPanel implements ButtonArray, ArrayAct
 		f.paintComponents(f.getGraphics());
 	}
 	
-	public static List<JComponent> buildComponents(String path, List<String> fileNames)
+	public List<JComponent> buildComponents(String path, List<String> fileNames)
 	{
 		List<JComponent> components = new ArrayList<JComponent>();
 		{
@@ -269,5 +249,5 @@ public class JButtonArrayPicture extends JPanel implements ButtonArray, ArrayAct
 		JFrame f = WidgetBuildController.getInstance().getFrame();
 		f.paintComponents(f.getGraphics());
 	}
-	
+
 }

@@ -16,6 +16,7 @@ import Graphics2D.GraphicsUtil;
 import Properties.PathUtility;
 import ShapeWidgetComponents.ShapeDrawingCollection;
 import ShapeWidgetComponents.ShapeStyling;
+import WidgetComponentInterfaces.ButtonArray;
 import WidgetComponents.JButtonArray;
 import WidgetExtensions.ShapeDrawingCollectionLoad;
 
@@ -36,11 +37,13 @@ public class KeepSelection implements ShapeDrawingCollectionLoad
 	public static boolean 
 		skip = true;
 	private static ShapeDrawingCollection sdc = new ShapeDrawingCollection();
+	private ButtonArray ba;
 	
-	public KeepSelection(String path, String text)
+	public KeepSelection(String path, String text, ButtonArray ba)
 	{
 		this.path = path;
 		this.text = text;
+		this.ba = ba;
 		this.fileLocation = PathUtility.getCurrentDirectory() + 
 				PathUtility.removeCurrentWorkingDirectoryFromPath(path)  + 
 				IMAGES_RELATIVE_PATH + toPngFilename();
@@ -54,7 +57,7 @@ public class KeepSelection implements ShapeDrawingCollectionLoad
 		if(defaultImg == null)
 		{
 			defaultImg = GraphicsUtil.getImageFromXml(
-					JButtonArray.DIM_DEFAULT_PIC.width, JButtonArray.DIM_DEFAULT_PIC.height, defaultImageLocation, Color.black);
+					ba.getScaledDefaultPic().width, ba.getScaledDefaultPic().height, defaultImageLocation, Color.black);
 		}
 		return defaultImg;
 	}
@@ -88,7 +91,7 @@ public class KeepSelection implements ShapeDrawingCollectionLoad
 	{
 		if(img == null)
 		{
-			setupImage(false, new File(this.fileLocation), new File(JButtonArray.DEFAULT_IMG));
+			setupImage(false, new File(this.fileLocation), new File(ba.getDefaultImagePath()));
 		}
 		return img != null
 			? img
@@ -99,11 +102,11 @@ public class KeepSelection implements ShapeDrawingCollectionLoad
 	{
 		if(img == null)
 		{
-			setupImage(false, new File(this.fileLocation), new File(JButtonArray.DEFAULT_IMG));
+			setupImage(false, new File(this.fileLocation), new File(ba.getDefaultImagePath()));
 		}
 		return img != null
-			? JButtonArray.DIM_PIC
-			: JButtonArray.DIM_DEFAULT_PIC;
+			? ba.getScaledWidthHeight()
+			: ba.getScaledDefaultPic();
 	}
 	
 	public String toPngFilename()
@@ -119,8 +122,8 @@ public class KeepSelection implements ShapeDrawingCollectionLoad
 			{
 				retImage = ImageIO.read(file);
 				img = retImage.getScaledInstance(
-						JButtonArray.SCALED_WIDTH_HEIGHT.width, 
-						JButtonArray.SCALED_WIDTH_HEIGHT.height, 0);
+						ba.getScaledWidthHeight().width, 
+						ba.getScaledWidthHeight().height, 0);
 				retImage = null;
 				retImage = img;
 			}

@@ -29,11 +29,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import Params.KeepSelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
+import WidgetComponentInterfaces.ButtonArray;
 import WidgetComponentInterfaces.DialogParentReferenceContainer;
 import WidgetComponents.ComboSelectionDialog;
 import WidgetComponents.JButtonArray;
 import WidgetComponents.JButtonLengthLimited;
 import WidgetExtensions.ComboListDialogSelectedListener;
+import WidgetExtensions.ExtendedAttributeParam;
 
 public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSelectedListener, DialogParentReferenceContainer
 {
@@ -61,18 +63,22 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 	private boolean 
 		keepFrame = false,
 		singleClick = false;
+	private ButtonArray ba;
 		
-	public ImageMouseAdapter(JFrame parentFrame, String path)
-	{
-		this.parentFrame = parentFrame;
-		this.path = path;
-	}
-	
 	public ImageMouseAdapter(JFrame parentFrame, String path, boolean singleClick)
 	{
 		this.parentFrame = parentFrame;
 		this.path = path;
 		this.singleClick = singleClick;
+	}
+	
+	private ButtonArray getButtonArray()
+	{
+		if(ba == null)
+		{
+			ba = (ButtonArray) ExtendedAttributeParam.findComponentWithInterface(ButtonArray.class);
+		}
+		return ba;
 	}
 	
 	public void setSingleClick(boolean singleClick)
@@ -85,7 +91,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		for(Component c : components)
 		{
 			String text = ((JButtonLengthLimited)c).getFullLengthText();
-			keepsCurrentCollection.add(new KeepSelection(this.path, text));
+			keepsCurrentCollection.add(new KeepSelection(this.path, text, getButtonArray()));
 		}
 	}
 	

@@ -66,13 +66,15 @@ PostWidgetBuildProcessing, ButtonArray
 		PROPERTIES_FILE_ARG_DELIMITER = "@",
 		PROPERTIES_FILE_DELIMITER = "=";
 	
-	public static Dimension
+	private static Dimension
 		DIM_DEFAULT_PIC = new Dimension(279,150),
+		SCALED_DEFAULT_PIC = new Dimension(279, 150),
 		PIC_PAD = new Dimension(5,	20),
 		SCALED_WIDTH_HEIGHT = new Dimension(279, 402),
 		DIM_PIC = new Dimension(
-				JButtonArray.SCALED_WIDTH_HEIGHT.width + PIC_PAD.width,
-				JButtonArray.SCALED_WIDTH_HEIGHT.height + PIC_PAD.height);
+				SCALED_WIDTH_HEIGHT.width + PIC_PAD.width,
+				SCALED_WIDTH_HEIGHT.height + PIC_PAD.height);
+	
 	public static String 
 		DEFAULT_IMG = PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/shapes/Default-Play-Image.xml";
 	
@@ -99,6 +101,11 @@ PostWidgetBuildProcessing, ButtonArray
 		DEFAULT_IMG = fs.getFullPath();
 	}
 	
+	public String getDefaultImagePath()
+	{
+		return DEFAULT_IMG;
+	}
+	
 	public void setSingleClick(boolean singleClick)
 	{
 		for(String key : pathAndMouseAdapter.keySet())
@@ -120,16 +127,34 @@ PostWidgetBuildProcessing, ButtonArray
 	{
 		SCALED_WIDTH_HEIGHT = widthHeight;
 		DIM_PIC = new Dimension(
-				JButtonArray.SCALED_WIDTH_HEIGHT.width + PIC_PAD.width,
-				JButtonArray.SCALED_WIDTH_HEIGHT.height + PIC_PAD.height);
+				SCALED_WIDTH_HEIGHT.width + PIC_PAD.width,
+				SCALED_WIDTH_HEIGHT.height + PIC_PAD.height);
 	}
 	
 	public void setPicturePadWidthHeight(Dimension widthHeight)
 	{
 		PIC_PAD = widthHeight;
 		DIM_PIC = new Dimension(
-				JButtonArray.SCALED_WIDTH_HEIGHT.width + PIC_PAD.width,
-				JButtonArray.SCALED_WIDTH_HEIGHT.height + PIC_PAD.height);
+				SCALED_WIDTH_HEIGHT.width + PIC_PAD.width,
+				SCALED_WIDTH_HEIGHT.height + PIC_PAD.height);
+	}
+	
+	@Override
+	public Dimension getDefaultPicSize() 
+	{
+		return DIM_DEFAULT_PIC;
+	}
+	
+	@Override
+	public Dimension getScaledDefaultPic() 
+	{
+		return SCALED_DEFAULT_PIC;
+	}
+
+	@Override
+	public Dimension getScaledWidthHeight() 
+	{
+		return DIM_PIC;
 	}
 	
 	public void setSkipImageLoading(boolean skip)
