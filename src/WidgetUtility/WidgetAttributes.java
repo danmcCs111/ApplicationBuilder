@@ -31,6 +31,7 @@ import ShapeWidgetComponents.ShapeCreatorToolBarPanel;
 import WidgetComponents.ApplicationLayoutEditor;
 import WidgetComponents.DatabaseResponseNodeTextArea;
 import WidgetComponents.JButtonArray;
+import WidgetComponents.JButtonArrayPicture;
 import WidgetComponents.MenuOption;
 import WidgetComponents.ScheduledCommandExecutionEditor;
 import WidgetComponents.ScheduledCommandList;
@@ -101,6 +102,7 @@ public class WidgetAttributes
 		COMPONENT_CLASSES.add(SystemTray.class);
 		COMPONENT_CLASSES.add(SwappableCollection.class);
 		COMPONENT_CLASSES.add(JButtonArray.class);
+		COMPONENT_CLASSES.add(JButtonArrayPicture.class);
 		COMPONENT_CLASSES.add(MenuOption.class);
 	}
 	//TODO replace :(
@@ -203,10 +205,14 @@ public class WidgetAttributes
 		});
 		EXTENDED_METHODS.put(JButtonArray.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
-				ExtendedAttributeParam.getMethodDefinition(ExtendedArrayProcessingPath.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSwappableHolder.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedTextStripper.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedImageMouseAdapterArray.class, ExtendedMethodArgDef.ImageMouseAdapter.getMethodArgDef())
+		});
+		EXTENDED_METHODS.put(JButtonArrayPicture.class, new String [] {
+				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedTextStripper.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSwappableHolder.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(MenuOption.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
