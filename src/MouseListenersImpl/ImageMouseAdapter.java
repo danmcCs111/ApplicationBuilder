@@ -380,5 +380,4 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 				(int)parentFrame.getBounds().getCenterY());
 	}
 	
-	
 }

@@ -6,8 +6,11 @@ public class JCheckBoxLimited extends JCheckBox
 {
 	private static final long serialVersionUID = 1L;
 	private static final String CHARACTER_LIMIT_TEXT = "..";
+	
 	private int characterLimit = 0;
-	private String fullLengthText;
+	private String 
+		fullLengthText,
+		pathKey;
 	
 	public void setCharacterLimit(int charLimit)
 	{
@@ -17,6 +20,16 @@ public class JCheckBoxLimited extends JCheckBox
 	public String getFullLengthText()
 	{
 		return this.fullLengthText;
+	}
+	
+	public void setPathKey(String pathKey)
+	{
+		this.pathKey = pathKey;
+	}
+	
+	public String getPathKey()
+	{
+		return this.pathKey;
 	}
 	
 	@Override

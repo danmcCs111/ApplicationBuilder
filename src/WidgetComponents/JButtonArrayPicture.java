@@ -17,8 +17,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import ActionListeners.ActionListenerSubTypeExtension;
+import ActionListeners.AddActionSend;
 import ActionListeners.ArrayActionListener;
 import ActionListeners.ConnectedComponent;
+import ActionListenersImpl.AddActionReceive;
 import ActionListenersImpl.NavigationButtonActionListener;
 import ObjectTypeConversion.DirectorySelection;
 import ObjectTypeConversion.FileSelection;
@@ -26,17 +28,19 @@ import Properties.LoggingMessages;
 import Properties.PathUtility;
 import WidgetComponentInterfaces.ButtonArray;
 import WidgetComponentInterfaces.CharacterLimited;
+import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetExtensions.ExtendedStringCollection;
 import WidgetUtility.WidgetBuildController;
 
-public class JButtonArrayPicture extends JPanel implements ButtonArray, ArrayActionListener, CharacterLimited, ActionListenerSubTypeExtension
+public class JButtonArrayPicture extends JPanel implements ButtonArray, ArrayActionListener, CharacterLimited, ActionListenerSubTypeExtension,
+AddActionSend, AddActionReceive, PostWidgetBuildProcessing
 {
 	private static final long serialVersionUID = 1L;
 
 	private static final String 
 		IMAGES_RELATIVE_PATH = "/images/";
 
-	String fileLocation;
+	private String fileLocation;
 	private Image 
 		img;
 	private static Image
@@ -51,15 +55,30 @@ public class JButtonArrayPicture extends JPanel implements ButtonArray, ArrayAct
 		SCALED_WIDTH_HEIGHT = new Dimension(140, 200);
 	
 	private static String keepsFileLocation;
-	private static HashMap<String, ArrayList<AbstractButton>> collectionJButtons = new HashMap<String, ArrayList<AbstractButton>>();
-	private static ArrayList<String> stripFilter = new ArrayList<String>();
-	private JButtonArrayPicture connectedComp;
+	private HashMap<String, ArrayList<JCheckBoxLimited>> collectionJButtons = new HashMap<String, ArrayList<JCheckBoxLimited>>();
+	private ArrayList<String> stripFilter = new ArrayList<String>();
 	private int characterLimit=0;
 	private int columns = 3;
+	private boolean showAll = false;
 	
 	public JButtonArrayPicture()
 	{
-		buildWidgets();
+		
+	}
+	
+	private void buildWidgets()
+	{
+		this.setLayout(new GridLayout(0, this.columns));
+	}
+	
+	public void setShowAll(boolean showAll)
+	{
+		this.showAll = showAll;
+	}
+	
+	public boolean isShowAll()
+	{
+		return this.showAll;
 	}
 	
 	public void setDefaultImageXmlPath(FileSelection fs)
@@ -116,11 +135,6 @@ public class JButtonArrayPicture extends JPanel implements ButtonArray, ArrayAct
 		this.columns = columns;
 	}
 	
-	private void buildWidgets()
-	{
-		this.setLayout(new GridLayout(0, this.columns));
-	}
-	
 	public Image getImg()
 	{
 		if(img == null)
@@ -141,7 +155,7 @@ public class JButtonArrayPicture extends JPanel implements ButtonArray, ArrayAct
 	public void addJButtons(String path, List<String> listOf, int index) 
 	{
 		LoggingMessages.printOut("load buttons." + listOf.size() + " " + index);
-		ArrayList<AbstractButton> jbuts = new ArrayList<AbstractButton>();
+		ArrayList<JCheckBoxLimited> jbuts = new ArrayList<JCheckBoxLimited>();
 		
 		clearJButtons();
 		
@@ -165,7 +179,7 @@ public class JButtonArrayPicture extends JPanel implements ButtonArray, ArrayAct
 						}
 						((JCheckBoxLimited) comp).setText(txt);
 					}
-					jbuts.add((AbstractButton) comp);
+					jbuts.add((JCheckBoxLimited) comp);
 					this.add(comp);
 				}
 			}
@@ -199,6 +213,7 @@ public class JButtonArrayPicture extends JPanel implements ButtonArray, ArrayAct
 				button.setIcon(new ImageIcon(img));
 				button.setText(fileName);
 				button.setToolTipText(fileName);
+				button.setPathKey(path);
 				button.setBorderPainted(true);
 //				button.setName(UrlToValueReader.parse(fileName, path));
 				components.add(button);
@@ -247,15 +262,37 @@ public class JButtonArrayPicture extends JPanel implements ButtonArray, ArrayAct
 	
 	private void rebuildButtons()
 	{
-		int indexPos = NavigationButtonActionListener.getCurPosition();
+		rebuildButtons(false);
+	}
+	private void rebuildButtons(boolean allKeys)
+	{
 		clearJButtons();
-		for(AbstractButton ab : collectionJButtons.get(SwappableCollection.indexPaths.get(indexPos)))
+		
+		if(!allKeys)
 		{
-			if(ab.isVisible())
+			int indexPos = NavigationButtonActionListener.getCurPosition();
+			for(AbstractButton ab : collectionJButtons.get(SwappableCollection.indexPaths.get(indexPos)))
 			{
-				this.add(ab);
+				if(ab.isVisible())
+				{
+					this.add(ab);
+				}
 			}
 		}
+		else
+		{
+			for(String key : collectionJButtons.keySet())
+			{
+				for(AbstractButton ab : collectionJButtons.get(key))
+				{
+					if(ab.isVisible())
+					{
+						this.add(ab);
+					}
+				}
+			}
+		}
+		
 		JFrame f = WidgetBuildController.getInstance().getFrame();
 		f.paintComponents(f.getGraphics());
 	}
@@ -277,6 +314,82 @@ public class JButtonArrayPicture extends JPanel implements ButtonArray, ArrayAct
 	public boolean isHighlightButton(AbstractButton ab) 
 	{
 		return false;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void sendList(ArrayList<?> objs) 
+	{
+		HashMap<String, ArrayList<JCheckBoxLimited>> tmpColl = new HashMap<String, ArrayList<JCheckBoxLimited>>();
+		for(JCheckBoxLimited cbl : (ArrayList<JCheckBoxLimited>)objs)
+		{
+			cbl.setSelected(false);
+			ArrayList<JCheckBoxLimited> tmps;
+			if(!tmpColl.containsKey(cbl.getPathKey()))
+			{
+				tmps = new ArrayList<JCheckBoxLimited>();
+				tmps.add(cbl);
+			}
+			else
+			{
+				tmps = tmpColl.get(cbl.getPathKey());
+				tmps.add(cbl);
+			}
+			
+			tmpColl.put(cbl.getPathKey(), tmps);
+		}
+		
+		for(String key : tmpColl.keySet())
+		{
+			ArrayList<JCheckBoxLimited> tmps;
+			if(collectionJButtons.containsKey(key))
+			{
+				tmps = collectionJButtons.get(key);
+			}
+			else
+			{
+				tmps = new ArrayList<JCheckBoxLimited>();
+			}
+			tmps.addAll(tmpColl.get(key));
+			collectionJButtons.put(key, tmps);
+		}
+		rebuildButtons(isShowAll());
+		
+	}
+
+	@Override
+	public ArrayList<?> getList() 
+	{
+		ArrayList<JCheckBoxLimited> btns = new ArrayList<JCheckBoxLimited>();
+		for(String key : collectionJButtons.keySet())
+		{
+			for(JCheckBoxLimited ab : collectionJButtons.get(key))
+			{
+				if(ab.isSelected())
+				{
+					btns.add(ab);
+				}
+			}
+		}
+		
+		for(JCheckBoxLimited cb : btns)
+		{
+			String key = cb.getPathKey();
+			if(collectionJButtons.get(key).contains(cb))
+			{
+				collectionJButtons.get(key).remove(cb);
+			}
+		}
+		
+		rebuildButtons(isShowAll());
+		
+		return btns;
+	}
+
+	@Override
+	public void postExecute() 
+	{
+		buildWidgets();
 	}
 
 }

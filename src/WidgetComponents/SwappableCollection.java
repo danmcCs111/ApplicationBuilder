@@ -14,6 +14,7 @@ import ActionListenersImpl.NavigationButtonActionListener;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
 import WidgetComponentInterfaces.ButtonArray;
+import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetComponentInterfaces.SearchSubscriber;
 import WidgetExtensions.ExtendedAttributeParam;
 import WidgetExtensions.ExtendedStringCollection;
@@ -21,7 +22,7 @@ import WidgetExtensions.ExtendedStringCollection;
 /**
  * Holds a variable number of Components and controls/rebuilds child JComponents
  */
-public class SwappableCollection extends JPanel implements ExtendedStringCollection, SearchSubscriber, ConnectedComponent
+public class SwappableCollection extends JPanel implements ExtendedStringCollection, SearchSubscriber, ConnectedComponent, PostWidgetBuildProcessing
 {
 	private static final long serialVersionUID = 1880L;
 	
@@ -74,10 +75,7 @@ public class SwappableCollection extends JPanel implements ExtendedStringCollect
 	@Override
 	public void setTextPathComponent(Component c) 
 	{
-		int indexPos = NavigationButtonActionListener.getCurPosition();
 		this.pathTextComponent = c;
-		ButtonArray buttonArray = (ButtonArray) ExtendedAttributeParam.findComponent(JButtonArray.class);
-		buttonArray.addJButtons(indexPaths.get(indexPos), pathAndFileList.get(indexPaths.get(indexPos)), indexPos);
 	}
 
 	@Override
@@ -100,6 +98,14 @@ public class SwappableCollection extends JPanel implements ExtendedStringCollect
 		LoggingMessages.printOut(key);
 		ButtonArray buttonArray = (ButtonArray) ExtendedAttributeParam.findComponentWithInterface(ButtonArray.class);//TODO
 		buttonArray.addJButtons(key, pathAndFileList.get(key), index);
+	}
+
+	@Override
+	public void postExecute() 
+	{
+		int indexPos = NavigationButtonActionListener.getCurPosition();
+		ButtonArray buttonArray = (ButtonArray) ExtendedAttributeParam.findComponentWithInterface(ButtonArray.class);//TODO
+		buttonArray.addJButtons(indexPaths.get(indexPos), pathAndFileList.get(indexPaths.get(indexPos)), indexPos);
 	}
 
 }
