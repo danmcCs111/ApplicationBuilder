@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.swing.AbstractButton;
 
 import Graphics2D.GraphicsUtil;
 
@@ -19,6 +20,7 @@ public interface ButtonArray
 	public Dimension getDefaultPicSize();
 	public Dimension getScaledWidthHeight();
 	public String getDefaultImagePath();
+	public boolean isHighlightButton(AbstractButton ab);
 	
 	default Image getDefaultImage(File defaultImageLocation)
 	{

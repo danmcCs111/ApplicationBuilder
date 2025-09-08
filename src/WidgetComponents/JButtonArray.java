@@ -79,15 +79,15 @@ PostWidgetBuildProcessing, ButtonArray
 	public static String 
 		DEFAULT_IMG = PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/shapes/Default-Play-Image.xml";
 	
-	private static String keepsFileLocation;
-	public static Color []
+	private String keepsFileLocation;
+	public Color []
 		foregroundAndBackgroundColor = new Color [] {new JButton().getForeground(), new JButton().getBackground()},
 		highlightForegroundAndBackgroundColor = new Color [] {foregroundAndBackgroundColor[0], foregroundAndBackgroundColor[1]};
-	private static boolean isHighlight = true;
-	private static JButton highlightButton = null;
-	private static HashMap<String, ArrayList<AbstractButton>> collectionJButtons = new HashMap<String, ArrayList<AbstractButton>>();
-	private static HashMap<String, MouseListener> pathAndMouseAdapter;
-	private static ArrayList<String> stripFilter = new ArrayList<String>();
+	private boolean isHighlight = true;
+	private JButton highlightButton = null;
+	private HashMap<String, ArrayList<AbstractButton>> collectionJButtons = new HashMap<String, ArrayList<AbstractButton>>();
+	private HashMap<String, MouseListener> pathAndMouseAdapter;
+	private ArrayList<String> stripFilter = new ArrayList<String>();
 	private String searchFilterText = "";
 	
 	private int characterLimit=0;
@@ -163,7 +163,7 @@ PostWidgetBuildProcessing, ButtonArray
 		KeepSelection.skip = skip;
 	}
 	
-	public static final ActionListener highlightActionListener = new ActionListener() 
+	public final ActionListener highlightActionListener = new ActionListener() 
 	{
 		@Override
 		public void actionPerformed(ActionEvent e) 
@@ -177,7 +177,7 @@ PostWidgetBuildProcessing, ButtonArray
 		}
 	};
 	
-	public static final ActionListener highlightLabelActionListener = new ActionListener() 
+	public final ActionListener highlightLabelActionListener = new ActionListener() 
 	{
 		@Override
 		public void actionPerformed(ActionEvent e) 
@@ -211,19 +211,19 @@ PostWidgetBuildProcessing, ButtonArray
 		return null;
 	}
 	
-	public static void setHighlight(boolean isHighlight)
+	public void setHighlight(boolean isHighlight)
 	{
-		JButtonArray.isHighlight = isHighlight;
+		this.isHighlight = isHighlight;
 	}
 	
-	public static void setHighlightForegroundColor(Color c)
+	public void setHighlightForegroundColor(Color c)
 	{
-		JButtonArray.highlightForegroundAndBackgroundColor[0] = c;
+		highlightForegroundAndBackgroundColor[0] = c;
 	}
 	
-	public static void setHighlightBackgroundColor(Color c)
+	public void setHighlightBackgroundColor(Color c)
 	{
-		JButtonArray.highlightForegroundAndBackgroundColor[1] = c;
+		highlightForegroundAndBackgroundColor[1] = c;
 	}
 	
 	public void addHighlightButtonActionListener(JButton but)
@@ -303,7 +303,7 @@ PostWidgetBuildProcessing, ButtonArray
 	{
 		for(int i = 0; i < backgroundOrForeground.length; i++)
 		{
-			JButtonArray.foregroundAndBackgroundColor[backgroundOrForeground[i]] = c[i];
+			foregroundAndBackgroundColor[backgroundOrForeground[i]] = c[i];
 		}
 		
 		for(List<AbstractButton> buts : collectionJButtons.values())
@@ -312,21 +312,22 @@ PostWidgetBuildProcessing, ButtonArray
 			{
 				for(int bof : backgroundOrForeground)
 				{
-					if(bof == 1) but.setForeground(JButtonArray.foregroundAndBackgroundColor[bof]);
-					else but.setBackground(JButtonArray.foregroundAndBackgroundColor[bof]);
+					if(bof == 1) but.setForeground(foregroundAndBackgroundColor[bof]);
+					else but.setBackground(foregroundAndBackgroundColor[bof]);
 				}
 			}
 		}
 	}
 	
-	private static void setHighlightForegroundAndBackground(boolean highlight)
+	private void setHighlightForegroundAndBackground(boolean highlight)
 	{
 		Color [] color = highlight ? highlightForegroundAndBackgroundColor : foregroundAndBackgroundColor;
 		highlightButton.setForeground(color[0]);
 		highlightButton.setBackground(color[1]);
 	}
 	
-	public static boolean isHighlightButton(AbstractButton ab)
+	@Override
+	public boolean isHighlightButton(AbstractButton ab)
 	{
 		return highlightButton == ab;
 	}
@@ -537,14 +538,14 @@ PostWidgetBuildProcessing, ButtonArray
 	@Override
 	public void postExecute() //perform mouse listener adapter add as post processing TODO include in xml.
 	{
-		if(JButtonArray.pathAndMouseAdapter == null || JButtonArray.pathAndMouseAdapter.isEmpty())
+		if(pathAndMouseAdapter == null || pathAndMouseAdapter.isEmpty())
 		{
 			return;
 		}
 		for(String key : collectionJButtons.keySet())
 		{
-			LoggingMessages.printOut(key + " " + JButtonArray.pathAndMouseAdapter.size() + " " + collectionJButtons.get(key).size());
-			ImageMouseAdapter ima = (ImageMouseAdapter) JButtonArray.pathAndMouseAdapter.get(key);
+			LoggingMessages.printOut(key + " " + pathAndMouseAdapter.size() + " " + collectionJButtons.get(key).size());
+			ImageMouseAdapter ima = (ImageMouseAdapter) pathAndMouseAdapter.get(key);
 			ima.setupKeepsSelection(collectionJButtons.get(key));
 			
 			outer:
@@ -574,7 +575,7 @@ PostWidgetBuildProcessing, ButtonArray
 	@Override
 	public void setPathAndMouseListenerAdapter(HashMap<String, MouseListener> pathAndMouseAdapter) 
 	{
-		JButtonArray.pathAndMouseAdapter = pathAndMouseAdapter;
+		this.pathAndMouseAdapter = pathAndMouseAdapter;
 	}
 
 	public void adjustVisibility(String searchPattern)//TODO

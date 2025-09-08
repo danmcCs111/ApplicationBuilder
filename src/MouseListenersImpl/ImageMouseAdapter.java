@@ -32,7 +32,6 @@ import Properties.PathUtility;
 import WidgetComponentInterfaces.ButtonArray;
 import WidgetComponentInterfaces.DialogParentReferenceContainer;
 import WidgetComponents.ComboSelectionDialog;
-import WidgetComponents.JButtonArray;
 import WidgetComponents.JButtonLengthLimited;
 import WidgetExtensions.ComboListDialogSelectedListener;
 import WidgetExtensions.ExtendedAttributeParam;
@@ -290,7 +289,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 				picLabel.addMouseListener(mouseDragListener);
 				picLabel.setName(ks.getText());
 				picLabel.addMouseListener(new PicLabelMouseListener(ab, picLabel, singleClick));
-				if(JButtonArray.isHighlightButton(ab))//TODO add interface.?
+				if(ba.isHighlightButton(ab))
 				{
 					PicLabelMouseListener.highLightLabel(ab, true);
 				}

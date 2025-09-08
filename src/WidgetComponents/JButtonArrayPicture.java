@@ -273,4 +273,10 @@ public class JButtonArrayPicture extends JPanel implements ButtonArray, ArrayAct
 		
 	}
 
+	@Override
+	public boolean isHighlightButton(AbstractButton ab) 
+	{
+		return false;
+	}
+
 }
