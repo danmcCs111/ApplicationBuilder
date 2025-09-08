@@ -12,7 +12,6 @@ import ActionListeners.ActionListenerSubTypeExtension;
 import Properties.LoggingMessages;
 import WidgetComponentInterfaces.ButtonArray;
 import WidgetComponents.Direction;
-import WidgetComponents.JButtonArray;
 import WidgetComponents.SwappableCollection;
 import WidgetExtensions.ExtendedAttributeParam;
 
@@ -62,7 +61,7 @@ public class NavigationButtonActionListener implements ActionListener, ActionLis
 		}
 		
 		LoggingMessages.printOut(key);
-		ButtonArray buttonArray = (ButtonArray) ExtendedAttributeParam.findComponent(JButtonArray.class);
+		ButtonArray buttonArray = (ButtonArray) ExtendedAttributeParam.findComponentWithInterface(ButtonArray.class);
 		buttonArray.addJButtons(key, pathAndFileList.get(key), curPosition);
 	}
 	

@@ -562,7 +562,5 @@ PostWidgetBuildProcessing, ButtonArray
 		}
 		rebuildButtons();
 	}
-	
-	
 
 }

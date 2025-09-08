@@ -25,6 +25,22 @@ public interface ExtendedAttributeParam
 		return methodDef;
 	}
 	
+	public static JComponent findComponentWithInterface(Class<?> clazzInterface)
+	{
+		for(WidgetCreatorProperty wcp : WidgetBuildController.getInstance().getWidgetCreatorProperties())
+		{
+			Class<?> tmpClazz = wcp.getInstance().getClass();
+			for(Class<?> clzz : tmpClazz.getInterfaces())
+			{
+				if(clzz.equals(clazzInterface))
+				{
+					return (JComponent) wcp.getInstance();
+				}
+			}
+		}
+		return null;
+	}
+	
 	public static JComponent findComponent(Class<?> clazz)
 	{
 		for(WidgetCreatorProperty wcp : WidgetBuildController.getInstance().getWidgetCreatorProperties())
