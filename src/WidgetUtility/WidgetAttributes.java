@@ -54,6 +54,7 @@ import WidgetExtensionsImpl.ExtendedDatabaseResponseNodeListener;
 import WidgetExtensionsImpl.ExtendedLayoutApplyParent;
 import WidgetExtensionsImpl.ExtendedNewFileActionListener;
 import WidgetExtensionsImpl.ExtendedCommandExecution;
+import WidgetExtensionsImpl.ExtendedConnectedComponent;
 import WidgetExtensionsImpl.ExtendedCsvReader;
 import WidgetExtensionsImpl.ExtendedImageMouseAdapterArray;
 import WidgetExtensionsImpl.ExtendedOpenActionListener;
@@ -214,6 +215,7 @@ public class WidgetAttributes
 		EXTENDED_METHODS.put(JButtonArrayPicture.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedTextStripper.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedConnectedComponent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSwappableHolder.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(MenuOption.class, new String [] {

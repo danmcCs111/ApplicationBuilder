@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,8 +14,10 @@ import java.util.List;
 import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import ActionListeners.ActionListenerSubTypeExtension;
 import ActionListeners.AddActionSend;
@@ -22,6 +25,7 @@ import ActionListeners.ArrayActionListener;
 import ActionListeners.ConnectedComponent;
 import ActionListenersImpl.AddActionReceive;
 import ActionListenersImpl.NavigationButtonActionListener;
+import MouseListenersImpl.ImageMouseAdapter;
 import ObjectTypeConversion.DirectorySelection;
 import ObjectTypeConversion.FileSelection;
 import Properties.LoggingMessages;
@@ -29,17 +33,30 @@ import Properties.PathUtility;
 import WidgetComponentInterfaces.ButtonArray;
 import WidgetComponentInterfaces.CharacterLimited;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
+import WidgetExtensions.ConnectedComponentName;
 import WidgetExtensions.ExtendedStringCollection;
+import WidgetExtensions.OpenActionExtension;
+import WidgetExtensions.SaveActionExtension;
 import WidgetUtility.WidgetBuildController;
 
 public class JButtonArrayPicture extends JPanel implements ButtonArray, ArrayActionListener, CharacterLimited, ActionListenerSubTypeExtension,
-AddActionSend, AddActionReceive, PostWidgetBuildProcessing
+AddActionSend, AddActionReceive,
+OpenActionExtension, SaveActionExtension, 
+ConnectedComponentName,
+PostWidgetBuildProcessing
 {
 	private static final long serialVersionUID = 1L;
 
-	private static final String 
-		IMAGES_RELATIVE_PATH = "/images/";
-
+	public static final String 
+		SAVE_ID = "JButtonArray",
+		CHARACTER_LIMIT_TEXT= "..",
+		IMAGES_RELATIVE_FILE_LOCATION= "/images/",
+		PROPERTIES_FILE_OPEN_TITLE = "Open Properties",
+		PROPERTIES_FILE_OPEN_FILTER = "txt",
+		PROPERTIES_FILE_EXTENSION = "\\.txt",
+		PROPERTIES_FILE_ARG_DELIMITER = "@",
+		PROPERTIES_FILE_DELIMITER = "=";
+	
 	private String fileLocation;
 	private Image 
 		img;
@@ -60,6 +77,7 @@ AddActionSend, AddActionReceive, PostWidgetBuildProcessing
 	private int characterLimit=0;
 	private int columns = 3;
 	private boolean showAll = false;
+	private String connectedComponentName;
 	
 	public JButtonArrayPicture()
 	{
@@ -207,11 +225,15 @@ AddActionSend, AddActionReceive, PostWidgetBuildProcessing
 			for(String fileName: fileNames)
 			{
 				JCheckBoxLimited button = new JCheckBoxLimited();
-				String fileImage = PathUtility.getCurrentDirectory()+PathUtility.removeCurrentWorkingDirectoryFromPath(path)+IMAGES_RELATIVE_PATH+fileName.replaceAll(".url", ".png");
+				String fileImage = PathUtility.getCurrentDirectory() +
+						PathUtility.removeCurrentWorkingDirectoryFromPath(path) +
+						IMAGES_RELATIVE_FILE_LOCATION +
+						fileName.replaceAll(".url", ".png");
 				LoggingMessages.printOut(fileImage);
 				Image img = setupImage(new File(fileImage), new File(DEFAULT_IMG));
 				button.setIcon(new ImageIcon(img));
 				button.setText(fileName);
+				button.setName(fileName);
 				button.setToolTipText(fileName);
 				button.setPathKey(path);
 				button.setBorderPainted(true);
@@ -323,6 +345,7 @@ AddActionSend, AddActionReceive, PostWidgetBuildProcessing
 		HashMap<String, ArrayList<JCheckBoxLimited>> tmpColl = new HashMap<String, ArrayList<JCheckBoxLimited>>();
 		for(JCheckBoxLimited cbl : (ArrayList<JCheckBoxLimited>)objs)
 		{
+			LoggingMessages.printOut(cbl.getPathKey());
 			cbl.setSelected(false);
 			ArrayList<JCheckBoxLimited> tmps;
 			if(!tmpColl.containsKey(cbl.getPathKey()))
@@ -387,9 +410,84 @@ AddActionSend, AddActionReceive, PostWidgetBuildProcessing
 	}
 
 	@Override
+	public void performSave() 
+	{
+		for(String k : collectionJButtons.keySet())
+		{
+			for(JCheckBoxLimited cbl : collectionJButtons.get(k))
+			{
+				//TODO
+				
+			}
+		}
+		
+	}
+
+	@Override
+	public void performOpen() 
+	{
+		HashMap<String, String> props = performPropertiesOpen();
+		ArrayList<JCheckBoxLimited> cbls = new ArrayList<JCheckBoxLimited>();
+		for(String key : props.keySet())
+		{
+			String val = props.get(key);
+			String keyName = key.replaceAll("\\@[0-9]*\\@[0-9]*", "").strip();
+			LoggingMessages.printOut("key: " + keyName + " value: " + val);
+			for(String k : collectionJButtons.keySet())
+			{
+				for(JCheckBoxLimited cbl : collectionJButtons.get(k))
+				{
+					if(cbl.getName().startsWith(keyName) && cbl.getPathKey().startsWith(val))
+					{
+						cbls.add(cbl);
+					}
+				}
+			}
+		}
+		for(JCheckBoxLimited cb : cbls)
+		{
+			String key = cb.getPathKey();
+			if(collectionJButtons.get(key).contains(cb))
+			{
+				collectionJButtons.get(key).remove(cb);
+			}
+		}
+		rebuildButtons(isShowAll());
+		
+		LoggingMessages.printOut(connectedComponentName);
+		AddActionReceive addActionReceive = (AddActionReceive)WidgetBuildController.getInstance().findRefByName(connectedComponentName).getInstance();
+		addActionReceive.sendList(cbls);
+		
+		LoggingMessages.printOut(cbls.size() + "");
+	}
+	private HashMap<String, String> performPropertiesOpen()
+	{
+		HashMap<String, String> props = null;
+		
+		JFileChooser jfc = new JFileChooser();
+		File f = new File(keepsFileLocation);
+		jfc.setFileFilter(new FileNameExtensionFilter(PROPERTIES_FILE_OPEN_TITLE, PROPERTIES_FILE_OPEN_FILTER));
+		jfc.setSelectedFile(f);
+		
+		int choice = jfc.showOpenDialog(WidgetBuildController.getInstance().getFrame());
+		File chosenFile = jfc.getSelectedFile();
+		if(chosenFile != null && choice == JFileChooser.APPROVE_OPTION)
+		{
+			props = PathUtility.readProperties(chosenFile.getAbsolutePath(), PROPERTIES_FILE_DELIMITER);
+		}
+		return props;
+	}
+	
+	@Override
 	public void postExecute() 
 	{
 		buildWidgets();
+	}
+
+	@Override
+	public void setConnectedComponentName(String compName) 
+	{
+		this.connectedComponentName = compName;
 	}
 
 }
