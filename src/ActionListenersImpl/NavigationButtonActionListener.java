@@ -1,19 +1,15 @@
 package ActionListenersImpl;
 
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import ActionListeners.ActionListenerExtension;
 import ActionListeners.ActionListenerSubTypeExtension;
+import ActionListeners.ConnectedComponent;
 import Properties.LoggingMessages;
-import WidgetComponentInterfaces.ButtonArray;
 import WidgetComponents.Direction;
-import WidgetComponents.SwappableCollection;
-import WidgetExtensions.ExtendedAttributeParam;
 
 public class NavigationButtonActionListener implements ActionListener, ActionListenerSubTypeExtension
 {
@@ -21,7 +17,7 @@ public class NavigationButtonActionListener implements ActionListener, ActionLis
 		curPosition = 0, 
 		lastIndex = 0;
 	private static List<ActionListenerExtension> actionListenerExtensions = new ArrayList<ActionListenerExtension>();
-	private static Component connectedComp;
+	private static ConnectedComponent connectedComp;
 	
 	private Direction direction = null;
 	
@@ -46,23 +42,9 @@ public class NavigationButtonActionListener implements ActionListener, ActionLis
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		curPosition = direction.getIndexDirectionNext();
-		LoggingMessages.printOut(curPosition + " " + e.getActionCommand());
-		
-		SwappableCollection comp = (SwappableCollection) connectedComp;
-		HashMap<String, List<String>> pathAndFileList = comp.getPathAndFileList();
-		
-		int index = curPosition;
-		String key = null;
-		java.util.Iterator<String> it = pathAndFileList.keySet().iterator();
-		while(index-- >= 0)
-		{
-			key = it.next();
-		}
-		
-		LoggingMessages.printOut(key);
-		ButtonArray buttonArray = (ButtonArray) ExtendedAttributeParam.findComponentWithInterface(ButtonArray.class);//TODO
-		buttonArray.addJButtons(key, pathAndFileList.get(key), curPosition);
+		curPosition = direction.getIndexDirectionNext(getCurPosition(), getLastIndex());
+		LoggingMessages.printOut(curPosition + " " + e.getActionCommand() + " last index: " + lastIndex);
+		connectedComp.sendIndexUpdate(curPosition);
 	}
 	
 	@Override
@@ -80,7 +62,7 @@ public class NavigationButtonActionListener implements ActionListener, ActionLis
 	}
 	
 	@Override
-	public void setConnectedComp(Component comp) 
+	public void setConnectedComp(ConnectedComponent comp) 
 	{
 		connectedComp = comp;
 	}

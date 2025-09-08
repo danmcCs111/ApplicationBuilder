@@ -16,7 +16,10 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import ActionListeners.ActionListenerSubTypeExtension;
 import ActionListeners.ArrayActionListener;
+import ActionListeners.ConnectedComponent;
+import ActionListenersImpl.NavigationButtonActionListener;
 import ObjectTypeConversion.DirectorySelection;
 import ObjectTypeConversion.FileSelection;
 import Properties.LoggingMessages;
@@ -26,7 +29,7 @@ import WidgetComponentInterfaces.CharacterLimited;
 import WidgetExtensions.ExtendedStringCollection;
 import WidgetUtility.WidgetBuildController;
 
-public class JButtonArrayPicture extends JPanel implements ButtonArray, ArrayActionListener, CharacterLimited
+public class JButtonArrayPicture extends JPanel implements ButtonArray, ArrayActionListener, CharacterLimited, ActionListenerSubTypeExtension
 {
 	private static final long serialVersionUID = 1L;
 
@@ -50,7 +53,9 @@ public class JButtonArrayPicture extends JPanel implements ButtonArray, ArrayAct
 	private static String keepsFileLocation;
 	private static HashMap<String, ArrayList<AbstractButton>> collectionJButtons = new HashMap<String, ArrayList<AbstractButton>>();
 	private static ArrayList<String> stripFilter = new ArrayList<String>();
+	private JButtonArrayPicture connectedComp;
 	private int characterLimit=0;
+	private int columns = 3;
 	
 	public JButtonArrayPicture()
 	{
@@ -106,9 +111,14 @@ public class JButtonArrayPicture extends JPanel implements ButtonArray, ArrayAct
 		keepsFileLocation = directorySelection.getFullPath();
 	}
 	
+	public void setColumnSize(int columns)
+	{
+		this.columns = columns;
+	}
+	
 	private void buildWidgets()
 	{
-		this.setLayout(new GridLayout(0, 3));
+		this.setLayout(new GridLayout(0, this.columns));
 	}
 	
 	public Image getImg()
@@ -132,7 +142,6 @@ public class JButtonArrayPicture extends JPanel implements ButtonArray, ArrayAct
 	{
 		LoggingMessages.printOut("load buttons." + listOf.size() + " " + index);
 		ArrayList<AbstractButton> jbuts = new ArrayList<AbstractButton>();
-		SwappableCollection.indexPos = index;
 		
 		clearJButtons();
 		
@@ -238,8 +247,9 @@ public class JButtonArrayPicture extends JPanel implements ButtonArray, ArrayAct
 	
 	private void rebuildButtons()
 	{
+		int indexPos = NavigationButtonActionListener.getCurPosition();
 		clearJButtons();
-		for(AbstractButton ab : collectionJButtons.get(SwappableCollection.indexPaths.get(SwappableCollection.indexPos)))
+		for(AbstractButton ab : collectionJButtons.get(SwappableCollection.indexPaths.get(indexPos)))
 		{
 			if(ab.isVisible())
 			{
@@ -248,6 +258,19 @@ public class JButtonArrayPicture extends JPanel implements ButtonArray, ArrayAct
 		}
 		JFrame f = WidgetBuildController.getInstance().getFrame();
 		f.paintComponents(f.getGraphics());
+	}
+
+	@Override
+	public void setActionListenerSubTypeExtension(Class<?> clazz, String type) 
+	{
+		//TODO
+	}
+
+	@Override
+	public void setConnectedComp(ConnectedComponent comp) 
+	{
+		ConnectedComponent connectedComp = comp;//TODO
+		
 	}
 
 }

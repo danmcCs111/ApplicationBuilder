@@ -32,11 +32,8 @@ public enum Direction implements ActionListenerExtension
 		return dir;
 	}
 	
-	public int getIndexDirectionNext()
+	public int getIndexDirectionNext(int curPosition, int lastIndex)
 	{
-		int 
-			curPosition = NavigationButtonActionListener.getCurPosition(), 
-			lastIndex = NavigationButtonActionListener.getLastIndex();
 		int 
 			indexEnd = lastIndex,
 			indexReturn = 0;
@@ -65,7 +62,10 @@ public enum Direction implements ActionListenerExtension
 	@Override
 	public void actionListenerEvent() 
 	{
-		NavigationButtonActionListener.setCurPosition(getIndexDirectionNext());
+		int index = getIndexDirectionNext(
+				NavigationButtonActionListener.getCurPosition(), 
+				NavigationButtonActionListener.getLastIndex());
+		NavigationButtonActionListener.setCurPosition(index);
 	}
 
 	@Override

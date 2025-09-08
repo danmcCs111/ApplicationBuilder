@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import ActionListeners.ArrayActionListener;
+import ActionListenersImpl.NavigationButtonActionListener;
 import MouseListenersImpl.ImageMouseAdapter;
 import MouseListenersImpl.PicLabelMouseListener;
 import ObjectTypeConversion.DirectorySelection;
@@ -241,7 +242,7 @@ PostWidgetBuildProcessing, ButtonArray
 	private void rebuildButtons()
 	{
 		clearJButtons();
-		for(AbstractButton ab : collectionJButtons.get(SwappableCollection.indexPaths.get(SwappableCollection.indexPos)))
+		for(AbstractButton ab : collectionJButtons.get(SwappableCollection.indexPaths.get(NavigationButtonActionListener.getCurPosition())))
 		{
 			if(ab.isVisible())
 			{
@@ -255,10 +256,11 @@ PostWidgetBuildProcessing, ButtonArray
 	@Override
 	public void addActionListener(ActionListener actionListener) 
 	{
+		int indexPos = NavigationButtonActionListener.getCurPosition();
 		this.actionListener = actionListener;
-		if(collectionJButtons.size()-1 >= SwappableCollection.indexPos)
+		if(collectionJButtons.size()-1 >= indexPos)
 		{
-			addActionListeners(collectionJButtons.get(SwappableCollection.indexPaths.get(SwappableCollection.indexPos)));
+			addActionListeners(collectionJButtons.get(SwappableCollection.indexPaths.get(indexPos)));
 		}
 	}
 	
@@ -334,7 +336,6 @@ PostWidgetBuildProcessing, ButtonArray
 	{
 		LoggingMessages.printOut("load buttons." + listOf.size() + " " + index);
 		ArrayList<AbstractButton> jbuts = new ArrayList<AbstractButton>();
-		SwappableCollection.indexPos = index;
 		
 		clearJButtons();
 		
@@ -406,7 +407,8 @@ PostWidgetBuildProcessing, ButtonArray
 	@Override
 	public void performSave() 
 	{
-		for(MouseListener ml : collectionJButtons.get(SwappableCollection.indexPaths.get(SwappableCollection.indexPos)).get(0).getMouseListeners())
+		int indexPos = NavigationButtonActionListener.getCurPosition();
+		for(MouseListener ml : collectionJButtons.get(SwappableCollection.indexPaths.get(indexPos)).get(0).getMouseListeners())
 		{
 			if(ml instanceof ImageMouseAdapter)
 			{
@@ -483,7 +485,8 @@ PostWidgetBuildProcessing, ButtonArray
 	
 	public ImageMouseAdapter getAMouseListener() 
 	{
-		for(MouseListener ml : collectionJButtons.get(SwappableCollection.indexPaths.get(SwappableCollection.indexPos)).get(0).getMouseListeners())
+		int indexPos = NavigationButtonActionListener.getCurPosition();
+		for(MouseListener ml : collectionJButtons.get(SwappableCollection.indexPaths.get(indexPos)).get(0).getMouseListeners())
 		{
 			if(ml instanceof ImageMouseAdapter)
 			{

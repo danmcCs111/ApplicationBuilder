@@ -9,7 +9,9 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
+import ActionListeners.ConnectedComponent;
 import ActionListenersImpl.NavigationButtonActionListener;
+import Properties.LoggingMessages;
 import Properties.PathUtility;
 import WidgetComponentInterfaces.ButtonArray;
 import WidgetComponentInterfaces.SearchSubscriber;
@@ -19,11 +21,10 @@ import WidgetExtensions.ExtendedStringCollection;
 /**
  * Holds a variable number of Components and controls/rebuilds child JComponents
  */
-public class SwappableCollection extends JPanel implements ExtendedStringCollection, SearchSubscriber
+public class SwappableCollection extends JPanel implements ExtendedStringCollection, SearchSubscriber, ConnectedComponent
 {
 	private static final long serialVersionUID = 1880L;
 	
-	public static int indexPos=0;
 	public static ArrayList<String> indexPaths = new ArrayList<String>();
 	
 	//conceptually holding a collection of components to be swapped/redrawn
@@ -73,8 +74,8 @@ public class SwappableCollection extends JPanel implements ExtendedStringCollect
 	@Override
 	public void setTextPathComponent(Component c) 
 	{
+		int indexPos = NavigationButtonActionListener.getCurPosition();
 		this.pathTextComponent = c;
-		indexPos = 0;
 		ButtonArray buttonArray = (ButtonArray) ExtendedAttributeParam.findComponent(JButtonArray.class);
 		buttonArray.addJButtons(indexPaths.get(indexPos), pathAndFileList.get(indexPaths.get(indexPos)), indexPos);
 	}
@@ -84,6 +85,21 @@ public class SwappableCollection extends JPanel implements ExtendedStringCollect
 	{
 		JButtonArray buttonArray = (JButtonArray) ExtendedAttributeParam.findComponent(JButtonArray.class);
 		buttonArray.adjustVisibility(searchPattern);
+	}
+
+	@Override
+	public void sendIndexUpdate(int index) 
+	{
+		String key = null;
+		java.util.Iterator<String> it = pathAndFileList.keySet().iterator();
+		while(index-- >= 0)
+		{
+			key = it.next();
+		}
+		
+		LoggingMessages.printOut(key);
+		ButtonArray buttonArray = (ButtonArray) ExtendedAttributeParam.findComponentWithInterface(ButtonArray.class);//TODO
+		buttonArray.addJButtons(key, pathAndFileList.get(key), index);
 	}
 
 }

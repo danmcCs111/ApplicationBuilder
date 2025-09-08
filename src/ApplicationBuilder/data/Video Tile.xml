@@ -9,6 +9,16 @@
 					</JPanel>
 				</SwappableCollection>
 			</JScrollPane>
+			<JPanel extendedLayoutApplyParent="East" setBackground="204, 255, 204" setLayout="java.awt.BorderLayout" >
+				<JPanel extendedLayoutApplyParent="Center" setLayout="GridLayout" >
+					<JButton extendedLayoutApplyParent="" extendedActionListenerConnectedComponent="channels" addActionListener="ActionListenersImpl.NavigationButtonActionListener" extendedActionListenerSubType="WidgetComponents.Direction@FORWARD" setText="&gt;" >
+					</JButton>
+					<JButton extendedLayoutApplyParent="" extendedActionListenerConnectedComponent="channels" addActionListener="ActionListenersImpl.NavigationButtonActionListener" extendedActionListenerSubType="WidgetComponents.Direction@FORWARD" setText="&lt;" >
+					</JButton>
+				</JPanel>
+				<JButtonArrayPicture setColumns="1" setCharacterLimit="35" extendedLayoutApplyParent="East" extendedTextStripper="Watch @ Online for Free _ The Roku Channel _ Roku@ - YouTube@ - Prime Video@Prime Video- @1_@.url" setDefaultImageXmlPath="/src/ApplicationBuilder/shapes/Default-Play-Image.xml" setScaledWidthHeight="140, 200" setScaledDefaultPic="140, 75" setExpandedArrangementFileRelativeLocation="/src/ApplicationBuilder/data/ " setName="channelsSelect" >
+				</JButtonArrayPicture>
+			</JPanel>
 		</JPanel>
 		<JPanel extendedLayoutApplyParent="South" setBackground="204, 255, 204" setLayout="java.awt.BorderLayout" >
 			<JButton addActionListener="ActionListenersImpl.LaunchActionListener" extendedLayoutApplyParent="Center" setBackground="175, 204, 175" setForeground="119, 5, 6" setName="closeLaunchAction" setPreferredSize="60, 25" setText=" X Close" setToolTipText="close browser" >
@@ -19,11 +29,11 @@
 			</JLabel>
 		</JPanel>
 		<JPanel extendedLayoutApplyParent="West" setBackground="204, 255, 204" setLayout="java.awt.BorderLayout" >
-			<JButton addActionListener="ActionListenersImpl.NavigationButtonActionListener" extendedActionListenerConnectedComponent="WidgetComponents.SwappableCollection" extendedActionListenerSubType="WidgetComponents.Direction@BACKWARD" extendedLayoutApplyParent="North" setText="[&lt;]" >
+			<JButton addActionListener="ActionListenersImpl.NavigationButtonActionListener" extendedActionListenerConnectedComponent="swapVideos" extendedActionListenerSubType="WidgetComponents.Direction@BACKWARD" extendedLayoutApplyParent="North" setText="[&lt;]" >
 			</JButton>
 		</JPanel>
 		<JPanel extendedLayoutApplyParent="East" setBackground="204, 255, 204" setLayout="java.awt.BorderLayout" >
-			<JButton addActionListener="ActionListenersImpl.NavigationButtonActionListener" extendedActionListenerConnectedComponent="WidgetComponents.SwappableCollection" extendedActionListenerSubType="WidgetComponents.Direction@FORWARD" extendedLayoutApplyParent="North" setText="[&gt;]..." >
+			<JButton addActionListener="ActionListenersImpl.NavigationButtonActionListener" extendedActionListenerConnectedComponent="swapVideos" extendedActionListenerSubType="WidgetComponents.Direction@FORWARD" extendedLayoutApplyParent="North" setText="[&gt;]..." >
 			</JButton>
 		</JPanel>
 		<JMenuBar extendedSetJMenuBarParent="" >
