@@ -89,7 +89,7 @@ public class CommandBuild
 	
 	public String [] getArgs()
 	{
-		boolean isWindows = System.getProperty("os.name").startsWith("Windows");
+		boolean isWindows = System.getProperty("os.name").contains("Windows");
 		
 		if(commandLineOptions == null || parameters == null)
 		{
