@@ -11,6 +11,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -85,7 +86,7 @@ PostWidgetBuildProcessing, ButtonArray
 		highlightForegroundAndBackgroundColor = new Color [] {foregroundAndBackgroundColor[0], foregroundAndBackgroundColor[1]};
 	private boolean isHighlight = true;
 	private JButton highlightButton = null;
-	private HashMap<String, ArrayList<AbstractButton>> collectionJButtons = new HashMap<String, ArrayList<AbstractButton>>();
+	private HashMap<String, ArrayList<JButtonLengthLimited>> collectionJButtons = new HashMap<String, ArrayList<JButtonLengthLimited>>();
 	private HashMap<String, MouseListener> pathAndMouseAdapter;
 	private ArrayList<String> stripFilter = new ArrayList<String>();
 	private String searchFilterText = "";
@@ -264,17 +265,14 @@ PostWidgetBuildProcessing, ButtonArray
 		}
 	}
 	
-	private void addActionListeners(ArrayList<AbstractButton> jButtons)
+	private void addActionListeners(ArrayList<JButtonLengthLimited> jButtons)
 	{
 		if(this.actionListener != null && !jButtons.isEmpty())
 		{
-			for(Component button : jButtons)
+			for(JButtonLengthLimited button : jButtons)
 			{
-				if(button instanceof AbstractButton)
-				{
-					((AbstractButton)button).addActionListener(actionListener);
-					((AbstractButton)button).addActionListener(highlightLabelActionListener);
-				}
+				button.addActionListener(actionListener);
+				button.addActionListener(highlightLabelActionListener);
 			}
 		}
 	}
@@ -306,7 +304,7 @@ PostWidgetBuildProcessing, ButtonArray
 			foregroundAndBackgroundColor[backgroundOrForeground[i]] = c[i];
 		}
 		
-		for(List<AbstractButton> buts : collectionJButtons.values())
+		for(List<JButtonLengthLimited> buts : collectionJButtons.values())
 		{
 			for(Component but : buts)
 			{
@@ -336,7 +334,7 @@ PostWidgetBuildProcessing, ButtonArray
 	public void addJButtons(String path, List<String> listOf, int index)
 	{
 		LoggingMessages.printOut("load buttons." + listOf.size() + " " + index);
-		ArrayList<AbstractButton> jbuts = new ArrayList<AbstractButton>();
+		ArrayList<JButtonLengthLimited> jbuts = new ArrayList<JButtonLengthLimited>();
 		
 		clearJButtons();
 		
@@ -344,30 +342,26 @@ PostWidgetBuildProcessing, ButtonArray
 		{
 			for(Component comp : FileListOptionGenerator.buildComponents(path, listOf, JButtonLengthLimited.class))
 			{
-				if(comp instanceof Component)
+				JButtonLengthLimited jbl = (JButtonLengthLimited)comp;
+				String txt = jbl.getFullLengthText();
+				
+				for(String s : stripFilter)
 				{
-					if(comp instanceof JButtonLengthLimited)
-					{
-						String txt = ((JButtonLengthLimited) comp).getFullLengthText();
-						
-						for(String s : stripFilter)
-						{
-							txt = txt.replace(s, "");
-						}
-						if(characterLimit != 0)
-						{
-							((JButtonLengthLimited) comp).setCharacterLimit(characterLimit);
-						}
-						((JButtonLengthLimited) comp).setText(txt);
-					}
-					comp.setForeground(foregroundAndBackgroundColor[0]);
-					comp.setBackground(foregroundAndBackgroundColor[1]);
-					addHighlightButtonActionListener((JButton)comp);
-					jbuts.add((JButton) comp);
-					this.add(comp);
+					txt = txt.replace(s, "");
 				}
+				if(characterLimit != 0)
+				{
+					jbl.setCharacterLimit(characterLimit);
+				}
+				jbl.setText(txt);
+				comp.setForeground(foregroundAndBackgroundColor[0]);
+				comp.setBackground(foregroundAndBackgroundColor[1]);
+				addHighlightButtonActionListener(jbl);
+				jbuts.add(jbl);
+				this.add(comp);
 			}
 			addActionListeners(jbuts);
+			Collections.sort(jbuts, new JButtonLengthLimited());
 			collectionJButtons.put(path, jbuts);
 			
 			SwappableCollection.indexPaths.add(path);

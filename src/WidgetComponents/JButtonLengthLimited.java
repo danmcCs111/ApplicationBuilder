@@ -1,8 +1,10 @@
 package WidgetComponents;
 
+import java.util.Comparator;
+
 import javax.swing.JButton;
 
-public class JButtonLengthLimited extends JButton 
+public class JButtonLengthLimited extends JButton implements Comparator<JButtonLengthLimited>
 {
 	private static final String CHARACTER_LIMIT_TEXT = "..";
 	private static final long serialVersionUID = 1L;
@@ -27,6 +29,12 @@ public class JButtonLengthLimited extends JButton
 			? text.substring(0, this.characterLimit-CHARACTER_LIMIT_TEXT.length()) + CHARACTER_LIMIT_TEXT
 			: text;
 		super.setText(t);
+	}
+
+	@Override
+	public int compare(JButtonLengthLimited o1, JButtonLengthLimited o2) 
+	{
+		return o1.getText().compareTo(o2.getText());
 	}
 
 }

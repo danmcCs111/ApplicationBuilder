@@ -30,7 +30,7 @@
 				</JButton>
 				<JButton extendedLayoutApplyParent="" extendedSaveActionListener="channelsSelect" setBackground="175, 204, 175" setForeground="119, 5, 6" setName="saveAction" setPreferredSize="80, 25" setText="Save" setToolTipText="Save Selections" >
 				</JButton>
-				<JButton extendedLayoutApplyParent="" extendedClearActionListener="channelsSelect" setBackground="175, 204, 175" setForeground="119, 5, 6" setName="clearAction" setPreferredSize="80, 25" setText="Clear All" setToolTipText="Clear All Selections" >
+				<JButton extendedLayoutApplyParent="" extendedClearActionListener="channelsSelect" setBackground="175, 204, 175" setForeground="119, 5, 6" setName="clearAction" setPreferredSize="85, 25" setText="Clear All" setToolTipText="Clear All Selections" >
 				</JButton>
 			</JPanel>
 		</JPanel>

@@ -8,6 +8,7 @@ import java.awt.Point;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -195,6 +196,7 @@ PostWidgetBuildProcessing
 				jbuts.add((JCheckBoxLimited) comp);
 				this.add(comp);
 			}
+			Collections.sort(jbuts, new JCheckBoxLimited());
 			collectionJButtons.put(path, jbuts);
 			
 			SwappableCollection.indexPaths.add(path);
@@ -351,7 +353,6 @@ PostWidgetBuildProcessing
 				tmps = tmpColl.get(cbl.getPathKey());
 				tmps.add(cbl);
 			}
-			
 			tmpColl.put(cbl.getPathKey(), tmps);
 		}
 		
@@ -367,6 +368,7 @@ PostWidgetBuildProcessing
 				tmps = new ArrayList<JCheckBoxLimited>();
 			}
 			tmps.addAll(tmpColl.get(key));
+			Collections.sort(tmps, new JCheckBoxLimited());
 			collectionJButtons.put(key, tmps);
 		}
 		rebuildButtons(isShowAll());
