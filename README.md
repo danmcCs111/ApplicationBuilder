@@ -1,6 +1,7 @@
-Keep Application functionality behind an editor.
-* add editor for listeners as well.
 
+* added video list visual selection creator
+
+<img width="1897" height="1130" alt="Screenshot 2025-09-08 204044" src="https://github.com/user-attachments/assets/03053c18-1b38-4945-9c87-8bf4ae144cdf" />
 
 <img width="3434" height="1428" alt="image" src="https://github.com/user-attachments/assets/88d3ecb1-0ee7-4663-be15-70fdce0e638a" />
 
