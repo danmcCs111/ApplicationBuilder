@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.AbstractButton;
-import javax.swing.JMenuItem;
 
 import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetExtensions.OpenActionExtension;
@@ -19,7 +18,7 @@ public class ExtendedOpenActionListener implements ExtendedAttributeStringParam
 	{
 		String name = arg0;
 		Object m = widgetProperties.getInstance();
-		if(m instanceof JMenuItem)
+		if(m instanceof AbstractButton)
 		{
 			AbstractButton ab = (AbstractButton) m;
 			ab.addActionListener(new ActionListener() {

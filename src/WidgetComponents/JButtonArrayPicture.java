@@ -428,6 +428,9 @@ PostWidgetBuildProcessing
 	{
 		HashMap<String, String> props = performPropertiesOpen();
 		ArrayList<JCheckBoxLimited> cbls = new ArrayList<JCheckBoxLimited>();
+		if(props == null)
+			return;
+		
 		for(String key : props.keySet())
 		{
 			String val = props.get(key);

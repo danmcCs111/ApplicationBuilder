@@ -1,4 +1,9 @@
-meth-gator@100@600=./VideoLaunchFiles/Tubi
-troll-2@300@625=./VideoLaunchFiles/Tubi
+troll-2@100@600=./VideoLaunchFiles/Tubi
+mortal-game@300@625=./VideoLaunchFiles/Tubi
 vampire-s-kiss@500@650=./VideoLaunchFiles/Tubi
-mortal-game@700@675=./VideoLaunchFiles/Tubi
+meth-gator@700@675=./VideoLaunchFiles/Tubi
+Night Of The Living Dead (1990)@900@700=./VideoLaunchFiles/YoutubeFreeMovies2
+Scary Movie (MIRAMAX)@1100@725=./VideoLaunchFiles/YoutubeFreeMovies2
+Scary Movie 3@1300@750=./VideoLaunchFiles/YoutubeFreeMovies2
+Scary Movie 5@1500@775=./VideoLaunchFiles/YoutubeFreeMovies2
+Snowpiercer@1700@800=./VideoLaunchFiles/YoutubeFreeMovies2

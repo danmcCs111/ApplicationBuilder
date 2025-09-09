@@ -1,21 +1,15 @@
 package WidgetUtility;
 
-import java.awt.Image;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.AbstractButton;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 
-import Properties.LoggingMessages;
 import Properties.PathUtility;
 import Properties.UrlToValueReader;
 import WidgetComponents.JButtonLengthLimited;
-import WidgetComponents.JCheckBoxLimited;
 
 public class FileListOptionGenerator 
 {

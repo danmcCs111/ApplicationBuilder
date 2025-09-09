@@ -124,6 +124,8 @@ public class WidgetAttributes
 				ExtendedAttributeParam.getMethodDefinition(ExtendedActionListenerSubType.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedAddActionSendReceive.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedActionListenerConnectedComponent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedOpenActionListener.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSaveActionListener.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedCommandExecution.class, ExtendedMethodArgDef.CommandBuildSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedScheduledCommandStartActionListener.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
