@@ -48,6 +48,7 @@ import WidgetExtensionsImpl.ExtendedAddActionSendReceive;
 import WidgetExtensionsImpl.ExtendedCsvAddSubscriber;
 import WidgetExtensionsImpl.ExtendedArrayProcessingPath;
 import WidgetExtensionsImpl.ExtendedCalculationPad;
+import WidgetExtensionsImpl.ExtendedClearActionListener;
 import WidgetExtensionsImpl.ExtendedCloseActionListener;
 import WidgetExtensionsImpl.ExtendedCloseAllActionListener;
 import WidgetExtensionsImpl.ExtendedDatabaseResponseNodeListener;
@@ -126,6 +127,7 @@ public class WidgetAttributes
 				ExtendedAttributeParam.getMethodDefinition(ExtendedActionListenerConnectedComponent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedOpenActionListener.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSaveActionListener.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedClearActionListener.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedCommandExecution.class, ExtendedMethodArgDef.CommandBuildSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedScheduledCommandStartActionListener.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});

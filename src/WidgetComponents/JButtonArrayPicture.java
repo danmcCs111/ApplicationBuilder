@@ -30,6 +30,7 @@ import Properties.PathUtility;
 import WidgetComponentInterfaces.ButtonArray;
 import WidgetComponentInterfaces.CharacterLimited;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
+import WidgetExtensions.ClearActionExtension;
 import WidgetExtensions.ConnectedComponentName;
 import WidgetExtensions.ExtendedStringCollection;
 import WidgetExtensions.OpenActionExtension;
@@ -38,7 +39,7 @@ import WidgetUtility.WidgetBuildController;
 
 public class JButtonArrayPicture extends JPanel implements ButtonArray, ArrayActionListener, CharacterLimited, 
 AddActionSend, AddActionReceive,
-OpenActionExtension, SaveActionExtension, 
+OpenActionExtension, SaveActionExtension, ClearActionExtension,
 ConnectedComponentName,
 PostWidgetBuildProcessing
 {
@@ -399,6 +400,25 @@ PostWidgetBuildProcessing
 		rebuildButtons(isShowAll());
 		
 		return btns;
+	}
+	
+	@Override
+	public void performClear() 
+	{
+		ArrayList<JCheckBoxLimited> cbls = new ArrayList<JCheckBoxLimited>();
+		for(String key : collectionJButtons.keySet())
+		{
+			for(JCheckBoxLimited cbl : collectionJButtons.get(key))
+			{
+				cbls.add(cbl);
+			}
+		}
+		collectionJButtons.clear();
+		
+		AddActionReceive addActionReceive = (AddActionReceive)WidgetBuildController.getInstance().findRefByName(connectedComponentName).getInstance();
+		addActionReceive.sendList(cbls);
+		
+		rebuildButtons(isShowAll());
 	}
 
 	@Override
