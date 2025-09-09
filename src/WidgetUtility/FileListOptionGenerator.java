@@ -1,18 +1,26 @@
 package WidgetUtility;
 
+import java.awt.Image;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.AbstractButton;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 
+import Properties.LoggingMessages;
 import Properties.PathUtility;
 import Properties.UrlToValueReader;
 import WidgetComponents.JButtonLengthLimited;
+import WidgetComponents.JCheckBoxLimited;
 
 public class FileListOptionGenerator 
 {
+	private static final String IMAGES_RELATIVE_FILE_LOCATION= "/images/";
+	
 	/**
 	 * @param path (the directory to collect)
 	 * @param filter (the filename extension filter)
@@ -47,9 +55,38 @@ public class FileListOptionGenerator
 				components.add(button);
 			}
 		}
+//		else if(componentType.equals(JCheckBoxLimited.class))
+//		{
+//			for(String fileName: fileNames)
+//			{
+//				JCheckBoxLimited button = new JCheckBoxLimited();
+//				String fileImage = PathUtility.getCurrentDirectory() +
+//						PathUtility.removeCurrentWorkingDirectoryFromPath(path) +
+//						IMAGES_RELATIVE_FILE_LOCATION +
+//						fileName.replaceAll(".url", ".png");
+//				LoggingMessages.printOut(fileImage);
+//				Image img = setupImage(new File(fileImage), new File(DEFAULT_IMG));
+//				button.setIcon(new ImageIcon(img));
+//				button.setText(fileName);
+////				button.setName(fileName);
+//				button.setToolTipText(fileName);
+//				button.setPathKey(path);
+//				button.setBorderPainted(true);
+//				button.setName(UrlToValueReader.parse(fileName, path));
+//				components.add(button);
+//			}
+//		}
 		return components;
 	}
 	
+//	public static List<AbstractButton> addIconToComponents(List<AbstractButton> components)
+//	{
+//		for(AbstractButton com : components)
+//		{
+//			com.setIcon(null);
+//		}
+//	}
+//	
 	public static void addActionListenerToAll(ActionListener actionListener, List<JComponent> components)
 	{
 		for(JComponent component : components)

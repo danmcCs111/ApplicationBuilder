@@ -1,0 +1,4 @@
+meth-gator@100@600=./VideoLaunchFiles/Tubi
+troll-2@300@625=./VideoLaunchFiles/Tubi
+vampire-s-kiss@500@650=./VideoLaunchFiles/Tubi
+mortal-game@700@675=./VideoLaunchFiles/Tubi

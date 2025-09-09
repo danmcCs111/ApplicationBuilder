@@ -4,8 +4,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,13 +19,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import ActionListeners.ActionListenerSubTypeExtension;
 import ActionListeners.AddActionSend;
 import ActionListeners.ArrayActionListener;
-import ActionListeners.ConnectedComponent;
 import ActionListenersImpl.AddActionReceive;
 import ActionListenersImpl.NavigationButtonActionListener;
-import MouseListenersImpl.ImageMouseAdapter;
 import ObjectTypeConversion.DirectorySelection;
 import ObjectTypeConversion.FileSelection;
 import Properties.LoggingMessages;
@@ -39,7 +36,7 @@ import WidgetExtensions.OpenActionExtension;
 import WidgetExtensions.SaveActionExtension;
 import WidgetUtility.WidgetBuildController;
 
-public class JButtonArrayPicture extends JPanel implements ButtonArray, ArrayActionListener, CharacterLimited, ActionListenerSubTypeExtension,
+public class JButtonArrayPicture extends JPanel implements ButtonArray, ArrayActionListener, CharacterLimited, 
 AddActionSend, AddActionReceive,
 OpenActionExtension, SaveActionExtension, 
 ConnectedComponentName,
@@ -62,6 +59,8 @@ PostWidgetBuildProcessing
 		img;
 	private static Image
 		defaultImg;
+	private Point saveIncPoint = new Point(100, 0);
+	private Point saveStartLocation = new Point(100, 700);
 	
 	public static String 
 		DEFAULT_IMG = PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/shapes/Default-Play-Image.xml";
@@ -87,6 +86,16 @@ PostWidgetBuildProcessing
 	private void buildWidgets()
 	{
 		this.setLayout(new GridLayout(0, this.columns));
+	}
+	
+	public void setSaveIncPoint(Point saveIncPoint)
+	{
+		this.saveIncPoint = saveIncPoint;
+	}
+	
+	public void setSaveStartLocation(Point saveStartLocation)
+	{
+		this.saveStartLocation = saveStartLocation;
 	}
 	
 	public void setShowAll(boolean showAll)
@@ -181,25 +190,9 @@ PostWidgetBuildProcessing
 		{
 			for(Component comp : buildComponents(path, listOf))
 			{
-				if(comp instanceof Component)
-				{
-					if(comp instanceof JCheckBoxLimited)
-					{
-						String txt = ((JCheckBoxLimited) comp).getFullLengthText();
-						
-						for(String s : stripFilter)
-						{
-							txt = txt.replace(s, "");
-						}
-						if(characterLimit != 0)
-						{
-							((JCheckBoxLimited) comp).setCharacterLimit(characterLimit);
-						}
-						((JCheckBoxLimited) comp).setText(txt);
-					}
-					jbuts.add((JCheckBoxLimited) comp);
-					this.add(comp);
-				}
+				filterTextOnComponent((JCheckBoxLimited)comp);
+				jbuts.add((JCheckBoxLimited) comp);
+				this.add(comp);
 			}
 			collectionJButtons.put(path, jbuts);
 			
@@ -218,32 +211,44 @@ PostWidgetBuildProcessing
 		f.paintComponents(f.getGraphics());
 	}
 	
-	public List<JComponent> buildComponents(String path, List<String> fileNames)
+	private void filterTextOnComponent(JCheckBoxLimited comp)
 	{
-		List<JComponent> components = new ArrayList<JComponent>();
+		String txt = comp.getFullLengthText();
+		
+		for(String s : stripFilter)
 		{
-			for(String fileName: fileNames)
-			{
-				JCheckBoxLimited button = new JCheckBoxLimited();
-				String fileImage = PathUtility.getCurrentDirectory() +
-						PathUtility.removeCurrentWorkingDirectoryFromPath(path) +
-						IMAGES_RELATIVE_FILE_LOCATION +
-						fileName.replaceAll(".url", ".png");
-				LoggingMessages.printOut(fileImage);
-				Image img = setupImage(new File(fileImage), new File(DEFAULT_IMG));
-				button.setIcon(new ImageIcon(img));
-				button.setText(fileName);
-				button.setName(fileName);
-				button.setToolTipText(fileName);
-				button.setPathKey(path);
-				button.setBorderPainted(true);
-//				button.setName(UrlToValueReader.parse(fileName, path));
-				components.add(button);
-			}
+			txt = txt.replace(s, "");
+		}
+		if(characterLimit != 0)
+		{
+			comp.setCharacterLimit(characterLimit);
+		}
+		comp.setText(txt);
+	}
+	
+	private ArrayList<JComponent> buildComponents(String path, List<String> fileNames)
+	{
+		ArrayList<JComponent> components = new ArrayList<JComponent>();
+		for(String fileName: fileNames)
+		{
+			JCheckBoxLimited button = new JCheckBoxLimited();
+			String fileImage = PathUtility.getCurrentDirectory() +
+					PathUtility.removeCurrentWorkingDirectoryFromPath(path) +
+					IMAGES_RELATIVE_FILE_LOCATION +
+					fileName.replaceAll(".url", ".png");
+			LoggingMessages.printOut(fileImage);
+			Image img = setupImage(new File(fileImage), new File(DEFAULT_IMG));
+			button.setIcon(new ImageIcon(img));
+			button.setText(fileName);
+			button.setName(fileName);
+			button.setToolTipText(fileName);
+			button.setPathKey(path);
+			button.setBorderPainted(true);
+			components.add(button);
 		}
 		return components;
 	}
-
+	
 	@Override
 	public void addActionListener(ActionListener actionListener) 
 	{
@@ -317,19 +322,6 @@ PostWidgetBuildProcessing
 		
 		JFrame f = WidgetBuildController.getInstance().getFrame();
 		f.paintComponents(f.getGraphics());
-	}
-
-	@Override
-	public void setActionListenerSubTypeExtension(Class<?> clazz, String type) 
-	{
-		//TODO
-	}
-
-	@Override
-	public void setConnectedComp(ConnectedComponent comp) 
-	{
-		ConnectedComponent connectedComp = comp;//TODO
-		
 	}
 
 	@Override
@@ -412,15 +404,23 @@ PostWidgetBuildProcessing
 	@Override
 	public void performSave() 
 	{
+		ArrayList<String[]> allToSave = new ArrayList<String[]>();
+		int 
+			x = saveStartLocation.x,
+			y = saveStartLocation.y;
+		
 		for(String k : collectionJButtons.keySet())
 		{
 			for(JCheckBoxLimited cbl : collectionJButtons.get(k))
 			{
-				//TODO
-				
+				allToSave.add(new String[] {cbl.getFullLengthText()+"@"+x+"@"+y, cbl.getPathKey()});
+				x+=saveIncPoint.x;
+				y+=saveIncPoint.y;
 			}
 		}
+		String [] [] props = allToSave.toArray(new String[][] {});
 		
+		performPropertiesSave(props);
 	}
 
 	@Override
@@ -476,6 +476,21 @@ PostWidgetBuildProcessing
 			props = PathUtility.readProperties(chosenFile.getAbsolutePath(), PROPERTIES_FILE_DELIMITER);
 		}
 		return props;
+	}
+	
+	private void performPropertiesSave(String [] [] props)
+	{
+		JFileChooser jfc = new JFileChooser();
+		File f = new File(keepsFileLocation);
+		jfc.setFileFilter(new FileNameExtensionFilter(PROPERTIES_FILE_OPEN_TITLE, PROPERTIES_FILE_OPEN_FILTER));
+		jfc.setSelectedFile(f);
+		
+		int choice = jfc.showSaveDialog(WidgetBuildController.getInstance().getFrame());
+		File chosenFile = jfc.getSelectedFile();
+		if(chosenFile != null && choice == JFileChooser.APPROVE_OPTION)
+		{
+			PathUtility.writeProperties(chosenFile.getAbsolutePath(), props);
+		}
 	}
 	
 	@Override

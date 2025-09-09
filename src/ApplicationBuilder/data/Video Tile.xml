@@ -4,7 +4,7 @@
 			<JScrollPane extendedLayoutApplyParent="Center" extendedScrollBarSetUnit="25" setName="scrollPane" >
 				<SwappableCollection extendedArrayProcessingPath="./VideoLaunchFiles/Roku Channels@.url; ./VideoLaunchFiles/Tubi@.url; ./VideoLaunchFiles/YoutubeFreeMovies2@.url; ./VideoLaunchFiles/Youtube Channels@.url; ./VideoLaunchFiles/Amazon Videos@.url; ./VideoLaunchFiles/Music@.url" extendedSetViewportView="" setBackground="204, 255, 204" setLayout="java.awt.BorderLayout" setName="swapVideos" >
 					<JPanel extendedLayoutApplyParent="North" setBackground="204, 255, 204" setLayout="java.awt.BorderLayout" >
-						<JButtonArrayPicture extendedLayoutApplyParent="Center" extendedConnectedComponent="channelsSelect" extendedSwappableHolder="swapVideos" extendedTextStripper="Watch @ Online for Free _ The Roku Channel _ Roku@ - YouTube@ - Prime Video@Prime Video- @1_@.url" setCharacterLimit="35" setDefaultImageXmlPath="/src/ApplicationBuilder/shapes/Default-Play-Image.xml" setExpandedArrangementFileRelativeLocation="/src/ApplicationBuilder/data/ " setName="channels" setScaledDefaultPic="140, 75" setScaledWidthHeight="140, 200" >
+						<JButtonArrayPicture extendedConnectedComponent="channelsSelect" extendedLayoutApplyParent="Center" extendedSwappableHolder="swapVideos" extendedTextStripper="Watch @ Online for Free _ The Roku Channel _ Roku@ - YouTube@ - Prime Video@Prime Video- @1_@.url" setCharacterLimit="35" setDefaultImageXmlPath="/src/ApplicationBuilder/shapes/Default-Play-Image.xml" setExpandedArrangementFileRelativeLocation="/src/ApplicationBuilder/data/ " setName="channels" setScaledDefaultPic="140, 75" setScaledWidthHeight="140, 200" >
 						</JButtonArrayPicture>
 					</JPanel>
 				</SwappableCollection>
@@ -12,15 +12,15 @@
 			<JPanel extendedLayoutApplyParent="East" setLayout="java.awt.BorderLayout" >
 				<JScrollPane extendedLayoutApplyParent="East" extendedScrollBarSetUnit="25" setName="scrollPane2" >
 					<JPanel extendedLayoutApplyParent="Center" extendedSetViewportView="" setBackground="204, 255, 204" setLayout="java.awt.BorderLayout" >
-						<JButtonArrayPicture extendedLayoutApplyParent="East" extendedTextStripper="Watch @ Online for Free _ The Roku Channel _ Roku@ - YouTube@ - Prime Video@Prime Video- @1_@.url" setCharacterLimit="10" setColumnSize="1" setDefaultImageXmlPath="/src/ApplicationBuilder/shapes/Default-Play-Image.xml" setExpandedArrangementFileRelativeLocation="/src/ApplicationBuilder/data/ " setName="channelsSelect" setScaledDefaultPic="140, 75" setScaledWidthHeight="140, 200" setShowAll="True" >
+						<JButtonArrayPicture extendedLayoutApplyParent="East" extendedTextStripper="Watch @ Online for Free _ The Roku Channel _ Roku@ - YouTube@ - Prime Video@Prime Video- @1_@.url" setCharacterLimit="10" setColumnSize="1" setDefaultImageXmlPath="/src/ApplicationBuilder/shapes/Default-Play-Image.xml" setExpandedArrangementFileRelativeLocation="/src/ApplicationBuilder/data/ " setName="channelsSelect" setSaveIncPoint="200, 25" setScaledDefaultPic="140, 75" setScaledWidthHeight="140, 200" setShowAll="True" setSaveStartLocation="100, 600" >
 						</JButtonArrayPicture>
 					</JPanel>
 				</JScrollPane>
 				<JPanel extendedLayoutApplyParent="West" setLayout="java.awt.GridLayout" >
-						<JButton extendedAddActionSendReceive="channels@channelsSelect" extendedLayoutApplyParent="" setText="&gt;" setName="" >
-						</JButton>
-						<JButton extendedAddActionSendReceive="channelsSelect@channels" extendedLayoutApplyParent="" setText="&lt;" setName="" >
-						</JButton>
+					<JButton extendedAddActionSendReceive="channels@channelsSelect" extendedLayoutApplyParent="" setName="" setText="&gt;" >
+					</JButton>
+					<JButton extendedAddActionSendReceive="channelsSelect@channels" extendedLayoutApplyParent="" setName="" setText="&lt;" >
+					</JButton>
 				</JPanel>
 			</JPanel>
 		</JPanel>

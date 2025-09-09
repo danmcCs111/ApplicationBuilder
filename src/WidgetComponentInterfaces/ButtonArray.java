@@ -24,25 +24,34 @@ public interface ButtonArray
 	
 	default Image getDefaultImage(File defaultImageLocation)
 	{
+		return getDefaultImage(defaultImageLocation, getScaledDefaultPic(), getDefaultPicSize());
+	}
+	public static Image getDefaultImage(File defaultImageLocation, Dimension scaledDefaultPicSize, Dimension defaultPicSize)
+	{
 		Image retImage = null;
 		Image tmpImage = GraphicsUtil.getImageFromXml(
-				getDefaultPicSize().width, getDefaultPicSize().height, defaultImageLocation, Color.black);
+				defaultPicSize.width, defaultPicSize.height, defaultImageLocation, Color.black);
 		retImage = tmpImage.getScaledInstance(
-				getScaledDefaultPic().width, 
-				getScaledDefaultPic().height, 0);
+				scaledDefaultPicSize.width, 
+				scaledDefaultPicSize.height, 0);
 		return retImage;
 	}
 	
 	default Image setupImage(File file, File fileDefault)
 	{
+		return setupImage(file, fileDefault, getScaledWidthHeight(), getScaledDefaultPic(), getDefaultPicSize());
+	}
+	
+	public static Image setupImage(File file, File fileDefault, Dimension scaledWidthHeight, Dimension scaledDefaultPicSize, Dimension defaultPicSize)
+	{
 		Image retImage = null;
 		try {
 			Image tmpImage = ImageIO.read(file);
 			retImage = tmpImage.getScaledInstance(
-					getScaledWidthHeight().width, 
-					getScaledWidthHeight().height, 0);
+					scaledWidthHeight.width, 
+					scaledWidthHeight.height, 0);
 		} catch (IOException e) {
-			retImage = getDefaultImage(fileDefault);
+			retImage = getDefaultImage(fileDefault, scaledDefaultPicSize, defaultPicSize);
 		}
 		return retImage;
 	}
