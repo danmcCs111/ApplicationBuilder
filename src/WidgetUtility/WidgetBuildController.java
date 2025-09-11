@@ -152,6 +152,7 @@ public class WidgetBuildController
 			LoggingMessages.printOut(wcProp.toString());
 			LoggingMessages.printNewLine();
 		}
+		getWidgetReader().postParameterEditorProcessing();
 		
 	}
 	
@@ -203,7 +204,6 @@ public class WidgetBuildController
 			}
 			LoggingMessages.printNewLine();
 		}
-		
 		
 		if(getWidgetCreatorProperties() != null && !getWidgetCreatorProperties().isEmpty())
 		{

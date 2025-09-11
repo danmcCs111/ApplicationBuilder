@@ -4,7 +4,10 @@ import java.util.ArrayList;
 
 import org.w3c.dom.Node;
 
+import EditorAbstract.PostProcess;
+import Params.ParameterEditor;
 import Params.XmlToWidgetGenerator;
+import Properties.LoggingMessages;
 import Properties.XmlNodeReader;
 
 /**
@@ -71,6 +74,27 @@ public class WidgetReader extends XmlNodeReader
 			}
 		}
 		return widgetCreatorProperties;
+	}
+	
+	public void postParameterEditorProcessing()
+	{
+		for(WidgetCreatorProperty wcp : widgetCreatorProperties)//Post on xml to widget.
+		{
+			for(XmlToWidgetGenerator xmlG : wcp.getXmlToWidgetGenerators())
+			{
+				for(ParameterEditor pe : xmlG.getParameterEditors())
+				{
+					for(Class<?> clzz : pe.getClass().getInterfaces())
+					{
+						if(clzz.equals(PostProcess.class))
+						{
+							LoggingMessages.printOut("matched. " + pe);
+							((PostProcess)pe).postWidgetGenerationProcessing();
+						}
+					}
+				}
+			}
+		}
 	}
 
 	@Override

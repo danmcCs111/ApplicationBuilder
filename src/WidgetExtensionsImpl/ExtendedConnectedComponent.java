@@ -1,16 +1,16 @@
 package WidgetExtensionsImpl;
 
+import ObjectTypeConversion.NameId;
 import WidgetExtensions.ConnectedComponentName;
-import WidgetExtensions.ExtendedAttributeStringParam;
+import WidgetExtensions.ExtendedAttributeParam;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class ExtendedConnectedComponent implements ExtendedAttributeStringParam 
+public class ExtendedConnectedComponent implements ExtendedAttributeParam 
 {
-	@Override
-	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 
+	public void applyMethod(NameId arg0, WidgetCreatorProperty widgetProperties) 
 	{
 		ConnectedComponentName ecc = (ConnectedComponentName)(widgetProperties.getInstance());
-		ecc.setConnectedComponentName(arg0);
+		ecc.setConnectedComponentName(arg0.getNameId());
 	}
 
 }

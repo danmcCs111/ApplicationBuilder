@@ -17,6 +17,7 @@ import ObjectTypeConvertersImpl.LayoutManagerConverter;
 import ObjectTypeConvertersImpl.MouseAdapterConverter;
 import ObjectTypeConvertersImpl.MouseListenerConverter;
 import ObjectTypeConvertersImpl.MouseMotionListenerConverter;
+import ObjectTypeConvertersImpl.NameIdConverter;
 import ObjectTypeConvertersImpl.PointConverter;
 import ObjectTypeConvertersImpl.StringConverter;
 import ObjectTypeConvertersImpl.TimestampConverter;
@@ -40,6 +41,7 @@ public enum ParamTypes
 	mouseListener(new MouseListenerConverter()),
 	mouseAdapter(new MouseAdapterConverter()),
 	mouseMotionListener(new MouseMotionListenerConverter()),
+	nameId(new NameIdConverter()),
 	WindowListener(new WindowListenerConverter()),
 	KeyListener(new KeyListenerConverter()),
 	DirectorySelection(new DirectorySelectionConverter()),
