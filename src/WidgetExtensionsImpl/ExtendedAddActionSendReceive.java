@@ -5,20 +5,16 @@ import javax.swing.AbstractButton;
 import ActionListeners.AddActionSend;
 import ActionListenersImpl.AddActionListener;
 import ActionListenersImpl.AddActionReceive;
+import ObjectTypeConversion.NameId;
 import WidgetExtensions.ExtendedAttributeParam;
-import WidgetExtensions.ExtendedAttributeStringParam;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class ExtendedAddActionSendReceive implements ExtendedAttributeStringParam 
+public class ExtendedAddActionSendReceive implements ExtendedAttributeParam 
 {
-	private static final String DELIMITER="@";
-	
-	@Override
-	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 
+	public void applyMethod(NameId arg0, NameId arg1, WidgetCreatorProperty widgetProperties) 
 	{
-		String [] args = arg0.split(DELIMITER);
-		AddActionSend wcpSend = (AddActionSend) ExtendedAttributeParam.findComponentByName(args[0].strip());
-		AddActionReceive wcpReceive = (AddActionReceive) ExtendedAttributeParam.findComponentByName(args[1].strip());
+		AddActionSend wcpSend = (AddActionSend) ExtendedAttributeParam.findComponentByName(arg0.getNameId());
+		AddActionReceive wcpReceive = (AddActionReceive) ExtendedAttributeParam.findComponentByName(arg1.getNameId());
 		
 		AbstractButton comp = (AbstractButton) widgetProperties.getInstance();
 		AddActionListener aal = new AddActionListener();

@@ -17,9 +17,9 @@
 					</JPanel>
 				</JScrollPane>
 				<JPanel extendedLayoutApplyParent="West" setLayout="java.awt.GridLayout" >
-					<JButton extendedAddActionSendReceive="channels@channelsSelect" extendedLayoutApplyParent="" setText="&gt;" >
+					<JButton extendedAddActionSendReceive="channels,channelsSelect" extendedLayoutApplyParent="" setText="&gt;" >
 					</JButton>
-					<JButton extendedAddActionSendReceive="channelsSelect@channels" extendedLayoutApplyParent="" setText="&lt;" >
+					<JButton extendedAddActionSendReceive="channelsSelect,channels" extendedLayoutApplyParent="" setText="&lt;" >
 					</JButton>
 				</JPanel>
 			</JPanel>
