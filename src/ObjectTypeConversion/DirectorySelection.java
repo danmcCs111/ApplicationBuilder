@@ -8,6 +8,10 @@ public class DirectorySelection
 	
 	public DirectorySelection(String relatviePath)
 	{
+		if(!relatviePath.startsWith("."))
+		{
+			relatviePath = "." + relatviePath;
+		}
 		this.relatviePath = relatviePath;
 	}
 	
