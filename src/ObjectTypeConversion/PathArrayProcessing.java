@@ -23,6 +23,7 @@ public class PathArrayProcessing
 		pathArray.put(part.path, new ArrayList<String>());
 		pathArray.put(part.extension, new ArrayList<String>());
 		
+		LoggingMessages.printOut(arg0);
 		if(arg0 == null || arg0.strip().isEmpty())
 			return;
 		
@@ -31,8 +32,11 @@ public class PathArrayProcessing
 		{
 			String [] strVs = v.split(VALUE_DELIMITER);
 			LoggingMessages.printOut(strVs);
-			pathArray.get(part.path).add(strVs[0]);
-			pathArray.get(part.extension).add(strVs[1]);
+			if(strVs.length > 1)
+			{
+				pathArray.get(part.path).add(strVs[0].strip());
+				pathArray.get(part.extension).add(strVs[1].strip());
+			}
 		}
 	}
 	
@@ -65,9 +69,9 @@ public class PathArrayProcessing
 	public String toString()
 	{
 		String ret = "";
-		for(int i = 0; i < pathArray.size(); i++)
+		for(int i = 0; i < getSize(); i++)
 		{
-			ret += pathArray.get(part.path) + VALUE_DELIMITER + pathArray.get(part.extension) + ARG_DELIMITER + " ";
+			ret += getPathValue(i) + VALUE_DELIMITER + getExtensionValue(i) + ((i+1 < getSize())?(ARG_DELIMITER + " "):"");
 		}
 		return ret;
 	}
