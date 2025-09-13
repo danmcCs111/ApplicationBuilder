@@ -192,8 +192,8 @@ public class XmlToWidgetGenerator
 	
 	private void addParameterEditor(StringToObjectConverter soc, List<String> params)
 	{
-		LoggingMessages.printOut("" + soc.getDefinitionClass());
 		ParameterEditor pe = ParameterEditorParser.getParameterEditor(soc.getDefinitionClass());
+		LoggingMessages.printOut("" + soc.getDefinitionClass() + " parm editor: " + pe.getClass());
 		pe.setComponentValue(soc.conversionCall(params.toArray(new String[params.size()])));
 		parameterEditors.add(pe);
 	}

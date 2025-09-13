@@ -37,7 +37,7 @@ public interface GraphicsUtil
 	
 	public static void rightEdgeTopWindow(Container referenceComponent, Container comp, int numberOfMatchedVisible)
 	{
-		Point loc = referenceComponent.getLocation();
+		Point loc = referenceComponent.getLocationOnScreen();
 		int rw = referenceComponent.getWidth();
 		int h = comp.getHeight();
 		

@@ -11,6 +11,7 @@ public enum ExtendedMethodArgDef
 	WavReaderSelection(" [ObjectTypeConversion.WavReader arg0]"),
 	ExtendedScrollBarSetUnit(" [int arg0]"),
 	ImageMouseAdapter(" [java.lang.String arg0, boolean arg1]"),
+	PathArrayProcessingFolders(" [ObjectTypeConversion.PathArrayProcessing arg0]"),
 	ExtendedAttributeStringParam(" [java.lang.String arg0]");
 	
 	private String methodArgDef;
