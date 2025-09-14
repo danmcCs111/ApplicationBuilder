@@ -60,7 +60,7 @@ public class Parameter extends JPanel
 		return paramFile;
 	}
 	
-	public String getCommandBuildString()
+	public String getCommandBuildSaveString()
 	{
 		String retSelection = "";
 		for(JTextField jt : getParamStrings())
@@ -87,6 +87,35 @@ public class Parameter extends JPanel
 			{
 				retSelection += CommandBuild.DELIMITER_PARAMETER_OPTION + fs.getRelativePath() + 
 						ParamOption.File.getTypeXml() + ParamOption.PathModifier.none;
+			}
+		}
+		return retSelection;
+	}
+	
+	public String getCommandBuildString()
+	{
+		String retSelection = "";
+		for(JTextField jt : getParamStrings())
+		{
+			if(!jt.getText().strip().isBlank())
+			{
+				retSelection += jt.getText();
+			}
+		}
+		for(DirectorySelectionEditor dse : getParamDirectorySelections())
+		{
+			DirectorySelection ds = (DirectorySelection) dse.getComponentValueObj();
+			if(ds.getRelativePath() != null && !ds.getRelativePath().isEmpty())
+			{
+				retSelection += ds.getRelativePath();
+			}
+		}
+		for(FileSelectionEditor fse : getParamFileSelections())
+		{
+			FileSelection fs = (FileSelection) fse.getComponentValueObj();
+			if(fs.getRelativePath() != null && !fs.getRelativePath().isEmpty())
+			{
+				retSelection += fs.getRelativePath();
 			}
 		}
 		return retSelection;

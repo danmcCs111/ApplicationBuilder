@@ -6,7 +6,7 @@
 				</JButton>
 			</JPanel>
 			<JPanel extendedLayoutApplyParent="West" setLayout="java.awt.GridLayout" >
-				<JButton addActionListener="ActionListenersImpl.CommandBuildListener#ActionListenersImpl.TemporaryFileSaveEditorListener" extendedCommandExecution="java@-jar|Application Builder.jar|src\ApplicationBuilder\data\tmp.xml" extendedLayoutApplyParent="" setForeground="0, 114, 197" setText="Generate" >
+				<JButton addActionListener="ActionListenersImpl.CommandBuildListener#ActionListenersImpl.TemporaryFileSaveEditorListener" extendedCommandExecution="java@-jar|TnApplication Builder.jar|Tn./src/ApplicationBuilder/data/tmp.xml" extendedLayoutApplyParent="" setForeground="0, 114, 197" setText="Generate" >
 				</JButton>
 				<JButton addActionListener="ActionListenersImpl.CloseProjectActionListener" extendedLayoutApplyParent="" setEnabled="False" setForeground="150, 0, 51" setName="ExitActionListener" setText="X Close Generation" >
 				</JButton>

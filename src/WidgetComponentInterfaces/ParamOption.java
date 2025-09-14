@@ -33,6 +33,10 @@ public enum ParamOption
 			{
 				return po;
 			}
+			if(po.getTypeXml().equals(text))
+			{
+				return po;
+			}
 		}
 		return null;
 	}
@@ -51,7 +55,7 @@ public enum ParamOption
 		{
 			return this.mod;
 		}
-		public PathModifier getModifier(String mod)
+		public static PathModifier getModifier(String mod)
 		{
 			for(PathModifier pm : PathModifier.values())
 			{

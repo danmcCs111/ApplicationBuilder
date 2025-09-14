@@ -1,19 +1,25 @@
 package ObjectTypeConversion;
 
+import java.util.ArrayList;
+
 import Properties.PathUtility;
+import WidgetComponentInterfaces.ParamOption;
+import WidgetComponentInterfaces.ParamOption.PathModifier;
+import WidgetComponents.Parameter;
 
 public class CommandBuild 
 {
 	public static final String 
 		DELIMITER_COMMANDLINE_OPTION = "@",
-		DELIMITER_PARAMETER_OPTION = "|";
+		DELIMITER_PARAMETER_OPTION = "|",
+		DELIMITER_PARAMETER_TYPE = "?";
 	
 	private String 
 		command,
 		commandXmlArg;
 	private String [] 
-		parameters,
 		commandLineOptions;
+	private ArrayList<Parameter> parameters = new ArrayList<Parameter>();
 	
 	public CommandBuild(String arg)
 	{
@@ -27,8 +33,7 @@ public class CommandBuild
 		String [] 
 				commandLineTmp = arg.split(DELIMITER_COMMANDLINE_OPTION),
 				commandLine = new String [commandLineTmp.length - 1],
-				parametersTmp = arg.split(PathUtility.ESCAPE_CHARACTER + DELIMITER_PARAMETER_OPTION),
-				parameters = new String [parametersTmp.length - 1];
+				parametersTmp = arg.split(PathUtility.ESCAPE_CHARACTER + DELIMITER_PARAMETER_OPTION);
 		
 		int index = commandLineTmp[commandLineTmp.length-1].indexOf(DELIMITER_PARAMETER_OPTION);
 		if(index >= 0) commandLineTmp[commandLineTmp.length-1] = commandLineTmp[commandLineTmp.length-1].substring(0, index);
@@ -44,7 +49,9 @@ public class CommandBuild
 		int paramStartIndex = 1;
 		for(int i = paramStartIndex; i < parametersTmp.length; i++)
 		{
-			parameters[count] = parametersTmp[i];
+			String pT = parametersTmp[i];
+			Parameter parameter = new Parameter();
+			parameters.add(convertParamType(pT, parameter));  
 			count++;
 		}
 		
@@ -57,14 +64,57 @@ public class CommandBuild
 		
 		this.command = command;
 		this.commandLineOptions = commandLine;
-		this.parameters = parameters;
+	}
+	
+	private Parameter convertParamType(String pT, Parameter parameter)
+	{
+		String [] pars;
+		if(pT.contains(DELIMITER_PARAMETER_TYPE))
+		{
+			pars = pT.split(DELIMITER_PARAMETER_TYPE);
+			
+		}
+		else
+		{
+			pars = new String[] {pT};
+		}
+		
+		for(String par : pars)
+		{
+			String typeXml = par.substring(0, 1);
+			ParamOption po = ParamOption.getParamOption(typeXml);
+			String content = par.substring(2, par.length());
+			PathModifier pMod = PathModifier.getModifier(par.substring(1, 2));
+			
+			switch(po)
+			{
+			case TextField:
+				parameter.addParamString(content);
+				break;
+			case Directory:
+				parameter.addParamDirectory(new DirectorySelection(content, pMod));
+				break;
+			case File:
+				parameter.addParamFile(new FileSelection(content, pMod));
+				break;
+			}
+		}
+		
+		return parameter;
 	}
 	
 	public void setCommand(String command, String [] commandLineOptions, String [] parameters)
 	{
 		this.command = command;
 		this.commandLineOptions = commandLineOptions;
-		this.parameters = parameters;
+		ArrayList<Parameter> tmpParameters = new ArrayList<Parameter>();
+		for(String param : parameters)
+		{
+			Parameter tmpP = new Parameter();
+			tmpP.addParamString(param);
+			tmpParameters.add(tmpP);
+		}
+		this.parameters = tmpParameters;
 	}
 	
 	public String getCommand()
@@ -79,7 +129,14 @@ public class CommandBuild
 	
 	public String [] getParameters()
 	{
-		return parameters;
+		String [] retParams = new String [parameters.size()];
+		int count = 0;
+		for(Parameter pm : parameters)
+		{
+			retParams[count] = pm.getCommandBuildString();
+			count++;
+		}
+		return retParams;
 	}
 	
 	public String getCommandXmlString()
@@ -96,7 +153,7 @@ public class CommandBuild
 			return new String [] {this.command};
 		}
 		
-		String [] args = new String[1 + commandLineOptions.length + parameters.length];
+		String [] args = new String[1 + commandLineOptions.length + parameters.size()];
 		if(isWindows)
 		{
 			args[0] = PathUtility.surroundString(this.command , "\"");
@@ -111,15 +168,15 @@ public class CommandBuild
 			args[count] = commandLineOptions[i];
 			count++;
 		}
-		for(int i = 0; i < parameters.length; i++)
+		for(int i = 0; i < parameters.size(); i++)
 		{
 			if(isWindows)
 			{
-				args[count] = PathUtility.surroundString(parameters[i], "\"");
+				args[count] = PathUtility.surroundString(parameters.get(i).getCommandBuildString(), "\"");
 			}
 			else
 			{
-				args[count] = parameters[i];
+				args[count] = parameters.get(i).getCommandBuildString();
 			}
 			count++;
 		}

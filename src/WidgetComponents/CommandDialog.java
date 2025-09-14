@@ -16,8 +16,6 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import Editors.CommandBuildEditor;
-import Editors.DirectorySelectionEditor;
-import Editors.FileSelectionEditor;
 import ObjectTypeConversion.CommandBuild;
 import ObjectTypeConversion.DirectorySelection;
 import ObjectTypeConversion.FileSelection;
@@ -234,7 +232,7 @@ public class CommandDialog extends JDialog
 		}
 		for(Parameter param : paramters)
 		{
-			retSelection += param.getCommandBuildString();
+			retSelection += param.getCommandBuildSaveString();
 		}
 		commandBuildEditor.setComponentValue(new CommandBuild(this.retSelection));
 		this.dispose();
