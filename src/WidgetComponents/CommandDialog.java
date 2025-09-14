@@ -16,21 +16,63 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import Editors.CommandBuildEditor;
+import Editors.DirectorySelectionEditor;
 import ObjectTypeConversion.CommandBuild;
 import ObjectTypeConversion.DirectorySelection;
+import Properties.LoggingMessages;
 import WidgetExtensions.ComboListDialogSelectedListener;
 
-public class CommandDialog extends JDialog implements ComboListDialogSelectedListener
+public class CommandDialog extends JDialog
 {
+	
+	public enum ParamOption
+	{
+		TextField("TextField"),
+		Directory("Directory"),
+		File("File");
+		
+		private String displayText = "";
+		private ParamOption(String displayText)
+		{
+			this.displayText = displayText;
+		}
+		
+		public String getDisplayText()
+		{
+			return this.displayText;
+		}
+		
+		public static ParamOption getParamOption(String text)
+		{
+			for(ParamOption po : values())
+			{
+				if(po.getDisplayText().equals(text))
+				{
+					return po;
+				}
+			}
+			return null;
+		}
+	}
+	
 	private static final long serialVersionUID = 1L;
 	
 	private static final String 
 		TITLE = "Command Entry",
 		COMMAND_OPTION_LABEL = " + Command Option",
 		PARAMETER_LABEL = " + Parameter",
+		PARAM_ADD_TEXT = "+",
+		PARAM_DELETE_TEXT = "X",
+		PARAM_DIALOG_TITLE = "Select Type",
+		PARAM_DIALOG_MESSAGE = "Select Type",
 		SAVE_BUTTON_LABEL = "Save",
 		CANCEL_BUTTON_LABEL = "Cancel";
 	private static final Dimension MIN_DIMENSION_DIALOG = new Dimension(400, 300);
+	public static final List<String> PARAM_OPTIONS = Arrays.asList(new String[] {
+			ParamOption.TextField.getDisplayText(),
+			ParamOption.Directory.getDisplayText(),
+			ParamOption.File.getDisplayText()
+	});
 	
 	private JPanel 
 		innerPanel = new JPanel(),
@@ -43,8 +85,9 @@ public class CommandDialog extends JDialog implements ComboListDialogSelectedLis
 		saveButton = new JButton(SAVE_BUTTON_LABEL),
 		cancelButton = new JButton(CANCEL_BUTTON_LABEL);
 	private ArrayList<JTextField> 
-		commandOptions = new ArrayList<JTextField>(),
-		paramters = new ArrayList<JTextField>();
+		commandOptions = new ArrayList<JTextField>();
+	private ArrayList<Parameter>
+		paramters = new ArrayList<Parameter>();
 	
 	private String retSelection = null;
 	private CommandBuildEditor commandBuildEditor;
@@ -68,7 +111,7 @@ public class CommandDialog extends JDialog implements ComboListDialogSelectedLis
 		addParameterButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				addParameter();
+				buildParameter();
 			}
 		});
 		this.add(innerPanel, BorderLayout.NORTH);
@@ -114,7 +157,7 @@ public class CommandDialog extends JDialog implements ComboListDialogSelectedLis
 			{
 				for(String s : cb.getParameters())
 				{
-					addParameter(s);
+					buildParameter(s);
 				}
 			}
 		}
@@ -135,46 +178,69 @@ public class CommandDialog extends JDialog implements ComboListDialogSelectedLis
 		innerPanel.getRootPane().validate();
 	}
 	
-	private void addParameter()
+	private void buildParameter()
 	{
-		addParameter("");
+		buildParameter("");
 	}
-	private void addParameter(String s)
+	private void buildParameter(String s)
 	{
-		JTextField tf = new JTextField(s);
+		Parameter p = new Parameter();
+		p.addParamString(s);
 		JPanel 
 			outerPanelParam = new JPanel(),
 			innerPanelParam = new JPanel();
 		outerPanelParam.setLayout(new BorderLayout());
 		innerPanelParam.setLayout(new GridLayout(1,0));
 		
-		JButton deleteField = new JButton("X");
+		JButton deleteField = new JButton(PARAM_DELETE_TEXT);
 		deleteField.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				paramters.remove(tf);
 				innerPanel.remove(outerPanelParam);
 				innerPanel.getRootPane().validate();
 			}
 		});
-		JButton addField = new JButton("+");
+		JButton addField = new JButton(PARAM_ADD_TEXT);
+		ComboListDialogSelectedListener addListener = new ComboListDialogSelectedListener() {
+			@Override
+			public void selectionChosen(List<String> chosenSelection) 
+			{
+				//TODO
+				if(chosenSelection == null || chosenSelection.isEmpty())
+					return;
+				for(String select : chosenSelection)
+				{
+					ParamOption po = ParamOption.getParamOption(select);
+					switch(po)
+					{
+					case TextField:
+						p.addParamString("");
+						break;
+					case Directory:
+					case File:
+						p.addParamDirectory(new DirectorySelection(""));
+						break;
+					}
+				}
+				LoggingMessages.printOut(chosenSelection.toArray(new String[] {}));
+				innerPanel.getRootPane().validate();
+			}
+		};
 		addField.addActionListener(new ActionListener() {
-			public static final List<String> options = Arrays.asList(new String[] {
-					"TextField","Directory","File"
-			});
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ComboSelectionDialog fieldOrDirectory = new ComboSelectionDialog();
-				fieldOrDirectory.buildAndShow(options, "SelectType", "Select Type", CommandDialog.this, CommandDialog.this);
+				fieldOrDirectory.buildAndShow(PARAM_OPTIONS, PARAM_DIALOG_TITLE, PARAM_DIALOG_MESSAGE, addListener, CommandDialog.this);
 				innerPanel.getRootPane().validate();
 			}
 		});
-		innerPanelParam.add(tf);
+		innerPanelParam.add(p);
+		paramters.add(p);
+		
 		outerPanelParam.add(innerPanelParam, BorderLayout.CENTER);
 		outerPanelParam.add(addField, BorderLayout.EAST);
 		outerPanelParam.add(deleteField, BorderLayout.WEST);
 		
-		paramters.add(tf);
 		innerPanel.add(outerPanelParam);
 		innerPanel.getRootPane().validate();
 	}
@@ -193,11 +259,22 @@ public class CommandDialog extends JDialog implements ComboListDialogSelectedLis
 				this.retSelection += CommandBuild.DELIMITER_COMMANDLINE_OPTION + jt.getText();
 			}
 		}
-		for(JTextField jt : paramters)
+		for(Parameter param : paramters)
 		{
-			if(!jt.getText().strip().isBlank())
+			for(JTextField jt : param.getParamStrings())
 			{
-				this.retSelection += CommandBuild.DELIMITER_PARAMETER_OPTION + jt.getText();
+				if(!jt.getText().strip().isBlank())
+				{
+					this.retSelection += CommandBuild.DELIMITER_PARAMETER_OPTION + jt.getText();
+				}
+			}
+			for(DirectorySelectionEditor dse : param.getParamDirectorySelections())
+			{
+				DirectorySelection ds = (DirectorySelection) dse.getComponentValueObj();
+				if(ds.getRelativePath() != null && !ds.getRelativePath().isEmpty())
+				{
+					this.retSelection += CommandBuild.DELIMITER_PARAMETER_OPTION + ds.getRelativePath();
+				}
 			}
 		}
 		commandBuildEditor.setComponentValue(new CommandBuild(this.retSelection));
@@ -209,10 +286,4 @@ public class CommandDialog extends JDialog implements ComboListDialogSelectedLis
 		this.dispose();
 	}
 
-	@Override
-	public void selectionChosen(List<String> chosenSelection) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 }
