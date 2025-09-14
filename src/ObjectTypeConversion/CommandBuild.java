@@ -129,18 +129,6 @@ public class CommandBuild
 		return commandLineOptions;
 	}
 	
-//	public String [] getParameters()
-//	{
-//		String [] retParams = new String [parameters.size()];
-//		int count = 0;
-//		for(Parameter pm : parameters)
-//		{
-//			retParams[count] = pm.getCommandBuildString();
-//			count++;
-//		}
-//		return retParams;
-//	}
-	
 	public ArrayList<Parameter> getParameters()
 	{
 		return parameters;

@@ -1,6 +1,3 @@
 <ScheduledCommands> 
-<ScheduledCommand Schedule="12,0,AM,null|" Command="calc" > </ScheduledCommand>
-<ScheduledCommand Schedule="3,0,PM,Everyday|1,45,AM,Everyday|3,30,PM,Everyday|" Command="C:\\Program Files\\Git\\git-bash.exe@-c@-i|pwd; read -p Press\ Enter\ to\ exit" > </ScheduledCommand>
-<ScheduledCommand Schedule="12,15,PM,Everyday|" Command="C:\\Program Files\\Git\\git-bash.exe@-c@-i|ls -ltr; read -p Press\ Enter\ to\ exit" > </ScheduledCommand>
-<ScheduledCommand Schedule="12,15,PM,Tuesday@Wednesday|12,0,AM,Tuesday@Wednesday|" Command="C:\\Program Files\\Git\\git-bash.exe@-c@-i|ls; read -p Press\ Enter\ to\ exit" > </ScheduledCommand>
+<ScheduledCommand Schedule="12,0,AM,|" Command="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellExecutor|%Tnpwd;%Tnread -p "enter"" > </ScheduledCommand>
 </ScheduledCommands>
