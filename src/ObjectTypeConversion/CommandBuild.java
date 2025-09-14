@@ -2,6 +2,7 @@ package ObjectTypeConversion;
 
 import java.util.ArrayList;
 
+import Properties.LoggingMessages;
 import Properties.PathUtility;
 import WidgetComponentInterfaces.ParamOption;
 import WidgetComponentInterfaces.ParamOption.PathModifier;
@@ -12,7 +13,7 @@ public class CommandBuild
 	public static final String 
 		DELIMITER_COMMANDLINE_OPTION = "@",
 		DELIMITER_PARAMETER_OPTION = "|",
-		DELIMITER_PARAMETER_TYPE = "?";
+		DELIMITER_PARAMETER_TYPE = "%";
 	
 	private String 
 		command,
@@ -72,7 +73,6 @@ public class CommandBuild
 		if(pT.contains(DELIMITER_PARAMETER_TYPE))
 		{
 			pars = pT.split(DELIMITER_PARAMETER_TYPE);
-			
 		}
 		else
 		{
@@ -81,11 +81,13 @@ public class CommandBuild
 		
 		for(String par : pars)
 		{
+			if(par.length() < 2)
+				continue;
 			String typeXml = par.substring(0, 1);
 			ParamOption po = ParamOption.getParamOption(typeXml);
 			String content = par.substring(2, par.length());
 			PathModifier pMod = PathModifier.getModifier(par.substring(1, 2));
-			
+			LoggingMessages.printOut(par);
 			switch(po)
 			{
 			case TextField:

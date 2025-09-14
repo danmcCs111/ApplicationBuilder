@@ -62,13 +62,14 @@ public class Parameter extends JPanel
 	
 	public String getCommandBuildSaveString()
 	{
-		String retSelection = "";
+		String retSelection = CommandBuild.DELIMITER_PARAMETER_OPTION;
 		for(JTextField jt : getParamStrings())
 		{
 			if(!jt.getText().strip().isBlank())
 			{
-				retSelection += CommandBuild.DELIMITER_PARAMETER_OPTION + jt.getText() + 
-						ParamOption.TextField.getTypeXml() + ParamOption.PathModifier.none;
+				retSelection += CommandBuild.DELIMITER_PARAMETER_TYPE + 
+						ParamOption.TextField.getTypeXml() + ParamOption.PathModifier.none.getModVal() +
+						jt.getText();
 			}
 		}
 		for(DirectorySelectionEditor dse : getParamDirectorySelections())
@@ -76,8 +77,9 @@ public class Parameter extends JPanel
 			DirectorySelection ds = (DirectorySelection) dse.getComponentValueObj();
 			if(ds.getRelativePath() != null && !ds.getRelativePath().isEmpty())
 			{
-				retSelection += CommandBuild.DELIMITER_PARAMETER_OPTION + ds.getRelativePath() + 
-						ParamOption.Directory.getTypeXml() + ParamOption.PathModifier.none;
+				retSelection += CommandBuild.DELIMITER_PARAMETER_TYPE + 
+						ParamOption.Directory.getTypeXml() + ParamOption.PathModifier.none.getModVal() +
+						ds.getRelativePath();
 			}
 		}
 		for(FileSelectionEditor fse : getParamFileSelections())
@@ -85,8 +87,9 @@ public class Parameter extends JPanel
 			FileSelection fs = (FileSelection) fse.getComponentValueObj();
 			if(fs.getRelativePath() != null && !fs.getRelativePath().isEmpty())
 			{
-				retSelection += CommandBuild.DELIMITER_PARAMETER_OPTION + fs.getRelativePath() + 
-						ParamOption.File.getTypeXml() + ParamOption.PathModifier.none;
+				retSelection += CommandBuild.DELIMITER_PARAMETER_TYPE + 
+						ParamOption.File.getTypeXml() + ParamOption.PathModifier.none.getModVal() +
+						fs.getRelativePath();
 			}
 		}
 		return retSelection;
