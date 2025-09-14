@@ -28,7 +28,6 @@ public class ShellExecutor
 				argsAll[count] = op;
 				count++;
 			}
-			count++;
 			for(String s : args)
 			{
 				argsAll[count] = s;
@@ -45,7 +44,6 @@ public class ShellExecutor
 				argsAll[count] = op;
 				count++;
 			}
-			count++;
 			for(String s : args)
 			{
 				argsAll[count] = s;
