@@ -22,6 +22,11 @@ public class CommandBuild
 		commandLineOptions;
 	private ArrayList<Parameter> parameters = new ArrayList<Parameter>();
 	
+	public CommandBuild()
+	{
+		
+	}
+	
 	public CommandBuild(String arg)
 	{
 		commandXmlArg = arg;

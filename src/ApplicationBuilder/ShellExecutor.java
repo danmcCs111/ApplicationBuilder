@@ -2,7 +2,8 @@ package ApplicationBuilder;
 
 import java.io.IOException;
 
-import Properties.LoggingMessages;
+import Actions.CommandExecutor;
+import ObjectTypeConversion.CommandBuild;
 
 public class ShellExecutor 
 {
@@ -13,47 +14,22 @@ public class ShellExecutor
 			LINUX_COMMAND_OPTION = new String [] {"-c", "-i"},
 			WINDOWS_COMMAND_OPTION = new String [] {"-c"};
 	
-	public static void main(String [] args)
+	public static void main(String [] args) 
 	{
 		boolean isWindows = System.getProperty("os.name").startsWith("Windows");
-		int count = 0;
-		String [] argsAll;
+		CommandBuild cb;
 		if(isWindows)
 		{
-			argsAll = new String[args.length + WINDOWS_COMMAND_OPTION.length + 1];
-			argsAll[count] = WINDOWS_BASH_SHELL_LOCATION;
-			count++;
-			for(String op : WINDOWS_COMMAND_OPTION)
-			{
-				argsAll[count] = op;
-				count++;
-			}
-			for(String s : args)
-			{
-				argsAll[count] = s;
-				count++;
-			}
+			cb = new CommandBuild();
+			cb.setCommand(WINDOWS_BASH_SHELL_LOCATION, WINDOWS_COMMAND_OPTION, args);
 		}
 		else
 		{
-			argsAll = new String[args.length + LINUX_COMMAND_OPTION.length + 1];
-			argsAll[count] = LINUX_BASH_SHELL;
-			count++;
-			for(String op : LINUX_COMMAND_OPTION)
-			{
-				argsAll[count] = op;
-				count++;
-			}
-			for(String s : args)
-			{
-				argsAll[count] = s;
-				count++;
-			}
+			cb = new CommandBuild();
+			cb.setCommand(LINUX_BASH_SHELL, LINUX_COMMAND_OPTION, args);
 		}
-		LoggingMessages.printOut(argsAll);
-		ProcessBuilder pb = new ProcessBuilder(argsAll);
 		try {
-			pb.start();
+			CommandExecutor.executeProcess(cb, false);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
