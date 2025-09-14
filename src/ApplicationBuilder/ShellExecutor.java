@@ -8,8 +8,7 @@ public class ShellExecutor
 {
 	public static String 
 		WINDOWS_BASH_SHELL_LOCATION = "C:\\Program Files\\Git\\git-bash.exe",
-		WINDOWS_COMMAND_OPTION = "-c",
-		LINUX_BASH_SHELL = "bash";
+		WINDOWS_COMMAND_OPTION = "-c";
 	
 	public static void main(String [] args)
 	{
@@ -31,14 +30,8 @@ public class ShellExecutor
 		}
 		else
 		{
-			argsAll = new String[args.length + 1];
-			argsAll[count] = LINUX_BASH_SHELL;
-			count++;
-			for(String s : args)
-			{
-				argsAll[count] = s;
-				count++;
-			}
+			argsAll = new String[args.length];
+			argsAll = args;
 		}
 		LoggingMessages.printOut(argsAll);
 		ProcessBuilder pb = new ProcessBuilder(argsAll);
