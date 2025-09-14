@@ -65,7 +65,7 @@ PostWidgetBuildProcessing
 	private Point saveStartLocation = new Point(100, 700);
 	
 	public static String 
-		DEFAULT_IMG = PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/shapes/Default-Play-Image.xml";
+		DEFAULT_IMG = "./src/ApplicationBuilder/shapes/Default-Play-Image.xml";
 	
 	public static Dimension
 		DEFAULT_PIC = new Dimension(279, 150),
@@ -112,7 +112,7 @@ PostWidgetBuildProcessing
 	
 	public void setDefaultImageXmlPath(FileSelection fs)
 	{
-		DEFAULT_IMG = fs.getFullPath();
+		DEFAULT_IMG = fs.getRelativePath();
 	}
 	
 	@Override

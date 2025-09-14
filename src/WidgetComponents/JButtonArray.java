@@ -76,7 +76,7 @@ PostWidgetBuildProcessing, ButtonArray
 				SCALED_WIDTH_HEIGHT.height + PIC_PAD.height);
 	
 	public static String 
-		DEFAULT_IMG = PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/shapes/Default-Play-Image.xml";
+		DEFAULT_IMG = "./src/ApplicationBuilder/shapes/Default-Play-Image.xml";
 	
 	private String keepsFileLocation;
 	public Color []
@@ -98,7 +98,7 @@ PostWidgetBuildProcessing, ButtonArray
 	
 	public void setDefaultImageXmlPath(FileSelection fs)
 	{
-		DEFAULT_IMG = fs.getFullPath();
+		DEFAULT_IMG = fs.getRelativePath();
 	}
 	
 	public String getDefaultImagePath()
