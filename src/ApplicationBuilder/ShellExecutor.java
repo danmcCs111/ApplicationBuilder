@@ -8,8 +8,10 @@ public class ShellExecutor
 {
 	public static String 
 		WINDOWS_BASH_SHELL_LOCATION = "C:\\Program Files\\Git\\git-bash.exe",
-		COMMAND_OPTION = "-c",
 		LINUX_BASH_SHELL = "bash";
+	public static String [] 
+			LINUX_COMMAND_OPTION = new String [] {"-c", "-i"},
+			WINDOWS_COMMAND_OPTION = new String [] {"-c"};
 	
 	public static void main(String [] args)
 	{
@@ -18,10 +20,11 @@ public class ShellExecutor
 		String [] argsAll;
 		if(isWindows)
 		{
-			argsAll = new String[args.length + 2];
+			argsAll = new String[args.length + WINDOWS_COMMAND_OPTION.length + 1];
 			argsAll[count] = WINDOWS_BASH_SHELL_LOCATION;
 			count++;
-			argsAll[count] = COMMAND_OPTION;
+			for(String op : WINDOWS_COMMAND_OPTION)
+				argsAll[count] = op;
 			count++;
 			for(String s : args)
 			{
@@ -31,10 +34,11 @@ public class ShellExecutor
 		}
 		else
 		{
-			argsAll = new String[args.length + 2];
+			argsAll = new String[args.length + LINUX_COMMAND_OPTION.length + 1];
 			argsAll[count] = LINUX_BASH_SHELL;
 			count++;
-			argsAll[count] = COMMAND_OPTION;
+			for(String op : LINUX_COMMAND_OPTION)
+				argsAll[count] = op;
 			count++;
 			for(String s : args)
 			{
