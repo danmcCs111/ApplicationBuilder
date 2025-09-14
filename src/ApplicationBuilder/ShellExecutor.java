@@ -3,12 +3,14 @@ package ApplicationBuilder;
 import java.io.IOException;
 
 import Properties.LoggingMessages;
+import Properties.PathUtility;
 
 public class ShellExecutor 
 {
 	public static String 
-		WINDOWS_BASH_SHELL_LOCATION = "C:\\Program Files\\Git\\git-bash.exe",
-		LINUX_BASH_SHELL = "bash";
+		WINDOWS_BASH_SHELL_LOCATION = "C:\\Program Files\\Git\\git-bash.exe",//TODO
+		LINUX_BASH_SHELL = "bash",
+		INITIAL_COMMAND = "cd " + PathUtility.getCurrentDirectoryUnix() + "; ";
 	public static String [] 
 			LINUX_COMMAND_OPTION = new String [] {"-c", "-i"},
 			WINDOWS_COMMAND_OPTION = new String [] {"-c"};
@@ -30,7 +32,7 @@ public class ShellExecutor
 			}
 			for(String s : args)
 			{
-				argsAll[count] = s;
+				argsAll[count] = INITIAL_COMMAND + s;
 				count++;
 			}
 		}
@@ -46,7 +48,7 @@ public class ShellExecutor
 			}
 			for(String s : args)
 			{
-				argsAll[count] = s;
+				argsAll[count] = INITIAL_COMMAND + s;
 				count++;
 			}
 		}

@@ -1,4 +1,4 @@
 <ScheduledCommands> 
-<ScheduledCommand Schedule="12,0,AM,|" Command="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellExecutor|%Fn./VideoLaunchFiles/Tubi/reloadTubiImport_1.sh%Tn/c/Users/danie/codebase/danmcCs111/PlayrightCopyUrl/PlayrightVideo/" > </ScheduledCommand>
-<ScheduledCommand Schedule="12,0,AM,|" Command="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellExecutor|%Fn./VideoLaunchFiles/Tubi/importRetryTubiImages_2.sh%Tn/c/Users/danie/codebase/danmcCs111/PlayrightCopyUrl/PlayrightVideo/" > </ScheduledCommand>
+<ScheduledCommand Schedule="12,0,AM,|" Command="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellExecutor|%Fn./VideoLaunchFiles/Tubi/reloadTubiImport_1.sh%Tn /c/Users/danie/codebase/danmcCs111/PlayrightCopyUrl/PlayrightVideo/" > </ScheduledCommand>
+<ScheduledCommand Schedule="12,0,AM,|" Command="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellExecutor|%Fn./VideoLaunchFiles/Tubi/importRetryTubiImages_2.sh%Tn /c/Users/danie/codebase/danmcCs111/PlayrightCopyUrl/PlayrightVideo/" > </ScheduledCommand>
 </ScheduledCommands>
