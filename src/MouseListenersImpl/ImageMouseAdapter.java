@@ -29,13 +29,12 @@ import Params.KeepSelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
 import WidgetComponentInterfaces.ButtonArray;
-import WidgetComponentInterfaces.DialogParentReferenceContainer;
 import WidgetComponents.ComboSelectionDialog;
 import WidgetComponents.JButtonLengthLimited;
 import WidgetExtensions.ComboListDialogSelectedListener;
 import WidgetExtensions.ExtendedAttributeParam;
 
-public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSelectedListener, DialogParentReferenceContainer
+public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSelectedListener
 {
 	private static final Dimension //TODO
 		DIM_PAD = new Dimension(150,0);
@@ -329,7 +328,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 			csd.buildAndShow(KeepSelection.getTextOnlyConversion(keeps), 
 					DIALOG_SELECT_CHILD_COMPONENTS_TITLE,
 					DIALOG_SELECT_CHILD_COMPONENTS_MESSAGE,
-					ImageMouseAdapter.this, ImageMouseAdapter.this);
+					ImageMouseAdapter.this, parentFrame);
 		}
 		
 	}
@@ -370,13 +369,6 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		LoggingMessages.printOut(LoggingMessages.combine(chosenSelection));//print
 		saveChosenSelection = (List<String>) chosenSelection;
 		performAfterSelectionEventSave();
-	}
-	
-	@Override
-	public Point getContainerCenterLocationPoint() 
-	{
-		return new Point((int)parentFrame.getBounds().getCenterX(), 
-				(int)parentFrame.getBounds().getCenterY());
 	}
 	
 }

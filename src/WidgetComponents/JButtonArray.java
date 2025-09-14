@@ -3,7 +3,6 @@ package WidgetComponents;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
@@ -33,7 +32,6 @@ import Properties.LoggingMessages;
 import Properties.PathUtility;
 import WidgetComponentInterfaces.ButtonArray;
 import WidgetComponentInterfaces.CharacterLimited;
-import WidgetComponentInterfaces.DialogParentReferenceContainer;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetExtensions.CloseActionExtension;
 import WidgetExtensions.CloseAllActionExtension;
@@ -53,7 +51,7 @@ import WidgetUtility.WidgetBuildController;
  */
 public class JButtonArray extends JPanel implements ArrayActionListener, CharacterLimited, 
 SaveActionExtension, OpenActionExtension, CloseActionExtension, CloseAllActionExtension,  
-ComboListDialogSelectedListener, DialogParentReferenceContainer, MouseAdapterArrayExtension,  
+ComboListDialogSelectedListener, MouseAdapterArrayExtension,  
 PostWidgetBuildProcessing, ButtonArray
 {
 	private static final long serialVersionUID = 1883L;
@@ -489,13 +487,6 @@ PostWidgetBuildProcessing, ButtonArray
 			}
 		}
 		return null;//shouldn't.
-	}
-
-	@Override
-	public Point getContainerCenterLocationPoint() 
-	{
-		return new Point((int)WidgetBuildController.getInstance().getFrame().getBounds().getCenterX(), 
-				(int)WidgetBuildController.getInstance().getFrame().getBounds().getCenterY());
 	}
 
 	@Override

@@ -6,6 +6,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -15,8 +17,10 @@ import javax.swing.WindowConstants;
 
 import Editors.CommandBuildEditor;
 import ObjectTypeConversion.CommandBuild;
+import ObjectTypeConversion.DirectorySelection;
+import WidgetExtensions.ComboListDialogSelectedListener;
 
-public class CommandDialog extends JDialog 
+public class CommandDialog extends JDialog implements ComboListDialogSelectedListener
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -138,9 +142,45 @@ public class CommandDialog extends JDialog
 	private void addParameter(String s)
 	{
 		JTextField tf = new JTextField(s);
+		JPanel 
+			outerPanelParam = new JPanel(),
+			innerPanelParam = new JPanel();
+		outerPanelParam.setLayout(new BorderLayout());
+		innerPanelParam.setLayout(new GridLayout(1,0));
+		
+		JButton deleteField = new JButton("X");
+		deleteField.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				paramters.remove(tf);
+				innerPanel.remove(outerPanelParam);
+				innerPanel.getRootPane().validate();
+			}
+		});
+		JButton addField = new JButton("+");
+		addField.addActionListener(new ActionListener() {
+			public static final List<String> options = Arrays.asList(new String[] {
+					"TextField","Directory","File"
+			});
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ComboSelectionDialog fieldOrDirectory = new ComboSelectionDialog();
+				fieldOrDirectory.buildAndShow(options, "SelectType", "Select Type", CommandDialog.this, CommandDialog.this);
+				innerPanel.getRootPane().validate();
+			}
+		});
+		innerPanelParam.add(tf);
+		outerPanelParam.add(innerPanelParam, BorderLayout.CENTER);
+		outerPanelParam.add(addField, BorderLayout.EAST);
+		outerPanelParam.add(deleteField, BorderLayout.WEST);
+		
 		paramters.add(tf);
-		innerPanel.add(tf);
+		innerPanel.add(outerPanelParam);
 		innerPanel.getRootPane().validate();
+	}
+	private void addParameter(DirectorySelection ds)
+	{
+		
 	}
 	
 	private void saveAction()
@@ -167,6 +207,12 @@ public class CommandDialog extends JDialog
 	private void cancelAction()
 	{
 		this.dispose();
+	}
+
+	@Override
+	public void selectionChosen(List<String> chosenSelection) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

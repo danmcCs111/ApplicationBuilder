@@ -1,6 +1,7 @@
 package WidgetComponents;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -17,7 +18,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-import WidgetComponentInterfaces.DialogParentReferenceContainer;
+import Graphics2D.GraphicsUtil;
 import WidgetExtensions.ComboListDialogSelectedListener;
 
 
@@ -32,11 +33,16 @@ public class ComboSelectionDialog extends JDialog
 	
 	private JList<String> componentMethods = new JList<String>();
 	
+	public ComboSelectionDialog()
+	{
+		
+	}
+	
 	public void buildAndShow(List<String> selectables,
 			String dialogTitle,
 			String dialogMessage,
 			ComboListDialogSelectedListener cdsl,
-			DialogParentReferenceContainer refLocContainer)
+			Container refLocContainer)
 	{
 		buildAndShow
 		(
@@ -54,7 +60,7 @@ public class ComboSelectionDialog extends JDialog
 			String addAllButtonText,
 			String closeButtonText,
 			ComboListDialogSelectedListener cdsl,
-			DialogParentReferenceContainer refLocContainer)
+			Container refLocContainer)
 	{
 	
 		JLabel messageLabel = new JLabel();
@@ -64,8 +70,9 @@ public class ComboSelectionDialog extends JDialog
 		this.setTitle(dialogTitle);
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		
-		this.setLocation((int)refLocContainer.getContainerCenterLocationPoint().x - (MIN_DIMENSION_DIALOG.width/2), 
-				(int)refLocContainer.getContainerCenterLocationPoint().y - (MIN_DIMENSION_DIALOG.height /2));
+		GraphicsUtil.centerWindow(refLocContainer, this);
+//		this.setLocation((int)refLocContainer.getContainerCenterLocationPoint().x - (MIN_DIMENSION_DIALOG.width/2), 
+//				(int)refLocContainer.getContainerCenterLocationPoint().y - (MIN_DIMENSION_DIALOG.height /2));
 		this.setMinimumSize(MIN_DIMENSION_DIALOG);
 		
 		WindowListener wl = new WindowAdapter() {

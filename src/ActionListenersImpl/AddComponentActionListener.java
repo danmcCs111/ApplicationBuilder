@@ -1,6 +1,5 @@
 package ActionListenersImpl;
 
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -12,7 +11,6 @@ import Params.XmlToWidgetGenerator;
 import Properties.LoggingMessages;
 import WidgetComponentInterfaces.DependentRedrawableFrame;
 import WidgetComponentInterfaces.DependentRedrawableFrameListener;
-import WidgetComponentInterfaces.DialogParentReferenceContainer;
 import WidgetComponents.ComboSelectionDialog;
 import WidgetExtensions.ComboListDialogSelectedListener;
 import WidgetExtensions.ExtendedAttributeParam;
@@ -24,7 +22,7 @@ import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetComponent;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class AddComponentActionListener implements DependentRedrawableFrameListener, ActionListener, ComboListDialogSelectedListener, DialogParentReferenceContainer
+public class AddComponentActionListener implements DependentRedrawableFrameListener, ActionListener, ComboListDialogSelectedListener
 {
 	private static final String 
 		DIALOG_SELECT_COMPONENT_TITLE = "Component Selection",
@@ -152,7 +150,7 @@ public class AddComponentActionListener implements DependentRedrawableFrameListe
 			csd.buildAndShow(components, 
 				DIALOG_SELECT_CHILD_COMPONENTS_TITLE,
 				DIALOG_SELECT_CHILD_COMPONENTS_MESSAGE,
-				this, this);
+				this, applicationLayoutEditor);
 		}
 		else//new JFrame.
  		{
@@ -169,13 +167,6 @@ public class AddComponentActionListener implements DependentRedrawableFrameListe
  			applicationLayoutEditor.rebuildInnerPanels();
  		}
 	
-	}
-
-	@Override
-	public Point getContainerCenterLocationPoint() 
-	{
-		return new Point((int)applicationLayoutEditor.getBounds().getCenterX(), 
-				(int)applicationLayoutEditor.getBounds().getCenterY());
 	}
 
 	@Override

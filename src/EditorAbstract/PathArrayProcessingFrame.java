@@ -127,7 +127,8 @@ public class PathArrayProcessingFrame extends JFrame
 		save.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				copyValuesAndClose();
+				copyValues();
+				close();
 			}
 		});
 		JButton cancel = new JButton(CANCEL_BUTTON_TEXT);
@@ -173,7 +174,7 @@ public class PathArrayProcessingFrame extends JFrame
 		this.removeAll();
 		this.setVisible(false);
 	}
-	private void copyValuesAndClose()
+	private void copyValues()
 	{
 		PathArrayProcessing paTmp = new PathArrayProcessing("");
 		for(int i=0; i < directories.size(); i++)
@@ -183,9 +184,7 @@ public class PathArrayProcessingFrame extends JFrame
 					extensions.get(i).getText()
 			);
 		}
-		pacl.setPathArrayProcessingValue(paTmp);
-		this.removeAll();
-		this.setVisible(false);
+		this.pa = paTmp;
 	}
 	
 }

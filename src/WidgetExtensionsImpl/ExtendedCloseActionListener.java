@@ -1,11 +1,11 @@
 package WidgetExtensionsImpl;
 
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
 
-import WidgetComponentInterfaces.DialogParentReferenceContainer;
 import WidgetComponents.ComboSelectionDialog;
 import WidgetExtensions.CloseActionExtension;
 import WidgetExtensions.ComboListDialogSelectedListener;
@@ -51,7 +51,7 @@ public class ExtendedCloseActionListener implements ExtendedAttributeStringParam
 									CLOSE_ALL_BUTTON_TEXT,
 									null,
 									(ComboListDialogSelectedListener) cae.getCloseListener(), 
-									(DialogParentReferenceContainer) cae.getCloseListener());
+									(Container)cae);
 						}
 					}
 				}
