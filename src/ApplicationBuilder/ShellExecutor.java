@@ -38,7 +38,7 @@ public class ShellExecutor
 			count++;
 			for(String s : args)
 			{
-				argsAll[count] = s;
+				argsAll[count] = s.replaceAll(" ", "\\ ");
 				count++;
 			}
 		}
