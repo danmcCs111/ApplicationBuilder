@@ -2,7 +2,7 @@ package WidgetComponentInterfaces;
 
 public enum ParamOption 
 {
-	TextField("TextField", "T"),
+	TextField("Text Field", "T"),
 	Directory("Directory", "D"),
 	File("File", "F");
 	
