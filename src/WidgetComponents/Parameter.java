@@ -7,7 +7,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import Editors.DirectorySelectionEditor;
+import Editors.FileSelectionEditor;
 import ObjectTypeConversion.DirectorySelection;
+import ObjectTypeConversion.FileSelection;
 
 public class Parameter extends JPanel
 {
@@ -15,6 +17,7 @@ public class Parameter extends JPanel
 	
 	private ArrayList<JTextField> paramString = new ArrayList<JTextField>();
 	private ArrayList<DirectorySelectionEditor> paramDirectory = new ArrayList<DirectorySelectionEditor>();
+	private ArrayList<FileSelectionEditor> paramFile = new ArrayList<FileSelectionEditor>();
 	
 	public Parameter()
 	{
@@ -34,6 +37,13 @@ public class Parameter extends JPanel
 		paramDirectory.add(dse);
 		this.add(dse);
 	}
+	public void addParamFile(FileSelection fs)
+	{
+		FileSelectionEditor fse = new FileSelectionEditor();
+		fse.setComponentValue(fs);
+		paramFile.add(fse);
+		this.add(fse);
+	}
 	
 	public ArrayList<JTextField> getParamStrings()
 	{
@@ -42,6 +52,10 @@ public class Parameter extends JPanel
 	public ArrayList<DirectorySelectionEditor> getParamDirectorySelections()
 	{
 		return paramDirectory;
+	}
+	public ArrayList<FileSelectionEditor> getParamFileSelections()
+	{
+		return paramFile;
 	}
 	
 }

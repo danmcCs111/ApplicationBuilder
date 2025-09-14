@@ -19,6 +19,7 @@ import Editors.CommandBuildEditor;
 import Editors.DirectorySelectionEditor;
 import ObjectTypeConversion.CommandBuild;
 import ObjectTypeConversion.DirectorySelection;
+import ObjectTypeConversion.FileSelection;
 import Properties.LoggingMessages;
 import WidgetExtensions.ComboListDialogSelectedListener;
 
@@ -185,7 +186,10 @@ public class CommandDialog extends JDialog
 	private void buildParameter(String s)
 	{
 		Parameter p = new Parameter();
-		p.addParamString(s);
+		if(s != null && !s.isEmpty())
+		{
+			p.addParamString(s);
+		}
 		JPanel 
 			outerPanelParam = new JPanel(),
 			innerPanelParam = new JPanel();
@@ -217,8 +221,10 @@ public class CommandDialog extends JDialog
 						p.addParamString("");
 						break;
 					case Directory:
+						p.addParamDirectory(new DirectorySelection("."));
+						break;
 					case File:
-						p.addParamDirectory(new DirectorySelection(""));
+						p.addParamFile(new FileSelection("."));
 						break;
 					}
 				}
