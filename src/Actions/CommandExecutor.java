@@ -20,7 +20,8 @@ public class CommandExecutor
 		ProcessBuilder pb = new ProcessBuilder(commandBuild.getArgs());
 		pb.redirectErrorStream(true);
 		runningProcess = pb.start();
-		LoggingMessages.printOut(commandBuild.getCommandXmlString()+ " - executed");
+		LoggingMessages.printOut(commandBuild.getArgs());
+		LoggingMessages.printOut(" - executed");
 		try (InputStream inputStream = runningProcess.getInputStream()) {
 			//required for java jar launch
 		}
