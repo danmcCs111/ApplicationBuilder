@@ -110,7 +110,7 @@ public class Parameter extends JPanel
 			DirectorySelection ds = (DirectorySelection) dse.getComponentValueObj();
 			if(ds.getRelativePath() != null && !ds.getRelativePath().isEmpty())
 			{
-				retSelection += ds.getRelativePath();
+				retSelection += ds.getRelativePath().replaceAll(" ", "\\ ");
 			}
 		}
 		for(FileSelectionEditor fse : getParamFileSelections())
@@ -118,7 +118,7 @@ public class Parameter extends JPanel
 			FileSelection fs = (FileSelection) fse.getComponentValueObj();
 			if(fs.getRelativePath() != null && !fs.getRelativePath().isEmpty())
 			{
-				retSelection += fs.getRelativePath();
+				retSelection += fs.getRelativePath().replaceAll(" ", "\\ ");
 			}
 		}
 		return retSelection;

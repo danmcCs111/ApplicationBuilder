@@ -141,7 +141,6 @@ public class CommandBuild
 	
 	public String [] getArgs()
 	{
-		boolean isWindows = System.getProperty("os.name").contains("Windows");
 		
 		if(commandLineOptions == null || parameters == null)
 		{
@@ -149,14 +148,7 @@ public class CommandBuild
 		}
 		
 		String [] args = new String[1 + commandLineOptions.length + parameters.size()];
-		if(isWindows)
-		{
-			args[0] = PathUtility.surroundString(this.command , "\"");
-		}
-		else
-		{
-			args[0] = this.command;
-		}
+		args[0] = this.command;
 		int count = 1;
 		for(int i = 0; i < commandLineOptions.length; i++)
 		{
@@ -165,14 +157,7 @@ public class CommandBuild
 		}
 		for(int i = 0; i < parameters.size(); i++)
 		{
-			if(isWindows)
-			{
-				args[count] = PathUtility.surroundString(parameters.get(i).getCommandBuildString(), "\"");
-			}
-			else
-			{
-				args[count] = parameters.get(i).getCommandBuildString();
-			}
+			args[count] = parameters.get(i).getCommandBuildString();
 			count++;
 		}
 		
