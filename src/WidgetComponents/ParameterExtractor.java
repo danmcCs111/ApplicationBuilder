@@ -81,7 +81,6 @@ public interface ParameterExtractor
 						retSelection += fs.getRelativePath().replaceAll(" ", "\\ ");
 						break;
 					}
-					
 				}
 			}
 		}

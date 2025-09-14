@@ -1,14 +1,52 @@
 <Build>
-	<JFrame extendedSetupTaskbar="./src/ApplicationBuilder/build-icon_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="450, 150" setMaximumSize="350, 0" setMinimumSize="650, 650" setTitle="Widget Creator" >
-		<ShapeCreator extendedLayoutApplyParent="Center" setLayout="java.awt.BorderLayout" setName="ShapeCreator" >
-			<JPanel extendedLayoutApplyParent="East" setLayout="java.awt.BorderLayout" >
-				<JScrollPane extendedLayoutApplyParent="Center" extendedScrollBarSetUnit="15" setName="scrollPane" >
-					<ShapeCreatorEditPanel extendedLayoutApplyParent="" extendedSetViewportView="" setLayout="java.awt.GridLayout" >
-					</ShapeCreatorEditPanel>
-				</JScrollPane>
+	<JFrame addWindowListener="WindowListeners.ProcessExecutorWindowListener" extendedSetupTaskbar="./src/ApplicationBuilder/launch_xsm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="10, 30" setName="VideoPlayer" setResizable="False" setSize="450, 515" setTitle="...!Video Launcher!..." >
+		<JPanel extendedLayoutApplyParent="Center" setLayout="java.awt.BorderLayout" >
+			<JScrollPane extendedLayoutApplyParent="Center" extendedScrollBarSetUnit="15" setName="scrollPane" >
+				<SwappableCollection extendedArrayProcessingPath="./VideoLaunchFiles/Roku Channels@.url; ./VideoLaunchFiles/Tubi@.url; ./VideoLaunchFiles/YoutubeFreeMovies2@.url; ./VideoLaunchFiles/Youtube Channels@.url; ./VideoLaunchFiles/Amazon Videos@.url; ./VideoLaunchFiles/Music@.url" extendedSetViewportView="" setBackground="204, 255, 204" setLayout="java.awt.BorderLayout" setName="swapVideos" >
+					<JPanel extendedLayoutApplyParent="North" setBackground="204, 255, 204" setLayout="java.awt.BorderLayout" >
+						<JButtonArray addActionListener="ActionListenersImpl.LaunchActionListener" extendedImageMouseAdapterArray="swapVideos, False" extendedLayoutApplyParent="Center" extendedSwappableHolder="swapVideos" extendedTextStripper="Watch @ Online for Free _ The Roku Channel _ Roku@ - YouTube@ - Prime Video@Prime Video- @1_@.url" setArrayForegroundAndBackground="240, 240, 240, 102, 102, 102" setCharacterLimit="35" setDefaultImageXmlPath="./src/ApplicationBuilder/shapes/Default-Play-Image.xml" setDimensionDefaultPic="279, 140" setExpandedArrangementFileRelativeLocation="./src/ApplicationBuilder/data/ " setHighlightBackgroundColor="240, 240, 240" setHighlightForegroundColor="50, 50, 50" setLayout="java.awt.GridLayout" setName="channels" setPicturePadWidthHeight="5, 20" setScaledWidthHeight="275, 400" setSingleClick="False" >
+						</JButtonArray>
+					</JPanel>
+				</SwappableCollection>
+			</JScrollPane>
+			<JPanel extendedLayoutApplyParent="North" setLayout="java.awt.BorderLayout" >
+				<SearchBar extendedLayoutApplyParent="East" extendedSearchField="swapVideos" setColumnCharacterLength="10" >
+				</SearchBar>
+				<JLabel extendedLayoutApplyParent="West" extendedTitleSwitcher="swapVideos" setBackground="150, 150, 150" setForeground="100, 50, 150" setHorizontalAlignment="0" setName="title" setText="TODO" >
+				</JLabel>
 			</JPanel>
-			<ShapeCreatorToolBarPanel extendedLayoutApplyParent="North" setLayout="java.awt.FlowLayout" >
-			</ShapeCreatorToolBarPanel>
-		</ShapeCreator>
+		</JPanel>
+		<JPanel extendedLayoutApplyParent="South" setBackground="204, 255, 204" setLayout="java.awt.BorderLayout" >
+			<JButton addActionListener="ActionListenersImpl.LaunchActionListener" extendedLayoutApplyParent="Center" setBackground="175, 204, 175" setForeground="119, 5, 6" setName="closeLaunchAction" setPreferredSize="60, 25" setText=" X Close" setToolTipText="close browser" >
+			</JButton>
+			<JLabel extendedCalculationPad="JButton" extendedLayoutApplyParent="East" >
+			</JLabel>
+			<JLabel extendedCalculationPad="JButton" extendedLayoutApplyParent="West" >
+			</JLabel>
+		</JPanel>
+		<JPanel extendedLayoutApplyParent="West" setBackground="204, 255, 204" setLayout="java.awt.BorderLayout" >
+			<JButton addActionListener="ActionListenersImpl.NavigationButtonActionListener" extendedActionListenerConnectedComponent="swapVideos" extendedActionListenerSubType="WidgetComponents.Direction@BACKWARD" extendedLayoutApplyParent="North" setText="[&lt;]" >
+			</JButton>
+		</JPanel>
+		<JPanel extendedLayoutApplyParent="East" setBackground="204, 255, 204" setLayout="java.awt.BorderLayout" >
+			<JButton addActionListener="ActionListenersImpl.NavigationButtonActionListener" extendedActionListenerConnectedComponent="swapVideos" extendedActionListenerSubType="WidgetComponents.Direction@FORWARD" extendedLayoutApplyParent="North" setText="[&gt;]..." >
+			</JButton>
+		</JPanel>
+		<JMenuBar extendedSetJMenuBarParent="" >
+			<JMenu extendedLayoutApplyParent="" setText="File" >
+				<JMenuItem extendedLayoutApplyParent="" extendedOpenActionListener="channels" setText="Open" >
+				</JMenuItem>
+				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn/Application Builder.jar|%TnApplicationBuilder.ApplicationBuilder|%Fn/src/ApplicationBuilder/data/Video Tile.xml" extendedLayoutApplyParent="" setText="Open Editor" >
+				</JMenuItem>
+				<JMenuItem extendedLayoutApplyParent="" extendedSaveActionListener="channels" setText="Save" >
+				</JMenuItem>
+				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="C:\\Program Files\\Git\\git-bash.exe@-i@-c|Tncd /c/Users/danie/codebase/danmcCs111/ApplicationBuilder/src/ApplicationBuilder/YoutubeFreeMovies2; pwd; ./youtube_collect_n_strip.sh /c/Program\ Files/AutoHotkey/v2/AutoHotkey /c/Users/danie/codebase/danmcCs111/AutoHotKey-Utils/youtube_scrape.ahk /c/Users/danie/OneDrive/Desktop/page_scrapes/view-source_https___www.youtube.com_feed_storefront_bp=EgCSAQMI9gOiBQIoBg3D.html" extendedLayoutApplyParent="" setText="Reload" >
+				</JMenuItem>
+				<JMenuItem extendedCloseActionListener="channels" extendedLayoutApplyParent="" setText="Close" >
+				</JMenuItem>
+				<JMenuItem extendedCloseAllActionListener="channels" extendedLayoutApplyParent="" setText="Close All" >
+				</JMenuItem>
+			</JMenu>
+		</JMenuBar>
 	</JFrame>
 </Build>
