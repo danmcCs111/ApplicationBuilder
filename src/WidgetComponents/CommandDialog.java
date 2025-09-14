@@ -21,41 +21,11 @@ import ObjectTypeConversion.CommandBuild;
 import ObjectTypeConversion.DirectorySelection;
 import ObjectTypeConversion.FileSelection;
 import Properties.LoggingMessages;
+import WidgetComponentInterfaces.ParamOption;
 import WidgetExtensions.ComboListDialogSelectedListener;
 
 public class CommandDialog extends JDialog
 {
-	
-	public enum ParamOption
-	{
-		TextField("TextField"),
-		Directory("Directory"),
-		File("File");
-		
-		private String displayText = "";
-		private ParamOption(String displayText)
-		{
-			this.displayText = displayText;
-		}
-		
-		public String getDisplayText()
-		{
-			return this.displayText;
-		}
-		
-		public static ParamOption getParamOption(String text)
-		{
-			for(ParamOption po : values())
-			{
-				if(po.getDisplayText().equals(text))
-				{
-					return po;
-				}
-			}
-			return null;
-		}
-	}
-	
 	private static final long serialVersionUID = 1L;
 	
 	private static final String 
@@ -249,10 +219,6 @@ public class CommandDialog extends JDialog
 		
 		innerPanel.add(outerPanelParam);
 		innerPanel.getRootPane().validate();
-	}
-	private void addParameter(DirectorySelection ds)
-	{
-		
 	}
 	
 	private void saveAction()
