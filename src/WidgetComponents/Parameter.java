@@ -9,10 +9,9 @@ import javax.swing.JTextField;
 
 import Editors.DirectorySelectionEditor;
 import Editors.FileSelectionEditor;
-import ObjectTypeConversion.CommandBuild;
 import ObjectTypeConversion.DirectorySelection;
 import ObjectTypeConversion.FileSelection;
-import WidgetComponentInterfaces.ParamOption;
+import WidgetComponents.ParameterExtractor.StringBuildOption;
 
 public class Parameter extends JPanel
 {
@@ -53,78 +52,12 @@ public class Parameter extends JPanel
 	
 	public String getCommandBuildSaveString()
 	{
-		String retSelection = CommandBuild.DELIMITER_PARAMETER_OPTION;
-		for(Component comp : orderedList)
-		{
-			if(comp instanceof JTextField)
-			{
-				JTextField jt = (JTextField) comp;
-				if(!jt.getText().strip().isBlank())
-				{
-					retSelection += CommandBuild.DELIMITER_PARAMETER_TYPE + 
-							ParamOption.TextField.getTypeXml() + ParamOption.PathModifier.none.getModVal() +
-							jt.getText();
-				}
-			}
-			else if(comp instanceof DirectorySelectionEditor)
-			{
-				DirectorySelectionEditor dse = (DirectorySelectionEditor) comp;
-				DirectorySelection ds = (DirectorySelection) dse.getComponentValueObj();
-				if(ds.getRelativePath() != null && !ds.getRelativePath().isEmpty())
-				{
-					retSelection += CommandBuild.DELIMITER_PARAMETER_TYPE + 
-							ParamOption.Directory.getTypeXml() + ParamOption.PathModifier.none.getModVal() +
-							ds.getRelativePath();
-				}
-			}
-			else if(comp instanceof FileSelectionEditor)
-			{
-				FileSelectionEditor fse = (FileSelectionEditor) comp;
-				FileSelection fs = (FileSelection) fse.getComponentValueObj();
-				if(fs.getRelativePath() != null && !fs.getRelativePath().isEmpty())
-				{
-					retSelection += CommandBuild.DELIMITER_PARAMETER_TYPE + 
-							ParamOption.File.getTypeXml() + ParamOption.PathModifier.none.getModVal() +
-							fs.getRelativePath();
-				}
-			}
-		}
-		return retSelection;
+		return ParameterExtractor.getCommandBuildString(orderedList, StringBuildOption.save);
 	}
 	
 	public String getCommandBuildString()
 	{
-		String retSelection = "";
-		for(Component comp : orderedList)
-		{
-			if(comp instanceof JTextField)
-			{
-				JTextField jt = (JTextField) comp;
-				if(!jt.getText().strip().isBlank())
-				{
-					retSelection += jt.getText();
-				}
-			}
-			else if(comp instanceof DirectorySelectionEditor)
-			{
-				DirectorySelectionEditor dse = (DirectorySelectionEditor) comp;
-				DirectorySelection ds = (DirectorySelection) dse.getComponentValueObj();
-				if(ds.getRelativePath() != null && !ds.getRelativePath().isEmpty())
-				{
-					retSelection += ds.getRelativePath().replaceAll(" ", "\\ ");
-				}
-			}
-			else if(comp instanceof FileSelectionEditor)
-			{
-				FileSelectionEditor fse = (FileSelectionEditor) comp;
-				FileSelection fs = (FileSelection) fse.getComponentValueObj();
-				if(fs.getRelativePath() != null && !fs.getRelativePath().isEmpty())
-				{
-					retSelection += fs.getRelativePath().replaceAll(" ", "\\ ");
-				}
-			}
-		}
-		return retSelection;
+		return ParameterExtractor.getCommandBuildString(orderedList, StringBuildOption.execute);
 	}
 	
 }
