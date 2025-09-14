@@ -7,8 +7,10 @@ import Properties.LoggingMessages;
 public class ShellExecutor 
 {
 	public static String 
-			WINDOWS_BASH_SHELL_LOCATION = "C:\\Program Files\\Git\\git-bash.exe";//TODO
+		WINDOWS_BASH_SHELL_LOCATION = "C:\\Program Files\\Git\\git-bash.exe",//TODO
+		LINUX_BASH_SHELL = "bash";
 	public static String [] 
+			LINUX_COMMAND_OPTION = new String [] {"-c", "-i"},
 			WINDOWS_COMMAND_OPTION = new String [] {"-c"};
 	
 	public static void main(String [] args)
@@ -34,7 +36,14 @@ public class ShellExecutor
 		}
 		else
 		{
-			argsAll = new String [args.length];
+			argsAll = new String[args.length + LINUX_COMMAND_OPTION.length + 1];
+			argsAll[count] = LINUX_BASH_SHELL;
+			count++;
+			for(String op : LINUX_COMMAND_OPTION)
+			{
+				argsAll[count] = op;
+				count++;
+			}
 			for(String s : args)
 			{
 				argsAll[count] = s;
