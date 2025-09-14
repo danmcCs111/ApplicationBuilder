@@ -24,7 +24,10 @@ public class ShellExecutor
 			argsAll[count] = WINDOWS_BASH_SHELL_LOCATION;
 			count++;
 			for(String op : WINDOWS_COMMAND_OPTION)
+			{
 				argsAll[count] = op;
+				count++;
+			}
 			count++;
 			for(String s : args)
 			{
@@ -38,7 +41,10 @@ public class ShellExecutor
 			argsAll[count] = LINUX_BASH_SHELL;
 			count++;
 			for(String op : LINUX_COMMAND_OPTION)
+			{
 				argsAll[count] = op;
+				count++;
+			}
 			count++;
 			for(String s : args)
 			{
