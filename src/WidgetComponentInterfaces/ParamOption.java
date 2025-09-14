@@ -2,19 +2,27 @@ package WidgetComponentInterfaces;
 
 public enum ParamOption 
 {
-	TextField("TextField"),
-	Directory("Directory"),
-	File("File");
+	TextField("TextField", "T"),
+	Directory("Directory", "D"),
+	File("File", "F");
 	
-	private String displayText = "";
-	private ParamOption(String displayText)
+	private String 
+		displayText = "",
+		typeXml = "";
+	private ParamOption(String displayText, String typeXml)
 	{
 		this.displayText = displayText;
+		this.typeXml = typeXml;
 	}
 	
 	public String getDisplayText()
 	{
 		return this.displayText;
+	}
+	
+	public String getTypeXml()
+	{
+		return this.typeXml;
 	}
 	
 	public static ParamOption getParamOption(String text)
@@ -27,5 +35,32 @@ public enum ParamOption
 			}
 		}
 		return null;
+	}
+	
+	public enum PathModifier
+	{
+		linux("l"),
+		none("n");
+		
+		private String mod = "";
+		private PathModifier(String mod)
+		{
+			this.mod = mod;
+		}
+		public String getModVal()
+		{
+			return this.mod;
+		}
+		public PathModifier getModifier(String mod)
+		{
+			for(PathModifier pm : PathModifier.values())
+			{
+				if(pm.getModVal().equals(mod))
+				{
+					return pm;
+				}
+			}
+			return null;
+		}
 	}
 }

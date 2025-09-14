@@ -8,8 +8,10 @@ import javax.swing.JTextField;
 
 import Editors.DirectorySelectionEditor;
 import Editors.FileSelectionEditor;
+import ObjectTypeConversion.CommandBuild;
 import ObjectTypeConversion.DirectorySelection;
 import ObjectTypeConversion.FileSelection;
+import WidgetComponentInterfaces.ParamOption;
 
 public class Parameter extends JPanel
 {
@@ -56,6 +58,38 @@ public class Parameter extends JPanel
 	public ArrayList<FileSelectionEditor> getParamFileSelections()
 	{
 		return paramFile;
+	}
+	
+	public String getCommandBuildString()
+	{
+		String retSelection = "";
+		for(JTextField jt : getParamStrings())
+		{
+			if(!jt.getText().strip().isBlank())
+			{
+				retSelection += CommandBuild.DELIMITER_PARAMETER_OPTION + jt.getText() + 
+						ParamOption.TextField.getTypeXml() + ParamOption.PathModifier.none;
+			}
+		}
+		for(DirectorySelectionEditor dse : getParamDirectorySelections())
+		{
+			DirectorySelection ds = (DirectorySelection) dse.getComponentValueObj();
+			if(ds.getRelativePath() != null && !ds.getRelativePath().isEmpty())
+			{
+				retSelection += CommandBuild.DELIMITER_PARAMETER_OPTION + ds.getRelativePath() + 
+						ParamOption.Directory.getTypeXml() + ParamOption.PathModifier.none;
+			}
+		}
+		for(FileSelectionEditor fse : getParamFileSelections())
+		{
+			FileSelection fs = (FileSelection) fse.getComponentValueObj();
+			if(fs.getRelativePath() != null && !fs.getRelativePath().isEmpty())
+			{
+				retSelection += CommandBuild.DELIMITER_PARAMETER_OPTION + fs.getRelativePath() + 
+						ParamOption.File.getTypeXml() + ParamOption.PathModifier.none;
+			}
+		}
+		return retSelection;
 	}
 	
 }

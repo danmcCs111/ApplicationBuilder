@@ -17,6 +17,7 @@ import javax.swing.WindowConstants;
 
 import Editors.CommandBuildEditor;
 import Editors.DirectorySelectionEditor;
+import Editors.FileSelectionEditor;
 import ObjectTypeConversion.CommandBuild;
 import ObjectTypeConversion.DirectorySelection;
 import ObjectTypeConversion.FileSelection;
@@ -233,21 +234,7 @@ public class CommandDialog extends JDialog
 		}
 		for(Parameter param : paramters)
 		{
-			for(JTextField jt : param.getParamStrings())
-			{
-				if(!jt.getText().strip().isBlank())
-				{
-					this.retSelection += CommandBuild.DELIMITER_PARAMETER_OPTION + jt.getText();
-				}
-			}
-			for(DirectorySelectionEditor dse : param.getParamDirectorySelections())
-			{
-				DirectorySelection ds = (DirectorySelection) dse.getComponentValueObj();
-				if(ds.getRelativePath() != null && !ds.getRelativePath().isEmpty())
-				{
-					this.retSelection += CommandBuild.DELIMITER_PARAMETER_OPTION + ds.getRelativePath();
-				}
-			}
+			retSelection += param.getCommandBuildString();
 		}
 		commandBuildEditor.setComponentValue(new CommandBuild(this.retSelection));
 		this.dispose();
