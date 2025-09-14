@@ -123,9 +123,9 @@ public class CommandDialog extends JDialog
 					addCommandOption(s);
 				}
 			}
-			if(cb.getParameters() != null && cb.getParameters().length > 0)
+			if(cb.getParameters() != null && cb.getParameters().size() > 0)
 			{
-				for(String s : cb.getParameters())
+				for(Parameter s : cb.getParameters())
 				{
 					buildParameter(s);
 				}
@@ -150,15 +150,10 @@ public class CommandDialog extends JDialog
 	
 	private void buildParameter()
 	{
-		buildParameter("");
+		buildParameter(new Parameter());
 	}
-	private void buildParameter(String s)
+	private void buildParameter(final Parameter param)
 	{
-		Parameter p = new Parameter();
-		if(s != null && !s.isEmpty())
-		{
-			p.addParamString(s);
-		}
 		JPanel 
 			outerPanelParam = new JPanel(),
 			innerPanelParam = new JPanel();
@@ -170,6 +165,7 @@ public class CommandDialog extends JDialog
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				innerPanel.remove(outerPanelParam);
+				paramters.remove(param);
 				innerPanel.getRootPane().validate();
 			}
 		});
@@ -187,13 +183,13 @@ public class CommandDialog extends JDialog
 					switch(po)
 					{
 					case TextField:
-						p.addParamString("");
+						param.addParamString("");
 						break;
 					case Directory:
-						p.addParamDirectory(new DirectorySelection("."));
+						param.addParamDirectory(new DirectorySelection("."));
 						break;
 					case File:
-						p.addParamFile(new FileSelection("."));
+						param.addParamFile(new FileSelection("."));
 						break;
 					}
 				}
@@ -209,8 +205,8 @@ public class CommandDialog extends JDialog
 				innerPanel.getRootPane().validate();
 			}
 		});
-		innerPanelParam.add(p);
-		paramters.add(p);
+		innerPanelParam.add(param);
+		paramters.add(param);
 		
 		outerPanelParam.add(innerPanelParam, BorderLayout.CENTER);
 		outerPanelParam.add(addField, BorderLayout.EAST);

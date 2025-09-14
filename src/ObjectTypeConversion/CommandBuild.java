@@ -129,16 +129,21 @@ public class CommandBuild
 		return commandLineOptions;
 	}
 	
-	public String [] getParameters()
+//	public String [] getParameters()
+//	{
+//		String [] retParams = new String [parameters.size()];
+//		int count = 0;
+//		for(Parameter pm : parameters)
+//		{
+//			retParams[count] = pm.getCommandBuildString();
+//			count++;
+//		}
+//		return retParams;
+//	}
+	
+	public ArrayList<Parameter> getParameters()
 	{
-		String [] retParams = new String [parameters.size()];
-		int count = 0;
-		for(Parameter pm : parameters)
-		{
-			retParams[count] = pm.getCommandBuildString();
-			count++;
-		}
-		return retParams;
+		return parameters;
 	}
 	
 	public String getCommandXmlString()

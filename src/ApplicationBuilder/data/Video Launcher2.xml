@@ -36,7 +36,7 @@
 			<JMenu extendedLayoutApplyParent="" setText="File" >
 				<JMenuItem extendedLayoutApplyParent="" extendedOpenActionListener="channels" setText="Open" >
 				</JMenuItem>
-				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|TnC:\\Users\\danie\\codebase\\danmcCs111\\ApplicationBuilder\\Application Builder.jar|TnApplicationBuilder.ApplicationBuilder|TnC:\\Users\\danie\\codebase\\danmcCs111\\ApplicationBuilder\\src\\ApplicationBuilder\\data\\Video Tile.xml" extendedLayoutApplyParent="" setText="Open Editor" >
+				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn/Application Builder.jar|%TnApplicationBuilder.ApplicationBuilder|%Fn/src/ApplicationBuilder/data/Video Tile.xml" extendedLayoutApplyParent="" setText="Open Editor" >
 				</JMenuItem>
 				<JMenuItem extendedLayoutApplyParent="" extendedSaveActionListener="channels" setText="Save" >
 				</JMenuItem>
