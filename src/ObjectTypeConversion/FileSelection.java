@@ -14,6 +14,10 @@ public class FileSelection
 	
 	public FileSelection(String relatviePath, PathModifier pm)
 	{
+		if(!relatviePath.startsWith("."))
+		{
+			relatviePath = "." + relatviePath;
+		}
 		switch(pm)
 		{
 		case linux:
