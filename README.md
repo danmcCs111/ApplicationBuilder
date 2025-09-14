@@ -1,4 +1,8 @@
 
+*adjusted paths to relative ones to support linux
+
+<img width="1910" height="1192" alt="image" src="https://github.com/user-attachments/assets/566945ba-34a4-41c9-85b8-79439ab0c7fd" />
+
 * added video list visual selection creator
 
 <img width="1897" height="1130" alt="Screenshot 2025-09-08 204044" src="https://github.com/user-attachments/assets/03053c18-1b38-4945-9c87-8bf4ae144cdf" />
