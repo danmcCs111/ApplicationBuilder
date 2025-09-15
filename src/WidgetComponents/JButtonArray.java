@@ -41,6 +41,7 @@ import WidgetExtensions.ExtendedStringCollection;
 import WidgetExtensions.MinimizeActionExtension;
 import WidgetExtensions.MouseAdapterArrayExtension;
 import WidgetExtensions.OpenActionExtension;
+import WidgetExtensions.RestoreActionExtension;
 import WidgetExtensions.SaveActionExtension;
 import WidgetUtility.FileListOptionGenerator;
 import WidgetUtility.WidgetBuildController;
@@ -52,7 +53,7 @@ import WidgetUtility.WidgetBuildController;
  * TODO use a collection of inner panels and switch during toggle?
  */
 public class JButtonArray extends JPanel implements ArrayActionListener, CharacterLimited, 
-SaveActionExtension, OpenActionExtension, CloseActionExtension, CloseAllActionExtension, MinimizeActionExtension,
+SaveActionExtension, OpenActionExtension, CloseActionExtension, CloseAllActionExtension, MinimizeActionExtension, RestoreActionExtension,
 ComboListDialogSelectedListener, MouseAdapterArrayExtension,  
 PostWidgetBuildProcessing, ButtonArray
 {
@@ -584,7 +585,17 @@ PostWidgetBuildProcessing, ButtonArray
 	{
 		for(KeepSelection ks : getKeepSelection().toArray(new KeepSelection[] {}))
 		{
+			LoggingMessages.printOut(ks.getFrame().getExtendedState() + "");
 			ks.getFrame().setExtendedState(Frame.ICONIFIED);
+		}
+	}
+
+	@Override
+	public void performRestore() 
+	{
+		for(KeepSelection ks : getKeepSelection().toArray(new KeepSelection[] {}))
+		{
+			ks.getFrame().setExtendedState(JFrame.NORMAL);
 		}
 	}
 

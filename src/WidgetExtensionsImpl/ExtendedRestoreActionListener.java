@@ -6,11 +6,11 @@ import java.awt.event.ActionListener;
 import javax.swing.AbstractButton;
 
 import WidgetExtensions.ExtendedAttributeStringParam;
-import WidgetExtensions.OpenActionExtension;
+import WidgetExtensions.RestoreActionExtension;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class ExtendedOpenActionListener implements ExtendedAttributeStringParam
+public class ExtendedRestoreActionListener implements ExtendedAttributeStringParam
 {
 	@Override
 	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 
@@ -20,21 +20,22 @@ public class ExtendedOpenActionListener implements ExtendedAttributeStringParam
 		if(m instanceof AbstractButton)
 		{
 			AbstractButton ab = (AbstractButton) m;
-			ab.addActionListener(new ActionListener() {
+			ab.addActionListener(new ActionListener() 
+			{
 				@Override
-				public void actionPerformed(ActionEvent e) {
+				public void actionPerformed(ActionEvent e) 
+				{
 					WidgetCreatorProperty wcp = WidgetBuildController.getInstance().findRefByName(name);
 					if(wcp != null)
 					{
 						Object o = wcp.getInstance();
-						if(o instanceof OpenActionExtension)
+						if(o instanceof RestoreActionExtension)
 						{
-							((OpenActionExtension) o).performOpen();
+							((RestoreActionExtension) o).performRestore();
 						}
 					}
 				}
 			});
 		}
-		
 	}
 }
