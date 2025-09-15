@@ -1,3 +1,6 @@
+Add seperate menu
+<img width="429" height="986" alt="image" src="https://github.com/user-attachments/assets/547bba80-feef-4719-9e85-dd935afa2d57" />
+
 
 *adjusted paths to relative ones to support linux
 
