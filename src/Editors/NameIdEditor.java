@@ -45,11 +45,6 @@ public class NameIdEditor extends JComboBox<NameId> implements ParameterEditor, 
 		return nameIds.toArray(new NameId[nameIds.size()]);
 	}
 	
-	private void clearAllNameIds()
-	{
-		this.removeAllItems();
-	}
-	
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub

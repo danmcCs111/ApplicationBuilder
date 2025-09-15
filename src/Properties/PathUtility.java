@@ -32,6 +32,11 @@ public interface PathUtility
 		return System.getProperty("user.dir");
 	}
 	
+	public static boolean isWindows()
+	{
+		return System.getProperty("os.name").startsWith("Windows");
+	}
+	
 	public static String getCurrentDirectoryUnix()
 	{
 		String dir = System.getProperty("user.dir");

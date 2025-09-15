@@ -5,39 +5,45 @@ import WidgetComponentInterfaces.ParamOption.PathModifier;
 
 public class FileSelection 
 {
-	private String relatviePath;
+	private String 
+		relativePath,
+		linuxPath;
+	private PathModifier pm;
 	
-	public FileSelection(String relatviePath)
+	public FileSelection(String relativePath)
 	{
-		this(relatviePath, PathModifier.none);
+		this(relativePath, PathModifier.none);
 	}
 	
-	public FileSelection(String relatviePath, PathModifier pm)
+	public FileSelection(String relativePath, PathModifier pm)
 	{
-		if(!relatviePath.startsWith("."))
+		this.pm = pm;
+		if(!relativePath.startsWith("."))
 		{
-			relatviePath = "." + relatviePath;
+			relativePath = "." + relativePath;
 		}
-		switch(pm)
-		{
-		case linux:
-			this.relatviePath = PathUtility.getPathLinux(relatviePath);
-			break;
-		case none:
-		default:
-			this.relatviePath = relatviePath;
-			break;
-		}
-		this.relatviePath = relatviePath;
+		
+		this.relativePath = relativePath;
+		this.linuxPath = PathUtility.getPathLinux(relativePath);
+	}
+	
+	public PathModifier getPathModifier()
+	{
+		return pm;
+	}
+	
+	public String getPathLinux()
+	{
+		return linuxPath;
 	}
 	
 	public String getRelativePath()
 	{
-		return relatviePath;
+		return relativePath;
 	}
 	
 	public String getFullPath()
 	{
-		return PathUtility.getCurrentDirectory() + this.relatviePath;
+		return PathUtility.getCurrentDirectory() + this.relativePath;
 	}
 }

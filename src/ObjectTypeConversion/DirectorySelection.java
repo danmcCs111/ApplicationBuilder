@@ -1,33 +1,39 @@
 package ObjectTypeConversion;
 
 import Properties.PathUtility;
-import WidgetComponentInterfaces.ParamOption;
+import WidgetComponentInterfaces.ParamOption.PathModifier;
 
 public class DirectorySelection 
 {
-	private String relatviePath;
+	private String 
+		relatviePath,
+		linuxPath;
+	private PathModifier pm;
 	
-	public DirectorySelection(String relatviePath)
+	public DirectorySelection(String relativePath)
 	{
-		this(relatviePath, ParamOption.PathModifier.none);
+		this(relativePath, PathModifier.none);
 	}
 	
-	public DirectorySelection(String relatviePath, ParamOption.PathModifier pm)
+	public DirectorySelection(String relatviePath, PathModifier pm)
 	{
+		this.pm = pm;
 		if(!relatviePath.startsWith("."))
 		{
 			relatviePath = "." + relatviePath;
 		}
-		switch(pm)
-		{
-		case linux:
-			this.relatviePath = PathUtility.getPathLinux(relatviePath);
-			break;
-		case none:
-		default:
-			this.relatviePath = relatviePath;
-			break;
-		}
+		this.relatviePath = relatviePath;
+		this.linuxPath = PathUtility.getPathLinux(relatviePath);
+	}
+	
+	public PathModifier getPathModifier()
+	{
+		return pm;
+	}
+	
+	public String getPathLinux()
+	{
+		return linuxPath;
 	}
 	
 	public String getRelativePath()

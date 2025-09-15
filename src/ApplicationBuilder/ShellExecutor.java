@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import Actions.CommandExecutor;
 import ObjectTypeConversion.CommandBuild;
+import Properties.PathUtility;
 
 public class ShellExecutor 
 {
@@ -16,7 +17,7 @@ public class ShellExecutor
 	
 	public static void main(String [] args) 
 	{
-		boolean isWindows = System.getProperty("os.name").startsWith("Windows");
+		boolean isWindows = PathUtility.isWindows();
 		CommandBuild cb;
 		if(isWindows)
 		{

@@ -10,6 +10,7 @@ import javax.swing.AbstractButton;
 import ActionListeners.ArrayActionListener;
 import MouseListenersImpl.PicLabelMouseListener;
 import Properties.LoggingMessages;
+import Properties.PathUtility;
 import WidgetComponents.JButtonLengthLimited;
 
 public class LaunchActionListener implements ActionListener
@@ -62,7 +63,7 @@ public class LaunchActionListener implements ActionListener
 		}
 		else
 		{
-			executeProcess(System.getProperty("os.name").startsWith("Windows")?getProcessWindowsOS():getProcessLinuxOS(), button.getName());
+			executeProcess(PathUtility.isWindows()?getProcessWindowsOS():getProcessLinuxOS(), button.getName());
 		}
 		lastButton = button;
 		lastButtonParent = lastButton.getParent();

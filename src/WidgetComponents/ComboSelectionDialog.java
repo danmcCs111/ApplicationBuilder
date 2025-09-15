@@ -71,8 +71,6 @@ public class ComboSelectionDialog extends JDialog
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		
 		GraphicsUtil.centerWindow(refLocContainer, this);
-//		this.setLocation((int)refLocContainer.getContainerCenterLocationPoint().x - (MIN_DIMENSION_DIALOG.width/2), 
-//				(int)refLocContainer.getContainerCenterLocationPoint().y - (MIN_DIMENSION_DIALOG.height /2));
 		this.setMinimumSize(MIN_DIMENSION_DIALOG);
 		
 		WindowListener wl = new WindowAdapter() {
