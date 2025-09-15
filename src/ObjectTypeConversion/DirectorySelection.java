@@ -6,7 +6,7 @@ import WidgetComponentInterfaces.ParamOption.PathModifier;
 public class DirectorySelection 
 {
 	private String 
-		relatviePath,
+		relativePath,
 		linuxPath;
 	private PathModifier pm;
 	
@@ -22,7 +22,7 @@ public class DirectorySelection
 		{
 			relatviePath = "." + relatviePath;
 		}
-		this.relatviePath = relatviePath;
+		this.relativePath = relatviePath;
 		this.linuxPath = PathUtility.getPathLinux(relatviePath);
 	}
 	
@@ -38,11 +38,11 @@ public class DirectorySelection
 	
 	public String getRelativePath()
 	{
-		return relatviePath;
+		return relativePath;
 	}
 	
 	public String getFullPath()
 	{
-		return PathUtility.getCurrentDirectory() + this.relatviePath;
+		return PathUtility.getCurrentDirectory() + this.relativePath;
 	}
 }
