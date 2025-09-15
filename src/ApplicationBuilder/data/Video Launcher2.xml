@@ -46,6 +46,8 @@
 				</JMenuItem>
 				<JMenuItem extendedCloseAllActionListener="channels" extendedLayoutApplyParent="" setText="Close All" >
 				</JMenuItem>
+				<JMenuItem extendedLayoutApplyParent="" extendedMinimizeActionListener="channels" setText="Minimize Open Frames" >
+				</JMenuItem>
 			</JMenu>
 		</JMenuBar>
 	</JFrame>

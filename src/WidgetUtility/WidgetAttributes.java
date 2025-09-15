@@ -53,6 +53,7 @@ import WidgetExtensionsImpl.ExtendedCloseActionListener;
 import WidgetExtensionsImpl.ExtendedCloseAllActionListener;
 import WidgetExtensionsImpl.ExtendedDatabaseResponseNodeListener;
 import WidgetExtensionsImpl.ExtendedLayoutApplyParent;
+import WidgetExtensionsImpl.ExtendedMinimizeActionListener;
 import WidgetExtensionsImpl.ExtendedNewFileActionListener;
 import WidgetExtensionsImpl.ExtendedCommandExecution;
 import WidgetExtensionsImpl.ExtendedConnectedComponent;
@@ -163,6 +164,7 @@ public class WidgetAttributes
 				ExtendedAttributeParam.getMethodDefinition(ExtendedOpenActionListener.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedCloseActionListener.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedCloseAllActionListener.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedMinimizeActionListener.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedCommandExecution.class, ExtendedMethodArgDef.CommandBuildSelection.getMethodArgDef())
 		});
 		

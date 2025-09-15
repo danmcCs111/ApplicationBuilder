@@ -3,6 +3,7 @@ package WidgetComponents;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
@@ -37,6 +38,7 @@ import WidgetExtensions.CloseActionExtension;
 import WidgetExtensions.CloseAllActionExtension;
 import WidgetExtensions.ComboListDialogSelectedListener;
 import WidgetExtensions.ExtendedStringCollection;
+import WidgetExtensions.MinimizeActionExtension;
 import WidgetExtensions.MouseAdapterArrayExtension;
 import WidgetExtensions.OpenActionExtension;
 import WidgetExtensions.SaveActionExtension;
@@ -50,7 +52,7 @@ import WidgetUtility.WidgetBuildController;
  * TODO use a collection of inner panels and switch during toggle?
  */
 public class JButtonArray extends JPanel implements ArrayActionListener, CharacterLimited, 
-SaveActionExtension, OpenActionExtension, CloseActionExtension, CloseAllActionExtension,  
+SaveActionExtension, OpenActionExtension, CloseActionExtension, CloseAllActionExtension, MinimizeActionExtension,
 ComboListDialogSelectedListener, MouseAdapterArrayExtension,  
 PostWidgetBuildProcessing, ButtonArray
 {
@@ -575,6 +577,15 @@ PostWidgetBuildProcessing, ButtonArray
 			}
 		}
 		rebuildButtons();
+	}
+
+	@Override
+	public void performMinimize() 
+	{
+		for(KeepSelection ks : getKeepSelection().toArray(new KeepSelection[] {}))
+		{
+			ks.getFrame().setExtendedState(Frame.ICONIFIED);
+		}
 	}
 
 }

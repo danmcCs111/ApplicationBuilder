@@ -160,7 +160,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		f.removeAll();
 		f.dispose();
 	}
-
+	
 	private void createKeepFrame(Component c)
 	{
 		KeepSelection keep = getAllStoredKeepSelection(c);
