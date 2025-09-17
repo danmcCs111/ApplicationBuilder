@@ -152,30 +152,30 @@ public class ShapeUtils
 		Shape shape = null;
 		switch(mode)
 		{
-		case DrawMode.Line:
+		case Line:
 			shape = new Line2D.Double(curvePoints[0], curvePoints[1]);
 			break;
-		case DrawMode.Curve:
+		case Curve:
 			shape = new CurveShape(curvePoints[0], curvePoints[2], curvePoints[3], curvePoints[1]);
 			break;
-		case DrawMode.ellipse:
+		case ellipse:
 			shape = new Ellipse2D.Double(
 					curvePoints[0].x, curvePoints[0].y, 
 					(curvePoints[1].x - curvePoints[0].x), (curvePoints[1].y - curvePoints[0].y));
 			break;
-		case DrawMode.rectangle:
+		case rectangle:
 			shape = new Rectangle2D.Double(
 					curvePoints[0].x, curvePoints[0].y, 
 					(curvePoints[1].x - curvePoints[0].x), (curvePoints[1].y - curvePoints[0].y));
 			break;
-		case DrawMode.rectangleCubic:
+		case rectangleCubic:
 			shape = new RectangleCubic(curvePoints[0], curvePoints[1], curvePoints[2], 
 					curvePoints[3], curvePoints[4], curvePoints[5], curvePoints[6], curvePoints[7], curvePoints[8], curvePoints[9], curvePoints[10], curvePoints[11]);
 			break;
-		case DrawMode.triangle:
+		case triangle:
 			shape = new Triangle(curvePoints[0], curvePoints[1], curvePoints[2]);
 			break;
-		case DrawMode.triangleCubic:
+		case triangleCubic:
 			shape = new TriangleCubic(curvePoints[0], curvePoints[1], curvePoints[2], 
 					curvePoints[3], curvePoints[4], curvePoints[5], curvePoints[6], curvePoints[7], curvePoints[8]);
 			break;

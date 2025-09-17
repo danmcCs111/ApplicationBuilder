@@ -33,6 +33,5 @@ public class OpenShapeActionListener implements ActionListener
 		ShapeDrawingCollection sdc = shapeCreator.getShapeDrawingCollection();
 		sdc.addShapeImportedListener(shapeCreator);
 		sdc.addShapeImports(shapeElements, shapeCreator);
-		
 	}
 }

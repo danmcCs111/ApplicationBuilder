@@ -71,8 +71,6 @@ public class ShapeCreatorEditPanel extends JPanel implements PostWidgetBuildProc
 			}
 			i++;
 		}
-		
-		
 		JButton showEditButton = new JButton("editWidget");
 		showEditButton.addActionListener(new ActionListener() {
 			@Override
@@ -86,7 +84,6 @@ public class ShapeCreatorEditPanel extends JPanel implements PostWidgetBuildProc
 				}
 			}
 		});
-		
 		JButton deleteButton = new JButton("Delete");
 		deleteButton.setForeground(Color.red);
 		deleteButton.addActionListener(new ActionListener() {
@@ -98,6 +95,7 @@ public class ShapeCreatorEditPanel extends JPanel implements PostWidgetBuildProc
 				shapeEditPanel.removeAll();
 				shapeEditOuterPanel.removeAll();
 				ShapeCreatorEditPanel.this.remove(shapeEditOuterPanel);
+				ShapeCreatorEditPanel.this.repaint();
 				ShapeCreatorEditPanel.this.validate();
 				sc.drawAll();
 			}
@@ -111,7 +109,7 @@ public class ShapeCreatorEditPanel extends JPanel implements PostWidgetBuildProc
 		this.add(shapeEditOuterPanel);
 		
 		indexAndPointEditors.put(index, pointEditors);
-		this.getRootPane().getParent().validate();
+		sc.repaintFrame();
 		sc.drawAll();
 	}
 	

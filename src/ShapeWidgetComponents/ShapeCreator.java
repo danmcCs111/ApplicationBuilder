@@ -71,6 +71,11 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 		this.add(draw, BorderLayout.CENTER);
 	}
 	
+	public void validateFrame()
+	{
+		this.getParent().validate();
+	}
+	
 	public void clearAll()
 	{
 		ShapeDrawingCollectionGraphics.clearAll(draw);
@@ -176,6 +181,7 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 		LoggingMessages.printOut(getColorPallette()+"");
 		sdc.addShapeStyling(shapeStyling);
 		generatePointEditor(mode, curvePoints, shapeStyling);
+		drawAll();
 		
 		return shape;
 	}

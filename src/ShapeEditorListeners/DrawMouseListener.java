@@ -179,7 +179,6 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 				
 				sc.setOperation(Operation.Select);
 				
-				sc.drawAll();
 			}
 			else
 			{
