@@ -74,10 +74,11 @@ public interface ShapeDrawingCollectionGraphics
 	{
 		drawShape((Graphics2D)draw.getGraphics(), shape, c);
 	}
-	public static void drawShape(Graphics2D g2d, Shape shape, Color c)
+	public static void drawShape(Graphics2D g2d, Shape shape, Color c)//Use defaultStroke
 	{
 		if(g2d == null)
 			return;
+		g2d.setStroke(ShapeDrawingCollection.defaultStroke);
 		g2d.setColor(c);
 		g2d.draw(shape);
 	}
