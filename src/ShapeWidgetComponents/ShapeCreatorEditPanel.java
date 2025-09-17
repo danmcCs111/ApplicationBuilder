@@ -56,7 +56,6 @@ public class ShapeCreatorEditPanel extends JPanel implements PostWidgetBuildProc
 		shapeEditPanel.setBorder(b);
 		shapeEditPanel.setLayout(new GridLayout(0, 1));//TODO
 		shapeEditOuterPanel.setLayout(new BorderLayout());
-//		shapeEditOuterPanel.setLayout(new BoxLayout(shapeEditOuterPanel, BoxLayout.PAGE_AXIS));
 		ArrayList<PointEditor> pointEditors = new ArrayList<PointEditor>();
 		int i = 0;
 		for(Point p : points)
@@ -103,13 +102,12 @@ public class ShapeCreatorEditPanel extends JPanel implements PostWidgetBuildProc
 		
 		shapeEditPanel.add(showEditButton);
 		shapeEditPanel.add(deleteButton);
-//		shapeEditOuterPanel.add(shapeEditPanel);
 		shapeEditOuterPanel.add(shapeEditPanel, BorderLayout.NORTH);
 		
 		this.add(shapeEditOuterPanel);
 		
 		indexAndPointEditors.put(index, pointEditors);
-		sc.repaintFrame();
+		sc.validateFrame();
 		sc.drawAll();
 	}
 	
