@@ -70,7 +70,7 @@ public class ComboSelectionDialog extends JDialog
 		this.setTitle(dialogTitle);
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		
-		GraphicsUtil.centerWindow(refLocContainer, this);
+		GraphicsUtil.rightEdgeTopWindow(refLocContainer, this);
 		this.setMinimumSize(MIN_DIMENSION_DIALOG);
 		
 		WindowListener wl = new WindowAdapter() {

@@ -471,7 +471,7 @@ PostWidgetBuildProcessing, ButtonArray
 		jfc.setFileFilter(new FileNameExtensionFilter(PROPERTIES_FILE_OPEN_TITLE, PROPERTIES_FILE_OPEN_FILTER));
 		jfc.setSelectedFile(f);
 		
-		int choice = jfc.showOpenDialog(WidgetBuildController.getInstance().getFrame());
+		int choice = jfc.showOpenDialog(this.getParent());
 		File chosenFile = jfc.getSelectedFile();
 		if(chosenFile != null && choice == JFileChooser.APPROVE_OPTION)
 		{
@@ -524,7 +524,7 @@ PostWidgetBuildProcessing, ButtonArray
 	@Override
 	public Object getCloseListener() 
 	{
-		return JButtonArray.this;
+		return this;
 	}
 
 	@Override
