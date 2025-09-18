@@ -19,6 +19,11 @@ public interface PathUtility
 	
 	public static String filterPathToFilename(String path)
 	{
+		path = path.strip();
+		if(path.endsWith("/"))
+		{
+			path = path.substring(0, path.length()-1);
+		}
 		return path.replaceAll(PATH_STRIP_FILTER[0], PATH_STRIP_FILTER[1]);
 	}
 	

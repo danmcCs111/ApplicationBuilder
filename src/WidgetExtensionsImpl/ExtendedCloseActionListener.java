@@ -4,6 +4,7 @@ import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.AbstractButton;
 import javax.swing.JMenuItem;
 
 import WidgetComponents.ComboSelectionDialog;
@@ -15,7 +16,6 @@ import WidgetUtility.WidgetCreatorProperty;
 
 public class ExtendedCloseActionListener implements ExtendedAttributeStringParam
 {
-
 	public static final String 
 		DIALOG_TITLE = "Close Selector",
 		DIALOG_MESSAGE = "Select Items to Close",
@@ -29,12 +29,14 @@ public class ExtendedCloseActionListener implements ExtendedAttributeStringParam
 		String name = arg0;
 		Object m = widgetProperties.getInstance();
 		
-		if(m instanceof JMenuItem)
+		if(m instanceof AbstractButton)
 		{
-			JMenuItem mi = (JMenuItem) m;
-			mi.addActionListener(new ActionListener() {
+			AbstractButton mi = (AbstractButton) m;
+			mi.addActionListener(new ActionListener() 
+			{
 				@Override
-				public void actionPerformed(ActionEvent e) {
+				public void actionPerformed(ActionEvent e) 
+				{
 					WidgetCreatorProperty wcp = WidgetBuildController.getInstance().findRefByName(name);
 					if(wcp != null)
 					{

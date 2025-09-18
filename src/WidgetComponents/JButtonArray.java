@@ -511,7 +511,7 @@ PostWidgetBuildProcessing, ButtonArray
 	@Override
 	public Object getCloseListener() 
 	{
-		return this;
+		return JButtonArray.this;
 	}
 
 	@Override

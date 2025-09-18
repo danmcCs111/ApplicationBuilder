@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import Graphics2D.GraphicsUtil;
+import Properties.LoggingMessages;
 import Properties.PathUtility;
 import ShapeWidgetComponents.ShapeDrawingCollection;
 import ShapeWidgetComponents.ShapeStyling;
@@ -160,6 +161,7 @@ public class KeepSelection implements ShapeDrawingCollectionLoad
 		for(KeepSelection k : ks)
 		{
 			convList.add(k.getText());
+			LoggingMessages.printOut(k.getText()+"");
 		}
 		return convList;
 	}

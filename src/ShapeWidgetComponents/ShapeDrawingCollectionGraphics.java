@@ -111,7 +111,6 @@ public interface ShapeDrawingCollectionGraphics
 			g2d.setColor(fillColor);
 			g2d.fill(s);
 		}
-		
 	}
 	public static void drawControlPoint(Container draw, Point p)
 	{
