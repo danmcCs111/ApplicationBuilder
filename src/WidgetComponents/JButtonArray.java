@@ -99,11 +99,6 @@ PostWidgetBuildProcessing, ButtonArray
 		
 	}
 	
-	public void setDefaultImageXmlPath(FileSelection fs)
-	{
-		DEFAULT_IMG = fs.getRelativePath();
-	}
-	
 	public String getDefaultImagePath()
 	{
 		return DEFAULT_IMG;
@@ -119,6 +114,24 @@ PostWidgetBuildProcessing, ButtonArray
 				((ImageMouseAdapter) ml).setSingleClick(singleClick);
 			}
 		}
+	}
+	
+	@Override
+	public void setScaledDefaultPic(Dimension scaledDefaultPicDimension) 
+	{
+		SCALED_DEFAULT_PIC = scaledDefaultPicDimension;
+	}
+
+	@Override
+	public void setDefaultPicSize(Dimension defaultPicDimension) 
+	{
+		DIM_DEFAULT_PIC = defaultPicDimension;
+	}
+
+	@Override
+	public void setDefaultImageXmlPath(FileSelection fs)
+	{
+		DEFAULT_IMG = fs.getRelativePath();
 	}
 	
 	public void setDimensionDefaultPic(Dimension dim)

@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.AbstractButton;
-import javax.swing.JMenuItem;
 
 import WidgetComponents.ComboSelectionDialog;
 import WidgetExtensions.CloseActionExtension;
@@ -38,23 +37,20 @@ public class ExtendedCloseActionListener implements ExtendedAttributeStringParam
 				public void actionPerformed(ActionEvent e) 
 				{
 					WidgetCreatorProperty wcp = WidgetBuildController.getInstance().findRefByName(name);
-					if(wcp != null)
+					Object o = wcp.getInstance();
+					if(o instanceof CloseActionExtension)
 					{
-						Object o = wcp.getInstance();
-						if(o instanceof CloseActionExtension)
-						{
-							CloseActionExtension cae = ((CloseActionExtension) o);
-							ComboSelectionDialog csd = new ComboSelectionDialog();
-							csd.buildAndShow(
-									cae.getSelectionValues(), 
-									DIALOG_TITLE, 
-									DIALOG_MESSAGE, 
-									CLOSE_BUTTON_TEXT,
-									CLOSE_ALL_BUTTON_TEXT,
-									null,
-									(ComboListDialogSelectedListener) cae.getCloseListener(), 
-									(Container)cae);
-						}
+						CloseActionExtension cae = ((CloseActionExtension) o);
+						ComboSelectionDialog csd = new ComboSelectionDialog();
+						csd.buildAndShow(
+								cae.getSelectionValues(), 
+								DIALOG_TITLE, 
+								DIALOG_MESSAGE, 
+								CLOSE_BUTTON_TEXT,
+								CLOSE_ALL_BUTTON_TEXT,
+								null,
+								(ComboListDialogSelectedListener) cae.getCloseListener(), 
+								(Container)cae);
 					}
 				}
 			});

@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 import javax.swing.AbstractButton;
 
 import Graphics2D.GraphicsUtil;
+import ObjectTypeConversion.FileSelection;
 
 public interface ButtonArray 
 {
@@ -20,6 +21,12 @@ public interface ButtonArray
 	public Dimension getDefaultPicSize();
 	public Dimension getScaledWidthHeight();
 	public String getDefaultImagePath();
+	
+	public void setScaledDefaultPic(Dimension scaledDefaultPicDimension);
+	public void setDefaultPicSize(Dimension defaultPicDimension);
+	public void setScaledWidthHeight(Dimension scaledDimension);
+	public void setDefaultImageXmlPath(FileSelection fs);
+	
 	public boolean isHighlightButton(AbstractButton ab);
 	
 	default Image getDefaultImage(File defaultImageLocation)

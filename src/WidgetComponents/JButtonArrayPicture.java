@@ -121,19 +121,22 @@ PostWidgetBuildProcessing
 		return DEFAULT_IMG;
 	}
 	
-	public void setDefaultPic(Dimension widthHeight)
-	{
-		DEFAULT_PIC = widthHeight;
-	}
-	
+	@Override
 	public void setScaledDefaultPic(Dimension widthHeight)
 	{
 		SCALED_DEFAULT_PIC = widthHeight;
 	}
-	
+
+	@Override
 	public void setScaledWidthHeight(Dimension widthHeight)
 	{
 		SCALED_WIDTH_HEIGHT = widthHeight;
+	}
+	
+	@Override
+	public void setDefaultPicSize(Dimension defaultPicDimension) 
+	{
+		DEFAULT_PIC = defaultPicDimension;
 	}
 	
 	@Override
