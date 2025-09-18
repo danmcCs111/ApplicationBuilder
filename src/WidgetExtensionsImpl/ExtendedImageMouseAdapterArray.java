@@ -4,6 +4,7 @@ import java.awt.event.MouseListener;
 import java.util.HashMap;
 
 import MouseListenersImpl.ImageMouseAdapter;
+import ObjectTypeConversion.NameId;
 import WidgetExtensions.ExtendedAttributeParam;
 import WidgetExtensions.ExtendedStringCollection;
 import WidgetExtensions.MouseAdapterArrayExtension;
@@ -14,9 +15,9 @@ public class ExtendedImageMouseAdapterArray implements ExtendedAttributeParam
 {
 	private static HashMap<String, MouseListener> pathAndMouseAdapter;
 	
-	public void applyMethod(String arg0, boolean isSingleClick, WidgetCreatorProperty widgetProperties) 
+	public void applyMethod(NameId arg0, boolean isSingleClick, WidgetCreatorProperty widgetProperties) 
 	{
-		WidgetCreatorProperty wcp = WidgetBuildController.getInstance().findRefByName(arg0);
+		WidgetCreatorProperty wcp = WidgetBuildController.getInstance().findRefByName(arg0.getNameId());
 		ExtendedStringCollection esc = (ExtendedStringCollection) wcp.getInstance();
 		pathAndMouseAdapter = new HashMap<String, MouseListener>();
 		MouseAdapterArrayExtension mae = (MouseAdapterArrayExtension)widgetProperties.getInstance();

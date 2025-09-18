@@ -35,6 +35,5 @@ public class ExtendedOpenActionListener implements ExtendedAttributeStringParam
 				}
 			});
 		}
-		
 	}
 }
