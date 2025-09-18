@@ -17,7 +17,7 @@ public class ScheduledCommandImportExport extends XmlNodeReader
 		SCHEDULED_COMMAND_TAG = "ScheduledCommand",
 		FILE_TYPE_TITLE = "XML",
 		FILE_TYPE_FILTER = "xml",
-		DEFAULT_DIRECTORY_RELATIVE =  "/src/ApplicationBuilder/scheduledCommands/ ";
+		DEFAULT_DIRECTORY_RELATIVE =  "/Properties/scheduledCommands/ ";
 	
 	public ScheduledCommandImportExport()
 	{

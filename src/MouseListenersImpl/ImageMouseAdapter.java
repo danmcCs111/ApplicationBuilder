@@ -41,7 +41,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 	private static final String 
 		DIALOG_SELECT_CHILD_COMPONENTS_TITLE = "Save Selection",
 		DIALOG_SELECT_CHILD_COMPONENTS_MESSAGE = "Select Which to Save: ",
-		PROPERTIES_FILE_LOCATION = PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/data/",
+		PROPERTIES_FILE_LOCATION = PathUtility.getCurrentDirectory() + "/Properties/data/",
 		PROPERTIES_FILE_SAVE_TITLE = "Save Properties",
 		PROPERTIES_FILE_SAVE_FILTER = "txt",
 		PROPERTIES_FILE_EXTENSION = ".txt",

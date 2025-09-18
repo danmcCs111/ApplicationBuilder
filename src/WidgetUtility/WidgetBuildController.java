@@ -13,6 +13,7 @@ import javax.swing.AbstractButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
+import ObjectTypeConversion.FileSelection;
 import Params.ParameterEditor;
 import Params.XmlToWidgetGenerator;
 import Properties.LoggingMessages;
@@ -28,7 +29,10 @@ public class WidgetBuildController
 {
 	private HashMap<String, Object> appObjs = new HashMap<String, Object>();
 	
-	private static final String EXTENSIONS_PACKAGE_NAME = "WidgetExtensionsImpl";
+	private static final String 
+		EXTENSIONS_PACKAGE_NAME = "WidgetExtensionsImpl";
+	private static String
+		TEMP_FILE_LOCATION = "/Properties/data/tmp.xml";
 	
 	private static final Class<?> [] FIRST_ORDERED_GENERATORS = new Class<?> [] {
 		ExtendedLayoutApplyParent.class, 
@@ -71,7 +75,12 @@ public class WidgetBuildController
 	
 	public String getTemporaryFile()
 	{
-		return PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/data/tmp.xml";
+		return PathUtility.getCurrentDirectory() + TEMP_FILE_LOCATION;
+	}
+	
+	public void setTemporaryFileLocation(FileSelection fs)
+	{
+		TEMP_FILE_LOCATION = fs.getRelativePath();
 	}
 	
 	public String getFilename()

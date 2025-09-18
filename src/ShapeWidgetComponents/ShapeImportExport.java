@@ -18,7 +18,7 @@ public class ShapeImportExport extends XmlNodeReader
 	public static final String 
 		FILE_TYPE_TITLE = "XML",
 		FILE_TYPE_FILTER = "xml",
-		DEFAULT_DIRECTORY_RELATIVE =  "/src/ApplicationBuilder/shapes/ ";
+		DEFAULT_DIRECTORY_RELATIVE =  "/Properties/shapes/ ";
 	
 	ArrayList<ShapeElement> shapeElements = new ArrayList<ShapeElement>();
 	ShapeElement shapeElement;
