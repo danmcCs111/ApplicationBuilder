@@ -25,6 +25,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import Graphics2D.GraphicsUtil;
 import Params.KeepSelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
@@ -314,7 +315,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		File f = new File(PROPERTIES_FILE_LOCATION);
 		jfc.setFileFilter(new FileNameExtensionFilter(PROPERTIES_FILE_SAVE_TITLE, PROPERTIES_FILE_SAVE_FILTER));
 		jfc.setSelectedFile(f);
-		
+		GraphicsUtil.rightEdgeTopWindow(parentFrame, jfc);
 		int choice = jfc.showSaveDialog(parentFrame);
 		File chosenFile = jfc.getSelectedFile();
 		if(chosenFile != null && choice == JFileChooser.APPROVE_OPTION)

@@ -54,7 +54,7 @@ public class ExtendedCloseActionListener implements ExtendedAttributeStringParam
 							CLOSE_ALL_BUTTON_TEXT,
 							null,
 							(ComboListDialogSelectedListener) cae.getCloseListener(), 
-							((Component)cae).getParent());
+							((Container)cae));
 				}
 			});
 		}
