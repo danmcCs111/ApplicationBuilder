@@ -1,6 +1,6 @@
 <Build>
-	<JFrame extendedSetupTaskbar="/src/ApplicationBuilder/weather_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setMinimumSize="200, 200" setResizable="False" >
-		<ClockApp addMouseListener="MouseListenersImpl.ClockMouseDragListener" addMouseMotionListener="MouseListenersImpl.ClockMouseDragListener" extendedLayoutApplyParent="Center" extendedShapeDrawingCollectionLoader="/src/ApplicationBuilder/shapes/circle.xml" >
+	<JFrame extendedSetupTaskbar="./src/ApplicationBuilder/weather_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setMinimumSize="200, 200" setResizable="False" >
+		<ClockApp addMouseListener="MouseListenersImpl.ClockMouseDragListener" addMouseMotionListener="MouseListenersImpl.ClockMouseDragListener" extendedLayoutApplyParent="Center" extendedShapeDrawingCollectionLoader="/Properties/shapes/circle.xml" >
 		</ClockApp>
 	</JFrame>
 </Build>
