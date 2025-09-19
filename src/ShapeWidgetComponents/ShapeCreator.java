@@ -142,6 +142,7 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 				cpcl.controlPointChangedNotification(ss, indexControlPoint);
 			}
 		}
+		drawAll();
 	}
 	
 	public void addShapeAndControlPointChangedListener(ShapeStyling ss, int indexControlPoint, ControlPointChangedListener changedListener)

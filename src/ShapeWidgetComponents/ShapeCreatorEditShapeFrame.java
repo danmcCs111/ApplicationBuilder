@@ -1,6 +1,5 @@
 package ShapeWidgetComponents;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -134,9 +133,7 @@ public class ShapeCreatorEditShapeFrame extends JFrame
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
 				new ScaleDialog(sc.getRootPane().getParent(), sc, shapeStyling);
-				
 			}
 		});
 		

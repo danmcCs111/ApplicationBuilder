@@ -16,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.WindowConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import Graphics2D.GraphicsUtil;
 import Properties.LoggingMessages;
@@ -33,8 +35,6 @@ public class ScaleDialog extends JDialog
 	
 	private JSlider scalingSlider = new JSlider(-100, 100, 0);
 	private JLabel scalingLabel = new JLabel(SCALE_LABEL);
-	private ShapeCreator sc;
-	private ShapeStyling ss;
 	private JButton 
 		applyButton = new JButton(APPLY_BUTTON_LABEL),
 		cancelButton = new JButton(CANCEL_BUTTON_LABEL);
@@ -43,16 +43,32 @@ public class ScaleDialog extends JDialog
 		saveCancelPanel = new JPanel(),
 		saveCancelPanelOuter = new JPanel();
 	
+	private ShapeCreator sc;
+	private ShapeStyling originalSs;
+	private Shape originalShape;
+	private ArrayList<Point> originalControlPoints;
+	
 	public ScaleDialog(Container referenceContainer, ShapeCreator sc, ShapeStyling ss)
 	{
+		int index = sc.getShapeDrawingCollection().getShapeStylings().indexOf(ss);
 		this.sc = sc;
-		this.ss = ss;
+		this.originalSs = ss;
+		this.originalShape = sc.getShapeDrawingCollection().getShapes().get(index);
+		this.originalControlPoints = sc.getShapeDrawingCollection().getShapeControlPoints().get(index);
 		
 		this.setTitle(TITLE);
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setMinimumSize(MIN_DIMENSION_DIALOG);
 		this.setLayout(new BorderLayout());
 		GraphicsUtil.centerWindow(referenceContainer, this);
+		
+		scalingSlider.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				LoggingMessages.printOut("change");
+				applyAction();
+			}
+		});
 		
 		innerPanel.setLayout(new GridLayout(0, 2));
 		innerPanel.add(scalingLabel);
@@ -72,6 +88,7 @@ public class ScaleDialog extends JDialog
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				applyAction();
+				ScaleDialog.this.dispose();
 			}
 		});
 		saveCancelPanel.add(applyButton);
@@ -90,7 +107,7 @@ public class ScaleDialog extends JDialog
 	
 	private void applyAction()
 	{
-		ArrayList<Point> sPoints = sc.getControlPointsForShapes().get(ss.getIndex());
+		ArrayList<Point> sPoints = originalControlPoints;
 		
 		double scaleFactor = scalingSlider.getValue();
 		scaleFactor /= 100;//adjust to percentage.
@@ -98,18 +115,19 @@ public class ScaleDialog extends JDialog
 		
 		LoggingMessages.printOut("Entered scale factor: " + scaleFactor);
 		
-		ArrayList<Point> controlPoints = ShapeUtils.scaleControlPoints(sc.getShapes().get(ss.getIndex()), sPoints, scaleFactor);
-		Shape s = ShapeUtils.recalculateShape(sc.getShapes().get(ss.getIndex()), controlPoints);
+		ArrayList<Point> controlPoints = ShapeUtils.scaleControlPoints(originalShape, sPoints, scaleFactor);
+		Shape s = ShapeUtils.recalculateShape(originalShape, controlPoints);
 		
-		sc.getShapes().set(ss.getIndex(), s);
-		sc.getControlPointsForShapes().set(ss.getIndex(), controlPoints);
-		sc.notifyShapeAndControlPointsChangedListener(ss);
-		
-		this.dispose();
+		sc.getShapes().set(originalSs.getIndex(), s);
+		sc.getControlPointsForShapes().set(originalSs.getIndex(), controlPoints);
+		sc.notifyShapeAndControlPointsChangedListener(originalSs);
 	}
 	
 	private void cancelAction()
 	{
+		sc.getShapes().set(originalSs.getIndex(), originalShape);
+		sc.getControlPointsForShapes().set(originalSs.getIndex(), originalControlPoints);
+		sc.notifyShapeAndControlPointsChangedListener(originalSs);
 		this.dispose();
 	}
 
