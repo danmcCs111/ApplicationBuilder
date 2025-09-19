@@ -1,11 +1,10 @@
 package WidgetExtensionsImpl;
 
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.AbstractButton;
+import javax.swing.JComponent;
 
 import WidgetComponents.ComboSelectionDialog;
 import WidgetExtensions.CloseActionExtension;
@@ -42,10 +41,14 @@ public class ExtendedCloseActionListener implements ExtendedAttributeStringParam
 			AbstractButton mi = (AbstractButton) m;
 			mi.addActionListener(new ActionListener() 
 			{
+				ComboSelectionDialog csd;
 				@Override
 				public void actionPerformed(ActionEvent e) 
 				{
-					ComboSelectionDialog csd = new ComboSelectionDialog();
+					if(csd ==null || !csd.isVisible())
+					{
+						csd = new ComboSelectionDialog();
+					}
 					csd.buildAndShow(
 							cae.getSelectionValues(), 
 							DIALOG_TITLE, 
@@ -54,7 +57,7 @@ public class ExtendedCloseActionListener implements ExtendedAttributeStringParam
 							CLOSE_ALL_BUTTON_TEXT,
 							null,
 							(ComboListDialogSelectedListener) cae.getCloseListener(), 
-							((Container)cae));
+							(((JComponent)cae).getRootPane().getParent()));
 				}
 			});
 		}

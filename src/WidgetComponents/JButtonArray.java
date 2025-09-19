@@ -24,7 +24,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import ActionListeners.ArrayActionListener;
 import ActionListenersImpl.NavigationButtonActionListener;
-import Graphics2D.GraphicsUtil;
 import MouseListenersImpl.ImageMouseAdapter;
 import MouseListenersImpl.PicLabelMouseListener;
 import ObjectTypeConversion.DirectorySelection;
@@ -468,12 +467,11 @@ PostWidgetBuildProcessing, ButtonArray
 		HashMap<String, String> props = null;
 		
 		JFileChooser jfc = new JFileChooser();
-		GraphicsUtil.rightEdgeTopWindow(this, jfc);
 		File f = new File(keepsFileLocation);
 		jfc.setFileFilter(new FileNameExtensionFilter(PROPERTIES_FILE_OPEN_TITLE, PROPERTIES_FILE_OPEN_FILTER));
 		jfc.setSelectedFile(f);
 		
-		int choice = jfc.showOpenDialog(this.getParent());
+		int choice = jfc.showOpenDialog(this);
 		File chosenFile = jfc.getSelectedFile();
 		if(chosenFile != null && choice == JFileChooser.APPROVE_OPTION)
 		{
