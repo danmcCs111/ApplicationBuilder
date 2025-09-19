@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -28,7 +29,7 @@ public class ShapeCreatorEditShapeFrame extends JFrame
 {
 	private static final long serialVersionUID = 1L;
 	
-	private static final Dimension EDITOR_FRAME_SIZE = new Dimension(750,150);
+	private static final Dimension EDITOR_FRAME_SIZE = new Dimension(550,150);
 	
 	private ShapeCreator sc;
 	private String title = "";
@@ -79,13 +80,18 @@ public class ShapeCreatorEditShapeFrame extends JFrame
 	public void buildWidgets(ShapeCreator sc, int index, String title)
 	{
 		ShapeStyling shapeStyling = sc.getShapeStylings().get(index);
+		this.setLayout(new GridLayout(0,1));
 		
 		this.title = title;
-		JComponent parentPanel = new JPanel();
+		JComponent parentPanel1 = new JPanel();
+		FlowLayout fl = new FlowLayout(FlowLayout.LEFT);
+		parentPanel1.setLayout(fl);
+		JComponent parentPanel2 = new JPanel();
+		FlowLayout f2 = new FlowLayout(FlowLayout.LEFT);
+		parentPanel2.setLayout(f2);
 		
 		JPanel innerPanel = new JPanel();
-		FlowLayout fl = new FlowLayout(FlowLayout.RIGHT);
-		parentPanel.setLayout(fl);
+		JPanel innerPanel2 = new JPanel();
 		
 		ColorEditor ce = new ColorEditor();
 		ce.setComponentValue(shapeStyling.getDrawColor());
@@ -166,14 +172,16 @@ public class ShapeCreatorEditShapeFrame extends JFrame
 		innerPanel.add(ce);
 		innerPanel.add(ceFill);
 		innerPanel.add(applyShapeNumberGenerator);
-		innerPanel.add(scaleShape);
-		innerPanel.add(createStrokedShape);
-		innerPanel.add(strokeValue);
-		innerPanel.add(skipShapeDraw);
+		innerPanel2.add(scaleShape);
+		innerPanel2.add(createStrokedShape);
+		innerPanel2.add(strokeValue);
+		innerPanel2.add(skipShapeDraw);
 		
-		parentPanel.add(innerPanel, BorderLayout.EAST);
+		parentPanel1.add(innerPanel);
+		parentPanel2.add(innerPanel2);
 		
-		this.add(parentPanel);
+		this.add(parentPanel1);
+		this.add(parentPanel2);
 	}
 	
 }
