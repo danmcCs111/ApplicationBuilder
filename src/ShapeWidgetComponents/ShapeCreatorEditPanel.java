@@ -92,7 +92,10 @@ public class ShapeCreatorEditPanel extends JPanel implements PostWidgetBuildProc
 			{
 				if(shiftButton.getText().equals("shift add"))
 				{
-					sc.addShapeSelectedIndex(sc.getShapeStyling(index));
+					if(!sc.getShapeSelectedIndexes().contains(sc.getShapeStyling(index)))
+					{
+						sc.addShapeSelectedIndex(sc.getShapeStyling(index));
+					}
 					Rectangle2D selRect = sc.getSelectionRectangle();
 					Shape s = sc.getShapes().get(index);
 					Rectangle2D boundsShape = s.getBounds2D();
