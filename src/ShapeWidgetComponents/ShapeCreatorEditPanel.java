@@ -4,8 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Point;
+import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -83,6 +85,51 @@ public class ShapeCreatorEditPanel extends JPanel implements PostWidgetBuildProc
 				}
 			}
 		});
+		JButton shiftButton = new JButton("shift add");
+		shiftButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				if(shiftButton.getText().equals("shift add"))
+				{
+					sc.addShapeSelectedIndex(sc.getShapeStyling(index));
+					Rectangle2D selRect = sc.getSelectionRectangle();
+					Shape s = sc.getShapes().get(index);
+					Rectangle2D boundsShape = s.getBounds2D();
+					if(selRect == null)
+					{
+						selRect = boundsShape;
+					}
+					else if(boundsShape.contains(selRect))
+					{
+						selRect = boundsShape;
+					}
+					shiftButton.setText("shift remove");
+					sc.setSelectionRectangle(selRect);
+				}
+				else if(shiftButton.getText().equals("shift remove"))
+				{
+					sc.removeShapeSelectedIndex(sc.getShapeStyling(index));
+					Rectangle2D selRect = sc.getSelectionRectangle();
+					selRect = null;
+					for(ShapeStyling ss : sc.getShapeSelectedIndexes())
+					{
+						Rectangle2D boundsShape = sc.getShapes().get(ss.getIndex()).getBounds2D();
+						if(selRect == null)
+						{
+							selRect = boundsShape;
+						}
+						else if(boundsShape.contains(selRect))
+						{
+							selRect = boundsShape;
+						}
+					}
+					shiftButton.setText("shift add");
+					sc.setSelectionRectangle(selRect);
+				}
+				sc.drawAll();
+			}
+		});
 		JButton deleteButton = new JButton("Delete");
 		deleteButton.setForeground(Color.red);
 		deleteButton.addActionListener(new ActionListener() {
@@ -101,6 +148,7 @@ public class ShapeCreatorEditPanel extends JPanel implements PostWidgetBuildProc
 		});
 		
 		shapeEditPanel.add(showEditButton);
+		shapeEditPanel.add(shiftButton);
 		shapeEditPanel.add(deleteButton);
 		shapeEditOuterPanel.add(shapeEditPanel, BorderLayout.NORTH);
 		

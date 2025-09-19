@@ -30,7 +30,7 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 		controlPointShapeSelectedIndex = -1;
 	private ShapeDrawingCollection sdc;
 	
-	private ArrayList<Integer> shapeSelectedIndexes = new ArrayList<Integer>();
+	private ArrayList<ShapeStyling> shapeSelectedIndexes = new ArrayList<ShapeStyling>();
 	private HashMap<ShapeStyling, HashMap<Integer, ArrayList<ControlPointChangedListener>>> shapeAndControlPointChangedListener = 
 			new HashMap<ShapeStyling, HashMap<Integer, ArrayList<ControlPointChangedListener>>>();
 	private boolean 
@@ -271,19 +271,24 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 		this.shapeCreatorEditPanel = shapeCreatorEditPanel;
 	}
 	
-	public void addShapeSelectedIndex(int index)
+	public void addShapeSelectedIndex(ShapeStyling index)
 	{
 		shapeSelectedIndexes.add(index);
 	}
 	
-	public ArrayList<Integer> getShapeSelectedIndexes()
+	public void removeShapeSelectedIndex(ShapeStyling index)
+	{
+		shapeSelectedIndexes.remove(index);
+	}
+	
+	public ArrayList<ShapeStyling> getShapeSelectedIndexes()
 	{
 		return this.shapeSelectedIndexes;
 	}
 	
 	protected void clearShapeSelectedIndex()
 	{
-		this.shapeSelectedIndexes = new ArrayList<Integer>();
+		this.shapeSelectedIndexes = new ArrayList<ShapeStyling>();
 	}
 	
 	public Rectangle2D getSelectTool()

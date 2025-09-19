@@ -134,5 +134,6 @@ public class ShapeCreatorToolBarPanel extends JPanel implements PostWidgetBuildP
 	public void shapeOperationUpdate(Operation updatedOperation) 
 	{
 		operationLabel.setText(updatedOperation.getTitleText());
+		shapeCreator.drawAll();
 	}
 }

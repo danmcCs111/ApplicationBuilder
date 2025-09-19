@@ -59,13 +59,19 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 	public void mouseMoved(MouseEvent e)
 	{
 		JFrame frame = (JFrame) sc.getRootPane().getParent();
-		if(sc.getSelectionRectangle() != null && sc.getSelectionRectangle().contains(sc.getRelativePoint(e)))
+		
+		if(sc.getSelectionRectangle() != null && 
+				sc.getSelectionRectangle().contains(sc.getRelativePoint(e)) &&
+				sc.getOperation() != Operation.Move)
 		{
 			frame.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
 			sc.setOperation(Operation.Move);
 		}
 		//TODO detect control points
-		else if(!frame.getCursor().equals(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR)))
+		else if(
+				sc.getSelectionRectangle() != null && !sc.getSelectionRectangle().contains(sc.getRelativePoint(e)) &&
+				!frame.getCursor().equals(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR)) && 
+				sc.getOperation() != Operation.Select)
 		{
 			frame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 			sc.setOperation(Operation.Select);
@@ -197,11 +203,12 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 	
 	public void applyShiftAmount(Point shift)
 	{
-		for(int index : sc.getShapeSelectedIndexes())
+		for(ShapeStyling ss : sc.getShapeSelectedIndexes())
 		{
+			int index = ss.getIndex();
 			ArrayList<Point> shapesControlPoints = sc.getControlPointsForShapes().get(index);
 			Shape s = sc.getShapes().get(index);
-			ShapeStyling ss = sc.getShapeStyling(index);
+//			ShapeStyling ss = sc.getShapeStyling(index);
 			ArrayList<Point> newPoints = new ArrayList<Point>();
 			for(Point p : shapesControlPoints)
 			{
@@ -235,11 +242,12 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 	
 	public void applyScalingAmount(Point shift)
 	{
-		for(int index : sc.getShapeSelectedIndexes())
+		for(ShapeStyling ss : sc.getShapeSelectedIndexes())
 		{
+			int index = ss.getIndex();
 			ArrayList<Point> shapesControlPoints = sc.getControlPointsForShapes().get(index);
 			Shape s = sc.getShapes().get(index);
-			ShapeStyling ss = sc.getShapeStyling(index);
+//			ShapeStyling ss = sc.getShapeStyling(index);
 			ArrayList<Point> newPoints = new ArrayList<Point>();
 			for(Point p : shapesControlPoints)
 			{
@@ -279,7 +287,7 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 			if(bounds.contains(s.getBounds()))
 			{
 				selectedShapes.add(s);
-				sc.addShapeSelectedIndex(sc.getShapeStyling(index).getIndex());
+				sc.addShapeSelectedIndex(sc.getShapeStyling(index));
 				LoggingMessages.printOut("Selecting: " + s.getClass().getName());
 			}
 			index++;
