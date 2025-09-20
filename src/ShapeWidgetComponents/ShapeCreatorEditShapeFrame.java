@@ -137,6 +137,14 @@ public class ShapeCreatorEditShapeFrame extends JFrame
 			}
 		});
 		
+		JButton rotateShape = new JButton("Rotate Shape");
+		rotateShape.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new RotateDialog(sc.getRootPane().getParent(), sc, shapeStyling);
+			}
+		});
+		
 		JComboBox<Boolean> createStrokedShape = new JComboBox<Boolean>(new Boolean[] {false,true});
 		createStrokedShape.addActionListener(new ActionListener() {
 			@Override
@@ -170,6 +178,7 @@ public class ShapeCreatorEditShapeFrame extends JFrame
 		innerPanel.add(ceFill);
 		innerPanel.add(applyShapeNumberGenerator);
 		innerPanel2.add(scaleShape);
+		innerPanel2.add(rotateShape);
 		innerPanel2.add(createStrokedShape);
 		innerPanel2.add(strokeValue);
 		innerPanel2.add(skipShapeDraw);

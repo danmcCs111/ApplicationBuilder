@@ -15,6 +15,7 @@ public class ShapeStyling
 	private Color 
 		drawColor,
 		fillColor;
+	private double rotate = 0.0;
 	private ShapeStylingActionListener shapeStyleActionListener;
 	private Stroke stroke;
 	private int strokeWidth = -1;
@@ -24,6 +25,17 @@ public class ShapeStyling
 	private NumberGeneratorConfig numberGeneratorConfig;
 	private PathIterator pi;
 	private AffineTransformRasterizer afs; 
+	
+	public ShapeStyling(ShapeStyling ss)
+	{
+		this.setDrawColor(ss.getDrawColor());
+		this.setFillColor(ss.getFillColor());
+		this.setIndex(ss.getIndex());
+		this.setNumberGeneratorConfig(ss.getNumberGeneratorConfig());
+		this.setSkipShapeDraw(ss.skipShapeDraw());
+		this.setStrokeWidth(ss.getStrokeWidth());
+		this.setDegrees(ss.getDegrees());
+	}
 	
 	public ShapeStyling(int shapeIndex, Color drawColor, Color fillColor, ShapeStylingActionListener shapeStyleActionListener)
 	{
@@ -110,6 +122,16 @@ public class ShapeStyling
 			this.stroke = new BasicStroke(this.strokeWidth);
 		}
 		notifyChange();
+	}
+	
+	public double getDegrees()
+	{
+		return this.rotate;
+	}
+	
+	public void setDegrees(double degrees)
+	{
+		this.rotate = degrees;
 	}
 	
 	private void notifyChange()

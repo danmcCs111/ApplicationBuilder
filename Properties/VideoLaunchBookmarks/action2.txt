@@ -1,3 +1,4 @@
-First Blood@100@600=./VideoLaunchFiles/YoutubeFreeMovies2
-Juice@300@625=./VideoLaunchFiles/YoutubeFreeMovies2
-Scary Movie (MIRAMAX)@500@650=./VideoLaunchFiles/YoutubeFreeMovies2
+The Net (1995)@100@600=./VideoLaunchFiles/YoutubeFreeMovies2
+Total Recall@300@625=./VideoLaunchFiles/YoutubeFreeMovies2
+Victor Frankenstein@500@650=./VideoLaunchFiles/YoutubeFreeMovies2
+Wing Commander  The Movie@700@675=./VideoLaunchFiles/YoutubeFreeMovies2

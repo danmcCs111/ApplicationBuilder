@@ -113,6 +113,31 @@ public class ShapeUtils
 		return s;
 	}
 	
+	public static ArrayList<Point> rotate(Shape s, ArrayList<Point> cps, double degreesRotate)
+	{
+		Rectangle2D bounds = s.getBounds2D();
+		double 
+			cX = bounds.getCenterX(),
+			cY = bounds.getCenterY();
+		double angleRadians = Math.toRadians(degreesRotate);
+		
+		ArrayList<Point> newPoints = new ArrayList<Point>();
+		for(Point p : cps)
+		{
+			double 
+				translatedX = p.x - cX,
+		        translatedY = p.y - cY,
+		        rotatedX = translatedX * Math.cos(angleRadians) - translatedY * Math.sin(angleRadians),
+		        rotatedY = translatedX * Math.sin(angleRadians) + translatedY * Math.cos(angleRadians);
+	        
+	        rotatedX += cX;
+	        rotatedY += cY;
+	        newPoints.add(new Point((int)rotatedX, (int)rotatedY));
+		}
+		
+		return newPoints;
+	}
+	
 	/**
 	 * 
 	 * @param s

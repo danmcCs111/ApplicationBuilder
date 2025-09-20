@@ -53,7 +53,6 @@ public class ShapeDrawingCollection
 		LoggingMessages.printOut("style size: " + shapeStylings.size());
 		
 		return sss;
-		
 	}
 	
 	public void remove(int index)
