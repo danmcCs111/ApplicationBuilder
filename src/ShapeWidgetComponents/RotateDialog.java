@@ -8,6 +8,8 @@ import java.awt.Point;
 import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -27,8 +29,8 @@ public class RotateDialog extends JDialog
 	private static final long serialVersionUID = 1L;
 	
 	private static final String 
-		TITLE = "Number Generator Command Config",
-		SCALE_LABEL = "Scale To Percentage: ",
+		TITLE = "Rotate",
+		SCALE_LABEL = "Rotation Degrees: ",
 		APPLY_BUTTON_LABEL = "Apply",
 		CANCEL_BUTTON_LABEL = "Cancel";
 	private static final Dimension MIN_DIMENSION_DIALOG = new Dimension(400, 300);
@@ -67,6 +69,13 @@ public class RotateDialog extends JDialog
 			public void stateChanged(ChangeEvent e) {
 				LoggingMessages.printOut("change");
 				applyAction();
+			}
+		});
+		
+		this.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent e) {
+				RotateDialog.this.cancelAction();
 			}
 		});
 		

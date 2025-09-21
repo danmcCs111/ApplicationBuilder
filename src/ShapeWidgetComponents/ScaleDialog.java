@@ -8,6 +8,9 @@ import java.awt.Point;
 import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -27,8 +30,8 @@ public class ScaleDialog extends JDialog
 	private static final long serialVersionUID = 1L;
 	
 	private static final String 
-		TITLE = "Number Generator Command Config",
-		SCALE_LABEL = "Scale To Percentage: ",
+		TITLE = "Scale Shape",
+		SCALE_LABEL = "Scale: ",
 		APPLY_BUTTON_LABEL = "Apply",
 		CANCEL_BUTTON_LABEL = "Cancel";
 	private static final Dimension MIN_DIMENSION_DIALOG = new Dimension(400, 300);
@@ -74,6 +77,13 @@ public class ScaleDialog extends JDialog
 		innerPanel.add(scalingLabel);
 		innerPanel.add(scalingSlider);
 		this.add(innerPanel, BorderLayout.NORTH);
+		
+		this.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent e) {
+				ScaleDialog.this.cancelAction();
+			}
+		});
 		
 		buildSaveCancel();
 		this.setVisible(true);
