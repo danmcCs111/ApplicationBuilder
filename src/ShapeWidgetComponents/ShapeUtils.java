@@ -196,7 +196,7 @@ public class ShapeUtils implements TextDialogSelectedListener
 			td.buildAndShow("Enter text", "Enter text", this, frame);
 			Graphics2D g2d = (Graphics2D) frame.getGraphics();
 			FontRenderContext frc = g2d.getFontRenderContext();
-			GlyphVector gv = g2d.getFont().createGlyphVector(frc, "A");
+			GlyphVector gv = g2d.getFont().createGlyphVector(frc, "|");
 			gv.setGlyphPosition(0, curvePoints[0]);
 			GeneralPath gp = (GeneralPath) gv.getGlyphOutline(0);
 			shape = gv.getGlyphOutline(0);
