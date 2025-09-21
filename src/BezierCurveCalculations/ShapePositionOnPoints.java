@@ -30,7 +30,6 @@ public interface ShapePositionOnPoints
 			String numDisplay = count + "";
 //			fontPixelSize(g2d, myFont, numDisplay);
 			GlyphVector gv = g2d.getFont().createGlyphVector(frc, numDisplay);
-			
 			g2d.drawGlyphVector(gv, p.x, p.y);
 			count++;
 			if(count > sequenceRangeEnd)

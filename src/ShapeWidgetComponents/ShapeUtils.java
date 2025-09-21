@@ -1,80 +1,92 @@
 package ShapeWidgetComponents;
 
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Shape;
+import java.awt.font.FontRenderContext;
+import java.awt.font.GlyphVector;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+
 import Graphics2D.CurveShape;
 import Properties.LoggingMessages;
+import WidgetExtensions.TextDialogSelectedListener;
+import WidgetUtility.WidgetBuildController;
 
-public class ShapeUtils 
+public class ShapeUtils implements TextDialogSelectedListener
 {
 	private static final String [] //TODO
-			CURVE_DIRECTIONS = new String [] {
-				"",
-				"Enter x, y", 
-				"Enter x2, y2", 
-				"Enter Control Point 1", 
-				"Enter Control Point 2"
-			},
-			LINE_DIRECTIONS = new String [] {
-				"",
-				"Enter x, y", 
-				"Enter x2, y2"
-			},
-			ELLIPSE_DIRECTIONS = new String [] {
+		CURVE_DIRECTIONS = new String [] {
+			"",
+			"Enter x, y", 
+			"Enter x2, y2", 
+			"Enter Control Point 1", 
+			"Enter Control Point 2"
+		},
+		TEXT_DIRECTIONS = new String [] {
+			"",
+			"Enter x, y",
+		},
+		LINE_DIRECTIONS = new String [] {
+			"",
+			"Enter x, y", 
+			"Enter x2, y2"
+		},
+		ELLIPSE_DIRECTIONS = new String [] {
+			"",
+			"Enter x, y",
+			"Enter x2, y2"
+		},
+		RECTANGLE_DIRECTIONS = new String [] {
 				"",
 				"Enter x, y",
 				"Enter x2, y2"
-			},
-			RECTANGLE_DIRECTIONS = new String [] {
-					"",
-					"Enter x, y",
-					"Enter x2, y2"
-			},
-			RECTANGLE_CUBIC_DIRECTIONS = new String [] {
-					"",
-					"Enter x, y",
-					"Enter x2, y2",
-					"Enter x3, y3",
-					"Enter x4, y4",
-					
-					"Enter control 1, y1",
-					"Enter control 1.2, y1.2",
-					
-					"Enter control 2, y2",
-					"Enter control 2.2, y2.2",
-					
-					"Enter control 3, y3",
-					"Enter control 3.2, y3.2",
-					
-					"Enter control 4, y4",
-					"Enter control 4.2, y4.2",
-			},
-			TRIANGLE_DIRECTIONS = new String [] {
-					"",
-					"Enter x, y",
-					"Enter x2, y2",
-					"Enter x3, y3"
-			},
-			TRIANGLE_CUBIC_DIRECTIONS = new String [] {
-					"",
-					"Enter x, y",
-					"Enter x2, y2",
-					"Enter x3, y3",
-					
-					"Enter control 1, y1",
-					"Enter control 1.2, y1.2",
-					
-					"Enter control 2, y2",
-					"Enter control 2.2, y2.2",
-					
-					"Enter control 3, y3",
-					"Enter control 3.2, y3.2",
-			};
+		},
+		RECTANGLE_CUBIC_DIRECTIONS = new String [] {
+				"",
+				"Enter x, y",
+				"Enter x2, y2",
+				"Enter x3, y3",
+				"Enter x4, y4",
+				
+				"Enter control 1, y1",
+				"Enter control 1.2, y1.2",
+				
+				"Enter control 2, y2",
+				"Enter control 2.2, y2.2",
+				
+				"Enter control 3, y3",
+				"Enter control 3.2, y3.2",
+				
+				"Enter control 4, y4",
+				"Enter control 4.2, y4.2",
+		},
+		TRIANGLE_DIRECTIONS = new String [] {
+				"",
+				"Enter x, y",
+				"Enter x2, y2",
+				"Enter x3, y3"
+		},
+		TRIANGLE_CUBIC_DIRECTIONS = new String [] {
+				"",
+				"Enter x, y",
+				"Enter x2, y2",
+				"Enter x3, y3",
+				
+				"Enter control 1, y1",
+				"Enter control 1.2, y1.2",
+				
+				"Enter control 2, y2",
+				"Enter control 2.2, y2.2",
+				
+				"Enter control 3, y3",
+				"Enter control 3.2, y3.2",
+		};
 	
 	public static Shape recalculateShape(Shape s, ArrayList<Point> cps)
 	{
@@ -172,11 +184,24 @@ public class ShapeUtils
 		return newPoints;
 	}
 	
-	public static Shape constructShape(DrawMode mode, Point [] curvePoints)
+	public Shape constructShape(DrawMode mode, Point [] curvePoints)
 	{
 		Shape shape = null;
 		switch(mode)
 		{
+		case Text:
+			//open dialog.
+			JFrame frame = WidgetBuildController.getInstance().getFrame();
+			TextDialog td = new TextDialog();
+			td.buildAndShow("Enter text", "Enter text", this, frame);
+			Graphics2D g2d = (Graphics2D) frame.getGraphics();
+			FontRenderContext frc = g2d.getFontRenderContext();
+			GlyphVector gv = g2d.getFont().createGlyphVector(frc, "A");
+			gv.setGlyphPosition(0, curvePoints[0]);
+			GeneralPath gp = (GeneralPath) gv.getGlyphOutline(0);
+			shape = gv.getGlyphOutline(0);
+			LoggingMessages.printOut(shape.getClass()+"");//TODO
+			break;
 		case Line:
 			shape = new Line2D.Double(curvePoints[0], curvePoints[1]);
 			break;
@@ -211,6 +236,7 @@ public class ShapeUtils
 	
 	public enum DrawMode//TODO
 	{
+		Text(GlyphVector.class.getName(), "Text", TEXT_DIRECTIONS, 1),
 		Line(Line2D.class.getName(), "Line", LINE_DIRECTIONS, 2),
 		Curve(CurveShape.class.getName(), "Curve", CURVE_DIRECTIONS, 4),
 		ellipse(Ellipse2D.class.getName(), "Elipse", ELLIPSE_DIRECTIONS, 2),
@@ -261,6 +287,12 @@ public class ShapeUtils
 		{
 			return this.numberOfPoints;
 		}
+	}
+
+	@Override
+	public void textEntered(String textEntered) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

@@ -44,10 +44,11 @@ public class ShapeElement
 	
 	public Shape getShape()
 	{
+		ShapeUtils su = new ShapeUtils();
 		if(shape == null)
 		{
 			DrawMode dm = this.getDrawMode();
-			shape = ShapeUtils.constructShape(dm, controlPoints.toArray(new Point[]{}));
+			shape = su.constructShape(dm, controlPoints.toArray(new Point[]{}));
 		}
 		return shape;
 	}
