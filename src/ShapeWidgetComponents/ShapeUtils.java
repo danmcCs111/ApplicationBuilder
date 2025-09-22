@@ -1,24 +1,24 @@
 package ShapeWidgetComponents;
 
+import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Shape;
-import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import Graphics2D.CurveShape;
 import Properties.LoggingMessages;
-import WidgetExtensions.TextDialogSelectedListener;
 import WidgetUtility.WidgetBuildController;
 
-public class ShapeUtils implements TextDialogSelectedListener
+public class ShapeUtils 
 {
 	private static final String [] //TODO
 		CURVE_DIRECTIONS = new String [] {
@@ -30,7 +30,7 @@ public class ShapeUtils implements TextDialogSelectedListener
 		},
 		TEXT_DIRECTIONS = new String [] {
 			"",
-			"Enter x, y",
+			"Enter x, y"
 		},
 		LINE_DIRECTIONS = new String [] {
 			"",
@@ -64,7 +64,7 @@ public class ShapeUtils implements TextDialogSelectedListener
 				"Enter control 3.2, y3.2",
 				
 				"Enter control 4, y4",
-				"Enter control 4.2, y4.2",
+				"Enter control 4.2, y4.2"
 		},
 		TRIANGLE_DIRECTIONS = new String [] {
 				"",
@@ -85,11 +85,19 @@ public class ShapeUtils implements TextDialogSelectedListener
 				"Enter control 2.2, y2.2",
 				
 				"Enter control 3, y3",
-				"Enter control 3.2, y3.2",
+				"Enter control 3.2, y3.2"
 		};
 	
 	public static Shape recalculateShape(Shape s, ArrayList<Point> cps)
 	{
+		if(s instanceof TextShape)
+		{
+			Font font = ((TextShape) s).getFont();
+			Graphics2D g2d = ((TextShape) s).getGraphics();
+			String text = ((TextShape) s).getText();
+			
+			s = new TextShape(text, cps.get(0), font, g2d);
+		}
 		if(s instanceof CurveShape)
 		{
 			s = new CurveShape(cps.get(0), cps.get(2), cps.get(3), cps.get(1));
@@ -184,7 +192,7 @@ public class ShapeUtils implements TextDialogSelectedListener
 		return newPoints;
 	}
 	
-	public Shape constructShape(DrawMode mode, Point [] curvePoints)
+	public static Shape constructShape(DrawMode mode, Point [] curvePoints, Graphics2D g2d)
 	{
 		Shape shape = null;
 		switch(mode)
@@ -192,15 +200,12 @@ public class ShapeUtils implements TextDialogSelectedListener
 		case Text:
 			//open dialog.
 			JFrame frame = WidgetBuildController.getInstance().getFrame();
-			TextDialog td = new TextDialog();
-			td.buildAndShow("Enter text", "Enter text", this, frame);
-			Graphics2D g2d = (Graphics2D) frame.getGraphics();
-			FontRenderContext frc = g2d.getFontRenderContext();
-			GlyphVector gv = g2d.getFont().createGlyphVector(frc, "|");
-			gv.setGlyphPosition(0, curvePoints[0]);
-			GeneralPath gp = (GeneralPath) gv.getGlyphOutline(0);
-			shape = gv.getGlyphOutline(0);
-			LoggingMessages.printOut(shape.getClass()+"");//TODO
+			String opt = (String) JOptionPane.showInputDialog(
+					frame,
+					"Enter Text");
+			Font font = new Font(Font.SANS_SERIF, 0, 20);
+			shape = new TextShape(opt, curvePoints[0], font, g2d);
+			LoggingMessages.printOut(opt + " " + g2d);
 			break;
 		case Line:
 			shape = new Line2D.Double(curvePoints[0], curvePoints[1]);
@@ -287,12 +292,6 @@ public class ShapeUtils implements TextDialogSelectedListener
 		{
 			return this.numberOfPoints;
 		}
-	}
-
-	@Override
-	public void textEntered(String textEntered) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 }

@@ -26,9 +26,15 @@ public class TextShape implements Shape
 	private int characterSpacing = 15;
 	private ArrayList<Shape> glyphShapes = new ArrayList<Shape>();
 	private PathIteratorAccumilated piAcc;
+	private String text;
+	private Font font;
+	private Graphics2D g2d;
 	
 	public TextShape(String text, Point startPoint, Font font, Graphics2D g2d)
 	{
+		this.text = text;
+		this.font = font;
+		this.g2d = g2d;
 		ArrayList<PathIterator> pis = new ArrayList<PathIterator>();
 		FontRenderContext frc = g2d.getFontRenderContext();
 		GlyphVector gv = font.createGlyphVector(frc, text);
@@ -45,6 +51,21 @@ public class TextShape implements Shape
 			pis.add(shape.getPathIterator(g2d.getTransform()));
 		}
 		piAcc = new PathIteratorAccumilated(pis);
+	}
+	
+	public String getText()
+	{
+		return this.text;
+	}
+	
+	public Font getFont()
+	{
+		return this.font;
+	}
+	
+	public Graphics2D getGraphics()
+	{
+		return this.g2d;
 	}
 	
 	public ArrayList<Shape> getGlyphShapes()
@@ -64,65 +85,93 @@ public class TextShape implements Shape
 		
 		Font font = new Font(Font.SANS_SERIF, 0, 15);
 		
-		TextShape ts = new TextShape("123 help", new Point(15,15), font, (Graphics2D)f.getGraphics());
-		ShapeDrawingCollectionGraphics.drawShape(panel, ts, Color.blue);
+		ArrayList<Point> points = new ArrayList<Point>();
+		points.add(new Point(15,15));
+		TextShape ts = new TextShape("123 help", new Point(15,15), font, (Graphics2D)panel.getGraphics());
+		System.out.println(panel.getGraphics());
+		ShapeDrawingCollection sdc = new ShapeDrawingCollection();
+		ShapeStyling ss = new ShapeStyling(0, Color.black, Color.black, null);
+		sdc.addShape(ts);
+		sdc.addShapeControlPoints(points);
+		sdc.addShapeStyling(ss);
+		ShapeDrawingCollectionGraphics.drawAll(panel, sdc, null);
 	}
 	
 	@Override
-	public Rectangle getBounds() {
-		// TODO Auto-generated method stub
-		return null;
+	public Rectangle getBounds() 
+	{
+		int startx = glyphShapes.get(0).getBounds().x;
+		int starty = glyphShapes.get(0).getBounds().y;
+		Rectangle last = glyphShapes.get(glyphShapes.size()-1).getBounds();
+		int endx = (last.x + last.width) - startx;
+		int endy = (last.y + last.height)- starty;
+		return new Rectangle(startx, starty, endx, endy);
 	}
 
 	@Override
-	public Rectangle2D getBounds2D() {
-		// TODO Auto-generated method stub
-		return null;
+	public Rectangle2D getBounds2D() 
+	{
+		Rectangle bound = getBounds();
+		return new Rectangle2D.Double(bound.getX(), bound.getY(), bound.getWidth(), bound.getHeight());
 	}
 
 	@Override
-	public boolean contains(double x, double y) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean contains(double x, double y) 
+	{
+		return getBounds().contains(x, y);
 	}
 
 	@Override
-	public boolean contains(Point2D p) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean contains(Point2D p) 
+	{
+		return getBounds().contains(p);
 	}
 
 	@Override
-	public boolean intersects(double x, double y, double w, double h) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean intersects(double x, double y, double w, double h) 
+	{
+		return getBounds2D().intersects(x, y, w, h);
 	}
 
 	@Override
-	public boolean intersects(Rectangle2D r) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean intersects(Rectangle2D r) 
+	{
+		return getBounds2D().intersects(r);
 	}
 
 	@Override
-	public boolean contains(double x, double y, double w, double h) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean contains(double x, double y, double w, double h) 
+	{
+		return getBounds2D().contains(x, y, w, h);
 	}
 
 	@Override
-	public boolean contains(Rectangle2D r) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean contains(Rectangle2D r) 
+	{
+		return getBounds2D().contains(r);
 	}
 
 	@Override
-	public PathIterator getPathIterator(AffineTransform at) {
+	public PathIterator getPathIterator(AffineTransform at) 
+	{
+		ArrayList<PathIterator> pis = new ArrayList<PathIterator>();
+		for(Shape shape : getGlyphShapes())
+		{
+			pis.add(shape.getPathIterator(at));
+		}
+		piAcc = new PathIteratorAccumilated(pis);
 		return piAcc;
 	}
 
 	@Override
-	public PathIterator getPathIterator(AffineTransform at, double flatness) {
+	public PathIterator getPathIterator(AffineTransform at, double flatness) 
+	{
+		ArrayList<PathIterator> pis = new ArrayList<PathIterator>();
+		for(Shape shape : getGlyphShapes())
+		{
+			pis.add(shape.getPathIterator(at));
+		}
+		piAcc = new PathIteratorAccumilated(pis);
 		return piAcc;
 	}
 	

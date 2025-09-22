@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import BezierCurveCalculations.AffineTransformRasterizer;
 import BezierCurveCalculations.ShapePositionOnPoints;
+import Properties.LoggingMessages;
 
 public interface ShapeDrawingCollectionGraphics 
 {
@@ -78,6 +79,7 @@ public interface ShapeDrawingCollectionGraphics
 	{
 		if(g2d == null)
 			return;
+		LoggingMessages.printOut("drawing: " + shape.getClass());
 		g2d.setStroke(ShapeDrawingCollection.defaultStroke);
 		g2d.setColor(c);
 		g2d.draw(shape);
@@ -91,26 +93,36 @@ public interface ShapeDrawingCollectionGraphics
 	{
 		if(g2d == null || shapeStyling.skipShapeDraw())
 			return;
-		Color c = shapeStyling.getDrawColor(); 
-		Color fillColor = shapeStyling.getFillColor();
-		Stroke stroke = shapeStyling.getStroke();
 		Shape s = shape;
+		if(s instanceof TextShape)
+		{
+			LoggingMessages.printOut(s + " "  + s.getBounds());
+		}
+//		else
+//		{
+			Color c = shapeStyling.getDrawColor(); 
+			Color fillColor = shapeStyling.getFillColor();
+			Stroke stroke = shapeStyling.getStroke();
+			
+			if(stroke != null && shapeStyling.isCreateStrokedShape())
+			{
+				g2d.setStroke(stroke);
+				s = g2d.getStroke().createStrokedShape(shape);
+			}
+			else 
+			{
+				g2d.setStroke(ShapeDrawingCollection.defaultStroke);
+			}
+			g2d.setColor(c);
+			g2d.draw(s);
+			
+			if(fillColor != null)
+			{
+				g2d.setColor(fillColor);
+				g2d.fill(s);
+			}
+//		}
 		
-		if(stroke != null && shapeStyling.isCreateStrokedShape())
-		{
-			g2d.setStroke(stroke);
-			s = g2d.getStroke().createStrokedShape(shape);
-		}
-		else {
-			g2d.setStroke(ShapeDrawingCollection.defaultStroke);
-		}
-		g2d.setColor(c);
-		g2d.draw(s);
-		if(fillColor != null)
-		{
-			g2d.setColor(fillColor);
-			g2d.fill(s);
-		}
 	}
 	public static void drawControlPoint(Container draw, Point p)
 	{

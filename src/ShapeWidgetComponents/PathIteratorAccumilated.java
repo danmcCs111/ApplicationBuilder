@@ -13,6 +13,11 @@ public class PathIteratorAccumilated implements PathIterator
 		this.pis = pis;
 	}
 	
+	public ArrayList<PathIterator> getPathIterators()
+	{
+		return this.pis;
+	}
+	
 	@Override
 	public int getWindingRule() 
 	{

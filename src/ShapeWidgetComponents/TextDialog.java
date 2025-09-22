@@ -34,7 +34,6 @@ public class TextDialog extends JDialog
 	
 	public TextDialog()
 	{
-		
 	}
 	
 	public void buildAndShow(

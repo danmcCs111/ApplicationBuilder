@@ -148,7 +148,6 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 				
 				shapesScaled.set(controlPointShapeSelectedIndex, s);
 				sc.notifyShapeAndControlPointChangedListener(ss, controlPointSelectedIndex, this);
-				
 			}
 			
 			if(sc.getDirectionsIndex() == 0 && !sc.getControlPointSelected() && sc.getSelectTool() != null)
@@ -178,11 +177,8 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 			if(directionsIndex + 1 >= mode.getDirections().length)
 			{
 				sc.setDirectionsIndex(0);
-				
 				sc.constructShape(mode, curvePoints);
-				
 				sc.setDirectionsText("");
-				
 				sc.setOperation(Operation.Select);
 				
 			}

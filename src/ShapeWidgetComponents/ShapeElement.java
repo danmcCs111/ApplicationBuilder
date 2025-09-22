@@ -1,6 +1,7 @@
 package ShapeWidgetComponents;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Shape;
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import Properties.LoggingMessages;
 import Properties.XmlNodeReader;
 import ShapeEditorListeners.ShapeStylingActionListener;
 import ShapeWidgetComponents.ShapeUtils.DrawMode;
+import WidgetUtility.WidgetBuildController;
 
 public class ShapeElement 
 {
@@ -44,11 +46,10 @@ public class ShapeElement
 	
 	public Shape getShape()
 	{
-		ShapeUtils su = new ShapeUtils();
 		if(shape == null)
 		{
 			DrawMode dm = this.getDrawMode();
-			shape = su.constructShape(dm, controlPoints.toArray(new Point[]{}));
+			shape = ShapeUtils.constructShape(dm, controlPoints.toArray(new Point[]{}), (Graphics2D)WidgetBuildController.getInstance().getFrame().getGraphics());
 		}
 		return shape;
 	}

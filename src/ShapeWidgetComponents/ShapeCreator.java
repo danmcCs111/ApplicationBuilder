@@ -2,6 +2,7 @@ package ShapeWidgetComponents;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Shape;
 import java.awt.event.MouseEvent;
@@ -19,6 +20,7 @@ import ShapeEditorListeners.ShapeDirectionsNotification;
 import ShapeEditorListeners.ShapeStylingActionListener;
 import ShapeWidgetComponents.ShapeUtils.DrawMode;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
+import WidgetUtility.WidgetBuildController;
 
 public class ShapeCreator extends JPanel implements ShapeStylingActionListener, PostWidgetBuildProcessing, AddShapesImportedListener
 {
@@ -64,7 +66,7 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 	public void buildWidgets()
 	{
 		draw = new JPanel();
-		setMode(DrawMode.Line);//default.
+		setMode(DrawMode.Text);//default.
 		dml = new DrawMouseListener(this);
 		draw.addMouseListener(dml);
 		draw.addMouseMotionListener(dml);
@@ -176,8 +178,7 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 	
 	public Shape constructShape(DrawMode mode, Point [] curvePoints)
 	{
-		ShapeUtils su = new ShapeUtils();
-		Shape shape = su.constructShape(mode, curvePoints);
+		Shape shape = ShapeUtils.constructShape(mode, curvePoints, (Graphics2D)this.draw.getGraphics());
 		ShapeStyling shapeStyling = new ShapeStyling(getNumShapes(), getColorPallette(), getColorPallette(), this);
 		sdc.addShape(shape);
 		LoggingMessages.printOut(getColorPallette()+"");
