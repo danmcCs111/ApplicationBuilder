@@ -1,7 +1,9 @@
 package ShapeWidgetComponents;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Point;
+import java.awt.Shape;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -38,9 +40,11 @@ public class ShapeImportExport extends XmlNodeReader
 		{
 			int count = 0;
 			String suffixCount = "0";//TODO up to 99
+			Shape shape = sdc.getShapes().get(shapeIndex);
+			type = stripString(shape.getClass().getName());
+			
 			for(Point p : sdc.getShapeControlPoints().get(shapeIndex))
 			{
-				type = stripString(sdc.getShapes().get(shapeIndex).getClass().getName());
 				content += "Point" + (count < 10 ? suffixCount : "") + count + "=\"" +  p.x + ", " + p.y + "\" ";
 				if(paths != null && paths.containsKey(shapeIndex))
 				{
@@ -67,6 +71,13 @@ public class ShapeImportExport extends XmlNodeReader
 			if(ngConfig != null)
 			{
 				content += "NumberGeneratorConfig=\"" + ngConfig.toString() + "\" ";
+			}
+			if(shape instanceof TextShape)
+			{
+				TextShape ts = (TextShape) shape;
+				Font f = ts.getFont();
+				content += "Font=\"" + f.getFamily() + ", " + f.getStyle() + ", " + f.getSize() + "\" ";
+				content += "TextString=\"" + ts.getText() + "\" ";
 			}
 			content += "SkipShapeDraw=\"" + ss.skipShapeDraw() + "\"";
 			

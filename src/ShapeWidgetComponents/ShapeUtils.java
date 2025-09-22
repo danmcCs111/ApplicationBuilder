@@ -241,7 +241,7 @@ public class ShapeUtils
 	
 	public enum DrawMode//TODO
 	{
-		Text(GlyphVector.class.getName(), "Text", TEXT_DIRECTIONS, 1),
+		Text(TextShape.class.getName(), "Text", TEXT_DIRECTIONS, 1),
 		Line(Line2D.class.getName(), "Line", LINE_DIRECTIONS, 2),
 		Curve(CurveShape.class.getName(), "Curve", CURVE_DIRECTIONS, 4),
 		ellipse(Ellipse2D.class.getName(), "Elipse", ELLIPSE_DIRECTIONS, 2),

@@ -1,6 +1,7 @@
 package ShapeWidgetComponents;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Shape;
@@ -33,6 +34,8 @@ public class ShapeElement
 	private String ngConfigString;
 	private Shape shape;
 	boolean skipShapeDraw = false;
+	private Font textFont;
+	private String textString;
 	
 	public ShapeElement(String nodeName, int count, ArrayList<String> attributes, String parentNode)
 	{
@@ -49,9 +52,21 @@ public class ShapeElement
 		if(shape == null)
 		{
 			DrawMode dm = this.getDrawMode();
-			shape = ShapeUtils.constructShape(dm, controlPoints.toArray(new Point[]{}), (Graphics2D)WidgetBuildController.getInstance().getFrame().getGraphics());
+			if(dm == DrawMode.Text)
+			{
+				shape = new TextShape(textString, controlPoints.get(0), textFont, (Graphics2D) WidgetBuildController.getInstance().getFrame().getGraphics());
+			}
+			else
+			{
+				shape = ShapeUtils.constructShape(dm, controlPoints.toArray(new Point[]{}), null);
+			}
 		}
 		return shape;
+	}
+	
+	public Font getFont()
+	{
+		return this.textFont;
 	}
 	
 	public DrawMode getDrawMode()
@@ -156,6 +171,17 @@ public class ShapeElement
 			else if(s.startsWith("SkipShapeDraw"))
 			{
 				skipShapeDraw = Boolean.parseBoolean(XmlNodeReader.getValueFromAttributeString(s));
+			}
+			else if(s.startsWith("Font"))
+			{
+				String fontPoints = XmlNodeReader.getValueFromAttributeString(s);
+				String [] points = fontPoints.split(",");
+				Font f = new Font(points[0].strip(), Integer.parseInt(points[1].strip()), Integer.parseInt(points[2].strip()));
+				textFont = f;
+			}
+			else if(s.startsWith("TextString"))
+			{
+				textString = XmlNodeReader.getValueFromAttributeString(s);
 			}
 		}
 	}

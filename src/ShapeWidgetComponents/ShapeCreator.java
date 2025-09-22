@@ -20,7 +20,6 @@ import ShapeEditorListeners.ShapeDirectionsNotification;
 import ShapeEditorListeners.ShapeStylingActionListener;
 import ShapeWidgetComponents.ShapeUtils.DrawMode;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
-import WidgetUtility.WidgetBuildController;
 
 public class ShapeCreator extends JPanel implements ShapeStylingActionListener, PostWidgetBuildProcessing, AddShapesImportedListener
 {
