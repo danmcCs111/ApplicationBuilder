@@ -56,7 +56,6 @@ public class TextShape implements Shape
 			gv.setGlyphPosition(i, tmpPoint);
 			GeneralPath gp = (GeneralPath) gv.getGlyphOutline(i);
 			Shape shape = gp;
-			LoggingMessages.printOut(shape.getClass()+" ");//TODO
 			glyphShapes.add(shape);
 			pis.add(shape.getPathIterator(g2d.getTransform()));
 		}
