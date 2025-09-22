@@ -69,7 +69,8 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 		}
 		//TODO detect control points
 		else if(
-				sc.getSelectionRectangle() != null && !sc.getSelectionRectangle().contains(sc.getRelativePoint(e)) &&
+				sc.getSelectionRectangle() != null && 
+				!sc.getSelectionRectangle().contains(sc.getRelativePoint(e)) &&
 				!frame.getCursor().equals(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR)) && 
 				sc.getOperation() != Operation.Select)
 		{
@@ -203,7 +204,6 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 			int index = ss.getIndex();
 			ArrayList<Point> shapesControlPoints = sc.getControlPointsForShapes().get(index);
 			Shape s = sc.getShapes().get(index);
-//			ShapeStyling ss = sc.getShapeStyling(index);
 			ArrayList<Point> newPoints = new ArrayList<Point>();
 			for(Point p : shapesControlPoints)
 			{
@@ -242,7 +242,6 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 			int index = ss.getIndex();
 			ArrayList<Point> shapesControlPoints = sc.getControlPointsForShapes().get(index);
 			Shape s = sc.getShapes().get(index);
-//			ShapeStyling ss = sc.getShapeStyling(index);
 			ArrayList<Point> newPoints = new ArrayList<Point>();
 			for(Point p : shapesControlPoints)
 			{

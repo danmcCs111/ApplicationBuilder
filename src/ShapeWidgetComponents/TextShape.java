@@ -15,8 +15,6 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 
-import Properties.LoggingMessages;
-
 public class TextShape implements Shape
 {
 	private double characterSpacingPercent = .25;

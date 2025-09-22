@@ -202,6 +202,7 @@ public class ShapeUtils
 			String opt = (String) JOptionPane.showInputDialog(
 					frame,
 					"Enter Text");
+			if(opt == null || opt.isBlank()) opt=" ";
 			Font font = new Font(Font.SANS_SERIF, 0, 20);
 			shape = new TextShape(opt, curvePoints[0], font, g2d);
 			LoggingMessages.printOut(opt + " " + g2d);
