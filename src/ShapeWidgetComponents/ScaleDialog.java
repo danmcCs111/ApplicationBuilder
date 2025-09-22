@@ -3,6 +3,7 @@ package ShapeWidgetComponents;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.Shape;
@@ -17,6 +18,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
+import javax.swing.JSpinner;
 import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -36,6 +38,7 @@ public class ScaleDialog extends JDialog
 	private static final Dimension MIN_DIMENSION_DIALOG = new Dimension(400, 300);
 	
 	private JSlider scalingSlider = new JSlider(-100, 100, 0);
+	private JSpinner fontSpinner = new JSpinner();
 	private JLabel scalingLabel = new JLabel(SCALE_LABEL);
 	private JButton 
 		applyButton = new JButton(APPLY_BUTTON_LABEL),
@@ -49,6 +52,7 @@ public class ScaleDialog extends JDialog
 	private ShapeStyling originalSs;
 	private Shape originalShape;
 	private ArrayList<Point> originalControlPoints;
+	private boolean isSave = false;
 	
 	public ScaleDialog(Container referenceContainer, ShapeCreator sc, ShapeStyling ss)
 	{
@@ -64,23 +68,41 @@ public class ScaleDialog extends JDialog
 		this.setLayout(new BorderLayout());
 		GraphicsUtil.centerWindow(referenceContainer, this);
 		
-		scalingSlider.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				LoggingMessages.printOut("change");
-				applyAction();
-			}
-		});
-		
 		innerPanel.setLayout(new GridLayout(0, 2));
 		innerPanel.add(scalingLabel);
-		innerPanel.add(scalingSlider);
+		
+		if(originalShape instanceof TextShape)
+		{
+			TextShape orig = (TextShape) originalShape;
+			fontSpinner.setValue(orig.getFont().getSize());
+			fontSpinner.addChangeListener(new ChangeListener() {
+				@Override
+				public void stateChanged(ChangeEvent e) {
+					applyAction();
+				}
+			});
+			innerPanel.add(fontSpinner);
+		}
+		else
+		{
+			scalingSlider.addChangeListener(new ChangeListener() {
+				@Override
+				public void stateChanged(ChangeEvent e) {
+					applyAction();
+				}
+			});
+			innerPanel.add(scalingSlider);
+		}
+		
 		this.add(innerPanel, BorderLayout.NORTH);
 		
 		this.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosed(WindowEvent e) {
-				ScaleDialog.this.cancelAction();
+				if(!isSave)
+				{
+					ScaleDialog.this.cancelAction();
+				}
 			}
 		});
 		
@@ -96,7 +118,7 @@ public class ScaleDialog extends JDialog
 		applyButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				applyAction();
+				isSave = true;
 				ScaleDialog.this.dispose();
 			}
 		});
@@ -105,7 +127,7 @@ public class ScaleDialog extends JDialog
 		cancelButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				cancelAction();
+				ScaleDialog.this.dispose();
 			}
 		});
 		saveCancelPanel.add(cancelButton);
@@ -114,22 +136,40 @@ public class ScaleDialog extends JDialog
 		this.add(saveCancelPanelOuter, BorderLayout.SOUTH);
 	}
 	
+	private void fontAdjust()
+	{
+		TextShape orig = (TextShape) originalShape;
+		int fontSize = (int) fontSpinner.getValue();
+		Font f = new Font(orig.getFont().getFamily(), orig.getFont().getStyle(), fontSize);
+		TextShape newShape = new TextShape(orig.getText(), orig.getBounds().getLocation(), f, orig.getGraphics());
+		
+		sc.getShapes().set(originalSs.getIndex(), newShape);
+		sc.notifyShapeAndControlPointsChangedListener(originalSs);
+	}
+	
 	private void applyAction()
 	{
-		ArrayList<Point> sPoints = originalControlPoints;
-		
-		double scaleFactor = scalingSlider.getValue();
-		scaleFactor /= 100;//adjust to percentage.
-		scaleFactor += 1;
-		
-		LoggingMessages.printOut("Entered scale factor: " + scaleFactor);
-		
-		ArrayList<Point> controlPoints = ShapeUtils.scaleControlPoints(originalShape, sPoints, scaleFactor);
-		Shape s = ShapeUtils.recalculateShape(originalShape, controlPoints);
-		
-		sc.getShapes().set(originalSs.getIndex(), s);
-		sc.getControlPointsForShapes().set(originalSs.getIndex(), controlPoints);
-		sc.notifyShapeAndControlPointsChangedListener(originalSs);
+		if(originalShape instanceof TextShape)
+		{
+			fontAdjust();
+		}
+		else
+		{
+			ArrayList<Point> sPoints = originalControlPoints;
+			
+			double scaleFactor = scalingSlider.getValue();
+			scaleFactor /= 100;//adjust to percentage.
+			scaleFactor += 1;
+			
+			LoggingMessages.printOut("Entered scale factor: " + scaleFactor);
+			
+			ArrayList<Point> controlPoints = ShapeUtils.scaleControlPoints(originalShape, sPoints, scaleFactor);
+			Shape s = ShapeUtils.recalculateShape(originalShape, controlPoints);
+			
+			sc.getShapes().set(originalSs.getIndex(), s);
+			sc.getControlPointsForShapes().set(originalSs.getIndex(), controlPoints);
+			sc.notifyShapeAndControlPointsChangedListener(originalSs);
+		}
 	}
 	
 	private void cancelAction()

@@ -180,7 +180,6 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 				sc.constructShape(mode, curvePoints);
 				sc.setDirectionsText("");
 				sc.setOperation(Operation.Select);
-				
 			}
 			else
 			{

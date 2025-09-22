@@ -1,7 +1,5 @@
 package ShapeWidgetComponents;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -16,14 +14,12 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import Properties.LoggingMessages;
 
 public class TextShape implements Shape
 {
-	private int characterSpacing = 15;
+	private double characterSpacingPercent = .25;
 	private ArrayList<Shape> glyphShapes = new ArrayList<Shape>();
 	private PathIteratorAccumilated piAcc;
 	private String text;
@@ -35,14 +31,28 @@ public class TextShape implements Shape
 		this.text = text;
 		this.font = font;
 		this.g2d = g2d;
+		int xAdjSpacing = (int)((double)font.getSize() * characterSpacingPercent);
 		ArrayList<PathIterator> pis = new ArrayList<PathIterator>();
 		FontRenderContext frc = g2d.getFontRenderContext();
 		GlyphVector gv = font.createGlyphVector(frc, text);
 		Point tmpPoint = new Point(startPoint);
-		for(int i = 0; i < text.getBytes().length; i++)
+		for(int i = 0; i < text.toCharArray().length; i++)
 		{
-			int xShift = (int)(startPoint.getX() + (i * characterSpacing));
-			tmpPoint.x = xShift;
+			if(i > 0)
+			{
+				int xAdj;
+				if(text.toCharArray()[i-1] == ' ')
+				{
+					xAdj = tmpPoint.x + xAdjSpacing * 2;
+				}
+				else
+				{
+					Rectangle bounds = glyphShapes.get(glyphShapes.size()-1).getBounds();
+					xAdj = bounds.x + bounds.width + xAdjSpacing;
+				}
+				
+				tmpPoint.x = xAdj;
+			}
 			gv.setGlyphPosition(i, tmpPoint);
 			GeneralPath gp = (GeneralPath) gv.getGlyphOutline(i);
 			Shape shape = gp;
@@ -51,6 +61,11 @@ public class TextShape implements Shape
 			pis.add(shape.getPathIterator(g2d.getTransform()));
 		}
 		piAcc = new PathIteratorAccumilated(pis);
+	}
+	
+	public void setCharacterSpacingPercent(double characterSpacingPercent)
+	{
+		this.characterSpacingPercent = characterSpacingPercent;
 	}
 	
 	public String getText()
@@ -71,30 +86,6 @@ public class TextShape implements Shape
 	public ArrayList<Shape> getGlyphShapes()
 	{
 		return glyphShapes;
-	}
-	
-	public static void main(String [] args)
-	{
-		JFrame f = new JFrame();
-		f.setMinimumSize(new Dimension(500,500));
-		f.setDefaultCloseOperation(3);
-		f.setVisible(true);
-		f.setEnabled(true);
-		JPanel panel = new JPanel();
-		f.add(panel);
-		
-		Font font = new Font(Font.SANS_SERIF, 0, 15);
-		
-		ArrayList<Point> points = new ArrayList<Point>();
-		points.add(new Point(15,15));
-		TextShape ts = new TextShape("123 help", new Point(15,15), font, (Graphics2D)panel.getGraphics());
-		System.out.println(panel.getGraphics());
-		ShapeDrawingCollection sdc = new ShapeDrawingCollection();
-		ShapeStyling ss = new ShapeStyling(0, Color.black, Color.black, null);
-		sdc.addShape(ts);
-		sdc.addShapeControlPoints(points);
-		sdc.addShapeStyling(ss);
-		ShapeDrawingCollectionGraphics.drawAll(panel, sdc, null);
 	}
 	
 	@Override
