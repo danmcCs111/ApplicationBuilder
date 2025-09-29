@@ -17,9 +17,9 @@ import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
+import DrawModesAbstract.DrawMode;
 import Editors.PointEditor;
 import ShapeEditorListeners.ShapePointChangeListener;
-import ShapeWidgetComponents.ShapeUtils.DrawMode;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetUtility.WidgetBuildController;
 

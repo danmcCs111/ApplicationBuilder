@@ -9,6 +9,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import DrawModesAbstract.DrawMode;
 import Editors.ColorEditor;
 import ShapeEditorListeners.DrawInputActionListener;
 import ShapeEditorListeners.OpenShapeActionListener;
@@ -16,7 +17,6 @@ import ShapeEditorListeners.SaveShapeActionListener;
 import ShapeEditorListeners.ShapeDirectionsNotification;
 import ShapeEditorListeners.ShapeDrawModeActionListener;
 import ShapeWidgetComponents.ShapeCreator.Operation;
-import ShapeWidgetComponents.ShapeUtils.DrawMode;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetUtility.WidgetBuildController;
 
@@ -67,7 +67,6 @@ public class ShapeCreatorToolBarPanel extends JPanel implements PostWidgetBuildP
 			}
 		});
 		colorEditorTop.setComponentValue(Color.black);//TODO
-		
 		this.add(directionsLabel);
 		this.add(operationLabel);
 		this.add(modeSelections);
@@ -76,6 +75,7 @@ public class ShapeCreatorToolBarPanel extends JPanel implements PostWidgetBuildP
 		this.add(openButton);
 		this.add(colorEditorTop);
 		
+		shapeCreator.setMode((DrawMode) modeSelections.getSelectedItem());
 		shapeCreator.addShapeDirectionsNotification(this);
 	}
 	

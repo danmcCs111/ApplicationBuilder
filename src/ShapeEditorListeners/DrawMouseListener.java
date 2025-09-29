@@ -11,12 +11,12 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
+import DrawModesAbstract.DrawMode;
 import Properties.LoggingMessages;
 import ShapeWidgetComponents.ShapeCreator;
 import ShapeWidgetComponents.ShapeCreator.Operation;
 import ShapeWidgetComponents.ShapeDrawingCollection;
 import ShapeWidgetComponents.ShapeStyling;
-import ShapeWidgetComponents.ShapeUtils.DrawMode;
 
 public class DrawMouseListener extends MouseAdapter implements ControlPointChangedListener 
 {

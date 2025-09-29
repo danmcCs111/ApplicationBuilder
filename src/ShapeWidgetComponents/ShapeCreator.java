@@ -12,14 +12,15 @@ import java.util.HashMap;
 
 import javax.swing.JPanel;
 
+import DrawModesAbstract.DrawMode;
 import Properties.LoggingMessages;
 import ShapeEditorListeners.AddShapesImportedListener;
 import ShapeEditorListeners.ControlPointChangedListener;
 import ShapeEditorListeners.DrawMouseListener;
 import ShapeEditorListeners.ShapeDirectionsNotification;
 import ShapeEditorListeners.ShapeStylingActionListener;
-import ShapeWidgetComponents.ShapeUtils.DrawMode;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
+import WidgetComponents.LocationSouthBar;
 
 public class ShapeCreator extends JPanel implements ShapeStylingActionListener, PostWidgetBuildProcessing, AddShapesImportedListener
 {
@@ -65,11 +66,12 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 	public void buildWidgets()
 	{
 		draw = new JPanel();
-		setMode(DrawMode.Text);//default.
 		dml = new DrawMouseListener(this);
 		draw.addMouseListener(dml);
 		draw.addMouseMotionListener(dml);
 		this.add(draw, BorderLayout.CENTER);
+		LocationSouthBar scsb = new LocationSouthBar(this);
+		draw.addMouseMotionListener(scsb);
 	}
 	
 	public void validateFrame()

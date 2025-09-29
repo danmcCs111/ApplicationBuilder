@@ -5,10 +5,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
 
+import DrawModesAbstract.DrawMode;
 import Properties.LoggingMessages;
 import ShapeWidgetComponents.ShapeCreator;
 import ShapeWidgetComponents.ShapeCreatorToolBarPanel;
-import ShapeWidgetComponents.ShapeUtils.DrawMode;
 
 public class ShapeDrawModeActionListener implements ActionListener 
 {

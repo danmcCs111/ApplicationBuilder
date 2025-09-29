@@ -2,8 +2,8 @@ package ShapeEditorListeners;
 
 import java.awt.Color;
 
+import DrawModesAbstract.DrawMode;
 import ShapeWidgetComponents.ShapeCreator.Operation;
-import ShapeWidgetComponents.ShapeUtils.DrawMode;
 
 public interface ShapeCreatorPropertiesControlChangeListener 
 {

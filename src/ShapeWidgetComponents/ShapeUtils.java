@@ -4,89 +4,17 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Shape;
-import java.awt.font.GlyphVector;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
+import DrawModesAbstract.DrawMode;
 import Graphics2D.CurveShape;
 import Properties.LoggingMessages;
-import WidgetUtility.WidgetBuildController;
 
 public class ShapeUtils 
 {
-	private static final String [] //TODO
-		CURVE_DIRECTIONS = new String [] {
-			"",
-			"Enter x, y", 
-			"Enter x2, y2", 
-			"Enter Control Point 1", 
-			"Enter Control Point 2"
-		},
-		TEXT_DIRECTIONS = new String [] {
-			"",
-			"Enter x, y"
-		},
-		LINE_DIRECTIONS = new String [] {
-			"",
-			"Enter x, y", 
-			"Enter x2, y2"
-		},
-		ELLIPSE_DIRECTIONS = new String [] {
-			"",
-			"Enter x, y",
-			"Enter x2, y2"
-		},
-		RECTANGLE_DIRECTIONS = new String [] {
-				"",
-				"Enter x, y",
-				"Enter x2, y2"
-		},
-		RECTANGLE_CUBIC_DIRECTIONS = new String [] {
-				"",
-				"Enter x, y",
-				"Enter x2, y2",
-				"Enter x3, y3",
-				"Enter x4, y4",
-				
-				"Enter control 1, y1",
-				"Enter control 1.2, y1.2",
-				
-				"Enter control 2, y2",
-				"Enter control 2.2, y2.2",
-				
-				"Enter control 3, y3",
-				"Enter control 3.2, y3.2",
-				
-				"Enter control 4, y4",
-				"Enter control 4.2, y4.2"
-		},
-		TRIANGLE_DIRECTIONS = new String [] {
-				"",
-				"Enter x, y",
-				"Enter x2, y2",
-				"Enter x3, y3"
-		},
-		TRIANGLE_CUBIC_DIRECTIONS = new String [] {
-				"",
-				"Enter x, y",
-				"Enter x2, y2",
-				"Enter x3, y3",
-				
-				"Enter control 1, y1",
-				"Enter control 1.2, y1.2",
-				
-				"Enter control 2, y2",
-				"Enter control 2.2, y2.2",
-				
-				"Enter control 3, y3",
-				"Enter control 3.2, y3.2"
-		};
-	
 	public static Shape recalculateShape(Shape s, ArrayList<Point> cps)
 	{
 		if(s instanceof TextShape)
@@ -158,7 +86,6 @@ public class ShapeUtils
 	}
 	
 	/**
-	 * 
 	 * @param s
 	 * @param cps
 	 * @param scalePercent greater than 1 to apply positive scale. less than 1 for negative scaling
@@ -194,104 +121,9 @@ public class ShapeUtils
 	public static Shape constructShape(DrawMode mode, Point [] curvePoints, Graphics2D g2d)
 	{
 		Shape shape = null;
-		switch(mode)
-		{
-		case Text:
-			//open dialog.
-			JFrame frame = WidgetBuildController.getInstance().getFrame();
-			String opt = (String) JOptionPane.showInputDialog(
-					frame,
-					"Enter Text");
-			if(opt == null || opt.isBlank()) opt=" ";
-			Font font = new Font(Font.SANS_SERIF, 0, 20);
-			shape = new TextShape(opt, curvePoints[0], font, g2d);
-			LoggingMessages.printOut(opt + " " + g2d);
-			break;
-		case Line:
-			shape = new Line2D.Double(curvePoints[0], curvePoints[1]);
-			break;
-		case Curve:
-			shape = new CurveShape(curvePoints[0], curvePoints[2], curvePoints[3], curvePoints[1]);
-			break;
-		case ellipse:
-			shape = new Ellipse2D.Double(
-					curvePoints[0].x, curvePoints[0].y, 
-					(curvePoints[1].x - curvePoints[0].x), (curvePoints[1].y - curvePoints[0].y));
-			break;
-		case rectangle:
-			shape = new Rectangle2D.Double(
-					curvePoints[0].x, curvePoints[0].y, 
-					(curvePoints[1].x - curvePoints[0].x), (curvePoints[1].y - curvePoints[0].y));
-			break;
-		case rectangleCubic:
-			shape = new RectangleCubic(curvePoints[0], curvePoints[1], curvePoints[2], 
-					curvePoints[3], curvePoints[4], curvePoints[5], curvePoints[6], curvePoints[7], curvePoints[8], curvePoints[9], curvePoints[10], curvePoints[11]);
-			break;
-		case triangle:
-			shape = new Triangle(curvePoints[0], curvePoints[1], curvePoints[2]);
-			break;
-		case triangleCubic:
-			shape = new TriangleCubic(curvePoints[0], curvePoints[1], curvePoints[2], 
-					curvePoints[3], curvePoints[4], curvePoints[5], curvePoints[6], curvePoints[7], curvePoints[8]);
-			break;
-		}
+		shape = mode.constructShape(curvePoints, g2d);
 		
 		return shape;
-	}
-	
-	public enum DrawMode//TODO
-	{
-		Text(TextShape.class.getName(), "Text", TEXT_DIRECTIONS, 1),
-		Line(Line2D.class.getName(), "Line", LINE_DIRECTIONS, 2),
-		Curve(CurveShape.class.getName(), "Curve", CURVE_DIRECTIONS, 4),
-		ellipse(Ellipse2D.class.getName(), "Elipse", ELLIPSE_DIRECTIONS, 2),
-		rectangle(Rectangle2D.class.getName(), "Rectangle", RECTANGLE_DIRECTIONS, 2),
-		triangle(Triangle.class.getName(), "Triangle", TRIANGLE_DIRECTIONS, 3),
-		triangleCubic(TriangleCubic.class.getName(), "Triangle Cubic", TRIANGLE_CUBIC_DIRECTIONS, 9),
-		rectangleCubic(RectangleCubic.class.getName(), "Rectangle Cubic", RECTANGLE_CUBIC_DIRECTIONS, 12);
-		
-		private String className;
-		private String modeText;
-		private String [] directions;
-		private int numberOfPoints;
-		
-		private DrawMode(String className, String modeText, String [] directions, int numberOfPoints)
-		{
-			this.className = className;
-			this.modeText = modeText;
-			this.directions = directions;
-			this.numberOfPoints = numberOfPoints;
-		}
-		
-		public static DrawMode getMatchingClassName(String className)
-		{
-			for(DrawMode dm : DrawMode.values())
-			{
-				if(dm.getClassName().equals(className))
-				{
-					return dm;
-				}
-			}
-			return null;
-		}
-		
-		public String getClassName()
-		{
-			return this.className;
-		}
-		
-		public String getModeText()
-		{
-			return this.modeText;
-		}
-		public String [] getDirections()
-		{
-			return this.directions;
-		}
-		public int getNumberOfPoints()
-		{
-			return this.numberOfPoints;
-		}
 	}
 	
 }

@@ -7,10 +7,11 @@ import java.awt.Point;
 import java.awt.Shape;
 import java.util.ArrayList;
 
+import DrawModes.TextDrawMode;
+import DrawModesAbstract.DrawMode;
 import Properties.LoggingMessages;
 import Properties.XmlNodeReader;
 import ShapeEditorListeners.ShapeStylingActionListener;
-import ShapeWidgetComponents.ShapeUtils.DrawMode;
 import WidgetUtility.WidgetBuildController;
 
 public class ShapeElement 
@@ -52,7 +53,7 @@ public class ShapeElement
 		if(shape == null)
 		{
 			DrawMode dm = this.getDrawMode();
-			if(dm == DrawMode.Text)
+			if(dm instanceof TextDrawMode)
 			{
 				shape = new TextShape(textString, controlPoints.get(0), textFont, (Graphics2D) WidgetBuildController.getInstance().getFrame().getGraphics());
 			}
