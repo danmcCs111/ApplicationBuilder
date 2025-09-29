@@ -5,34 +5,15 @@ import java.awt.Point;
 import java.awt.Shape;
 
 import DrawModesAbstract.DrawMode;
+import DrawModesAbstract.DrawModeInstructions;
 import ShapeWidgetComponents.RectangleCubic;
 
 public class RectangleCubicDrawMode extends DrawMode
 {
-	private static final String [] RECTANGLE_CUBIC_DIRECTIONS = new String [] {
-			"",
-			"Enter x, y",
-			"Enter x2, y2",
-			"Enter x3, y3",
-			"Enter x4, y4",
-			
-			"Enter control 1, y1",
-			"Enter control 1.2, y1.2",
-			
-			"Enter control 2, y2",
-			"Enter control 2.2, y2.2",
-			
-			"Enter control 3, y3",
-			"Enter control 3.2, y3.2",
-			
-			"Enter control 4, y4",
-			"Enter control 4.2, y4.2"
-	};
-	
 	@Override
 	public String[] getDirections() 
 	{
-		return RECTANGLE_CUBIC_DIRECTIONS;
+		return DrawModeInstructions.RECTANGLE_CUBIC_DIRECTIONS;
 	}
 
 	@Override
@@ -50,7 +31,7 @@ public class RectangleCubicDrawMode extends DrawMode
 	@Override
 	public int getNumberOfPoints() 
 	{
-		return RECTANGLE_CUBIC_DIRECTIONS.length;
+		return getDirections().length;
 	}
 
 	@Override

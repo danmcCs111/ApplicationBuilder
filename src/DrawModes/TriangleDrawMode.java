@@ -5,20 +5,14 @@ import java.awt.Point;
 import java.awt.Shape;
 
 import DrawModesAbstract.DrawMode;
+import DrawModesAbstract.DrawModeInstructions;
 import ShapeWidgetComponents.Triangle;
 
 public class TriangleDrawMode extends DrawMode 
 {
-	private static final String [] TRIANGLE_DIRECTIONS = new String [] {
-			"",
-			"Enter x, y",
-			"Enter x2, y2",
-			"Enter x3, y3"
-	};
-	
 	@Override
 	public String[] getDirections() {
-		return TRIANGLE_DIRECTIONS;
+		return DrawModeInstructions.TRIANGLE_DIRECTIONS;
 	}
 
 	@Override
@@ -33,7 +27,7 @@ public class TriangleDrawMode extends DrawMode
 
 	@Override
 	public int getNumberOfPoints() {
-		return TRIANGLE_DIRECTIONS.length;
+		return getDirections().length;
 	}
 
 	@Override

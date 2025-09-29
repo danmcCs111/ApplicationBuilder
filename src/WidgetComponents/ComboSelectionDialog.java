@@ -140,6 +140,7 @@ public class ComboSelectionDialog extends JDialog
 		southPane.add(eastPane, BorderLayout.EAST);
 		this.add(southPane, BorderLayout.SOUTH);
 		this.setVisible(true);
+		this.show();
 		this.pack();
 	}
 	

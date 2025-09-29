@@ -6,18 +6,13 @@ import java.awt.Shape;
 import java.awt.geom.Line2D;
 
 import DrawModesAbstract.DrawMode;
+import DrawModesAbstract.DrawModeInstructions;
 
 public class LineDrawMode extends DrawMode
 {
-	private static final String []
-		LINE_DIRECTIONS = new String [] {
-			"",
-			"Enter x, y", 
-			"Enter x2, y2"
-		};
 	@Override
 	public String[] getDirections() {
-		return LINE_DIRECTIONS;
+		return DrawModeInstructions.LINE_DIRECTIONS;
 	}
 
 	@Override

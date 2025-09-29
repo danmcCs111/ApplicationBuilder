@@ -21,7 +21,7 @@ public class DrawInputActionListener implements ActionListener
 	{
 		DrawMode mode = this.sc.getMode();
 		sc.setOperation(Operation.Draw);
-		sc.incrementDirectionsIndex(1);
+		sc.setDirectionsIndex(0);
 		sc.setDirectionsText(mode.getDirections()[sc.getDirectionsIndex()]);
 	}
 	

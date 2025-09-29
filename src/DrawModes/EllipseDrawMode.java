@@ -6,17 +6,13 @@ import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 
 import DrawModesAbstract.DrawMode;
+import DrawModesAbstract.DrawModeInstructions;
 
 public class EllipseDrawMode extends DrawMode
 {
-	private static final String [] ELLIPSE_DIRECTIONS = new String [] {
-			"",
-			"Enter x, y",
-			"Enter x2, y2"
-		};
 	@Override
 	public String[] getDirections() {
-		return ELLIPSE_DIRECTIONS;
+		return DrawModeInstructions.ELLIPSE_DIRECTIONS;
 	}
 
 	@Override
@@ -31,7 +27,7 @@ public class EllipseDrawMode extends DrawMode
 
 	@Override
 	public int getNumberOfPoints() {
-		return ELLIPSE_DIRECTIONS.length;
+		return getDirections().length;
 	}
 
 	@Override

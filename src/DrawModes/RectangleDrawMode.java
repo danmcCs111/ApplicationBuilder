@@ -6,18 +6,13 @@ import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
 
 import DrawModesAbstract.DrawMode;
+import DrawModesAbstract.DrawModeInstructions;
 
 public class RectangleDrawMode extends DrawMode
 {
-	private static final String [] RECTANGLE_DIRECTIONS = new String [] {
-			"",
-			"Enter x, y",
-			"Enter x2, y2"
-	};
-	
 	@Override
 	public String[] getDirections() {
-		return RECTANGLE_DIRECTIONS;
+		return DrawModeInstructions.RECTANGLE_DIRECTIONS;
 	}
 
 	@Override
@@ -32,7 +27,7 @@ public class RectangleDrawMode extends DrawMode
 
 	@Override
 	public int getNumberOfPoints() {
-		return RECTANGLE_DIRECTIONS.length;
+		return getDirections().length;
 	}
 
 	@Override

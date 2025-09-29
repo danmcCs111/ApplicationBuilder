@@ -9,19 +9,16 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import DrawModesAbstract.DrawMode;
+import DrawModesAbstract.DrawModeInstructions;
 import Properties.LoggingMessages;
 import ShapeWidgetComponents.TextShape;
 import WidgetUtility.WidgetBuildController;
 
 public class TextDrawMode extends DrawMode 
 {
-	private static final String [] TEXT_DIRECTIONS = new String [] {
-			"",
-			"Enter x, y"
-		};
 	@Override
 	public String[] getDirections() {
-		return TEXT_DIRECTIONS;
+		return DrawModeInstructions.TEXT_DIRECTIONS;
 	}
 
 	@Override
@@ -36,7 +33,7 @@ public class TextDrawMode extends DrawMode
 
 	@Override
 	public int getNumberOfPoints() {
-		return TEXT_DIRECTIONS.length;
+		return getDirections().length;
 	}
 
 	@Override

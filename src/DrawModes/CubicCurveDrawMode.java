@@ -5,21 +5,14 @@ import java.awt.Point;
 import java.awt.Shape;
 
 import DrawModesAbstract.DrawMode;
+import DrawModesAbstract.DrawModeInstructions;
 import Graphics2D.CurveShape;
 
 public class CubicCurveDrawMode extends DrawMode
 {
-	private static final String [] CUBIC_CURVE_DIRECTIONS = new String [] {
-			"",
-			"Enter x, y", 
-			"Enter x2, y2", 
-			"Enter Control Point 1", 
-			"Enter Control Point 2"
-		};
-	
 	@Override
 	public String[] getDirections() {
-		return CUBIC_CURVE_DIRECTIONS;
+		return DrawModeInstructions.CUBIC_CURVE_DIRECTIONS;
 	}
 
 	@Override
@@ -34,7 +27,7 @@ public class CubicCurveDrawMode extends DrawMode
 
 	@Override
 	public int getNumberOfPoints() {
-		return CUBIC_CURVE_DIRECTIONS.length;
+		return getDirections().length;
 	}
 
 	@Override
