@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 
 import DrawModesAbstract.DrawMode;
 import DrawModesAbstract.DrawModeInstructions;
+import Properties.LoggingMessages;
 import WidgetComponents.ComboSelectionDialog;
 import WidgetExtensions.ComboListDialogSelectedListener;
 import WidgetUtility.WidgetBuildController;
@@ -23,7 +24,6 @@ public class GeneralPathDrawMode extends DrawMode
 	
 	public GeneralPathDrawMode()
 	{
-		directions.addAll(Arrays.asList(DrawModeInstructions.SINGLE_POINT_DIRECTIONS));
 	}
 	
 	@Override
@@ -53,12 +53,21 @@ public class GeneralPathDrawMode extends DrawMode
 		List<String> selectables = Arrays.asList(DrawPaths.getDescriptions());
 		ComboListDialogSelectedListener cldsl = new ComboListDialogSelectedListener() {
 			@Override
-			public void selectionChosen(List<String> chosenSelection) {
-				for(String sel : chosenSelection)
+			public void selectionChosen(List<String> chosenSelection) 
+			{
+				if(chosenSelection != null && !chosenSelection.isEmpty())
 				{
-					DrawPaths dp = DrawPaths.getDrawPath(sel);
-					drawPaths.add(dp);
-					directions.addAll(Arrays.asList(dp.getDirections()));
+					for(String sel : chosenSelection)
+					{
+						LoggingMessages.printOut(sel);
+						DrawPaths dp = DrawPaths.getDrawPath(sel);
+						drawPaths.add(dp);
+						for(String dir : dp.getDirections())
+						{
+							directions.add(dir);
+						}
+					}
+					constructInstructions();
 				}
 			}
 		};
@@ -68,8 +77,17 @@ public class GeneralPathDrawMode extends DrawMode
 	@Override
 	public Shape constructShape(Point[] points, Graphics2D g2d) 
 	{
+		LoggingMessages.printOut(directions.size() + " size of generalPath");
 		GeneralPath gp = new GeneralPath();
-		constructInstructions();
+		if(directions.size() == 0)
+		{
+			directions = new ArrayList<String>();
+			constructInstructions();
+		}
+		else
+		{
+			//TODO
+		}
 		return gp;
 	}
 	

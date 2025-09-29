@@ -10,7 +10,6 @@ public interface DrawModeInstructions
 			"Enter x, y"
 		},
 		LINE_DIRECTIONS = new String [] {
-			"",
 			"Enter x, y", 
 			"Enter x2, y2"
 		},

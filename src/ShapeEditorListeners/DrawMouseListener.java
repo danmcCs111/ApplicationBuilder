@@ -170,9 +170,9 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 		if(sc.getOperation() == Operation.Draw)
 		{
 			Point p = sc.getRelativePoint(e);
-			Point [] curvePoints = sc.getControlPoints();
+			ArrayList<Point> curvePoints = sc.getControlPoints();
 			
-			curvePoints[directionsIndex] = p;
+			curvePoints.add(p);
 			sc.addControlPoint(p);
 			LoggingMessages.printOut(p + "");
 			if(directionsIndex + 1 >= mode.getDirections().length)
@@ -180,7 +180,7 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 				sc.setDirectionsIndex(0);
 				sc.setDirectionsText("");
 				sc.setOperation(Operation.Select);
-				sc.constructShape(mode, curvePoints);
+				sc.constructShape(mode, curvePoints.toArray(new Point[] {}));
 			}
 			else
 			{

@@ -41,7 +41,7 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 	private Point 
 		mouseDragStartPoint,
 		mouseDragLastPoint;
-	private Point [] controlPoints;
+	private ArrayList<Point> controlPoints = new ArrayList<Point>();
 	private Rectangle2D selectTool;
 	private Rectangle2D selectionRect;
 	
@@ -255,14 +255,14 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 		}
 	}
 	
-	public Point [] getControlPoints()
+	public ArrayList<Point> getControlPoints()
 	{
 		return this.controlPoints;
 	}
 	
 	public void setNumberOfPoints(int numberOfPoints)
 	{
-		this.controlPoints = new Point[numberOfPoints];
+		this.controlPoints = new ArrayList<Point>();
 	}
 	
 	public ShapeCreatorEditPanel getShapeCreatorEditPanel()
