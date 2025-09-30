@@ -10,7 +10,7 @@ import java.awt.geom.Rectangle2D;
 
 public class Triangle implements Shape
 {
-	Point [] points = new Point [4];
+	Point [] points = new Point [3];
 	Rectangle2D bounds;
 	
 	public Triangle()
@@ -23,7 +23,6 @@ public class Triangle implements Shape
 		this.points[0] = p1;
 		this.points[1] = p2;
 		this.points[2] = p3;
-		this.points[3] = p1;
 		
 		constructBounds();
 	}

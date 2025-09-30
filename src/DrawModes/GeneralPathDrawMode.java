@@ -26,6 +26,16 @@ public class GeneralPathDrawMode extends DrawMode
 	public String[] getDirections() {
 		return directions.toArray(new String[] {});
 	}
+	
+	public void clearDirectionsAndDrawPath() {
+		this.directions = new ArrayList<String>();
+		gp = new GeneralPathShape();
+	}
+	
+	public GeneralPathShape getGeneralPathShape()
+	{
+		return this.gp;
+	}
 
 	@Override
 	public String getClassName() {

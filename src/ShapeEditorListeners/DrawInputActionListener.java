@@ -3,9 +3,14 @@ package ShapeEditorListeners;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
+
+import DrawModes.GeneralPathDrawMode;
 import DrawModesAbstract.DrawMode;
+import Properties.LoggingMessages;
 import ShapeWidgetComponents.ShapeCreator;
 import ShapeWidgetComponents.ShapeCreator.Operation;
+import WidgetUtility.WidgetBuildController;
 
 public class DrawInputActionListener implements ActionListener
 {
@@ -28,7 +33,21 @@ public class DrawInputActionListener implements ActionListener
 		}
 		else
 		{
-			sc.setDirectionsText(mode.getDirections()[sc.getDirectionsIndex()]);
+			if(mode instanceof GeneralPathDrawMode)
+			{
+				GeneralPathDrawMode gpdm = ((GeneralPathDrawMode) mode);
+				int opt = JOptionPane.showConfirmDialog(WidgetBuildController.getInstance().getFrame(), "Reset General Path of... " + 
+						LoggingMessages.combine(gpdm.getGeneralPathShape().getDrawPaths()));
+				if(opt == JOptionPane.YES_OPTION) 
+				{
+					gpdm.clearDirectionsAndDrawPath();
+					mode.constructShape(null, null);
+				}
+			}
+			else
+			{
+				sc.setDirectionsText(mode.getDirections()[sc.getDirectionsIndex()]);
+			}
 		}
 	}
 	

@@ -41,12 +41,19 @@ public class TriangleIterator implements PathIterator
 		{
             throw new NoSuchElementException("line iterator out of bounds");
         }
-		coords[0] = (float) triangle.getPoint(index).getX();
-		coords[1] = (float) triangle.getPoint(index).getY();
-        int type = (index==0)
-        		?SEG_MOVETO
-        		:SEG_LINETO;
-        
+		int type = SEG_CLOSE;
+		if(index == 0)
+		{
+			coords[0] = (float) triangle.getPoint(index).getX();
+			coords[1] = (float) triangle.getPoint(index).getY();
+			type = SEG_MOVETO;
+		}
+		else if(index != 3)
+		{
+			coords[0] = (float) triangle.getPoint(index).getX();
+			coords[1] = (float) triangle.getPoint(index).getY();
+			type = SEG_LINETO;
+		}
         if (affine != null) 
         {
             affine.transform(coords, 0, coords, 0, 1);
@@ -61,12 +68,19 @@ public class TriangleIterator implements PathIterator
 		{
             throw new NoSuchElementException("line iterator out of bounds");
         }
-		coords[0] = (double) triangle.getPoint(index).getX();
-		coords[1] = (double) triangle.getPoint(index).getY();
-        int type = (index==0)
-        		?SEG_MOVETO
-        		:SEG_LINETO;
-        
+		int type = SEG_CLOSE;
+		if(index == 0)
+		{
+			coords[0] = (float) triangle.getPoint(index).getX();
+			coords[1] = (float) triangle.getPoint(index).getY();
+			type = SEG_MOVETO;
+		}
+		else if(index != 3)
+		{
+			coords[0] = (float) triangle.getPoint(index).getX();
+			coords[1] = (float) triangle.getPoint(index).getY();
+			type = SEG_LINETO;
+		}
         if (affine != null) 
         {
             affine.transform(coords, 0, coords, 0, 1);
