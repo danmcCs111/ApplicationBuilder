@@ -7,6 +7,8 @@ import java.awt.Point;
 import java.awt.Shape;
 import java.util.ArrayList;
 
+import DrawModes.GeneralPathDrawMode;
+import DrawModes.GeneralPathDrawMode.DrawPaths;
 import DrawModes.TextDrawMode;
 import DrawModesAbstract.DrawMode;
 import Properties.LoggingMessages;
@@ -37,6 +39,7 @@ public class ShapeElement
 	boolean skipShapeDraw = false;
 	private Font textFont;
 	private String textString;
+	private ArrayList<DrawPaths> drawPaths = new ArrayList<DrawPaths>();
 	
 	public ShapeElement(String nodeName, int count, ArrayList<String> attributes, String parentNode)
 	{
@@ -52,10 +55,17 @@ public class ShapeElement
 	{
 		if(shape == null)
 		{
+			Graphics2D g2d = (Graphics2D) WidgetBuildController.getInstance().getFrame().getGraphics();
 			DrawMode dm = this.getDrawMode();
 			if(dm instanceof TextDrawMode)
 			{
-				shape = new TextShape(textString, controlPoints.get(0), textFont, (Graphics2D) WidgetBuildController.getInstance().getFrame().getGraphics());
+				shape = new TextShape(textString, controlPoints.get(0), textFont, g2d);
+			}
+			else if(dm instanceof GeneralPathDrawMode)
+			{
+				GeneralPathShape gps = new GeneralPathShape();
+				gps.setDrawPaths(drawPaths);
+				shape = GeneralPathDrawMode.recalculateShape(gps, controlPoints);
 			}
 			else
 			{
@@ -179,6 +189,15 @@ public class ShapeElement
 				String [] points = fontPoints.split(",");
 				Font f = new Font(points[0].strip(), Integer.parseInt(points[1].strip()), Integer.parseInt(points[2].strip()));
 				textFont = f;
+			}
+			else if(s.startsWith("DrawPaths"))
+			{
+				String tmp = XmlNodeReader.getValueFromAttributeString(s);
+				String [] dPaths = tmp.split(",");
+				for(String drawPath : dPaths)
+				{
+					drawPaths.add(DrawPaths.getDrawPath(drawPath.strip()));
+				}
 			}
 			else if(s.startsWith("TextString"))
 			{

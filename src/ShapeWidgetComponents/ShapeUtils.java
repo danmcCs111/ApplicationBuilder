@@ -40,23 +40,36 @@ public class ShapeUtils
 		}
 		else if(s instanceof TriangleCubic)
 		{
-			s = new TriangleCubic(cps.get(0), cps.get(1), cps.get(2), cps.get(3), cps.get(4), cps.get(5), cps.get(6), cps.get(7), cps.get(8));
+			s = new TriangleCubic(
+					cps.get(0), cps.get(1), 
+					cps.get(2), cps.get(3), 
+					cps.get(4), cps.get(5), 
+					cps.get(6), cps.get(7), 
+					cps.get(8));
 		}
 		else if(s instanceof Rectangle2D)
 		{
 			s = new Rectangle2D.Double(
 					cps.get(0).x, cps.get(0).y, 
-					(cps.get(1).x - cps.get(0).x), (cps.get(1).y - cps.get(0).y));
+					(cps.get(1).x - cps.get(0).x), 
+					(cps.get(1).y - cps.get(0).y));
 		}
 		else if(s instanceof RectangleCubic)
 		{
-			s = new RectangleCubic(cps.get(0), cps.get(1), cps.get(2), cps.get(3), cps.get(4), cps.get(5), cps.get(6), cps.get(7), cps.get(8), cps.get(9), cps.get(10), cps.get(11));
+			s = new RectangleCubic(
+					cps.get(0), cps.get(1), 
+					cps.get(2), cps.get(3), 
+					cps.get(4), cps.get(5), 
+					cps.get(6), cps.get(7), 
+					cps.get(8), cps.get(9), 
+					cps.get(10), cps.get(11));
 		}
 		else if(s instanceof Ellipse2D)
 		{
 			s = new Ellipse2D.Double(
 					cps.get(0).x, cps.get(0).y, 
-					(cps.get(1).x - cps.get(0).x), (cps.get(1).y - cps.get(0).y));
+					(cps.get(1).x - cps.get(0).x), 
+					(cps.get(1).y - cps.get(0).y));
 		}
 		else if(s instanceof GeneralPathShape)
 		{

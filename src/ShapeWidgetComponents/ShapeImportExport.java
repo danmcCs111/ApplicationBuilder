@@ -9,6 +9,8 @@ import java.util.HashMap;
 
 import org.w3c.dom.Node;
 
+import DrawModes.GeneralPathDrawMode.DrawPaths;
+import Properties.LoggingMessages;
 import Properties.PathUtility;
 import Properties.XmlNodeReader;
 
@@ -78,6 +80,19 @@ public class ShapeImportExport extends XmlNodeReader
 				Font f = ts.getFont();
 				content += "Font=\"" + f.getFamily() + ", " + f.getStyle() + ", " + f.getSize() + "\" ";
 				content += "TextString=\"" + ts.getText() + "\" ";
+			}
+			if(shape instanceof GeneralPathShape)
+			{
+				GeneralPathShape gps = (GeneralPathShape) shape;
+				ArrayList<DrawPaths> drawPaths = gps.getDrawPaths();
+				String [] desc = new String [drawPaths.size()];
+				int i = 0;
+				for(DrawPaths dp : drawPaths)
+				{
+					desc[i]= dp.getDescription();
+					i++;
+				}
+				content += "DrawPaths=\"" + LoggingMessages.combine(desc) + "\" ";
 			}
 			content += "SkipShapeDraw=\"" + ss.skipShapeDraw() + "\"";
 			

@@ -20,11 +20,7 @@ import WidgetUtility.WidgetBuildController;
 public class GeneralPathDrawMode extends DrawMode 
 {
 	private ArrayList<String> directions = new ArrayList<String>();
-	GeneralPathShape gp = new GeneralPathShape();
-	
-	public GeneralPathDrawMode()
-	{
-	}
+	private GeneralPathShape gp = new GeneralPathShape();
 	
 	@Override
 	public String[] getDirections() {
@@ -33,7 +29,7 @@ public class GeneralPathDrawMode extends DrawMode
 
 	@Override
 	public String getClassName() {
-		return java.awt.geom.GeneralPath.class.getName();
+		return GeneralPathShape.class.getName();
 	}
 
 	@Override
