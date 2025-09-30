@@ -381,6 +381,7 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 	public void setDirectionsIndex(int index)
 	{
 		this.directionsIndex = index;
+		this.controlPoints = new ArrayList<Point>();
 	}
 	
 	public int getControlPointSelectedIndex()

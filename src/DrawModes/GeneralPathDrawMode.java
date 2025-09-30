@@ -61,17 +61,59 @@ public class GeneralPathDrawMode extends DrawMode
 					{
 						LoggingMessages.printOut(sel);
 						DrawPaths dp = DrawPaths.getDrawPath(sel);
-						drawPaths.add(dp);
-						for(String dir : dp.getDirections())
-						{
-							directions.add(dir);
-						}
+						addDrawPath(dp);
 					}
 					constructInstructions();
 				}
 			}
 		};
 		csd.buildAndShow(selectables, "General Path Selection", "General Path Selection", cldsl, frame);
+	}
+	
+	private void addDrawPath(DrawPaths dp)
+	{
+		drawPaths.add(dp);
+		for(String dir : dp.getDirections())
+		{
+			directions.add(dir);
+		}
+	}
+	
+	private GeneralPath constructGeneralPathShape(Point[] points, Graphics2D g2d)
+	{
+		GeneralPath gp = new GeneralPath();
+		int i = 0;
+		for(DrawPaths dp : drawPaths)
+		{
+			switch(dp)
+			{
+			case LineTo:
+				gp.lineTo(points[i].x, points[i].y);
+				i+=1;
+				break;
+			case CloseTo:
+				gp.closePath();
+				break;
+			case CubicTo:
+				gp.curveTo(points[i+1].x, points[i+1].y, 
+						points[i+2].x, points[i+2].y, 
+						points[i].x, points[i].y);
+				i+=3;
+				break;
+			case MoveTo:
+				gp.moveTo(points[i].x, points[i].y);
+				i+=1;
+				break;
+			case QuadraticTo:
+				gp.quadTo(points[i+1].x, points[i+1].y, 
+						points[i].x, points[i].y);
+				i+=2;
+				break;
+			default:
+				break;
+			}
+		}
+		return gp;
 	}
 
 	@Override
@@ -82,23 +124,26 @@ public class GeneralPathDrawMode extends DrawMode
 		if(directions.size() == 0)
 		{
 			directions = new ArrayList<String>();
+			addDrawPath(DrawPaths.MoveTo);
 			constructInstructions();
 		}
 		else
 		{
-			//TODO
+			gp = constructGeneralPathShape(points, g2d);
 		}
 		return gp;
 	}
 	
 	public enum DrawPaths
 	{
-		
 		MoveTo("Move To", DrawModeInstructions.SINGLE_POINT_DIRECTIONS),
-		LineTo("Line To", DrawModeInstructions.LINE_DIRECTIONS),
-		QuadraticTo("Quadratic To", DrawModeInstructions.QUADRATIC_CURVE_DIRECTIONS),
-		CubicTo("Cubic To", DrawModeInstructions.CUBIC_CURVE_DIRECTIONS),
-		CloseTo("Close To", DrawModeInstructions.SINGLE_POINT_DIRECTIONS);
+		CloseTo("Close To", DrawModeInstructions.SINGLE_POINT_DIRECTIONS),
+		LineTo("Line To", Arrays.copyOfRange(DrawModeInstructions.LINE_DIRECTIONS, 
+				1, DrawModeInstructions.LINE_DIRECTIONS.length)),
+		QuadraticTo("Quadratic To", Arrays.copyOfRange(DrawModeInstructions.QUADRATIC_CURVE_DIRECTIONS, 
+				1, DrawModeInstructions.QUADRATIC_CURVE_DIRECTIONS.length)),
+		CubicTo("Cubic To", Arrays.copyOfRange(DrawModeInstructions.CUBIC_CURVE_DIRECTIONS,
+				1,DrawModeInstructions.CUBIC_CURVE_DIRECTIONS.length));
 		
 		private String description;
 		private String [] directions;
@@ -140,7 +185,6 @@ public class GeneralPathDrawMode extends DrawMode
 				descriptions[i] = dp.getDescription();
 				i++;
 			}
-			
 			return descriptions;
 		}
 	}
