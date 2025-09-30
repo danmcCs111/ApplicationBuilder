@@ -35,6 +35,8 @@ public class RotateDialog extends JDialog
 		CANCEL_BUTTON_LABEL = "Cancel";
 	private static final Dimension MIN_DIMENSION_DIALOG = new Dimension(400, 300);
 	
+	private boolean isSave = false;
+	
 	private JSlider scalingSlider = new JSlider(-100, 100, 0);
 	private JLabel scalingLabel = new JLabel(SCALE_LABEL);
 	private JButton 
@@ -75,7 +77,10 @@ public class RotateDialog extends JDialog
 		this.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosed(WindowEvent e) {
-				RotateDialog.this.cancelAction();
+				if(!isSave)
+				{
+					RotateDialog.this.cancelAction();
+				}
 			}
 		});
 		
@@ -97,6 +102,7 @@ public class RotateDialog extends JDialog
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				applyAction();
+				isSave = true;
 				RotateDialog.this.dispose();
 			}
 		});
