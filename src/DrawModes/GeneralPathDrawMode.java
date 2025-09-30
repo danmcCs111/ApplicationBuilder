@@ -3,7 +3,6 @@ package DrawModes;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Shape;
-import java.awt.geom.GeneralPath;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,14 +12,15 @@ import javax.swing.JFrame;
 import DrawModesAbstract.DrawMode;
 import DrawModesAbstract.DrawModeInstructions;
 import Properties.LoggingMessages;
+import ShapeWidgetComponents.GeneralPathShape;
 import WidgetComponents.ComboSelectionDialog;
 import WidgetExtensions.ComboListDialogSelectedListener;
 import WidgetUtility.WidgetBuildController;
 
 public class GeneralPathDrawMode extends DrawMode 
 {
-	private ArrayList<DrawPaths> drawPaths = new ArrayList<DrawPaths>();
 	private ArrayList<String> directions = new ArrayList<String>();
+	GeneralPathShape gp = new GeneralPathShape();
 	
 	public GeneralPathDrawMode()
 	{
@@ -46,7 +46,7 @@ public class GeneralPathDrawMode extends DrawMode
 		return getDirections().length;
 	}
 	
-	public void constructInstructions()
+	public void constructInstructions(GeneralPathShape gps)
 	{
 		JFrame frame = WidgetBuildController.getInstance().getFrame();
 		ComboSelectionDialog csd = new ComboSelectionDialog();
@@ -61,29 +61,35 @@ public class GeneralPathDrawMode extends DrawMode
 					{
 						LoggingMessages.printOut(sel);
 						DrawPaths dp = DrawPaths.getDrawPath(sel);
-						addDrawPath(dp);
+						addDrawPath(gps, dp);
 					}
-					constructInstructions();
+					constructInstructions(gps);
 				}
 			}
 		};
 		csd.buildAndShow(selectables, "General Path Selection", "General Path Selection", cldsl, frame);
 	}
 	
-	private void addDrawPath(DrawPaths dp)
+	public static GeneralPathShape recalculateShape(Shape s, ArrayList<Point> cps)
 	{
-		drawPaths.add(dp);
+		GeneralPathShape gp = (GeneralPathShape) s;
+		return constructGeneralPathShape(gp, cps.toArray(new Point[] {}));
+	}
+	
+	private void addDrawPath(GeneralPathShape gps, DrawPaths dp)
+	{
+		gps.getDrawPaths().add(dp);
 		for(String dir : dp.getDirections())
 		{
 			directions.add(dir);
 		}
 	}
 	
-	private GeneralPath constructGeneralPathShape(Point[] points, Graphics2D g2d)
+	private static GeneralPathShape constructGeneralPathShape(GeneralPathShape gps, Point[] points)
 	{
-		GeneralPath gp = new GeneralPath();
+		GeneralPathShape gp = new GeneralPathShape();
 		int i = 0;
-		for(DrawPaths dp : drawPaths)
+		for(DrawPaths dp : gps.getDrawPaths())
 		{
 			switch(dp)
 			{
@@ -113,6 +119,7 @@ public class GeneralPathDrawMode extends DrawMode
 				break;
 			}
 		}
+		gp.setDrawPaths(gps.getDrawPaths());
 		return gp;
 	}
 
@@ -120,16 +127,15 @@ public class GeneralPathDrawMode extends DrawMode
 	public Shape constructShape(Point[] points, Graphics2D g2d) 
 	{
 		LoggingMessages.printOut(directions.size() + " size of generalPath");
-		GeneralPath gp = new GeneralPath();
 		if(directions.size() == 0)
 		{
 			directions = new ArrayList<String>();
-			addDrawPath(DrawPaths.MoveTo);
-			constructInstructions();
+			addDrawPath(gp, DrawPaths.MoveTo);
+			constructInstructions(gp);
 		}
 		else
 		{
-			gp = constructGeneralPathShape(points, g2d);
+			gp = constructGeneralPathShape(gp, points);
 		}
 		return gp;
 	}

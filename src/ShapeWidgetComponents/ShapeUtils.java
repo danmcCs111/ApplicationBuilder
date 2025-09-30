@@ -9,6 +9,7 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
+import DrawModes.GeneralPathDrawMode;
 import DrawModesAbstract.DrawMode;
 import Graphics2D.CurveShape;
 import Properties.LoggingMessages;
@@ -56,6 +57,11 @@ public class ShapeUtils
 			s = new Ellipse2D.Double(
 					cps.get(0).x, cps.get(0).y, 
 					(cps.get(1).x - cps.get(0).x), (cps.get(1).y - cps.get(0).y));
+		}
+		else if(s instanceof GeneralPathShape)
+		{
+			GeneralPathShape gps = (GeneralPathShape) s;
+			s = GeneralPathDrawMode.recalculateShape(gps, cps);
 		}
 		return s;
 	}
