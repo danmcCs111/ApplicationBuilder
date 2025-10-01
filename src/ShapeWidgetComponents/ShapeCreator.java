@@ -8,10 +8,12 @@ import java.awt.Shape;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import javax.swing.JPanel;
 
+import DrawModes.PenDrawMode;
 import DrawModesAbstract.DrawMode;
 import Properties.LoggingMessages;
 import ShapeEditorListeners.AddShapesImportedListener;
@@ -179,12 +181,29 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 	
 	public Shape constructShape(DrawMode mode, Point [] curvePoints)
 	{
-		Shape shape = ShapeUtils.constructShape(mode, curvePoints, (Graphics2D)this.draw.getGraphics());
-		ShapeStyling shapeStyling = new ShapeStyling(getNumShapes(), getColorPallette(), getColorPallette(), this);
+		ShapeStyling shapeStyling;
+		Shape shape;
+		
+		if(mode instanceof PenDrawMode)
+		{
+			ArrayList<Point> newPoints = new ArrayList<Point>(Arrays.asList(curvePoints).subList(1, curvePoints.length-1));
+			shape = ShapeUtils.constructShape(mode, 
+					newPoints.toArray(new Point[] {}), 
+					(Graphics2D)this.draw.getGraphics());
+			this.getControlPointsForShapes().set(getNumShapes(), newPoints);
+			shapeStyling = new ShapeStyling(getNumShapes(), getColorPallette(), null, this);
+			shapeStyling.createStrokedShape(false);
+		}
+		else
+		{
+			shape = ShapeUtils.constructShape(mode, curvePoints, (Graphics2D)this.draw.getGraphics());
+			shapeStyling = new ShapeStyling(getNumShapes(), getColorPallette(), getColorPallette(), this);
+		}
 		sdc.addShape(shape);
 		LoggingMessages.printOut(getColorPallette()+"");
 		sdc.addShapeStyling(shapeStyling);
-		generatePointEditor(mode, curvePoints, shapeStyling);
+		generatePointEditor(mode, curvePoints, shapeStyling);	
+		
 		drawAll();
 		
 		return shape;

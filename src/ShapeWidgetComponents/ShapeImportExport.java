@@ -41,13 +41,17 @@ public class ShapeImportExport extends XmlNodeReader
 		for(int shapeIndex = 0; shapeIndex < sdc.getShapes().size(); shapeIndex++)
 		{
 			int count = 0;
-			String suffixCount = "0";//TODO up to 99
+			int suffixCount = 9;
 			Shape shape = sdc.getShapes().get(shapeIndex);
 			type = stripString(shape.getClass().getName());
 			
 			for(Point p : sdc.getShapeControlPoints().get(shapeIndex))
 			{
-				content += "Point" + (count < 10 ? suffixCount : "") + count + "=\"" +  p.x + ", " + p.y + "\" ";
+				String countStr = count + "";
+				int countDiff = suffixCount - countStr.length();
+				countStr = "0".repeat(countDiff) + countStr;
+				
+				content += "Point" + countStr + count + "=\"" +  p.x + ", " + p.y + "\" ";
 				if(paths != null && paths.containsKey(shapeIndex))
 				{
 					for(int pathVal : paths.get(shapeIndex))
@@ -61,7 +65,8 @@ public class ShapeImportExport extends XmlNodeReader
 			Color c = ss.getDrawColor();
 			content += "ColorDraw=\"" + c.getRed() + ", " + c.getGreen() + ", " + c.getBlue() + "\" ";
 			Color cFill = ss.getFillColor();
-			content += "ColorFill=\"" + cFill.getRed() + ", " + cFill.getGreen() + ", " + cFill.getBlue() + "\" ";
+			if(cFill != null)
+				content += "ColorFill=\"" + cFill.getRed() + ", " + cFill.getGreen() + ", " + cFill.getBlue() + "\" ";
 			boolean createStrokedShape = ss.isCreateStrokedShape();
 			content += "CreateStroke=\"" + createStrokedShape + "\" ";
 			int strokeWth = ss.getStrokeWidth();

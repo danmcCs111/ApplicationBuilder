@@ -1,3 +1,3 @@
-Airplane II  The Sequel@317@550=./VideoLaunchFiles/YoutubeFreeMovies2
-Airplane!@22@547=./VideoLaunchFiles/YoutubeFreeMovies2
-PHONK Beat@511@674=./VideoLaunchFiles/Music
+bill-ted-s-bogus-journey@100@600=./VideoLaunchFiles/Tubi/
+bill-ted-s-excellent-adventure@300@625=./VideoLaunchFiles/Tubi/
+coraline@500@650=./VideoLaunchFiles/Tubi/

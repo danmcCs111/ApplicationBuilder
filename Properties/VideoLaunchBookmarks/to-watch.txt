@@ -1,9 +1,3 @@
-conspiracy-theory@100@600=./VideoLaunchFiles/Tubi/
-elite-squad@300@600=./VideoLaunchFiles/Tubi/
-hard-boiled@500@600=./VideoLaunchFiles/Tubi/
-hard-kill@700@600=./VideoLaunchFiles/Tubi/
-mad-max@900@600=./VideoLaunchFiles/Tubi/
-masacre-en-el-autocine-doblado@1100@600=./VideoLaunchFiles/Tubi/
-masters-of-the-universe@1300@600=./VideoLaunchFiles/Tubi/
-Victor Frankenstein@1500@600=./VideoLaunchFiles/YoutubeFreeMovies2
-Wing Commander  The Movie@1700@600=./VideoLaunchFiles/YoutubeFreeMovies2
+The Running Man@44@533=./VideoLaunchFiles/YoutubeFreeMovies2
+apex@301@522=./VideoLaunchFiles/Tubi
+31@581@524=./VideoLaunchFiles/Tubi

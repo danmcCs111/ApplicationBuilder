@@ -36,6 +36,10 @@ public class PenDrawMode extends DrawMode
 	public Shape constructShape(Point[] points, Graphics2D g2d) 
 	{
 		GeneralPathShape gps = new GeneralPathShape();
+		if(points.length < 2)
+		{
+			return gps; 
+		}
 		ArrayList<DrawPaths> drawPaths = new ArrayList<DrawPaths>();
 		gps.moveTo(points[0].x, points[0].y);
 		drawPaths.add(DrawPaths.MoveTo);

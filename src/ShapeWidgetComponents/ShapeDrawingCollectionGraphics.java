@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import BezierCurveCalculations.AffineTransformRasterizer;
 import BezierCurveCalculations.ShapePositionOnPoints;
+import Properties.LoggingMessages;
 
 public interface ShapeDrawingCollectionGraphics 
 {

@@ -1,0 +1,4 @@
+<Widgets>
+<java.awt.geom.Rectangle2D Point0000000000="91, 84" Point0000000011="173, 181" ColorDraw="0, 0, 0" ColorFill="0, 0, 0" CreateStroke="false" SkipShapeDraw="false" > </java.awt.geom.Rectangle2D>
+<ShapeWidgetComponents.GeneralPathShape Point0000000000="178, 102" Point0000000011="240, 116" Point0000000022="212, 37" Point0000000033="248, 86" Point0000000044="167, 266" Point0000000055="239, 158" Point0000000066="215, 192" Point0000000077="86, 125" Point0000000088="126, 213" Point0000000099="91, 181" Point00000001010="161, 149" Point00000001111="91, 70" Point00000001212="107, 37" ColorDraw="204, 51, 0" ColorFill="255, 51, 255" CreateStroke="true" StrokeWidth="12" DrawPaths="Move To, Cubic To, Cubic To, Cubic To, Cubic To, Close To" SkipShapeDraw="false" > </ShapeWidgetComponents.GeneralPathShape>
+</Widgets>
