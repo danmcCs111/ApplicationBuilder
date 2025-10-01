@@ -190,9 +190,14 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 			shape = ShapeUtils.constructShape(mode, 
 					newPoints.toArray(new Point[] {}), 
 					(Graphics2D)this.draw.getGraphics());
+			
 			this.getControlPointsForShapes().set(getNumShapes(), newPoints);
+			
+			LoggingMessages.printOut(newPoints.size() + " " + sdc.getShapeControlPoints().size());
+			
 			shapeStyling = new ShapeStyling(getNumShapes(), getColorPallette(), null, this);
 			shapeStyling.createStrokedShape(false);
+			shapeStyling.setIsDrawControlPoints(false);
 		}
 		else
 		{

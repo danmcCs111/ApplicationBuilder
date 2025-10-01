@@ -62,6 +62,7 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 			
 			Point nextPoint = sc.getRelativePoint(e);
 			sc.getControlPoints().add(nextPoint);
+			LoggingMessages.printOut("size: " + sc.getControlPoints().size());
 			sc.drawAll();
 			ShapeDrawingCollectionGraphics.drawShape(sc.getDrawPanel(), 
 					pdm.constructShape(sc.getControlPoints().subList(1, sc.getControlPoints().size())
@@ -195,6 +196,7 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 				sc.setDirectionsIndex(0);
 				sc.setDirectionsText("");
 				sc.setOperation(Operation.Select);
+				LoggingMessages.printOut("size: " + curvePoints.size());
 				sc.constructShape(mode, curvePoints.toArray(new Point[] {}));
 			}
 			else

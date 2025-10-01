@@ -31,6 +31,7 @@ public class ShapeElement
 		colorDraw,
 		colorFill;
 	private boolean isCreateStroke = false;
+	private boolean drawShapeControlPoints = true;
 	private int strokeWidth = -1;
 	private ArrayList<Point> controlPoints = new ArrayList<Point>();
 	private NumberGeneratorConfig ngConfig;
@@ -75,6 +76,11 @@ public class ShapeElement
 		return shape;
 	}
 	
+	public boolean getDrawShapeControlPoints()
+	{
+		return this.drawShapeControlPoints;
+	}
+	
 	public Font getFont()
 	{
 		return this.textFont;
@@ -117,6 +123,7 @@ public class ShapeElement
 		ss.setSkipShapeDraw(skipShapeDraw);
 		ss.createStrokedShape(isCreateStroke);
 		ss.setStrokeWidth(strokeWidth);
+		ss.setIsDrawControlPoints(drawShapeControlPoints);
 		if(ngConfigString != null && !ngConfigString.isBlank())
 		{
 			ss.updateNumberGeneratorConfig(getShape());
@@ -202,6 +209,10 @@ public class ShapeElement
 			else if(s.startsWith("TextString"))
 			{
 				textString = XmlNodeReader.getValueFromAttributeString(s);
+			}
+			else if(s.startsWith("DrawControlPoints"))
+			{
+				drawShapeControlPoints = Boolean.parseBoolean(XmlNodeReader.getValueFromAttributeString(s));
 			}
 		}
 	}

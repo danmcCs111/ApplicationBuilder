@@ -19,6 +19,7 @@ public class ShapeStyling
 	private Stroke stroke;
 	private int strokeWidth = -1;
 	private boolean 
+		drawControlPoints = true,
 		createStrokedShape = false,
 		skipShapeDraw = false;
 	private NumberGeneratorConfig numberGeneratorConfig;
@@ -41,6 +42,16 @@ public class ShapeStyling
 		this.drawColor = drawColor;
 		this.fillColor = fillColor;
 		this.shapeStyleActionListener = shapeStyleActionListener;
+	}
+	
+	public boolean isDrawControlPoints()
+	{
+		return drawControlPoints;
+	}
+	
+	public void setIsDrawControlPoints(boolean drawControlPoints)
+	{
+		this.drawControlPoints = drawControlPoints;
 	}
 	
 	public int getIndex()
