@@ -118,14 +118,14 @@ public class ShapeUtils
 			heightAdjustApply = (bounds.getHeight() * scalePercent) - bounds.getHeight(),
 			centerX = bounds.getCenterX(),
 			centerY = bounds.getCenterY();
-		
 		ArrayList<Point> newPoints = new ArrayList<Point>();
 		for(Point p : cps)
 		{
-			int adjustX = p.x > centerX ? 1 : -1;
-			int adjustY = p.y > centerY ? 1 : -1;
+			double adjustX = ((p.getX() - centerX) / (bounds.getWidth()/2.0))-1;//TODO
+//			double adjustY = p.y > centerY ? 1 : -1;
+			double adjustY = ((p.getY() - centerY) / (bounds.getHeight()/2.0))-1;//TODO
 			Point newPoint = new Point (
-					(int)((adjustX * widthAdjustApply) + p.x), 
+					(int)(((adjustX) * widthAdjustApply) + p.x), 
 					(int)((adjustY * heightAdjustApply) + p.y)
 			);
 			newPoints.add(newPoint);
