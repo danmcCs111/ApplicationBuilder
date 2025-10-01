@@ -121,9 +121,8 @@ public class ShapeUtils
 		ArrayList<Point> newPoints = new ArrayList<Point>();
 		for(Point p : cps)
 		{
-			double adjustX = ((p.getX() - centerX) / (bounds.getWidth()/2.0))-1;//TODO
-//			double adjustY = p.y > centerY ? 1 : -1;
-			double adjustY = ((p.getY() - centerY) / (bounds.getHeight()/2.0))-1;//TODO
+			double adjustX = ((p.getX() - centerX) / (bounds.getWidth()/2.0));
+			double adjustY = ((p.getY() - centerY) / (bounds.getHeight()/2.0));
 			Point newPoint = new Point (
 					(int)(((adjustX) * widthAdjustApply) + p.x), 
 					(int)((adjustY * heightAdjustApply) + p.y)
