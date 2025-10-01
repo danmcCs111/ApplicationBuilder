@@ -1,7 +1,9 @@
-the-good-the-bad-and-the-ugly@500@650=./VideoLaunchFiles/Tubi
-strange-invaders@895@696=./VideoLaunchFiles/Tubi
-apex@100@600=./VideoLaunchFiles/Tubi
-the-hunt-for-red-october@668@690=./VideoLaunchFiles/Tubi
-blitz@300@625=./VideoLaunchFiles/Tubi
-Broken Arrow@1169@731=./VideoLaunchFiles/YoutubeFreeMovies2
-Judge Dredd@1407@821=./VideoLaunchFiles/YoutubeFreeMovies2
+conspiracy-theory@100@600=./VideoLaunchFiles/Tubi/
+elite-squad@300@600=./VideoLaunchFiles/Tubi/
+hard-boiled@500@600=./VideoLaunchFiles/Tubi/
+hard-kill@700@600=./VideoLaunchFiles/Tubi/
+mad-max@900@600=./VideoLaunchFiles/Tubi/
+masacre-en-el-autocine-doblado@1100@600=./VideoLaunchFiles/Tubi/
+masters-of-the-universe@1300@600=./VideoLaunchFiles/Tubi/
+Victor Frankenstein@1500@600=./VideoLaunchFiles/YoutubeFreeMovies2
+Wing Commander  The Movie@1700@600=./VideoLaunchFiles/YoutubeFreeMovies2

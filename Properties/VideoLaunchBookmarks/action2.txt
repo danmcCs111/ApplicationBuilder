@@ -1,4 +1,9 @@
-The Net (1995)@100@600=./VideoLaunchFiles/YoutubeFreeMovies2
-Total Recall@300@625=./VideoLaunchFiles/YoutubeFreeMovies2
-Victor Frankenstein@500@650=./VideoLaunchFiles/YoutubeFreeMovies2
-Wing Commander  The Movie@700@675=./VideoLaunchFiles/YoutubeFreeMovies2
+agent-recon@100@600=./VideoLaunchFiles/Tubi/
+conspiracy-theory@300@625=./VideoLaunchFiles/Tubi/
+elite-squad@500@650=./VideoLaunchFiles/Tubi/
+hard-boiled@700@675=./VideoLaunchFiles/Tubi/
+hard-kill@900@700=./VideoLaunchFiles/Tubi/
+The Net (1995)@1100@725=./VideoLaunchFiles/YoutubeFreeMovies2
+Total Recall@1300@750=./VideoLaunchFiles/YoutubeFreeMovies2
+Victor Frankenstein@1500@775=./VideoLaunchFiles/YoutubeFreeMovies2
+Wing Commander  The Movie@1700@800=./VideoLaunchFiles/YoutubeFreeMovies2
