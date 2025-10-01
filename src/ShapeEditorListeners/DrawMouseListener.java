@@ -2,6 +2,7 @@ package ShapeEditorListeners;
 
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Shape;
 import java.awt.event.MouseAdapter;
@@ -11,11 +12,13 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
+import DrawModes.PenDrawMode;
 import DrawModesAbstract.DrawMode;
 import Properties.LoggingMessages;
 import ShapeWidgetComponents.ShapeCreator;
 import ShapeWidgetComponents.ShapeCreator.Operation;
 import ShapeWidgetComponents.ShapeDrawingCollection;
+import ShapeWidgetComponents.ShapeDrawingCollectionGraphics;
 import ShapeWidgetComponents.ShapeStyling;
 
 public class DrawMouseListener extends MouseAdapter implements ControlPointChangedListener 
@@ -52,6 +55,17 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 			int diffy = mouseDragStartPoint.y - nextPoint.y;
 			applyShiftAmount(new Point(diffx, diffy));
 			sc.setMouseDragLastPoint(nextPoint);
+		}
+		else if(sc.getOperation() == Operation.Draw && sc.getMode() instanceof PenDrawMode)
+		{
+			PenDrawMode pdm = (PenDrawMode) sc.getMode();
+			
+			Point nextPoint = sc.getRelativePoint(e);
+			sc.getControlPoints().add(nextPoint);
+			sc.drawAll();
+			ShapeDrawingCollectionGraphics.drawShape(sc.getDrawPanel(), 
+					pdm.constructShape(sc.getControlPoints().toArray(new Point[] {}), (Graphics2D)sc.getDrawPanel().getGraphics()),
+					sc.getColorPallette());
 		}
 	}
 	
