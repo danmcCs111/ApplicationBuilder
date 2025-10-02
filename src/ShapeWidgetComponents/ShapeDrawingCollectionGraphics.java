@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import BezierCurveCalculations.AffineTransformRasterizer;
 import BezierCurveCalculations.ShapePositionOnPoints;
+import Properties.LoggingMessages;
 
 public interface ShapeDrawingCollectionGraphics 
 {
@@ -127,6 +128,7 @@ public interface ShapeDrawingCollectionGraphics
 		if(g2d == null)
 			return;
 		Rectangle r = new Rectangle(p);
+		LoggingMessages.printOut("draw control point");
 		r.setSize(ShapeDrawingCollection.CONTROL_POINT_PIXEL_SIZE.width, ShapeDrawingCollection.CONTROL_POINT_PIXEL_SIZE.height);
 		g2d.setStroke(ShapeDrawingCollection.defaultStroke);
 		g2d.setColor(Color.black);
@@ -141,13 +143,12 @@ public interface ShapeDrawingCollectionGraphics
 		int i = 0;
 		for(ArrayList<Point> controlPoints : sdc.getShapeControlPoints())
 		{
-			if(sdc.getShapeStylings() != null && sdc.getShapeStylings().size() > i && !sdc.getShapeStylings().get(i).isDrawControlPoints())
+			if(sdc.getShapeStylings() == null || sdc.getShapeStylings().size() <= i || sdc.getShapeStylings().get(i).isDrawControlPoints())
 			{
-				continue;
-			}
-			for(Point p : controlPoints)
-			{
-				drawControlPoint(g2d, p);
+				for(Point p : controlPoints)
+				{
+					drawControlPoint(g2d, p);
+				}
 			}
 			i++;
 		}

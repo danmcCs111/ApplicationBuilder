@@ -134,6 +134,7 @@ public class RotateDialog extends JDialog
 		sc.getShapes().set(originalSs.getIndex(), newShape);
 		sc.getControlPointsForShapes().set(originalSs.getIndex(), recalcPoints);
 		sc.notifyShapeAndControlPointsChangedListener(originalSs);
+		sc.drawAll();
 	}
 	
 	private void cancelAction()
@@ -141,6 +142,7 @@ public class RotateDialog extends JDialog
 		sc.getShapes().set(originalSs.getIndex(), originalShape);
 		sc.getControlPointsForShapes().set(originalSs.getIndex(), originalControlPoints);
 		sc.notifyShapeAndControlPointsChangedListener(originalSs);
+		sc.drawAll();
 		this.dispose();
 	}
 }

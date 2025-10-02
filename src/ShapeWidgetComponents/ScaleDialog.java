@@ -169,6 +169,7 @@ public class ScaleDialog extends JDialog
 			sc.getShapes().set(originalSs.getIndex(), s);
 			sc.getControlPointsForShapes().set(originalSs.getIndex(), controlPoints);
 			sc.notifyShapeAndControlPointsChangedListener(originalSs);
+			sc.drawAll();
 		}
 	}
 	
@@ -177,6 +178,7 @@ public class ScaleDialog extends JDialog
 		sc.getShapes().set(originalSs.getIndex(), originalShape);
 		sc.getControlPointsForShapes().set(originalSs.getIndex(), originalControlPoints);
 		sc.notifyShapeAndControlPointsChangedListener(originalSs);
+		sc.drawAll();
 		this.dispose();
 	}
 

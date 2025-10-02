@@ -15,7 +15,6 @@ import javax.swing.JPanel;
 
 import DrawModes.PenDrawMode;
 import DrawModesAbstract.DrawMode;
-import Properties.LoggingMessages;
 import ShapeEditorListeners.AddShapesImportedListener;
 import ShapeEditorListeners.ControlPointChangedListener;
 import ShapeEditorListeners.DrawMouseListener;
@@ -147,7 +146,6 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 				cpcl.controlPointChangedNotification(ss, indexControlPoint);
 			}
 		}
-		drawAll();
 	}
 	
 	public void addShapeAndControlPointChangedListener(ShapeStyling ss, int indexControlPoint, ControlPointChangedListener changedListener)
@@ -191,14 +189,11 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 		
 		this.getControlPointsForShapes().set(getNumShapes(), newPoints);
 		
-		LoggingMessages.printOut(newPoints.size() + " " + sdc.getShapeControlPoints().size());
-		
 		shapeStyling = new ShapeStyling(getNumShapes(), getColorPallette(), null, this);
 		shapeStyling.createStrokedShape(false);
 		shapeStyling.setIsDrawControlPoints(false);
 		
 		sdc.addShape(shape);
-		LoggingMessages.printOut(getColorPallette()+"");
 		sdc.addShapeStyling(shapeStyling);
 		generatePointEditor(mode, curvePoints, shapeStyling);	
 		
@@ -215,7 +210,6 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 		shape = ShapeUtils.constructShape(mode, curvePoints, (Graphics2D)this.draw.getGraphics());
 		shapeStyling = new ShapeStyling(getNumShapes(), getColorPallette(), getColorPallette(), this);
 		sdc.addShape(shape);
-		LoggingMessages.printOut(getColorPallette()+"");
 		sdc.addShapeStyling(shapeStyling);
 		generatePointEditor(mode, curvePoints, shapeStyling);	
 		

@@ -219,6 +219,7 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 				sc.incrementDirectionsIndex(1);
 				sc.setDirectionsText(mode.getDirections()[sc.getDirectionsIndex()]);
 			}
+			sc.drawAll();
 		}
 	}
 	
@@ -284,6 +285,7 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 				sc.getControlPointsForShapes().get(index).set(i, newPoints.get(i));
 				sc.notifyShapeAndControlPointChangedListener(ss, i, this);
 			}
+			sc.drawAll();
 			
 			Shape newShape = sc.recalculateShape(s, newPoints);
 			sc.getShapes().set(index, newShape);
@@ -381,7 +383,7 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 		sc.getShapes().set(ss.getIndex(), newShape);
 		ss.updateNumberGeneratorConfig(newShape);
 		
-		sc.drawAll();
+//		sc.drawAll();
 	}
 	
 }
