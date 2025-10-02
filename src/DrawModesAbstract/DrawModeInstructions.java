@@ -14,7 +14,6 @@ public interface DrawModeInstructions
 			"Enter x2, y2"
 		},
 		PEN_DIRECTIONS = new String [] {
-				"Enter (x, y) to start", 
 				"Drag to draw. click to end"
 			},
 		QUADRATIC_CURVE_DIRECTIONS = new String [] {

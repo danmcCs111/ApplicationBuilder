@@ -9,6 +9,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.JFrame;
 
@@ -24,6 +25,7 @@ import ShapeWidgetComponents.ShapeStyling;
 public class DrawMouseListener extends MouseAdapter implements ControlPointChangedListener 
 {
 	private ShapeCreator sc;
+	private HashMap<Integer, Point> moveTos = new HashMap<Integer, Point>();
 	
 	public DrawMouseListener(ShapeCreator sc)
 	{ 
@@ -65,8 +67,8 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 			LoggingMessages.printOut("size: " + sc.getControlPoints().size());
 			sc.drawAll();
 			ShapeDrawingCollectionGraphics.drawShape(sc.getDrawPanel(), 
-					pdm.constructShape(sc.getControlPoints().subList(1, sc.getControlPoints().size())
-							.toArray(new Point[] {}), (Graphics2D)sc.getDrawPanel().getGraphics()),
+					pdm.constructPenShape(moveTos, sc.getControlPoints().toArray(new Point[] {}), 
+							(Graphics2D)sc.getDrawPanel().getGraphics()),
 					sc.getColorPallette());
 		}
 	}
@@ -103,6 +105,12 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 		Point p = sc.getRelativePoint(e);
 		sc.setMousePressed(true);
 		sc.setControlPointSelected(false);
+		
+		if(sc.getOperation() == Operation.Draw && sc.getMode() instanceof PenDrawMode)
+		{
+			moveTos.put(sc.getControlPoints().size(), p);
+		}
+		
 		if(sc.getSelectionRectangle() != null && !sc.getSelectionRectangle().contains(p))
 		{
 			clearSelection();
@@ -197,7 +205,14 @@ public class DrawMouseListener extends MouseAdapter implements ControlPointChang
 				sc.setDirectionsText("");
 				sc.setOperation(Operation.Select);
 				LoggingMessages.printOut("size: " + curvePoints.size());
-				sc.constructShape(mode, curvePoints.toArray(new Point[] {}));
+				if(mode instanceof PenDrawMode)
+				{
+					sc.constructPenShape(mode, moveTos, curvePoints.toArray(new Point[] {}));
+				}
+				else
+				{
+					sc.constructShape(mode, curvePoints.toArray(new Point[] {}));
+				}
 			}
 			else
 			{

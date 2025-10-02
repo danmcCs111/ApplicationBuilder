@@ -179,31 +179,41 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 		return ShapeUtils.recalculateShape(s, cps);
 	}
 	
+	public Shape constructPenShape(DrawMode mode, HashMap<Integer, Point> moveTos, Point [] curvePoints)
+	{
+		ShapeStyling shapeStyling;
+		Shape shape;
+		
+		ArrayList<Point> newPoints = new ArrayList<Point>(Arrays.asList(curvePoints));
+		shape = ((PenDrawMode) mode).constructPenShape(moveTos,
+				newPoints.toArray(new Point[] {}), 
+				(Graphics2D)this.draw.getGraphics());
+		
+		this.getControlPointsForShapes().set(getNumShapes(), newPoints);
+		
+		LoggingMessages.printOut(newPoints.size() + " " + sdc.getShapeControlPoints().size());
+		
+		shapeStyling = new ShapeStyling(getNumShapes(), getColorPallette(), null, this);
+		shapeStyling.createStrokedShape(false);
+		shapeStyling.setIsDrawControlPoints(false);
+		
+		sdc.addShape(shape);
+		LoggingMessages.printOut(getColorPallette()+"");
+		sdc.addShapeStyling(shapeStyling);
+		generatePointEditor(mode, curvePoints, shapeStyling);	
+		
+		drawAll();
+		
+		return shape;
+	}
+	
 	public Shape constructShape(DrawMode mode, Point [] curvePoints)
 	{
 		ShapeStyling shapeStyling;
 		Shape shape;
 		
-		if(mode instanceof PenDrawMode)
-		{
-			ArrayList<Point> newPoints = new ArrayList<Point>(Arrays.asList(curvePoints).subList(1, curvePoints.length-1));
-			shape = ShapeUtils.constructShape(mode, 
-					newPoints.toArray(new Point[] {}), 
-					(Graphics2D)this.draw.getGraphics());
-			
-			this.getControlPointsForShapes().set(getNumShapes(), newPoints);
-			
-			LoggingMessages.printOut(newPoints.size() + " " + sdc.getShapeControlPoints().size());
-			
-			shapeStyling = new ShapeStyling(getNumShapes(), getColorPallette(), null, this);
-			shapeStyling.createStrokedShape(false);
-			shapeStyling.setIsDrawControlPoints(false);
-		}
-		else
-		{
-			shape = ShapeUtils.constructShape(mode, curvePoints, (Graphics2D)this.draw.getGraphics());
-			shapeStyling = new ShapeStyling(getNumShapes(), getColorPallette(), getColorPallette(), this);
-		}
+		shape = ShapeUtils.constructShape(mode, curvePoints, (Graphics2D)this.draw.getGraphics());
+		shapeStyling = new ShapeStyling(getNumShapes(), getColorPallette(), getColorPallette(), this);
 		sdc.addShape(shape);
 		LoggingMessages.printOut(getColorPallette()+"");
 		sdc.addShapeStyling(shapeStyling);

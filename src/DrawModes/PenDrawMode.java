@@ -4,10 +4,12 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Shape;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import DrawModes.GeneralPathDrawMode.DrawPaths;
 import DrawModesAbstract.DrawMode;
 import DrawModesAbstract.DrawModeInstructions;
+import Properties.LoggingMessages;
 import ShapeWidgetComponents.GeneralPathShape;
 
 public class PenDrawMode extends DrawMode
@@ -32,24 +34,37 @@ public class PenDrawMode extends DrawMode
 		return getDirections().length;
 	}
 
-	@Override
-	public Shape constructShape(Point[] points, Graphics2D g2d) 
+	public Shape constructPenShape(HashMap<Integer, Point> moveTos, Point[] points, Graphics2D g2d) 
 	{
 		GeneralPathShape gps = new GeneralPathShape();
-		if(points.length < 2)
+		if(points.length < 1)
 		{
 			return gps; 
 		}
 		ArrayList<DrawPaths> drawPaths = new ArrayList<DrawPaths>();
-		gps.moveTo(points[0].x, points[0].y);
-		drawPaths.add(DrawPaths.MoveTo);
-		for(int i = 1; i < points.length-1; i++)
+		for(int i = 0; i < points.length-1; i++)
 		{
-			gps.lineTo(points[i].x, points[i].y);
-			drawPaths.add(DrawPaths.LineTo);
+			if(moveTos.containsKey(i))
+			{
+				LoggingMessages.printOut("move to: " + i);
+				gps.moveTo(points[i].x, points[i].y);
+				drawPaths.add(DrawPaths.MoveTo);
+			}
+			else
+			{
+				gps.lineTo(points[i].x, points[i].y);
+				drawPaths.add(DrawPaths.LineTo);	
+			}
+			
 		}
 		gps.setDrawPaths(drawPaths);
 		return gps;
+	}
+
+	@Override
+	public Shape constructShape(Point[] points, Graphics2D g2d) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
