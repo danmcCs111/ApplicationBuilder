@@ -9,5 +9,5 @@ tubiPngs="/GrabFolder/Tubi/images/*.png"
 
 script=$scriptDirectory$scriptName
 
-#$script
+$script
 cp $scriptDirectory$tubiPngs $tubiDirectory
