@@ -1,38 +1,28 @@
 <Build>
-	<JFrame addWindowListener="WindowListeners.ProcessExecutorWindowListener" extendedSetupTaskbar="./src/ApplicationBuilder/launch_xsm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="10, 30" setName="VideoPlayer" setResizable="False" setSize="1450, 700" setTitle="...!Video List Creator!..." >
+	<JFrame addWindowListener="WindowListeners.ProcessExecutorWindowListener" extendedSetupTaskbar="./src/ApplicationBuilder/launch_xsm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="10, 30" setName="VideoPlayer" setResizable="False" setSize="450, 515" setTitle="...!Video Launcher!..." >
 		<JPanel extendedLayoutApplyParent="Center" setLayout="java.awt.BorderLayout" >
-			<JScrollPane extendedLayoutApplyParent="Center" extendedScrollBarSetUnit="25" setName="scrollPane" >
-				<SwappableCollection extendedArrayProcessingPath="./VideoLaunchFiles/Roku Channels@.url; ./VideoLaunchFiles/Tubi/@.url; ./VideoLaunchFiles/YoutubeFreeMovies2@.url; ./VideoLaunchFiles/Youtube Channels@.url; ./VideoLaunchFiles/Amazon Videos@.url; ./VideoLaunchFiles/Music/@.url" extendedSetViewportView="" setBackground="204, 255, 204" setLayout="java.awt.BorderLayout" setName="swapVideos" >
+			<JScrollPane extendedLayoutApplyParent="Center" extendedScrollBarSetUnit="15" setName="scrollPane" >
+				<SwappableCollection extendedArrayProcessingPath="./VideoLaunchFiles/Roku Channels@.url; ./VideoLaunchFiles/Tubi@.url; ./VideoLaunchFiles/YoutubeFreeMovies2@.url; ./VideoLaunchFiles/Youtube Channels@.url; ./VideoLaunchFiles/Amazon Videos@.url; ./VideoLaunchFiles/Music@.url" extendedSetViewportView="" setBackground="204, 255, 204" setLayout="java.awt.BorderLayout" setName="swapVideos" >
 					<JPanel extendedLayoutApplyParent="North" setBackground="204, 255, 204" setLayout="java.awt.BorderLayout" >
-						<JButtonArrayPicture extendedConnectedComponent="channelsSelect" extendedLayoutApplyParent="Center" extendedSwappableHolder="swapVideos" extendedTextStripper="Watch @ Online for Free _ The Roku Channel _ Roku@ - YouTube@ - Prime Video@Prime Video- @1_@.url" setCharacterLimit="25" setDefaultImageXmlPath="./Properties/shapes/Default-Play-Image.xml" setExpandedArrangementFileRelativeLocation="./Properties/VideoLaunchBookmarks/ " setName="channels" setScaledDefaultPic="140, 75" setScaledWidthHeight="140, 200" >
-						</JButtonArrayPicture>
+						<JButtonArray addActionListener="ActionListenersImpl.LaunchActionListener" extendedImageMouseAdapterArray="swapVideos, False" extendedLayoutApplyParent="Center" extendedSwappableHolder="swapVideos" extendedTextStripper="Watch @ Online for Free _ The Roku Channel _ Roku@ - YouTube@ - Prime Video@Prime Video- @1_@.url" setArrayForegroundAndBackground="240, 240, 240, 102, 102, 102" setCharacterLimit="35" setDefaultImageXmlPath="./Properties/shapes/Default-Play-Image.xml" setDimensionDefaultPic="279, 140" setExpandedArrangementFileRelativeLocation="./Properties/VideoLaunchBookmarks/ " setHighlightBackgroundColor="240, 240, 240" setHighlightForegroundColor="50, 50, 50" setLayout="java.awt.GridLayout" setName="channels" setPicturePadWidthHeight="5, 20" setScaledWidthHeight="206, 300" setSingleClick="False" >
+						</JButtonArray>
 					</JPanel>
 				</SwappableCollection>
 			</JScrollPane>
-			<JPanel extendedLayoutApplyParent="East" setLayout="java.awt.BorderLayout" >
-				<JScrollPane extendedLayoutApplyParent="East" extendedScrollBarSetUnit="25" setName="scrollPane2" >
-					<JPanel extendedLayoutApplyParent="Center" extendedSetViewportView="" setBackground="204, 255, 204" setLayout="java.awt.BorderLayout" >
-						<JButtonArrayPicture extendedConnectedComponent="channels" extendedLayoutApplyParent="East" extendedTextStripper="Watch @ Online for Free _ The Roku Channel _ Roku@ - YouTube@ - Prime Video@Prime Video- @1_@.url" setCharacterLimit="10" setColumnSize="1" setDefaultImageXmlPath="./Properties/shapes/Default-Play-Image.xml" setExpandedArrangementFileRelativeLocation="./Properties/VideoLaunchBookmarks/ " setName="channelsSelect" setSaveIncPoint="200, 25" setSaveStartLocation="100, 600" setScaledDefaultPic="140, 75" setScaledWidthHeight="140, 200" setShowAll="True" >
-						</JButtonArrayPicture>
-					</JPanel>
-				</JScrollPane>
-				<JPanel extendedLayoutApplyParent="West" setLayout="java.awt.GridLayout" >
-					<JButton extendedAddActionSendReceive="channels, channelsSelect" extendedLayoutApplyParent="" setText="&gt;" >
-					</JButton>
-					<JButton extendedAddActionSendReceive="channelsSelect, channels" extendedLayoutApplyParent="" setText="&lt;" >
-					</JButton>
-				</JPanel>
+			<JPanel extendedLayoutApplyParent="North" setLayout="java.awt.BorderLayout" >
+				<SearchBar extendedLayoutApplyParent="East" extendedSearchField="swapVideos" setColumnCharacterLength="10" >
+				</SearchBar>
+				<JLabel extendedLayoutApplyParent="West" extendedTitleSwitcher="swapVideos" setBackground="150, 150, 150" setForeground="100, 50, 150" setHorizontalAlignment="0" setName="title" setText="TODO" >
+				</JLabel>
 			</JPanel>
 		</JPanel>
 		<JPanel extendedLayoutApplyParent="South" setBackground="204, 255, 204" setLayout="java.awt.BorderLayout" >
-			<JPanel extendedLayoutApplyParent="Center" setBackground="204, 255, 204" setLayout="java.awt.FlowLayout" >
-				<JButton extendedLayoutApplyParent="" extendedOpenActionListener="channels" setBackground="175, 204, 175" setForeground="119, 5, 6" setName="openAction" setPreferredSize="80, 25" setText="Open" setToolTipText="Open selections" >
-				</JButton>
-				<JButton extendedLayoutApplyParent="" extendedSaveActionListener="channelsSelect" setBackground="175, 204, 175" setForeground="119, 5, 6" setName="saveAction" setPreferredSize="80, 25" setText="Save" setToolTipText="Save Selections" >
-				</JButton>
-				<JButton extendedClearActionListener="channelsSelect" extendedLayoutApplyParent="" setBackground="175, 204, 175" setForeground="119, 5, 6" setName="clearAction" setPreferredSize="85, 25" setText="Clear All" setToolTipText="Clear All Selections" >
-				</JButton>
-			</JPanel>
+			<JButton addActionListener="ActionListenersImpl.LaunchActionListener" extendedLayoutApplyParent="Center" setBackground="175, 204, 175" setForeground="119, 5, 6" setName="closeLaunchAction" setPreferredSize="60, 25" setText=" X Close" setToolTipText="close browser" >
+			</JButton>
+			<JLabel extendedCalculationPad="JButton" extendedLayoutApplyParent="East" >
+			</JLabel>
+			<JLabel extendedCalculationPad="JButton" extendedLayoutApplyParent="West" >
+			</JLabel>
 		</JPanel>
 		<JPanel extendedLayoutApplyParent="West" setBackground="204, 255, 204" setLayout="java.awt.BorderLayout" >
 			<JButton addActionListener="ActionListenersImpl.NavigationButtonActionListener" extendedActionListenerConnectedComponent="swapVideos" extendedActionListenerSubType="WidgetComponents.Direction@BACKWARD" extendedLayoutApplyParent="North" setText="[&lt;]" >
@@ -46,7 +36,21 @@
 			<JMenu extendedLayoutApplyParent="" setText="File" >
 				<JMenuItem extendedLayoutApplyParent="" extendedOpenActionListener="channels" setText="Open" >
 				</JMenuItem>
-				<JMenuItem extendedLayoutApplyParent="" extendedSaveActionListener="channelsSelect" setText="Save" >
+				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ApplicationBuilder|%Fn./Properties/data/Video Tile.xml" extendedLayoutApplyParent="" setText="Open Editor" >
+				</JMenuItem>
+				<JMenuItem extendedLayoutApplyParent="" extendedSaveActionListener="channels" setText="Save" >
+				</JMenuItem>
+				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ApplicationBuilder|%Fn./Properties/data/ScheduledCommandListEditor.xml" extendedLayoutApplyParent="" setText="Reload" >
+				</JMenuItem>
+			</JMenu>
+			<JMenu extendedLayoutApplyParent="" setText="Action" >
+				<JMenuItem extendedLayoutApplyParent="" extendedRestoreActionListener="channels" setText="Restore All Frames" >
+				</JMenuItem>
+				<JMenuItem extendedLayoutApplyParent="" extendedMinimizeActionListener="channels" setText="Minimize All Frames" >
+				</JMenuItem>
+				<JMenuItem extendedCloseActionListener="channels" extendedLayoutApplyParent="" setText="Close" >
+				</JMenuItem>
+				<JMenuItem extendedCloseAllActionListener="channels" extendedLayoutApplyParent="" setText="Close All" >
 				</JMenuItem>
 			</JMenu>
 		</JMenuBar>

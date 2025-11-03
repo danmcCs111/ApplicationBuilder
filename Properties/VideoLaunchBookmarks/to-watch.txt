@@ -1,3 +1,6 @@
-The Running Man@44@533=./VideoLaunchFiles/YoutubeFreeMovies2
-apex@301@522=./VideoLaunchFiles/Tubi
-31@581@524=./VideoLaunchFiles/Tubi
+shutter-island@100@600=./VideoLaunchFiles/Tubi/
+sicario@300@625=./VideoLaunchFiles/Tubi/
+sniper-the-white-raven-dubbed@500@650=./VideoLaunchFiles/Tubi/
+stargate@700@675=./VideoLaunchFiles/Tubi/
+super-8@900@700=./VideoLaunchFiles/Tubi/
+the-arrival@1100@725=./VideoLaunchFiles/Tubi/
