@@ -1,6 +1,10 @@
-twilight-zone-the-movie@1109@376=./VideoLaunchFiles/Tubi
-the-grudge@1026@146=./VideoLaunchFiles/Tubi
-the-thin-blue-line@814@144=./VideoLaunchFiles/Tubi
-lifeforce@100@600=./VideoLaunchFiles/Tubi
-the-medallion@588@270=./VideoLaunchFiles/Tubi
-the-thing-from-another-world@874@398=./VideoLaunchFiles/Tubi
+house-of-flying-daggers@500@650=./VideoLaunchFiles/Tubi
+identity@763@984=./VideoLaunchFiles/Tubi
+house-of-darkness-new-blood@300@625=./VideoLaunchFiles/Tubi
+house-of-the-dead-2@700@675=./VideoLaunchFiles/Tubi
+metropolis@311@978=./VideoLaunchFiles/Tubi
+house-of-wax@900@700=./VideoLaunchFiles/Tubi
+jason-x@536@978=./VideoLaunchFiles/Tubi
+house@100@600=./VideoLaunchFiles/Tubi
+house-on-haunted-hill@995@982=./VideoLaunchFiles/Tubi
+missionary-man@82@978=./VideoLaunchFiles/Tubi

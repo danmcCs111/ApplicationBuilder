@@ -1,5 +1,5 @@
 <Build>
-	<JFrame extendedSetupTaskbar="/src/ApplicationBuilder/build-icon_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="300, 300" setMinimumSize="450, 550" setTitle="Scheduled Command Editor" >
+	<JFrame extendedSetupTaskbar="./src/ApplicationBuilder/build-icon_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="300, 300" setMinimumSize="400, 300" setTitle="Scheduled Command Editor" >
 		<JPanel extendedLayoutApplyParent="South" setLayout="java.awt.FlowLayout" >
 			<JButton extendedLayoutApplyParent="" extendedScheduledCommandStartActionListener="scheduledCommandList" setText="Run" setToolTipText="Start Execution Scheduler" >
 			</JButton>
@@ -8,7 +8,7 @@
 		</ScheduledCommandList>
 		<JMenuBar extendedSetJMenuBarParent="" >
 			<JMenu extendedLayoutApplyParent="" setText="File" >
-				<JMenuItem extendedLayoutApplyParent="" setText="New" extendedNewFileActionListener="scheduledCommandList" >
+				<JMenuItem extendedLayoutApplyParent="" extendedNewFileActionListener="scheduledCommandList" setText="New" >
 				</JMenuItem>
 				<JMenuItem extendedLayoutApplyParent="" extendedSaveActionListener="scheduledCommandList" setText="Save" >
 				</JMenuItem>

@@ -1,3 +1,2 @@
-First Blood@100@600=./VideoLaunchFiles/YoutubeFreeMovies2
-Juice@300@625=./VideoLaunchFiles/YoutubeFreeMovies2
-Scary Movie (MIRAMAX)@500@650=./VideoLaunchFiles/YoutubeFreeMovies2
+a-dangerous-man@100@600=./VideoLaunchFiles/Tubi/
+The 6th Day@300@625=./VideoLaunchFiles/YoutubeFreeMovies2

@@ -25,6 +25,7 @@ import ObjectTypeConvertersImpl.ClassTextAdapter;
 import Params.XmlToWidgetGenerator;
 import Properties.LoggingMessages;
 import ShapeWidgetComponents.ClockApp;
+import ShapeWidgetComponents.LoadingSpin;
 import ShapeWidgetComponents.ShapeCreator;
 import ShapeWidgetComponents.ShapeCreatorEditPanel;
 import ShapeWidgetComponents.ShapeCreatorToolBarPanel;
@@ -98,6 +99,7 @@ public class WidgetAttributes
 		COMPONENT_CLASSES.add(ShapeCreatorEditPanel.class);
 		COMPONENT_CLASSES.add(SearchBar.class);
 		COMPONENT_CLASSES.add(ClockApp.class);
+		COMPONENT_CLASSES.add(LoadingSpin.class);
 		COMPONENT_CLASSES.add(WeatherGraphViewer.class);
 		COMPONENT_CLASSES.add(ScheduledCommandExecutionEditor.class);
 		COMPONENT_CLASSES.add(ScheduledCommandList.class);
@@ -186,6 +188,10 @@ public class WidgetAttributes
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSearchField.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(ClockApp.class, new String [] {
+				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedShapeDrawingCollectionLoader.class, ExtendedMethodArgDef.ExtendedFileSelection.getMethodArgDef())
+		});
+		EXTENDED_METHODS.put(LoadingSpin.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedShapeDrawingCollectionLoader.class, ExtendedMethodArgDef.ExtendedFileSelection.getMethodArgDef())
 		});

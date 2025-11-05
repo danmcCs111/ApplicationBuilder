@@ -1,44 +1,6 @@
 <Build>
-	<JFrame addWindowListener="WindowListeners.ProcessExecutorWindowListener" extendedSetupTaskbar="/src/ApplicationBuilder/build-icon_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="10, 30" setName="VideoPlayer" setResizable="False" setSize="300, 85" setTitle="Video Opener" >
-		<JPanel extendedLayoutApplyParent="Center" setLayout="java.awt.BorderLayout" >
-			<SwappableCollection extendedArrayProcessingPath="./VideoLaunchFiles/Roku Channels@.url; ./VideoLaunchFiles/Youtube Channels@.url; ./VideoLaunchFiles/Amazon Videos@.url; ./VideoLaunchFiles/Music@.url; ./VideoLaunchFiles/YoutubeFreeMovies2/@.url; ./VideoLaunchFiles/Tubi/@.url" setLayout="java.awt.BorderLayout" setName="swapVideos" >
-				<JButtonArray addActionListener="ActionListenersImpl.LaunchActionListener" extendedImageMouseAdapterArray="swapVideos, False" extendedLayoutApplyParent="Center" extendedSwappableHolder="swapVideos" extendedTextStripper="Watch @ Online for Free _ The Roku Channel _ Roku@ - YouTube@ - Prime Video@Prime Video- @1_@.url" setArrayForegroundAndBackground="240, 240, 240, 102, 102, 102" setCharacterLimit="35" setDefaultImageXmlPath="./Properties/shapes/Default-Play-Image.xml" setDimensionDefaultPic="279, 140" setExpandedArrangementFileRelativeLocation="./Properties/VideoLaunchBookmarks/ " setHighlightBackgroundColor="240, 240, 240" setHighlightForegroundColor="50, 50, 50" setLayout="java.awt.GridLayout" setName="channels" setPicturePadWidthHeight="5, 20" setScaledWidthHeight="206, 300" setSingleClick="False" setVisible="False" >
-				</JButtonArray>
-			</SwappableCollection>
-		</JPanel>
-		<JPanel extendedLayoutApplyParent="Center" setBackground="0, 102, 102" setLayout="java.awt.BorderLayout" >
-			<JButton addActionListener="ActionListenersImpl.LaunchActionListener" extendedLayoutApplyParent="Center" setBackground="0, 204, 204" setForeground="180, 22, 22" setName="closeLaunchAction" setPreferredSize="60, 25" setText=" X Close" setToolTipText="close browser" >
-			</JButton>
-			<JLabel extendedCalculationPad="JButton" extendedLayoutApplyParent="East" >
-			</JLabel>
-			<JLabel extendedCalculationPad="JButton" extendedLayoutApplyParent="West" >
-			</JLabel>
-		</JPanel>
-		<JPanel extendedLayoutApplyParent="West" setBackground="204, 255, 204" setLayout="java.awt.BorderLayout" >
-		</JPanel>
-		<JPanel extendedLayoutApplyParent="East" setBackground="204, 255, 204" setLayout="java.awt.BorderLayout" >
-		</JPanel>
-		<JMenuBar extendedSetJMenuBarParent="" >
-			<JMenu extendedLayoutApplyParent="" setText="File" >
-				<JMenuItem extendedLayoutApplyParent="" extendedOpenActionListener="channels" setText="Open" >
-				</JMenuItem>
-				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ApplicationBuilder|%Fn./Properties/data/Video Tile.xml" extendedLayoutApplyParent="" setText="Open Editor" >
-				</JMenuItem>
-				<JMenuItem extendedLayoutApplyParent="" extendedSaveActionListener="channels" setText="Save" >
-				</JMenuItem>
-				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ApplicationBuilder|%Fn./Properties/data/ScheduledCommandListEditor.xml" extendedLayoutApplyParent="" setText="Reload" >
-				</JMenuItem>
-			</JMenu>
-			<JMenu extendedLayoutApplyParent="" setText="Action" >
-				<JMenuItem extendedLayoutApplyParent="" extendedRestoreActionListener="channels" setText="Restore All Frames" >
-				</JMenuItem>
-				<JMenuItem extendedLayoutApplyParent="" extendedMinimizeActionListener="channels" setText="Minimize All Frames" >
-				</JMenuItem>
-				<JMenuItem extendedCloseActionListener="channels" extendedLayoutApplyParent="" setText="Close" >
-				</JMenuItem>
-				<JMenuItem extendedCloseAllActionListener="channels" extendedLayoutApplyParent="" setText="Close All" >
-				</JMenuItem>
-			</JMenu>
-		</JMenuBar>
+	<JFrame extendedSetupTaskbar="./src/ApplicationBuilder/weather_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setMinimumSize="200, 210" setResizable="False" >
+		<LoadingSpin addMouseListener="MouseListenersImpl.ClockMouseDragListener" addMouseMotionListener="MouseListenersImpl.ClockMouseDragListener" extendedLayoutApplyParent="Center" extendedShapeDrawingCollectionLoader="./Properties/shapes/reload.xml" >
+		</LoadingSpin>
 	</JFrame>
 </Build>
