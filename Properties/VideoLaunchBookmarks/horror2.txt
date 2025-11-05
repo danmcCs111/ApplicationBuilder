@@ -1,2 +1,6 @@
-troll-2@79@808=./VideoLaunchFiles/Tubi
-vampire-s-kiss@260@734=./VideoLaunchFiles/Tubi
+twilight-zone-the-movie@1109@376=./VideoLaunchFiles/Tubi
+the-grudge@1026@146=./VideoLaunchFiles/Tubi
+the-thin-blue-line@814@144=./VideoLaunchFiles/Tubi
+lifeforce@100@600=./VideoLaunchFiles/Tubi
+the-medallion@588@270=./VideoLaunchFiles/Tubi
+the-thing-from-another-world@874@398=./VideoLaunchFiles/Tubi

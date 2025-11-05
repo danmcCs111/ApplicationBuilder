@@ -1,5 +1,5 @@
-meth-gator@100@600=./VideoLaunchFiles/Tubi/
-still-of-the-night@300@625=./VideoLaunchFiles/Tubi/
-sting@500@650=./VideoLaunchFiles/Tubi/
-storm-warning@700@675=./VideoLaunchFiles/Tubi/
-the-fog@900@700=./VideoLaunchFiles/Tubi/
+still-of-the-night@335@784=./VideoLaunchFiles/Tubi
+storm-warning@780@840=./VideoLaunchFiles/Tubi
+meth-gator@114@762=./VideoLaunchFiles/Tubi
+sting@575@776=./VideoLaunchFiles/Tubi
+the-fog@1019@878=./VideoLaunchFiles/Tubi

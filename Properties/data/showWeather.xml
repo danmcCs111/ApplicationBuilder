@@ -1,5 +1,5 @@
 <Build>
-	<JFrame extendedCsvReader="C:\Users\danie\codebase\danmcCs111\PlayrightCopyUrl\PlayrightVideo\GrabFolder\Weather\weather_grab_2025_8_4_0_20.csv" extendedSetupTaskbar="/src/ApplicationBuilder/weather_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="300, 250" setMinimumSize="700, 600" setResizable="False" setTitle="weather" >
+	<JFrame extendedSetupTaskbar="./src/ApplicationBuilder/weather_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="300, 250" setMinimumSize="700, 600" setResizable="False" setTitle="weather" >
 		<JPanel extendedLayoutApplyParent="East" >
 		</JPanel>
 		<WeatherGraphViewer extendedCsvAddSubscriber="" extendedLayoutApplyParent="Center" setLabelMarkerLen="10" setPad="85" setPlotColor="51, 51, 255" setPlotSize="4" setTimelineColor="204, 204, 204" setTimelineLabelColor="51, 51, 51" >
