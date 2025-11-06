@@ -2,8 +2,8 @@
 	<JFrame addWindowListener="WindowListeners.ProcessExecutorWindowListener" extendedSetupTaskbar="./src/ApplicationBuilder/launch_xsm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="10, 30" setName="VideoPlayer" setResizable="False" setSize="1450, 700" setTitle="...!Video List Creator!..." >
 		<JPanel extendedLayoutApplyParent="Center" setLayout="java.awt.BorderLayout" >
 			<JScrollPane extendedLayoutApplyParent="Center" extendedScrollBarSetUnit="25" setName="scrollPane" >
-				<SwappableCollection extendedArrayProcessingPath="./VideoLaunchFiles/Roku Channels@.url; ./VideoLaunchFiles/Tubi/@.url; ./VideoLaunchFiles/YoutubeFreeMovies2@.url; ./VideoLaunchFiles/Youtube Channels@.url; ./VideoLaunchFiles/Amazon Videos@.url; ./VideoLaunchFiles/Music/@.url" extendedSetViewportView="" setBackground="204, 255, 204" setLayout="java.awt.BorderLayout" setName="swapVideos" >
-					<JPanel extendedLayoutApplyParent="North" setBackground="204, 255, 204" setLayout="java.awt.BorderLayout" >
+				<SwappableCollection extendedArrayProcessingPath="./VideoLaunchFiles/Roku Channels@.url; ./VideoLaunchFiles/Tubi/@.url; ./VideoLaunchFiles/YoutubeFreeMovies2@.url; ./VideoLaunchFiles/Youtube Channels@.url; ./VideoLaunchFiles/Amazon Videos@.url; ./VideoLaunchFiles/Music/@.url" extendedSetViewportView="" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" setName="swapVideos" >
+					<JPanel extendedLayoutApplyParent="North" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" >
 						<JButtonArrayPicture extendedConnectedComponent="channelsSelect" extendedLayoutApplyParent="Center" extendedSwappableHolder="swapVideos" extendedTextStripper="Watch @ Online for Free _ The Roku Channel _ Roku@ - YouTube@ - Prime Video@Prime Video- @1_@.url" setCharacterLimit="25" setDefaultImageXmlPath="/Properties/shapes/Default-Play-Image.xml" setExpandedArrangementFileRelativeLocation="./Properties/VideoLaunchBookmarks/ " setName="channels" setScaledDefaultPic="140, 75" setScaledWidthHeight="140, 200" >
 						</JButtonArrayPicture>
 					</JPanel>
@@ -11,7 +11,7 @@
 			</JScrollPane>
 			<JPanel extendedLayoutApplyParent="East" setLayout="java.awt.BorderLayout" >
 				<JScrollPane extendedLayoutApplyParent="East" extendedScrollBarSetUnit="25" setName="scrollPane2" >
-					<JPanel extendedLayoutApplyParent="Center" extendedSetViewportView="" setBackground="204, 255, 204" setLayout="java.awt.BorderLayout" >
+					<JPanel extendedLayoutApplyParent="Center" extendedSetViewportView="" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" >
 						<JButtonArrayPicture extendedConnectedComponent="channels" extendedLayoutApplyParent="East" extendedTextStripper="Watch @ Online for Free _ The Roku Channel _ Roku@ - YouTube@ - Prime Video@Prime Video- @1_@.url" setCharacterLimit="10" setColumnSize="1" setDefaultImageXmlPath="./Properties/shapes/Default-Play-Image.xml" setExpandedArrangementFileRelativeLocation="./Properties/VideoLaunchBookmarks/ " setName="channelsSelect" setSaveIncPoint="200, 25" setSaveStartLocation="100, 600" setScaledDefaultPic="140, 75" setScaledWidthHeight="140, 200" setShowAll="True" >
 						</JButtonArrayPicture>
 					</JPanel>
@@ -24,8 +24,8 @@
 				</JPanel>
 			</JPanel>
 		</JPanel>
-		<JPanel extendedLayoutApplyParent="South" setBackground="204, 255, 204" setLayout="java.awt.BorderLayout" >
-			<JPanel extendedLayoutApplyParent="Center" setBackground="204, 255, 204" setLayout="java.awt.FlowLayout" >
+		<JPanel extendedLayoutApplyParent="South" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" >
+			<JPanel extendedLayoutApplyParent="Center" setBackground="51, 51, 51" setLayout="java.awt.FlowLayout" >
 				<JButton extendedLayoutApplyParent="" extendedOpenActionListener="channels" setBackground="175, 204, 175" setForeground="119, 5, 6" setName="openAction" setPreferredSize="80, 25" setText="Open" setToolTipText="Open selections" >
 				</JButton>
 				<JButton extendedLayoutApplyParent="" extendedSaveActionListener="channelsSelect" setBackground="175, 204, 175" setForeground="119, 5, 6" setName="saveAction" setPreferredSize="80, 25" setText="Save" setToolTipText="Save Selections" >
@@ -34,11 +34,11 @@
 				</JButton>
 			</JPanel>
 		</JPanel>
-		<JPanel extendedLayoutApplyParent="West" setBackground="204, 255, 204" setLayout="java.awt.BorderLayout" >
+		<JPanel extendedLayoutApplyParent="West" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" >
 			<JButton addActionListener="ActionListenersImpl.NavigationButtonActionListener" extendedActionListenerConnectedComponent="swapVideos" extendedActionListenerSubType="WidgetComponents.Direction@BACKWARD" extendedLayoutApplyParent="North" setText="[&lt;]" >
 			</JButton>
 		</JPanel>
-		<JPanel extendedLayoutApplyParent="East" setBackground="204, 255, 204" setLayout="java.awt.BorderLayout" >
+		<JPanel extendedLayoutApplyParent="East" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" >
 			<JButton addActionListener="ActionListenersImpl.NavigationButtonActionListener" extendedActionListenerConnectedComponent="swapVideos" extendedActionListenerSubType="WidgetComponents.Direction@FORWARD" extendedLayoutApplyParent="North" setText="[&gt;]..." >
 			</JButton>
 		</JPanel>
