@@ -1,5 +1,6 @@
 package WidgetComponents;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -82,6 +83,8 @@ PostWidgetBuildProcessing
 	private boolean showAll = false;
 	private String connectedComponentName;
 	private ArrayList<ButtonArrayLoadingNotification> loadingNofications = new ArrayList<ButtonArrayLoadingNotification>();
+	
+	private JFrame loadingFrame;
 	
 	public JButtonArrayPicture()
 	{
@@ -268,7 +271,7 @@ PostWidgetBuildProcessing
 					fileName.replaceAll(".url", ".png");
 			
 			LoggingMessages.printOut("loading: " + count + " of " + fileCount);//TODO create notify
-			performLoadingNotify(fileCount, count);
+			performLoadingNotify(count, fileCount);
 			LoggingMessages.printOut(fileImage);
 			
 			Image img = setupImage(new File(fileImage), new File(DEFAULT_IMG));
@@ -555,6 +558,10 @@ PostWidgetBuildProcessing
 	public void postExecute() 
 	{
 		buildWidgets();
+		if(loadingFrame != null)
+		{
+			loadingFrame.dispose();
+		}
 	}
 
 	@Override
@@ -580,6 +587,22 @@ PostWidgetBuildProcessing
 	public void addButtonArrayLoadingSubscriber(ButtonArrayLoadingNotification baln) 
 	{
 		loadingNofications.add(baln);
+	}
+
+	@Override
+	public void buildLoadingFrame() 
+	{
+		loadingFrame = new JFrame();//TODO.
+		loadingFrame.setMinimumSize(new Dimension(220,70));
+		loadingFrame.setResizable(false);
+		loadingFrame.setLocation(WidgetBuildController.getInstance().getFrame().getLocation());
+		JPanel spin = new JPanel();
+		spin.setLayout(new BorderLayout());
+		LoadingLabel loadingLabel = new LoadingLabel();
+		this.addButtonArrayLoadingSubscriber(loadingLabel);
+		spin.add(loadingLabel, BorderLayout.SOUTH);
+		loadingFrame.add(spin);
+		loadingFrame.setVisible(true);		
 	}
 
 }

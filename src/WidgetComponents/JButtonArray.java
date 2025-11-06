@@ -610,4 +610,9 @@ PostWidgetBuildProcessing, ButtonArray
 		}
 	}
 
+	@Override
+	public void buildLoadingFrame() {
+		// TODO Auto-generated method stub
+	}
+
 }

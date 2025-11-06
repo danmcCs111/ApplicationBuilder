@@ -61,6 +61,8 @@ public class SwappableCollection extends JPanel implements ExtendedStringCollect
 		this.pathAndFileList = pathAndFileList;
 		fileCount = getCollectionSize();
 		LoggingMessages.printOut("File count: " + fileCount);
+		ButtonArray buttonArray = (ButtonArray) ExtendedAttributeParam.findComponentWithInterface(ButtonArray.class);
+		buttonArray.buildLoadingFrame();
 		NavigationButtonActionListener.setLastIndex(pathAndFileList.size()-1);
 	}
 

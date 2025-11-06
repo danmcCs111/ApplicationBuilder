@@ -27,6 +27,7 @@ public interface ButtonArray
 	public void setScaledWidthHeight(Dimension scaledDimension);
 	public void setDefaultImageXmlPath(FileSelection fs);
 	public void adjustVisibility(String searchPattern);
+	public void buildLoadingFrame();
 	
 	public boolean isHighlightButton(AbstractButton ab);
 	
