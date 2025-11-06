@@ -33,6 +33,7 @@ import WidgetComponents.ApplicationLayoutEditor;
 import WidgetComponents.DatabaseResponseNodeTextArea;
 import WidgetComponents.JButtonArray;
 import WidgetComponents.JButtonArrayPicture;
+import WidgetComponents.LoadingLabel;
 import WidgetComponents.MenuOption;
 import WidgetComponents.ScheduledCommandExecutionEditor;
 import WidgetComponents.ScheduledCommandList;
@@ -46,6 +47,7 @@ import WidgetExtensions.ExtendedMethodArgDef;
 import WidgetExtensionsImpl.ExtendedActionListenerConnectedComponent;
 import WidgetExtensionsImpl.ExtendedActionListenerSubType;
 import WidgetExtensionsImpl.ExtendedAddActionSendReceive;
+import WidgetExtensionsImpl.ExtendedAddButtonArrayNotification;
 import WidgetExtensionsImpl.ExtendedCsvAddSubscriber;
 import WidgetExtensionsImpl.ExtendedArrayProcessingPath;
 import WidgetExtensionsImpl.ExtendedCalculationPad;
@@ -100,6 +102,7 @@ public class WidgetAttributes
 		COMPONENT_CLASSES.add(SearchBar.class);
 		COMPONENT_CLASSES.add(ClockApp.class);
 		COMPONENT_CLASSES.add(LoadingSpin.class);
+		COMPONENT_CLASSES.add(LoadingLabel.class);
 		COMPONENT_CLASSES.add(WeatherGraphViewer.class);
 		COMPONENT_CLASSES.add(ScheduledCommandExecutionEditor.class);
 		COMPONENT_CLASSES.add(ScheduledCommandList.class);
@@ -194,6 +197,10 @@ public class WidgetAttributes
 		EXTENDED_METHODS.put(LoadingSpin.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedShapeDrawingCollectionLoader.class, ExtendedMethodArgDef.ExtendedFileSelection.getMethodArgDef())
+		});
+		EXTENDED_METHODS.put(LoadingLabel.class, new String [] {
+				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedAddButtonArrayNotification.class, ExtendedMethodArgDef.ExtendedFileSelection.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(DatabaseResponseNodeTextArea.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),

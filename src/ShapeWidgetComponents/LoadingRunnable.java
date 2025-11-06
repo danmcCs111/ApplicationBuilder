@@ -5,11 +5,13 @@ import java.awt.Point;
 import java.awt.Shape;
 import java.util.ArrayList;
 
+import javax.swing.SwingUtilities;
+
 public class LoadingRunnable implements Runnable
 {
 	public static double 
 		DEGREE_SHIFT_TIMES = 20.0;
-	public static int SLEEP_MILLIS = 150;
+	public static int SLEEP_MILLIS = 200;
 	
 	private Container drawContainer;
 	private Shape originalShape;
@@ -46,8 +48,12 @@ public class LoadingRunnable implements Runnable
 		{
 			for(Shape shape : shapes)
 			{
-				ShapeDrawingCollectionGraphics.clearAll(drawContainer);
-				ShapeDrawingCollectionGraphics.drawShape(drawContainer, shape, ss);
+				SwingUtilities.invokeLater(new Runnable() {
+				    public void run() {
+				    	ShapeDrawingCollectionGraphics.clearAll(drawContainer);
+				        ShapeDrawingCollectionGraphics.drawShape(drawContainer, shape, ss);
+				    }
+				});
 				try {
 					Thread.sleep(SLEEP_MILLIS);
 				} catch (InterruptedException e) {

@@ -87,6 +87,11 @@ public interface ShapeDrawingCollectionGraphics
 		g2d.draw(shape);
 	}
 	
+	public static void clearAndDrawShape(Container draw, Shape shape, ShapeStyling shapeStyling)
+	{
+		clearAll(draw);
+		drawShape(draw, shape, shapeStyling);
+	}
 	public static void drawShape(Container draw, Shape shape, ShapeStyling shapeStyling)
 	{
 		drawShape((Graphics2D)draw.getGraphics(), shape, shapeStyling);

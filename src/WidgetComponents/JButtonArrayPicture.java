@@ -31,8 +31,10 @@ import Properties.PathUtility;
 import WidgetComponentInterfaces.ButtonArray;
 import WidgetComponentInterfaces.CharacterLimited;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
+import WidgetExtensions.ButtonArrayLoadingNotifier;
 import WidgetExtensions.ClearActionExtension;
 import WidgetExtensions.ConnectedComponentName;
+import WidgetExtensions.ExtendedAttributeParam;
 import WidgetExtensions.ExtendedStringCollection;
 import WidgetExtensions.OpenActionExtension;
 import WidgetExtensions.SaveActionExtension;
@@ -41,7 +43,7 @@ import WidgetUtility.WidgetBuildController;
 public class JButtonArrayPicture extends JPanel implements ButtonArray, ArrayActionListener, CharacterLimited, 
 AddActionSend, AddActionReceive,
 OpenActionExtension, SaveActionExtension, ClearActionExtension,
-ConnectedComponentName,
+ConnectedComponentName, ButtonArrayLoadingNotifier,
 PostWidgetBuildProcessing
 {
 	private static final long serialVersionUID = 1L;
@@ -79,6 +81,7 @@ PostWidgetBuildProcessing
 	private int columns = 3;
 	private boolean showAll = false;
 	private String connectedComponentName;
+	private ArrayList<ButtonArrayLoadingNotification> loadingNofications = new ArrayList<ButtonArrayLoadingNotification>();
 	
 	public JButtonArrayPicture()
 	{
@@ -182,11 +185,20 @@ PostWidgetBuildProcessing
 	{
 		this.removeAll();
 	}
+	
+	private int getCollectionButtonSize()
+	{
+		int count = 0;
+		for(String key : collectionJButtons.keySet())
+		{
+			count += collectionJButtons.get(key).size();
+		}
+		return count;
+	}
 
 	@Override
 	public void addJButtons(String path, List<String> listOf, int index) 
 	{
-		LoggingMessages.printOut("load buttons." + listOf.size() + " " + index);
 		ArrayList<JCheckBoxLimited> jbuts = new ArrayList<JCheckBoxLimited>();
 		
 		clearJButtons();
@@ -232,8 +244,20 @@ PostWidgetBuildProcessing
 		comp.setText(txt);
 	}
 	
+	private void performLoadingNotify(int count, int total)
+	{
+		for(ButtonArrayLoadingNotification baln : loadingNofications)
+		{
+			baln.updateCount(count, total);
+		}
+	}
+	
 	private ArrayList<JComponent> buildComponents(String path, List<String> fileNames)
 	{
+		SwappableCollection swappableCollection = (SwappableCollection) ExtendedAttributeParam.findComponent(SwappableCollection.class);
+		int fileCount = swappableCollection.getFileCount();
+		int count = getCollectionButtonSize() + 1;
+		
 		ArrayList<JComponent> components = new ArrayList<JComponent>();
 		for(String fileName: fileNames)
 		{
@@ -242,7 +266,11 @@ PostWidgetBuildProcessing
 					PathUtility.removeCurrentWorkingDirectoryFromPath(path) +
 					IMAGES_RELATIVE_FILE_LOCATION +
 					fileName.replaceAll(".url", ".png");
+			
+			LoggingMessages.printOut("loading: " + count + " of " + fileCount);//TODO create notify
+			performLoadingNotify(fileCount, count);
 			LoggingMessages.printOut(fileImage);
+			
 			Image img = setupImage(new File(fileImage), new File(DEFAULT_IMG));
 			button.setIcon(new ImageIcon(img));
 			button.setText(fileName);
@@ -251,6 +279,8 @@ PostWidgetBuildProcessing
 			button.setPathKey(path);
 			button.setBorderPainted(true);
 			components.add(button);
+			
+			count++;
 		}
 		return components;
 	}
@@ -377,7 +407,7 @@ PostWidgetBuildProcessing
 		rebuildButtons(isShowAll());
 		
 	}
-
+	
 	@Override
 	public ArrayList<?> getList() 
 	{
@@ -544,6 +574,12 @@ PostWidgetBuildProcessing
 			}
 		}
 		rebuildButtons();
+	}
+
+	@Override
+	public void addButtonArrayLoadingSubscriber(ButtonArrayLoadingNotification baln) 
+	{
+		loadingNofications.add(baln);
 	}
 
 }

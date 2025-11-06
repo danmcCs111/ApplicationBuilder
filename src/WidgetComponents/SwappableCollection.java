@@ -32,6 +32,22 @@ public class SwappableCollection extends JPanel implements ExtendedStringCollect
 	private HashMap<String, List<String>> pathAndFileList = new HashMap<String, List<String>>();
 	private String path;
 	private Component pathTextComponent;
+	private static int fileCount = 0;
+
+	public int getFileCount()
+	{
+		return fileCount;
+	}
+	
+	private int getCollectionSize()
+	{
+		int count = 0;
+		for(String key : pathAndFileList.keySet())
+		{
+			count += pathAndFileList.get(key).size();
+		}
+		return count;
+	}
 	
 	@Override
 	public HashMap<String, List<String>> getPathAndFileList() 
@@ -43,6 +59,8 @@ public class SwappableCollection extends JPanel implements ExtendedStringCollect
 	public void setPathAndFileList(HashMap<String, List<String>> pathAndFileList) 
 	{
 		this.pathAndFileList = pathAndFileList;
+		fileCount = getCollectionSize();
+		LoggingMessages.printOut("File count: " + fileCount);
 		NavigationButtonActionListener.setLastIndex(pathAndFileList.size()-1);
 	}
 

@@ -14,7 +14,8 @@ public class LoadingSpin extends JPanel implements PostWidgetBuildProcessing, Sh
 	
 	public LoadingSpin()
 	{
-		
+		super();
+		setDoubleBuffered(true);
 	}
 	
 	@Override
