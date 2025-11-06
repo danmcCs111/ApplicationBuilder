@@ -3,6 +3,8 @@ package WidgetComponents;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -41,17 +43,37 @@ public class SearchBar extends JPanel
 	{
 		this.setLayout(new BorderLayout());
 		searchField = new JTextField(columnCharacterLength);
-		searchButton = new JButton("Search");
-		searchButton.addActionListener(new ActionListener() {
+		ActionListener searchActionListener = new ActionListener() 
+		{
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				for(SearchSubscriber ss : searchSubscribers)
+			public void actionPerformed(ActionEvent e) 
+			{
+				notifySearch();
+			}
+		};
+		KeyAdapter searchKeyAdapter = new KeyAdapter() 
+		{
+			@Override
+			public void keyPressed(KeyEvent e) 
+			{
+				if(e.getKeyCode() == KeyEvent.VK_ENTER)
 				{
-					ss.notifySearchText(searchField.getText());
+					notifySearch();
 				}
 			}
-		});
+		};
+		searchField.addKeyListener(searchKeyAdapter);
+		searchButton = new JButton("Search");
+		searchButton.addActionListener(searchActionListener);
 		this.add(searchField, BorderLayout.CENTER);
 		this.add(searchButton, BorderLayout.EAST);
+	}
+	
+	private void notifySearch()
+	{
+		for(SearchSubscriber ss : searchSubscribers)
+		{
+			ss.notifySearchText(searchField.getText());
+		}
 	}
 }
