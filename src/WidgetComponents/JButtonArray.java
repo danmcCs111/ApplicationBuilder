@@ -31,7 +31,6 @@ import ObjectTypeConversion.FileSelection;
 import Params.KeepSelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
-import ShapeWidgetComponents.ButtonArrayVisiblityAdjust;
 import WidgetComponentInterfaces.ButtonArray;
 import WidgetComponentInterfaces.CharacterLimited;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
@@ -56,7 +55,7 @@ import WidgetUtility.WidgetBuildController;
 public class JButtonArray extends JPanel implements ArrayActionListener, CharacterLimited, 
 SaveActionExtension, OpenActionExtension, CloseActionExtension, CloseAllActionExtension, MinimizeActionExtension, RestoreActionExtension,
 ComboListDialogSelectedListener, MouseAdapterArrayExtension, 
-PostWidgetBuildProcessing, ButtonArray, ButtonArrayVisiblityAdjust
+PostWidgetBuildProcessing, ButtonArray
 {
 	private static final long serialVersionUID = 1883L;
 	

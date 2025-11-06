@@ -13,7 +13,6 @@ import ActionListeners.ConnectedComponent;
 import ActionListenersImpl.NavigationButtonActionListener;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
-import ShapeWidgetComponents.ButtonArrayVisiblityAdjust;
 import WidgetComponentInterfaces.ButtonArray;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetComponentInterfaces.SearchSubscriber;
@@ -82,8 +81,7 @@ public class SwappableCollection extends JPanel implements ExtendedStringCollect
 	@Override
 	public void notifySearchText(String searchPattern) 
 	{
-		ButtonArrayVisiblityAdjust buttonArray = (ButtonArrayVisiblityAdjust) ExtendedAttributeParam.findComponentWithInterface(
-				ButtonArrayVisiblityAdjust.class);
+		ButtonArray buttonArray = (ButtonArray) ExtendedAttributeParam.findComponentWithInterface(ButtonArray.class);
 		buttonArray.adjustVisibility(searchPattern);
 	}
 

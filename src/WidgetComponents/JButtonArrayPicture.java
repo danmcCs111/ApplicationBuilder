@@ -28,7 +28,6 @@ import ObjectTypeConversion.DirectorySelection;
 import ObjectTypeConversion.FileSelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
-import ShapeWidgetComponents.ButtonArrayVisiblityAdjust;
 import WidgetComponentInterfaces.ButtonArray;
 import WidgetComponentInterfaces.CharacterLimited;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
@@ -43,7 +42,7 @@ public class JButtonArrayPicture extends JPanel implements ButtonArray, ArrayAct
 AddActionSend, AddActionReceive,
 OpenActionExtension, SaveActionExtension, ClearActionExtension,
 ConnectedComponentName,
-PostWidgetBuildProcessing, ButtonArrayVisiblityAdjust
+PostWidgetBuildProcessing
 {
 	private static final long serialVersionUID = 1L;
 

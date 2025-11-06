@@ -26,6 +26,7 @@ public interface ButtonArray
 	public void setDefaultPicSize(Dimension defaultPicDimension);
 	public void setScaledWidthHeight(Dimension scaledDimension);
 	public void setDefaultImageXmlPath(FileSelection fs);
+	public void adjustVisibility(String searchPattern);
 	
 	public boolean isHighlightButton(AbstractButton ab);
 	
