@@ -28,6 +28,7 @@ import ObjectTypeConversion.DirectorySelection;
 import ObjectTypeConversion.FileSelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
+import ShapeWidgetComponents.ButtonArrayVisiblityAdjust;
 import WidgetComponentInterfaces.ButtonArray;
 import WidgetComponentInterfaces.CharacterLimited;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
@@ -42,7 +43,7 @@ public class JButtonArrayPicture extends JPanel implements ButtonArray, ArrayAct
 AddActionSend, AddActionReceive,
 OpenActionExtension, SaveActionExtension, ClearActionExtension,
 ConnectedComponentName,
-PostWidgetBuildProcessing
+PostWidgetBuildProcessing, ButtonArrayVisiblityAdjust
 {
 	private static final long serialVersionUID = 1L;
 
@@ -531,6 +532,19 @@ PostWidgetBuildProcessing
 	public void setConnectedComponentName(String compName) 
 	{
 		this.connectedComponentName = compName;
+	}
+
+	@Override
+	public void adjustVisibility(String searchPattern) 
+	{
+		for(String key : collectionJButtons.keySet())
+		{
+			for(AbstractButton ab : collectionJButtons.get(key))
+			{
+				ab.setVisible(ab.getText().toLowerCase().contains(searchPattern.toLowerCase()));//case insensitive
+			}
+		}
+		rebuildButtons();
 	}
 
 }

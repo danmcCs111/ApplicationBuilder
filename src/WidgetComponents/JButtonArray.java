@@ -31,6 +31,7 @@ import ObjectTypeConversion.FileSelection;
 import Params.KeepSelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
+import ShapeWidgetComponents.ButtonArrayVisiblityAdjust;
 import WidgetComponentInterfaces.ButtonArray;
 import WidgetComponentInterfaces.CharacterLimited;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
@@ -54,8 +55,8 @@ import WidgetUtility.WidgetBuildController;
  */
 public class JButtonArray extends JPanel implements ArrayActionListener, CharacterLimited, 
 SaveActionExtension, OpenActionExtension, CloseActionExtension, CloseAllActionExtension, MinimizeActionExtension, RestoreActionExtension,
-ComboListDialogSelectedListener, MouseAdapterArrayExtension,  
-PostWidgetBuildProcessing, ButtonArray
+ComboListDialogSelectedListener, MouseAdapterArrayExtension, 
+PostWidgetBuildProcessing, ButtonArray, ButtonArrayVisiblityAdjust
 {
 	private static final long serialVersionUID = 1883L;
 	
@@ -90,7 +91,6 @@ PostWidgetBuildProcessing, ButtonArray
 	private HashMap<String, ArrayList<JButtonLengthLimited>> collectionJButtons = new HashMap<String, ArrayList<JButtonLengthLimited>>();
 	private HashMap<String, MouseListener> pathAndMouseAdapter;
 	private ArrayList<String> stripFilter = new ArrayList<String>();
-	private String searchFilterText = "";
 	
 	private int characterLimit=0;
 	
@@ -579,15 +579,14 @@ PostWidgetBuildProcessing, ButtonArray
 		this.pathAndMouseAdapter = pathAndMouseAdapter;
 	}
 
-	public void adjustVisibility(String searchPattern)//TODO
+	@Override
+	public void adjustVisibility(String searchPattern)
 	{
-		searchFilterText = searchPattern;
-		
 		for(String key : collectionJButtons.keySet())
 		{
 			for(AbstractButton ab : collectionJButtons.get(key))
 			{
-				ab.setVisible(ab.getText().toLowerCase().contains(searchFilterText.toLowerCase()));//case insensitive
+				ab.setVisible(ab.getText().toLowerCase().contains(searchPattern.toLowerCase()));//case insensitive
 			}
 		}
 		rebuildButtons();
