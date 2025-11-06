@@ -596,6 +596,7 @@ PostWidgetBuildProcessing
 		loadingFrame.setMinimumSize(new Dimension(220,70));
 		loadingFrame.setResizable(false);
 		loadingFrame.setLocation(WidgetBuildController.getInstance().getFrame().getLocation());
+		loadingFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JPanel spin = new JPanel();
 		spin.setLayout(new BorderLayout());
 		LoadingLabel loadingLabel = new LoadingLabel();
