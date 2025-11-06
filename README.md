@@ -1,3 +1,8 @@
+
+Adjusted UI styling: Title UI Text, startup Locations, and color. 
+added search and title to list creator. adjusted reload option to just launch the scheduled command list editor/launcher. added enter key detect for search bar.
+<img width="1870" height="1292" alt="black-ui-adjust" src="https://github.com/user-attachments/assets/29caa988-bfa9-4061-922f-26da261da8ac" />
+
 Add seperate menu
 <img width="429" height="986" alt="image" src="https://github.com/user-attachments/assets/547bba80-feef-4719-9e85-dd935afa2d57" />
 
