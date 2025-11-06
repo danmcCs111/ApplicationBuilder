@@ -1,5 +1,7 @@
-still-of-the-night@335@784=./VideoLaunchFiles/Tubi
-storm-warning@780@840=./VideoLaunchFiles/Tubi
-meth-gator@114@762=./VideoLaunchFiles/Tubi
-sting@575@776=./VideoLaunchFiles/Tubi
-the-fog@1019@878=./VideoLaunchFiles/Tubi
+scary-stories-to-tell-in-the-dark@605@924=./VideoLaunchFiles/Tubi
+sting@691@677=./VideoLaunchFiles/Tubi
+still-of-the-night@500@650=./VideoLaunchFiles/Tubi
+storm-warning@908@690=./VideoLaunchFiles/Tubi
+sphere@829@916=./VideoLaunchFiles/Tubi
+the-fog@1100@725=./VideoLaunchFiles/Tubi
+Godzilla@1067@918=./VideoLaunchFiles/YoutubeFreeMovies2

@@ -1,6 +1,6 @@
-shutter-island@100@600=./VideoLaunchFiles/Tubi/
-sicario@300@625=./VideoLaunchFiles/Tubi/
-sniper-the-white-raven-dubbed@500@650=./VideoLaunchFiles/Tubi/
-stargate@700@675=./VideoLaunchFiles/Tubi/
-super-8@900@700=./VideoLaunchFiles/Tubi/
-the-arrival@1100@725=./VideoLaunchFiles/Tubi/
+super-8@394@949=./VideoLaunchFiles/Tubi
+shutter-island@100@600=./VideoLaunchFiles/Tubi
+sicario@300@625=./VideoLaunchFiles/Tubi
+stargate@533@678=./VideoLaunchFiles/Tubi
+the-arrival@119@950=./VideoLaunchFiles/Tubi
+Timecop@256@824=./VideoLaunchFiles/YoutubeFreeMovies2
