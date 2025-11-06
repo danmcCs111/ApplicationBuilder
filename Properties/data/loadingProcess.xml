@@ -1,0 +1,6 @@
+<Build>
+	<JFrame extendedSetupTaskbar="./src/ApplicationBuilder/build-icon_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setMinimumSize="150, 160" setResizable="False" >
+		<LoadingSpin addMouseListener="MouseListenersImpl.ClockMouseDragListener" addMouseMotionListener="MouseListenersImpl.ClockMouseDragListener" extendedLayoutApplyParent="Center" extendedShapeDrawingCollectionLoader="./Properties/shapes/reload.xml" >
+		</LoadingSpin>
+	</JFrame>
+</Build>
