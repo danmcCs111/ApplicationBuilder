@@ -1,7 +1,9 @@
-scary-stories-to-tell-in-the-dark@605@924=./VideoLaunchFiles/Tubi
-sting@691@677=./VideoLaunchFiles/Tubi
-still-of-the-night@500@650=./VideoLaunchFiles/Tubi
-storm-warning@908@690=./VideoLaunchFiles/Tubi
-sphere@829@916=./VideoLaunchFiles/Tubi
-the-fog@1100@725=./VideoLaunchFiles/Tubi
-Godzilla@1067@918=./VideoLaunchFiles/YoutubeFreeMovies2
+The Exorcist@110@916=./VideoLaunchFiles/YoutubeFreeMovies2
+outside@500@650=./VideoLaunchFiles/Tubi
+sphere@700@675=./VideoLaunchFiles/Tubi
+still-of-the-night@900@700=./VideoLaunchFiles/Tubi
+sting@875@932=./VideoLaunchFiles/Tubi
+storm-warning@647@918=./VideoLaunchFiles/Tubi
+the-fog@385@906=./VideoLaunchFiles/Tubi
+Godzilla@100@600=./VideoLaunchFiles/YoutubeFreeMovies2
+Godzilla (2014)@300@625=./VideoLaunchFiles/YoutubeFreeMovies2

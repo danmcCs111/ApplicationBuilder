@@ -1,10 +1,6 @@
-house-of-flying-daggers@500@650=./VideoLaunchFiles/Tubi
-identity@763@984=./VideoLaunchFiles/Tubi
-house-of-darkness-new-blood@300@625=./VideoLaunchFiles/Tubi
-house-of-the-dead-2@700@675=./VideoLaunchFiles/Tubi
-metropolis@311@978=./VideoLaunchFiles/Tubi
-house-of-wax@900@700=./VideoLaunchFiles/Tubi
-jason-x@536@978=./VideoLaunchFiles/Tubi
+house-of-flying-daggers@344@603=./VideoLaunchFiles/Tubi
+identity@437@958=./VideoLaunchFiles/Tubi
+jason-x@183@969=./VideoLaunchFiles/Tubi
+house-of-the-dead-2@541@618=./VideoLaunchFiles/Tubi
+house-of-wax@670@793=./VideoLaunchFiles/Tubi
 house@100@600=./VideoLaunchFiles/Tubi
-house-on-haunted-hill@995@982=./VideoLaunchFiles/Tubi
-missionary-man@82@978=./VideoLaunchFiles/Tubi
