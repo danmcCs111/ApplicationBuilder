@@ -1,5 +1,7 @@
 super-8@394@949=./VideoLaunchFiles/Tubi
+the-game@861@947=./VideoLaunchFiles/Tubi
 shutter-island@100@600=./VideoLaunchFiles/Tubi
+the-evil-dead@635@949=./VideoLaunchFiles/Tubi
 sicario@300@625=./VideoLaunchFiles/Tubi
 stargate@533@678=./VideoLaunchFiles/Tubi
 the-arrival@119@950=./VideoLaunchFiles/Tubi
