@@ -56,6 +56,11 @@ public interface PathUtility
 		return path;
 	}
 	
+	public static String getFilenameNoExtension(String filename)
+	{
+		return filename.substring(0, filename.lastIndexOf("."));
+	}
+	
 	public static String replaceBackslash(String path)
 	{
 		path = path.replaceAll("\\\\", "/");

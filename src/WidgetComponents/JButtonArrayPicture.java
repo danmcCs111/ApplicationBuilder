@@ -498,7 +498,7 @@ PostWidgetBuildProcessing
 			{
 				for(JCheckBoxLimited cbl : collectionJButtons.get(k))
 				{
-					if(cbl.getName().startsWith(keyName) && cbl.getPathKey().startsWith(val))
+					if(PathUtility.getFilenameNoExtension(cbl.getName()).equals(keyName) && cbl.getPathKey().contains(val))
 					{
 						cbls.add(cbl);
 					}
@@ -577,7 +577,7 @@ PostWidgetBuildProcessing
 		{
 			for(AbstractButton ab : collectionJButtons.get(key))
 			{
-				ab.setVisible(ab.getText().toLowerCase().contains(searchPattern.toLowerCase()));//case insensitive
+				ab.setVisible(ab.getText().toLowerCase().equals(searchPattern.toLowerCase()));//case insensitive
 			}
 		}
 		rebuildButtons();
