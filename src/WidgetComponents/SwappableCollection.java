@@ -33,10 +33,16 @@ public class SwappableCollection extends JPanel implements ExtendedStringCollect
 	private String path;
 	private Component pathTextComponent;
 	private static int fileCount = 0;
+	private boolean isLoadingGraphic = false;
 
 	public int getFileCount()
 	{
 		return fileCount;
+	}
+	
+	public void setIsLoadingGraphic(boolean loadGraphic)
+	{
+		this.isLoadingGraphic = loadGraphic;
 	}
 	
 	private int getCollectionSize()
@@ -62,6 +68,7 @@ public class SwappableCollection extends JPanel implements ExtendedStringCollect
 		fileCount = getCollectionSize();
 		LoggingMessages.printOut("File count: " + fileCount);
 		ButtonArray buttonArray = (ButtonArray) ExtendedAttributeParam.findComponentWithInterface(ButtonArray.class);
+		buttonArray.setIsLoadingSpinGraphic(isLoadingGraphic);
 		buttonArray.buildLoadingFrame();
 		NavigationButtonActionListener.setLastIndex(pathAndFileList.size()-1);
 	}

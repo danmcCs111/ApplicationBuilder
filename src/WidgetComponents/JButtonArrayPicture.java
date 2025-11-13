@@ -1,6 +1,6 @@
 package WidgetComponents;
 
-import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -29,6 +29,10 @@ import ObjectTypeConversion.DirectorySelection;
 import ObjectTypeConversion.FileSelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
+import ShapeWidgetComponents.LoadingSpin;
+import ShapeWidgetComponents.ShapeDrawingCollection;
+import ShapeWidgetComponents.ShapeElement;
+import ShapeWidgetComponents.ShapeImportExport;
 import WidgetComponentInterfaces.ButtonArray;
 import WidgetComponentInterfaces.CharacterLimited;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
@@ -83,6 +87,8 @@ PostWidgetBuildProcessing
 	private boolean showAll = false;
 	private String connectedComponentName;
 	private ArrayList<ButtonArrayLoadingNotification> loadingNofications = new ArrayList<ButtonArrayLoadingNotification>();
+	private FileSelection xmlFile = new FileSelection("./Properties/shapes/reload.xml");
+	private boolean isLoadingSpinGraphic = true;
 	
 	private JFrame loadingFrame;
 	
@@ -588,22 +594,48 @@ PostWidgetBuildProcessing
 	{
 		loadingNofications.add(baln);
 	}
-
+	
+	public void setLoadingSpinXmlFile(FileSelection xmlFile)
+	{
+		this.xmlFile = xmlFile;
+	}
+	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void buildLoadingFrame() 
 	{
 		loadingFrame = new JFrame();//TODO.
-		loadingFrame.setMinimumSize(new Dimension(220,70));
 		loadingFrame.setResizable(false);
 		loadingFrame.setLocation(WidgetBuildController.getInstance().getFrame().getLocation());
 		loadingFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		JPanel spin = new JPanel();
-		spin.setLayout(new BorderLayout());
-		LoadingLabel loadingLabel = new LoadingLabel();
-		this.addButtonArrayLoadingSubscriber(loadingLabel);
-		spin.add(loadingLabel, BorderLayout.SOUTH);
-		loadingFrame.add(spin);
-		loadingFrame.setVisible(true);		
+		loadingFrame.setVisible(true);
+		
+		if(this.isLoadingSpinGraphic)
+		{
+			loadingFrame.setMinimumSize(new Dimension(150,160));//TODO
+			ShapeImportExport sie = new ShapeImportExport();
+			ShapeDrawingCollection sdc = new ShapeDrawingCollection();
+			LoadingSpin spin = new LoadingSpin(Color.black, Color.white);
+			ArrayList<ShapeElement> shapes = (ArrayList<ShapeElement>) sie.openXml(new File(xmlFile.getRelativePath()));
+			sdc.addShapeImports(shapes, spin);
+			spin.addShapeDrawingCollection(sdc);
+			spin.postExecute();
+			this.addButtonArrayLoadingSubscriber(spin);
+			loadingFrame.add(spin);
+		}
+		else
+		{
+			loadingFrame.setMinimumSize(new Dimension(180,70));//TODO
+			LoadingLabel label = new LoadingLabel();
+			this.addButtonArrayLoadingSubscriber(label);
+			loadingFrame.add(label);
+		}
+	}
+
+	@Override
+	public void setIsLoadingSpinGraphic(boolean loadGraphic)
+	{
+		this.isLoadingSpinGraphic = loadGraphic;
 	}
 
 }

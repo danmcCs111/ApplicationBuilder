@@ -9,9 +9,9 @@ import javax.swing.SwingUtilities;
 
 public class LoadingRunnable implements Runnable
 {
-	public static double 
-		DEGREE_SHIFT_TIMES = 20.0;
-	public static int SLEEP_MILLIS = 200;
+	public double 
+		degreeShift = 20.0;
+	public int sleepMillisInterval = 100;
 	
 	private Container drawContainer;
 	private Shape originalShape;
@@ -28,11 +28,21 @@ public class LoadingRunnable implements Runnable
 		ss = sdc.getShapeStylings().get(0);
 	}
 	
+	public void setShiftDegrees(double degrees)
+	{
+		this.degreeShift = degrees;
+	}
+	
+	public void setSleepMillisInterval(int sleep)
+	{
+		this.sleepMillisInterval = sleep;
+	}
+	
 	private void loadShapes()
 	{
-		double divCount = 360.0 / DEGREE_SHIFT_TIMES;
+		double divCount = 360.0 / this.degreeShift;
 		
-		for(int i = 1; i < DEGREE_SHIFT_TIMES; i++)
+		for(int i = 1; i < this.degreeShift; i++)
 		{
 			ArrayList<Point> recalcPoints = ShapeUtils.rotate(originalShape, cps, divCount * i);
 			Shape newShape = ShapeUtils.recalculateShape(originalShape, recalcPoints);
@@ -55,7 +65,7 @@ public class LoadingRunnable implements Runnable
 				    }
 				});
 				try {
-					Thread.sleep(SLEEP_MILLIS);
+					Thread.sleep(this.sleepMillisInterval);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

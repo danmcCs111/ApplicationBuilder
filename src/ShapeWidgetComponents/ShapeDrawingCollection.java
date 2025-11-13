@@ -42,7 +42,7 @@ public class ShapeDrawingCollection
 			LoggingMessages.printOut(se.toString());
 			this.addShapeControlPoints(se.getPoints());
 			Shape s = se.getShape();
-			ShapeStyling ss = se.getShapeStyling(count, ssal);//added through notify
+			ShapeStyling ss = se.getShapeStyling(count, ssal);
 			this.addShape(s);
 			for(AddShapesImportedListener asil : asils)
 			{
@@ -50,6 +50,7 @@ public class ShapeDrawingCollection
 			}
 			sss.add(ss);
 		}
+		shapeStylings.addAll(sss);
 		LoggingMessages.printOut("style size: " + shapeStylings.size());
 		
 		return sss;

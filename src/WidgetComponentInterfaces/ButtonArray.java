@@ -28,6 +28,7 @@ public interface ButtonArray
 	public void setDefaultImageXmlPath(FileSelection fs);
 	public void adjustVisibility(String searchPattern);
 	public void buildLoadingFrame();
+	public void setIsLoadingSpinGraphic(boolean loadGraphic);
 	
 	public boolean isHighlightButton(AbstractButton ab);
 	

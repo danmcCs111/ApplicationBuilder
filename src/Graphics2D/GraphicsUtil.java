@@ -52,8 +52,7 @@ public interface GraphicsUtil
 		ShapeDrawingCollection sdc = new ShapeDrawingCollection();
 		@SuppressWarnings("unchecked")
 		ArrayList<ShapeElement> shapeElements = (ArrayList<ShapeElement>) sie.openXml(defaultImageLocation);
-		ArrayList<ShapeStyling> sss = sdc.addShapeImports(shapeElements, null);
-		sdc.setShapeStylings(sss);
+		sdc.addShapeImports(shapeElements, null);
 		sdc.getShapes();
         BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2d = bufferedImage.createGraphics();

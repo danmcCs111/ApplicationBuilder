@@ -7,6 +7,7 @@ public enum ExtendedMethodArgDef
 	CommandBuildSelection(" [ObjectTypeConversion.CommandBuild arg0]"),
 	CsvReaderSelection(" [ObjectTypeConversion.CsvReader arg0]"),
 	NameIdSelection(" [ObjectTypeConversion.NameId arg0]"),
+	BooleanSelection(" [boolean arg0]"),
 	NameIdSendAndReceiveSelection(" [ObjectTypeConversion.NameId arg0, ObjectTypeConversion.NameId arg1]"),
 	WavReaderSelection(" [ObjectTypeConversion.WavReader arg0]"),
 	ExtendedScrollBarSetUnit(" [int arg0]"),

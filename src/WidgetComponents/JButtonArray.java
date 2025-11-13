@@ -615,4 +615,10 @@ PostWidgetBuildProcessing, ButtonArray
 		// TODO Auto-generated method stub
 	}
 
+	@Override
+	public void setIsLoadingSpinGraphic(boolean loadGraphic) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -62,6 +62,7 @@ import WidgetExtensionsImpl.ExtendedCommandExecution;
 import WidgetExtensionsImpl.ExtendedConnectedComponent;
 import WidgetExtensionsImpl.ExtendedCsvReader;
 import WidgetExtensionsImpl.ExtendedImageMouseAdapterArray;
+import WidgetExtensionsImpl.ExtendedButtonArrayLoadingGraphic;
 import WidgetExtensionsImpl.ExtendedOpenActionListener;
 import WidgetExtensionsImpl.ExtendedRestoreActionListener;
 import WidgetExtensionsImpl.ExtendedSaveActionListener;
@@ -225,6 +226,7 @@ public class WidgetAttributes
 		EXTENDED_METHODS.put(SwappableCollection.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedArrayProcessingPath.class, ExtendedMethodArgDef.PathArrayProcessingFolders.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedButtonArrayLoadingGraphic.class, ExtendedMethodArgDef.BooleanSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetViewportView.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(JButtonArray.class, new String [] {
