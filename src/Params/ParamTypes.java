@@ -14,6 +14,7 @@ import ObjectTypeConvertersImpl.IntConverter;
 import ObjectTypeConvertersImpl.IntegerConverter;
 import ObjectTypeConvertersImpl.KeyListenerConverter;
 import ObjectTypeConvertersImpl.LayoutManagerConverter;
+import ObjectTypeConvertersImpl.LookAndFeelClassNameConverter;
 import ObjectTypeConvertersImpl.MouseAdapterConverter;
 import ObjectTypeConvertersImpl.MouseListenerConverter;
 import ObjectTypeConvertersImpl.MouseMotionListenerConverter;
@@ -44,6 +45,7 @@ public enum ParamTypes
 	mouseMotionListener(new MouseMotionListenerConverter()),
 	pathArrayProcess(new PathArrayProcessingConverter()),
 	nameId(new NameIdConverter()),
+	lookAndFeel(new LookAndFeelClassNameConverter()),
 	WindowListener(new WindowListenerConverter()),
 	KeyListener(new KeyListenerConverter()),
 	DirectorySelection(new DirectorySelectionConverter()),

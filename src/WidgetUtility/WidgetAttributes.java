@@ -70,6 +70,7 @@ import WidgetExtensionsImpl.ExtendedScheduledCommandStartActionListener;
 import WidgetExtensionsImpl.ExtendedScrollBarSetUnit;
 import WidgetExtensionsImpl.ExtendedSearchField;
 import WidgetExtensionsImpl.ExtendedSetJMenuBarParent;
+import WidgetExtensionsImpl.ExtendedSetLookAndFeel;
 import WidgetExtensionsImpl.ExtendedSetViewportView;
 import WidgetExtensionsImpl.ExtendedSetupTaskbar;
 import WidgetExtensionsImpl.ExtendedShapeDrawingCollectionLoader;
@@ -121,6 +122,7 @@ public class WidgetAttributes
 	static {
 		EXTENDED_METHODS.put(JFrame.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetupTaskbar.class, ExtendedMethodArgDef.ExtendedFileSelection.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetLookAndFeel.class, ExtendedMethodArgDef.LookAndFeelClassNameSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedCsvReader.class, ExtendedMethodArgDef.CsvReaderSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedWavReader.class, ExtendedMethodArgDef.WavReaderSelection.getMethodArgDef())
 		});
