@@ -585,7 +585,7 @@ PostWidgetBuildProcessing, ButtonArray
 		{
 			for(AbstractButton ab : collectionJButtons.get(key))
 			{
-				ab.setVisible(ab.getText().toLowerCase().equals(searchPattern.toLowerCase()));//case insensitive
+				ab.setVisible(ab.getText().toLowerCase().contains(searchPattern.toLowerCase()));//case insensitive
 			}
 		}
 		rebuildButtons();
