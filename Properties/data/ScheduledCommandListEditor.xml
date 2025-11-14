@@ -1,5 +1,5 @@
 <Build>
-	<JFrame extendedSetupTaskbar="./src/ApplicationBuilder/build-icon_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="300, 300" setMinimumSize="400, 300" setTitle="Scheduled Command Editor" >
+	<JFrame extendedSetupTaskbar="./src/ApplicationBuilder/build-icon_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="300, 300" setMinimumSize="400, 300" setTitle="Scheduled Command Editor" extendedSetLookAndFeel="CrossPlatform" >
 		<JPanel extendedLayoutApplyParent="South" setLayout="java.awt.FlowLayout" >
 			<JButton extendedLayoutApplyParent="" extendedScheduledCommandStartActionListener="scheduledCommandList" setText="Run" setToolTipText="Start Execution Scheduler" >
 			</JButton>
