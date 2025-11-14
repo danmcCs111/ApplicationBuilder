@@ -99,6 +99,11 @@ public class KeepSelection implements ShapeDrawingCollectionLoad
 			: defaultImg;
 	}
 	
+	public static boolean isDefaultImg(Image img)
+	{
+		return img.equals(defaultImg);
+	}
+	
 	public Dimension getSize()
 	{
 		if(img == null)

@@ -300,7 +300,11 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 			f.setResizable(false);
 			f.setLocation((int)loc.getX() + (bounds.width + DIM_PAD.width), 
 					(int)loc.getY() + (bounds.height + DIM_PAD.height));
-			f.setVisible(true);
+			
+			if(!KeepSelection.isDefaultImg(useImage))//hide default image. only during keep.
+			{
+				f.setVisible(true);
+			}
 		}
 		
 	}
