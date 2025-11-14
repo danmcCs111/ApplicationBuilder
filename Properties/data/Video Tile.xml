@@ -1,5 +1,5 @@
 <Build>
-	<JFrame addWindowListener="WindowListeners.ProcessExecutorWindowListener" extendedSetLookAndFeel="System" extendedSetupTaskbar="./src/ApplicationBuilder/build-icon_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="450, 30" setName="VideoPlayer" setResizable="False" setSize="1450, 700" setTitle="Video List Creator" >
+	<JFrame addWindowListener="WindowListeners.ProcessExecutorWindowListener" extendedSetLookAndFeel="CrossPlatform" extendedSetupTaskbar="./src/ApplicationBuilder/build-icon_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="450, 30" setName="VideoPlayer" setResizable="False" setSize="1450, 700" setTitle="Video List Creator" >
 		<JPanel extendedLayoutApplyParent="Center" setLayout="java.awt.BorderLayout" >
 			<JScrollPane extendedLayoutApplyParent="Center" extendedScrollBarSetUnit="25" setName="scrollPane" >
 				<SwappableCollection extendedArrayProcessingPath="./VideoLaunchFiles/Roku Channels@.url; ./VideoLaunchFiles/Youtube Channels@.url; ./VideoLaunchFiles/Amazon Videos@.url; ./VideoLaunchFiles/Music/@.url; ./VideoLaunchFiles/YoutubeFreeMovies2/@.url; ./VideoLaunchFiles/Tubi/@.url" extendedButtonArrayLoadingGraphic="True" extendedSetViewportView="" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" setName="swapVideos" >
@@ -12,7 +12,7 @@
 			<JPanel extendedLayoutApplyParent="North" setLayout="java.awt.BorderLayout" >
 				<JLabel extendedLayoutApplyParent="West" extendedTitleSwitcher="swapVideos" setBackground="204, 204, 204" setForeground="102, 0, 102" setName="title" setText="TODO" >
 				</JLabel>
-				<SearchBar extendedLayoutApplyParent="East" extendedSearchField="swapVideos" setColumnCharacterLength="10" >
+				<SearchBar extendedLayoutApplyParent="East" extendedSearchField="swapVideos" setButtonBackground="255, 255, 255" setButtonForeground="0, 0, 0" setColumnCharacterLength="10" >
 				</SearchBar>
 			</JPanel>
 			<JPanel extendedLayoutApplyParent="East" setLayout="java.awt.BorderLayout" >
@@ -23,9 +23,9 @@
 					</JPanel>
 				</JScrollPane>
 				<JPanel extendedLayoutApplyParent="West" setLayout="java.awt.GridLayout" >
-					<JButton extendedAddActionSendReceive="channels, channelsSelect" extendedLayoutApplyParent="" setText="&gt;" >
+					<JButton extendedAddActionSendReceive="channels, channelsSelect" extendedLayoutApplyParent="" setBackground="255, 255, 255" setText="&gt;" >
 					</JButton>
-					<JButton extendedAddActionSendReceive="channelsSelect, channels" extendedLayoutApplyParent="" setText="&lt;" >
+					<JButton extendedAddActionSendReceive="channelsSelect, channels" extendedLayoutApplyParent="" setBackground="255, 255, 255" setText="&lt;" >
 					</JButton>
 				</JPanel>
 			</JPanel>
@@ -41,11 +41,11 @@
 			</JPanel>
 		</JPanel>
 		<JPanel extendedLayoutApplyParent="West" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" >
-			<JButton addActionListener="ActionListenersImpl.NavigationButtonActionListener" extendedActionListenerConnectedComponent="swapVideos" extendedActionListenerSubType="WidgetComponents.Direction@BACKWARD" extendedLayoutApplyParent="North" setText="...[&lt;]" >
+			<JButton addActionListener="ActionListenersImpl.NavigationButtonActionListener" extendedActionListenerConnectedComponent="swapVideos" extendedActionListenerSubType="WidgetComponents.Direction@BACKWARD" extendedLayoutApplyParent="North" setBackground="255, 255, 255" setText="...[&lt;]" >
 			</JButton>
 		</JPanel>
 		<JPanel extendedLayoutApplyParent="East" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" >
-			<JButton addActionListener="ActionListenersImpl.NavigationButtonActionListener" extendedActionListenerConnectedComponent="swapVideos" extendedActionListenerSubType="WidgetComponents.Direction@FORWARD" extendedLayoutApplyParent="North" setText="[&gt;]..." >
+			<JButton addActionListener="ActionListenersImpl.NavigationButtonActionListener" extendedActionListenerConnectedComponent="swapVideos" extendedActionListenerSubType="WidgetComponents.Direction@FORWARD" extendedLayoutApplyParent="North" setBackground="255, 255, 255" setText="[&gt;]..." >
 			</JButton>
 		</JPanel>
 		<JMenuBar extendedSetJMenuBarParent="" >
