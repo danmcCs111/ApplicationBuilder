@@ -32,11 +32,11 @@
 		</JPanel>
 		<JPanel extendedLayoutApplyParent="South" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" >
 			<JPanel extendedLayoutApplyParent="Center" setBackground="51, 51, 51" setLayout="java.awt.FlowLayout" >
-				<JButton extendedLayoutApplyParent="" extendedOpenActionListener="channels" setBackground="175, 204, 175" setForeground="119, 5, 6" setName="openAction" setPreferredSize="80, 25" setText="Open" setToolTipText="Open selections" >
+				<JButton extendedLayoutApplyParent="" extendedOpenActionListener="channels" setBackground="51, 51, 51" setForeground="255, 255, 255" setName="openAction" setPreferredSize="80, 25" setText="Open" setToolTipText="Open selections" >
 				</JButton>
-				<JButton extendedLayoutApplyParent="" extendedSaveActionListener="channelsSelect" setBackground="175, 204, 175" setForeground="119, 5, 6" setName="saveAction" setPreferredSize="80, 25" setText="Save" setToolTipText="Save Selections" >
+				<JButton extendedLayoutApplyParent="" extendedSaveActionListener="channelsSelect" setBackground="51, 51, 51" setForeground="255, 255, 255" setName="saveAction" setPreferredSize="80, 25" setText="Save" setToolTipText="Save Selections" >
 				</JButton>
-				<JButton extendedClearActionListener="channelsSelect" extendedLayoutApplyParent="" setBackground="175, 204, 175" setForeground="119, 5, 6" setName="clearAction" setPreferredSize="85, 25" setText="Clear All" setToolTipText="Clear All Selections" >
+				<JButton extendedClearActionListener="channelsSelect" extendedLayoutApplyParent="" setBackground="51, 51, 51" setForeground="255, 255, 255" setName="clearAction" setPreferredSize="85, 25" setText="Clear All" setToolTipText="Clear All Selections" >
 				</JButton>
 			</JPanel>
 		</JPanel>
