@@ -57,8 +57,12 @@ public class KeepSelection implements ShapeDrawingCollectionLoad
 	{
 		if(defaultImg == null)
 		{
-			defaultImg = GraphicsUtil.getImageFromXml(
-					ba.getScaledDefaultPic().width, ba.getScaledDefaultPic().height, defaultImageLocation, Color.black);
+			Image retImage;
+			retImage = GraphicsUtil.getImageFromXml(
+					ba.getDefaultPicSize().width, ba.getDefaultPicSize().height, defaultImageLocation, Color.black);
+			defaultImg = retImage.getScaledInstance(
+					ba.getScaledDefaultPic().width, 
+					ba.getScaledDefaultPic().height, 0);
 		}
 		return defaultImg;
 	}
