@@ -11,6 +11,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.AbstractButton;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -109,16 +110,16 @@ public interface GraphicsUtil
     }
 	public static void setBackgroundColorButtons(Container container, Color c) 
 	{
-		if (container instanceof AbstractButton ) 
+		if (container instanceof JButton ) 
         {
-			AbstractButton ab = (AbstractButton) container;
+			JButton ab = (JButton) container;
         	ab.setBackground(c);
         } 
         for (Component component : container.getComponents()) 
         {
-            if (component instanceof AbstractButton) 
+            if (component instanceof JButton) 
             {
-            	AbstractButton ab = (AbstractButton) component;
+            	AbstractButton ab = (JButton) component;
             	ab.setBackground(c);
             } 
             else if (component instanceof Container) 
@@ -129,9 +130,9 @@ public interface GraphicsUtil
     }
 	public static void setForegroundColorButtons(Container container, Color c) 
 	{
-		if (container instanceof AbstractButton) 
+		if (container instanceof JButton) 
         {
-			AbstractButton ab = (AbstractButton) container;
+			JButton ab = (JButton) container;
         	ab.setForeground(c);
         } 
 		else if (container instanceof JTextField) 
@@ -147,14 +148,15 @@ public interface GraphicsUtil
         } 
         for (Component component : container.getComponents()) 
         {
-            if (component instanceof AbstractButton) 
+            if (component instanceof JButton) 
             {
-            	AbstractButton ab = (AbstractButton) component;
+            	JButton ab = (JButton) component;
             	ab.setForeground(c);
             } 
             else if (component instanceof JTextField) 
             {
             	JTextField tf = (JTextField) component;
+            	tf.setCaretColor(c);
             	tf.setForeground(c);
             } 
             else if (component instanceof JCheckBox) 
