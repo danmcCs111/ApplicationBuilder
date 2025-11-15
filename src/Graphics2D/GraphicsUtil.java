@@ -144,7 +144,7 @@ public interface GraphicsUtil
 		else if (container instanceof JCheckBox) 
         {
         	JCheckBox cb = (JCheckBox) container;
-        	cb.setBackground(c);
+        	cb.setForeground(c);
         } 
         for (Component component : container.getComponents()) 
         {
@@ -162,7 +162,7 @@ public interface GraphicsUtil
             else if (component instanceof JCheckBox) 
             {
             	JCheckBox cb = (JCheckBox) component;
-            	cb.setBackground(c);
+            	cb.setForeground(c);
             } 
             else if (component instanceof Container) 
             {
