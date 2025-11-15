@@ -1,6 +1,7 @@
 package WidgetComponents;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -11,7 +12,9 @@ import javax.swing.JPanel;
 
 import ActionListeners.EditorStateChangeListener;
 import Actions.ScheduledCommand;
+import Editors.CommandBuildEditor;
 import Editors.ScheduledCommandEditor;
+import Graphics2D.GraphicsUtil;
 import Params.ParameterEditor;
 import Properties.LoggingMessages;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
@@ -31,6 +34,11 @@ public class ScheduledCommandList extends JPanel implements PostWidgetBuildProce
 	private HashMap<Integer, JPanel> commandEditorDeleteButtonList = new HashMap<Integer, JPanel>();
 	private int indexCount = 0;
 	
+	private static Color 
+		panelBackgroundColor,
+		deleteBackgroundColor,
+		deleteForegroundColor = Color.red;
+	
 	private ScheduledCommandEditor blankEditor;
 	
 	public ScheduledCommandList()
@@ -38,9 +46,44 @@ public class ScheduledCommandList extends JPanel implements PostWidgetBuildProce
 		
 	}
 	
-	public void buildWidgets()
+	public static void setDeleteForegroundColor(Color c)
 	{
-		addBlankEditor(null);
+		deleteForegroundColor = c;
+		ScheduledCommandExecutionEditor.setDeleteForegroundColor(c);
+		CommandDialog.setDeleteForegroundColor(c);
+	}
+	public static void setDeleteBackgroundColor(Color c)
+	{
+		deleteBackgroundColor = c;
+		ScheduledCommandExecutionEditor.setDeleteBackgroundColor(c);
+		CommandDialog.setDeleteBackgroundColor(c);
+	}
+	
+	public static void setButtonForegroundColor(Color c)
+	{
+		ScheduledCommandEditor.setButtonForegroundColor(c);
+		ScheduledCommandExecutionEditor.setButtonForegroundColor(c);
+		CommandBuildEditor.setButtonForegroundColor(c);
+		CommandDialog.setButtonForegroundColor(c);
+		Parameter.setButtonForegroundColor(c);
+	}
+	public static void setButtonBackgroundColor(Color c)
+	{
+		ScheduledCommandEditor.setButtonBackgroundColor(c);
+		ScheduledCommandExecutionEditor.setButtonBackgroundColor(c);
+		CommandBuildEditor.setButtonBackgroundColor(c);
+		CommandDialog.setButtonBackgroundColor(c);
+		Parameter.setButtonBackgroundColor(c);
+	}
+	
+	public static void setPanelBackgroundColor(Color c)
+	{
+		panelBackgroundColor = c;
+		ScheduledCommandEditor.setPanelBackgroundColor(c);
+		ScheduledCommandExecutionEditor.setPanelBackgroundColor(c);
+		CommandBuildEditor.setPanelBackgroundColor(c);
+		CommandDialog.setPanelBackgroundColor(c);
+		Parameter.setPanelBackgroundColor(c);
 	}
 	
 	private void buildWidgets(ArrayList<ScheduledCommand> scs)
@@ -54,7 +97,41 @@ public class ScheduledCommandList extends JPanel implements PostWidgetBuildProce
 			
 			scheduledCommandEditors.add(scEditor);
 		}
+		
+		if(panelBackgroundColor != null)
+		{
+			GraphicsUtil.setBackgroundColorPanel(this, panelBackgroundColor);
+		}
 		this.getRootPane().getParent().validate();
+	}
+	
+	private void addDeleteButton(ScheduledCommandEditor sde)
+	{
+		JPanel scPanel = new JPanel();
+		scPanel.setLayout(new BorderLayout());
+		JButton deleteButton = new JButton("X");
+		if(deleteForegroundColor != null)
+		{
+			deleteButton.setForeground(deleteForegroundColor);
+		}
+		if(deleteBackgroundColor != null)
+		{
+			deleteButton.setBackground(deleteBackgroundColor);
+		}
+		int count = indexCount;
+		deleteButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				removeTimeOption(count);
+			}
+		});
+		commandEditorDeleteButtonList.put(count, scPanel);
+		
+		scPanel.add(deleteButton, BorderLayout.WEST);
+		scPanel.add(sde, BorderLayout.CENTER);
+		this.add(scPanel);
+		
+		indexCount++;
 	}
 	
 	private void clearWidgets()
@@ -104,27 +181,6 @@ public class ScheduledCommandList extends JPanel implements PostWidgetBuildProce
 		this.getRootPane().getParent().validate();
 	}
 	
-	private void addDeleteButton(ScheduledCommandEditor sde)
-	{
-		JPanel scPanel = new JPanel();
-		scPanel.setLayout(new BorderLayout());
-		JButton deleteButton = new JButton("X");
-		int count = indexCount;
-		deleteButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				removeTimeOption(count);
-			}
-		});
-		commandEditorDeleteButtonList.put(count, scPanel);
-		
-		scPanel.add(deleteButton, BorderLayout.WEST);
-		scPanel.add(sde, BorderLayout.CENTER);
-		this.add(scPanel);
-		
-		indexCount++;
-	}
-	
 	private void clearEditor()
 	{
 		scie.clearArrayList();
@@ -137,7 +193,7 @@ public class ScheduledCommandList extends JPanel implements PostWidgetBuildProce
 	@Override
 	public void postExecute() 
 	{
-		buildWidgets();
+		addBlankEditor(null);
 		this.getRootPane().getParent().validate();
 	}
 	

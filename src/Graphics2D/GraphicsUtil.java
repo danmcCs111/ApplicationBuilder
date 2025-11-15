@@ -1,6 +1,7 @@
 package Graphics2D;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -9,12 +10,16 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 
+import javax.swing.AbstractButton;
+import javax.swing.JCheckBox;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
 import Properties.LoggingMessages;
 import ShapeWidgetComponents.ShapeDrawingCollection;
 import ShapeWidgetComponents.ShapeDrawingCollectionGraphics;
 import ShapeWidgetComponents.ShapeElement;
 import ShapeWidgetComponents.ShapeImportExport;
-import ShapeWidgetComponents.ShapeStyling;
 
 public interface GraphicsUtil 
 {
@@ -61,5 +66,106 @@ public interface GraphicsUtil
         defaultImg = bufferedImage;
 		return defaultImg;
 	}
-
+	
+	public static void setBackgroundColorPanel(Container container, Color c) 
+	{
+		if (container instanceof JPanel) 
+        {
+        	JPanel pan = (JPanel) container;
+        	pan.setBackground(c);
+        } 
+        for (Component component : container.getComponents()) 
+        {
+            if (component instanceof JPanel) 
+            {
+            	JPanel pan = (JPanel) component;
+            	pan.setBackground(c);
+            } 
+            if (component instanceof Container) 
+            {
+            	setBackgroundColorPanel((Container) component, c);
+            }
+        }
+    }
+	public static void setBackgroundColorButtons(Container container, Color c) 
+	{
+		if (container instanceof AbstractButton) 
+        {
+			AbstractButton ab = (AbstractButton) container;
+        	ab.setBackground(c);
+        } 
+		else if (container instanceof JTextField) 
+        {
+			JTextField tf = (JTextField) container;
+         	tf.setBackground(c);
+        } 
+		else if (container instanceof JCheckBox) 
+        {
+        	JCheckBox cb = (JCheckBox) container;
+        	cb.setBackground(c);
+        } 
+        for (Component component : container.getComponents()) 
+        {
+            if (component instanceof AbstractButton) 
+            {
+            	AbstractButton ab = (AbstractButton) component;
+            	ab.setBackground(c);
+            } 
+            else if (component instanceof JTextField) 
+            {
+            	JTextField tf = (JTextField) component;
+            	tf.setBackground(c);
+            }
+            else if (component instanceof JCheckBox) 
+            {
+            	JCheckBox cb = (JCheckBox) component;
+            	cb.setBackground(c);
+            } 
+            else if (component instanceof Container) 
+            {
+            	setBackgroundColorButtons((Container) component, c);
+            }
+        }
+    }
+	public static void setForegroundColorButtons(Container container, Color c) 
+	{
+		if (container instanceof AbstractButton) 
+        {
+			AbstractButton ab = (AbstractButton) container;
+        	ab.setForeground(c);
+        } 
+		else if (container instanceof JTextField) 
+        {
+			JTextField tf = (JTextField) container;
+         	tf.setForeground(c);
+        } 
+		else if (container instanceof JCheckBox) 
+        {
+        	JCheckBox cb = (JCheckBox) container;
+        	cb.setBackground(c);
+        } 
+        for (Component component : container.getComponents()) 
+        {
+            if (component instanceof AbstractButton) 
+            {
+            	AbstractButton ab = (AbstractButton) component;
+            	ab.setForeground(c);
+            } 
+            else if (component instanceof JTextField) 
+            {
+            	JTextField tf = (JTextField) component;
+            	tf.setForeground(c);
+            } 
+            else if (component instanceof JCheckBox) 
+            {
+            	JCheckBox cb = (JCheckBox) component;
+            	cb.setBackground(c);
+            } 
+            else if (component instanceof Container) 
+            {
+            	setForegroundColorButtons((Container) component, c); 
+            }
+        }
+    }
+	
 }

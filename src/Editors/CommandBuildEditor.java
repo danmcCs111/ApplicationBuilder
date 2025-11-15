@@ -1,10 +1,12 @@
 package Editors;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
+import Graphics2D.GraphicsUtil;
 import ObjectTypeConversion.CommandBuild;
 import Params.ParameterEditor;
 import WidgetComponents.CommandDialog;
@@ -21,8 +23,33 @@ public class CommandBuildEditor extends JButton implements ParameterEditor
 	private String commandText = DEFAULT_EDITOR_TEXT;
 	private CommandBuild commandArg;
 	private CommandDialog commandDialog;
+	
+	private static Color 
+		panelBackgroundColor,
+		buttonBackgroundColor,
+		buttonForegroundColor;
 
 	public CommandBuildEditor()
+	{
+		buildWidgets();
+	}
+	
+	public static void setButtonForegroundColor(Color c)
+	{
+		buttonForegroundColor = c;
+	}
+	
+	public static void setButtonBackgroundColor(Color c)
+	{
+		buttonBackgroundColor = c;
+	}
+	
+	public static void setPanelBackgroundColor(Color c)
+	{
+		panelBackgroundColor = c;
+	}
+	
+	public void buildWidgets()
 	{
 		this.setText(commandText);
 		this.addActionListener(new ActionListener() {
@@ -36,6 +63,19 @@ public class CommandBuildEditor extends JButton implements ParameterEditor
 				commandDialog = new CommandDialog(CommandBuildEditor.this, commandArg);
 			}
 		});
+		
+		if(panelBackgroundColor != null)
+		{
+			GraphicsUtil.setBackgroundColorPanel(this, panelBackgroundColor);
+		}
+		if(buttonForegroundColor != null)
+		{
+			GraphicsUtil.setForegroundColorButtons(this, buttonForegroundColor);
+		}
+		if(buttonBackgroundColor != null)
+		{
+			GraphicsUtil.setBackgroundColorButtons(this, buttonBackgroundColor);
+		}
 	}
 	
 	@Override

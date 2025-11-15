@@ -1,6 +1,7 @@
 package Editors;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -11,6 +12,7 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import Actions.ScheduledCommand;
 import EditorAbstract.EditorState;
@@ -25,10 +27,35 @@ public class ScheduledCommandEditor extends JButton implements ParameterEditor, 
 	
 	private static final String DEFAULT_TEXT = "Edit Command";
 	
+	private static Color 
+		panelBackgroundColor,
+		buttonBackgroundColor,
+		buttonForegroundColor;
+	
 	private ScheduledCommand sc = null;
 	private EditorStateChangedDistributor editorStateChangedDistributor = new EditorStateChangedDistributor(this);
 	
 	public ScheduledCommandEditor()
+	{
+		buildWidgets();
+	}
+	
+	public static void setButtonForegroundColor(Color c)
+	{
+		buttonForegroundColor = c;
+	}
+	
+	public static void setButtonBackgroundColor(Color c)
+	{
+		buttonBackgroundColor = c;
+	}
+	
+	public static void setPanelBackgroundColor(Color c)
+	{
+		panelBackgroundColor = c;
+	}
+	
+	public void buildWidgets()
 	{
 		if(sc == null || sc.getCommandBuild() == null)
 		{
@@ -37,6 +64,14 @@ public class ScheduledCommandEditor extends JButton implements ParameterEditor, 
 		else
 		{
 			this.setText(sc.getCommandBuild().getCommandXmlString());
+		}
+		if(buttonForegroundColor != null)
+		{
+			this.setForeground(buttonForegroundColor);
+		}
+		if(buttonBackgroundColor != null)
+		{
+			this.setBackground(buttonBackgroundColor);
 		}
 		this.addActionListener(new ActionListener() 
 		{
@@ -47,13 +82,22 @@ public class ScheduledCommandEditor extends JButton implements ParameterEditor, 
 				if(f == null)//TODO
 				{
 					f = new JFrame(ScheduledCommandEditor.this.getText());
+					JPanel innerPanel = new JPanel();
+					innerPanel.setLayout(new BorderLayout());
 					ScheduledCommandExecutionEditor sce = new ScheduledCommandExecutionEditor();//TODO.
 					f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 					f.setMinimumSize(new Dimension(400, 550));
 					f.setLayout(new BorderLayout());
 					GraphicsUtil.rightEdgeTopWindow(ScheduledCommandEditor.this.getRootPane().getParent(), f);
+					innerPanel.add(sce, BorderLayout.NORTH);
+					f.add(innerPanel, BorderLayout.CENTER);
 					f.setVisible(true);
-					f.add(sce, BorderLayout.NORTH);
+					
+					if(panelBackgroundColor != null)
+					{
+						GraphicsUtil.setBackgroundColorPanel(f, panelBackgroundColor);
+					}
+					
 					sce.setLayout(new GridLayout(0,1));
 					sce.postExecute();
 					if(sc != null)
@@ -70,9 +114,15 @@ public class ScheduledCommandEditor extends JButton implements ParameterEditor, 
 							f = null;
 						}
 					});
+					
 				}
 			}
 		});
+		
+		if(panelBackgroundColor != null)
+		{
+			GraphicsUtil.setBackgroundColorPanel(this, panelBackgroundColor);
+		}
 	}
 	
 	@Override

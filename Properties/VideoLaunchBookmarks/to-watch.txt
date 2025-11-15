@@ -1,6 +1,6 @@
-Timecop@100@600=./VideoLaunchFiles/YoutubeFreeMovies2/
-in-too-deep@300@625=./VideoLaunchFiles/Tubi/
-jules@500@650=./VideoLaunchFiles/Tubi/
-stargate@700@675=./VideoLaunchFiles/Tubi/
-super-8@900@700=./VideoLaunchFiles/Tubi/
-the-arrival@1100@725=./VideoLaunchFiles/Tubi/
+in-too-deep@321@870=./VideoLaunchFiles/Tubi
+jules@512@872=./VideoLaunchFiles/Tubi
+stargate@708@859=./VideoLaunchFiles/Tubi
+the-arrival@1119@881=./VideoLaunchFiles/Tubi
+super-8@904@878=./VideoLaunchFiles/Tubi
+Timecop@93@875=./VideoLaunchFiles/YoutubeFreeMovies2

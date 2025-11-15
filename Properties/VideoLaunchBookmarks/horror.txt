@@ -1,9 +1,6 @@
-The Exorcist@110@916=./VideoLaunchFiles/YoutubeFreeMovies2
-outside@500@650=./VideoLaunchFiles/Tubi
-sphere@700@675=./VideoLaunchFiles/Tubi
-still-of-the-night@900@700=./VideoLaunchFiles/Tubi
-sting@875@932=./VideoLaunchFiles/Tubi
-storm-warning@647@918=./VideoLaunchFiles/Tubi
-the-fog@385@906=./VideoLaunchFiles/Tubi
-Godzilla@100@600=./VideoLaunchFiles/YoutubeFreeMovies2
-Godzilla (2014)@300@625=./VideoLaunchFiles/YoutubeFreeMovies2
+Godzilla@100@600=./VideoLaunchFiles/YoutubeFreeMovies2/
+Godzilla (2014)@300@625=./VideoLaunchFiles/YoutubeFreeMovies2/
+The Exorcist@500@650=./VideoLaunchFiles/YoutubeFreeMovies2/
+outside@700@675=./VideoLaunchFiles/Tubi/
+sphere@900@700=./VideoLaunchFiles/Tubi/
+the-fog@1100@725=./VideoLaunchFiles/Tubi/

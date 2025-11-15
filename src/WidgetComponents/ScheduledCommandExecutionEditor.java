@@ -1,6 +1,7 @@
 package WidgetComponents;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,6 +24,7 @@ import Actions.CommandExecutor;
 import Actions.Schedule;
 import Actions.ScheduledCommand;
 import Editors.CommandBuildEditor;
+import Graphics2D.GraphicsUtil;
 import ObjectTypeConversion.CommandBuild;
 import Properties.LoggingMessages;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
@@ -40,10 +42,19 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 	int indexCount = 0;
 	
 	private CommandBuildEditor cbe;
-	private JButton addTimeButton = new JButton("+ Add Run Time"); 
+	private JButton 
+		addTimeButton,
+		runButton;
 	private JCheckBox[] daysOfWeek;
 	private JCheckBox everyDay;
 	private ScheduledCommand scheduledCommand;
+	
+	private static Color 
+		panelBackgroundColor,
+		deleteBackgroundColor,
+		deleteForegroundColor = Color.red,
+		buttonBackgroundColor,
+		buttonForegroundColor;
 	
 	private JPanel innerPanel = new JPanel();
 
@@ -51,6 +62,32 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 	{
 
 	}
+	
+	public static void setButtonForegroundColor(Color c)
+	{
+		buttonForegroundColor = c;
+	}
+	
+	public static void setButtonBackgroundColor(Color c)
+	{
+		buttonBackgroundColor = c;
+	}
+	
+	public static void setDeleteForegroundColor(Color c)
+	{
+		deleteForegroundColor = c;
+	}
+	
+	public static void setDeleteBackgroundColor(Color c)
+	{
+		deleteBackgroundColor = c;
+	}
+	
+	public static void setPanelBackgroundColor(Color c)
+	{
+		panelBackgroundColor = c;
+	}
+	
 
 	public void setScheduledCommand(ScheduledCommand sc) 
 	{
@@ -92,7 +129,9 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 
 	public void buildWidgets() 
 	{
-		JButton runButton = new JButton("Run");
+		runButton = new JButton("Run");//TODO
+		addTimeButton = new JButton("+ Add Run Time"); 
+		
 		JPanel 
 			outerPanel = new JPanel(), 
 			innerPanelControl = new JPanel();
@@ -155,6 +194,19 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 		this.add(outerPanel);
 		
 		scheduledCommand = buildScheduledCommand(new ScheduledCommand());
+		
+		if(panelBackgroundColor != null)
+		{
+			GraphicsUtil.setBackgroundColorPanel(this, panelBackgroundColor);
+		}
+		if(buttonForegroundColor != null)
+		{
+			GraphicsUtil.setForegroundColorButtons(this, buttonForegroundColor);
+		}
+		if(buttonBackgroundColor != null)
+		{
+			GraphicsUtil.setBackgroundColorButtons(this, buttonBackgroundColor);
+		}
 	}
 
 	public String[] buildTimePickerOptions(double numberOfOptions) 
@@ -190,6 +242,31 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 		}
 
 		return options;
+	}
+	
+	private void addDeleteButton(int index)
+	{
+		JButton delButton = new JButton("X");
+		if(deleteForegroundColor != null)
+		{
+			delButton.setForeground(deleteForegroundColor);
+		}
+		if(deleteBackgroundColor != null)
+		{
+			delButton.setBackground(deleteBackgroundColor);
+		}
+		delButton.setToolTipText("Remove Entry");
+		delButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ScheduledCommandExecutionEditor.this.removeTimeOption(index);
+			}
+		});
+		if(index == 0)
+		{
+			delButton.setEnabled(false);
+		}
+		timeOptionDeletePanelList.get(index).add(delButton, BorderLayout.WEST);
 	}
 
 	private ActionListener buildToggleActionListener(JCheckBox... toggleOffCheckBox) 
@@ -269,6 +346,15 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 	{
 		String[] options = buildTimePickerOptions(timeGap);
 		JComboBox<String> newTime = new JComboBox<String>(options);
+		if(buttonForegroundColor != null)
+		{
+			newTime.setForeground(buttonForegroundColor);
+		}
+		if(buttonBackgroundColor != null)
+		{
+			newTime.setBackground(buttonBackgroundColor);
+		}
+		
 		JPanel timePanel = new JPanel();
 		timePanel.setLayout(new BorderLayout());
 		
@@ -318,23 +404,6 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 		innerPanel.add(everyDay);
 		
 		this.getRootPane().validate();
-	}
-	
-	private void addDeleteButton(int index)
-	{
-		JButton delButton = new JButton("X");
-		delButton.setToolTipText("Remove Entry");
-		delButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ScheduledCommandExecutionEditor.this.removeTimeOption(index);
-			}
-		});
-		if(index == 0)
-		{
-			delButton.setEnabled(false);
-		}
-		timeOptionDeletePanelList.get(index).add(delButton, BorderLayout.WEST);
 	}
 	
 	@Override

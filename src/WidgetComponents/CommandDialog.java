@@ -1,6 +1,7 @@
 package WidgetComponents;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -16,6 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import Editors.CommandBuildEditor;
+import Graphics2D.GraphicsUtil;
 import ObjectTypeConversion.CommandBuild;
 import ObjectTypeConversion.DirectorySelection;
 import ObjectTypeConversion.FileSelection;
@@ -44,6 +46,13 @@ public class CommandDialog extends JDialog
 			ParamOption.File.getDisplayText()
 	});
 	
+	private static Color 
+		panelBackgroundColor,
+		deleteBackgroundColor,
+		deleteForegroundColor = Color.red,
+		buttonBackgroundColor,
+		buttonForegroundColor;
+	
 	private JPanel 
 		innerPanel = new JPanel(),
 		saveCancelPanel = new JPanel(),
@@ -63,6 +72,36 @@ public class CommandDialog extends JDialog
 	private CommandBuildEditor commandBuildEditor;
 	
 	public CommandDialog(CommandBuildEditor cbe, CommandBuild cb)
+	{
+		buildWidgets(cbe, cb);
+	}
+	
+	public static void setButtonForegroundColor(Color c)
+	{
+		buttonForegroundColor = c;
+	}
+	
+	public static void setButtonBackgroundColor(Color c)
+	{
+		buttonBackgroundColor = c;
+	}
+	
+	public static void setDeleteForegroundColor(Color c)
+	{
+		deleteForegroundColor = c;
+	}
+	
+	public static void setDeleteBackgroundColor(Color c)
+	{
+		deleteBackgroundColor = c;
+	}
+	
+	public static void setPanelBackgroundColor(Color c)
+	{
+		panelBackgroundColor = c;
+	}
+	
+	public void buildWidgets(CommandBuildEditor cbe, CommandBuild cb)
 	{
 		this.commandBuildEditor = cbe;
 		this.setTitle(TITLE);
@@ -123,6 +162,15 @@ public class CommandDialog extends JDialog
 					addCommandOption(s);
 				}
 			}
+			
+			if(buttonForegroundColor != null)
+			{
+				GraphicsUtil.setForegroundColorButtons(this, buttonForegroundColor);
+			}
+			if(buttonBackgroundColor != null)
+			{
+				GraphicsUtil.setBackgroundColorButtons(this, buttonBackgroundColor);
+			}
 			if(cb.getParameters() != null && cb.getParameters().size() > 0)
 			{
 				for(Parameter s : cb.getParameters())
@@ -131,7 +179,22 @@ public class CommandDialog extends JDialog
 				}
 			}
 		}
+		else
+		{
+			if(buttonForegroundColor != null)
+			{
+				GraphicsUtil.setForegroundColorButtons(this, buttonForegroundColor);
+			}
+			if(buttonBackgroundColor != null)
+			{
+				GraphicsUtil.setBackgroundColorButtons(this, buttonBackgroundColor);
+			}
+		}
 		
+		if(panelBackgroundColor != null)
+		{
+			GraphicsUtil.setBackgroundColorPanel(this, panelBackgroundColor);
+		}
 		this.setVisible(true);
 	}
 	
@@ -142,6 +205,14 @@ public class CommandDialog extends JDialog
 	private void addCommandOption(String s)
 	{
 		JTextField tf = new JTextField(s);
+		if(buttonForegroundColor != null)
+		{
+			tf.setForeground(buttonForegroundColor);
+		}
+		if(buttonBackgroundColor != null)
+		{
+			tf.setBackground(buttonBackgroundColor);
+		}
 		commandOptions.add(tf);
 		int index = 2 + commandOptions.size()-1;
 		innerPanel.add(tf, index);
@@ -160,8 +231,9 @@ public class CommandDialog extends JDialog
 		outerPanelParam.setLayout(new BorderLayout());
 		innerPanelParam.setLayout(new GridLayout(1,0));
 		
-		JButton deleteField = new JButton(PARAM_DELETE_TEXT);
-		deleteField.addActionListener(new ActionListener() {
+		JButton deleteFieldButton = new JButton(PARAM_DELETE_TEXT);
+		
+		deleteFieldButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				innerPanel.remove(outerPanelParam);
@@ -169,7 +241,7 @@ public class CommandDialog extends JDialog
 				innerPanel.getRootPane().validate();
 			}
 		});
-		JButton addField = new JButton(PARAM_ADD_TEXT);
+		JButton addFieldButton = new JButton(PARAM_ADD_TEXT);
 		ComboListDialogSelectedListener addListener = new ComboListDialogSelectedListener() {
 			@Override
 			public void selectionChosen(List<String> chosenSelection) 
@@ -197,7 +269,7 @@ public class CommandDialog extends JDialog
 				innerPanel.getRootPane().validate();
 			}
 		};
-		addField.addActionListener(new ActionListener() {
+		addFieldButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ComboSelectionDialog fieldOrDirectory = new ComboSelectionDialog();
@@ -209,8 +281,25 @@ public class CommandDialog extends JDialog
 		paramters.add(param);
 		
 		outerPanelParam.add(innerPanelParam, BorderLayout.CENTER);
-		outerPanelParam.add(addField, BorderLayout.EAST);
-		outerPanelParam.add(deleteField, BorderLayout.WEST);
+		outerPanelParam.add(addFieldButton, BorderLayout.EAST);
+		outerPanelParam.add(deleteFieldButton, BorderLayout.WEST);
+		
+		if(deleteForegroundColor != null)
+		{
+			deleteFieldButton.setForeground(deleteForegroundColor);
+		}
+		if(deleteBackgroundColor != null)
+		{
+			deleteFieldButton.setBackground(deleteBackgroundColor);
+		}
+		if(buttonForegroundColor != null)
+		{
+			addFieldButton.setForeground(buttonForegroundColor);
+		}
+		if(buttonBackgroundColor != null)
+		{
+			addFieldButton.setBackground(buttonBackgroundColor);
+		}
 		
 		innerPanel.add(outerPanelParam);
 		innerPanel.getRootPane().validate();
