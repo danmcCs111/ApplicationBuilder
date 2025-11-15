@@ -34,11 +34,7 @@ public class Parameter extends JPanel
 	public void buildWidgets()
 	{
 		this.setLayout(new GridLayout(1,0));
-		
-		if(panelBackgroundColor != null)
-		{
-			GraphicsUtil.setBackgroundColorPanel(this, panelBackgroundColor);
-		}
+		GraphicsUtil.setBackgroundColorPanel(this, panelBackgroundColor);
 	}
 	
 	public static void setButtonForegroundColor(Color c)
@@ -58,28 +54,16 @@ public class Parameter extends JPanel
 	public void addParamString(String param)
 	{
 		JTextField paramText = new JTextField(param);
-		if(buttonForegroundColor != null)
-		{
-			GraphicsUtil.setForegroundColorButtons(paramText, buttonForegroundColor);
-		}
-		if(panelBackgroundColor != null)
-		{
-			GraphicsUtil.setBackgroundColorPanel(paramText, panelBackgroundColor);
-		}
+		GraphicsUtil.setForegroundColorButtons(paramText, buttonForegroundColor);
+		GraphicsUtil.setBackgroundColorPanel(paramText, panelBackgroundColor);
 		orderedList.add(paramText);
 		this.add(paramText);
 	}
 	public void addParamDirectory(DirectorySelection ds)
 	{
 		DirectorySelectionEditor dse = new DirectorySelectionEditor();
-		if(buttonForegroundColor != null)
-		{
-			GraphicsUtil.setForegroundColorButtons(dse, buttonForegroundColor);
-		}
-		if(buttonBackgroundColor != null)
-		{
-			GraphicsUtil.setBackgroundColorButtons(dse, buttonBackgroundColor);
-		}
+		GraphicsUtil.setForegroundColorButtons(dse, buttonForegroundColor);
+		GraphicsUtil.setBackgroundColorButtons(dse, buttonBackgroundColor);
 		dse.setComponentValue(ds);
 		orderedList.add(dse);
 		this.add(dse);
@@ -87,14 +71,8 @@ public class Parameter extends JPanel
 	public void addParamFile(FileSelection fs)
 	{
 		FileSelectionEditor fse = new FileSelectionEditor();
-		if(buttonForegroundColor != null)
-		{
-			GraphicsUtil.setForegroundColorButtons(fse, buttonForegroundColor);
-		}
-		if(buttonBackgroundColor != null)
-		{
-			GraphicsUtil.setBackgroundColorButtons(fse, buttonBackgroundColor);
-		}
+		GraphicsUtil.setForegroundColorButtons(fse, buttonForegroundColor);
+		GraphicsUtil.setBackgroundColorButtons(fse, buttonBackgroundColor);
 		fse.setComponentValue(fs);
 		orderedList.add(fse);
 		this.add(fse);

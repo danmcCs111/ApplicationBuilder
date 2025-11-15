@@ -64,18 +64,9 @@ public class CommandBuildEditor extends JButton implements ParameterEditor
 			}
 		});
 		
-		if(panelBackgroundColor != null)
-		{
-			GraphicsUtil.setBackgroundColorPanel(this, panelBackgroundColor);
-		}
-		if(buttonForegroundColor != null)
-		{
-			GraphicsUtil.setForegroundColorButtons(this, buttonForegroundColor);
-		}
-		if(buttonBackgroundColor != null)
-		{
-			GraphicsUtil.setBackgroundColorButtons(this, buttonBackgroundColor);
-		}
+		GraphicsUtil.setBackgroundColorPanel(this, panelBackgroundColor);
+		GraphicsUtil.setForegroundColorButtons(this, buttonForegroundColor);
+		GraphicsUtil.setBackgroundColorButtons(this, buttonBackgroundColor);
 	}
 	
 	@Override

@@ -195,18 +195,9 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 		
 		scheduledCommand = buildScheduledCommand(new ScheduledCommand());
 		
-		if(buttonForegroundColor != null)
-		{
-			GraphicsUtil.setForegroundColorButtons(this, buttonForegroundColor);
-		}
-		if(buttonBackgroundColor != null)
-		{
-			GraphicsUtil.setBackgroundColorButtons(this, buttonBackgroundColor);
-		}
-		if(panelBackgroundColor != null)
-		{
-			GraphicsUtil.setBackgroundColorPanel(this, panelBackgroundColor);
-		}
+		GraphicsUtil.setForegroundColorButtons(this, buttonForegroundColor);
+		GraphicsUtil.setBackgroundColorButtons(this, buttonBackgroundColor);
+		GraphicsUtil.setBackgroundColorPanel(this, panelBackgroundColor);
 	}
 
 	public String[] buildTimePickerOptions(double numberOfOptions) 
@@ -247,14 +238,8 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 	private void addDeleteButton(int index)
 	{
 		JButton delButton = new JButton("X");
-		if(deleteForegroundColor != null)
-		{
-			delButton.setForeground(deleteForegroundColor);
-		}
-		if(deleteBackgroundColor != null)
-		{
-			delButton.setBackground(deleteBackgroundColor);
-		}
+		GraphicsUtil.setForegroundColorButtons(delButton, deleteForegroundColor);
+		GraphicsUtil.setBackgroundColorButtons(delButton, deleteBackgroundColor);
 		delButton.setToolTipText("Remove Entry");
 		delButton.addActionListener(new ActionListener() {
 			@Override
@@ -368,18 +353,9 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 		}
 		innerPanel.add(everyDay);
 		
-		if(buttonForegroundColor != null)
-		{
-			GraphicsUtil.setForegroundColorButtons(newTime, buttonForegroundColor);
-		}
-		if(buttonBackgroundColor != null)
-		{
-			GraphicsUtil.setBackgroundColorButtons(newTime, buttonBackgroundColor);
-		}
-		if(panelBackgroundColor != null)
-		{
-			GraphicsUtil.setBackgroundColorPanel(newTime, panelBackgroundColor);
-		}
+		GraphicsUtil.setForegroundColorButtons(newTime, buttonForegroundColor);
+		GraphicsUtil.setBackgroundColorButtons(newTime, buttonBackgroundColor);
+		GraphicsUtil.setBackgroundColorPanel(newTime, panelBackgroundColor);
 		
 		this.getRootPane().validate();
 	}

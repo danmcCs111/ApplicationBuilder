@@ -93,10 +93,7 @@ public class ScheduledCommandEditor extends JButton implements ParameterEditor, 
 					f.add(innerPanel, BorderLayout.CENTER);
 					f.setVisible(true);
 					
-					if(panelBackgroundColor != null)
-					{
-						GraphicsUtil.setBackgroundColorPanel(f, panelBackgroundColor);
-					}
+					GraphicsUtil.setBackgroundColorPanel(f, panelBackgroundColor);
 					
 					sce.setLayout(new GridLayout(0,1));
 					sce.postExecute();
@@ -119,10 +116,7 @@ public class ScheduledCommandEditor extends JButton implements ParameterEditor, 
 			}
 		});
 		
-		if(panelBackgroundColor != null)
-		{
-			GraphicsUtil.setBackgroundColorPanel(this, panelBackgroundColor);
-		}
+		GraphicsUtil.setBackgroundColorPanel(this, panelBackgroundColor);
 	}
 	
 	@Override

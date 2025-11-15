@@ -163,14 +163,8 @@ public class CommandDialog extends JDialog
 				}
 			}
 			
-			if(buttonForegroundColor != null)
-			{
-				GraphicsUtil.setForegroundColorButtons(this, buttonForegroundColor);
-			}
-			if(buttonBackgroundColor != null)
-			{
-				GraphicsUtil.setBackgroundColorButtons(this, buttonBackgroundColor);
-			}
+			GraphicsUtil.setForegroundColorButtons(this, buttonForegroundColor);
+			GraphicsUtil.setBackgroundColorButtons(this, buttonBackgroundColor);
 			if(cb.getParameters() != null && cb.getParameters().size() > 0)
 			{
 				for(Parameter s : cb.getParameters())
@@ -205,14 +199,8 @@ public class CommandDialog extends JDialog
 	private void addCommandOption(String s)
 	{
 		JTextField tf = new JTextField(s);
-		if(buttonForegroundColor != null)
-		{
-			GraphicsUtil.setForegroundColorButtons(tf, buttonForegroundColor);
-		}
-		if(panelBackgroundColor != null)
-		{
-			GraphicsUtil.setBackgroundColorPanel(tf, panelBackgroundColor);
-		}
+		GraphicsUtil.setForegroundColorButtons(tf, buttonForegroundColor);
+		GraphicsUtil.setBackgroundColorPanel(tf, panelBackgroundColor);
 		commandOptions.add(tf);
 		int index = 2 + commandOptions.size()-1;
 		innerPanel.add(tf, index);
@@ -284,22 +272,10 @@ public class CommandDialog extends JDialog
 		outerPanelParam.add(addFieldButton, BorderLayout.EAST);
 		outerPanelParam.add(deleteFieldButton, BorderLayout.WEST);
 		
-		if(deleteForegroundColor != null)
-		{
-			GraphicsUtil.setForegroundColorButtons(deleteFieldButton, deleteForegroundColor);
-		}
-		if(deleteBackgroundColor != null)
-		{
-			GraphicsUtil.setBackgroundColorButtons(deleteFieldButton, deleteBackgroundColor);
-		}
-		if(buttonForegroundColor != null)
-		{
-			GraphicsUtil.setForegroundColorButtons(addFieldButton, buttonForegroundColor);
-		}
-		if(buttonBackgroundColor != null)
-		{
-			GraphicsUtil.setBackgroundColorButtons(addFieldButton, buttonBackgroundColor);
-		}
+		GraphicsUtil.setForegroundColorButtons(deleteFieldButton, deleteForegroundColor);
+		GraphicsUtil.setBackgroundColorButtons(deleteFieldButton, deleteBackgroundColor);
+		GraphicsUtil.setForegroundColorButtons(addFieldButton, buttonForegroundColor);
+		GraphicsUtil.setBackgroundColorButtons(addFieldButton, buttonBackgroundColor);
 		
 		innerPanel.add(outerPanelParam);
 		innerPanel.getRootPane().validate();

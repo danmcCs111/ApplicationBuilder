@@ -70,6 +70,11 @@ public interface GraphicsUtil
 	
 	public static void setBackgroundColorPanel(Container container, Color c) 
 	{
+		if(c == null)
+		{
+			return;
+		}
+		
 		if (container instanceof JPanel) 
         {
         	JPanel pan = (JPanel) container;
@@ -110,6 +115,11 @@ public interface GraphicsUtil
     }
 	public static void setBackgroundColorButtons(Container container, Color c) 
 	{
+		if(c == null)
+		{
+			return;
+		}
+		
 		if (container instanceof JButton ) 
         {
 			JButton ab = (JButton) container;
@@ -130,6 +140,11 @@ public interface GraphicsUtil
     }
 	public static void setForegroundColorButtons(Container container, Color c) 
 	{
+		if(c == null)
+		{
+			return;
+		}
+		
 		if (container instanceof JButton) 
         {
 			JButton ab = (JButton) container;
