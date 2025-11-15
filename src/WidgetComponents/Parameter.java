@@ -60,11 +60,11 @@ public class Parameter extends JPanel
 		JTextField paramText = new JTextField(param);
 		if(buttonForegroundColor != null)
 		{
-			paramText.setForeground(buttonForegroundColor);
+			GraphicsUtil.setForegroundColorButtons(paramText, buttonForegroundColor);
 		}
-		if(buttonBackgroundColor != null)
+		if(panelBackgroundColor != null)
 		{
-			paramText.setBackground(buttonBackgroundColor);
+			GraphicsUtil.setBackgroundColorPanel(paramText, panelBackgroundColor);
 		}
 		orderedList.add(paramText);
 		this.add(paramText);
@@ -74,11 +74,11 @@ public class Parameter extends JPanel
 		DirectorySelectionEditor dse = new DirectorySelectionEditor();
 		if(buttonForegroundColor != null)
 		{
-			dse.setForeground(buttonForegroundColor);
+			GraphicsUtil.setForegroundColorButtons(dse, buttonForegroundColor);
 		}
 		if(buttonBackgroundColor != null)
 		{
-			dse.setBackground(buttonBackgroundColor);
+			GraphicsUtil.setBackgroundColorButtons(dse, buttonBackgroundColor);
 		}
 		dse.setComponentValue(ds);
 		orderedList.add(dse);
@@ -89,11 +89,11 @@ public class Parameter extends JPanel
 		FileSelectionEditor fse = new FileSelectionEditor();
 		if(buttonForegroundColor != null)
 		{
-			fse.setForeground(buttonForegroundColor);
+			GraphicsUtil.setForegroundColorButtons(fse, buttonForegroundColor);
 		}
 		if(buttonBackgroundColor != null)
 		{
-			fse.setBackground(buttonBackgroundColor);
+			GraphicsUtil.setBackgroundColorButtons(fse, buttonBackgroundColor);
 		}
 		fse.setComponentValue(fs);
 		orderedList.add(fse);

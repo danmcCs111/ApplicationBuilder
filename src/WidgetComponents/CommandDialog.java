@@ -207,11 +207,11 @@ public class CommandDialog extends JDialog
 		JTextField tf = new JTextField(s);
 		if(buttonForegroundColor != null)
 		{
-			tf.setForeground(buttonForegroundColor);
+			GraphicsUtil.setForegroundColorButtons(tf, buttonForegroundColor);
 		}
-		if(buttonBackgroundColor != null)
+		if(panelBackgroundColor != null)
 		{
-			tf.setBackground(buttonBackgroundColor);
+			GraphicsUtil.setBackgroundColorPanel(tf, panelBackgroundColor);
 		}
 		commandOptions.add(tf);
 		int index = 2 + commandOptions.size()-1;
@@ -286,19 +286,19 @@ public class CommandDialog extends JDialog
 		
 		if(deleteForegroundColor != null)
 		{
-			deleteFieldButton.setForeground(deleteForegroundColor);
+			GraphicsUtil.setForegroundColorButtons(deleteFieldButton, buttonForegroundColor);
 		}
 		if(deleteBackgroundColor != null)
 		{
-			deleteFieldButton.setBackground(deleteBackgroundColor);
+			GraphicsUtil.setBackgroundColorButtons(deleteFieldButton, deleteBackgroundColor);
 		}
 		if(buttonForegroundColor != null)
 		{
-			addFieldButton.setForeground(buttonForegroundColor);
+			GraphicsUtil.setForegroundColorButtons(addFieldButton, buttonForegroundColor);
 		}
 		if(buttonBackgroundColor != null)
 		{
-			addFieldButton.setBackground(buttonBackgroundColor);
+			GraphicsUtil.setBackgroundColorButtons(addFieldButton, buttonBackgroundColor);
 		}
 		
 		innerPanel.add(outerPanelParam);

@@ -74,26 +74,6 @@ public interface GraphicsUtil
         	JPanel pan = (JPanel) container;
         	pan.setBackground(c);
         } 
-        for (Component component : container.getComponents()) 
-        {
-            if (component instanceof JPanel) 
-            {
-            	JPanel pan = (JPanel) component;
-            	pan.setBackground(c);
-            } 
-            if (component instanceof Container) 
-            {
-            	setBackgroundColorPanel((Container) component, c);
-            }
-        }
-    }
-	public static void setBackgroundColorButtons(Container container, Color c) 
-	{
-		if (container instanceof AbstractButton) 
-        {
-			AbstractButton ab = (AbstractButton) container;
-        	ab.setBackground(c);
-        } 
 		else if (container instanceof JTextField) 
         {
 			JTextField tf = (JTextField) container;
@@ -106,20 +86,40 @@ public interface GraphicsUtil
         } 
         for (Component component : container.getComponents()) 
         {
+            if (component instanceof JPanel) 
+            {
+            	JPanel pan = (JPanel) component;
+            	pan.setBackground(c);
+            } 
+            else if (container instanceof JTextField) 
+            {
+    			JTextField tf = (JTextField) container;
+             	tf.setBackground(c);
+            } 
+    		else if (container instanceof JCheckBox) 
+            {
+            	JCheckBox cb = (JCheckBox) container;
+            	cb.setBackground(c);
+            } 
+            if (component instanceof Container) 
+            {
+            	setBackgroundColorPanel((Container) component, c);
+            }
+        }
+    }
+	public static void setBackgroundColorButtons(Container container, Color c) 
+	{
+		if (container instanceof AbstractButton ) 
+        {
+			AbstractButton ab = (AbstractButton) container;
+        	ab.setBackground(c);
+        } 
+        for (Component component : container.getComponents()) 
+        {
             if (component instanceof AbstractButton) 
             {
             	AbstractButton ab = (AbstractButton) component;
             	ab.setBackground(c);
-            } 
-            else if (component instanceof JTextField) 
-            {
-            	JTextField tf = (JTextField) component;
-            	tf.setBackground(c);
-            }
-            else if (component instanceof JCheckBox) 
-            {
-            	JCheckBox cb = (JCheckBox) component;
-            	cb.setBackground(c);
             } 
             else if (component instanceof Container) 
             {
@@ -137,6 +137,7 @@ public interface GraphicsUtil
 		else if (container instanceof JTextField) 
         {
 			JTextField tf = (JTextField) container;
+			tf.setCaretColor(c);
          	tf.setForeground(c);
         } 
 		else if (container instanceof JCheckBox) 

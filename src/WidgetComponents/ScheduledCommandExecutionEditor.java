@@ -195,10 +195,6 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 		
 		scheduledCommand = buildScheduledCommand(new ScheduledCommand());
 		
-		if(panelBackgroundColor != null)
-		{
-			GraphicsUtil.setBackgroundColorPanel(this, panelBackgroundColor);
-		}
 		if(buttonForegroundColor != null)
 		{
 			GraphicsUtil.setForegroundColorButtons(this, buttonForegroundColor);
@@ -206,6 +202,10 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 		if(buttonBackgroundColor != null)
 		{
 			GraphicsUtil.setBackgroundColorButtons(this, buttonBackgroundColor);
+		}
+		if(panelBackgroundColor != null)
+		{
+			GraphicsUtil.setBackgroundColorPanel(this, panelBackgroundColor);
 		}
 	}
 
@@ -346,15 +346,6 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 	{
 		String[] options = buildTimePickerOptions(timeGap);
 		JComboBox<String> newTime = new JComboBox<String>(options);
-		if(buttonForegroundColor != null)
-		{
-			newTime.setForeground(buttonForegroundColor);
-		}
-		if(buttonBackgroundColor != null)
-		{
-			newTime.setBackground(buttonBackgroundColor);
-		}
-		
 		JPanel timePanel = new JPanel();
 		timePanel.setLayout(new BorderLayout());
 		
@@ -376,6 +367,20 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 			innerPanel.add(cb);
 		}
 		innerPanel.add(everyDay);
+		
+		if(buttonForegroundColor != null)
+		{
+			GraphicsUtil.setForegroundColorButtons(newTime, buttonForegroundColor);
+		}
+		if(buttonBackgroundColor != null)
+		{
+			GraphicsUtil.setBackgroundColorButtons(newTime, buttonBackgroundColor);
+		}
+		if(panelBackgroundColor != null)
+		{
+			GraphicsUtil.setBackgroundColorPanel(newTime, panelBackgroundColor);
+		}
+		
 		this.getRootPane().validate();
 	}
 	
