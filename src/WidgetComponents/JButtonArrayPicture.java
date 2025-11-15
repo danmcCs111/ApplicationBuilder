@@ -63,33 +63,32 @@ PostWidgetBuildProcessing
 		PROPERTIES_FILE_ARG_DELIMITER = "@",
 		PROPERTIES_FILE_DELIMITER = "=";
 	
-	private String fileLocation;
-	private Image 
-		img;
 	private static Image
 		defaultImg;
-	private Point saveIncPoint = new Point(100, 0);
-	private Point saveStartLocation = new Point(100, 700);
-	
 	public static String 
 		DEFAULT_IMG = "./Properties/shapes/Default-Play-Image.xml";
-	
 	public static Dimension
 		DEFAULT_PIC = new Dimension(279, 150),
 		SCALED_DEFAULT_PIC = new Dimension(140, 75),
 		SCALED_WIDTH_HEIGHT = new Dimension(140, 200);
-	
 	private static String keepsFileLocation;
+	
+	private String fileLocation;
+	private Image img;
 	private HashMap<String, ArrayList<JCheckBoxLimited>> collectionJButtons = new HashMap<String, ArrayList<JCheckBoxLimited>>();
+	private Point 
+		saveIncPoint = new Point(100, 0),
+		saveStartLocation = new Point(100, 700);
 	private ArrayList<String> stripFilter = new ArrayList<String>();
-	private int characterLimit=0;
-	private int columns = 3;
-	private boolean showAll = false;
+	private int 
+		characterLimit=0,
+		columns = 3;
+	private boolean 
+		showAll = false,
+		isLoadingSpinGraphic = true;
 	private String connectedComponentName;
 	private ArrayList<ButtonArrayLoadingNotification> loadingNofications = new ArrayList<ButtonArrayLoadingNotification>();
 	private FileSelection xmlFile = new FileSelection("./Properties/shapes/reload.xml");
-	private boolean isLoadingSpinGraphic = true;
-	
 	private JFrame loadingFrame;
 	
 	public JButtonArrayPicture()
@@ -506,6 +505,7 @@ PostWidgetBuildProcessing
 				{
 					if(PathUtility.getFilenameNoExtension(cbl.getName()).equals(keyName) && cbl.getPathKey().contains(val))
 					{
+						cbl.setVisible(true);
 						cbls.add(cbl);
 					}
 				}
