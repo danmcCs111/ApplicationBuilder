@@ -1,7 +1,6 @@
 package WidgetComponents;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,6 +23,7 @@ import Actions.CommandExecutor;
 import Actions.Schedule;
 import Actions.ScheduledCommand;
 import Editors.CommandBuildEditor;
+import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
 import ObjectTypeConversion.CommandBuild;
 import Properties.LoggingMessages;
@@ -49,13 +49,6 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 	private JCheckBox everyDay;
 	private ScheduledCommand scheduledCommand;
 	
-	private static Color 
-		panelBackgroundColor,
-		deleteBackgroundColor,
-		deleteForegroundColor = Color.red,
-		buttonBackgroundColor,
-		buttonForegroundColor;
-	
 	private JPanel innerPanel = new JPanel();
 
 	public ScheduledCommandExecutionEditor() 
@@ -63,32 +56,6 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 
 	}
 	
-	public static void setButtonForegroundColor(Color c)
-	{
-		buttonForegroundColor = c;
-	}
-	
-	public static void setButtonBackgroundColor(Color c)
-	{
-		buttonBackgroundColor = c;
-	}
-	
-	public static void setDeleteForegroundColor(Color c)
-	{
-		deleteForegroundColor = c;
-	}
-	
-	public static void setDeleteBackgroundColor(Color c)
-	{
-		deleteBackgroundColor = c;
-	}
-	
-	public static void setPanelBackgroundColor(Color c)
-	{
-		panelBackgroundColor = c;
-	}
-	
-
 	public void setScheduledCommand(ScheduledCommand sc) 
 	{
 		scheduledCommand = sc;
@@ -195,9 +162,9 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 		
 		scheduledCommand = buildScheduledCommand(new ScheduledCommand());
 		
-		GraphicsUtil.setForegroundColorButtons(this, buttonForegroundColor);
-		GraphicsUtil.setBackgroundColorButtons(this, buttonBackgroundColor);
-		GraphicsUtil.setBackgroundColorPanel(this, panelBackgroundColor);
+		GraphicsUtil.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
+		GraphicsUtil.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
+		GraphicsUtil.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
 	}
 
 	public String[] buildTimePickerOptions(double numberOfOptions) 
@@ -238,8 +205,8 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 	private void addDeleteButton(int index)
 	{
 		JButton delButton = new JButton("X");
-		GraphicsUtil.setForegroundColorButtons(delButton, deleteForegroundColor);
-		GraphicsUtil.setBackgroundColorButtons(delButton, deleteBackgroundColor);
+		GraphicsUtil.setForegroundColorButtons(delButton, ColorTemplate.getDeleteForegroundColor());
+		GraphicsUtil.setBackgroundColorButtons(delButton, ColorTemplate.getDeleteBackgroundColor());
 		delButton.setToolTipText("Remove Entry");
 		delButton.addActionListener(new ActionListener() {
 			@Override
@@ -353,9 +320,9 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 		}
 		innerPanel.add(everyDay);
 		
-		GraphicsUtil.setForegroundColorButtons(newTime, buttonForegroundColor);
-		GraphicsUtil.setBackgroundColorButtons(newTime, buttonBackgroundColor);
-		GraphicsUtil.setBackgroundColorPanel(newTime, panelBackgroundColor);
+		GraphicsUtil.setForegroundColorButtons(newTime, ColorTemplate.getButtonForegroundColor());
+		GraphicsUtil.setBackgroundColorButtons(newTime, ColorTemplate.getButtonBackgroundColor());
+		GraphicsUtil.setBackgroundColorPanel(newTime, ColorTemplate.getPanelBackgroundColor());
 		
 		this.getRootPane().validate();
 	}

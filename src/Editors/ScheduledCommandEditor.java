@@ -1,7 +1,6 @@
 package Editors;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -17,6 +16,7 @@ import javax.swing.JPanel;
 import Actions.ScheduledCommand;
 import EditorAbstract.EditorState;
 import EditorAbstract.EditorStateChangedDistributor;
+import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
 import Params.ParameterEditor;
 import WidgetComponents.ScheduledCommandExecutionEditor;
@@ -27,32 +27,12 @@ public class ScheduledCommandEditor extends JButton implements ParameterEditor, 
 	
 	private static final String DEFAULT_TEXT = "Edit Command";
 	
-	private static Color 
-		panelBackgroundColor,
-		buttonBackgroundColor,
-		buttonForegroundColor;
-	
 	private ScheduledCommand sc = null;
 	private EditorStateChangedDistributor editorStateChangedDistributor = new EditorStateChangedDistributor(this);
 	
 	public ScheduledCommandEditor()
 	{
 		buildWidgets();
-	}
-	
-	public static void setButtonForegroundColor(Color c)
-	{
-		buttonForegroundColor = c;
-	}
-	
-	public static void setButtonBackgroundColor(Color c)
-	{
-		buttonBackgroundColor = c;
-	}
-	
-	public static void setPanelBackgroundColor(Color c)
-	{
-		panelBackgroundColor = c;
 	}
 	
 	public void buildWidgets()
@@ -65,14 +45,8 @@ public class ScheduledCommandEditor extends JButton implements ParameterEditor, 
 		{
 			this.setText(sc.getCommandBuild().getCommandXmlString());
 		}
-		if(buttonForegroundColor != null)
-		{
-			this.setForeground(buttonForegroundColor);
-		}
-		if(buttonBackgroundColor != null)
-		{
-			this.setBackground(buttonBackgroundColor);
-		}
+		GraphicsUtil.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
+		GraphicsUtil.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
 		this.addActionListener(new ActionListener() 
 		{
 			JFrame f = null;
@@ -93,7 +67,7 @@ public class ScheduledCommandEditor extends JButton implements ParameterEditor, 
 					f.add(innerPanel, BorderLayout.CENTER);
 					f.setVisible(true);
 					
-					GraphicsUtil.setBackgroundColorPanel(f, panelBackgroundColor);
+					GraphicsUtil.setBackgroundColorPanel(f, ColorTemplate.getPanelBackgroundColor());
 					
 					sce.setLayout(new GridLayout(0,1));
 					sce.postExecute();
@@ -115,8 +89,7 @@ public class ScheduledCommandEditor extends JButton implements ParameterEditor, 
 				}
 			}
 		});
-		
-		GraphicsUtil.setBackgroundColorPanel(this, panelBackgroundColor);
+		GraphicsUtil.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
 	}
 	
 	@Override

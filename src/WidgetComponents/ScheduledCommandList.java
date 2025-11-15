@@ -12,8 +12,8 @@ import javax.swing.JPanel;
 
 import ActionListeners.EditorStateChangeListener;
 import Actions.ScheduledCommand;
-import Editors.CommandBuildEditor;
 import Editors.ScheduledCommandEditor;
+import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
 import Params.ParameterEditor;
 import Properties.LoggingMessages;
@@ -34,11 +34,6 @@ public class ScheduledCommandList extends JPanel implements PostWidgetBuildProce
 	private HashMap<Integer, JPanel> commandEditorDeleteButtonList = new HashMap<Integer, JPanel>();
 	private int indexCount = 0;
 	
-	private static Color 
-		panelBackgroundColor,
-		deleteBackgroundColor,
-		deleteForegroundColor = Color.red;
-	
 	private ScheduledCommandEditor blankEditor;
 	
 	public ScheduledCommandList()
@@ -48,42 +43,25 @@ public class ScheduledCommandList extends JPanel implements PostWidgetBuildProce
 	
 	public static void setDeleteForegroundColor(Color c)
 	{
-		deleteForegroundColor = c;
-		ScheduledCommandExecutionEditor.setDeleteForegroundColor(c);
-		CommandDialog.setDeleteForegroundColor(c);
+		ColorTemplate.setDeleteForegroundColor(c);
 	}
 	public static void setDeleteBackgroundColor(Color c)
 	{
-		deleteBackgroundColor = c;
-		ScheduledCommandExecutionEditor.setDeleteBackgroundColor(c);
-		CommandDialog.setDeleteBackgroundColor(c);
+		ColorTemplate.setDeleteBackgroundColor(c);
 	}
 	
 	public static void setButtonForegroundColor(Color c)
 	{
-		ScheduledCommandEditor.setButtonForegroundColor(c);
-		ScheduledCommandExecutionEditor.setButtonForegroundColor(c);
-		CommandBuildEditor.setButtonForegroundColor(c);
-		CommandDialog.setButtonForegroundColor(c);
-		Parameter.setButtonForegroundColor(c);
+		ColorTemplate.setButtonForegroundColor(c);
 	}
 	public static void setButtonBackgroundColor(Color c)
 	{
-		ScheduledCommandEditor.setButtonBackgroundColor(c);
-		ScheduledCommandExecutionEditor.setButtonBackgroundColor(c);
-		CommandBuildEditor.setButtonBackgroundColor(c);
-		CommandDialog.setButtonBackgroundColor(c);
-		Parameter.setButtonBackgroundColor(c);
+		ColorTemplate.setButtonBackgroundColor(c);
 	}
 	
 	public static void setPanelBackgroundColor(Color c)
 	{
-		panelBackgroundColor = c;
-		ScheduledCommandEditor.setPanelBackgroundColor(c);
-		ScheduledCommandExecutionEditor.setPanelBackgroundColor(c);
-		CommandBuildEditor.setPanelBackgroundColor(c);
-		CommandDialog.setPanelBackgroundColor(c);
-		Parameter.setPanelBackgroundColor(c);
+		ColorTemplate.setPanelBackgroundColor(c);
 	}
 	
 	private void buildWidgets(ArrayList<ScheduledCommand> scs)
@@ -98,10 +76,7 @@ public class ScheduledCommandList extends JPanel implements PostWidgetBuildProce
 			scheduledCommandEditors.add(scEditor);
 		}
 		
-		if(panelBackgroundColor != null)
-		{
-			GraphicsUtil.setBackgroundColorPanel(this, panelBackgroundColor);
-		}
+		GraphicsUtil.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
 		this.getRootPane().getParent().validate();
 	}
 	
@@ -110,14 +85,8 @@ public class ScheduledCommandList extends JPanel implements PostWidgetBuildProce
 		JPanel scPanel = new JPanel();
 		scPanel.setLayout(new BorderLayout());
 		JButton deleteButton = new JButton("X");
-		if(deleteForegroundColor != null)
-		{
-			deleteButton.setForeground(deleteForegroundColor);
-		}
-		if(deleteBackgroundColor != null)
-		{
-			deleteButton.setBackground(deleteBackgroundColor);
-		}
+		GraphicsUtil.setBackgroundColorButtons(deleteButton, ColorTemplate.getDeleteBackgroundColor());
+		GraphicsUtil.setForegroundColorButtons(deleteButton, ColorTemplate.getDeleteForegroundColor());
 		int count = indexCount;
 		deleteButton.addActionListener(new ActionListener() {
 			@Override
