@@ -286,7 +286,7 @@ public class CommandDialog extends JDialog
 		
 		if(deleteForegroundColor != null)
 		{
-			GraphicsUtil.setForegroundColorButtons(deleteFieldButton, buttonForegroundColor);
+			GraphicsUtil.setForegroundColorButtons(deleteFieldButton, deleteForegroundColor);
 		}
 		if(deleteBackgroundColor != null)
 		{
