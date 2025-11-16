@@ -14,7 +14,6 @@ import ActionListeners.EditorStateChangeListener;
 import Actions.ScheduledCommand;
 import Editors.ScheduledCommandEditor;
 import Graphics2D.ColorTemplate;
-import Graphics2D.GraphicsUtil;
 import Params.ParameterEditor;
 import Properties.LoggingMessages;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
@@ -76,7 +75,7 @@ public class ScheduledCommandList extends JPanel implements PostWidgetBuildProce
 			scheduledCommandEditors.add(scEditor);
 		}
 		
-		GraphicsUtil.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
+		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
 		this.getRootPane().getParent().validate();
 	}
 	
@@ -85,8 +84,8 @@ public class ScheduledCommandList extends JPanel implements PostWidgetBuildProce
 		JPanel scPanel = new JPanel();
 		scPanel.setLayout(new BorderLayout());
 		JButton deleteButton = new JButton("X");
-		GraphicsUtil.setBackgroundColorButtons(deleteButton, ColorTemplate.getDeleteBackgroundColor());
-		GraphicsUtil.setForegroundColorButtons(deleteButton, ColorTemplate.getDeleteForegroundColor());
+		ColorTemplate.setBackgroundColorButtons(deleteButton, ColorTemplate.getDeleteBackgroundColor());
+		ColorTemplate.setForegroundColorButtons(deleteButton, ColorTemplate.getDeleteForegroundColor());
 		int count = indexCount;
 		deleteButton.addActionListener(new ActionListener() {
 			@Override

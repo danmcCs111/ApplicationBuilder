@@ -24,7 +24,6 @@ import Actions.Schedule;
 import Actions.ScheduledCommand;
 import Editors.CommandBuildEditor;
 import Graphics2D.ColorTemplate;
-import Graphics2D.GraphicsUtil;
 import ObjectTypeConversion.CommandBuild;
 import Properties.LoggingMessages;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
@@ -162,9 +161,9 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 		
 		scheduledCommand = buildScheduledCommand(new ScheduledCommand());
 		
-		GraphicsUtil.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
-		GraphicsUtil.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
-		GraphicsUtil.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
+		ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
+		ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
+		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
 	}
 
 	public String[] buildTimePickerOptions(double numberOfOptions) 
@@ -205,8 +204,8 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 	private void addDeleteButton(int index)
 	{
 		JButton delButton = new JButton("X");
-		GraphicsUtil.setForegroundColorButtons(delButton, ColorTemplate.getDeleteForegroundColor());
-		GraphicsUtil.setBackgroundColorButtons(delButton, ColorTemplate.getDeleteBackgroundColor());
+		ColorTemplate.setForegroundColorButtons(delButton, ColorTemplate.getDeleteForegroundColor());
+		ColorTemplate.setBackgroundColorButtons(delButton, ColorTemplate.getDeleteBackgroundColor());
 		delButton.setToolTipText("Remove Entry");
 		delButton.addActionListener(new ActionListener() {
 			@Override
@@ -320,9 +319,9 @@ public class ScheduledCommandExecutionEditor extends JPanel implements PostWidge
 		}
 		innerPanel.add(everyDay);
 		
-		GraphicsUtil.setForegroundColorButtons(newTime, ColorTemplate.getButtonForegroundColor());
-		GraphicsUtil.setBackgroundColorButtons(newTime, ColorTemplate.getButtonBackgroundColor());
-		GraphicsUtil.setBackgroundColorPanel(newTime, ColorTemplate.getPanelBackgroundColor());
+		ColorTemplate.setForegroundColorButtons(newTime, ColorTemplate.getButtonForegroundColor());
+		ColorTemplate.setBackgroundColorButtons(newTime, ColorTemplate.getButtonBackgroundColor());
+		ColorTemplate.setBackgroundColorPanel(newTime, ColorTemplate.getPanelBackgroundColor());
 		
 		this.getRootPane().validate();
 	}

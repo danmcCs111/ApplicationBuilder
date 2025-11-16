@@ -45,8 +45,8 @@ public class ScheduledCommandEditor extends JButton implements ParameterEditor, 
 		{
 			this.setText(sc.getCommandBuild().getCommandXmlString());
 		}
-		GraphicsUtil.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
-		GraphicsUtil.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
+		ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
+		ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
 		this.addActionListener(new ActionListener() 
 		{
 			JFrame f = null;
@@ -67,7 +67,7 @@ public class ScheduledCommandEditor extends JButton implements ParameterEditor, 
 					f.add(innerPanel, BorderLayout.CENTER);
 					f.setVisible(true);
 					
-					GraphicsUtil.setBackgroundColorPanel(f, ColorTemplate.getPanelBackgroundColor());
+					ColorTemplate.setBackgroundColorPanel(f, ColorTemplate.getPanelBackgroundColor());
 					
 					sce.setLayout(new GridLayout(0,1));
 					sce.postExecute();
@@ -89,7 +89,7 @@ public class ScheduledCommandEditor extends JButton implements ParameterEditor, 
 				}
 			}
 		});
-		GraphicsUtil.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
+		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
 	}
 	
 	@Override

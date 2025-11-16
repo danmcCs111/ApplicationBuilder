@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 import Graphics2D.ColorTemplate;
-import Graphics2D.GraphicsUtil;
 import ObjectTypeConversion.CommandBuild;
 import Params.ParameterEditor;
 import WidgetComponents.CommandDialog;
@@ -44,9 +43,9 @@ public class CommandBuildEditor extends JButton implements ParameterEditor
 			}
 		});
 		
-		GraphicsUtil.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
-		GraphicsUtil.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
-		GraphicsUtil.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
+		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
+		ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
+		ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
 	}
 	
 	@Override
