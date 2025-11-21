@@ -599,6 +599,7 @@ PostWidgetBuildProcessing, ButtonArray
 	@Override
 	public void performRestore() 
 	{
+		performMinimize();
 		for(KeepSelection ks : getKeepSelection().toArray(new KeepSelection[] {}))
 		{
 			ks.getFrame().setExtendedState(JFrame.NORMAL);
