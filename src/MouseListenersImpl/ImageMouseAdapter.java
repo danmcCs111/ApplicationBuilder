@@ -4,9 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Image;
-import java.awt.MenuItem;
 import java.awt.Point;
-import java.awt.PopupMenu;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,10 +17,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Graphics2D.GraphicsUtil;
@@ -203,14 +204,15 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 	@Override
 	public void mouseClicked(MouseEvent e) 
 	{
-		Component component = (Component)e.getSource();
-		
+		JComponent component = (JComponent)e.getSource();
 		LoggingMessages.printOut(e.toString());
+		
 		if(e.getButton() == MouseEvent.BUTTON3)//Offer option to keep
 		{
-			PopupMenu pm = new PopupMenu();
-			MenuItem mi = new MenuItem();
-			mi.setLabel(KEEP_MENU_OPTION_TEXT);
+			JPopupMenu pm = new JPopupMenu();
+			pm.setLocation(e.getLocationOnScreen());
+			JMenuItem mi = new JMenuItem();
+			mi.setText(KEEP_MENU_OPTION_TEXT);
 			mi.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
