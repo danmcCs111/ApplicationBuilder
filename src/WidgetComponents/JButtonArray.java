@@ -80,6 +80,8 @@ PostWidgetBuildProcessing, ButtonArray
 	
 	public static String 
 		DEFAULT_IMG = "./Properties/shapes/Default-Play-Image.xml";
+	public static File 
+		MOVIE_IMAGE_FILE_LOCATION = new File(PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/film-movies-icon.png");
 	
 	private String keepsFileLocation;
 	public Color []
@@ -101,6 +103,11 @@ PostWidgetBuildProcessing, ButtonArray
 	public String getDefaultImagePath()
 	{
 		return DEFAULT_IMG;
+	}
+	
+	public void setMoviesIcon(FileSelection f)
+	{
+		MOVIE_IMAGE_FILE_LOCATION = new File(f.getFullPath());
 	}
 	
 	public void setSingleClick(boolean singleClick)

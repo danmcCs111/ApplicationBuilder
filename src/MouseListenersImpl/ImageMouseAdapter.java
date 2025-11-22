@@ -32,6 +32,7 @@ import Properties.LoggingMessages;
 import Properties.PathUtility;
 import WidgetComponentInterfaces.ButtonArray;
 import WidgetComponents.ComboSelectionDialog;
+import WidgetComponents.JButtonArray;
 import WidgetComponents.JButtonLengthLimited;
 import WidgetExtensions.ComboListDialogSelectedListener;
 import WidgetExtensions.ExtendedAttributeParam;
@@ -183,6 +184,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 					}
 					
 				});
+				f.setIconImage(GraphicsUtil.getImageFromFile(JButtonArray.MOVIE_IMAGE_FILE_LOCATION));//TODO
 				f.removeMouseListener(ImageMouseAdapter.this);
 				f.setTitle(KEEP_TITLE);
 				

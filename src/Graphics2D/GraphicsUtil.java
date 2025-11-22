@@ -7,7 +7,10 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import Properties.LoggingMessages;
 import ShapeWidgetComponents.ShapeDrawingCollection;
@@ -59,6 +62,17 @@ public interface GraphicsUtil
     	ShapeDrawingCollectionGraphics.drawShapes(g2d, sdc);
         defaultImg = bufferedImage;
 		return defaultImg;
+	}
+	
+	public static Image getImageFromFile(File defaultImageLocation)
+	{
+        BufferedImage bufferedImage = null;
+		try {
+			bufferedImage = ImageIO.read(defaultImageLocation);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return bufferedImage;
 	}
 	
 }

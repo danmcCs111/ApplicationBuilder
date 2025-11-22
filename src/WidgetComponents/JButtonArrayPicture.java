@@ -63,6 +63,7 @@ PostWidgetBuildProcessing
 		PROPERTIES_FILE_ARG_DELIMITER = "@",
 		PROPERTIES_FILE_DELIMITER = "=";
 	
+	
 	private static Image
 		defaultImg;
 	public static String 

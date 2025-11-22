@@ -1,9 +1,6 @@
-The Untouchables@100@600=./VideoLaunchFiles/YoutubeFreeMovies2/
-lifeforce@300@625=./VideoLaunchFiles/Tubi/
-stargate@500@650=./VideoLaunchFiles/Tubi/
-still-of-the-night@700@675=./VideoLaunchFiles/Tubi/
-sting@900@700=./VideoLaunchFiles/Tubi/
-the-fog@1100@725=./VideoLaunchFiles/Tubi/
-the-grudge@1300@750=./VideoLaunchFiles/Tubi/
-the-thing-from-another-world@1500@775=./VideoLaunchFiles/Tubi/
-twilight-zone-the-movie@1700@800=./VideoLaunchFiles/Tubi/
+48 Hours@8@703=./VideoLaunchFiles/Youtube Channels
+PoliceActivity@7@1039=./VideoLaunchFiles/Youtube Channels
+60 Minutes@8@874=./VideoLaunchFiles/Youtube Channels
+NBC News NOW@235@971=./VideoLaunchFiles/Roku Channels
+CBS News 24_7@7@534=./VideoLaunchFiles/Roku Channels
+Dateline 24_7@236@785=./VideoLaunchFiles/Roku Channels
