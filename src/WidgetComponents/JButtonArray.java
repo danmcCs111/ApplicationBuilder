@@ -93,6 +93,7 @@ PostWidgetBuildProcessing, ButtonArray
 	private HashMap<String, ArrayList<JButtonLengthLimited>> collectionJButtons = new HashMap<String, ArrayList<JButtonLengthLimited>>();
 	private HashMap<String, MouseListener> pathAndMouseAdapter;
 	private ArrayList<String> stripFilter = new ArrayList<String>();
+	private ShiftDialog shiftDialog;
 	
 	private int characterLimit=0;
 	
@@ -628,7 +629,10 @@ PostWidgetBuildProcessing, ButtonArray
 	@Override
 	public void openShiftFramesDialog() 
 	{
-		new ShiftDialog(this, getKeepSelection());
+		if(shiftDialog == null || !shiftDialog.isVisible())
+		{
+			shiftDialog = new ShiftDialog(this, getKeepSelection());
+		}
 	}
 
 }
