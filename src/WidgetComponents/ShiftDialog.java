@@ -26,6 +26,7 @@ import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
 import Params.KeepSelection;
 
@@ -116,6 +117,11 @@ public class ShiftDialog extends JDialog
 		this.add(innerPanel, BorderLayout.CENTER);
 		this.add(keepPanel, BorderLayout.EAST);
 		GraphicsUtil.rightEdgeTopWindow(referenceContainer, this);
+		
+		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
+		ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
+		ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
+		
 		this.pack();
 		
 		this.setVisible(true);

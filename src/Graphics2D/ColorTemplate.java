@@ -7,7 +7,9 @@ import java.awt.Container;
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
 import javax.swing.JTextField;
 
 public class ColorTemplate 
@@ -83,6 +85,16 @@ public class ColorTemplate
         	JCheckBox cb = (JCheckBox) container;
         	cb.setBackground(c);
         } 
+		else if (container instanceof JList) 
+        {
+			JList<?> jl = (JList<?>) container;
+        	jl.setBackground(c);
+        }
+		else if (container instanceof JSlider) 
+        {
+			JSlider js = (JSlider) container;
+        	js.setBackground(c);
+        } 
         for (Component component : container.getComponents()) 
         {
             if (component instanceof JPanel) 
@@ -153,6 +165,16 @@ public class ColorTemplate
         {
         	JCheckBox cb = (JCheckBox) container;
         	cb.setForeground(c);
+        } 
+		else if (container instanceof JList) 
+        {
+			JList<?> jl = (JList<?>) container;
+        	jl.setForeground(c);
+        }
+		else if (container instanceof JSlider) 
+        {
+			JSlider js = (JSlider) container;
+        	js.setForeground(c);
         } 
         for (Component component : container.getComponents()) 
         {

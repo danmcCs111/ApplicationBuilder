@@ -1,8 +1,6 @@
-Swordfish@100@600=./VideoLaunchFiles/YoutubeFreeMovies2/
-lifeforce@300@625=./VideoLaunchFiles/Tubi/
-still-of-the-night@500@650=./VideoLaunchFiles/Tubi/
-sting@700@675=./VideoLaunchFiles/Tubi/
-the-fog@900@700=./VideoLaunchFiles/Tubi/
-the-grudge@1100@725=./VideoLaunchFiles/Tubi/
-the-thing-from-another-world@1300@750=./VideoLaunchFiles/Tubi/
-twilight-zone-the-movie@1500@775=./VideoLaunchFiles/Tubi/
+outside@670@625=./VideoLaunchFiles/Tubi
+sphere@870@650=./VideoLaunchFiles/Tubi
+the-fog@1070@675=./VideoLaunchFiles/Tubi
+The Exorcist@470@600=./VideoLaunchFiles/YoutubeFreeMovies2
+Godzilla@70@550=./VideoLaunchFiles/YoutubeFreeMovies2
+Godzilla (2014)@270@575=./VideoLaunchFiles/YoutubeFreeMovies2
