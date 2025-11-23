@@ -20,8 +20,6 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.WindowConstants;
@@ -49,7 +47,6 @@ public class ShiftDialog extends JDialog
 	private JButton 
 		applyButton = new JButton(APPLY_BUTTON_LABEL),
 		cancelButton = new JButton(CANCEL_BUTTON_LABEL);
-	private JScrollPane keepsListScrollPane;
 	private JPanel keepPanel = new JPanel();
 	private JPanel 
 		innerPanel = new JPanel(),
