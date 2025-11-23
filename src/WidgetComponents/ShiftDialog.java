@@ -232,6 +232,19 @@ public class ShiftDialog extends JDialog
 		}
 	}
 	
+	private void updateAllKeeps()
+	{
+		for(int i = 0; i < keeps.size(); i++)
+		{
+			KeepSelection ks = keeps.get(i);
+			Point p = keepsOriginalLocations.get(i);
+			ks.getFrame().setLocation(
+					p.x + shiftLocationSpin.x + shiftLocationSlide.x,
+					p.y + shiftLocationSpin.y + shiftLocationSlide.y
+			);
+		}
+	}
+	
 	private void applyAction()
 	{
 		int 
@@ -242,7 +255,6 @@ public class ShiftDialog extends JDialog
 		
 		shiftLocationSpin = new Point(spinX, spinY);
 		shiftLocationSlide = new Point(slideX, slideY);
-		LoggingMessages.printOut("Shift amount: " + shiftLocationSpin);
 		updateKeeps();
 	}
 	
@@ -251,7 +263,7 @@ public class ShiftDialog extends JDialog
 		//TODO
 		shiftLocationSpin = new Point(0,0);
 		shiftLocationSlide = new Point(0,0);
-		updateKeeps();
+		updateAllKeeps();
 		this.dispose();
 	}
 }
