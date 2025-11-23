@@ -7,6 +7,7 @@ import java.awt.Container;
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
@@ -85,6 +86,11 @@ public class ColorTemplate
         	JCheckBox cb = (JCheckBox) container;
         	cb.setBackground(c);
         } 
+		else if (container instanceof JLabel) 
+        {
+			JLabel jl = (JLabel) container;
+         	jl.setBackground(c);
+        } 
 		else if (container instanceof JList) 
         {
 			JList<?> jl = (JList<?>) container;
@@ -160,6 +166,11 @@ public class ColorTemplate
 			JTextField tf = (JTextField) container;
 			tf.setCaretColor(c);
          	tf.setForeground(c);
+        } 
+		else if (container instanceof JLabel) 
+        {
+			JLabel jl = (JLabel) container;
+         	jl.setForeground(c);
         } 
 		else if (container instanceof JCheckBox) 
         {
