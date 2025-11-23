@@ -1,6 +1,6 @@
 added Frame shift
 
-<img width="1730" height="747" alt="shift-add" src="https://github.com/user-attachments/assets/1832002d-9a0e-447b-a2a3-f7ee62f44cf5" />
+<img width="1660" height="1069" alt="shift-add" src="https://github.com/user-attachments/assets/5cd41638-f1b0-4189-aac6-a5b7630f5863" />
 
 
 Adjusted UI styling: Title UI Text, startup Locations, and color. 
