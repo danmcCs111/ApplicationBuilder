@@ -30,14 +30,15 @@ public class ShiftDialog extends JDialog
 {
 	private static final long serialVersionUID = 1L;
 	
-	private static final String 
+	private static String 
 		TITLE = "Shift Frames",
 		SHIFT_SPIN_LABEL = "Shift (x, y): ",
 		SHIFT_SLIDER_LABEL = "Shift (x, y): ",
 		APPLY_BUTTON_LABEL = "Apply",
 		CANCEL_BUTTON_LABEL = "Cancel";
-	private static final Dimension 
-		MIN_DIMENSION_DIALOG = new Dimension(400, 200);
+	private static Dimension 
+		MIN_DIMENSION_DIALOG = new Dimension(400, 325);
+	private static int SLIDER_PIXEL_SIZE = 150;  
 	
 	private JButton 
 		applyButton = new JButton(APPLY_BUTTON_LABEL),
@@ -100,19 +101,22 @@ public class ShiftDialog extends JDialog
 		});
 		
 		Dimension d = xShift.getPreferredSize();
-		d.width = 100;
+		d.width = SLIDER_PIXEL_SIZE;
 		xShift.addChangeListener(cl);
 		yShift.addChangeListener(cl);
 		xShift.setPreferredSize(d);
 		yShift.setPreferredSize(d);
 		
+		Dimension vertXD = shiftSliderY.getPreferredSize();
+		vertXD.width = SLIDER_PIXEL_SIZE;
+		Dimension vertYD = shiftSliderY.getPreferredSize();
+		vertYD.height = SLIDER_PIXEL_SIZE;
+		vertYD.width = SLIDER_PIXEL_SIZE;
+		
 		shiftSliderX.addChangeListener(cl);
 		shiftSliderY.addChangeListener(cl);
-		shiftSliderX.setPreferredSize(d);
-		Dimension vertD = shiftSliderY.getPreferredSize();
-		vertD.height = 100;
-		vertD.width = 100;
-		shiftSliderY.setPreferredSize(vertD);
+		shiftSliderX.setPreferredSize(vertXD);
+		shiftSliderY.setPreferredSize(vertYD);
 		shiftSliderY.setInverted(true);
 		
 		GraphicsUtil.rightEdgeTopWindow(referenceContainer, this);
@@ -129,8 +133,8 @@ public class ShiftDialog extends JDialog
 		
 		buildSaveCancel();
 		innerPanel.setLayout(new BorderLayout());
-		innerPanel.add(innerPanelSpin, BorderLayout.NORTH);
-		innerPanel.add(innerPanelSlide, BorderLayout.CENTER);
+		innerPanel.add(innerPanelSlide, BorderLayout.NORTH);
+		innerPanel.add(innerPanelSpin, BorderLayout.CENTER);
 		this.add(innerPanel, BorderLayout.NORTH);
 		
 		this.setVisible(true);
