@@ -44,6 +44,8 @@
 				</JMenuItem>
 			</JMenu>
 			<JMenu extendedLayoutApplyParent="" setText="Action" >
+				<JMenuItem extendedLayoutApplyParent="" extendedShiftFramesActionListener="channels" setText="Shift Frames" >
+				</JMenuItem>
 				<JMenuItem extendedLayoutApplyParent="" extendedRestoreActionListener="channels" setText="Restore All Frames" >
 				</JMenuItem>
 				<JMenuItem extendedLayoutApplyParent="" extendedMinimizeActionListener="channels" setText="Minimize All Frames" >

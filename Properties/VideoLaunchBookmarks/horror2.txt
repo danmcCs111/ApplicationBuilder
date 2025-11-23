@@ -1,8 +1,6 @@
-children-of-the-corn@100@600=./VideoLaunchFiles/Tubi/
-house@300@625=./VideoLaunchFiles/Tubi/
-house-of-flying-daggers@500@650=./VideoLaunchFiles/Tubi/
-house-of-the-dead-2@700@675=./VideoLaunchFiles/Tubi/
-house-of-wax@900@700=./VideoLaunchFiles/Tubi/
-identity@1100@725=./VideoLaunchFiles/Tubi/
-jason-x@1300@750=./VideoLaunchFiles/Tubi/
-return-to-house-on-haunted-hill@1500@775=./VideoLaunchFiles/Tubi/
+house-of-flying-daggers@344@603=./VideoLaunchFiles/Tubi
+identity@437@958=./VideoLaunchFiles/Tubi
+jason-x@183@969=./VideoLaunchFiles/Tubi
+house-of-the-dead-2@541@618=./VideoLaunchFiles/Tubi
+house-of-wax@670@793=./VideoLaunchFiles/Tubi
+house@100@600=./VideoLaunchFiles/Tubi

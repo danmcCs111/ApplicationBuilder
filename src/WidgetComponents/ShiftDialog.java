@@ -1,11 +1,11 @@
-package ShapeWidgetComponents;
+package WidgetComponents;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Point;
-import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -16,29 +16,29 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSlider;
+import javax.swing.JSpinner;
 import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import Graphics2D.GraphicsUtil;
+import Params.KeepSelection;
 import Properties.LoggingMessages;
 
-public class RotateDialog extends JDialog 
+public class ShiftDialog extends JDialog
 {
 	private static final long serialVersionUID = 1L;
 	
 	private static final String 
-		TITLE = "Rotate",
-		SCALE_LABEL = "Rotation Degrees: ",
+		TITLE = "Shift Frames",
+		SHIFT_LABEL = "Axis Shift: ",
 		APPLY_BUTTON_LABEL = "Apply",
 		CANCEL_BUTTON_LABEL = "Cancel";
-	private static final Dimension MIN_DIMENSION_DIALOG = new Dimension(400, 300);
+	private static final Dimension 
+		MIN_DIMENSION_DIALOG = new Dimension(400, 150);
 	
-	private boolean isSave = false;
-	
-	private JSlider scalingSlider = new JSlider(-100, 100, 0);
-	private JLabel scalingLabel = new JLabel(SCALE_LABEL);
+	private JLabel 
+		shiftLabel = new JLabel(SHIFT_LABEL);
 	private JButton 
 		applyButton = new JButton(APPLY_BUTTON_LABEL),
 		cancelButton = new JButton(CANCEL_BUTTON_LABEL);
@@ -46,50 +46,64 @@ public class RotateDialog extends JDialog
 		innerPanel = new JPanel(),
 		saveCancelPanel = new JPanel(),
 		saveCancelPanelOuter = new JPanel();
+	private JSpinner 
+		xShift = new JSpinner(),
+		yShift = new JSpinner();
 	
-	private ShapeCreator sc;
-	private ShapeStyling originalSs;
-	private Shape originalShape;
-	private ArrayList<Point> originalControlPoints;
+	//TODO list of original locations.
+	private ArrayList<KeepSelection> keeps = new ArrayList<KeepSelection>();
+	private ArrayList<Point> keepsOriginalLocations = new ArrayList<Point>();
+	private Point scaleLocation = new Point(0,0);
+	private boolean isSave = false;
 	
-	public RotateDialog(Container referenceContainer, ShapeCreator sc, ShapeStyling ss)
+	public ShiftDialog(Container referenceContainer, ArrayList<KeepSelection> keepSelections)
 	{
-		int index = sc.getShapeDrawingCollection().getShapeStylings().indexOf(ss);
-		this.sc = sc;
-		this.originalSs = ss;
-		this.originalShape = sc.getShapeDrawingCollection().getShapes().get(index);
-		this.originalControlPoints = sc.getShapeDrawingCollection().getShapeControlPoints().get(index);
-		
+		keeps = keepSelections;
+		copyKeepLocations(keepSelections);
+		buildWidgets(referenceContainer);
+	}
+	
+	public void buildWidgets(Container referenceContainer)
+	{
 		this.setTitle(TITLE);
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setMinimumSize(MIN_DIMENSION_DIALOG);
 		this.setLayout(new BorderLayout());
-		GraphicsUtil.centerWindow(referenceContainer, this);
 		
-		scalingSlider.addChangeListener(new ChangeListener() {
+		ChangeListener cl = new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				LoggingMessages.printOut("change");
 				applyAction();
 			}
-		});
+		};
 		
 		this.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosed(WindowEvent e) {
 				if(!isSave)
 				{
-					RotateDialog.this.cancelAction();
+					ShiftDialog.this.cancelAction();
 				}
 			}
 		});
 		
+		Dimension d = xShift.getPreferredSize();
+		d.width = 100;
+		xShift.addChangeListener(cl);
+		yShift.addChangeListener(cl);
+		xShift.setPreferredSize(d);
+		yShift.setPreferredSize(d);
 		
-		innerPanel.add(scalingLabel);
-		innerPanel.add(scalingSlider);
-		this.add(innerPanel, BorderLayout.NORTH);
+		GraphicsUtil.rightEdgeTopWindow(referenceContainer, this);
+		
+		innerPanel.setLayout(new FlowLayout());
+		innerPanel.add(shiftLabel);
+		innerPanel.add(xShift);
+		innerPanel.add(yShift);
 		
 		buildSaveCancel();
+		this.add(innerPanel, BorderLayout.NORTH);
+		
 		this.setVisible(true);
 	}
 	
@@ -103,7 +117,7 @@ public class RotateDialog extends JDialog
 			public void actionPerformed(ActionEvent e) {
 				applyAction();
 				isSave = true;
-				RotateDialog.this.dispose();
+				ShiftDialog.this.dispose();
 			}
 		});
 		saveCancelPanel.add(applyButton);
@@ -120,29 +134,37 @@ public class RotateDialog extends JDialog
 		this.add(saveCancelPanelOuter, BorderLayout.SOUTH);
 	}
 	
+	private void copyKeepLocations(ArrayList<KeepSelection> keepSelections)
+	{
+		for(KeepSelection ks : keepSelections)
+		{
+			Point loc = ks.getFrame().getLocation();
+			keepsOriginalLocations.add(loc);
+		}
+	}
+	
+	private void updateKeeps()
+	{
+		for(int i = 0; i < keeps.size(); i++)
+		{
+			KeepSelection ks = keeps.get(i);
+			Point p = keepsOriginalLocations.get(i);
+			ks.getFrame().setLocation(p.x + scaleLocation.x, p.y + scaleLocation.y);
+		}
+	}
+	
 	private void applyAction()
 	{
-		double degrees = scalingSlider.getValue();
-		degrees /= 100;//adjust to percentage.
-		degrees *= 360;
-		
-		LoggingMessages.printOut("Entered degrees factor: " + degrees);
-
-		ArrayList<Point> recalcPoints = ShapeUtils.rotate(originalShape, originalControlPoints, degrees);
-		Shape newShape = ShapeUtils.recalculateShape(originalShape, recalcPoints);
-		
-		sc.getShapes().set(originalSs.getIndex(), newShape);
-		sc.getControlPointsForShapes().set(originalSs.getIndex(), recalcPoints);
-		sc.notifyShapeAndControlPointsChangedListener(originalSs);
-		sc.drawAll();
+		scaleLocation = new Point((int)xShift.getValue(), (int)yShift.getValue());
+		LoggingMessages.printOut("Shift amount: " + scaleLocation);
+		updateKeeps();
 	}
 	
 	private void cancelAction()
 	{
-		sc.getShapes().set(originalSs.getIndex(), originalShape);
-		sc.getControlPointsForShapes().set(originalSs.getIndex(), originalControlPoints);
-		sc.notifyShapeAndControlPointsChangedListener(originalSs);
-		sc.drawAll();
+		//TODO
+		scaleLocation = new Point(0,0);
+		updateKeeps();
 		this.dispose();
 	}
 }

@@ -74,6 +74,7 @@ import WidgetExtensionsImpl.ExtendedSetLookAndFeel;
 import WidgetExtensionsImpl.ExtendedSetViewportView;
 import WidgetExtensionsImpl.ExtendedSetupTaskbar;
 import WidgetExtensionsImpl.ExtendedShapeDrawingCollectionLoader;
+import WidgetExtensionsImpl.ExtendedShiftFramesActionListener;
 import WidgetExtensionsImpl.ExtendedSwappableHolder;
 import WidgetExtensionsImpl.ExtendedTextStripper;
 import WidgetExtensionsImpl.ExtendedTitleSwitcher;
@@ -175,6 +176,7 @@ public class WidgetAttributes
 				ExtendedAttributeParam.getMethodDefinition(ExtendedCloseAllActionListener.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedMinimizeActionListener.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedRestoreActionListener.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedShiftFramesActionListener.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedCommandExecution.class, ExtendedMethodArgDef.CommandBuildSelection.getMethodArgDef())
 		});
 		

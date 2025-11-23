@@ -43,6 +43,7 @@ import WidgetExtensions.MouseAdapterArrayExtension;
 import WidgetExtensions.OpenActionExtension;
 import WidgetExtensions.RestoreActionExtension;
 import WidgetExtensions.SaveActionExtension;
+import WidgetExtensions.ShiftFramesExtension;
 import WidgetUtility.FileListOptionGenerator;
 import WidgetUtility.WidgetBuildController;
 
@@ -53,7 +54,7 @@ import WidgetUtility.WidgetBuildController;
  * TODO use a collection of inner panels and switch during toggle?
  */
 public class JButtonArray extends JPanel implements ArrayActionListener, CharacterLimited, 
-SaveActionExtension, OpenActionExtension, CloseActionExtension, CloseAllActionExtension, MinimizeActionExtension, RestoreActionExtension,
+SaveActionExtension, OpenActionExtension, CloseActionExtension, CloseAllActionExtension, MinimizeActionExtension, RestoreActionExtension, ShiftFramesExtension,
 ComboListDialogSelectedListener, MouseAdapterArrayExtension, 
 PostWidgetBuildProcessing, ButtonArray
 {
@@ -622,6 +623,12 @@ PostWidgetBuildProcessing, ButtonArray
 	public void setIsLoadingSpinGraphic(boolean loadGraphic) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void openShiftFramesDialog() 
+	{
+		ShiftDialog sd = new ShiftDialog(this, getKeepSelection());
 	}
 
 }
