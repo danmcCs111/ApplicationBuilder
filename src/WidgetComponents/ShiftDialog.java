@@ -37,12 +37,18 @@ public class ShiftDialog extends JDialog
 	private static String 
 		TITLE = "Shift Frames",
 		SHIFT_SPIN_LABEL = "Shift (x, y): ",
+		SHIFT_SPIN_TOOLTIP_TEXT = "Adjust with numerical pixel offset",
 		SHIFT_SLIDER_LABEL = "Shift (x, y): ",
+		SLIDER_SETTING_LABEL = "Slider (x, y)",
+		SLIDER_TOOLTIP_TEXT = "Max Pixel adjustment in - And + directions",
 		APPLY_BUTTON_LABEL = "Apply",
 		CANCEL_BUTTON_LABEL = "Cancel";
 	private static Dimension 
 		MIN_DIMENSION_DIALOG = new Dimension(600, 325);
-	private static int SLIDER_PIXEL_SIZE = 150;  
+	private static int 
+		SLIDER_PIXEL_SIZE = 150,
+		SLIDER_MAX_SETTING_X = 1500,
+		SLIDER_MAX_SETTING_Y = 1500;  
 	
 	private JButton 
 		applyButton = new JButton(APPLY_BUTTON_LABEL),
@@ -52,17 +58,21 @@ public class ShiftDialog extends JDialog
 		innerPanel = new JPanel(),
 		innerPanelSpin = new JPanel(),
 		innerPanelSlide = new JPanel(),
+		innerPanelSlideSetting = new JPanel(),
 		saveCancelPanel = new JPanel(),
 		saveCancelPanelOuter = new JPanel();
 	private JSpinner 
 		xShift = new JSpinner(),
-		yShift = new JSpinner();
+		yShift = new JSpinner(),
+		xSliderMinMax = new JSpinner(),
+		ySliderMinMax = new JSpinner();
 	private JSlider 
-		shiftSliderX = new JSlider(-1500, 1500, 0),//TODO
-		shiftSliderY = new JSlider(JSlider.VERTICAL, -1500, 1500, 0);
+		shiftSliderX = new JSlider(-SLIDER_MAX_SETTING_X, SLIDER_MAX_SETTING_X, 0),
+		shiftSliderY = new JSlider(JSlider.VERTICAL, -SLIDER_MAX_SETTING_Y, SLIDER_MAX_SETTING_Y, 0);
 	private JLabel 
 		shiftSpinLabel = new JLabel(SHIFT_SPIN_LABEL),
-		shiftLabelSlider = new JLabel(SHIFT_SLIDER_LABEL);
+		shiftLabelSlider = new JLabel(SHIFT_SLIDER_LABEL),
+		sliderMaxLabel = new JLabel(SLIDER_SETTING_LABEL);
 	private JList<String> keepList;
 	
 	private ArrayList<KeepSelection> keeps = new ArrayList<KeepSelection>();
@@ -105,15 +115,28 @@ public class ShiftDialog extends JDialog
 				applyAction();
 			}
 		};
+		ChangeListener settingsCL = new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				changeSliderSettings();
+			}
+		};
 		
 		buildSliders(cl);
 		buildSpinners(cl);
 		buildKeepList();
+		buildSliderSettings(settingsCL);
 		buildSaveCancel();
 		
+		
 		innerPanel.setLayout(new BorderLayout());
+		JPanel fillPanel = new JPanel();
+		fillPanel.setLayout(new GridLayout(2,1));
+		fillPanel.add(innerPanelSlideSetting);
+		fillPanel.add(innerPanelSpin);
 		innerPanel.add(innerPanelSlide, BorderLayout.NORTH);
-		innerPanel.add(innerPanelSpin, BorderLayout.CENTER);
+		innerPanel.add(fillPanel, BorderLayout.SOUTH);
 		this.add(innerPanel, BorderLayout.CENTER);
 		this.add(keepPanel, BorderLayout.EAST);
 		GraphicsUtil.rightEdgeTopWindow(referenceContainer, this);
@@ -147,8 +170,29 @@ public class ShiftDialog extends JDialog
 		innerPanelSlide.add(shiftSliderY);
 	}
 	
+	protected void buildSliderSettings(ChangeListener cl)
+	{
+		sliderMaxLabel.setToolTipText(SLIDER_TOOLTIP_TEXT);
+		Dimension d = xSliderMinMax.getPreferredSize();
+		d.width = SLIDER_PIXEL_SIZE;
+		xSliderMinMax.setPreferredSize(d);
+		ySliderMinMax.setPreferredSize(d);
+		
+		xSliderMinMax.setValue(SLIDER_MAX_SETTING_X);
+		ySliderMinMax.setValue(SLIDER_MAX_SETTING_Y);
+		
+		innerPanelSlideSetting.setLayout(new FlowLayout());
+		innerPanelSlideSetting.add(sliderMaxLabel);
+		innerPanelSlideSetting.add(xSliderMinMax);
+		innerPanelSlideSetting.add(ySliderMinMax);
+		
+		xSliderMinMax.addChangeListener(cl);
+		ySliderMinMax.addChangeListener(cl);
+	}
+	
 	protected void buildSpinners(ChangeListener cl)
 	{
+		shiftSpinLabel.setToolTipText(SHIFT_SPIN_TOOLTIP_TEXT);
 		Dimension d = xShift.getPreferredSize();
 		d.width = SLIDER_PIXEL_SIZE;
 		xShift.addChangeListener(cl);
@@ -160,6 +204,18 @@ public class ShiftDialog extends JDialog
 		innerPanelSpin.add(shiftSpinLabel);
 		innerPanelSpin.add(xShift);
 		innerPanelSpin.add(yShift);
+	}
+	
+	private void changeSliderSettings()
+	{
+		SLIDER_MAX_SETTING_X = (int) xSliderMinMax.getValue();
+		SLIDER_MAX_SETTING_Y = (int) ySliderMinMax.getValue();
+		
+		shiftSliderY.setMinimum(-SLIDER_MAX_SETTING_Y);
+		shiftSliderX.setMinimum(-SLIDER_MAX_SETTING_X);
+		
+		shiftSliderY.setMaximum(SLIDER_MAX_SETTING_Y);
+		shiftSliderX.setMaximum(SLIDER_MAX_SETTING_X);
 	}
 	
 	protected void buildKeepList()
