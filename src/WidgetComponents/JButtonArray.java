@@ -628,7 +628,7 @@ PostWidgetBuildProcessing, ButtonArray
 	@Override
 	public void openShiftFramesDialog() 
 	{
-		ShiftDialog sd = new ShiftDialog(this, getKeepSelection());
+		new ShiftDialog(this, getKeepSelection());
 	}
 
 }

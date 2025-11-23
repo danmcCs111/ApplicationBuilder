@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
@@ -31,34 +32,45 @@ public class ShiftDialog extends JDialog
 	
 	private static final String 
 		TITLE = "Shift Frames",
-		SHIFT_LABEL = "Axis Shift: ",
+		SHIFT_SPIN_LABEL = "Shift (x, y): ",
+		SHIFT_SLIDER_LABEL = "Shift (x, y): ",
 		APPLY_BUTTON_LABEL = "Apply",
 		CANCEL_BUTTON_LABEL = "Cancel";
 	private static final Dimension 
-		MIN_DIMENSION_DIALOG = new Dimension(400, 150);
+		MIN_DIMENSION_DIALOG = new Dimension(400, 200);
 	
-	private JLabel 
-		shiftLabel = new JLabel(SHIFT_LABEL);
 	private JButton 
 		applyButton = new JButton(APPLY_BUTTON_LABEL),
 		cancelButton = new JButton(CANCEL_BUTTON_LABEL);
 	private JPanel 
 		innerPanel = new JPanel(),
+		innerPanelSpin = new JPanel(),
+		innerPanelSlide = new JPanel(),
 		saveCancelPanel = new JPanel(),
 		saveCancelPanelOuter = new JPanel();
 	private JSpinner 
 		xShift = new JSpinner(),
 		yShift = new JSpinner();
+	private JSlider 
+		shiftSliderX = new JSlider(-1500, 1500, 0),//TODO
+		shiftSliderY = new JSlider(JSlider.VERTICAL, -1500, 1500, 0);
+	private JLabel 
+		shiftSpinLabel = new JLabel(SHIFT_SPIN_LABEL),
+		shiftLabelSlider = new JLabel(SHIFT_SLIDER_LABEL);
 	
-	//TODO list of original locations.
 	private ArrayList<KeepSelection> keeps = new ArrayList<KeepSelection>();
 	private ArrayList<Point> keepsOriginalLocations = new ArrayList<Point>();
-	private Point scaleLocation = new Point(0,0);
+	private Point 
+		shiftLocationSpin = new Point(0,0),
+		shiftLocationSlide = new Point(0,0);
 	private boolean isSave = false;
 	
 	public ShiftDialog(Container referenceContainer, ArrayList<KeepSelection> keepSelections)
 	{
 		keeps = keepSelections;
+		if(keeps.isEmpty()) {
+			return;
+		}
 		copyKeepLocations(keepSelections);
 		buildWidgets(referenceContainer);
 	}
@@ -94,14 +106,31 @@ public class ShiftDialog extends JDialog
 		xShift.setPreferredSize(d);
 		yShift.setPreferredSize(d);
 		
+		shiftSliderX.addChangeListener(cl);
+		shiftSliderY.addChangeListener(cl);
+		shiftSliderX.setPreferredSize(d);
+		Dimension vertD = shiftSliderY.getPreferredSize();
+		vertD.height = 100;
+		vertD.width = 100;
+		shiftSliderY.setPreferredSize(vertD);
+		shiftSliderY.setInverted(true);
+		
 		GraphicsUtil.rightEdgeTopWindow(referenceContainer, this);
 		
-		innerPanel.setLayout(new FlowLayout());
-		innerPanel.add(shiftLabel);
-		innerPanel.add(xShift);
-		innerPanel.add(yShift);
+		innerPanelSpin.setLayout(new FlowLayout());
+		innerPanelSpin.add(shiftSpinLabel);
+		innerPanelSpin.add(xShift);
+		innerPanelSpin.add(yShift);
+		
+		innerPanelSlide.setLayout(new FlowLayout());
+		innerPanelSlide.add(shiftLabelSlider);
+		innerPanelSlide.add(shiftSliderX);
+		innerPanelSlide.add(shiftSliderY);
 		
 		buildSaveCancel();
+		innerPanel.setLayout(new BorderLayout());
+		innerPanel.add(innerPanelSpin, BorderLayout.NORTH);
+		innerPanel.add(innerPanelSlide, BorderLayout.CENTER);
 		this.add(innerPanel, BorderLayout.NORTH);
 		
 		this.setVisible(true);
@@ -149,21 +178,32 @@ public class ShiftDialog extends JDialog
 		{
 			KeepSelection ks = keeps.get(i);
 			Point p = keepsOriginalLocations.get(i);
-			ks.getFrame().setLocation(p.x + scaleLocation.x, p.y + scaleLocation.y);
+			ks.getFrame().setLocation(
+					p.x + shiftLocationSpin.x + shiftLocationSlide.x,
+					p.y + shiftLocationSpin.y + shiftLocationSlide.y
+			);
 		}
 	}
 	
 	private void applyAction()
 	{
-		scaleLocation = new Point((int)xShift.getValue(), (int)yShift.getValue());
-		LoggingMessages.printOut("Shift amount: " + scaleLocation);
+		int 
+			spinX = (int)xShift.getValue(),
+			spinY = (int)yShift.getValue(),
+			slideX = shiftSliderX.getValue(),
+			slideY = shiftSliderY.getValue();
+		
+		shiftLocationSpin = new Point(spinX, spinY);
+		shiftLocationSlide = new Point(slideX, slideY);
+		LoggingMessages.printOut("Shift amount: " + shiftLocationSpin);
 		updateKeeps();
 	}
 	
 	private void cancelAction()
 	{
 		//TODO
-		scaleLocation = new Point(0,0);
+		shiftLocationSpin = new Point(0,0);
+		shiftLocationSlide = new Point(0,0);
 		updateKeeps();
 		this.dispose();
 	}
