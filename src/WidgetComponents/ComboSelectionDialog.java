@@ -18,6 +18,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
 import WidgetExtensions.ComboListDialogSelectedListener;
 
@@ -137,10 +138,15 @@ public class ComboSelectionDialog extends JDialog
 			eastPane.add(cancel);
 		}
 		
+		
 		southPane.add(eastPane, BorderLayout.EAST);
 		this.add(southPane, BorderLayout.SOUTH);
+		
+		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
+		ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
+		ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
+		
 		this.setVisible(true);
-		this.show();
 		this.pack();
 	}
 	
