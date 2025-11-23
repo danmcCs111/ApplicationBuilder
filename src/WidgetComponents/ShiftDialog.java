@@ -28,7 +28,6 @@ import javax.swing.event.ChangeListener;
 
 import Graphics2D.GraphicsUtil;
 import Params.KeepSelection;
-import Properties.LoggingMessages;
 
 public class ShiftDialog extends JDialog
 {
@@ -212,7 +211,7 @@ public class ShiftDialog extends JDialog
 		}
 	}
 	
-	private void updateKeeps()
+	private void updateKeepsListFilter()
 	{
 		int [] is = keepList.getSelectedIndices();
 		List<Integer> selected = Arrays.stream(is).boxed().collect(Collectors.toList());
@@ -223,25 +222,23 @@ public class ShiftDialog extends JDialog
 			{
 				continue;
 			}
-			KeepSelection ks = keeps.get(i);
-			Point p = keepsOriginalLocations.get(i);
-			ks.getFrame().setLocation(
-					p.x + shiftLocationSpin.x + shiftLocationSlide.x,
-					p.y + shiftLocationSpin.y + shiftLocationSlide.y
-			);
+			updateKeep(i);
 		}
 	}
-	
+	private void updateKeep(int index)
+	{
+		KeepSelection ks = keeps.get(index);
+		Point p = keepsOriginalLocations.get(index);
+		ks.getFrame().setLocation(
+				p.x + shiftLocationSpin.x + shiftLocationSlide.x,
+				p.y + shiftLocationSpin.y + shiftLocationSlide.y
+		);
+	}
 	private void updateAllKeeps()
 	{
 		for(int i = 0; i < keeps.size(); i++)
 		{
-			KeepSelection ks = keeps.get(i);
-			Point p = keepsOriginalLocations.get(i);
-			ks.getFrame().setLocation(
-					p.x + shiftLocationSpin.x + shiftLocationSlide.x,
-					p.y + shiftLocationSpin.y + shiftLocationSlide.y
-			);
+			updateKeep(i);
 		}
 	}
 	
@@ -255,7 +252,7 @@ public class ShiftDialog extends JDialog
 		
 		shiftLocationSpin = new Point(spinX, spinY);
 		shiftLocationSlide = new Point(slideX, slideY);
-		updateKeeps();
+		updateKeepsListFilter();
 	}
 	
 	private void cancelAction()
