@@ -11,11 +11,17 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.WindowConstants;
@@ -37,12 +43,14 @@ public class ShiftDialog extends JDialog
 		APPLY_BUTTON_LABEL = "Apply",
 		CANCEL_BUTTON_LABEL = "Cancel";
 	private static Dimension 
-		MIN_DIMENSION_DIALOG = new Dimension(400, 325);
+		MIN_DIMENSION_DIALOG = new Dimension(600, 325);
 	private static int SLIDER_PIXEL_SIZE = 150;  
 	
 	private JButton 
 		applyButton = new JButton(APPLY_BUTTON_LABEL),
 		cancelButton = new JButton(CANCEL_BUTTON_LABEL);
+	private JScrollPane keepsListScrollPane;
+	private JPanel keepPanel = new JPanel();
 	private JPanel 
 		innerPanel = new JPanel(),
 		innerPanelSpin = new JPanel(),
@@ -58,6 +66,7 @@ public class ShiftDialog extends JDialog
 	private JLabel 
 		shiftSpinLabel = new JLabel(SHIFT_SPIN_LABEL),
 		shiftLabelSlider = new JLabel(SHIFT_SLIDER_LABEL);
+	private JList<String> keepList;
 	
 	private ArrayList<KeepSelection> keeps = new ArrayList<KeepSelection>();
 	private ArrayList<Point> keepsOriginalLocations = new ArrayList<Point>();
@@ -83,13 +92,6 @@ public class ShiftDialog extends JDialog
 		this.setMinimumSize(MIN_DIMENSION_DIALOG);
 		this.setLayout(new BorderLayout());
 		
-		ChangeListener cl = new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				applyAction();
-			}
-		};
-		
 		this.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosed(WindowEvent e) {
@@ -100,13 +102,31 @@ public class ShiftDialog extends JDialog
 			}
 		});
 		
-		Dimension d = xShift.getPreferredSize();
-		d.width = SLIDER_PIXEL_SIZE;
-		xShift.addChangeListener(cl);
-		yShift.addChangeListener(cl);
-		xShift.setPreferredSize(d);
-		yShift.setPreferredSize(d);
+		ChangeListener cl = new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				applyAction();
+			}
+		};
 		
+		buildSliders(cl);
+		buildSpinners(cl);
+		buildKeepList();
+		buildSaveCancel();
+		
+		innerPanel.setLayout(new BorderLayout());
+		innerPanel.add(innerPanelSlide, BorderLayout.NORTH);
+		innerPanel.add(innerPanelSpin, BorderLayout.CENTER);
+		this.add(innerPanel, BorderLayout.CENTER);
+		this.add(keepPanel, BorderLayout.EAST);
+		GraphicsUtil.rightEdgeTopWindow(referenceContainer, this);
+		this.pack();
+		
+		this.setVisible(true);
+	}
+	
+	protected void buildSliders(ChangeListener cl)
+	{
 		Dimension vertXD = shiftSliderY.getPreferredSize();
 		vertXD.width = SLIDER_PIXEL_SIZE;
 		Dimension vertYD = shiftSliderY.getPreferredSize();
@@ -119,25 +139,44 @@ public class ShiftDialog extends JDialog
 		shiftSliderY.setPreferredSize(vertYD);
 		shiftSliderY.setInverted(true);
 		
-		GraphicsUtil.rightEdgeTopWindow(referenceContainer, this);
+		innerPanelSlide.setLayout(new FlowLayout());
+		innerPanelSlide.add(shiftLabelSlider);
+		innerPanelSlide.add(shiftSliderX);
+		innerPanelSlide.add(shiftSliderY);
+	}
+	
+	protected void buildSpinners(ChangeListener cl)
+	{
+		Dimension d = xShift.getPreferredSize();
+		d.width = SLIDER_PIXEL_SIZE;
+		xShift.addChangeListener(cl);
+		yShift.addChangeListener(cl);
+		xShift.setPreferredSize(d);
+		yShift.setPreferredSize(d);
 		
 		innerPanelSpin.setLayout(new FlowLayout());
 		innerPanelSpin.add(shiftSpinLabel);
 		innerPanelSpin.add(xShift);
 		innerPanelSpin.add(yShift);
+	}
+	
+	protected void buildKeepList()
+	{
+		String [] options = new String[keeps.size()];
+		int [] selected = new int [keeps.size()];
+		int i = 0;
+		for(KeepSelection ks : keeps) 
+		{
+			options[i] = ks.getText();
+			selected[i] = i;
+			i++;
+		}
+		keepList = new JList<String>(options);
+		keepList.setSelectedIndices(selected);//select all.
 		
-		innerPanelSlide.setLayout(new FlowLayout());
-		innerPanelSlide.add(shiftLabelSlider);
-		innerPanelSlide.add(shiftSliderX);
-		innerPanelSlide.add(shiftSliderY);
-		
-		buildSaveCancel();
-		innerPanel.setLayout(new BorderLayout());
-		innerPanel.add(innerPanelSlide, BorderLayout.NORTH);
-		innerPanel.add(innerPanelSpin, BorderLayout.CENTER);
-		this.add(innerPanel, BorderLayout.NORTH);
-		
-		this.setVisible(true);
+		keepPanel = new JPanel();
+		keepPanel.setLayout(new BorderLayout());
+		keepPanel.add(keepList, BorderLayout.CENTER);
 	}
 	
 	protected void buildSaveCancel()
@@ -178,8 +217,15 @@ public class ShiftDialog extends JDialog
 	
 	private void updateKeeps()
 	{
+		int [] is = keepList.getSelectedIndices();
+		List<Integer> selected = Arrays.stream(is).boxed().collect(Collectors.toList());
 		for(int i = 0; i < keeps.size(); i++)
 		{
+			Integer key = i;
+			if(!selected.contains(key))
+			{
+				continue;
+			}
 			KeepSelection ks = keeps.get(i);
 			Point p = keepsOriginalLocations.get(i);
 			ks.getFrame().setLocation(
