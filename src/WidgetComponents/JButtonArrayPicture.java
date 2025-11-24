@@ -25,6 +25,7 @@ import ActionListeners.AddActionSend;
 import ActionListeners.ArrayActionListener;
 import ActionListenersImpl.AddActionReceive;
 import ActionListenersImpl.NavigationButtonActionListener;
+import Graphics2D.ColorTemplate;
 import ObjectTypeConversion.DirectorySelection;
 import ObjectTypeConversion.FileSelection;
 import Properties.LoggingMessages;
@@ -35,6 +36,7 @@ import ShapeWidgetComponents.ShapeElement;
 import ShapeWidgetComponents.ShapeImportExport;
 import WidgetComponentInterfaces.ButtonArray;
 import WidgetComponentInterfaces.CharacterLimited;
+import WidgetComponentInterfaces.OpenKeepsSubscriber;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetExtensions.ButtonArrayLoadingNotifier;
 import WidgetExtensions.ClearActionExtension;
@@ -49,7 +51,7 @@ public class JButtonArrayPicture extends JPanel implements ButtonArray, ArrayAct
 AddActionSend, AddActionReceive,
 OpenActionExtension, SaveActionExtension, ClearActionExtension,
 ConnectedComponentName, ButtonArrayLoadingNotifier,
-PostWidgetBuildProcessing
+PostWidgetBuildProcessing, OpenKeepsSubscriber
 {
 	private static final long serialVersionUID = 1L;
 
@@ -72,7 +74,7 @@ PostWidgetBuildProcessing
 		DEFAULT_PIC = new Dimension(279, 150),
 		SCALED_DEFAULT_PIC = new Dimension(140, 75),
 		SCALED_WIDTH_HEIGHT = new Dimension(140, 200);
-	private static String keepsFileLocation;
+	private static DirectorySelection keepsFileLocation;
 	
 	private String fileLocation;
 	private Image img;
@@ -95,6 +97,29 @@ PostWidgetBuildProcessing
 	public JButtonArrayPicture()
 	{
 		
+	}
+	
+	public static void setDeleteForegroundColor(Color c)
+	{
+		ColorTemplate.setDeleteForegroundColor(c);
+	}
+	public static void setDeleteBackgroundColor(Color c)
+	{
+		ColorTemplate.setDeleteBackgroundColor(c);
+	}
+	
+	public static void setButtonForegroundColor(Color c)
+	{
+		ColorTemplate.setButtonForegroundColor(c);
+	}
+	public static void setButtonBackgroundColor(Color c)
+	{
+		ColorTemplate.setButtonBackgroundColor(c);
+	}
+	
+	public static void setPanelBackgroundColor(Color c)
+	{
+		ColorTemplate.setPanelBackgroundColor(c);
 	}
 	
 	private void buildWidgets()
@@ -171,7 +196,7 @@ PostWidgetBuildProcessing
 	
 	public void setExpandedArrangementFileRelativeLocation(DirectorySelection directorySelection)
 	{
-		keepsFileLocation = directorySelection.getFullPath();
+		keepsFileLocation = directorySelection;
 	}
 	
 	public void setColumnSize(int columns)
@@ -490,66 +515,17 @@ PostWidgetBuildProcessing
 	@Override
 	public void performOpen() 
 	{
-		HashMap<String, String> props = performPropertiesOpen();
-		ArrayList<JCheckBoxLimited> cbls = new ArrayList<JCheckBoxLimited>();
-		if(props == null)
-			return;
-		
-		for(String key : props.keySet())
-		{
-			String val = props.get(key);
-			String keyName = key.replaceAll("\\@[0-9]*\\@[0-9]*", "").strip();
-			LoggingMessages.printOut("key: " + keyName + " value: " + val);
-			for(String k : collectionJButtons.keySet())
-			{
-				for(JCheckBoxLimited cbl : collectionJButtons.get(k))
-				{
-					if(PathUtility.getFilenameNoExtension(cbl.getName()).equals(keyName) && cbl.getPathKey().contains(val))
-					{
-						cbl.setVisible(true);
-						cbls.add(cbl);
-					}
-				}
-			}
-		}
-		for(JCheckBoxLimited cb : cbls)
-		{
-			String key = cb.getPathKey();
-			if(collectionJButtons.get(key).contains(cb))
-			{
-				collectionJButtons.get(key).remove(cb);
-			}
-		}
-		rebuildButtons(isShowAll());
-		
-		LoggingMessages.printOut(connectedComponentName);
-		AddActionReceive addActionReceive = (AddActionReceive)WidgetBuildController.getInstance().findRefByName(connectedComponentName).getInstance();
-		addActionReceive.sendList(cbls);
-		
-		LoggingMessages.printOut(cbls.size() + "");
+		performPropertiesOpen();
 	}
-	private HashMap<String, String> performPropertiesOpen()
+	private void performPropertiesOpen()
 	{
-		HashMap<String, String> props = null;
-		
-		JFileChooser jfc = new JFileChooser();
-		File f = new File(keepsFileLocation);
-		jfc.setFileFilter(new FileNameExtensionFilter(PROPERTIES_FILE_OPEN_TITLE, PROPERTIES_FILE_OPEN_FILTER));
-		jfc.setSelectedFile(f);
-		
-		int choice = jfc.showOpenDialog(WidgetBuildController.getInstance().getFrame());
-		File chosenFile = jfc.getSelectedFile();
-		if(chosenFile != null && choice == JFileChooser.APPROVE_OPTION)
-		{
-			props = PathUtility.readProperties(chosenFile.getAbsolutePath(), PROPERTIES_FILE_DELIMITER);
-		}
-		return props;
+		new VideoBookMarksDialog(keepsFileLocation, this, WidgetBuildController.getInstance().getFrame());
 	}
 	
 	private void performPropertiesSave(String [] [] props)
 	{
 		JFileChooser jfc = new JFileChooser();
-		File f = new File(keepsFileLocation);
+		File f = new File(keepsFileLocation.getFullPath());
 		jfc.setFileFilter(new FileNameExtensionFilter(PROPERTIES_FILE_OPEN_TITLE, PROPERTIES_FILE_OPEN_FILTER));
 		jfc.setSelectedFile(f);
 		
@@ -637,6 +613,48 @@ PostWidgetBuildProcessing
 	public void setIsLoadingSpinGraphic(boolean loadGraphic)
 	{
 		this.isLoadingSpinGraphic = loadGraphic;
+	}
+
+	@Override
+	public void openKeeps(HashMap<String, String> props) 
+	{
+		ArrayList<JCheckBoxLimited> cbls = new ArrayList<JCheckBoxLimited>();
+		if(props == null)
+			return;
+		
+		for(String key : props.keySet())
+		{
+			String val = props.get(key);
+			String keyName = key.replaceAll("\\@[0-9]*\\@[0-9]*", "").strip();
+			LoggingMessages.printOut("key: " + keyName + " value: " + val);
+			for(String k : collectionJButtons.keySet())
+			{
+				for(JCheckBoxLimited cbl : collectionJButtons.get(k))
+				{
+					if(PathUtility.getFilenameNoExtension(cbl.getName()).equals(keyName) && cbl.getPathKey().contains(val))
+					{
+						cbl.setVisible(true);
+						cbls.add(cbl);
+					}
+				}
+			}
+		}
+		for(JCheckBoxLimited cb : cbls)
+		{
+			String key = cb.getPathKey();
+			if(collectionJButtons.get(key).contains(cb))
+			{
+				collectionJButtons.get(key).remove(cb);
+			}
+		}
+		rebuildButtons(isShowAll());
+		
+		LoggingMessages.printOut(connectedComponentName);
+		AddActionReceive addActionReceive = (AddActionReceive)WidgetBuildController.getInstance().findRefByName(connectedComponentName).getInstance();
+		addActionReceive.sendList(cbls);
+		
+		LoggingMessages.printOut(cbls.size() + "");
+		
 	}
 
 }

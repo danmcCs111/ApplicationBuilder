@@ -1,28 +1,44 @@
 <Build>
-	<JFrame addWindowListener="WindowListeners.ProcessExecutorWindowListener" extendedSetLookAndFeel="CrossPlatform" extendedSetupTaskbar="./src/ApplicationBuilder/launch_xsm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="10, 30" setName="VideoPlayer" setResizable="False" setSize="450, 515" setTitle="Video Launcher" >
+	<JFrame addWindowListener="WindowListeners.ProcessExecutorWindowListener" extendedSetLookAndFeel="CrossPlatform" extendedSetupTaskbar="./src/ApplicationBuilder/build-icon_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="450, 30" setName="VideoPlayer" setResizable="False" setSize="1450, 700" setTitle="Video List Creator" >
 		<JPanel extendedLayoutApplyParent="Center" setLayout="java.awt.BorderLayout" >
-			<JScrollPane extendedLayoutApplyParent="Center" extendedScrollBarSetUnit="15" setName="scrollPane" >
-				<SwappableCollection extendedArrayProcessingPath="./VideoLaunchFiles/Roku Channels@.url; ./VideoLaunchFiles/Tubi@.url; ./VideoLaunchFiles/YoutubeFreeMovies2@.url; ./VideoLaunchFiles/Youtube Channels@.url; ./VideoLaunchFiles/Amazon Videos@.url; ./VideoLaunchFiles/Music@.url" extendedSetViewportView="" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" setName="swapVideos" >
+			<JScrollPane extendedLayoutApplyParent="Center" extendedScrollBarSetUnit="25" setName="scrollPane" >
+				<SwappableCollection extendedArrayProcessingPath="./VideoLaunchFiles/Roku Channels@.url; ./VideoLaunchFiles/Youtube Channels@.url; ./VideoLaunchFiles/Amazon Videos@.url; ./VideoLaunchFiles/Music/@.url; ./VideoLaunchFiles/YoutubeFreeMovies2/@.url" extendedButtonArrayLoadingGraphic="True" extendedSetViewportView="" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" setName="swapVideos" >
 					<JPanel extendedLayoutApplyParent="North" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" >
-						<JButtonArray addActionListener="ActionListenersImpl.LaunchActionListener" extendedImageMouseAdapterArray="swapVideos, False" extendedLayoutApplyParent="Center" extendedSwappableHolder="swapVideos" extendedTextStripper="Watch @ Online for Free _ The Roku Channel _ Roku@ - YouTube@ - Prime Video@Prime Video- @1_@.url" setArrayForegroundAndBackground="240, 240, 240, 102, 102, 102" setButtonBackgroundColor="0, 0, 0" setButtonForegroundColor="255, 255, 255" setCharacterLimit="35" setDefaultImageXmlPath="./Properties/shapes/Default-Play-Image.xml" setDefaultPicSize="280, 150" setExpandedArrangementFileRelativeLocation="./Properties/VideoLaunchBookmarks/ " setHighlightBackgroundColor="240, 240, 240" setHighlightForegroundColor="50, 50, 50" setLayout="java.awt.GridLayout" setMoviesIcon="./src/ApplicationBuilder/film-movies-icon.png" setName="channels" setPanelBackgroundColor="51, 51, 51" setPicturePadWidthHeight="5, 20" setScaledDefaultPic="210, 105" setScaledWidthHeight="206, 300" setSingleClick="False" >
-						</JButtonArray>
+						<JButtonArrayPicture extendedConnectedComponent="channelsSelect" extendedLayoutApplyParent="Center" extendedSwappableHolder="swapVideos" extendedTextStripper="Watch @ Online for Free _ The Roku Channel _ Roku@ - YouTube@ - Prime Video@Prime Video- @1_@.url" setButtonBackgroundColor="0, 0, 0" setButtonForegroundColor="255, 255, 255" setCharacterLimit="25" setDefaultImageXmlPath="./Properties/shapes/Default-Play-Image.xml" setExpandedArrangementFileRelativeLocation="./Properties/VideoLaunchBookmarks/ " setName="channels" setPanelBackgroundColor="102, 102, 102" setScaledDefaultPic="140, 75" setScaledWidthHeight="140, 200" >
+						</JButtonArrayPicture>
 					</JPanel>
 				</SwappableCollection>
 			</JScrollPane>
 			<JPanel extendedLayoutApplyParent="North" setLayout="java.awt.BorderLayout" >
+				<JLabel extendedLayoutApplyParent="West" extendedTitleSwitcher="swapVideos" setBackground="204, 204, 204" setForeground="102, 0, 102" setName="title" setText="TODO" >
+				</JLabel>
 				<SearchBar extendedLayoutApplyParent="East" extendedSearchField="swapVideos" setButtonBackground="51, 51, 51" setButtonForeground="255, 255, 255" setColumnCharacterLength="10" >
 				</SearchBar>
-				<JLabel extendedLayoutApplyParent="West" extendedTitleSwitcher="swapVideos" setBackground="150, 150, 150" setForeground="100, 50, 150" setHorizontalAlignment="0" setName="title" setText="TODO" >
-				</JLabel>
+			</JPanel>
+			<JPanel extendedLayoutApplyParent="East" setLayout="java.awt.BorderLayout" >
+				<JScrollPane extendedLayoutApplyParent="East" extendedScrollBarSetUnit="25" setName="scrollPane2" >
+					<JPanel extendedLayoutApplyParent="Center" extendedSetViewportView="" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" >
+						<JButtonArrayPicture extendedConnectedComponent="channels" extendedLayoutApplyParent="East" extendedTextStripper="Watch @ Online for Free _ The Roku Channel _ Roku@ - YouTube@ - Prime Video@Prime Video- @1_@.url" setCharacterLimit="10" setColumnSize="1" setDefaultImageXmlPath="./Properties/shapes/Default-Play-Image.xml" setExpandedArrangementFileRelativeLocation="./Properties/VideoLaunchBookmarks/ " setName="channelsSelect" setSaveIncPoint="200, 25" setSaveStartLocation="100, 600" setScaledDefaultPic="140, 75" setScaledWidthHeight="140, 200" setShowAll="True" >
+						</JButtonArrayPicture>
+					</JPanel>
+				</JScrollPane>
+				<JPanel extendedLayoutApplyParent="West" setLayout="java.awt.GridLayout" >
+					<JButton extendedAddActionSendReceive="channels, channelsSelect" extendedLayoutApplyParent="" setBackground="51, 51, 51" setForeground="255, 255, 255" setText="&gt;" >
+					</JButton>
+					<JButton extendedAddActionSendReceive="channelsSelect, channels" extendedLayoutApplyParent="" setBackground="51, 51, 51" setForeground="255, 255, 255" setText="&lt;" >
+					</JButton>
+				</JPanel>
 			</JPanel>
 		</JPanel>
 		<JPanel extendedLayoutApplyParent="South" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" >
-			<JButton addActionListener="ActionListenersImpl.LaunchActionListener" extendedLayoutApplyParent="Center" setBackground="51, 51, 51" setForeground="255, 255, 255" setName="closeLaunchAction" setPreferredSize="60, 25" setText=" X Close" setToolTipText="close browser" >
-			</JButton>
-			<JLabel extendedCalculationPad="JButton" extendedLayoutApplyParent="East" >
-			</JLabel>
-			<JLabel extendedCalculationPad="JButton" extendedLayoutApplyParent="West" >
-			</JLabel>
+			<JPanel extendedLayoutApplyParent="Center" setBackground="51, 51, 51" setLayout="java.awt.FlowLayout" >
+				<JButton extendedLayoutApplyParent="" extendedOpenActionListener="channels" setBackground="51, 51, 51" setForeground="255, 255, 255" setName="openAction" setPreferredSize="80, 25" setText="Open" setToolTipText="Open selections" >
+				</JButton>
+				<JButton extendedLayoutApplyParent="" extendedSaveActionListener="channelsSelect" setBackground="51, 51, 51" setForeground="255, 255, 255" setName="saveAction" setPreferredSize="80, 25" setText="Save" setToolTipText="Save Selections" >
+				</JButton>
+				<JButton extendedClearActionListener="channelsSelect" extendedLayoutApplyParent="" setBackground="51, 51, 51" setForeground="255, 255, 255" setName="clearAction" setPreferredSize="85, 25" setText="Clear All" setToolTipText="Clear All Selections" >
+				</JButton>
+			</JPanel>
 		</JPanel>
 		<JPanel extendedLayoutApplyParent="West" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" >
 			<JButton addActionListener="ActionListenersImpl.NavigationButtonActionListener" extendedActionListenerConnectedComponent="swapVideos" extendedActionListenerSubType="WidgetComponents.Direction@BACKWARD" extendedLayoutApplyParent="North" setBackground="51, 51, 51" setForeground="255, 255, 255" setText="[&lt;]" >
@@ -36,23 +52,7 @@
 			<JMenu extendedLayoutApplyParent="" setText="File" >
 				<JMenuItem extendedLayoutApplyParent="" extendedOpenActionListener="channels" setText="Open" >
 				</JMenuItem>
-				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ApplicationBuilder|%Fn./Properties/data/Video Tile.xml" extendedLayoutApplyParent="" setText="Open Editor" >
-				</JMenuItem>
-				<JMenuItem extendedLayoutApplyParent="" extendedSaveActionListener="channels" setText="Save" >
-				</JMenuItem>
-				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ApplicationBuilder|%Fn./Properties/data/ScheduledCommandListEditor.xml" extendedLayoutApplyParent="" setText="Reload" >
-				</JMenuItem>
-			</JMenu>
-			<JMenu extendedLayoutApplyParent="" setText="Action" >
-				<JMenuItem extendedLayoutApplyParent="" extendedRestoreActionListener="channels" setText="Restore All Frames" >
-				</JMenuItem>
-				<JMenuItem extendedLayoutApplyParent="" extendedMinimizeActionListener="channels" setText="Minimize All Frames" >
-				</JMenuItem>
-				<JMenuItem extendedLayoutApplyParent="" extendedShiftFramesActionListener="channels" setText="Shift Frames" >
-				</JMenuItem>
-				<JMenuItem extendedCloseActionListener="channels" extendedLayoutApplyParent="" setText="Close" >
-				</JMenuItem>
-				<JMenuItem extendedCloseAllActionListener="channels" extendedLayoutApplyParent="" setText="Close All" >
+				<JMenuItem extendedLayoutApplyParent="" extendedSaveActionListener="channelsSelect" setText="Save" >
 				</JMenuItem>
 			</JMenu>
 		</JMenuBar>

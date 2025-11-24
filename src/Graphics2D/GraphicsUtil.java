@@ -22,14 +22,15 @@ public interface GraphicsUtil
 {
 	public static void centerWindow(Container referenceComponent, Container comp)
 	{
-		Point loc = referenceComponent.getLocation();
+		Point loc = referenceComponent.getLocationOnScreen();
 		
-		int rw = referenceComponent.getWidth();
-		int rh = referenceComponent.getHeight();
-		int w = comp.getWidth();
-		int h = comp.getHeight();
+		double 
+			rw = referenceComponent.getWidth(),
+			rh = referenceComponent.getHeight(),
+			w = comp.getWidth(),
+			h = comp.getHeight();
 		
-		comp.setLocation(new Point(loc.x + (rw/2) - (w/2), loc.y + (rh/2) - (h/2)));
+		comp.setLocation(loc.x + (int)((rw/2.0) - (w / 2.0)), loc.y + (int)((rh/2.0) - (h/2.0)) );
 	}
 	
 	public static void rightEdgeTopWindow(Container referenceComponent, Container comp)

@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class ColorTemplate 
@@ -81,6 +82,11 @@ public class ColorTemplate
 			JTextField tf = (JTextField) container;
          	tf.setBackground(c);
         } 
+		else if (container instanceof JTextArea) 
+        {
+			JTextArea ta = (JTextArea) container;
+			ta.setBackground(c);
+        } 
 		else if (container instanceof JCheckBox) 
         {
         	JCheckBox cb = (JCheckBox) container;
@@ -117,6 +123,16 @@ public class ColorTemplate
             {
             	JCheckBox cb = (JCheckBox) container;
             	cb.setBackground(c);
+            } 
+    		else if (container instanceof JList) 
+            {
+    			JList<?> jl = (JList<?>) container;
+            	jl.setBackground(c);
+            }
+    		else if (container instanceof JSlider) 
+            {
+    			JSlider js = (JSlider) container;
+            	js.setBackground(c);
             } 
             if (component instanceof Container) 
             {
@@ -167,6 +183,12 @@ public class ColorTemplate
 			tf.setCaretColor(c);
          	tf.setForeground(c);
         } 
+		else if (container instanceof JTextArea) 
+        {
+			JTextArea ta = (JTextArea) container;
+			ta.setCaretColor(c);
+			ta.setForeground(c);
+        } 
 		else if (container instanceof JLabel) 
         {
 			JLabel jl = (JLabel) container;
@@ -200,10 +222,26 @@ public class ColorTemplate
             	tf.setCaretColor(c);
             	tf.setForeground(c);
             } 
+            else if (container instanceof JTextArea) 
+            {
+    			JTextArea ta = (JTextArea) container;
+    			ta.setCaretColor(c);
+    			ta.setForeground(c);
+            } 
             else if (component instanceof JCheckBox) 
             {
             	JCheckBox cb = (JCheckBox) component;
             	cb.setForeground(c);
+            } 
+            else if (container instanceof JList) 
+            {
+    			JList<?> jl = (JList<?>) container;
+            	jl.setForeground(c);
+            }
+    		else if (container instanceof JSlider) 
+            {
+    			JSlider js = (JSlider) container;
+            	js.setForeground(c);
             } 
             else if (component instanceof Container) 
             {

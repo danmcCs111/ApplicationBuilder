@@ -43,6 +43,6 @@ public class DirectorySelection
 	
 	public String getFullPath()
 	{
-		return PathUtility.getCurrentDirectory() + this.relativePath;
+		return PathUtility.getCurrentDirectory() + this.relativePath.substring(1, this.relativePath.length());
 	}
 }

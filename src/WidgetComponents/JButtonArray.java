@@ -17,10 +17,8 @@ import java.util.List;
 
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import ActionListeners.ArrayActionListener;
 import ActionListenersImpl.NavigationButtonActionListener;
@@ -34,6 +32,7 @@ import Properties.LoggingMessages;
 import Properties.PathUtility;
 import WidgetComponentInterfaces.ButtonArray;
 import WidgetComponentInterfaces.CharacterLimited;
+import WidgetComponentInterfaces.OpenKeepsSubscriber;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetExtensions.CloseActionExtension;
 import WidgetExtensions.CloseAllActionExtension;
@@ -57,7 +56,7 @@ import WidgetUtility.WidgetBuildController;
 public class JButtonArray extends JPanel implements ArrayActionListener, CharacterLimited, 
 SaveActionExtension, OpenActionExtension, CloseActionExtension, CloseAllActionExtension, MinimizeActionExtension, RestoreActionExtension, ShiftFramesExtension,
 ComboListDialogSelectedListener, MouseAdapterArrayExtension, 
-PostWidgetBuildProcessing, ButtonArray
+PostWidgetBuildProcessing, ButtonArray, OpenKeepsSubscriber
 {
 	private static final long serialVersionUID = 1883L;
 	
@@ -85,7 +84,7 @@ PostWidgetBuildProcessing, ButtonArray
 	public static File 
 		MOVIE_IMAGE_FILE_LOCATION = new File(PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/film-movies-icon.png");
 	
-	private String keepsFileLocation;
+	private DirectorySelection keepsFileLocation;
 	public Color []
 		foregroundAndBackgroundColor = new Color [] {new JButton().getForeground(), new JButton().getBackground()},
 		highlightForegroundAndBackgroundColor = new Color [] {foregroundAndBackgroundColor[0], foregroundAndBackgroundColor[1]};
@@ -237,7 +236,7 @@ PostWidgetBuildProcessing, ButtonArray
 	
 	public void setExpandedArrangementFileRelativeLocation(DirectorySelection directorySelection)
 	{
-		keepsFileLocation = directorySelection.getFullPath();
+		keepsFileLocation = directorySelection;
 	}
 	
 	public static ExtendedStringCollection getExtendedStringCollection(Component c)
@@ -458,7 +457,42 @@ PostWidgetBuildProcessing, ButtonArray
 	@Override
 	public void performOpen()
 	{
-		HashMap<String, String> props = performPropertiesOpen();
+		performPropertiesOpen();
+//		HashMap<String, String> props = performPropertiesOpen();
+//		if(props == null)
+//			return;
+//		
+//		for(String s : collectionJButtons.keySet())//search entire collection. issue with duplicates when link is in more than one folder
+//		{
+//			for(MouseListener ml : collectionJButtons.get(s).get(0).getMouseListeners())
+//			{
+//				if(ml instanceof ImageMouseAdapter)
+//				{
+//					for(String key : props.keySet())
+//					{
+//						String [] k = key.split(PROPERTIES_FILE_ARG_DELIMITER);
+//						for(Component b : collectionJButtons.get(s))
+//						{
+//							if(((JButtonLengthLimited) b).getFullLengthText().equals(k[0]))//TODO
+//							{
+//								for(MouseListener al : b.getMouseListeners())
+//								{
+//									if(al instanceof ImageMouseAdapter)
+//									{
+//										((ImageMouseAdapter) al).setupKeepFrame(b, Integer.parseInt(k[1]), Integer.parseInt(k[2]));
+//									}
+//								}
+//							}
+//						}
+//					}
+//				}
+//			}
+//		}
+	}
+	
+	@Override
+	public void openKeeps(HashMap<String, String> props)
+	{
 		if(props == null)
 			return;
 		
@@ -490,22 +524,9 @@ PostWidgetBuildProcessing, ButtonArray
 		}
 	}
 	
-	private HashMap<String, String> performPropertiesOpen()
+	private void performPropertiesOpen()
 	{
-		HashMap<String, String> props = null;
-		
-		JFileChooser jfc = new JFileChooser();
-		File f = new File(keepsFileLocation);
-		jfc.setFileFilter(new FileNameExtensionFilter(PROPERTIES_FILE_OPEN_TITLE, PROPERTIES_FILE_OPEN_FILTER));
-		jfc.setSelectedFile(f);
-		
-		int choice = jfc.showOpenDialog(this);
-		File chosenFile = jfc.getSelectedFile();
-		if(chosenFile != null && choice == JFileChooser.APPROVE_OPTION)
-		{
-			props = PathUtility.readProperties(chosenFile.getAbsolutePath(), PROPERTIES_FILE_DELIMITER);
-		}
-		return props;
+		new VideoBookMarksDialog(keepsFileLocation, this, WidgetBuildController.getInstance().getFrame());
 	}
 	
 	private ArrayList<KeepSelection> getKeepSelection()
