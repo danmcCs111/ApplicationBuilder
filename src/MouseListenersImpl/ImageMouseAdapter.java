@@ -48,9 +48,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 	private static final String 
 		DIALOG_SELECT_CHILD_COMPONENTS_TITLE = "Save Selection",
 		DIALOG_SELECT_CHILD_COMPONENTS_MESSAGE = "Select Which to Save: ",
-//		PROPERTIES_FILE_RELATIVE_LOCATION = "/Properties/data/",
-		BOOKMARKS_FILE_RELATIVE_LOCATION = "/Properties/VideoLaunchBookmarks/",
-//		PROPERTIES_FILE_LOCATION = PathUtility.getCurrentDirectory() + BOOKMARKS_FILE_RELATIVE_LOCATION,
+		BOOKMARKS_FILE_RELATIVE_LOCATION = "./Properties/VideoLaunchBookmarks/ ",
 		PROPERTIES_FILE_SAVE_TITLE = "Save Properties",
 		PROPERTIES_FILE_SAVE_FILTER = "txt",
 		PROPERTIES_FILE_EXTENSION = ".txt",
@@ -343,11 +341,12 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 					WidgetBuildController.getInstance().getFrame(),
 					getProperties());
 		}
-		else
+		else //TODO linux / alternate option
 		{
 			JFileChooser jfc = new JFileChooser();
 			jfc.setDialogType(JFileChooser.SAVE_DIALOG);
-			File f = new File(BOOKMARKS_FILE_RELATIVE_LOCATION);
+			DirectorySelection ds = new DirectorySelection(BOOKMARKS_FILE_RELATIVE_LOCATION);
+			File f = new File(ds.getFullPath());
 			jfc.setFileFilter(new FileNameExtensionFilter(PROPERTIES_FILE_SAVE_TITLE, PROPERTIES_FILE_SAVE_FILTER));
 			jfc.setSelectedFile(f);
 			GraphicsUtil.rightEdgeTopWindow(parentFrame, jfc);
