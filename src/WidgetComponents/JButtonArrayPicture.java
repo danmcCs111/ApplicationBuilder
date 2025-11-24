@@ -36,7 +36,6 @@ import ShapeWidgetComponents.ShapeElement;
 import ShapeWidgetComponents.ShapeImportExport;
 import WidgetComponentInterfaces.ButtonArray;
 import WidgetComponentInterfaces.CharacterLimited;
-import WidgetComponentInterfaces.OpenKeepsSubscriber;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetExtensions.ButtonArrayLoadingNotifier;
 import WidgetExtensions.ClearActionExtension;
@@ -51,7 +50,7 @@ public class JButtonArrayPicture extends JPanel implements ButtonArray, ArrayAct
 AddActionSend, AddActionReceive,
 OpenActionExtension, SaveActionExtension, ClearActionExtension,
 ConnectedComponentName, ButtonArrayLoadingNotifier,
-PostWidgetBuildProcessing, OpenKeepsSubscriber
+PostWidgetBuildProcessing
 {
 	private static final long serialVersionUID = 1L;
 
@@ -523,7 +522,7 @@ PostWidgetBuildProcessing, OpenKeepsSubscriber
 		{
 			new VideoBookMarksDialog(keepsFileLocation, this, WidgetBuildController.getInstance().getFrame());
 		}
-		else //linux / alternate
+		else //TODO linux / alternate option
 		{
 			HashMap<String, String> props = null;
 			JFileChooser jfc = new JFileChooser();
@@ -543,16 +542,23 @@ PostWidgetBuildProcessing, OpenKeepsSubscriber
 	
 	private void performPropertiesSave(String [] [] props)
 	{
-		JFileChooser jfc = new JFileChooser();
-		File f = new File(keepsFileLocation.getFullPath());
-		jfc.setFileFilter(new FileNameExtensionFilter(PROPERTIES_FILE_OPEN_TITLE, PROPERTIES_FILE_OPEN_FILTER));
-		jfc.setSelectedFile(f);
-		
-		int choice = jfc.showSaveDialog(WidgetBuildController.getInstance().getFrame());
-		File chosenFile = jfc.getSelectedFile();
-		if(chosenFile != null && choice == JFileChooser.APPROVE_OPTION)
+		if(PathUtility.isWindows())
 		{
-			PathUtility.writeProperties(chosenFile.getAbsolutePath(), props);
+			new VideoBookMarksDialog(keepsFileLocation, this, WidgetBuildController.getInstance().getFrame(), props);
+		}
+		else //TODO linux / alternate option
+		{
+			JFileChooser jfc = new JFileChooser();
+			File f = new File(keepsFileLocation.getFullPath());
+			jfc.setFileFilter(new FileNameExtensionFilter(PROPERTIES_FILE_OPEN_TITLE, PROPERTIES_FILE_OPEN_FILTER));
+			jfc.setSelectedFile(f);
+			
+			int choice = jfc.showSaveDialog(WidgetBuildController.getInstance().getFrame());
+			File chosenFile = jfc.getSelectedFile();
+			if(chosenFile != null && choice == JFileChooser.APPROVE_OPTION)
+			{
+				PathUtility.writeProperties(chosenFile.getAbsolutePath(), props);
+			}
 		}
 	}
 	
@@ -674,6 +680,12 @@ PostWidgetBuildProcessing, OpenKeepsSubscriber
 		
 		LoggingMessages.printOut(cbls.size() + "");
 		
+	}
+
+	@Override
+	public void saveKeeps(File saveFile, String [] [] props) 
+	{
+		PathUtility.writeProperties(saveFile.getAbsolutePath(), props);
 	}
 
 }

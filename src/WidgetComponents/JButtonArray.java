@@ -34,7 +34,6 @@ import Properties.LoggingMessages;
 import Properties.PathUtility;
 import WidgetComponentInterfaces.ButtonArray;
 import WidgetComponentInterfaces.CharacterLimited;
-import WidgetComponentInterfaces.OpenKeepsSubscriber;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetExtensions.CloseActionExtension;
 import WidgetExtensions.CloseAllActionExtension;
@@ -58,7 +57,7 @@ import WidgetUtility.WidgetBuildController;
 public class JButtonArray extends JPanel implements ArrayActionListener, CharacterLimited, 
 SaveActionExtension, OpenActionExtension, CloseActionExtension, CloseAllActionExtension, MinimizeActionExtension, RestoreActionExtension, ShiftFramesExtension,
 ComboListDialogSelectedListener, MouseAdapterArrayExtension, 
-PostWidgetBuildProcessing, ButtonArray, OpenKeepsSubscriber
+PostWidgetBuildProcessing, ButtonArray
 {
 	private static final long serialVersionUID = 1883L;
 	
@@ -673,6 +672,22 @@ PostWidgetBuildProcessing, ButtonArray, OpenKeepsSubscriber
 		if(shiftDialog == null || !shiftDialog.isVisible())
 		{
 			shiftDialog = new ShiftDialog(this, getKeepSelection());
+		}
+	}
+
+	@Override
+	public void saveKeeps(File saveFile, String [] [] props) 
+	{
+		int indexPos = NavigationButtonActionListener.getCurPosition();
+		for(MouseListener ml : collectionJButtons.get(SwappableCollection.indexPaths.get(indexPos)).get(0).getMouseListeners())
+		{
+			if(ml instanceof ImageMouseAdapter)
+			{
+				ImageMouseAdapter iml = ((ImageMouseAdapter) ml);
+				iml.setSaveFile(saveFile.getAbsolutePath());
+				iml.getSaveSelections();
+				break;
+			}
 		}
 	}
 

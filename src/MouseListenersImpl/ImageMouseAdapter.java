@@ -27,15 +27,19 @@ import javax.swing.JPopupMenu;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Graphics2D.GraphicsUtil;
+import ObjectTypeConversion.DirectorySelection;
 import Params.KeepSelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
 import WidgetComponentInterfaces.ButtonArray;
+import WidgetComponentInterfaces.OpenAndSaveKeepsSubscriber;
 import WidgetComponents.ComboSelectionDialog;
 import WidgetComponents.JButtonArray;
 import WidgetComponents.JButtonLengthLimited;
+import WidgetComponents.VideoBookMarksDialog;
 import WidgetExtensions.ComboListDialogSelectedListener;
 import WidgetExtensions.ExtendedAttributeParam;
+import WidgetUtility.WidgetBuildController;
 
 public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSelectedListener
 {
@@ -44,7 +48,9 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 	private static final String 
 		DIALOG_SELECT_CHILD_COMPONENTS_TITLE = "Save Selection",
 		DIALOG_SELECT_CHILD_COMPONENTS_MESSAGE = "Select Which to Save: ",
-		PROPERTIES_FILE_LOCATION = PathUtility.getCurrentDirectory() + "/Properties/data/",
+//		PROPERTIES_FILE_RELATIVE_LOCATION = "/Properties/data/",
+		BOOKMARKS_FILE_RELATIVE_LOCATION = "/Properties/VideoLaunchBookmarks/",
+//		PROPERTIES_FILE_LOCATION = PathUtility.getCurrentDirectory() + BOOKMARKS_FILE_RELATIVE_LOCATION,
 		PROPERTIES_FILE_SAVE_TITLE = "Save Properties",
 		PROPERTIES_FILE_SAVE_FILTER = "txt",
 		PROPERTIES_FILE_EXTENSION = ".txt",
@@ -58,7 +64,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 	private ArrayList<JFrame> frames = new ArrayList<JFrame>();
 	private JFrame parentFrame;
 	private List<String> saveChosenSelection = null;
-	private String saveFilePathChosen = null;
+	private static String saveFilePathChosen = null;
 	private String path;
 	private boolean 
 		keepFrame = false,
@@ -318,57 +324,94 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		if(keeps.isEmpty())
 			return;
 		
-		JFileChooser jfc = new JFileChooser();
-		jfc.setDialogType(JFileChooser.SAVE_DIALOG);
-		File f = new File(PROPERTIES_FILE_LOCATION);
-		jfc.setFileFilter(new FileNameExtensionFilter(PROPERTIES_FILE_SAVE_TITLE, PROPERTIES_FILE_SAVE_FILTER));
-		jfc.setSelectedFile(f);
-		GraphicsUtil.rightEdgeTopWindow(parentFrame, jfc);
-		int choice = jfc.showSaveDialog(parentFrame);
-		File chosenFile = jfc.getSelectedFile();
-		if(chosenFile != null && choice == JFileChooser.APPROVE_OPTION)
+		saveDialog();
+	}
+	
+	public void setSaveFile(String saveFilePath)
+	{
+		LoggingMessages.printOut("Save file: " + saveFilePath);
+		saveFilePathChosen = saveFilePath;
+	}
+	
+	private void saveDialog()
+	{
+		if(PathUtility.isWindows())
 		{
-			saveFilePathChosen = chosenFile.getAbsolutePath();
-			if(!saveFilePathChosen.endsWith(PROPERTIES_FILE_EXTENSION))
-			{
-				saveFilePathChosen += PROPERTIES_FILE_EXTENSION;
-			}
-			ComboSelectionDialog csd = new ComboSelectionDialog();
-			csd.buildAndShow(KeepSelection.getTextOnlyConversion(keeps), 
-					DIALOG_SELECT_CHILD_COMPONENTS_TITLE,
-					DIALOG_SELECT_CHILD_COMPONENTS_MESSAGE,
-					ImageMouseAdapter.this, parentFrame);
+			DirectorySelection ds = new DirectorySelection(BOOKMARKS_FILE_RELATIVE_LOCATION);
+			new VideoBookMarksDialog(ds, 
+					(OpenAndSaveKeepsSubscriber)ba,
+					WidgetBuildController.getInstance().getFrame(),
+					getProperties());
 		}
-		
+		else
+		{
+			JFileChooser jfc = new JFileChooser();
+			jfc.setDialogType(JFileChooser.SAVE_DIALOG);
+			File f = new File(BOOKMARKS_FILE_RELATIVE_LOCATION);
+			jfc.setFileFilter(new FileNameExtensionFilter(PROPERTIES_FILE_SAVE_TITLE, PROPERTIES_FILE_SAVE_FILTER));
+			jfc.setSelectedFile(f);
+			GraphicsUtil.rightEdgeTopWindow(parentFrame, jfc);
+			int choice = jfc.showSaveDialog(parentFrame);
+			File chosenFile = jfc.getSelectedFile();
+			if(chosenFile != null && choice == JFileChooser.APPROVE_OPTION)
+			{
+				saveFilePathChosen = chosenFile.getAbsolutePath();
+				if(!saveFilePathChosen.endsWith(PROPERTIES_FILE_EXTENSION))
+				{
+					saveFilePathChosen += PROPERTIES_FILE_EXTENSION;
+				}
+				getSaveSelections();
+			}
+		}
+	}
+	
+	public void getSaveSelections()
+	{
+		ComboSelectionDialog csd = new ComboSelectionDialog();
+		csd.buildAndShow(KeepSelection.getTextOnlyConversion(keeps), 
+				DIALOG_SELECT_CHILD_COMPONENTS_TITLE,
+				DIALOG_SELECT_CHILD_COMPONENTS_MESSAGE,
+				ImageMouseAdapter.this, parentFrame);
 	}
 	
 	private void performAfterSelectionEventSave()
 	{
 		if(saveChosenSelection != null)
 		{
-			int minusCount = 0;
-			String [][] properties = new String [saveChosenSelection.size()][2];
-			for(int i = 0; i < keeps.size(); i++)
-			{
-				KeepSelection ks = keeps.get(i);
-				if(saveChosenSelection.contains(ks.getText()))//TODO better ID / key system?
-				{
-					String [] props = new String [] {
-							ks.getText() + FILE_ARG_DELIMITER+ks.getLocationPoint().x + 
-								FILE_ARG_DELIMITER + ks.getLocationPoint().y,
-							ks.getPath()
-					};
-					properties[i+minusCount] = props;
-				}
-				else
-				{
-					minusCount--;
-				}
-			}
+			String [] [] properties = getProperties();
 			PathUtility.writeProperties(saveFilePathChosen, properties);
 		}
-		saveChosenSelection.clear();;//reset.
+		saveChosenSelection.clear();//reset.
 		saveFilePathChosen = "";
+	}
+	
+	private String [] [] getProperties()
+	{
+		if(saveChosenSelection == null || saveChosenSelection.isEmpty())
+		{
+			saveChosenSelection = new ArrayList<String>();
+			saveChosenSelection.addAll(KeepSelection.getTextOnlyConversion(keeps));
+		}
+		int minusCount = 0;
+		String [][] properties = new String [saveChosenSelection.size()][2];
+		for(int i = 0; i < keeps.size(); i++)
+		{
+			KeepSelection ks = keeps.get(i);
+			if(saveChosenSelection.contains(ks.getText()))//TODO better ID / key system?
+			{
+				String [] props = new String [] {
+						ks.getText() + FILE_ARG_DELIMITER+ks.getLocationPoint().x + 
+							FILE_ARG_DELIMITER + ks.getLocationPoint().y,
+						ks.getPath()
+				};
+				properties[i+minusCount] = props;
+			}
+			else
+			{
+				minusCount--;
+			}
+		}
+		return properties;
 	}
 	
 	@Override

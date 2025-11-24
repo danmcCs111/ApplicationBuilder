@@ -3,6 +3,7 @@ package WidgetComponents;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,10 +15,12 @@ import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
 import javax.swing.event.ListSelectionEvent;
@@ -28,20 +31,24 @@ import Graphics2D.GraphicsUtil;
 import ObjectTypeConversion.DirectorySelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
-import WidgetComponentInterfaces.OpenKeepsSubscriber;
+import WidgetComponentInterfaces.OpenAndSaveKeepsSubscriber;
 
 public class VideoBookMarksDialog extends JDialog 
 {
 	private static final long serialVersionUID = 1L;
 	
 	private static String 
-		TITLE = "Select Video Bookmark",
+		OPEN_TITLE = "Open Video Bookmark",
+		SAVE_TITLE = "Save Video Bookmark",
 		OPEN_BUTTON_LABEL = "Open",
+		SAVE_BUTTON_LABEL = "Save",
+		SAVE_FIELD_LABEL = "Filename: ",
 		CANCEL_BUTTON_LABEL = "Cancel";
 	private static Dimension 
 		MIN_DIMENSION_DIALOG = new Dimension(400, 325);
 	private static int
-		LIST_WIDTH = 100;
+		LIST_WIDTH = 100,
+		SAVE_FILE_COLUMN_LENGTH = 15;
 	
 	private static final String
 		PROPERTIES_FILE_ARG_DELIMITER = "@",
@@ -52,23 +59,38 @@ public class VideoBookMarksDialog extends JDialog
 	
 	private JList<String> fileList;
 	private JTextArea titlesList;
+	private JTextField saveField;
+	private JLabel saveLabel;
 	private JPanel 
 		innerPanel,
 		openCancelPanel = new JPanel(),
 		openCancelPanelOuter = new JPanel();
 	private JButton 
-		applyButton = new JButton(OPEN_BUTTON_LABEL),
-		cancelButton = new JButton(CANCEL_BUTTON_LABEL);
+		applyButton,
+		cancelButton;
 	
 	private DirectorySelection chosenFileDirectory;
-	private OpenKeepsSubscriber openKeepsSubscriber;
+	private OpenAndSaveKeepsSubscriber openKeepsSubscriber;
 	private Container refContainer;
+	private boolean save = false;
+	private String [] [] props = null;
 	
-	public VideoBookMarksDialog(DirectorySelection chosenFileDirectory, OpenKeepsSubscriber openKeepsSubscriber, Container refContainer)
+	
+	public VideoBookMarksDialog(DirectorySelection chosenFileDirectory, OpenAndSaveKeepsSubscriber openKeepsSubscriber, Container refContainer)
+	{
+		this(chosenFileDirectory, openKeepsSubscriber, refContainer, null);
+	}
+	
+	public VideoBookMarksDialog(DirectorySelection chosenFileDirectory, OpenAndSaveKeepsSubscriber openKeepsSubscriber, Container refContainer, String [] [] props)
 	{
 		this.chosenFileDirectory = chosenFileDirectory;
 		this.openKeepsSubscriber = openKeepsSubscriber;
 		this.refContainer = refContainer;
+		this.props = props;
+		if(props != null)
+		{
+			this.save = true;
+		}
 		setupFileNameAndTitles(chosenFileDirectory);
 		buildWidgets();
 	}
@@ -78,12 +100,28 @@ public class VideoBookMarksDialog extends JDialog
 		return new File(chosenFileDirectory.getFullPath().strip() + fileList.getSelectedValue());
 	}
 	
+	public File getFileNameTyped()
+	{
+		String txt = saveField.getText();
+		if(txt.isBlank())
+			return null;
+		
+		if(!txt.endsWith(PROPERTIES_FILE_FILTER))
+		{
+			txt += PROPERTIES_FILE_FILTER;
+		}
+		return new File(chosenFileDirectory.getFullPath().strip() + txt);
+	}
+	
 	private void buildWidgets()
 	{
-		this.setTitle(TITLE);
+		this.setTitle(save ? SAVE_TITLE : OPEN_TITLE);
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setMinimumSize(MIN_DIMENSION_DIALOG);
 		this.setLayout(new BorderLayout());
+		
+		applyButton = new JButton(save ? SAVE_BUTTON_LABEL : OPEN_BUTTON_LABEL);
+		cancelButton = new JButton(CANCEL_BUTTON_LABEL);
 		
 		titlesList = new JTextArea();
 		titlesList.setEditable(false);
@@ -117,6 +155,18 @@ public class VideoBookMarksDialog extends JDialog
 		innerPanel.setLayout(new BorderLayout());
 		innerPanel.add(fileList, BorderLayout.WEST);
 		innerPanel.add(scrollPane, BorderLayout.CENTER);
+		if(save)
+		{
+			saveLabel = new JLabel();
+			saveLabel.setText(SAVE_FIELD_LABEL);
+			saveField = new JTextField();
+			saveField.setColumns(SAVE_FILE_COLUMN_LENGTH);
+			JPanel saveFilePanel = new JPanel();
+			saveFilePanel.setLayout(new FlowLayout());
+			saveFilePanel.add(saveLabel);
+			saveFilePanel.add(saveField);
+			innerPanel.add(saveFilePanel, BorderLayout.SOUTH);
+		}
 		
 		this.add(innerPanel, BorderLayout.CENTER);
 		
@@ -131,7 +181,13 @@ public class VideoBookMarksDialog extends JDialog
 	
 	private void updateTextArea()
 	{
-		String [] selectedTitles = filenameAndTitles.get(fileList.getSelectedValue());
+		String select = fileList.getSelectedValue();
+		if(save)
+		{
+			saveField.setText(select);
+		}
+		
+		String [] selectedTitles = filenameAndTitles.get(select);
 		titlesList.setText("");
 		String text = "";
 		for(String t : selectedTitles)
@@ -169,8 +225,16 @@ public class VideoBookMarksDialog extends JDialog
 		applyButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				openKeepsSubscriber.openKeeps(PathUtility.readProperties(getFileSelection().getAbsolutePath(), PROPERTIES_FILE_DELIMITER));
-				VideoBookMarksDialog.this.dispose();
+				if(!save)
+				{
+					openKeepsSubscriber.openKeeps(PathUtility.readProperties(getFileSelection().getAbsolutePath(), PROPERTIES_FILE_DELIMITER));
+					VideoBookMarksDialog.this.dispose();
+				}
+				else
+				{
+					openKeepsSubscriber.saveKeeps(getFileNameTyped(), props);
+					VideoBookMarksDialog.this.dispose();
+				}
 			}
 		});
 		openCancelPanel.add(applyButton);

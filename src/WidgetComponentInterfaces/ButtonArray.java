@@ -13,7 +13,7 @@ import javax.swing.AbstractButton;
 import Graphics2D.GraphicsUtil;
 import ObjectTypeConversion.FileSelection;
 
-public interface ButtonArray 
+public interface ButtonArray extends OpenAndSaveKeepsSubscriber
 {
 	public void addJButtons(String path, List<String> listOf, int index);
 	
