@@ -1,3 +1,9 @@
+new save/open dialogs. java swing filechooser left as an option. fixed path settings for linux save/open dialogs.
+
+
+<img width="1887" height="699" alt="linux-new-dialogs" src="https://github.com/user-attachments/assets/55abd7d6-77e0-4dd6-8df5-54806d99f79d" />
+
+
 added Frame shift
 
 <img width="1660" height="1069" alt="shift-add" src="https://github.com/user-attachments/assets/5cd41638-f1b0-4189-aac6-a5b7630f5863" />
