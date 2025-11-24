@@ -84,6 +84,11 @@ PostWidgetBuildProcessing, ButtonArray
 		DEFAULT_IMG = "./Properties/shapes/Default-Play-Image.xml";
 	public static File 
 		MOVIE_IMAGE_FILE_LOCATION = new File(PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/film-movies-icon.png");
+	private static boolean
+		SHOW_JAVA_SWING_FILE_CHOOSER = false;
+	static {
+		setJavaSwingFileChooser(SHOW_JAVA_SWING_FILE_CHOOSER);
+	}
 	
 	private DirectorySelection keepsFileLocation;
 	public Color []
@@ -126,6 +131,11 @@ PostWidgetBuildProcessing, ButtonArray
 		ColorTemplate.setPanelBackgroundColor(c);
 	}
 
+	public static void setJavaSwingFileChooser(boolean isSwingFileChooser)
+	{
+		SHOW_JAVA_SWING_FILE_CHOOSER = isSwingFileChooser;
+		ImageMouseAdapter.setJavaSwingFileChooser(SHOW_JAVA_SWING_FILE_CHOOSER);
+	}
 	
 	public String getDefaultImagePath()
 	{
@@ -458,7 +468,27 @@ PostWidgetBuildProcessing, ButtonArray
 	@Override
 	public void performOpen()
 	{
-		performPropertiesOpen();
+		if(!SHOW_JAVA_SWING_FILE_CHOOSER)
+		{
+			new VideoBookMarksDialog(keepsFileLocation, this, WidgetBuildController.getInstance().getFrame());
+		}
+		else
+		{
+			HashMap<String, String> props = null;
+			
+			JFileChooser jfc = new JFileChooser();
+			File f = new File(keepsFileLocation.getFullPath());
+			jfc.setFileFilter(new FileNameExtensionFilter(PROPERTIES_FILE_OPEN_TITLE, PROPERTIES_FILE_OPEN_FILTER));
+			jfc.setSelectedFile(f);
+			
+			int choice = jfc.showOpenDialog(this);
+			File chosenFile = jfc.getSelectedFile();
+			if(chosenFile != null && choice == JFileChooser.APPROVE_OPTION)
+			{
+				props = PathUtility.readProperties(chosenFile.getAbsolutePath(), PROPERTIES_FILE_DELIMITER);
+				openKeeps(props);
+			}
+		}
 	}
 	
 	@Override
@@ -491,31 +521,6 @@ PostWidgetBuildProcessing, ButtonArray
 						}
 					}
 				}
-			}
-		}
-	}
-	
-	private void performPropertiesOpen()
-	{
-		if(PathUtility.isWindows())
-		{
-			new VideoBookMarksDialog(keepsFileLocation, this, WidgetBuildController.getInstance().getFrame());
-		}
-		else //linux / alternate
-		{
-			HashMap<String, String> props = null;
-			
-			JFileChooser jfc = new JFileChooser();
-			File f = new File(keepsFileLocation.getFullPath());
-			jfc.setFileFilter(new FileNameExtensionFilter(PROPERTIES_FILE_OPEN_TITLE, PROPERTIES_FILE_OPEN_FILTER));
-			jfc.setSelectedFile(f);
-			
-			int choice = jfc.showOpenDialog(this);
-			File chosenFile = jfc.getSelectedFile();
-			if(chosenFile != null && choice == JFileChooser.APPROVE_OPTION)
-			{
-				props = PathUtility.readProperties(chosenFile.getAbsolutePath(), PROPERTIES_FILE_DELIMITER);
-				openKeeps(props);
 			}
 		}
 	}

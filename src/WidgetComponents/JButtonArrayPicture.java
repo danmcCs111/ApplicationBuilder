@@ -73,7 +73,10 @@ PostWidgetBuildProcessing
 		DEFAULT_PIC = new Dimension(279, 150),
 		SCALED_DEFAULT_PIC = new Dimension(140, 75),
 		SCALED_WIDTH_HEIGHT = new Dimension(140, 200);
-	private static DirectorySelection keepsFileLocation;
+	private static DirectorySelection 
+		keepsFileLocation;
+	private static boolean
+		SHOW_JAVA_SWING_FILE_CHOOSER = false;
 	
 	private String fileLocation;
 	private Image img;
@@ -96,6 +99,11 @@ PostWidgetBuildProcessing
 	public JButtonArrayPicture()
 	{
 		
+	}
+	
+	private void buildWidgets()
+	{
+		this.setLayout(new GridLayout(0, this.columns));
 	}
 	
 	public static void setDeleteForegroundColor(Color c)
@@ -121,9 +129,9 @@ PostWidgetBuildProcessing
 		ColorTemplate.setPanelBackgroundColor(c);
 	}
 	
-	private void buildWidgets()
+	public static void setJavaSwingFileChooser(boolean isSwingFileChooser)
 	{
-		this.setLayout(new GridLayout(0, this.columns));
+		SHOW_JAVA_SWING_FILE_CHOOSER = isSwingFileChooser;
 	}
 	
 	public void setSaveIncPoint(Point saveIncPoint)
@@ -518,7 +526,7 @@ PostWidgetBuildProcessing
 	}
 	private void performPropertiesOpen()
 	{
-		if(PathUtility.isWindows())
+		if(!SHOW_JAVA_SWING_FILE_CHOOSER)
 		{
 			new VideoBookMarksDialog(keepsFileLocation, this, WidgetBuildController.getInstance().getFrame());
 		}
@@ -542,11 +550,11 @@ PostWidgetBuildProcessing
 	
 	private void performPropertiesSave(String [] [] props)
 	{
-		if(PathUtility.isWindows())
+		if(!SHOW_JAVA_SWING_FILE_CHOOSER)
 		{
 			new VideoBookMarksDialog(keepsFileLocation, this, WidgetBuildController.getInstance().getFrame(), props);
 		}
-		else //TODO linux / alternate option
+		else
 		{
 			JFileChooser jfc = new JFileChooser();
 			File f = new File(keepsFileLocation.getFullPath());

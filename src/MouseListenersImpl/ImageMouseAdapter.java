@@ -55,6 +55,8 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		KEEP_MENU_OPTION_TEXT = "keep",
 		KEEP_TITLE = "[Click Image]",
 		FILE_ARG_DELIMITER="@";
+	private static boolean
+		SHOW_JAVA_SWING_FILE_CHOOSER = false;
 	
 	private static final ArrayList<KeepSelection> keeps = new ArrayList<KeepSelection>();//The whole app
 	private ArrayList<KeepSelection> keepsCurrentCollection = new ArrayList<KeepSelection>();//instance
@@ -83,6 +85,11 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 			ba = (ButtonArray) ExtendedAttributeParam.findComponentWithInterface(ButtonArray.class);
 		}
 		return ba;
+	}
+	
+	public static void setJavaSwingFileChooser(boolean isSwingFileChooser)
+	{
+		SHOW_JAVA_SWING_FILE_CHOOSER = isSwingFileChooser;
 	}
 	
 	public void setSingleClick(boolean singleClick)
@@ -333,7 +340,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 	
 	private void saveDialog()
 	{
-		if(PathUtility.isWindows())
+		if(!SHOW_JAVA_SWING_FILE_CHOOSER)
 		{
 			DirectorySelection ds = new DirectorySelection(BOOKMARKS_FILE_RELATIVE_LOCATION);
 			new VideoBookMarksDialog(ds, 
@@ -341,7 +348,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 					WidgetBuildController.getInstance().getFrame(),
 					getProperties());
 		}
-		else //TODO linux / alternate option
+		else
 		{
 			JFileChooser jfc = new JFileChooser();
 			jfc.setDialogType(JFileChooser.SAVE_DIALOG);
