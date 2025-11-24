@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -96,6 +98,16 @@ public class VideoBookMarksDialog extends JDialog
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				updateTextArea();
+			}
+		});
+		fileList.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER)
+				{
+					openKeepsSubscriber.openKeeps(PathUtility.readProperties(getFileSelection().getAbsolutePath(), PROPERTIES_FILE_DELIMITER));
+					VideoBookMarksDialog.this.dispose();
+				}
 			}
 		});
 		
