@@ -43,6 +43,7 @@ public class ShiftDialog extends JDialog
 		SLIDER_SETTING_LABEL = "Slider (x, y)",
 		SLIDER_TOOLTIP_TEXT = "Max Pixel adjustment in - And + directions",
 		APPLY_BUTTON_LABEL = "Apply",
+		APPLY_AND_CLOSE_BUTTON_LABEL = "Apply And Close",
 		CANCEL_BUTTON_LABEL = "Cancel";
 	private static Dimension 
 		MIN_DIMENSION_DIALOG = new Dimension(600, 325);
@@ -53,6 +54,7 @@ public class ShiftDialog extends JDialog
 	
 	private JButton 
 		applyButton = new JButton(APPLY_BUTTON_LABEL),
+		applyAndCloseButton = new JButton(APPLY_AND_CLOSE_BUTTON_LABEL),
 		cancelButton = new JButton(CANCEL_BUTTON_LABEL);
 	private JPanel keepPanel = new JPanel();
 	private JPanel 
@@ -77,7 +79,9 @@ public class ShiftDialog extends JDialog
 	private JList<String> keepList;
 	
 	private ArrayList<KeepSelection> keeps = new ArrayList<KeepSelection>();
-	private ArrayList<Point> keepsOriginalLocations = new ArrayList<Point>();
+	private ArrayList<Point> 
+		keepsOriginalLocations = new ArrayList<Point>(),
+		keepsNewLocations = new ArrayList<Point>();
 	private Point 
 		shiftLocationSpin = new Point(0,0),
 		shiftLocationSlide = new Point(0,0);
@@ -247,12 +251,20 @@ public class ShiftDialog extends JDialog
 		applyButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				applyAction();
+				applyActionAndUpdate();
+			}
+		});
+		saveCancelPanel.add(applyButton);
+		
+		applyAndCloseButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				applyActionAndUpdate();
 				isSave = true;
 				ShiftDialog.this.dispose();
 			}
 		});
-		saveCancelPanel.add(applyButton);
+		saveCancelPanel.add(applyAndCloseButton);
 		
 		cancelButton.addActionListener(new ActionListener() {
 			@Override
@@ -272,10 +284,11 @@ public class ShiftDialog extends JDialog
 		{
 			Point loc = ks.getFrame().getLocation();
 			keepsOriginalLocations.add(loc);
+			keepsNewLocations.add(loc);
 		}
 	}
 	
-	private void updateKeepsListFilter()
+	private void updateKeepsListFilter(boolean store)
 	{
 		int [] is = keepList.getSelectedIndices();
 		List<Integer> selected = Arrays.stream(is).boxed().collect(Collectors.toList());
@@ -286,45 +299,100 @@ public class ShiftDialog extends JDialog
 			{
 				continue;
 			}
-			updateKeep(i);
+			if(store)
+			{
+				updateAndStoreKeep(i);
+			}
+			else
+			{
+				updateKeep(i);
+			}
 		}
+	}
+	
+	private void updateKeepOriginal(int index)
+	{
+		KeepSelection ks = keeps.get(index);
+		Point p = keepsOriginalLocations.get(index);
+		int 
+			newX = p.x + shiftLocationSpin.x + shiftLocationSlide.x,
+			newY =  p.y + shiftLocationSpin.y + shiftLocationSlide.y;
+		ks.getFrame().setLocation(newX, newY);
 	}
 	private void updateKeep(int index)
 	{
 		KeepSelection ks = keeps.get(index);
-		Point p = keepsOriginalLocations.get(index);
-		ks.getFrame().setLocation(
-				p.x + shiftLocationSpin.x + shiftLocationSlide.x,
-				p.y + shiftLocationSpin.y + shiftLocationSlide.y
-		);
+		Point p = keepsNewLocations.get(index);
+		int 
+			newX = p.x + shiftLocationSpin.x + shiftLocationSlide.x,
+			newY =  p.y + shiftLocationSpin.y + shiftLocationSlide.y;
+		ks.getFrame().setLocation(newX, newY);
 	}
-	private void updateAllKeeps()
+	private void updateAndStoreKeep(int index)
 	{
+		KeepSelection ks = keeps.get(index);
+		Point p = keepsNewLocations.get(index);
+		int 
+			newX = p.x + shiftLocationSpin.x + shiftLocationSlide.x,
+			newY =  p.y + shiftLocationSpin.y + shiftLocationSlide.y;
+		ks.getFrame().setLocation(newX, newY);
+		keepsNewLocations.set(index, new Point(newX, newY));
+	}
+	private void clearAllKeeps()
+	{
+		shiftLocationSpin = new Point(0,0);
+		shiftLocationSlide = new Point(0,0);
 		for(int i = 0; i < keeps.size(); i++)
 		{
-			updateKeep(i);
+			updateKeepOriginal(i);
 		}
 	}
 	
 	private void applyAction()
+	{
+		copyShiftValues();
+		updateKeepsListFilter(false);
+	}
+	private void applyActionAndUpdate()
+	{
+		copyShiftValues();
+		updateKeepsListFilter(true);
+		
+		shiftLocationSpin = new Point(0, 0);
+		shiftLocationSlide = new Point(0, 0);
+		setSpinAndSlide(shiftLocationSpin, shiftLocationSlide);
+	}
+	
+	private void setSpinAndSlide(Point spinPoint, Point slidePoint)
+	{
+		int 
+			spinX = (int) spinPoint.getX(),
+			spinY = (int) spinPoint.getY(),
+			slideX = (int) slidePoint.getX(),
+			slideY = (int) slidePoint.getY();
+		
+		xShift.setValue(spinX);
+		yShift.setValue(spinY);
+		
+		shiftSliderX.setValue(slideX);
+		shiftSliderY.setValue(slideY);
+	}
+	
+	private void copyShiftValues()
 	{
 		int 
 			spinX = (int)xShift.getValue(),
 			spinY = (int)yShift.getValue(),
 			slideX = shiftSliderX.getValue(),
 			slideY = shiftSliderY.getValue();
-		
+	
 		shiftLocationSpin = new Point(spinX, spinY);
 		shiftLocationSlide = new Point(slideX, slideY);
-		updateKeepsListFilter();
 	}
 	
 	private void cancelAction()
 	{
-		//TODO
-		shiftLocationSpin = new Point(0,0);
-		shiftLocationSlide = new Point(0,0);
-		updateAllKeeps();
+		clearAllKeeps();
 		this.dispose();
 	}
 }
