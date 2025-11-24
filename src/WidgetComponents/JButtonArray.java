@@ -678,6 +678,9 @@ PostWidgetBuildProcessing, ButtonArray
 	@Override
 	public void saveKeeps(File saveFile, String [] [] props) 
 	{
+		if(saveFile == null)
+			return;
+		
 		int indexPos = NavigationButtonActionListener.getCurPosition();
 		for(MouseListener ml : collectionJButtons.get(SwappableCollection.indexPaths.get(indexPos)).get(0).getMouseListeners())
 		{

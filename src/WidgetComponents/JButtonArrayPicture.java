@@ -643,10 +643,10 @@ PostWidgetBuildProcessing
 	@Override
 	public void openKeeps(HashMap<String, String> props) 
 	{
-		ArrayList<JCheckBoxLimited> cbls = new ArrayList<JCheckBoxLimited>();
 		if(props == null)
 			return;
 		
+		ArrayList<JCheckBoxLimited> cbls = new ArrayList<JCheckBoxLimited>();
 		for(String key : props.keySet())
 		{
 			String val = props.get(key);
@@ -685,6 +685,9 @@ PostWidgetBuildProcessing
 	@Override
 	public void saveKeeps(File saveFile, String [] [] props) 
 	{
+		if(saveFile == null)
+			return;
+		
 		PathUtility.writeProperties(saveFile.getAbsolutePath(), props);
 	}
 

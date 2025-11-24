@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -118,6 +120,12 @@ public class VideoBookMarksDialog extends JDialog
 		this.setTitle(save ? SAVE_TITLE : OPEN_TITLE);
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setMinimumSize(MIN_DIMENSION_DIALOG);
+		this.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent e) {
+				performSelect(true);
+			}
+		});
 		this.setLayout(new BorderLayout());
 		
 		applyButton = new JButton(save ? SAVE_BUTTON_LABEL : OPEN_BUTTON_LABEL);
@@ -143,8 +151,7 @@ public class VideoBookMarksDialog extends JDialog
 			public void keyReleased(KeyEvent e) {
 				if(e.getKeyCode() == KeyEvent.VK_ENTER)
 				{
-					openKeepsSubscriber.openKeeps(PathUtility.readProperties(getFileSelection().getAbsolutePath(), PROPERTIES_FILE_DELIMITER));
-					VideoBookMarksDialog.this.dispose();
+					performSelect(false);
 				}
 			}
 		});
@@ -225,16 +232,7 @@ public class VideoBookMarksDialog extends JDialog
 		applyButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(!save)
-				{
-					openKeepsSubscriber.openKeeps(PathUtility.readProperties(getFileSelection().getAbsolutePath(), PROPERTIES_FILE_DELIMITER));
-					VideoBookMarksDialog.this.dispose();
-				}
-				else
-				{
-					openKeepsSubscriber.saveKeeps(getFileNameTyped(), props);
-					VideoBookMarksDialog.this.dispose();
-				}
+					performSelect(false);
 			}
 		});
 		openCancelPanel.add(applyButton);
@@ -242,8 +240,7 @@ public class VideoBookMarksDialog extends JDialog
 		cancelButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				openKeepsSubscriber.openKeeps(null);
-				VideoBookMarksDialog.this.dispose();
+				performSelect(true);
 			}
 		});
 		openCancelPanel.add(cancelButton);
@@ -251,5 +248,32 @@ public class VideoBookMarksDialog extends JDialog
 		openCancelPanelOuter.add(openCancelPanel, BorderLayout.EAST);
 		this.add(openCancelPanelOuter, BorderLayout.SOUTH);
 	}
-
+	
+	private void performSelect(boolean cancel)
+	{
+		if(!save)
+		{
+			if(cancel)
+			{
+				openKeepsSubscriber.openKeeps(null);
+			}
+			else
+			{
+				openKeepsSubscriber.openKeeps(PathUtility.readProperties(getFileSelection().getAbsolutePath(), PROPERTIES_FILE_DELIMITER));
+			}
+			VideoBookMarksDialog.this.dispose();
+		}
+		else
+		{
+			if(cancel)
+			{
+				openKeepsSubscriber.saveKeeps(null, null);
+			}
+			else
+			{
+				openKeepsSubscriber.saveKeeps(getFileNameTyped(), props);
+			}
+			VideoBookMarksDialog.this.dispose();
+		}
+	}
 }
