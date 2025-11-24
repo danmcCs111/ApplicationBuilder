@@ -43,6 +43,13 @@ public class DirectorySelection
 	
 	public String getFullPath()
 	{
-		return PathUtility.getCurrentDirectory() + this.relativePath.substring(1, this.relativePath.length());
+		if(PathUtility.isWindows())
+		{
+			return PathUtility.getCurrentDirectory() + this.relativePath.substring(1, this.relativePath.length());
+		}
+		else
+		{
+			return PathUtility.getCurrentDirectory() + this.linuxPath.substring(1, this.linuxPath.length());
+		}
 	}
 }

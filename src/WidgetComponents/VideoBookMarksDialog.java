@@ -70,7 +70,7 @@ public class VideoBookMarksDialog extends JDialog
 	
 	public File getFileSelection()
 	{
-		return new File(chosenFileDirectory.getPathLinux().strip() + fileList.getSelectedValue());
+		return new File(chosenFileDirectory.getFullPath().strip() + fileList.getSelectedValue());
 	}
 	
 	private void buildWidgets()
@@ -124,11 +124,11 @@ public class VideoBookMarksDialog extends JDialog
 	
 	private void setupFileNameAndTitles(DirectorySelection chosenFileDirectory)
 	{
-		ArrayList<String> files = PathUtility.getOSFileList(chosenFileDirectory.getPathLinux(), PROPERTIES_FILE_FILTER);
+		ArrayList<String> files = PathUtility.getOSFileList(chosenFileDirectory.getFullPath(), PROPERTIES_FILE_FILTER);
 		for(String file : files)
 		{
 			HashMap <String, String> props = PathUtility.readProperties(
-					chosenFileDirectory.getPathLinux().strip() + file, PROPERTIES_FILE_DELIMITER);
+					chosenFileDirectory.getFullPath().strip() + file, PROPERTIES_FILE_DELIMITER);
 			String [] titles = new String [props.keySet().size()];
 			int i = 0;
 			for(String key : props.keySet())
