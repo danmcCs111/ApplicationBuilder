@@ -6,7 +6,8 @@ new save/open dialogs. java swing filechooser left as an option. fixed path sett
 
 added Frame shift
 
-<img width="1660" height="1069" alt="shift-add" src="https://github.com/user-attachments/assets/5cd41638-f1b0-4189-aac6-a5b7630f5863" />
+
+<img width="1590" height="1199" alt="shift-add2" src="https://github.com/user-attachments/assets/c7b8bd02-12d4-4387-8c44-b9f2992d534f" />
 
 
 Adjusted UI styling: Title UI Text, startup Locations, and color. 
