@@ -516,7 +516,10 @@ PostWidgetBuildProcessing, ButtonArray
 	@Override
 	public List<String> getSelectionValues() 
 	{
-		return KeepSelection.getTextOnlyConversion(getKeepSelection());
+		@SuppressWarnings("unchecked")
+		List<KeepSelection> cloned = (List<KeepSelection>) getKeepSelection().clone();
+		Collections.sort(cloned, new KeepSelection());
+		return KeepSelection.getTextOnlyConversion(cloned);
 	}
 
 	

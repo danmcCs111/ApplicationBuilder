@@ -12,6 +12,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -88,7 +89,8 @@ public class ShiftDialog extends JDialog
 		if(keeps.isEmpty()) {
 			return;
 		}
-		copyKeepLocations(keepSelections);
+		Collections.sort(keeps, new KeepSelection());
+		copyKeepLocations(keeps);
 		buildWidgets(referenceContainer);
 	}
 	

@@ -7,6 +7,7 @@ import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -21,7 +22,7 @@ import WidgetComponentInterfaces.ButtonArray;
 import WidgetComponents.JButtonArray;
 import WidgetExtensions.ShapeDrawingCollectionLoad;
 
-public class KeepSelection implements ShapeDrawingCollectionLoad
+public class KeepSelection implements ShapeDrawingCollectionLoad, Comparator<KeepSelection>
 {
 	private static final String 
 		IMAGES_RELATIVE_PATH = "/images/";
@@ -39,6 +40,11 @@ public class KeepSelection implements ShapeDrawingCollectionLoad
 		skip = true;
 	private static ShapeDrawingCollection sdc = new ShapeDrawingCollection();
 	private ButtonArray ba;
+	
+	public KeepSelection()
+	{
+		
+	}
 	
 	public KeepSelection(String path, String text, ButtonArray ba)
 	{
@@ -188,5 +194,61 @@ public class KeepSelection implements ShapeDrawingCollectionLoad
 	public void addShapeDrawingCollection(ShapeDrawingCollection sdc) 
 	{
 		//
+	}
+
+	@Override
+	public int compare(KeepSelection o1, KeepSelection o2) 
+	{
+		Point p1 = o1.getFrame().getLocation();
+		Point p2 = o2.getFrame().getLocation();
+		int 
+			tmpHeight = o1.getFrame().getSize().height,
+			tmpHeight2 = o2.getFrame().getSize().height;
+		double
+			height = tmpHeight > tmpHeight2 ? tmpHeight : tmpHeight2,
+			heightThresh = (int) (height * (1.0/3.0)),
+			heightThreshNeg = (int) (height * (1.5/3.0));
+			
+		int 
+			xDiff = p1.x - p2.x,
+			yDiff = p1.y - p2.y;
+		if(xDiff < 0)
+		{
+			if(yDiff <= 0)
+			{
+				return -1;
+			}
+			else if(yDiff >= 0)
+			{
+				if(yDiff >= heightThresh)
+				{
+					return 1;
+				}
+				else
+				{
+					return -1;
+				}
+			}
+			else
+			{
+				return -1;
+			}
+		}
+		//xDiff is > 0
+		else if(yDiff <= 0)
+		{
+			if(Math.abs(yDiff) >= heightThreshNeg)
+			{
+				return -1;
+			}
+			else
+			{
+				return 1;
+			}
+		}
+		else
+		{
+			return 1;
+		}
 	}
 }
