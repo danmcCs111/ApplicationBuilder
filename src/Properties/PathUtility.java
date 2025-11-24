@@ -75,6 +75,11 @@ public interface PathUtility
 	public static ArrayList<String> getOSFileList(String dir, String filter) 
 	{
 		ArrayList<String> files = new ArrayList<String>();
+		if(!PathUtility.isWindows())//remove ending forward slash
+		{
+			dir = dir.strip();
+			dir = dir.endsWith("/")?dir.substring(0, dir.length()-1):dir;
+		}
 		LoggingMessages.printOut(dir);
 		File [] fs = new File(dir).listFiles();
 		
