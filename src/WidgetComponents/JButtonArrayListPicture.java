@@ -46,7 +46,7 @@ import WidgetExtensions.OpenActionExtension;
 import WidgetExtensions.SaveActionExtension;
 import WidgetUtility.WidgetBuildController;
 
-public class JButtonArrayPicture extends JPanel implements ButtonArray, ArrayActionListener, CharacterLimited, 
+public class JButtonArrayListPicture extends JPanel implements ButtonArray, ArrayActionListener, CharacterLimited, 
 AddActionSend, AddActionReceive,
 OpenActionExtension, SaveActionExtension, ClearActionExtension,
 ConnectedComponentName, ButtonArrayLoadingNotifier,
@@ -96,7 +96,7 @@ PostWidgetBuildProcessing
 	private FileSelection xmlFile = new FileSelection("./Properties/shapes/reload.xml");
 	private JFrame loadingFrame;
 	
-	public JButtonArrayPicture()
+	public JButtonArrayListPicture()
 	{
 		
 	}

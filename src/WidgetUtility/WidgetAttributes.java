@@ -32,7 +32,7 @@ import ShapeWidgetComponents.ShapeCreatorToolBarPanel;
 import WidgetComponents.ApplicationLayoutEditor;
 import WidgetComponents.DatabaseResponseNodeTextArea;
 import WidgetComponents.JButtonArray;
-import WidgetComponents.JButtonArrayPicture;
+import WidgetComponents.JButtonArrayListPicture;
 import WidgetComponents.LoadingLabel;
 import WidgetComponents.MenuOption;
 import WidgetComponents.ScheduledCommandExecutionEditor;
@@ -115,7 +115,7 @@ public class WidgetAttributes
 		COMPONENT_CLASSES.add(SystemTray.class);
 		COMPONENT_CLASSES.add(SwappableCollection.class);
 		COMPONENT_CLASSES.add(JButtonArray.class);
-		COMPONENT_CLASSES.add(JButtonArrayPicture.class);
+		COMPONENT_CLASSES.add(JButtonArrayListPicture.class);
 		COMPONENT_CLASSES.add(MenuOption.class);
 	}
 	//TODO replace :(
@@ -240,7 +240,7 @@ public class WidgetAttributes
 				ExtendedAttributeParam.getMethodDefinition(ExtendedTextStripper.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedImageMouseAdapterArray.class, ExtendedMethodArgDef.ImageMouseAdapter.getMethodArgDef())
 		});
-		EXTENDED_METHODS.put(JButtonArrayPicture.class, new String [] {
+		EXTENDED_METHODS.put(JButtonArrayListPicture.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedTextStripper.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedConnectedComponent.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),

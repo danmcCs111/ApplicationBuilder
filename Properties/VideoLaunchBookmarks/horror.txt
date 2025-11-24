@@ -1,6 +1,5 @@
-Godzilla@100@600=./VideoLaunchFiles/YoutubeFreeMovies2/
-Godzilla (2014)@300@625=./VideoLaunchFiles/YoutubeFreeMovies2/
-The Exorcist@500@650=./VideoLaunchFiles/YoutubeFreeMovies2/
-outside@700@675=./VideoLaunchFiles/Tubi/
-sphere@900@700=./VideoLaunchFiles/Tubi/
-the-fog@1100@725=./VideoLaunchFiles/Tubi/
+Godzilla@26@550=./VideoLaunchFiles/YoutubeFreeMovies2
+Godzilla (2014)@226@575=./VideoLaunchFiles/YoutubeFreeMovies2
+The Exorcist@426@600=./VideoLaunchFiles/YoutubeFreeMovies2
+the-fog@11@896=./VideoLaunchFiles/Tubi
+sphere@230@871=./VideoLaunchFiles/Tubi
