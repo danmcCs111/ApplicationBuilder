@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
@@ -37,6 +38,8 @@ public class VideoBookMarksDialog extends JDialog
 		CANCEL_BUTTON_LABEL = "Cancel";
 	private static Dimension 
 		MIN_DIMENSION_DIALOG = new Dimension(400, 325);
+	private static int
+		LIST_WIDTH = 100;
 	
 	private static final String
 		PROPERTIES_FILE_ARG_DELIMITER = "@",
@@ -82,8 +85,12 @@ public class VideoBookMarksDialog extends JDialog
 		
 		titlesList = new JTextArea();
 		titlesList.setEditable(false);
+		JScrollPane scrollPane = new JScrollPane(titlesList);
 		String [] titles = filenameAndTitles.keySet().toArray(new String [] {});
 		fileList = new JList<String>(titles);
+		Dimension d = fileList.getPreferredSize();
+		d.width = LIST_WIDTH;
+		fileList.setPreferredSize(d);
 		fileList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);//TODO.
 		fileList.addListSelectionListener(new ListSelectionListener() {
 			@Override
@@ -97,7 +104,7 @@ public class VideoBookMarksDialog extends JDialog
 		innerPanel = new JPanel();
 		innerPanel.setLayout(new BorderLayout());
 		innerPanel.add(fileList, BorderLayout.WEST);
-		innerPanel.add(titlesList, BorderLayout.CENTER);
+		innerPanel.add(scrollPane, BorderLayout.CENTER);
 		
 		this.add(innerPanel, BorderLayout.CENTER);
 		
