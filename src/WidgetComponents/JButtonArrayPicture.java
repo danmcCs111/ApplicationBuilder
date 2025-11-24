@@ -519,7 +519,26 @@ PostWidgetBuildProcessing, OpenKeepsSubscriber
 	}
 	private void performPropertiesOpen()
 	{
-		new VideoBookMarksDialog(keepsFileLocation, this, WidgetBuildController.getInstance().getFrame());
+		if(PathUtility.isWindows())
+		{
+			new VideoBookMarksDialog(keepsFileLocation, this, WidgetBuildController.getInstance().getFrame());
+		}
+		else //linux / alternate
+		{
+			HashMap<String, String> props = null;
+			JFileChooser jfc = new JFileChooser();
+			File f = new File(keepsFileLocation.getFullPath());
+			jfc.setFileFilter(new FileNameExtensionFilter(PROPERTIES_FILE_OPEN_TITLE, PROPERTIES_FILE_OPEN_FILTER));
+			jfc.setSelectedFile(f);
+			
+			int choice = jfc.showOpenDialog(WidgetBuildController.getInstance().getFrame());
+			File chosenFile = jfc.getSelectedFile();
+			if(chosenFile != null && choice == JFileChooser.APPROVE_OPTION)
+			{
+				props = PathUtility.readProperties(chosenFile.getAbsolutePath(), PROPERTIES_FILE_DELIMITER);
+				openKeeps(props);
+			}
+		}
 	}
 	
 	private void performPropertiesSave(String [] [] props)
