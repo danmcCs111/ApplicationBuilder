@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -36,6 +35,7 @@ import ShapeWidgetComponents.ShapeElement;
 import ShapeWidgetComponents.ShapeImportExport;
 import WidgetComponentInterfaces.ButtonArray;
 import WidgetComponentInterfaces.CharacterLimited;
+import WidgetComponentInterfaces.ImageReader;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetExtensions.ButtonArrayLoadingNotifier;
 import WidgetExtensions.ClearActionExtension;
@@ -63,10 +63,10 @@ PostWidgetBuildProcessing
 		PROPERTIES_FILE_EXTENSION = "\\.txt",
 		PROPERTIES_FILE_ARG_DELIMITER = "@",
 		PROPERTIES_FILE_DELIMITER = "=";
+
+	public ImageReader 
+		imageReader = null;
 	
-	
-	private static Image
-		defaultImg;
 	public static String 
 		DEFAULT_IMG = "./Properties/shapes/Default-Play-Image.xml";
 	public static Dimension
@@ -76,10 +76,9 @@ PostWidgetBuildProcessing
 	private static DirectorySelection 
 		keepsFileLocation;
 	private static boolean
-		SHOW_JAVA_SWING_FILE_CHOOSER = false;
+		SHOW_JAVA_SWING_FILE_CHOOSER = false,
+		SHOW_TITLE_ON_POSTER = false;
 	
-	private String fileLocation;
-	private Image img;
 	private HashMap<String, ArrayList<JCheckBoxLimited>> collectionJButtons = new HashMap<String, ArrayList<JCheckBoxLimited>>();
 	private Point 
 		saveIncPoint = new Point(100, 0),
@@ -132,6 +131,11 @@ PostWidgetBuildProcessing
 	public static void setJavaSwingFileChooser(boolean isSwingFileChooser)
 	{
 		SHOW_JAVA_SWING_FILE_CHOOSER = isSwingFileChooser;
+	}
+	
+	public static void setShowTitleOnPoster(boolean showTitleOnPoster)
+	{
+		SHOW_TITLE_ON_POSTER = showTitleOnPoster;
 	}
 	
 	public void setSaveIncPoint(Point saveIncPoint)
@@ -211,17 +215,6 @@ PostWidgetBuildProcessing
 		this.columns = columns;
 	}
 	
-	public Image getImg()
-	{
-		if(img == null)
-		{
-			setupImage(new File(this.fileLocation), new File(JButtonArray.DEFAULT_IMG));
-		}
-		return img != null
-			? img
-			: defaultImg;
-	}
-	
 	private void clearJButtons()
 	{
 		this.removeAll();
@@ -248,7 +241,11 @@ PostWidgetBuildProcessing
 		{
 			for(Component comp : buildComponents(path, listOf))
 			{
-				filterTextOnComponent((JCheckBoxLimited)comp);
+				ImageIcon img = (ImageIcon) ((AbstractButton) comp).getIcon();
+				if(SHOW_TITLE_ON_POSTER || img.equals(imageReader.getDefaultImageIcon()))
+				{
+					filterTextOnComponent((JCheckBoxLimited)comp);
+				}
 				jbuts.add((JCheckBoxLimited) comp);
 				this.add(comp);
 			}
@@ -268,6 +265,19 @@ PostWidgetBuildProcessing
 		
 		JFrame f = WidgetBuildController.getInstance().getFrame();
 		f.paintComponents(f.getGraphics());
+	}
+	
+	private ImageIcon getImageIcon(String name, String path)
+	{
+		if(imageReader == null)
+		{
+			imageReader = new ImageReader(this);
+		}
+		String fileImage = PathUtility.getCurrentDirectory() +
+				PathUtility.removeCurrentWorkingDirectoryFromPath(path) +
+				IMAGES_RELATIVE_FILE_LOCATION +
+				name.replaceAll(".url", ".png");
+		return imageReader.setupImageIcon(new File(fileImage));
 	}
 	
 	private void filterTextOnComponent(JCheckBoxLimited comp)
@@ -303,18 +313,19 @@ PostWidgetBuildProcessing
 		for(String fileName: fileNames)
 		{
 			JCheckBoxLimited button = new JCheckBoxLimited();
-			String fileImage = PathUtility.getCurrentDirectory() +
-					PathUtility.removeCurrentWorkingDirectoryFromPath(path) +
-					IMAGES_RELATIVE_FILE_LOCATION +
-					fileName.replaceAll(".url", ".png");
 			
 			LoggingMessages.printOut("loading: " + count + " of " + fileCount);//TODO create notify
 			performLoadingNotify(count, fileCount);
-			LoggingMessages.printOut(fileImage);
+			LoggingMessages.printOut(fileName);
+
+			ImageIcon img = getImageIcon(fileName, path);
+			button.setIcon(img);
 			
-			Image img = setupImage(new File(fileImage), new File(DEFAULT_IMG));
-			button.setIcon(new ImageIcon(img));
-			button.setText(fileName);
+			if(SHOW_TITLE_ON_POSTER || img.equals(imageReader.getDefaultImageIcon()))
+			{
+				button.setText(fileName);
+			}
+			
 			button.setName(fileName);
 			button.setToolTipText(fileName);
 			button.setPathKey(path);

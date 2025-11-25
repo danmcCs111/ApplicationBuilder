@@ -35,9 +35,15 @@ public class JCheckBoxLimited extends JCheckBox implements Comparator<JCheckBoxL
 	}
 	
 	@Override
-	public void setText(String text)
+	public void setName(String text)
 	{
 		this.fullLengthText = text;
+		super.setName(text);
+	}
+	
+	@Override
+	public void setText(String text)
+	{
 		String t = (this.characterLimit != 0 && text.length() > this.characterLimit)
 			? text.substring(0, this.characterLimit-CHARACTER_LIMIT_TEXT.length()) + CHARACTER_LIMIT_TEXT
 			: text;
