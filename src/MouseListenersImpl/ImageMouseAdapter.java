@@ -275,13 +275,10 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 	{
 		String fullText = ((JButtonLengthLimited)component).getFullLengthText();
 		KeepSelection ks = getAllStoredKeepSelection(fullText);
-		if(f != null)
+		if(f != null && !keeps.contains(previewKeep))
 		{
 			f.dispose();
-			if(!keeps.contains(previewKeep))
-			{
-				previewKeep.destroyImages();//nop. unknown.
-			}
+			previewKeep.destroyImages();//nop. unknown.
 		}
 		previewKeep = ks;
 		f = new JFrame();
