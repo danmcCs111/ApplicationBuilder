@@ -85,9 +85,11 @@ PostWidgetBuildProcessing, ButtonArray
 	public static File 
 		MOVIE_IMAGE_FILE_LOCATION = new File(PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/film-movies-icon.png");
 	private static boolean
-		SHOW_JAVA_SWING_FILE_CHOOSER = false;
+		SHOW_JAVA_SWING_FILE_CHOOSER = false,
+		SHOW_TITLE_ON_POSTER = true;
 	static {
 		setJavaSwingFileChooser(SHOW_JAVA_SWING_FILE_CHOOSER);
+		setJavaSwingFileChooser(SHOW_TITLE_ON_POSTER);
 	}
 	
 	private DirectorySelection keepsFileLocation;
@@ -135,6 +137,12 @@ PostWidgetBuildProcessing, ButtonArray
 	{
 		SHOW_JAVA_SWING_FILE_CHOOSER = isSwingFileChooser;
 		ImageMouseAdapter.setJavaSwingFileChooser(SHOW_JAVA_SWING_FILE_CHOOSER);
+	}
+	
+	public static void setShowTitleOnPoster(boolean showTitle)
+	{
+		SHOW_TITLE_ON_POSTER = showTitle;
+		ImageMouseAdapter.setShowTitleOnPoster(SHOW_TITLE_ON_POSTER);
 	}
 	
 	public String getDefaultImagePath()

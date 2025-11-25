@@ -56,7 +56,8 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		KEEP_TITLE = "[Click Image]",
 		FILE_ARG_DELIMITER="@";
 	private static boolean
-		SHOW_JAVA_SWING_FILE_CHOOSER = false;
+		SHOW_JAVA_SWING_FILE_CHOOSER = false,
+		SHOW_TITLE_ON_POSTER = true;
 	
 	private static final ArrayList<KeepSelection> keeps = new ArrayList<KeepSelection>();//The whole app
 	private ArrayList<KeepSelection> keepsCurrentCollection = new ArrayList<KeepSelection>();//instance
@@ -91,6 +92,12 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 	{
 		SHOW_JAVA_SWING_FILE_CHOOSER = isSwingFileChooser;
 	}
+	
+	public static void setShowTitleOnPoster(boolean showTitle)
+	{
+		SHOW_TITLE_ON_POSTER = showTitle;
+	}
+	
 	
 	public void setSingleClick(boolean singleClick)
 	{
@@ -282,7 +289,10 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		
 		p.setLayout(new BorderLayout());
 		p2.setLayout(new BorderLayout());
-		l.setText(ks.getText());
+		if(SHOW_TITLE_ON_POSTER)
+		{
+			l.setText(ks.getText());
+		}
 		p2.add(l, BorderLayout.CENTER);
 		p.add(p2, BorderLayout.NORTH);
 		
@@ -302,6 +312,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 				picLabel.addMouseMotionListener(mouseDragListener);
 				picLabel.addMouseListener(mouseDragListener);
 				picLabel.setName(ks.getText());
+				picLabel.setToolTipText(ks.getText());
 				picLabel.addMouseListener(new PicLabelMouseListener(ab, picLabel, singleClick));
 				if(ba.isHighlightButton(ab))
 				{
