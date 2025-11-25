@@ -86,6 +86,11 @@ public class KeepSelection implements ShapeDrawingCollectionLoad, Comparator<Kee
 		return defaultImg;
 	}
 	
+	public void destroyImages()
+	{
+		//TODO.
+	}
+	
 	public JButtonLengthLimited getJButtonLengthLimited()
 	{
 		return ab;

@@ -57,6 +57,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 	
 	private static final ArrayList<KeepSelection> keeps = new ArrayList<KeepSelection>();//The whole app
 	private ArrayList<KeepSelection> keepsCurrentCollection = new ArrayList<KeepSelection>();//instance
+	private KeepSelection previewKeep;
 	private JFrame f;
 	private ArrayList<JFrame> frames = new ArrayList<JFrame>();
 	private JFrame parentFrame;
@@ -189,12 +190,6 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 				keep.setFrame(f);
 				for(KeepSelection k : keeps) LoggingMessages.printOut(k.toString());
 				
-				if(KeepSelection.isDefaultImg(keep.getImg()) && 
-						keep.getLocationPoint().x == 0 && keep.getLocationPoint().y == 0)
-				{
-					GraphicsUtil.rightEdgeCenterWindow(WidgetBuildController.getInstance().getFrame(), f);
-				}
-				
 				f.dispose();
 				f.setUndecorated(false);
 				f.setMinimumSize(keep.getSize());
@@ -271,7 +266,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		performFrameBuild((Component)e.getSource());
 	}
 	
-	private void performFrameBuild(Component c )
+	private void performFrameBuild(Component c)
 	{
 		performFrameBuild(c, "");
 	}
@@ -280,7 +275,15 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 	{
 		String fullText = ((JButtonLengthLimited)component).getFullLengthText();
 		KeepSelection ks = getAllStoredKeepSelection(fullText);
-		
+		if(f != null)
+		{
+			f.dispose();
+			if(!keeps.contains(previewKeep))
+			{
+				previewKeep.destroyImages();//nop. unknown.
+			}
+		}
+		previewKeep = ks;
 		f = new JFrame();
 		frames.add(f);
 		
@@ -316,8 +319,8 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 			if(!KeepSelection.isDefaultImg(useImage))//hide default image. only during keeping.
 			{
 				f.setVisible(true);
-				GraphicsUtil.rightEdgeCenterWindow(WidgetBuildController.getInstance().getFrame(), f);
 			}
+			GraphicsUtil.rightEdgeCenterWindow(WidgetBuildController.getInstance().getFrame(), f);
 		}
 	}
 	
