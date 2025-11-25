@@ -192,8 +192,7 @@ public class KeepSelection implements ShapeDrawingCollectionLoad, Comparator<Kee
 						ba.getScaledWidthHeight().height, 0);
 				if(!ba.getScaledWidthHeightPreview().equals(ba.getScaledWidthHeight()))
 				{
-					Image retImage2 = ImageIO.read(file);
-					previewImage = retImage2.getScaledInstance(
+					previewImage = retImage.getScaledInstance(
 							ba.getScaledWidthHeightPreview().width,
 							ba.getScaledWidthHeightPreview().height, 0);
 				}
