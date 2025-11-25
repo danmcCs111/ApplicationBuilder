@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import Graphics2D.GraphicsUtil;
 import Properties.LoggingMessages;
@@ -20,6 +21,7 @@ import ShapeWidgetComponents.ShapeDrawingCollection;
 import ShapeWidgetComponents.ShapeStyling;
 import WidgetComponentInterfaces.ButtonArray;
 import WidgetComponents.JButtonArray;
+import WidgetComponents.JButtonLengthLimited;
 import WidgetExtensions.ShapeDrawingCollectionLoad;
 
 public class KeepSelection implements ShapeDrawingCollectionLoad, Comparator<KeepSelection>
@@ -30,20 +32,30 @@ public class KeepSelection implements ShapeDrawingCollectionLoad, Comparator<Kee
 	private String 
 		path,
 		text;
-	String fileLocation;
+	private String fileLocation;
 	private JFrame frame;
 	private Image 
-		img;
+		img,
+		previewImage;
 	private static Image
 		defaultImg;
 	public static boolean 
 		skip = true;
 	private static ShapeDrawingCollection sdc = new ShapeDrawingCollection();
 	private ButtonArray ba;
+	private JButtonLengthLimited ab;
+	
+	private JPanel connectedPanel;
 	
 	public KeepSelection()
 	{
 		
+	}
+	
+	public KeepSelection(String path, String text, ButtonArray ba, JButtonLengthLimited ab)
+	{
+		this(path, text, ba);
+		this.ab = ab;
 	}
 	
 	public KeepSelection(String path, String text, ButtonArray ba)
@@ -59,6 +71,7 @@ public class KeepSelection implements ShapeDrawingCollectionLoad, Comparator<Kee
 		setupImage(skip, file, fileDefault);
 	}
 	
+	
 	private Image getDefaultImage(File defaultImageLocation)
 	{
 		if(defaultImg == null)
@@ -71,6 +84,21 @@ public class KeepSelection implements ShapeDrawingCollectionLoad, Comparator<Kee
 					ba.getScaledDefaultPic().height, 0);
 		}
 		return defaultImg;
+	}
+	
+	public JButtonLengthLimited getJButtonLengthLimited()
+	{
+		return ab;
+	}
+	
+	public JPanel getConnectedPanel()
+	{
+		return connectedPanel;
+	}
+	
+	public void setConnectedPanel(JPanel panel)
+	{
+		connectedPanel = panel;
 	}
 	
 	public void setFrame(JFrame frame)
@@ -109,6 +137,17 @@ public class KeepSelection implements ShapeDrawingCollectionLoad, Comparator<Kee
 			: defaultImg;
 	}
 	
+	public Image getPreviewImage()
+	{
+		if(previewImage == null)
+		{
+			setupImage(false, new File(this.fileLocation), new File(ba.getDefaultImagePath()));
+		}
+		return previewImage != null
+			? previewImage
+			: defaultImg;
+	}
+	
 	public static boolean isDefaultImg(Image img)
 	{
 		return img.equals(defaultImg);
@@ -125,29 +164,47 @@ public class KeepSelection implements ShapeDrawingCollectionLoad, Comparator<Kee
 			: ba.getScaledDefaultPic();
 	}
 	
+	public Dimension getSizePreview()
+	{
+		if(img == null)
+		{
+			getSize();
+		}
+		return img != null
+			? ba.getScaledWidthHeightPreview()
+			: ba.getScaledDefaultPic();
+	}
+	
 	public String toPngFilename()
 	{
 		return this.text + ".png";
 	}
 	
-	private Image setupImage(boolean skip, File file, File fileDefault)
+	private void setupImage(boolean skip, File file, File fileDefault)
 	{
-		Image retImage = null;
 		try {
 			if(!skip && img == null)
 			{
+				Image retImage = null;
 				retImage = ImageIO.read(file);
 				img = retImage.getScaledInstance(
 						ba.getScaledWidthHeight().width, 
 						ba.getScaledWidthHeight().height, 0);
-				retImage = null;
-				retImage = img;
+				if(!ba.getScaledWidthHeightPreview().equals(ba.getScaledWidthHeight()))
+				{
+					Image retImage2 = ImageIO.read(file);
+					previewImage = retImage2.getScaledInstance(
+							ba.getScaledWidthHeightPreview().width,
+							ba.getScaledWidthHeightPreview().height, 0);
+				}
+				else
+				{
+					previewImage = img;
+				}
 			}
 		} catch (IOException e) {
 			getDefaultImage(fileDefault);
-			retImage = defaultImg;
 		}
-		return retImage;
 	}
 	
 	@Override

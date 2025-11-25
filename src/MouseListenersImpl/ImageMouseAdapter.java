@@ -36,6 +36,7 @@ import WidgetComponents.JButtonLengthLimited;
 import WidgetComponents.VideoBookMarksDialog;
 import WidgetExtensions.ComboListDialogSelectedListener;
 import WidgetExtensions.ExtendedAttributeParam;
+import WidgetUtility.ComponentUtility;
 import WidgetUtility.WidgetBuildController;
 
 public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSelectedListener
@@ -104,7 +105,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		for(JButtonLengthLimited c : components)
 		{
 			String text = c.getFullLengthText();
-			keepsCurrentCollection.add(new KeepSelection(this.path, text, getButtonArray()));
+			keepsCurrentCollection.add(new KeepSelection(this.path, text, getButtonArray(), c));
 		}
 	}
 	
@@ -190,6 +191,11 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 				
 				f.dispose();
 				f.setUndecorated(false);
+				f.setMinimumSize(keep.getSize());
+				JPanel p = keep.getConnectedPanel();
+				Component comp = ComponentUtility.findComponentByName(p, keep.getText());
+				p.remove(comp);
+				p.add(buildPicLabel(new ImageIcon(keep.getImg()), keep), BorderLayout.CENTER);
 				f.addWindowListener(new WindowAdapter() {
 					@Override
 					public void windowClosing(WindowEvent e) {
@@ -289,41 +295,41 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		p.add(p2, BorderLayout.NORTH);
 		
 		Image useImage = null;
-		f.setMinimumSize(ks.getSize());
-		useImage = ks.getImg();
+		f.setMinimumSize(ks.getSizePreview());
+		useImage = ks.getPreviewImage();
 		
 		if(useImage != null)
 		{
-			ImageIcon ii = new ImageIcon(useImage);
-			JLabel picLabel = new JLabel(ii);
-			
-			if(component instanceof JButtonLengthLimited)//TODO
-			{
-				JButtonLengthLimited ab = (JButtonLengthLimited) component;
-				FrameMouseDragListener mouseDragListener = new FrameMouseDragListener(f, ab, picLabel);
-				picLabel.addMouseMotionListener(mouseDragListener);
-				picLabel.addMouseListener(mouseDragListener);
-				picLabel.setName(ks.getText());
-				picLabel.setToolTipText(ks.getText());
-				picLabel.addMouseListener(new PicLabelMouseListener(ab, picLabel, singleClick));
-				if(ba.isHighlightButton(ab))
-				{
-					PicLabelMouseListener.highLightLabel(ab, true);
-				}
-			}
-			
+			JLabel picLabel = buildPicLabel(new ImageIcon(useImage), ks);
+			ks.setConnectedPanel(p);
 			p.add(picLabel, BorderLayout.CENTER);
 			
 			f.add(p);
 			f.setResizable(false);
 			
-			if(!KeepSelection.isDefaultImg(useImage))//hide default image. only during keep.
+			if(!KeepSelection.isDefaultImg(useImage))//hide default image. only during keeping.
 			{
 				f.setVisible(true);
 				GraphicsUtil.rightEdgeCenterWindow(WidgetBuildController.getInstance().getFrame(), f);
 			}
 		}
-		
+	}
+	
+	private JLabel buildPicLabel(ImageIcon ii, KeepSelection ks)
+	{
+		JLabel picLabel = new JLabel(ii);
+		JButtonLengthLimited ab = ks.getJButtonLengthLimited();
+		FrameMouseDragListener mouseDragListener = new FrameMouseDragListener(f, ab, picLabel);
+		picLabel.addMouseMotionListener(mouseDragListener);
+		picLabel.addMouseListener(mouseDragListener);
+		picLabel.setName(ks.getText());
+		picLabel.setToolTipText(ks.getText());
+		picLabel.addMouseListener(new PicLabelMouseListener(ab, picLabel, singleClick));
+		if(ba.isHighlightButton(ab))
+		{
+			PicLabelMouseListener.highLightLabel(ab, true);
+		}
+		return picLabel;
 	}
 	
 	public void writeSave()

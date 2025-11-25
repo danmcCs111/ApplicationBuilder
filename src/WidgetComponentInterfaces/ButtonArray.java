@@ -20,6 +20,7 @@ public interface ButtonArray extends OpenAndSaveKeepsSubscriber
 	public Dimension getScaledDefaultPic();
 	public Dimension getDefaultPicSize();
 	public Dimension getScaledWidthHeight();
+	public Dimension getScaledWidthHeightPreview();
 	public String getDefaultImagePath();
 	
 	public void setScaledDefaultPic(Dimension scaledDefaultPicDimension);

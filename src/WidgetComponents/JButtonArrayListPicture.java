@@ -699,4 +699,10 @@ PostWidgetBuildProcessing
 		PathUtility.writeProperties(saveFile.getAbsolutePath(), props);
 	}
 
+	@Override
+	public Dimension getScaledWidthHeightPreview() 
+	{
+		return getScaledWidthHeight();
+	}
+
 }
