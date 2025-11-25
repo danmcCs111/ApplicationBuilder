@@ -189,6 +189,12 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 				keep.setFrame(f);
 				for(KeepSelection k : keeps) LoggingMessages.printOut(k.toString());
 				
+				if(KeepSelection.isDefaultImg(keep.getImg()) && 
+						keep.getLocationPoint().x == 0 && keep.getLocationPoint().y == 0)
+				{
+					GraphicsUtil.rightEdgeCenterWindow(WidgetBuildController.getInstance().getFrame(), f);
+				}
+				
 				f.dispose();
 				f.setUndecorated(false);
 				f.setMinimumSize(keep.getSize());
@@ -203,7 +209,6 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 					}
 					
 				});
-				GraphicsUtil.rightEdgeCenterWindow(WidgetBuildController.getInstance().getFrame(), f);
 				f.setIconImage(GraphicsUtil.getImageFromFile(JButtonArray.MOVIE_IMAGE_FILE_LOCATION));//TODO
 				f.removeMouseListener(ImageMouseAdapter.this);
 				f.setTitle(KEEP_TITLE);
