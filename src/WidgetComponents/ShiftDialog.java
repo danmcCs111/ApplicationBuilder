@@ -145,7 +145,7 @@ public class ShiftDialog extends JDialog
 		innerPanel.add(fillPanel, BorderLayout.SOUTH);
 		this.add(innerPanel, BorderLayout.CENTER);
 		this.add(keepPanel, BorderLayout.EAST);
-		GraphicsUtil.rightEdgeTopWindow(referenceContainer, this);
+		GraphicsUtil.centerReferenceOnlyWindow(referenceContainer, this);
 		
 		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
 		ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());

@@ -2,10 +2,7 @@ package MouseListenersImpl;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Image;
-import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -43,8 +40,6 @@ import WidgetUtility.WidgetBuildController;
 
 public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSelectedListener
 {
-	private static final Dimension //TODO
-		DIM_PAD = new Dimension(150,0);
 	private static final String 
 		DIALOG_SELECT_CHILD_COMPONENTS_TITLE = "Save Selection",
 		DIALOG_SELECT_CHILD_COMPONENTS_MESSAGE = "Select Which to Save: ",
@@ -280,9 +275,6 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		f.setTitle(title);
 		f.setUndecorated(true);
 		
-		Rectangle bounds = component.getBounds();
-		Point loc = parentFrame.getLocation();
-		
 		JLabel l = new JLabel();
 		JPanel p = new JPanel();
 		JPanel p2 = new JPanel();
@@ -324,12 +316,11 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 			
 			f.add(p);
 			f.setResizable(false);
-			f.setLocation((int)loc.getX() + (bounds.width + DIM_PAD.width), 
-					(int)loc.getY() + (bounds.height + DIM_PAD.height));
 			
 			if(!KeepSelection.isDefaultImg(useImage))//hide default image. only during keep.
 			{
 				f.setVisible(true);
+				GraphicsUtil.rightEdgeCenterWindow(WidgetBuildController.getInstance().getFrame(), f);
 			}
 		}
 		

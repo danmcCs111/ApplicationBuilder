@@ -47,6 +47,30 @@ public interface GraphicsUtil
 		comp.setLocation(new Point(loc.x + (rw), loc.y + (h * (numberOfMatchedVisible) )));
 	}
 	
+	public static void rightEdgeCenterWindow(Container referenceComponent, Container comp)
+	{
+		Point loc = referenceComponent.getLocationOnScreen();
+		
+		int 
+			rw = referenceComponent.getWidth(),
+			rh = referenceComponent.getHeight(),
+			h = comp.getHeight();
+		
+		comp.setLocation(loc.x + rw, loc.y + (rh/2 - h/2));
+	}
+	
+	public static void centerReferenceOnlyWindow(Container referenceComponent, Container comp)
+	{
+		Point loc = referenceComponent.getLocationOnScreen();
+		
+		int 
+			rw = referenceComponent.getWidth(),
+			rh = referenceComponent.getHeight(),
+			h = comp.getHeight();
+		
+		comp.setLocation(loc.x + (rw / 2), loc.y + (rh/2 - h/2));
+	}
+	
 	public static Image getImageFromXml(int width, int height, File defaultImageLocation, Color backgroundColor)
 	{
 		Image defaultImg;
