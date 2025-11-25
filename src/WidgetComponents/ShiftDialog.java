@@ -30,6 +30,7 @@ import javax.swing.event.ChangeListener;
 import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
 import Params.KeepSelection;
+import WidgetUtility.WidgetBuildController;
 
 public class ShiftDialog extends JDialog
 {
@@ -145,7 +146,7 @@ public class ShiftDialog extends JDialog
 		innerPanel.add(fillPanel, BorderLayout.SOUTH);
 		this.add(innerPanel, BorderLayout.CENTER);
 		this.add(keepPanel, BorderLayout.EAST);
-		GraphicsUtil.centerReferenceOnlyWindow(referenceContainer, this);
+		GraphicsUtil.centerReferenceOnlyWindow(WidgetBuildController.getInstance().getFrame(), this);
 		
 		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
 		ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
