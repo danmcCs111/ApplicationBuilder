@@ -53,7 +53,8 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		FILE_ARG_DELIMITER="@";
 	private static boolean
 		SHOW_JAVA_SWING_FILE_CHOOSER = false,
-		SHOW_TITLE_ON_POSTER = true;
+		SHOW_TITLE_ON_POSTER = true,
+		SHOW_PREVIEW = true;
 	
 	private static final ArrayList<KeepSelection> keeps = new ArrayList<KeepSelection>();//The whole app
 	private ArrayList<KeepSelection> keepsCurrentCollection = new ArrayList<KeepSelection>();//instance
@@ -83,6 +84,11 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 			ba = (ButtonArray) ExtendedAttributeParam.findComponentWithInterface(ButtonArray.class);
 		}
 		return ba;
+	}
+	
+	public static void setShowPreview(boolean showPreview)
+	{
+		SHOW_PREVIEW = showPreview;
 	}
 	
 	public static void setJavaSwingFileChooser(boolean isSwingFileChooser)
@@ -302,23 +308,23 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		
 		Image useImage = null;
 		f.setMinimumSize(ks.getSizePreview());
-		useImage = ks.getPreviewImage();
 		
-		if(useImage != null)
+		if(SHOW_PREVIEW)
 		{
-			JLabel picLabel = buildPicLabel(new ImageIcon(useImage), ks);
-			ks.setConnectedPanel(p);
-			p.add(picLabel, BorderLayout.CENTER);
-			
-			f.add(p);
-			f.setResizable(false);
-			
-			if(!KeepSelection.isDefaultImg(useImage))//hide default image. only during keeping.
-			{
-				f.setVisible(true);
-			}
-			GraphicsUtil.rightEdgeCenterWindow(WidgetBuildController.getInstance().getFrame(), f);
+			useImage = ks.getPreviewImage();
 		}
+		JLabel picLabel = buildPicLabel(useImage==null ?null :new ImageIcon(useImage), ks);
+		ks.setConnectedPanel(p);
+		p.add(picLabel, BorderLayout.CENTER);
+		
+		f.add(p);
+		f.setResizable(false);
+		if(SHOW_PREVIEW &&!KeepSelection.isDefaultImg(useImage))//hide default image. only during keeping.
+		{
+			f.setVisible(true);
+		}
+		
+		GraphicsUtil.rightEdgeCenterWindow(WidgetBuildController.getInstance().getFrame(), f);
 	}
 	
 	private JLabel buildPicLabel(ImageIcon ii, KeepSelection ks)
