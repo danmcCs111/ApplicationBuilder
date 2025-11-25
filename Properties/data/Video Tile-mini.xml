@@ -1,8 +1,8 @@
 <Build>
-	<JFrame addWindowListener="WindowListeners.ProcessExecutorWindowListener" extendedSetLookAndFeel="CrossPlatform" extendedSetupTaskbar="./src/ApplicationBuilder/build-icon_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="450, 30" setName="VideoPlayer" setResizable="False" setSize="1200, 700" setTitle="Video List Creator" >
+	<JFrame addWindowListener="WindowListeners.ProcessExecutorWindowListener" extendedSetLookAndFeel="CrossPlatform" extendedSetupTaskbar="./src/ApplicationBuilder/build-icon_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="450, 30" setName="VideoPlayer" setResizable="False" setSize="1200, 1000" setTitle="Video List Creator" >
 		<JPanel extendedLayoutApplyParent="Center" setLayout="java.awt.BorderLayout" >
-			<JScrollPane extendedLayoutApplyParent="Center" extendedScrollBarSetUnit="25" setName="scrollPane" >
-				<SwappableCollection extendedArrayProcessingPath="./VideoLaunchFiles/Roku Channels@.url; ./VideoLaunchFiles/Youtube Channels@.url; ./VideoLaunchFiles/Amazon Videos@.url; ./VideoLaunchFiles/Music/@.url; ./VideoLaunchFiles/YoutubeFreeMovies2/@.url; ./VideoLaunchFiles/Tubi/@.url" extendedButtonArrayLoadingGraphic="True" extendedSetViewportView="" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" setName="swapVideos" >
+			<JScrollPane extendedLayoutApplyParent="Center" extendedScrollBarSetUnit="55" setName="scrollPane" >
+				<SwappableCollection extendedArrayProcessingPath="./VideoLaunchFiles/YoutubeFreeMovies2/@.url; ./VideoLaunchFiles/Tubi/@.url" extendedButtonArrayLoadingGraphic="True" extendedSetViewportView="" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" setName="swapVideos" >
 					<JPanel extendedLayoutApplyParent="North" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" >
 						<JButtonArrayListPicture extendedConnectedComponent="channelsSelect" extendedLayoutApplyParent="Center" extendedSwappableHolder="swapVideos" extendedTextStripper="Watch @ Online for Free _ The Roku Channel _ Roku@ - YouTube@ - Prime Video@Prime Video- @1_@.url" setButtonBackgroundColor="0, 0, 0" setButtonForegroundColor="255, 255, 255" setCharacterLimit="25" setDefaultImageXmlPath="./Properties/shapes/Default-Play-Image.xml" setExpandedArrangementFileRelativeLocation="./Properties/VideoLaunchBookmarks/ " setJavaSwingFileChooser="False" setName="channels" setPanelBackgroundColor="51, 51, 51" setScaledDefaultPic="140, 75" setScaledWidthHeight="140, 200" >
 						</JButtonArrayListPicture>
@@ -16,7 +16,7 @@
 				</SearchBar>
 			</JPanel>
 			<JPanel extendedLayoutApplyParent="East" setLayout="java.awt.BorderLayout" >
-				<JScrollPane extendedLayoutApplyParent="East" extendedScrollBarSetUnit="25" setName="scrollPane2" >
+				<JScrollPane extendedLayoutApplyParent="East" extendedScrollBarSetUnit="55" setName="scrollPane2" setVerticalScrollBarPolicy="22" >
 					<JPanel extendedLayoutApplyParent="Center" extendedSetViewportView="" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" >
 						<JButtonArrayListPicture extendedConnectedComponent="channels" extendedLayoutApplyParent="East" extendedTextStripper="Watch @ Online for Free _ The Roku Channel _ Roku@ - YouTube@ - Prime Video@Prime Video- @1_@.url" setCharacterLimit="10" setColumnSize="1" setDefaultImageXmlPath="./Properties/shapes/Default-Play-Image.xml" setExpandedArrangementFileRelativeLocation="./Properties/VideoLaunchBookmarks/ " setJavaSwingFileChooser="False" setName="channelsSelect" setSaveIncPoint="135, 15" setSaveStartLocation="100, 500" setScaledDefaultPic="140, 75" setScaledWidthHeight="140, 200" setShowAll="True" >
 						</JButtonArrayListPicture>
