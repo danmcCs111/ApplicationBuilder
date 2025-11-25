@@ -289,7 +289,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		
 		p.setLayout(new BorderLayout());
 		p2.setLayout(new BorderLayout());
-		if(SHOW_TITLE_ON_POSTER)
+		if(SHOW_TITLE_ON_POSTER || KeepSelection.isDefaultImg(ks.getImg()))
 		{
 			l.setText(ks.getText());
 		}
