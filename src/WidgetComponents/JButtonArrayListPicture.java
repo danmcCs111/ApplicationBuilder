@@ -241,10 +241,13 @@ PostWidgetBuildProcessing
 		{
 			for(Component comp : buildComponents(path, listOf))
 			{
-				ImageIcon img = (ImageIcon) ((AbstractButton) comp).getIcon();
+				AbstractButton ab = (AbstractButton) comp;
+				ImageIcon img = (ImageIcon) (ab.getIcon());
+				String strippedText = getStrippedTextOnComponent((JCheckBoxLimited)comp);
+				((JCheckBoxLimited) comp).setStrippedText(strippedText);
 				if(SHOW_TITLE_ON_POSTER || img.equals(imageReader.getDefaultImageIcon()))
 				{
-					filterTextOnComponent((JCheckBoxLimited)comp);
+					ab.setText(strippedText);
 				}
 				jbuts.add((JCheckBoxLimited) comp);
 				this.add(comp);
@@ -280,7 +283,7 @@ PostWidgetBuildProcessing
 		return imageReader.setupImageIcon(new File(fileImage));
 	}
 	
-	private void filterTextOnComponent(JCheckBoxLimited comp)
+	private String getStrippedTextOnComponent(JCheckBoxLimited comp)
 	{
 		String txt = comp.getFullLengthText();
 		
@@ -292,7 +295,6 @@ PostWidgetBuildProcessing
 		{
 			comp.setCharacterLimit(characterLimit);
 		}
-		comp.setText(txt);
 	}
 	
 	private void performLoadingNotify(int count, int total)

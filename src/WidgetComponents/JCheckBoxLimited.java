@@ -12,6 +12,7 @@ public class JCheckBoxLimited extends JCheckBox implements Comparator<JCheckBoxL
 	private int characterLimit = 0;
 	private String 
 		fullLengthText,
+		strippedText,
 		pathKey;
 	
 	public void setCharacterLimit(int charLimit)
@@ -22,6 +23,16 @@ public class JCheckBoxLimited extends JCheckBox implements Comparator<JCheckBoxL
 	public String getFullLengthText()
 	{
 		return this.fullLengthText;
+	}
+	
+	public String getStrippedText()
+	{
+		return strippedText;
+	}
+	
+	public void setStrippedText(String text)
+	{
+		strippedText = text;
 	}
 	
 	public void setPathKey(String pathKey)
