@@ -295,6 +295,7 @@ PostWidgetBuildProcessing
 		{
 			comp.setCharacterLimit(characterLimit);
 		}
+		return txt;
 	}
 	
 	private void performLoadingNotify(int count, int total)
@@ -522,7 +523,7 @@ PostWidgetBuildProcessing
 		{
 			for(JCheckBoxLimited cbl : collectionJButtons.get(k))
 			{
-				allToSave.add(new String[] {cbl.getFullLengthText()+"@"+x+"@"+y, cbl.getPathKey()});
+				allToSave.add(new String[] {cbl.getStrippedText()+"@"+x+"@"+y, cbl.getPathKey()});
 				x+=saveIncPoint.x;
 				y+=saveIncPoint.y;
 			}
