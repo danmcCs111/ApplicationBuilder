@@ -1,13 +1,10 @@
-new save/open dialogs. java swing filechooser left as an option. fixed path settings for linux save/open dialogs.
 
+added Frame shift. new save/open dialogs. 
+java swing filechooser left as an option. 
+fixed path settings for linux save/open dialogs.
+added additional settings to layout. (different picture sizes for preview/open window, turn off preview, remove title text on images)
 
-<img width="1887" height="699" alt="linux-new-dialogs" src="https://github.com/user-attachments/assets/55abd7d6-77e0-4dd6-8df5-54806d99f79d" />
-
-
-added Frame shift
-
-
-<img width="1590" height="1199" alt="shift-add2" src="https://github.com/user-attachments/assets/c7b8bd02-12d4-4387-8c44-b9f2992d534f" />
+<img width="1746" height="1366" alt="shift-add3" src="https://github.com/user-attachments/assets/bbb4bd47-72f5-4b61-9059-050edb8e173a" />
 
 
 Adjusted UI styling: Title UI Text, startup Locations, and color. 
