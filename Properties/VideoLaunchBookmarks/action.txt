@@ -1,6 +1,11 @@
-face-off@238@921=./VideoLaunchFiles/Tubi
-identity@438@946=./VideoLaunchFiles/Tubi
-The 6th Day@226@581=./VideoLaunchFiles/YoutubeFreeMovies2
-The Dictator@426@606=./VideoLaunchFiles/YoutubeFreeMovies2
-Wargames@38@896=./VideoLaunchFiles/YoutubeFreeMovies2
-A Perfect Murder@26@556=./VideoLaunchFiles/YoutubeFreeMovies2
+The 6th Day@100@500=./VideoLaunchFiles/YoutubeFreeMovies2
+The Dictator@235@515=./VideoLaunchFiles/YoutubeFreeMovies2
+A Perfect Murder@370@530=./VideoLaunchFiles/YoutubeFreeMovies2
+Wargames@505@545=./VideoLaunchFiles/YoutubeFreeMovies2
+bad-boys-ii@640@560=./VideoLaunchFiles/Tubi
+bad-boys@123@729=./VideoLaunchFiles/Tubi
+bad-company@258@744=./VideoLaunchFiles/Tubi
+today-you-die@393@759=./VideoLaunchFiles/Tubi
+blair-witch@528@774=./VideoLaunchFiles/Tubi
+face-off@663@789=./VideoLaunchFiles/Tubi
+identity@798@804=./VideoLaunchFiles/Tubi
