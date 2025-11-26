@@ -14,6 +14,8 @@ import javax.swing.JSlider;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import WidgetComponents.JCheckBoxLimited;
+
 public class ColorTemplate 
 {
 	private static Color 
@@ -107,6 +109,11 @@ public class ColorTemplate
 			JSlider js = (JSlider) container;
         	js.setBackground(c);
         } 
+		else if(container instanceof JCheckBoxLimited)
+		{
+			JCheckBoxLimited jc = (JCheckBoxLimited) container;
+        	jc.setBackground(c);
+		}
         for (Component component : container.getComponents()) 
         {
             if (component instanceof JPanel) 
@@ -134,6 +141,11 @@ public class ColorTemplate
     			JSlider js = (JSlider) container;
             	js.setBackground(c);
             } 
+    		else if(container instanceof JCheckBoxLimited)
+    		{
+    			JCheckBoxLimited jc = (JCheckBoxLimited) container;
+            	jc.setBackground(c);
+    		}
             if (component instanceof Container) 
             {
             	setBackgroundColorPanel((Container) component, c);
@@ -209,6 +221,11 @@ public class ColorTemplate
 			JSlider js = (JSlider) container;
         	js.setForeground(c);
         } 
+		else if(container instanceof JCheckBoxLimited)
+		{
+			JCheckBoxLimited jc = (JCheckBoxLimited) container;
+        	jc.setForeground(c);
+		}
         for (Component component : container.getComponents()) 
         {
             if (component instanceof JButton) 
@@ -243,6 +260,11 @@ public class ColorTemplate
     			JSlider js = (JSlider) container;
             	js.setForeground(c);
             } 
+    		else if(container instanceof JCheckBoxLimited)
+    		{
+    			JCheckBoxLimited jc = (JCheckBoxLimited) container;
+            	jc.setForeground(c);
+    		}
             else if (component instanceof Container) 
             {
             	setForegroundColorButtons((Container) component, c); 
