@@ -49,7 +49,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		PROPERTIES_FILE_SAVE_FILTER = "txt",
 		PROPERTIES_FILE_EXTENSION = ".txt",
 		KEEP_MENU_OPTION_TEXT = "keep",
-		KEEP_TITLE = "[Click Image]",
+//		KEEP_TITLE = "[Click Image]",
 		FILE_ARG_DELIMITER="@";
 	private static boolean
 		SHOW_JAVA_SWING_FILE_CHOOSER = false,
@@ -212,7 +212,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 				});
 				f.setIconImage(GraphicsUtil.getImageFromFile(JButtonArray.MOVIE_IMAGE_FILE_LOCATION));//TODO
 				f.removeMouseListener(ImageMouseAdapter.this);
-				f.setTitle(KEEP_TITLE);
+//				f.setTitle(KEEP_TITLE);
 				
 				f.setVisible(true);
 				f.pack();
