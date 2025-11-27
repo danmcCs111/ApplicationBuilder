@@ -4,7 +4,7 @@ package ShapeWidgetComponents;
 import javax.swing.JPanel;
 
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
-import WidgetExtensions.ShapeDrawingCollectionLoad;
+import WidgetExtensionInterfaces.ShapeDrawingCollectionLoad;
 
 /**
  * Visual demonstrating the JVMs expanding memory and the increased performance over time. 

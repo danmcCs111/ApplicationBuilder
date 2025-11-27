@@ -7,10 +7,10 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import Properties.EditorToXml;
 import Properties.PathUtility;
 import WidgetComponentInterfaces.DependentRedrawableFrame;
 import WidgetComponentInterfaces.DependentRedrawableFrameListener;
-import WidgetComponents.EditorToXml;
 import WidgetUtility.WidgetBuildController;
 
 public class SaveAsEditorActionListener implements DependentRedrawableFrameListener, ActionListener

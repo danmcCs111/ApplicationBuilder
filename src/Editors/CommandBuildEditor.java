@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import Graphics2D.ColorTemplate;
 import ObjectTypeConversion.CommandBuild;
 import Params.ParameterEditor;
-import WidgetComponents.CommandDialog;
+import WidgetComponentDialogs.CommandDialog;
 
 public class CommandBuildEditor extends JButton implements ParameterEditor
 {

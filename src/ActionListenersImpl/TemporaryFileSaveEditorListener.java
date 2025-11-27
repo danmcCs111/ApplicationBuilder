@@ -3,7 +3,7 @@ package ActionListenersImpl;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import WidgetComponents.EditorToXml;
+import Properties.EditorToXml;
 import WidgetUtility.WidgetBuildController;
 
 public class TemporaryFileSaveEditorListener implements ActionListener

@@ -9,13 +9,13 @@ import javax.swing.JOptionPane;
 
 import Params.XmlToWidgetGenerator;
 import Properties.LoggingMessages;
+import WidgetComponentDialogs.ComboSelectionDialog;
 import WidgetComponentInterfaces.DependentRedrawableFrame;
 import WidgetComponentInterfaces.DependentRedrawableFrameListener;
-import WidgetComponents.ComboSelectionDialog;
-import WidgetExtensions.ComboListDialogSelectedListener;
-import WidgetExtensions.ExtendedAttributeParam;
-import WidgetExtensions.ExtendedMethodArgDef;
-import WidgetExtensionsImpl.ExtendedLayoutApplyParent;
+import WidgetExtensionDefs.ExtendedAttributeParam;
+import WidgetExtensionDefs.ExtendedMethodArgDef;
+import WidgetExtensionInterfaces.ComboListDialogSelectedListener;
+import WidgetExtensions.ExtendedLayoutApplyParent;
 import WidgetUtility.ComponentSelectorUtility;
 import WidgetUtility.WidgetAttributes;
 import WidgetUtility.WidgetBuildController;

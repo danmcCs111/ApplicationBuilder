@@ -22,7 +22,7 @@ import ShapeWidgetComponents.ShapeStyling;
 import WidgetComponentInterfaces.ButtonArray;
 import WidgetComponents.JButtonArray;
 import WidgetComponents.JButtonLengthLimited;
-import WidgetExtensions.ShapeDrawingCollectionLoad;
+import WidgetExtensionInterfaces.ShapeDrawingCollectionLoad;
 
 public class KeepSelection implements ShapeDrawingCollectionLoad, Comparator<KeepSelection>
 {

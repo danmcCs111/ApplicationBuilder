@@ -28,14 +28,14 @@ import ObjectTypeConversion.DirectorySelection;
 import Params.KeepSelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
+import WidgetComponentDialogs.ComboSelectionDialog;
+import WidgetComponentDialogs.VideoBookMarksDialog;
 import WidgetComponentInterfaces.ButtonArray;
 import WidgetComponentInterfaces.OpenAndSaveKeepsSubscriber;
-import WidgetComponents.ComboSelectionDialog;
 import WidgetComponents.JButtonArray;
 import WidgetComponents.JButtonLengthLimited;
-import WidgetComponents.VideoBookMarksDialog;
-import WidgetExtensions.ComboListDialogSelectedListener;
-import WidgetExtensions.ExtendedAttributeParam;
+import WidgetExtensionDefs.ExtendedAttributeParam;
+import WidgetExtensionInterfaces.ComboListDialogSelectedListener;
 import WidgetUtility.ComponentUtility;
 import WidgetUtility.WidgetBuildController;
 

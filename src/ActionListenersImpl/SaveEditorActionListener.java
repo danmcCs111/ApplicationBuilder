@@ -3,10 +3,10 @@ package ActionListenersImpl;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import Properties.EditorToXml;
 import Properties.LoggingMessages;
 import WidgetComponentInterfaces.DependentRedrawableFrame;
 import WidgetComponentInterfaces.DependentRedrawableFrameListener;
-import WidgetComponents.EditorToXml;
 import WidgetUtility.WidgetBuildController;
 
 public class SaveEditorActionListener implements DependentRedrawableFrameListener, ActionListener

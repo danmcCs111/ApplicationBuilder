@@ -33,19 +33,21 @@ import ObjectTypeConversion.FileSelection;
 import Params.KeepSelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
+import WidgetComponentDialogs.ShiftDialog;
+import WidgetComponentDialogs.VideoBookMarksDialog;
 import WidgetComponentInterfaces.ButtonArray;
 import WidgetComponentInterfaces.CharacterLimited;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
-import WidgetExtensions.CloseActionExtension;
-import WidgetExtensions.CloseAllActionExtension;
-import WidgetExtensions.ComboListDialogSelectedListener;
-import WidgetExtensions.ExtendedStringCollection;
-import WidgetExtensions.MinimizeActionExtension;
-import WidgetExtensions.MouseAdapterArrayExtension;
-import WidgetExtensions.OpenActionExtension;
-import WidgetExtensions.RestoreActionExtension;
-import WidgetExtensions.SaveActionExtension;
-import WidgetExtensions.ShiftFramesExtension;
+import WidgetExtensionDefs.ExtendedStringCollection;
+import WidgetExtensionInterfaces.CloseActionExtension;
+import WidgetExtensionInterfaces.CloseAllActionExtension;
+import WidgetExtensionInterfaces.ComboListDialogSelectedListener;
+import WidgetExtensionInterfaces.MinimizeActionExtension;
+import WidgetExtensionInterfaces.MouseAdapterArrayExtension;
+import WidgetExtensionInterfaces.OpenActionExtension;
+import WidgetExtensionInterfaces.RestoreActionExtension;
+import WidgetExtensionInterfaces.SaveActionExtension;
+import WidgetExtensionInterfaces.ShiftFramesExtension;
 import WidgetUtility.FileListOptionGenerator;
 import WidgetUtility.WidgetBuildController;
 
@@ -96,12 +98,12 @@ PostWidgetBuildProcessing, ButtonArray
 	public Color []
 		foregroundAndBackgroundColor = new Color [] {new JButton().getForeground(), new JButton().getBackground()},
 		highlightForegroundAndBackgroundColor = new Color [] {foregroundAndBackgroundColor[0], foregroundAndBackgroundColor[1]};
-	private boolean isHighlight = true;
 	private JButton highlightButton = null;
+	private ShiftDialog shiftDialog;
 	private HashMap<String, ArrayList<JButtonLengthLimited>> collectionJButtons = new HashMap<String, ArrayList<JButtonLengthLimited>>();
 	private HashMap<String, MouseListener> pathAndMouseAdapter;
 	private ArrayList<String> stripFilter = new ArrayList<String>();
-	private ShiftDialog shiftDialog;
+	private boolean isHighlight = true;
 	
 	private int characterLimit=0;
 	

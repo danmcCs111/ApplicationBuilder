@@ -13,8 +13,8 @@ import DrawModesAbstract.DrawMode;
 import DrawModesAbstract.DrawModeInstructions;
 import Properties.LoggingMessages;
 import ShapeWidgetComponents.GeneralPathShape;
-import WidgetComponents.ComboSelectionDialog;
-import WidgetExtensions.ComboListDialogSelectedListener;
+import WidgetComponentDialogs.ComboSelectionDialog;
+import WidgetExtensionInterfaces.ComboListDialogSelectedListener;
 import WidgetUtility.WidgetBuildController;
 
 public class GeneralPathDrawMode extends DrawMode 

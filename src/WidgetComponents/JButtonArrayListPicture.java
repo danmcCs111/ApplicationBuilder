@@ -33,17 +33,19 @@ import ShapeWidgetComponents.LoadingSpin;
 import ShapeWidgetComponents.ShapeDrawingCollection;
 import ShapeWidgetComponents.ShapeElement;
 import ShapeWidgetComponents.ShapeImportExport;
+import WidgetComponentDialogs.VideoBookMarksDialog;
 import WidgetComponentInterfaces.ButtonArray;
+import WidgetComponentInterfaces.ButtonArrayLoadingNotification;
 import WidgetComponentInterfaces.CharacterLimited;
 import WidgetComponentInterfaces.ImageReader;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
-import WidgetExtensions.ButtonArrayLoadingNotifier;
-import WidgetExtensions.ClearActionExtension;
-import WidgetExtensions.ConnectedComponentName;
-import WidgetExtensions.ExtendedAttributeParam;
-import WidgetExtensions.ExtendedStringCollection;
-import WidgetExtensions.OpenActionExtension;
-import WidgetExtensions.SaveActionExtension;
+import WidgetExtensionDefs.ExtendedAttributeParam;
+import WidgetExtensionDefs.ExtendedStringCollection;
+import WidgetExtensionInterfaces.ButtonArrayLoadingNotifier;
+import WidgetExtensionInterfaces.ClearActionExtension;
+import WidgetExtensionInterfaces.ConnectedComponentName;
+import WidgetExtensionInterfaces.OpenActionExtension;
+import WidgetExtensionInterfaces.SaveActionExtension;
 import WidgetUtility.WidgetBuildController;
 
 public class JButtonArrayListPicture extends JPanel implements ButtonArray, ArrayActionListener, CharacterLimited, 

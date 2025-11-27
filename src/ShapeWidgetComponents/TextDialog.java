@@ -18,7 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import Graphics2D.GraphicsUtil;
-import WidgetExtensions.TextDialogSelectedListener;
+import WidgetExtensionInterfaces.TextDialogSelectedListener;
 
 public class TextDialog extends JDialog
 {

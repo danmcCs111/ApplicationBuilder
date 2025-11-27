@@ -5,7 +5,7 @@ import java.util.List;
 import javax.swing.JButton;
 
 import Properties.LoggingMessages;
-import WidgetExtensions.WeatherButtonListenerExtension;
+import WidgetExtensionInterfaces.WeatherButtonListenerExtension;
 
 public class WeatherListDisplay extends JButton implements WeatherButtonListenerExtension 
 {

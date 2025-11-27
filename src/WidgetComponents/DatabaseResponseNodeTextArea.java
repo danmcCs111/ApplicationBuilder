@@ -7,7 +7,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import HttpDatabaseResponse.DatabaseResponseNode;
-import WidgetExtensions.DatabaseResponseNodeListenerExtension;
+import WidgetExtensionInterfaces.DatabaseResponseNodeListenerExtension;
 
 public class DatabaseResponseNodeTextArea extends JTextArea implements DatabaseResponseNodeListenerExtension
 {

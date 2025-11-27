@@ -16,8 +16,8 @@ import Properties.PathUtility;
 import WidgetComponentInterfaces.ButtonArray;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetComponentInterfaces.SearchSubscriber;
-import WidgetExtensions.ExtendedAttributeParam;
-import WidgetExtensions.ExtendedStringCollection;
+import WidgetExtensionDefs.ExtendedAttributeParam;
+import WidgetExtensionDefs.ExtendedStringCollection;
 
 /**
  * Holds a variable number of Components and controls/rebuilds child JComponents

@@ -8,8 +8,8 @@ import java.util.List;
 
 import ObjectTypeConversion.StringToObjectConverter;
 import Properties.LoggingMessages;
-import WidgetExtensions.ExtendedAttributeParam;
-import WidgetExtensions.ExtendedAttributeStringParam;
+import WidgetExtensionDefs.ExtendedAttributeParam;
+import WidgetExtensionDefs.ExtendedAttributeStringParam;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 

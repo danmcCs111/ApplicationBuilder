@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.swing.JDialog;
 
-import WidgetExtensions.ComboListDialogSelectedListener;
+import WidgetExtensionInterfaces.ComboListDialogSelectedListener;
 
 public class PathPickerResolver extends JDialog 
 {

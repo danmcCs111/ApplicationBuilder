@@ -5,10 +5,10 @@ import java.awt.Color;
 
 import javax.swing.JPanel;
 
+import WidgetComponentInterfaces.ButtonArrayLoadingNotification;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
-import WidgetComponents.ButtonArrayLoadingNotification;
 import WidgetComponents.LoadingLabel;
-import WidgetExtensions.ShapeDrawingCollectionLoad;
+import WidgetExtensionInterfaces.ShapeDrawingCollectionLoad;
 
 public class LoadingSpin extends JPanel implements PostWidgetBuildProcessing, ShapeDrawingCollectionLoad,
 ButtonArrayLoadingNotification

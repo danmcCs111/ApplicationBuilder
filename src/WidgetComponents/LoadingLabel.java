@@ -2,6 +2,8 @@ package WidgetComponents;
 
 import javax.swing.JLabel;
 
+import WidgetComponentInterfaces.ButtonArrayLoadingNotification;
+
 public class LoadingLabel extends JLabel implements ButtonArrayLoadingNotification 
 {
 	private static final long serialVersionUID = 1L;

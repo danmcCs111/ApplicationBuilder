@@ -17,10 +17,10 @@ import Graphics2D.ColorTemplate;
 import Params.ParameterEditor;
 import Properties.LoggingMessages;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
-import WidgetExtensions.FileNewActionExtension;
-import WidgetExtensions.OpenActionExtension;
-import WidgetExtensions.SaveActionExtension;
-import WidgetExtensions.ScheduledCommandExecuteExtension;
+import WidgetExtensionInterfaces.FileNewActionExtension;
+import WidgetExtensionInterfaces.OpenActionExtension;
+import WidgetExtensionInterfaces.SaveActionExtension;
+import WidgetExtensionInterfaces.ScheduledCommandExecuteExtension;
 
 public class ScheduledCommandList extends JPanel implements PostWidgetBuildProcessing, 
 	FileNewActionExtension, SaveActionExtension, OpenActionExtension, 

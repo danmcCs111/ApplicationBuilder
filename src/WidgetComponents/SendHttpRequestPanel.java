@@ -15,7 +15,7 @@ import HttpDatabaseResponse.DatabaseSelection;
 import HttpDatabaseResponse.HttpDatabaseResponse;
 import Properties.LoggingMessages;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
-import WidgetExtensions.DatabaseResponseNodeListenerExtension;
+import WidgetExtensionInterfaces.DatabaseResponseNodeListenerExtension;
 
 public class SendHttpRequestPanel extends JPanel implements PostWidgetBuildProcessing, DatabaseSelection
 {

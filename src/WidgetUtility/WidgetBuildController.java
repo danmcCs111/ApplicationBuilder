@@ -19,19 +19,19 @@ import Params.XmlToWidgetGenerator;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
-import WidgetExtensions.ExtendedAttributeStringParam;
-import WidgetExtensionsImpl.ExtendedButtonArrayLoadingGraphic;
-import WidgetExtensionsImpl.ExtendedLayoutApplyParent;
-import WidgetExtensionsImpl.ExtendedSwappableHolder;
-import WidgetExtensionsImpl.ExtendedTextStripper;
-import WidgetExtensionsImpl.ExtendedTitleSwitcher;
+import WidgetExtensionDefs.ExtendedAttributeStringParam;
+import WidgetExtensions.ExtendedButtonArrayLoadingGraphic;
+import WidgetExtensions.ExtendedLayoutApplyParent;
+import WidgetExtensions.ExtendedSwappableHolder;
+import WidgetExtensions.ExtendedTextStripper;
+import WidgetExtensions.ExtendedTitleSwitcher;
 
 public class WidgetBuildController 
 {
 	private HashMap<String, Object> appObjs = new HashMap<String, Object>();
 	
 	private static final String 
-		EXTENSIONS_PACKAGE_NAME = "WidgetExtensionsImpl";
+		EXTENSIONS_PACKAGE_NAME = "WidgetExtensions";
 	private static String
 		TEMP_FILE_LOCATION = "/Properties/data/tmp.xml";
 	
