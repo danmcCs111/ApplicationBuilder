@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.w3c.dom.Node;
 
-import EditorAbstract.PostProcess;
+import EditorInterfaces.PostProcess;
 import Params.ParameterEditor;
 import Params.XmlToWidgetGenerator;
 import Properties.LoggingMessages;

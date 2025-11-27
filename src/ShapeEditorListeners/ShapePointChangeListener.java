@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import Editors.PointEditor;
+import ObjectTypeConversionEditors.PointEditor;
 import ShapeWidgetComponents.ShapeCreator;
 import ShapeWidgetComponents.ShapeStyling;
 

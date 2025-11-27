@@ -12,6 +12,11 @@ import java.util.ArrayList;
 import DrawModes.GeneralPathDrawMode;
 import DrawModesAbstract.DrawMode;
 import Graphics2D.CurveShape;
+import Graphics2D.GeneralPathShape;
+import Graphics2D.RectangleCubic;
+import Graphics2D.TextShape;
+import Graphics2D.Triangle;
+import Graphics2D.TriangleCubic;
 import Properties.LoggingMessages;
 
 public class ShapeUtils 

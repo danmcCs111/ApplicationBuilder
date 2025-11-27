@@ -6,7 +6,7 @@ import java.awt.Shape;
 
 import DrawModesAbstract.DrawMode;
 import DrawModesAbstract.DrawModeInstructions;
-import ShapeWidgetComponents.RectangleCubic;
+import Graphics2D.RectangleCubic;
 
 public class RectangleCubicDrawMode extends DrawMode
 {

@@ -15,11 +15,11 @@ import javax.swing.JFrame;
 
 import DrawModes.PenDrawMode;
 import DrawModesAbstract.DrawMode;
+import Graphics2D.ShapeDrawingCollectionGraphics;
 import Properties.LoggingMessages;
 import ShapeWidgetComponents.ShapeCreator;
 import ShapeWidgetComponents.ShapeCreator.Operation;
 import ShapeWidgetComponents.ShapeDrawingCollection;
-import ShapeWidgetComponents.ShapeDrawingCollectionGraphics;
 import ShapeWidgetComponents.ShapeStyling;
 
 public class DrawMouseListener extends MouseAdapter implements ControlPointChangedListener 

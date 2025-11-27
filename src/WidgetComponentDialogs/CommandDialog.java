@@ -15,11 +15,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-import Editors.CommandBuildEditor;
 import Graphics2D.ColorTemplate;
 import ObjectTypeConversion.CommandBuild;
 import ObjectTypeConversion.DirectorySelection;
 import ObjectTypeConversion.FileSelection;
+import ObjectTypeConversionEditors.CommandBuildEditor;
 import Properties.LoggingMessages;
 import WidgetComponentInterfaces.ParamOption;
 import WidgetComponents.Parameter;

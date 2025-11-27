@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import Editors.DirectorySelectionEditor;
-import Editors.FileSelectionEditor;
 import Graphics2D.ColorTemplate;
 import ObjectTypeConversion.DirectorySelection;
 import ObjectTypeConversion.FileSelection;
+import ObjectTypeConversionEditors.DirectorySelectionEditor;
+import ObjectTypeConversionEditors.FileSelectionEditor;
 import WidgetComponents.ParameterExtractor.StringBuildOption;
 
 public class Parameter extends JPanel

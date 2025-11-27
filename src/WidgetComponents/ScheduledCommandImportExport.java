@@ -6,7 +6,7 @@ import java.util.List;
 import org.w3c.dom.Node;
 
 import Actions.ScheduledCommand;
-import Editors.ScheduledCommandEditor;
+import ObjectTypeConversionEditors.ScheduledCommandEditor;
 import Properties.PathUtility;
 import Properties.XmlNodeReader;
 

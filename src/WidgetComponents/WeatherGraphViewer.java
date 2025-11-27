@@ -27,6 +27,7 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 
 import ActionListeners.CsvReaderSubscriber;
+import Graphics2D.ShapeDrawingCollectionGraphics;
 import HttpDatabaseRequest.HttpDatabaseRequest;
 import HttpDatabaseRequest.SQLUtility;
 import HttpDatabaseRequest.SelectWebServiceQueries;
@@ -38,7 +39,6 @@ import ObjectTypeConversion.WeatherReading;
 import Properties.LoggingMessages;
 import ShapeWidgetComponents.GlyphDrawingCollection;
 import ShapeWidgetComponents.ShapeDrawingCollection;
-import ShapeWidgetComponents.ShapeDrawingCollectionGraphics;
 import ShapeWidgetComponents.ShapeStyling;
 
 public class WeatherGraphViewer extends GraphViewer implements CsvReaderSubscriber

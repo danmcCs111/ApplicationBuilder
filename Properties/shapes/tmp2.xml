@@ -1,5 +1,0 @@
-<Widgets>
-<ShapeWidgetComponents.GeneralPathShape Point00="201, 94" Point01="172, 209" Point02="245, 202" Point03="206, 147" ColorDraw="0, 0, 0" ColorFill="0, 0, 0" CreateStroke="false" DrawPaths="Move To, Line To, Quadratic To, Close To" SkipShapeDraw="false" > </ShapeWidgetComponents.GeneralPathShape>
-<ShapeWidgetComponents.RectangleCubic Point00="173, 207" Point01="243, 203" Point02="258, 323" Point03="183, 331" Point04="195, 244" Point05="232, 248" Point06="235, 277" Point07="241, 293" Point08="220, 300" Point09="208, 305" Point10="195, 277" Point11="197, 263" ColorDraw="0, 0, 0" ColorFill="0, 0, 0" CreateStroke="false" SkipShapeDraw="false" > </ShapeWidgetComponents.RectangleCubic>
-<Graphics2D.CurveShape Point00="179, 359" Point01="268, 352" Point02="200, 307" Point03="240, 301" ColorDraw="0, 0, 0" ColorFill="0, 0, 0" CreateStroke="false" SkipShapeDraw="false" > </Graphics2D.CurveShape>
-</Widgets>

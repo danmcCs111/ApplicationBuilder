@@ -9,8 +9,8 @@ import java.util.HashMap;
 import DrawModes.GeneralPathDrawMode.DrawPaths;
 import DrawModesAbstract.DrawMode;
 import DrawModesAbstract.DrawModeInstructions;
+import Graphics2D.GeneralPathShape;
 import Properties.LoggingMessages;
-import ShapeWidgetComponents.GeneralPathShape;
 
 public class PenDrawMode extends DrawMode
 {

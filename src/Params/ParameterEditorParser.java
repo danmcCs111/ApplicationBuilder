@@ -9,8 +9,8 @@ import Properties.PathUtility;
 public class ParameterEditorParser 
 {
 	private static final String 
-		EDITOR_DIRECTORY = "/src/Editors/",
-		PACKAGE_PREFIX = "Editors",
+		EDITOR_DIRECTORY = "/src/ObjectTypeConversionEditors/",
+		PACKAGE_PREFIX = "ObjectTypeConversionEditors",
 		EDITOR_PARAMETER_FILE_PREFIX = ".java",
 		EDITOR_PARAMETER_FILE_FILTER = "java";
 	

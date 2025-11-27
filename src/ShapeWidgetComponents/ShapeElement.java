@@ -11,6 +11,8 @@ import DrawModes.GeneralPathDrawMode;
 import DrawModes.GeneralPathDrawMode.DrawPaths;
 import DrawModes.TextDrawMode;
 import DrawModesAbstract.DrawMode;
+import Graphics2D.GeneralPathShape;
+import Graphics2D.TextShape;
 import Properties.LoggingMessages;
 import Properties.XmlNodeReader;
 import ShapeEditorListeners.ShapeStylingActionListener;

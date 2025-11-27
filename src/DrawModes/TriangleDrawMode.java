@@ -6,7 +6,7 @@ import java.awt.Shape;
 
 import DrawModesAbstract.DrawMode;
 import DrawModesAbstract.DrawModeInstructions;
-import ShapeWidgetComponents.Triangle;
+import Graphics2D.Triangle;
 
 public class TriangleDrawMode extends DrawMode 
 {

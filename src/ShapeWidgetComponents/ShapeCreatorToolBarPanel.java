@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import DrawModesAbstract.DrawMode;
-import Editors.ColorEditor;
+import ObjectTypeConversionEditors.ColorEditor;
 import ShapeEditorListeners.DrawInputActionListener;
 import ShapeEditorListeners.OpenShapeActionListener;
 import ShapeEditorListeners.SaveShapeActionListener;

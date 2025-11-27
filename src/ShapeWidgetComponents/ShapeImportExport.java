@@ -10,6 +10,8 @@ import java.util.HashMap;
 import org.w3c.dom.Node;
 
 import DrawModes.GeneralPathDrawMode.DrawPaths;
+import Graphics2D.GeneralPathShape;
+import Graphics2D.TextShape;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
 import Properties.XmlNodeReader;
@@ -22,7 +24,7 @@ public class ShapeImportExport extends XmlNodeReader
 	public static final String 
 		FILE_TYPE_TITLE = "XML",
 		FILE_TYPE_FILTER = "xml",
-		DEFAULT_DIRECTORY_RELATIVE =  "/Properties/shapes/ ";
+		DEFAULT_DIRECTORY_RELATIVE =  "./Properties/shapes/ ";
 	
 	ArrayList<ShapeElement> shapeElements = new ArrayList<ShapeElement>();
 	ShapeElement shapeElement;

@@ -5,11 +5,11 @@ import java.util.ArrayList;
 
 import javax.swing.JTextField;
 
-import Editors.DirectorySelectionEditor;
-import Editors.FileSelectionEditor;
 import ObjectTypeConversion.CommandBuild;
 import ObjectTypeConversion.DirectorySelection;
 import ObjectTypeConversion.FileSelection;
+import ObjectTypeConversionEditors.DirectorySelectionEditor;
+import ObjectTypeConversionEditors.FileSelectionEditor;
 import WidgetComponentInterfaces.ParamOption;
 
 public interface ParameterExtractor 

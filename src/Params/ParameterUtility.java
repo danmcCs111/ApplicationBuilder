@@ -5,7 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.JLabel;
 
-import Editors.ColorEditor;
+import ObjectTypeConversionEditors.ColorEditor;
 
 public interface ParameterUtility 
 {

@@ -1,3 +1,3 @@
 <Widgets>
-<ShapeWidgetComponents.GeneralPathShape Point000000000="32, 85" Point000000001="60, 26" Point000000002="15, 56" Point000000003="30, 23" Point000000004="63, 16" Point000000005="58, 36" Point000000006="100, 39" ColorDraw="0, 102, 102" ColorFill="102, 255, 255" CreateStroke="true" DrawControlPoints="true" StrokeWidth="3" DrawPaths="Move To, Cubic To, Move To, Line To, Line To, Close To, Close To" SkipShapeDraw="false" > </ShapeWidgetComponents.GeneralPathShape>
+<Graphics2D.GeneralPathShape Point000000000="32, 85" Point000000001="60, 26" Point000000002="15, 56" Point000000003="30, 23" Point000000004="63, 16" Point000000005="58, 36" Point000000006="100, 39" ColorDraw="0, 102, 102" ColorFill="102, 255, 255" CreateStroke="true" DrawControlPoints="true" StrokeWidth="3" DrawPaths="Move To, Cubic To, Move To, Line To, Line To, Close To, Close To" SkipShapeDraw="false" > </Graphics2D.GeneralPathShape>
 </Widgets>

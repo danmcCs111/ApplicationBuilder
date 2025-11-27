@@ -20,9 +20,12 @@ import javax.swing.JSpinner;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import Editors.ColorEditor;
 import Graphics2D.GraphicsUtil;
+import ObjectTypeConversionEditors.ColorEditor;
 import Properties.LoggingMessages;
+import ShapeWidgetComponentDialogs.NumberGeneratorConfigDialog;
+import ShapeWidgetComponentDialogs.RotateDialog;
+import ShapeWidgetComponentDialogs.ScaleDialog;
 
 public class ShapeCreatorEditShapeFrame extends JFrame 
 {

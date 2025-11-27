@@ -6,8 +6,8 @@ import java.awt.Shape;
 
 import DrawModesAbstract.DrawMode;
 import DrawModesAbstract.DrawModeInstructions;
-import ShapeWidgetComponents.Triangle;
-import ShapeWidgetComponents.TriangleCubic;
+import Graphics2D.Triangle;
+import Graphics2D.TriangleCubic;
 
 public class TriangleCubicDrawMode extends DrawMode
 {

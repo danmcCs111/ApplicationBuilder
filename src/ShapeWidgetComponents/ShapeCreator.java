@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 
 import DrawModes.PenDrawMode;
 import DrawModesAbstract.DrawMode;
+import Graphics2D.ShapeDrawingCollectionGraphics;
 import ShapeEditorListeners.AddShapesImportedListener;
 import ShapeEditorListeners.ControlPointChangedListener;
 import ShapeEditorListeners.DrawMouseListener;

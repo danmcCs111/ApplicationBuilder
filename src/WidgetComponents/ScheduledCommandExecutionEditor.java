@@ -22,9 +22,9 @@ import javax.swing.JPanel;
 import Actions.CommandExecutor;
 import Actions.Schedule;
 import Actions.ScheduledCommand;
-import Editors.CommandBuildEditor;
 import Graphics2D.ColorTemplate;
 import ObjectTypeConversion.CommandBuild;
+import ObjectTypeConversionEditors.CommandBuildEditor;
 import Properties.LoggingMessages;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 

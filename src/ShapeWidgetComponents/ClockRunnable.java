@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import BezierCurveCalculations.AffineTransformRasterizer;
+import Graphics2D.ShapeDrawingCollectionGraphics;
 import Properties.LoggingMessages;
 
 public class ClockRunnable implements Runnable 

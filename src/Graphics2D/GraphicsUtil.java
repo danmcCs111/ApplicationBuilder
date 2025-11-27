@@ -14,7 +14,6 @@ import javax.imageio.ImageIO;
 
 import Properties.LoggingMessages;
 import ShapeWidgetComponents.ShapeDrawingCollection;
-import ShapeWidgetComponents.ShapeDrawingCollectionGraphics;
 import ShapeWidgetComponents.ShapeElement;
 import ShapeWidgetComponents.ShapeImportExport;
 

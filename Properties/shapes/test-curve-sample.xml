@@ -1,5 +1,0 @@
-<Widgets>
-<java.awt.geom.Line2D Point00="505, 178" Point01="629, 265" ColorDraw="0, 0, 0" ColorFill="0, 0, 0" CreateStroke="false" SkipShapeDraw="false" > </java.awt.geom.Line2D>
-<java.awt.geom.Rectangle2D Point00="469, 418" Point01="630, 515" ColorDraw="153, 153, 255" ColorFill="51, 102, 255" CreateStroke="true" StrokeWidth="4" SkipShapeDraw="false" > </java.awt.geom.Rectangle2D>
-<Graphics2D.CurveShape Point00="332, 226" Point01="491, 279" Point02="410, 191" Point03="403, 319" ColorDraw="0, 0, 0" ColorFill="0, 0, 0" CreateStroke="false" SkipShapeDraw="false" > </Graphics2D.CurveShape>
-</Widgets>

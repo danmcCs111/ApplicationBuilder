@@ -11,8 +11,8 @@ import javax.swing.JFrame;
 
 import DrawModesAbstract.DrawMode;
 import DrawModesAbstract.DrawModeInstructions;
+import Graphics2D.GeneralPathShape;
 import Properties.LoggingMessages;
-import ShapeWidgetComponents.GeneralPathShape;
 import WidgetComponentDialogs.ComboSelectionDialog;
 import WidgetExtensionInterfaces.ComboListDialogSelectedListener;
 import WidgetUtility.WidgetBuildController;

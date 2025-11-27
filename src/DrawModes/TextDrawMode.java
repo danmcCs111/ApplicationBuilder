@@ -10,8 +10,8 @@ import javax.swing.JOptionPane;
 
 import DrawModesAbstract.DrawMode;
 import DrawModesAbstract.DrawModeInstructions;
+import Graphics2D.TextShape;
 import Properties.LoggingMessages;
-import ShapeWidgetComponents.TextShape;
 import WidgetUtility.WidgetBuildController;
 
 public class TextDrawMode extends DrawMode 

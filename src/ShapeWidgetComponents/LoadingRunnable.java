@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 import javax.swing.SwingUtilities;
 
+import Graphics2D.ShapeDrawingCollectionGraphics;
+
 public class LoadingRunnable implements Runnable
 {
 	public double 

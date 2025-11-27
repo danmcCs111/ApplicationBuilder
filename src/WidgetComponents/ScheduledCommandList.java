@@ -12,8 +12,8 @@ import javax.swing.JPanel;
 
 import ActionListeners.EditorStateChangeListener;
 import Actions.ScheduledCommand;
-import Editors.ScheduledCommandEditor;
 import Graphics2D.ColorTemplate;
+import ObjectTypeConversionEditors.ScheduledCommandEditor;
 import Params.ParameterEditor;
 import Properties.LoggingMessages;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
