@@ -98,6 +98,11 @@ public class ShiftDialog extends JDialog
 		copyKeepLocations(keeps);
 		buildWidgets(referenceContainer);
 	}
+	public static void setShiftSliderMaxSettingXY(Point p)
+	{
+		SLIDER_MAX_SETTING_X = p.x;
+		SLIDER_MAX_SETTING_Y = p.y; 
+	}
 	
 	public void buildWidgets(Container referenceContainer)
 	{

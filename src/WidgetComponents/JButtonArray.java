@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Frame;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
@@ -130,6 +131,11 @@ PostWidgetBuildProcessing, ButtonArray
 	public static void setPanelBackgroundColor(Color c)
 	{
 		ColorTemplate.setPanelBackgroundColor(c);
+	}
+	
+	public static void setShiftSliderMaxSettingXY(Point p)
+	{
+		ShiftDialog.setShiftSliderMaxSettingXY(p);
 	}
 
 	public static void setJavaSwingFileChooser(boolean isSwingFileChooser)
