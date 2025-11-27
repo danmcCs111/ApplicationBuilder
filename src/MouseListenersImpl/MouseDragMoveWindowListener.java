@@ -10,7 +10,7 @@ import java.awt.event.MouseMotionListener;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
-public class ClockMouseDragListener extends MouseAdapter implements MouseListener, MouseMotionListener
+public class MouseDragMoveWindowListener extends MouseAdapter implements MouseListener, MouseMotionListener
 {
 	private Point mouseDownCompCoords = null;
 	
@@ -19,7 +19,7 @@ public class ClockMouseDragListener extends MouseAdapter implements MouseListene
 	JFrame f;
 	int heightDiff;
 	
-	public ClockMouseDragListener()
+	public MouseDragMoveWindowListener()
 	{
 		
 	}
@@ -51,11 +51,11 @@ public class ClockMouseDragListener extends MouseAdapter implements MouseListene
 		checkToAddOffset(e);
 		for (MouseListener ml : parentPanel.getMouseListeners())//Relying on 2 instances. Only use the MouseListener instance...
 		{
-			if(ml instanceof ClockMouseDragListener)
+			if(ml instanceof MouseDragMoveWindowListener)
 			{
-				if(((ClockMouseDragListener)ml).mouse1Pressed)
+				if(((MouseDragMoveWindowListener)ml).mouse1Pressed)
 				{
-					((ClockMouseDragListener)ml).mouseDragged(e.getLocationOnScreen());
+					((MouseDragMoveWindowListener)ml).mouseDragged(e.getLocationOnScreen());
 				}
 			}
 		}

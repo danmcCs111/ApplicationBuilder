@@ -1,6 +1,6 @@
 <Build>
 	<JFrame extendedSetupTaskbar="./src/ApplicationBuilder/weather_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setMinimumSize="200, 210" setResizable="False" >
-		<LoadingSpin addMouseListener="MouseListenersImpl.ClockMouseDragListener" addMouseMotionListener="MouseListenersImpl.ClockMouseDragListener" extendedLayoutApplyParent="Center" extendedShapeDrawingCollectionLoader="./Properties/shapes/reload.xml" >
+		<LoadingSpin addMouseListener="MouseListenersImpl.MouseDragMoveWindowListener" addMouseMotionListener="MouseListenersImpl.MouseDragMoveWindowListener" extendedLayoutApplyParent="Center" extendedShapeDrawingCollectionLoader="./Properties/shapes/reload.xml" >
 		</LoadingSpin>
 	</JFrame>
 </Build>
