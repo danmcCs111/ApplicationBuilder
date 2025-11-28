@@ -1,19 +1,19 @@
 package ApplicationBuilder;
 
 import java.io.IOException;
-
 import Actions.CommandExecutor;
 import ObjectTypeConversion.CommandBuild;
+import Properties.LoggingMessages;
 import Properties.PathUtility;
 
 public class ShellExecutor 
 {
 	public static String 
-		WINDOWS_BASH_SHELL_LOCATION = "C:\\Program Files\\Git\\git-bash.exe",//TODO
+		WINDOWS_BASH_SHELL_LOCATION = "C:\\Program Files\\Git\\git-bash.exe",
 		LINUX_BASH_SHELL = "bash";
 	public static String [] 
-			LINUX_COMMAND_OPTION = new String [] {"-c", "-i"},
-			WINDOWS_COMMAND_OPTION = new String [] {"-c"};
+		LINUX_COMMAND_OPTION = new String [] {"-c", "-i"},
+		WINDOWS_COMMAND_OPTION = new String [] {"-c"};
 	
 	public static void main(String [] args) 
 	{
@@ -21,18 +21,31 @@ public class ShellExecutor
 		CommandBuild cb;
 		if(isWindows)
 		{
-			cb = new CommandBuild();
-			cb.setCommand(WINDOWS_BASH_SHELL_LOCATION, WINDOWS_COMMAND_OPTION, args);
+			cb = getWindowsCommand(args);
 		}
 		else
 		{
-			cb = new CommandBuild();
-			cb.setCommand(LINUX_BASH_SHELL, LINUX_COMMAND_OPTION, args);
+			cb = getLinuxCommand(args);
 		}
 		try {
+			LoggingMessages.printOut(cb.getCommand());
 			CommandExecutor.executeProcess(cb, false);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static CommandBuild getLinuxCommand(String [] args)
+	{
+		CommandBuild cb = new CommandBuild();
+		cb.setCommand(LINUX_BASH_SHELL, LINUX_COMMAND_OPTION, args);
+		return cb;
+	}
+	
+	public static CommandBuild getWindowsCommand(String [] args)
+	{
+		CommandBuild cb = new CommandBuild();
+		cb.setCommand(WINDOWS_BASH_SHELL_LOCATION, WINDOWS_COMMAND_OPTION, args);
+		return cb;
 	}
 }
