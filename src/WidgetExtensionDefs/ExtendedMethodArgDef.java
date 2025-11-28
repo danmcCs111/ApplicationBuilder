@@ -6,6 +6,7 @@ public enum ExtendedMethodArgDef
 	ExtendedDirectorySelection(" [ObjectTypeConversion.DirectorySelection arg0]"),
 	CommandBuildSelection(" [ObjectTypeConversion.CommandBuild arg0]"),
 	CsvReaderSelection(" [ObjectTypeConversion.CsvReader arg0]"),
+	ColorSelection(" [java.awt.Color arg0]"),
 	NameIdSelection(" [ObjectTypeConversion.NameId arg0]"),
 	LookAndFeelClassNameSelection(" [ObjectTypeConversion.LookAndFeelClassName arg0]"),
 	BooleanSelection(" [boolean arg0]"),

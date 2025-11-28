@@ -69,6 +69,9 @@ import WidgetExtensions.ExtendedSaveActionListener;
 import WidgetExtensions.ExtendedScheduledCommandStartActionListener;
 import WidgetExtensions.ExtendedScrollBarSetUnit;
 import WidgetExtensions.ExtendedSearchField;
+import WidgetExtensions.ExtendedSetBackgroundPanelColorTemplate;
+import WidgetExtensions.ExtendedSetButtonBackgroundColorTemplate;
+import WidgetExtensions.ExtendedSetButtonForegroundColorTemplate;
 import WidgetExtensions.ExtendedSetJMenuBarParent;
 import WidgetExtensions.ExtendedSetLookAndFeel;
 import WidgetExtensions.ExtendedSetViewportView;
@@ -125,11 +128,13 @@ public class WidgetAttributes
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetupTaskbar.class, ExtendedMethodArgDef.ExtendedFileSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetLookAndFeel.class, ExtendedMethodArgDef.LookAndFeelClassNameSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedCsvReader.class, ExtendedMethodArgDef.CsvReaderSelection.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetBackgroundPanelColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedWavReader.class, ExtendedMethodArgDef.WavReaderSelection.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(JPanel.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetViewportView.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetBackgroundPanelColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(JButton.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
@@ -219,7 +224,10 @@ public class WidgetAttributes
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(ScheduledCommandList.class, new String [] {
-				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
+				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetBackgroundPanelColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetButtonBackgroundColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetButtonForegroundColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(SendHttpRequestPanel.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
@@ -238,13 +246,19 @@ public class WidgetAttributes
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSwappableHolder.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedTextStripper.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
-				ExtendedAttributeParam.getMethodDefinition(ExtendedImageMouseAdapterArray.class, ExtendedMethodArgDef.ImageMouseAdapter.getMethodArgDef())
+				ExtendedAttributeParam.getMethodDefinition(ExtendedImageMouseAdapterArray.class, ExtendedMethodArgDef.ImageMouseAdapter.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetBackgroundPanelColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetButtonBackgroundColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetButtonForegroundColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(JButtonArrayListPicture.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedTextStripper.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedConnectedComponent.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
-				ExtendedAttributeParam.getMethodDefinition(ExtendedSwappableHolder.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef())
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSwappableHolder.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetBackgroundPanelColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetButtonBackgroundColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetButtonForegroundColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(MenuOption.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())

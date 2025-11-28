@@ -1,7 +1,7 @@
 <Build>
 	<JFrame extendedSetLookAndFeel="CrossPlatform" extendedSetupTaskbar="./src/ApplicationBuilder/build-icon_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="300, 300" setMinimumSize="400, 300" setTitle="Scheduled Command Editor" >
 		<JPanel extendedLayoutApplyParent="Center" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" >
-			<ScheduledCommandList extendedLayoutApplyParent="North" setButtonBackgroundColor="102, 102, 102" setButtonForegroundColor="255, 255, 255" setDeleteBackgroundColor="51, 51, 51" setDeleteForegroundColor="255, 0, 12" setLayout="java.awt.GridLayout" setName="scheduledCommandList" setPanelBackgroundColor="51, 51, 51" >
+			<ScheduledCommandList extendedLayoutApplyParent="North" extendedSetButtonBackgroundColorTemplate="102, 102, 102" extendedSetButtonForegroundColorTemplate="255, 255, 255" setDeleteBackgroundColor="51, 51, 51" setDeleteForegroundColor="255, 0, 12" setLayout="java.awt.GridLayout" setName="scheduledCommandList" extendedSetBackgroundPanelColorTemplate="51, 51, 51" >
 			</ScheduledCommandList>
 		</JPanel>
 		<JPanel extendedLayoutApplyParent="South" setBackground="51, 51, 51" >
