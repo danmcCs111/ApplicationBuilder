@@ -19,7 +19,8 @@ public class LaunchActionListener implements ActionListener
 	private static final String
 		PROCESS_WINDOWS = "chrome.exe",
 		PROCESS_LINUX = "google-chrome",
-		CLOSE_LAUNCH_ACTION_EVENT="closeLaunchAction";
+		CLOSE_LAUNCH_ACTION_EVENT="closeLaunchAction",
+		CHROME_HIDE_OPTION = "--hide-crash-restore-bubble";
 	private String
 		processWindows = PROCESS_WINDOWS,
 		processLinux = PROCESS_LINUX;
@@ -63,7 +64,7 @@ public class LaunchActionListener implements ActionListener
 		}
 		else
 		{
-			executeProcess(PathUtility.isWindows()?getProcessWindowsOS():getProcessLinuxOS(), button.getName());
+			executeProcess(PathUtility.isWindows()?getProcessWindowsOS():getProcessLinuxOS(), CHROME_HIDE_OPTION, button.getName());
 		}
 		lastButton = button;
 		lastButtonParent = lastButton.getParent();
