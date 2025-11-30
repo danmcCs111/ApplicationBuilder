@@ -4,7 +4,7 @@ cd "$(dirname "$0")"
 scriptDirectory="$1"
 tubiDirectory=`pwd`/images/
 
-scriptName="/GrabScripts/tubiReprocessPosterArt.sh"
+scriptName="/GrabScripts/Tubi/tubiReprocessPosterArt.sh"
 tubiPngs="/GrabFolder/Tubi/images/*.png"
 
 script=$scriptDirectory$scriptName
