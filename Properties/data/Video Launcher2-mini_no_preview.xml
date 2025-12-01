@@ -36,11 +36,11 @@
 			<JMenu extendedLayoutApplyParent="" setText="File" >
 				<JMenuItem extendedLayoutApplyParent="" extendedOpenActionListener="channels" setText="Open" >
 				</JMenuItem>
-				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ApplicationBuilder|%Fn./Properties/data/Video Tile-mini.xml" extendedLayoutApplyParent="" setText="Open Editor" >
+				<JMenuItem extendedLayoutApplyParent="" extendedSaveActionListener="channels" setText="Save As" >
 				</JMenuItem>
-				<JMenuItem extendedLayoutApplyParent="" extendedSaveActionListener="channels" setText="Save" >
+				<JMenuItem extendedCloseActionListener="channels" extendedLayoutApplyParent="" setText="Close" >
 				</JMenuItem>
-				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ApplicationBuilder|%Fn./Properties/data/ScheduledCommandListEditor.xml" extendedLayoutApplyParent="" setText="Reload" >
+				<JMenuItem extendedCloseAllActionListener="channels" extendedLayoutApplyParent="" setText="Close All" >
 				</JMenuItem>
 			</JMenu>
 			<JMenu extendedLayoutApplyParent="" setText="Action" >
@@ -50,9 +50,13 @@
 				</JMenuItem>
 				<JMenuItem extendedLayoutApplyParent="" extendedShiftFramesActionListener="channels" setText="Shift Frames" >
 				</JMenuItem>
-				<JMenuItem extendedCloseActionListener="channels" extendedLayoutApplyParent="" setText="Close" >
+			</JMenu>
+			<JMenu extendedLayoutApplyParent="" setText="Launch" >
+				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ApplicationBuilder|%Fn./Properties/data/Video Tile-mini.xml" extendedLayoutApplyParent="" setText="Create List Editor" >
 				</JMenuItem>
-				<JMenuItem extendedCloseAllActionListener="channels" extendedLayoutApplyParent="" setText="Close All" >
+				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ApplicationBuilder|%Fn./Properties/data/ScheduledCommandListEditor.xml" extendedLayoutApplyParent="" setText="Create Reload Tool" >
+				</JMenuItem>
+				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ApplicationBuilder|%Fn./Properties/data/video_remote.xml" extendedLayoutApplyParent="" setText="Play Remote" setToolTipText="check remote config. requires my autohotkey utils" >
 				</JMenuItem>
 			</JMenu>
 		</JMenuBar>
