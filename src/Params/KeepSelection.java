@@ -267,8 +267,7 @@ public class KeepSelection implements ShapeDrawingCollectionLoad, Comparator<Kee
 			tmpHeight2 = o2.getFrame().getSize().height;
 		double
 			height = tmpHeight > tmpHeight2 ? tmpHeight : tmpHeight2,
-//			heightThresh = (int) (height * (1.0/3.0)),
-			heightThreshHalf = (int) (height * (1.5/3.0));//TODO?
+			heightThresh = (int) (height * (1.0/3.0));
 			
 		int 
 			xDiff = p1.x - p2.x,
@@ -281,7 +280,7 @@ public class KeepSelection implements ShapeDrawingCollectionLoad, Comparator<Kee
 			}
 			else if(yDiff >= 0)
 			{
-				if(yDiff >= heightThreshHalf)
+				if(yDiff >= heightThresh)
 				{
 					return 1;
 				}
@@ -298,7 +297,7 @@ public class KeepSelection implements ShapeDrawingCollectionLoad, Comparator<Kee
 		//xDiff is > 0
 		else if(yDiff <= 0)
 		{
-			if(Math.abs(yDiff) >= heightThreshHalf)
+			if(Math.abs(yDiff) >= heightThresh)
 			{
 				return -1;
 			}
