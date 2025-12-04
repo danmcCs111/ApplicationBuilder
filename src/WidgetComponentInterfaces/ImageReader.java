@@ -1,6 +1,7 @@
 package WidgetComponentInterfaces;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
@@ -61,12 +62,32 @@ public class ImageReader
 		Image retImage = null;
 		try {
 			Image tmpImage = ImageIO.read(file);
+			Dimension scaled = getScaledDimension(tmpImage, ba.getScaledWidth());
 			retImage = tmpImage.getScaledInstance(
-					ba.getScaledWidthHeight().width, 
-					ba.getScaledWidthHeight().height, 0);
+					scaled.width, 
+					scaled.height, 0);
 		} catch (IOException e) {
 			retImage = getDefaultImage();
 		}
 		return retImage;
+	}
+	
+	public static Dimension getScaledDimension(Image tmpImage, int scaledWidth)
+	{
+		ImageReaderDimensionObserver imgO = new ImageReaderDimensionObserver();
+		double width = (double)tmpImage.getWidth(imgO);
+		double height = (double)tmpImage.getHeight(imgO);
+		
+		if(width == -1 || height == -1)
+		{
+			return imgO.getWidthHeightScaled((double)scaledWidth);
+		}
+		else
+		{
+			double factor = scaledWidth / width;
+			
+			return new Dimension((int)(factor * width), (int)(factor * height));
+		}
+		
 	}
 }

@@ -73,8 +73,9 @@ PostWidgetBuildProcessing
 		DEFAULT_IMG = "./Properties/shapes/Default-Play-Image.xml";
 	public static Dimension
 		DEFAULT_PIC = new Dimension(279, 150),
-		SCALED_DEFAULT_PIC = new Dimension(140, 75),
-		SCALED_WIDTH_HEIGHT = new Dimension(140, 200);
+		SCALED_DEFAULT_PIC = new Dimension(140, 75);
+	public static int
+		SCALED_WIDTH_HEIGHT = 140;
 	private static DirectorySelection 
 		keepsFileLocation;
 	private static boolean
@@ -164,9 +165,9 @@ PostWidgetBuildProcessing
 	}
 
 	@Override
-	public void setScaledWidthHeight(Dimension widthHeight)
+	public void setScaledWidth(int width)
 	{
-		SCALED_WIDTH_HEIGHT = widthHeight;
+		SCALED_WIDTH_HEIGHT = width;
 	}
 	
 	@Override
@@ -188,7 +189,7 @@ PostWidgetBuildProcessing
 	}
 
 	@Override
-	public Dimension getScaledWidthHeight() 
+	public int getScaledWidth() 
 	{
 		return SCALED_WIDTH_HEIGHT;
 	}
@@ -702,9 +703,9 @@ PostWidgetBuildProcessing
 	}
 
 	@Override
-	public Dimension getScaledWidthHeightPreview() 
+	public int getScaledWidthPreview() 
 	{
-		return getScaledWidthHeight();
+		return getScaledWidth();
 	}
 
 }

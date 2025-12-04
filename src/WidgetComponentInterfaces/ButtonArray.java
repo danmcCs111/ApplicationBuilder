@@ -13,13 +13,13 @@ public interface ButtonArray extends OpenAndSaveKeepsSubscriber
 	
 	public Dimension getScaledDefaultPic();
 	public Dimension getDefaultPicSize();
-	public Dimension getScaledWidthHeight();
-	public Dimension getScaledWidthHeightPreview();
+	public int getScaledWidth();
+	public int getScaledWidthPreview();
 	public String getDefaultImagePath();
 	
 	public void setScaledDefaultPic(Dimension scaledDefaultPicDimension);
 	public void setDefaultPicSize(Dimension defaultPicDimension);
-	public void setScaledWidthHeight(Dimension scaledDimension);
+	public void setScaledWidth(int scaledWidth);
 	public void setDefaultImageXmlPath(FileSelection fs);
 	public void adjustVisibility(String searchPattern);
 	public void buildLoadingFrame();

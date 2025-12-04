@@ -20,6 +20,7 @@ import Properties.PathUtility;
 import ShapeWidgetComponents.ShapeDrawingCollection;
 import ShapeWidgetComponents.ShapeStyling;
 import WidgetComponentInterfaces.ButtonArray;
+import WidgetComponentInterfaces.ImageReader;
 import WidgetComponents.JButtonArray;
 import WidgetComponents.JButtonLengthLimited;
 import WidgetExtensionInterfaces.ShapeDrawingCollectionLoad;
@@ -31,8 +32,8 @@ public class KeepSelection implements ShapeDrawingCollectionLoad, Comparator<Kee
 	
 	private String 
 		path,
-		text;
-	private String fileLocation;
+		text,
+		fileLocation;
 	private JFrame frame;
 	private Image 
 		img,
@@ -164,8 +165,9 @@ public class KeepSelection implements ShapeDrawingCollectionLoad, Comparator<Kee
 		{
 			setupImage(false, new File(this.fileLocation), new File(ba.getDefaultImagePath()));
 		}
+		
 		return img != null
-			? ba.getScaledWidthHeight()
+			? ImageReader.getScaledDimension(img, ba.getScaledWidth())
 			: ba.getScaledDefaultPic();
 	}
 	
@@ -176,7 +178,7 @@ public class KeepSelection implements ShapeDrawingCollectionLoad, Comparator<Kee
 			getSize();
 		}
 		return img != null
-			? ba.getScaledWidthHeightPreview()
+			? ImageReader.getScaledDimension(img, ba.getScaledWidthPreview())
 			: ba.getScaledDefaultPic();
 	}
 	
@@ -192,14 +194,17 @@ public class KeepSelection implements ShapeDrawingCollectionLoad, Comparator<Kee
 			{
 				Image retImage = null;
 				retImage = ImageIO.read(file);
+				LoggingMessages.printOut(file.getAbsolutePath());
+				Dimension scaled = ImageReader.getScaledDimension(retImage, ba.getScaledWidth());
 				img = retImage.getScaledInstance(
-						ba.getScaledWidthHeight().width, 
-						ba.getScaledWidthHeight().height, 0);
-				if(!ba.getScaledWidthHeightPreview().equals(ba.getScaledWidthHeight()))
+						scaled.width, 
+						scaled.height, 0);
+				if(ba.getScaledWidthPreview() != ba.getScaledWidth())
 				{
+					Dimension scaledPreview = ImageReader.getScaledDimension(retImage, ba.getScaledWidthPreview());
 					previewImage = retImage.getScaledInstance(
-							ba.getScaledWidthHeightPreview().width,
-							ba.getScaledWidthHeightPreview().height, 0);
+							scaledPreview.width,
+							scaledPreview.height, 0);
 				}
 				else
 				{

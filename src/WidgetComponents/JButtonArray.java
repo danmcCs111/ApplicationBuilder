@@ -76,9 +76,10 @@ PostWidgetBuildProcessing, ButtonArray
 	
 	private static Dimension
 		DIM_DEFAULT_PIC = new Dimension(279,150),
-		SCALED_DEFAULT_PIC = new Dimension(279, 150),
-		SCALED_WIDTH_HEIGHT = new Dimension(279, 402),
-		SCALED_WIDTH_HEIGHT_PREVIEW = SCALED_WIDTH_HEIGHT;
+		SCALED_DEFAULT_PIC = new Dimension(279, 150);
+	private static int
+		SCALED_WIDTH = 279,
+		SCALED_WIDTH_PREVIEW = SCALED_WIDTH;
 	
 	public static String 
 		DEFAULT_IMG = "./Properties/shapes/Default-Play-Image.xml";
@@ -184,9 +185,9 @@ PostWidgetBuildProcessing, ButtonArray
 		DEFAULT_IMG = fs.getRelativePath();
 	}
 	
-	public void setScaledWidthHeight(Dimension widthHeight)
+	public void setScaledWidth(int width)
 	{
-		SCALED_WIDTH_HEIGHT = widthHeight;
+		SCALED_WIDTH = width;
 	}
 	
 	@Override
@@ -202,20 +203,20 @@ PostWidgetBuildProcessing, ButtonArray
 	}
 
 	@Override
-	public Dimension getScaledWidthHeight() 
+	public int getScaledWidth() 
 	{
-		return SCALED_WIDTH_HEIGHT;
+		return SCALED_WIDTH;
 	}
 	
 	@Override
-	public Dimension getScaledWidthHeightPreview() 
+	public int getScaledWidthPreview() 
 	{
-		return SCALED_WIDTH_HEIGHT_PREVIEW;
+		return SCALED_WIDTH_PREVIEW;
 	}
 	
-	public void setScaledWidthHeightPreview(Dimension widthHeight) 
+	public void setScaledWidthPreview(int width) 
 	{
-		SCALED_WIDTH_HEIGHT_PREVIEW = widthHeight;
+		SCALED_WIDTH_PREVIEW = width;
 	}
 	
 	public void setSkipImageLoading(boolean skip)

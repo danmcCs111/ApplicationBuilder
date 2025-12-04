@@ -51,7 +51,7 @@ public class ShiftDialog extends JDialog
 	private static int 
 		SLIDER_PIXEL_SIZE = 150,
 		SLIDER_MAX_SETTING_X = 1500,
-		SLIDER_MAX_SETTING_Y = 1500;  
+		SLIDER_MAX_SETTING_Y = 1500;
 	
 	private JButton 
 		applyButton = new JButton(APPLY_BUTTON_LABEL),
