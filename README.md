@@ -1,4 +1,8 @@
 
+added roku videos. changed scaling to only use width and keep aspect ratio of image.
+<img width="1940" height="986" alt="image" src="https://github.com/user-attachments/assets/44e405cc-9eb3-4790-862b-e06513c578b2" />
+
+
 added Frame shift. new save/open dialogs. 
 java swing filechooser left as an option. 
 fixed path settings for linux save/open dialogs.
