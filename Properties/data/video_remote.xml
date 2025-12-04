@@ -3,7 +3,7 @@
 		<JPanel addMouseListener="MouseListenersImpl.MouseDragMoveWindowListener" addMouseMotionListener="MouseListenersImpl.MouseDragMoveWindowListener" extendedLayoutApplyParent="Center" setBackground="0, 0, 0" setLayout="java.awt.FlowLayout" >
 			<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tn/c/Program\ Files/AutoHotkey/v2/AutoHotkey %Tn/c/Users/danie/codebase/danmcCs111/AutoHotKey-Utils/play_pause.ahk" extendedLayoutApplyParent="" setBackground="0, 153, 153" setText="| &gt; |" setToolTipText="Play/Pause" >
 			</JButton>
-			<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tn/c/Program\ Files/AutoHotkey/v2/AutoHotkey %Tn/c/Users/danie/codebase/danmcCs111/AutoHotKey-Utils/fullscreen.ahk%Tn /c/Users/danie/codebase/danmcCs111/AutoHotKey-Utils/" extendedLayoutApplyParent="" setBackground="0, 153, 153" setText="| [Full] |" setToolTipText="Go Fullscreen" >
+			<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%TnAutoHotkey%Tn /c/Users/danie/codebase/danmcCs111/AutoHotKey-Utils/fullscreen.ahk%Tn /c/Users/danie/codebase/danmcCs111/AutoHotKey-Utils/" extendedLayoutApplyParent="" setBackground="0, 153, 153" setText="| [Full] |" setToolTipText="Go Fullscreen" >
 			</JButton>
 		</JPanel>
 	</JFrame>
