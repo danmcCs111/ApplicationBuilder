@@ -416,7 +416,7 @@ PostWidgetBuildProcessing, ButtonArray
 				JButtonLengthLimited jbl = (JButtonLengthLimited)comp;
 				addJButton(jbl, path);
 			}
-			
+			Collections.sort(jbuts, new JButtonLengthLimited());
 			SwappableCollection.indexPaths.add(path);
 		}
 		else
@@ -729,9 +729,15 @@ PostWidgetBuildProcessing, ButtonArray
 	}
 
 	@Override
-	public void notifyLinkTitleAndImageUrl(String [] linkAndImageUrl) 
+	public void notifyLinkTitleAndImageUrl(String [] linkTitleAndImageUrl) 
 	{
-		// TODO Auto-generated method stub
+		int indexPos = NavigationButtonActionListener.getCurPosition();
+		String path = SwappableCollection.indexPaths.get(indexPos);
+		JButtonLengthLimited jbl = (JButtonLengthLimited) FileListOptionGenerator.buildComponent(
+				path, linkTitleAndImageUrl[1], linkTitleAndImageUrl[0], JButtonLengthLimited.class);
+		addJButton(jbl, path);
+		Collections.sort(collectionJButtons.get(path), new JButtonLengthLimited());
+		rebuildButtons();
 	}
 
 }

@@ -44,7 +44,7 @@ public class LinkDragAndDropListener extends DropTargetAdapter
 					
 					LoggingMessages.printOut(imageDownload);
 					LoggingMessages.printOut(title);
-					ldds.notifyLinkTitleAndImageUrl(new String [] {title, imageDownload});
+					ldds.notifyLinkTitleAndImageUrl(new String [] {s, title, imageDownload});
 				}
 			}
 		} catch (UnsupportedFlavorException e) {
