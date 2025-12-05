@@ -642,8 +642,8 @@ PostWidgetBuildProcessing, ButtonArray
 
 	private void addPasteFromClipboard(Component target)
 	{
-		new DropTarget(target, new DropTargetAdapter() {
-
+		new DropTarget(target, new DropTargetAdapter() 
+		{
 			@Override
 			public void drop(DropTargetDropEvent dtde) 
 			{
@@ -660,7 +660,8 @@ PostWidgetBuildProcessing, ButtonArray
 							LoggingMessages.printOut("data: " + s);
 							String resp = HttpDatabaseRequest.executeGetRequest(s);
 							LoggingMessages.printOut("response");
-							LoggingMessages.printOut(resp);
+							LoggingMessages.printOut(YoutubePageParser.getImageUrl(resp));
+							LoggingMessages.printOut(YoutubePageParser.getTitle(resp));
 						}
 					}
 				} catch (UnsupportedFlavorException e) {
