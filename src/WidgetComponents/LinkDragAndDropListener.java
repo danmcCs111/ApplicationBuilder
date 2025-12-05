@@ -11,9 +11,17 @@ import java.io.IOException;
 import HttpDatabaseRequest.HttpDatabaseRequest;
 import HttpDatabaseRequest.YoutubePageParser;
 import Properties.LoggingMessages;
+import WidgetComponentInterfaces.LinkDragAndDropSubscriber;
 
 public class LinkDragAndDropListener extends DropTargetAdapter
 {
+	private LinkDragAndDropSubscriber ldds;
+	
+	public LinkDragAndDropListener(LinkDragAndDropSubscriber ldds)
+	{
+		this.ldds = ldds;
+	}
+	
 	@Override
 	public void drop(DropTargetDropEvent dtde) 
 	{
@@ -36,6 +44,7 @@ public class LinkDragAndDropListener extends DropTargetAdapter
 					
 					LoggingMessages.printOut(imageDownload);
 					LoggingMessages.printOut(title);
+					ldds.notifyLinkTitleAndImageUrl(new String [] {title, imageDownload});
 				}
 			}
 		} catch (UnsupportedFlavorException e) {

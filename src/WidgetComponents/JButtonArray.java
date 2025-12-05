@@ -38,6 +38,7 @@ import WidgetComponentDialogs.ShiftDialog;
 import WidgetComponentDialogs.VideoBookMarksDialog;
 import WidgetComponentInterfaces.ButtonArray;
 import WidgetComponentInterfaces.CharacterLimited;
+import WidgetComponentInterfaces.LinkDragAndDropSubscriber;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetExtensionDefs.ExtendedStringCollection;
 import WidgetExtensionInterfaces.CloseActionExtension;
@@ -60,7 +61,7 @@ import WidgetUtility.WidgetBuildController;
  */
 public class JButtonArray extends JPanel implements ArrayActionListener, CharacterLimited, 
 SaveActionExtension, OpenActionExtension, CloseActionExtension, CloseAllActionExtension, MinimizeActionExtension, RestoreActionExtension, ShiftFramesExtension,
-ComboListDialogSelectedListener, MouseAdapterArrayExtension, 
+ComboListDialogSelectedListener, MouseAdapterArrayExtension, LinkDragAndDropSubscriber,
 PostWidgetBuildProcessing, ButtonArray
 {
 	private static final long serialVersionUID = 1883L;
@@ -328,13 +329,21 @@ PostWidgetBuildProcessing, ButtonArray
 	
 	private void addActionListeners(ArrayList<JButtonLengthLimited> jButtons)
 	{
-		if(this.actionListener != null && !jButtons.isEmpty())
+		if(!jButtons.isEmpty())
 		{
 			for(JButtonLengthLimited button : jButtons)
 			{
-				button.addActionListener(actionListener);
-				button.addActionListener(highlightLabelActionListener);
+				addActionListeners(button);
 			}
+		}
+	}
+	private void addActionListeners(JButtonLengthLimited jButton)
+	{
+		if(this.actionListener != null)
+		{
+			jButton.addActionListener(actionListener);
+			jButton.addActionListener(highlightLabelActionListener);
+			addHighlightButtonActionListener(jButton);
 		}
 	}
 	
@@ -401,32 +410,14 @@ PostWidgetBuildProcessing, ButtonArray
 		
 		if(!SwappableCollection.indexPaths.contains(path))
 		{
+			collectionJButtons.put(path, jbuts);
 			for(Component comp : FileListOptionGenerator.buildComponents(path, listOf, JButtonLengthLimited.class))
 			{
 				JButtonLengthLimited jbl = (JButtonLengthLimited)comp;
-				String txt = jbl.getFullLengthText();
-				
-				for(String s : stripFilter)
-				{
-					txt = txt.replace(s, "");
-				}
-				if(characterLimit != 0)
-				{
-					jbl.setCharacterLimit(characterLimit);
-				}
-				jbl.setText(txt);
-				comp.setForeground(foregroundAndBackgroundColor[0]);
-				comp.setBackground(foregroundAndBackgroundColor[1]);
-				addHighlightButtonActionListener(jbl);
-				jbuts.add(jbl);
-				this.add(comp);
+				addJButton(jbl, path);
 			}
-			addActionListeners(jbuts);
-			Collections.sort(jbuts, new JButtonLengthLimited());
-			collectionJButtons.put(path, jbuts);
 			
 			SwappableCollection.indexPaths.add(path);
-			
 		}
 		else
 		{
@@ -439,6 +430,29 @@ PostWidgetBuildProcessing, ButtonArray
 		JFrame f = WidgetBuildController.getInstance().getFrame();
 		f.paintComponents(f.getGraphics());
 		
+	}
+	public void addJButton(JButtonLengthLimited jbl, String path)
+	{
+		ArrayList<JButtonLengthLimited> jbuts = collectionJButtons.get(path);
+		
+		String txt = jbl.getFullLengthText();
+		
+		for(String s : stripFilter)
+		{
+			txt = txt.replace(s, "");
+		}
+		if(characterLimit != 0)
+		{
+			jbl.setCharacterLimit(characterLimit);
+		}
+		jbl.setText(txt);
+		jbl.setForeground(foregroundAndBackgroundColor[0]);
+		jbl.setBackground(foregroundAndBackgroundColor[1]);
+		jbuts.add(jbl);
+		addActionListeners(jbl);
+		this.add(jbl);
+		
+		collectionJButtons.put(path, jbuts);
 	}
 
 	@Override
@@ -633,7 +647,7 @@ PostWidgetBuildProcessing, ButtonArray
 
 	private void addDragAndDropListener(Component target)
 	{
-		new DropTarget(target, new LinkDragAndDropListener());
+		new DropTarget(target, new LinkDragAndDropListener(this));
 	}
 	
 	@Override
@@ -712,6 +726,12 @@ PostWidgetBuildProcessing, ButtonArray
 				break;
 			}
 		}
+	}
+
+	@Override
+	public void notifyLinkTitleAndImageUrl(String [] linkAndImageUrl) 
+	{
+		// TODO Auto-generated method stub
 	}
 
 }
