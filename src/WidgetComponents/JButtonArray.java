@@ -5,12 +5,20 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Point;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DropTarget;
+import java.awt.dnd.DropTargetAdapter;
+import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -26,6 +34,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import ActionListeners.ArrayActionListener;
 import ActionListenersImpl.NavigationButtonActionListener;
 import Graphics2D.ColorTemplate;
+import HttpDatabaseRequest.HttpDatabaseRequest;
+import HttpDatabaseRequest.YoutubePageParser;
 import MouseListenersImpl.ImageMouseAdapter;
 import MouseListenersImpl.PicLabelMouseListener;
 import ObjectTypeConversion.DirectorySelection;
@@ -604,10 +614,10 @@ PostWidgetBuildProcessing, ButtonArray
 			LoggingMessages.printOut(key + " " + pathAndMouseAdapter.size() + " " + collectionJButtons.get(key).size());
 			ImageMouseAdapter ima = (ImageMouseAdapter) pathAndMouseAdapter.get(key);
 			ima.setupKeepsSelection(collectionJButtons.get(key));
-			
 			outer:
 			for(Component c : collectionJButtons.get(key))
 			{
+				
 				for(MouseListener ml : c.getMouseListeners())//TODO patch fix...need to get away from static
 				{
 					if(ml instanceof ImageMouseAdapter)
@@ -626,6 +636,40 @@ PostWidgetBuildProcessing, ButtonArray
 			public void windowClosed(WindowEvent e) {
 				closeAll();
 			}
+		});
+		addPasteFromClipboard(this);
+	}
+
+	private void addPasteFromClipboard(Component target)
+	{
+		new DropTarget(target, new DropTargetAdapter() {
+
+			@Override
+			public void drop(DropTargetDropEvent dtde) 
+			{
+				dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);
+				Transferable t = dtde.getTransferable();
+				try {
+					if(t.isDataFlavorSupported(DataFlavor.stringFlavor))
+					{
+						String s = (String) t.getTransferData(DataFlavor.stringFlavor);
+						LoggingMessages.printOut("data: " + s);
+						
+						if(YoutubePageParser.isYoutube(s))
+						{
+							//TODO
+							String resp = HttpDatabaseRequest.executeGetRequest(HttpDatabaseRequest.addHttpsIfMissing(s));
+							LoggingMessages.printOut("response");
+							LoggingMessages.printOut(resp);
+						}
+					}
+				} catch (UnsupportedFlavorException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			
 		});
 	}
 	

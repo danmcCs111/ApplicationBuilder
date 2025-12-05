@@ -100,7 +100,7 @@ PostWidgetBuildProcessing
 	
 	public JButtonArrayListPicture()
 	{
-		
+	    
 	}
 	
 	private void buildWidgets()
