@@ -5,20 +5,13 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Point;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.Transferable;
-import java.awt.datatransfer.UnsupportedFlavorException;
-import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
-import java.awt.dnd.DropTargetAdapter;
-import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -34,8 +27,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import ActionListeners.ArrayActionListener;
 import ActionListenersImpl.NavigationButtonActionListener;
 import Graphics2D.ColorTemplate;
-import HttpDatabaseRequest.HttpDatabaseRequest;
-import HttpDatabaseRequest.YoutubePageParser;
 import MouseListenersImpl.ImageMouseAdapter;
 import MouseListenersImpl.PicLabelMouseListener;
 import ObjectTypeConversion.DirectorySelection;
@@ -637,41 +628,12 @@ PostWidgetBuildProcessing, ButtonArray
 				closeAll();
 			}
 		});
-		addPasteFromClipboard(this);
+		addDragAndDropListener(this);
 	}
 
-	private void addPasteFromClipboard(Component target)
+	private void addDragAndDropListener(Component target)
 	{
-		new DropTarget(target, new DropTargetAdapter() 
-		{
-			@Override
-			public void drop(DropTargetDropEvent dtde) 
-			{
-				dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);
-				Transferable t = dtde.getTransferable();
-				try {
-					if(t.isDataFlavorSupported(DataFlavor.stringFlavor))
-					{
-						String s = (String) t.getTransferData(DataFlavor.stringFlavor);
-						if(YoutubePageParser.isYoutube(s))
-						{
-							//TODO
-							s = HttpDatabaseRequest.addHttpsIfMissing(s);
-							LoggingMessages.printOut("data: " + s);
-							String resp = HttpDatabaseRequest.executeGetRequest(s);
-							LoggingMessages.printOut("response");
-							LoggingMessages.printOut(YoutubePageParser.getImageUrl(resp));
-							LoggingMessages.printOut(YoutubePageParser.getTitle(resp));
-						}
-					}
-				} catch (UnsupportedFlavorException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-			
-		});
+		new DropTarget(target, new LinkDragAndDropListener());
 	}
 	
 	@Override
