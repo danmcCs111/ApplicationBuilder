@@ -7,17 +7,22 @@ public class YoutubePageParser
 {
 	private static final String 
 		YOUTUBE_PAGE_IMAGE = "https://yt3.googleusercontent.com([^\"])*(\")",
-		YOUTUBE_TITLE = "<title>([^<])*</title>";
+		YOUTUBE_PAGE_IMAGE_REPLACE = "\"",
+		YOUTUBE_TITLE = "<title>([^<])*</title>",
+		YOUTUBE_TITLE_REPLACE_OPEN = "<title>",
+		YOUTUBE_TITLE_REPLACE_CLOSE = "</title>";
 	
 	public static String getImageUrl(String response)
 	{
 		String ret = retFirstMatch(response, YOUTUBE_PAGE_IMAGE);
+		ret = ret.replaceAll(YOUTUBE_PAGE_IMAGE_REPLACE, "");
 		return ret;
 	}
 	
 	public static String getTitle(String response)
 	{
 		String ret = retFirstMatch(response, YOUTUBE_TITLE);
+		ret = ret.replaceAll(YOUTUBE_TITLE_REPLACE_OPEN, "").replaceAll(YOUTUBE_TITLE_REPLACE_CLOSE, "");
 		return ret;
 	}
 	
