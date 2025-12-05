@@ -59,12 +59,9 @@ public interface HttpDatabaseRequest
 	
 	public static String addHttpsIfMissing(String url)
 	{
-		if(!url.startsWith("https://"))
+		if(!url.startsWith("https://wwww.") && !url.startsWith("http://wwww."))
 		{
-			if(!url.startsWith("http://"))
-			{
-				return "https://" + url;
-			}
+			return "https://www." + url.strip();
 		}
 		return url;
 	}
