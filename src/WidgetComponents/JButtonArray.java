@@ -653,12 +653,12 @@ PostWidgetBuildProcessing, ButtonArray
 					if(t.isDataFlavorSupported(DataFlavor.stringFlavor))
 					{
 						String s = (String) t.getTransferData(DataFlavor.stringFlavor);
-						LoggingMessages.printOut("data: " + s);
-						
 						if(YoutubePageParser.isYoutube(s))
 						{
 							//TODO
-							String resp = HttpDatabaseRequest.executeGetRequest(HttpDatabaseRequest.addHttpsIfMissing(s));
+							s = HttpDatabaseRequest.addHttpsIfMissing(s);
+							LoggingMessages.printOut("data: " + s);
+							String resp = HttpDatabaseRequest.executeGetRequest(s);
 							LoggingMessages.printOut("response");
 							LoggingMessages.printOut(resp);
 						}
