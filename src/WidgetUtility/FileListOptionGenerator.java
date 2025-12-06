@@ -55,6 +55,7 @@ public class FileListOptionGenerator
 		{
 			JButtonLengthLimited button = new JButtonLengthLimited();
 			button.setText(fileName);
+			button.setFullText(PathUtility.getFilenameNoExtension(fileName));
 			button.setName(UrlToValueReader.parse(fileName, path));
 			comp = button;
 		}
@@ -67,6 +68,7 @@ public class FileListOptionGenerator
 		{
 			JButtonLengthLimited button = new JButtonLengthLimited();
 			button.setText(fileName);
+			button.setFullText(PathUtility.getFilenameNoExtension(fileName));
 			button.setName(url);
 			comp = button;
 		}

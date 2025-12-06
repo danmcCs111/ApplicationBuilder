@@ -32,7 +32,8 @@ public class KeepSelection implements ShapeDrawingCollectionLoad, Comparator<Kee
 	
 	private String 
 		path,
-		text,
+		fullText,
+		displayText,
 		fileLocation;
 	private JFrame frame;
 	private Image 
@@ -53,16 +54,16 @@ public class KeepSelection implements ShapeDrawingCollectionLoad, Comparator<Kee
 		
 	}
 	
-	public KeepSelection(String path, String text, ButtonArray ba, JButtonLengthLimited ab)
+	public KeepSelection(String path, String fullText, ButtonArray ba, JButtonLengthLimited ab)
 	{
-		this(path, text, ba);
+		this(path, fullText, ba);
 		this.ab = ab;
 	}
 	
-	public KeepSelection(String path, String text, ButtonArray ba)
+	public KeepSelection(String path, String fullText, ButtonArray ba)
 	{
 		this.path = path;
-		this.text = text;
+		this.fullText = fullText;
 		this.ba = ba;
 		this.fileLocation = PathUtility.getCurrentDirectory() + 
 				PathUtility.removeCurrentWorkingDirectoryFromPath(path)  + 
@@ -125,7 +126,7 @@ public class KeepSelection implements ShapeDrawingCollectionLoad, Comparator<Kee
 	
 	public String getText()
 	{
-		return this.text;
+		return this.fullText;
 	}
 	
 	public String getPath()
@@ -185,7 +186,7 @@ public class KeepSelection implements ShapeDrawingCollectionLoad, Comparator<Kee
 	
 	public String toPngFilename()
 	{
-		return this.text + ".png";
+		return this.fullText + ".png";
 	}
 	
 	private void setupImage(boolean skip, File file, File fileDefault)
@@ -234,7 +235,7 @@ public class KeepSelection implements ShapeDrawingCollectionLoad, Comparator<Kee
 	@Override
 	public String toString()
 	{
-		return this.path + " " + this.text;
+		return this.path + " " + this.fullText;
 	}
 	
 	public static ArrayList<String> getTextOnlyConversion (List<KeepSelection> ks)

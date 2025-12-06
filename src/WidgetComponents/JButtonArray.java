@@ -458,7 +458,7 @@ PostWidgetBuildProcessing, ButtonArray
 	
 	public void filterText(JButtonLengthLimited jbl)
 	{
-		String txt = jbl.getFullLengthText();
+		String txt = jbl.getText();
 		for(String s : stripFilter)
 		{
 			txt = txt.replace(s, "");
@@ -761,7 +761,7 @@ PostWidgetBuildProcessing, ButtonArray
 				linkTitleAndImageUrl[0] + " " + linkTitleAndImageUrl[1].replaceAll("\s", "\\\\ ") + " " + linkTitleAndImageUrl[2] });
 		
 		try {
-			CommandExecutor.executeProcess(cb, true);
+			CommandExecutor.executeProcess(cb);
 			
 		} catch (IOException e) {
 			e.printStackTrace();

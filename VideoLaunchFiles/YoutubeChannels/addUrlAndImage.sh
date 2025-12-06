@@ -11,7 +11,7 @@ echo $1
 echo $2
 echo $3
 
-echo [InternetShortcut] > $urlFileName
-echo "URL="$url >> $urlFileName
+echo [InternetShortcut] > "$urlFileName"
+echo "URL="$url >> "$urlFileName"
 
-curl --output "images/$imageFileName" $image_url
+curl --output "images/$imageFileName" "$image_url"
