@@ -58,7 +58,9 @@ public interface PathUtility
 	
 	public static String getFilenameNoExtension(String filename)
 	{
-		return filename.substring(0, filename.lastIndexOf("."));
+		return (filename.contains("."))
+			? filename.substring(0, filename.lastIndexOf("."))
+			: filename;
 	}
 	
 	public static String replaceBackslash(String path)
