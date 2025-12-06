@@ -12,6 +12,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -26,9 +27,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import ActionListeners.ArrayActionListener;
 import ActionListenersImpl.NavigationButtonActionListener;
+import Actions.CommandExecutor;
+import ApplicationBuilder.ShellHeadlessExecutor;
 import Graphics2D.ColorTemplate;
 import MouseListenersImpl.ImageMouseAdapter;
 import MouseListenersImpl.PicLabelMouseListener;
+import ObjectTypeConversion.CommandBuild;
 import ObjectTypeConversion.DirectorySelection;
 import ObjectTypeConversion.FileSelection;
 import Params.KeepSelection;
@@ -435,17 +439,11 @@ PostWidgetBuildProcessing, ButtonArray
 	{
 		ArrayList<JButtonLengthLimited> jbuts = collectionJButtons.get(path);
 		
-		String txt = jbl.getFullLengthText();
-		
-		for(String s : stripFilter)
-		{
-			txt = txt.replace(s, "");
-		}
 		if(characterLimit != 0)
 		{
 			jbl.setCharacterLimit(characterLimit);
 		}
-		jbl.setText(txt);
+		filterText(jbl);
 		jbl.setForeground(foregroundAndBackgroundColor[0]);
 		jbl.setBackground(foregroundAndBackgroundColor[1]);
 		jbuts.add(jbl);
@@ -453,6 +451,16 @@ PostWidgetBuildProcessing, ButtonArray
 		this.add(jbl);
 		
 		collectionJButtons.put(path, jbuts);
+	}
+	
+	public void filterText(JButtonLengthLimited jbl)
+	{
+		String txt = jbl.getFullLengthText();
+		for(String s : stripFilter)
+		{
+			txt = txt.replace(s, "");
+		}
+		jbl.setText(txt);
 	}
 
 	@Override
@@ -735,9 +743,26 @@ PostWidgetBuildProcessing, ButtonArray
 		String path = SwappableCollection.indexPaths.get(indexPos);
 		JButtonLengthLimited jbl = (JButtonLengthLimited) FileListOptionGenerator.buildComponent(
 				path, linkTitleAndImageUrl[1], linkTitleAndImageUrl[0], JButtonLengthLimited.class);
+		filterText(jbl);
+		if(collectionJButtons.get(path).contains(jbl))
+		{
+			return;
+		}
 		addJButton(jbl, path);
 		Collections.sort(collectionJButtons.get(path), new JButtonLengthLimited());
 		rebuildButtons();
+		
+		//Save results.
+		CommandBuild cb = ShellHeadlessExecutor.getWindowsCommand(new String []{
+				"/c/Users/danie/codebase/danmcCs111/ApplicationBuilder/VideoLaunchFiles/YoutubeChannels/addUrlAndImage.sh " + 
+				 linkTitleAndImageUrl[0] + " " + linkTitleAndImageUrl[1].replaceAll("\s", "\\\\ ") + " " + linkTitleAndImageUrl[2] });
+		
+		try {
+			CommandExecutor.executeProcess(cb, true);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

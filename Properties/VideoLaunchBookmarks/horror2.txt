@@ -1,8 +1,8 @@
-house-of-wax@60@561=./VideoLaunchFiles/Tubi
 encounter@243@558=./VideoLaunchFiles/Tubi
+anunnaki@501@808=./VideoLaunchFiles/Tubi
+187@325@806=./VideoLaunchFiles/Tubi
+killing-them-softly@72@945=./VideoLaunchFiles/Tubi
 erased@413@563=./VideoLaunchFiles/Tubi
-jason-x@154@814=./VideoLaunchFiles/Tubi
-187@322@827=./VideoLaunchFiles/Tubi
-anunnaki@493@829=./VideoLaunchFiles/Tubi
-killing-them-softly@81@963=./VideoLaunchFiles/Tubi
-47-meters-down@251@962=./VideoLaunchFiles/Tubi
+house-of-wax@60@561=./VideoLaunchFiles/Tubi
+47-meters-down@258@963=./VideoLaunchFiles/Tubi
+jason-x@151@801=./VideoLaunchFiles/Tubi

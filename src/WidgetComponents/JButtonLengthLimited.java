@@ -36,5 +36,18 @@ public class JButtonLengthLimited extends JButton implements Comparator<JButtonL
 	{
 		return o1.getText().compareTo(o2.getText());
 	}
+	
+//	@Override
+//	public boolean equals(Object o)
+//	{
+//		if(o instanceof JButtonLengthLimited)
+//		{
+//			return ((JButtonLengthLimited) o).getText().equals(this.getText());
+//		}
+//		else
+//		{
+//			return false;
+//		}
+//	}
 
 }
