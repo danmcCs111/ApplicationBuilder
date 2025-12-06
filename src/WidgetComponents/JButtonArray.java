@@ -80,6 +80,9 @@ PostWidgetBuildProcessing, ButtonArray
 		PROPERTIES_FILE_ARG_DELIMITER = "@",
 		PROPERTIES_FILE_DELIMITER = "=";
 	
+	public static String
+		SAVE_DROP_SCRIPT = "addUrlAndImage.sh";
+	
 	private static Dimension
 		DIM_DEFAULT_PIC = new Dimension(279,150),
 		SCALED_DEFAULT_PIC = new Dimension(279, 150);
@@ -751,11 +754,11 @@ PostWidgetBuildProcessing, ButtonArray
 		addJButton(jbl, path);
 		Collections.sort(collectionJButtons.get(path), new JButtonLengthLimited());
 		rebuildButtons();
-		
+		DirectorySelection ds = new DirectorySelection(path);
 		//Save results.
 		CommandBuild cb = ShellHeadlessExecutor.getWindowsCommand(new String []{
-				"/c/Users/danie/codebase/danmcCs111/ApplicationBuilder/VideoLaunchFiles/YoutubeChannels/addUrlAndImage.sh " + 
-				 linkTitleAndImageUrl[0] + " " + linkTitleAndImageUrl[1].replaceAll("\s", "\\\\ ") + " " + linkTitleAndImageUrl[2] });
+				ds.getPathLinux() + "/" + SAVE_DROP_SCRIPT + " " +
+				linkTitleAndImageUrl[0] + " " + linkTitleAndImageUrl[1].replaceAll("\s", "\\\\ ") + " " + linkTitleAndImageUrl[2] });
 		
 		try {
 			CommandExecutor.executeProcess(cb, true);

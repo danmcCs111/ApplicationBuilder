@@ -67,6 +67,7 @@ public class KeepSelection implements ShapeDrawingCollectionLoad, Comparator<Kee
 		this.fileLocation = PathUtility.getCurrentDirectory() + 
 				PathUtility.removeCurrentWorkingDirectoryFromPath(path)  + 
 				IMAGES_RELATIVE_PATH + toPngFilename();
+		
 		File file = new File(this.fileLocation);
 		File fileDefault = new File(JButtonArray.DEFAULT_IMG);
 		setupImage(skip, file, fileDefault);
