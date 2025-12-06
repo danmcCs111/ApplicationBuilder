@@ -7,9 +7,11 @@ import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTargetAdapter;
 import java.awt.dnd.DropTargetDropEvent;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import HttpDatabaseRequest.HttpDatabaseRequest;
-import HttpDatabaseRequest.YoutubePageParser;
+import HttpDatabaseRequest.PageParser;
 import Properties.LoggingMessages;
 import WidgetComponentInterfaces.LinkDragAndDropSubscriber;
 
@@ -30,21 +32,33 @@ public class LinkDragAndDropListener extends DropTargetAdapter
 		try {
 			if(t.isDataFlavorSupported(DataFlavor.stringFlavor))
 			{
-				String s = (String) t.getTransferData(DataFlavor.stringFlavor);
-				if(YoutubePageParser.isYoutube(s))
+				String dragDropString = (String) t.getTransferData(DataFlavor.stringFlavor);
+				
+				//TODO
+				PageParser youtube = new PageParser();
+				youtube.isParser(dragDropString);
+				youtube.setDomainMatch("youtube.com");
+				youtube.addImageMatchAndReplace("https://yt3.googleusercontent.com([^\"])*(\")", 
+						new ArrayList<String>(Arrays.asList(new String [] {"\""}))
+						);
+				youtube.addTitleMatchAndReplace("<title>([^<])*</title>", 
+						new ArrayList<String>(Arrays.asList(new String [] {"<title>","</title>"}))
+						);
+				
+				if(youtube.isParser(dragDropString))
 				{
-					//TODO
-					s = HttpDatabaseRequest.addHttpsIfMissing(s);
-					LoggingMessages.printOut("data: " + s);
-					String resp = HttpDatabaseRequest.executeGetRequest(s);
+					
+					dragDropString = HttpDatabaseRequest.addHttpsIfMissing(dragDropString);
+					LoggingMessages.printOut("drag and drop value: " + dragDropString);
+					String resp = HttpDatabaseRequest.executeGetRequest(dragDropString);
 					LoggingMessages.printOut("response");
 					
-					String imageDownload = YoutubePageParser.getImageUrl(resp);
-					String title = YoutubePageParser.getTitle(resp);
+					String imageDownload = youtube.getImageUrl(resp);
+					String title = youtube.getTitle(resp);
 					
 					LoggingMessages.printOut(imageDownload);
 					LoggingMessages.printOut(title);
-					ldds.notifyLinkTitleAndImageUrl(new String [] {s, title, imageDownload});
+					ldds.notifyLinkTitleAndImageUrl(new String [] {dragDropString, title, imageDownload});
 				}
 			}
 		} catch (UnsupportedFlavorException e) {
