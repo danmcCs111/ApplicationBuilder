@@ -241,6 +241,7 @@ PostWidgetBuildProcessing
 		
 		if(!SwappableCollection.indexPaths.contains(path))
 		{
+			ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
 			for(Component comp : buildComponents(path, listOf))
 			{
 				AbstractButton ab = (AbstractButton) comp;

@@ -109,11 +109,6 @@ public class ColorTemplate
 			JSlider js = (JSlider) container;
         	js.setBackground(c);
         } 
-		else if(container instanceof JCheckBoxLimited)
-		{
-			JCheckBoxLimited jc = (JCheckBoxLimited) container;
-        	jc.setBackground(c);
-		}
         for (Component component : container.getComponents()) 
         {
             if (component instanceof JPanel) 
@@ -141,11 +136,6 @@ public class ColorTemplate
     			JSlider js = (JSlider) container;
             	js.setBackground(c);
             } 
-    		else if(container instanceof JCheckBoxLimited)
-    		{
-    			JCheckBoxLimited jc = (JCheckBoxLimited) container;
-            	jc.setBackground(c);
-    		}
             if (component instanceof Container) 
             {
             	setBackgroundColorPanel((Container) component, c);
