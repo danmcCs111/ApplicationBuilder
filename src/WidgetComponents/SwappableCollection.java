@@ -4,7 +4,7 @@ import java.awt.Component;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -29,7 +29,7 @@ public class SwappableCollection extends JPanel implements ExtendedStringCollect
 	public static ArrayList<String> indexPaths = new ArrayList<String>();
 	
 	//conceptually holding a collection of components to be swapped/redrawn
-	private HashMap<String, List<String>> pathAndFileList = new HashMap<String, List<String>>();
+	private LinkedHashMap<String, List<String>> pathAndFileList = new LinkedHashMap<String, List<String>>();
 	private String path;
 	private Component pathTextComponent;
 	private static int fileCount = 0;
@@ -56,13 +56,13 @@ public class SwappableCollection extends JPanel implements ExtendedStringCollect
 	}
 	
 	@Override
-	public HashMap<String, List<String>> getPathAndFileList() 
+	public LinkedHashMap<String, List<String>> getPathAndFileList() 
 	{
 		return this.pathAndFileList;
 	}
 
 	@Override
-	public void setPathAndFileList(HashMap<String, List<String>> pathAndFileList) 
+	public void setPathAndFileList(LinkedHashMap<String, List<String>> pathAndFileList) 
 	{
 		this.pathAndFileList = pathAndFileList;
 		fileCount = getCollectionSize();

@@ -47,7 +47,6 @@ public class LinkDragAndDropListener extends DropTargetAdapter
 				
 				if(youtube.isParser(dragDropString))
 				{
-					
 					dragDropString = HttpDatabaseRequest.addHttpsIfMissing(dragDropString);
 					LoggingMessages.printOut("drag and drop value: " + dragDropString);
 					String resp = HttpDatabaseRequest.executeGetRequest(dragDropString);

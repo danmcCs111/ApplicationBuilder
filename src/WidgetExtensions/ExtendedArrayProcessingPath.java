@@ -1,6 +1,6 @@
 package WidgetExtensions;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import ObjectTypeConversion.PathArrayProcessing;
@@ -13,7 +13,7 @@ public class ExtendedArrayProcessingPath implements ExtendedAttributeParam
 {
 	public void applyMethod(PathArrayProcessing path, WidgetCreatorProperty widgetProperties)
 	{
-		HashMap<String, List<String>> pathAndFileList = new HashMap<String, List<String>>();
+		LinkedHashMap<String, List<String>> pathAndFileList = new LinkedHashMap<String, List<String>>();
 		for(int i = 0; i < path.getSize(); i++)
 		{
 			pathAndFileList.put(path.getPathValue(i), 
