@@ -246,6 +246,10 @@ PostWidgetBuildProcessing
 			
 			SwappableCollection.indexPaths.add(path);
 			
+			ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
+			ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
+			ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
+			
 		}
 		else
 		{
@@ -269,7 +273,7 @@ PostWidgetBuildProcessing
 				PathUtility.removeCurrentWorkingDirectoryFromPath(path) +
 				IMAGES_RELATIVE_FILE_LOCATION +
 				name.replaceAll(".url", ".png");
-		return imageReader.setupImageIcon(new File(fileImage));
+		return imageReader.getImageIcon(new File(fileImage));
 	}
 	
 	private String getStrippedTextOnComponent(JCheckBoxLimited comp)

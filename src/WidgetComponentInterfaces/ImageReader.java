@@ -47,9 +47,9 @@ public class ImageReader
 		return defaultImage;
 	}
 	
-	public ImageIcon setupImageIcon(File file)
+	public ImageIcon getImageIcon(File file)
 	{
-		Image tmpImage = setupImage(file);
+		Image tmpImage = getImage(file);
 		if(tmpImage.equals(defaultImage))
 		{
 			return defaultImageIcon;
@@ -57,7 +57,7 @@ public class ImageReader
 		return new ImageIcon(tmpImage);
 	}
 	
-	public Image setupImage(File file)
+	public Image getImage(File file)
 	{
 		Image retImage = null;
 		try {

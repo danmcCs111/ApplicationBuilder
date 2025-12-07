@@ -9,7 +9,6 @@ public class PageParser
 {
 	private String 
 		domain = "";
-		
 	private LinkedHashMap<String, ArrayList<String>>
 		pageImageMatchAndReplace = new LinkedHashMap<String, ArrayList<String>>(),
 		pageTitleMatchAndReplace = new LinkedHashMap<String, ArrayList<String>>();
