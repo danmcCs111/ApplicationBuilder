@@ -81,6 +81,9 @@ PostWidgetBuildProcessing
 	private static boolean
 		SHOW_JAVA_SWING_FILE_CHOOSER = false,
 		SHOW_TITLE_ON_POSTER = false;
+	private static Color
+		buttonCheckboxBackground = null,
+		buttonCheckboxForeground = null;
 	
 	private HashMap<String, ArrayList<JCheckBoxLimited>> collectionJButtons = new HashMap<String, ArrayList<JCheckBoxLimited>>();
 	private Point 
@@ -115,6 +118,16 @@ PostWidgetBuildProcessing
 	public static void setDeleteBackgroundColor(Color c)
 	{
 		ColorTemplate.setDeleteBackgroundColor(c);
+	}
+	
+	public static void setButtonCheckboxBackground(Color backgroundCheckbox)
+	{
+		buttonCheckboxBackground = backgroundCheckbox;
+	}
+	
+	public static void setButtonCheckboxForeground(Color foregroundCheckbox)
+	{
+		buttonCheckboxForeground = foregroundCheckbox;
 	}
 	
 	public static void setJavaSwingFileChooser(boolean isSwingFileChooser)
@@ -239,6 +252,14 @@ PostWidgetBuildProcessing
 					ab.setText(strippedText);
 				}
 				jbuts.add((JCheckBoxLimited) comp);
+				if(buttonCheckboxBackground != null)
+				{
+					comp.setBackground(buttonCheckboxBackground);
+				}
+				if(buttonCheckboxForeground != null)
+				{
+					comp.setForeground(buttonCheckboxForeground);
+				}
 				this.add(comp);
 			}
 			Collections.sort(jbuts, new JCheckBoxLimited());
@@ -246,10 +267,14 @@ PostWidgetBuildProcessing
 			
 			SwappableCollection.indexPaths.add(path);
 			
-			ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
-			ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
-			ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
-			
+			if(buttonCheckboxBackground == null)
+			{
+				ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
+			}
+			if(buttonCheckboxForeground == null)
+			{
+				ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
+			}
 		}
 		else
 		{
