@@ -18,7 +18,7 @@ public class PageParserEditor extends JButton implements ParameterEditor
 	private static final int CHARACTER_LIMIT = 100;
 	private static final String 
 		LIMIT_POSTFIX = "..",
-		DEFAULT_EDITOR_TEXT = "<Click to Enter Command>";
+		DEFAULT_EDITOR_TEXT = "<Enter Page Filter>";
 	
 	private String commandText = DEFAULT_EDITOR_TEXT;
 	private PageParser pageParser;

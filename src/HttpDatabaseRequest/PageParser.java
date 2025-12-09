@@ -7,7 +7,11 @@ import java.util.LinkedHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.swing.JFrame;
+
+import ObjectTypeConversionEditors.PageParserEditor;
 import Properties.LoggingMessages;
+import WidgetComponentDialogs.PageParserDialog;
 
 public class PageParser
 {
@@ -213,6 +217,11 @@ public class PageParser
 		String xmlString = youtube.getXmlString();
 		youtube.setXmlString(xmlString);
 		youtube.getXmlString();
+		
+		JFrame f = new JFrame();
+		PageParserEditor ppe = new PageParserEditor();
+		f.add(ppe);
+		new PageParserDialog(ppe, youtube);
 	}
 	
 }
