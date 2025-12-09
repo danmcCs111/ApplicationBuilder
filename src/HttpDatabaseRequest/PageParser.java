@@ -1,5 +1,7 @@
 package HttpDatabaseRequest;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -22,9 +24,9 @@ public class PageParser
 	}
 	
 	private static final String
-		DELIMITER_FILTER_SEPERATOR = "@",
-		DELIMITER_REPLACE_SEPERATOR = "`",
-		DELIMITER_LIST_FILTER_SEPERATOR = "~";
+		DELIMITER_FILTER_SEPERATOR = "@F",
+		DELIMITER_REPLACE_SEPERATOR = "@R",
+		DELIMITER_LIST_FILTER_SEPERATOR = "@L";
 			
 	private String 
 		titleLabel = "",
@@ -124,14 +126,14 @@ public class PageParser
 				{
 					retStr += repl + DELIMITER_REPLACE_SEPERATOR;
 				}
-				retStr = (String) retStr.subSequence(0, retStr.length()-1);
+				retStr = (String) retStr.subSequence(0, retStr.length()-DELIMITER_REPLACE_SEPERATOR.length());
 				retStr += DELIMITER_LIST_FILTER_SEPERATOR;
 			}
 			retStr += DELIMITER_FILTER_SEPERATOR;
 			retStr = retStr.replace(DELIMITER_LIST_FILTER_SEPERATOR+DELIMITER_FILTER_SEPERATOR,
 					DELIMITER_FILTER_SEPERATOR);
 		}
-		retStr = (String) retStr.subSequence(0, retStr.length()-1);
+		retStr = (String) retStr.subSequence(0, retStr.length()-DELIMITER_FILTER_SEPERATOR.length());
 		
 		LoggingMessages.printOut(retStr);
 		
@@ -153,18 +155,23 @@ public class PageParser
 			if(i+1 < filterSepStr.length)
 			{
 				i++;
+				String parseType = null;
 				String [] replaces = filterSepStr[i].split(DELIMITER_REPLACE_SEPERATOR);
-				filter.put(replaces[0], new ArrayList<String>());
+				parseType = replaces[0];
+				replaces = filterSepStr[i+1].split(DELIMITER_REPLACE_SEPERATOR);
+				
+				filter.put(parseType, new ArrayList<String>());
+				LoggingMessages.printOut(replaces.length + " " + parseType);
 				if(replaces.length > 1)
 				{
-					for(int j = 1; j < replaces.length; j++)
+					for(int j = 0; j < replaces.length; j++)
 					{
-						filter.get(replaces[0]).add(replaces[j]);
+						filter.get(parseType).add(replaces[j]);
 					}	
 				}
 				else
 				{
-					filter.get(replaces[0]).add(filterSepStr[i+1]);
+					filter.get(parseType).add(filterSepStr[i+1]);
 					i++;
 				}
 				LoggingMessages.printOut(match);
@@ -221,7 +228,13 @@ public class PageParser
 		JFrame f = new JFrame();
 		PageParserEditor ppe = new PageParserEditor();
 		f.add(ppe);
-		new PageParserDialog(ppe, youtube);
+		PageParserDialog ppd = new PageParserDialog(ppe, youtube);
+		ppd.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent e) {
+				ppd.getPageParser().getXmlString();
+			}
+		});
 	}
 	
 }
