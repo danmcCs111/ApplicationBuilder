@@ -221,6 +221,7 @@ public class PageParser
 		youtube.addMatchAndReplace(ParseAttribute.Title, "<title>([^<])*</title>", 
 				new ArrayList<String>(Arrays.asList(new String [] {"<title>","</title>"}))
 				);
+		
 		String xmlString = youtube.getXmlString();
 		youtube.setXmlString(xmlString);
 		youtube.getXmlString();
