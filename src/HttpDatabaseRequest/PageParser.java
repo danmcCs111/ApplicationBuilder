@@ -18,6 +18,7 @@ public class PageParser
 	
 	private static final String
 		DELIMITER_FILTER_SEPERATOR = "@",
+		DELIMITER_REPLACE_SEPERATOR = "`",
 		DELIMITER_LIST_FILTER_SEPERATOR = "~";
 			
 	private String 
@@ -30,6 +31,7 @@ public class PageParser
 	public PageParser(String xmlString)
 	{
 		this.xmlString = xmlString;
+		readXmlString(xmlString);
 	}
 	
 	public void setDomainMatch(String domain)
@@ -102,19 +104,22 @@ public class PageParser
 		return constructXmlString();
 	}
 	
-	private String constructXmlString()
+	private String constructXmlString()//TODO need json
 	{
 		String retStr = "";
 		retStr += this.titleLabel + DELIMITER_FILTER_SEPERATOR;
+		retStr += this.domain + DELIMITER_FILTER_SEPERATOR;
 		for(ParseAttribute pa : pageMatchAndReplace.keySet())
 		{
+			retStr += pa.name() + DELIMITER_FILTER_SEPERATOR;
 			for(String mat : pageMatchAndReplace.get(pa).keySet())
 			{
 				retStr += mat + DELIMITER_FILTER_SEPERATOR;
 				for(String repl : pageMatchAndReplace.get(pa).get(mat))
 				{
-					retStr += repl + DELIMITER_FILTER_SEPERATOR;
+					retStr += repl + DELIMITER_REPLACE_SEPERATOR;
 				}
+				retStr.subSequence(0, retStr.length()-1);
 				retStr += DELIMITER_LIST_FILTER_SEPERATOR;
 			}
 			retStr += DELIMITER_FILTER_SEPERATOR;
@@ -128,15 +133,30 @@ public class PageParser
 		return retStr;
 	}
 	
-	private void readXmlString(String xmlString)
+	private void readXmlString(String xmlString)//TODO need json
 	{
+		if(xmlString == null || xmlString.isBlank())
+			return;
 		
+		String [] filterSepStr = xmlString.split(DELIMITER_FILTER_SEPERATOR);
+		this.titleLabel = filterSepStr[0];
+		this.domain = filterSepStr[1];
+		for(int i = 2; i < filterSepStr.length; i++)
+		{
+			String match = filterSepStr[i];
+			if(i+1 < filterSepStr.length)
+			{
+				i++;
+				String [] replaces = filterSepStr[i].split(DELIMITER_REPLACE_SEPERATOR);
+//				pageMatchAndReplace.put(match, replaces);
+			}
+		}
 	}
 	
 	public void setXmlString(String xmlString)
 	{
-//		this.xmlString = xmlString;
-		//TODO.
+		this.xmlString = xmlString;
+		readXmlString(xmlString);
 	}
 	
 	private String stripToMatch(String response, String pat)
@@ -161,6 +181,11 @@ public class PageParser
 			retStr = retStr.replaceAll(repl, "");
 		}
 		return retStr;
+	}
+	
+	public static void main(String [] args)
+	{
+		
 	}
 	
 }
