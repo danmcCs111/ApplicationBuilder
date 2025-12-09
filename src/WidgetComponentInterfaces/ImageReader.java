@@ -13,7 +13,8 @@ import Graphics2D.GraphicsUtil;
 
 public class ImageReader
 {
-	private ButtonArray ba;
+	private ButtonArray 
+		ba;
 	private Image 
 		defaultImage;
 	private ImageIcon
@@ -75,8 +76,9 @@ public class ImageReader
 	public static Dimension getScaledDimension(Image tmpImage, int scaledWidth)
 	{
 		ImageReaderDimensionObserver imgO = new ImageReaderDimensionObserver();
-		double width = (double)tmpImage.getWidth(imgO);
-		double height = (double)tmpImage.getHeight(imgO);
+		double 
+			width = (double)tmpImage.getWidth(imgO),
+			height = (double)tmpImage.getHeight(imgO);
 		
 		if(width == -1 || height == -1)
 		{

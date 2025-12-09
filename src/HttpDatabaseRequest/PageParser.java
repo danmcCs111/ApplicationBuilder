@@ -1,53 +1,137 @@
 package HttpDatabaseRequest;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import Properties.LoggingMessages;
+
 public class PageParser
 {
+	public enum ParseAttribute
+	{
+		Title,
+		Image
+	}
+	
+	private static final String
+		DELIMITER_FILTER_SEPERATOR = "@",
+		DELIMITER_LIST_FILTER_SEPERATOR = "~";
+			
 	private String 
+		titleLabel = "",
 		domain = "";
-	private LinkedHashMap<String, ArrayList<String>>
-		pageImageMatchAndReplace = new LinkedHashMap<String, ArrayList<String>>(),
-		pageTitleMatchAndReplace = new LinkedHashMap<String, ArrayList<String>>();
+	private HashMap<ParseAttribute, LinkedHashMap<String, ArrayList<String>>>
+		pageMatchAndReplace = new HashMap<ParseAttribute, LinkedHashMap<String, ArrayList<String>>>();
+	private String xmlString;
+	
+	public PageParser(String xmlString)
+	{
+		this.xmlString = xmlString;
+	}
 	
 	public void setDomainMatch(String domain)
 	{
 		this.domain = domain;
 	}
 	
-	public void addImageMatchAndReplace(String imageMatch, ArrayList<String> replacementStrips)
+	public void addMatchAndReplace(ParseAttribute pa, String match, ArrayList<String> replacementStrips)
 	{
-		pageImageMatchAndReplace.put(imageMatch, replacementStrips);
+		LinkedHashMap<String, ArrayList<String>> matchRepl = null;
+		if(!pageMatchAndReplace.containsKey(pa))
+		{
+			matchRepl = new LinkedHashMap<String, ArrayList<String>>();
+			matchRepl.put(match, replacementStrips);
+		}
+		else
+		{
+			matchRepl = pageMatchAndReplace.get(pa);
+			matchRepl.put(match, replacementStrips);
+		}
+		pageMatchAndReplace.put(pa, matchRepl);
 	}
 	
-	public void addTitleMatchAndReplace(String imageMatch, ArrayList<String> replacementStrips)
+	public LinkedHashMap<String, ArrayList<String>> getMatchAndReplace(ParseAttribute pa)
 	{
-		pageTitleMatchAndReplace.put(imageMatch, replacementStrips);
+		return pageMatchAndReplace.get(pa);
 	}
-
-	public String getImageUrl(String response)
+	
+	public void setTitleLabel(String titleLabel)
+	{
+		this.titleLabel = titleLabel;
+	}
+	
+	public String getTitleLabel() 
+	{
+		return this.titleLabel;
+	}
+	
+	public String getDomainMatch()
+	{
+		return this.domain;
+	}
+	
+	public boolean isParser(String url)
+	{
+		if(url == null)
+			return false;
+		
+		return (url.contains(domain));
+	}
+	
+	public String getAttributeFromResponse(ParseAttribute pa, String response)
 	{
 		String ret = response;
-		for(String key : pageImageMatchAndReplace.keySet()) 
+		for(String key : pageMatchAndReplace.get(pa).keySet()) 
 		{
 			ret = stripToMatch(response, key);
-			ret = replaceStrip(ret, pageImageMatchAndReplace.get(key));
+			ret = replaceStrip(ret, pageMatchAndReplace.get(pa).get(key));
 		}
 		return ret;
 	}
 	
-	public String getTitle(String response)
+	public String getXmlString()
 	{
-		String ret = response;
-		for(String key : pageTitleMatchAndReplace.keySet()) 
+		return constructXmlString();
+	}
+	
+	private String constructXmlString()
+	{
+		String retStr = "";
+		retStr += this.titleLabel + DELIMITER_FILTER_SEPERATOR;
+		for(ParseAttribute pa : pageMatchAndReplace.keySet())
 		{
-			ret = stripToMatch(response, key);
-			ret = replaceStrip(ret, pageTitleMatchAndReplace.get(key));
+			for(String mat : pageMatchAndReplace.get(pa).keySet())
+			{
+				retStr += mat + DELIMITER_FILTER_SEPERATOR;
+				for(String repl : pageMatchAndReplace.get(pa).get(mat))
+				{
+					retStr += repl + DELIMITER_FILTER_SEPERATOR;
+				}
+				retStr += DELIMITER_LIST_FILTER_SEPERATOR;
+			}
+			retStr += DELIMITER_FILTER_SEPERATOR;
+			retStr = retStr.replace(DELIMITER_LIST_FILTER_SEPERATOR+DELIMITER_FILTER_SEPERATOR,
+					DELIMITER_FILTER_SEPERATOR);
 		}
-		return ret;
+		retStr.subSequence(0, retStr.length()-1);
+		
+		LoggingMessages.printOut(retStr);
+		
+		return retStr;
+	}
+	
+	private void readXmlString(String xmlString)
+	{
+		
+	}
+	
+	public void setXmlString(String xmlString)
+	{
+//		this.xmlString = xmlString;
+		//TODO.
 	}
 	
 	private String stripToMatch(String response, String pat)
@@ -74,11 +158,4 @@ public class PageParser
 		return retStr;
 	}
 	
-	public boolean isParser(String url)
-	{
-		if(url == null)
-			return false;
-		
-		return (url.contains(domain));
-	}
 }

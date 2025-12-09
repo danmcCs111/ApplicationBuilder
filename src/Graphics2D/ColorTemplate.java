@@ -167,10 +167,6 @@ public class ColorTemplate
             }
         }
     }
-	public static void setBackgroundColorButtonsForced(Container container, Color c)
-	{
-		
-	}
 	public static void setForegroundColorButtons(Container container, Color c) 
 	{
 		if(c == null)

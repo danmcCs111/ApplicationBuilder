@@ -12,6 +12,7 @@ import java.util.Arrays;
 
 import HttpDatabaseRequest.HttpDatabaseRequest;
 import HttpDatabaseRequest.PageParser;
+import HttpDatabaseRequest.PageParser.ParseAttribute;
 import Properties.LoggingMessages;
 import WidgetComponentInterfaces.LinkDragAndDropSubscriber;
 
@@ -35,13 +36,13 @@ public class LinkDragAndDropListener extends DropTargetAdapter
 				String dragDropString = (String) t.getTransferData(DataFlavor.stringFlavor);
 				
 				//TODO
-				PageParser youtube = new PageParser();
+				PageParser youtube = new PageParser("");
 				youtube.isParser(dragDropString);
 				youtube.setDomainMatch("youtube.com");
-				youtube.addImageMatchAndReplace("https://yt3.googleusercontent.com([^\"])*(\")", 
+				youtube.addMatchAndReplace(ParseAttribute.Image, "https://yt3.googleusercontent.com([^\"])*(\")", 
 						new ArrayList<String>(Arrays.asList(new String [] {"\""}))
 						);
-				youtube.addTitleMatchAndReplace("<title>([^<])*</title>", 
+				youtube.addMatchAndReplace(ParseAttribute.Title, "<title>([^<])*</title>", 
 						new ArrayList<String>(Arrays.asList(new String [] {"<title>","</title>"}))
 						);
 				
@@ -52,8 +53,8 @@ public class LinkDragAndDropListener extends DropTargetAdapter
 					String resp = HttpDatabaseRequest.executeGetRequest(dragDropString);
 					LoggingMessages.printOut("response");
 					
-					String imageDownload = youtube.getImageUrl(resp);
-					String title = youtube.getTitle(resp);
+					String imageDownload = youtube.getAttributeFromResponse(ParseAttribute.Image, resp);
+					String title = youtube.getAttributeFromResponse(ParseAttribute.Title, resp);
 					
 					LoggingMessages.printOut(imageDownload);
 					LoggingMessages.printOut(title);
