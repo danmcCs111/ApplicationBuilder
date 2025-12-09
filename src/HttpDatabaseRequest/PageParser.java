@@ -1,6 +1,7 @@
 package HttpDatabaseRequest;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.regex.Matcher;
@@ -119,14 +120,14 @@ public class PageParser
 				{
 					retStr += repl + DELIMITER_REPLACE_SEPERATOR;
 				}
-				retStr.subSequence(0, retStr.length()-1);
+				retStr = (String) retStr.subSequence(0, retStr.length()-1);
 				retStr += DELIMITER_LIST_FILTER_SEPERATOR;
 			}
 			retStr += DELIMITER_FILTER_SEPERATOR;
 			retStr = retStr.replace(DELIMITER_LIST_FILTER_SEPERATOR+DELIMITER_FILTER_SEPERATOR,
 					DELIMITER_FILTER_SEPERATOR);
 		}
-		retStr.subSequence(0, retStr.length()-1);
+		retStr = (String) retStr.subSequence(0, retStr.length()-1);
 		
 		LoggingMessages.printOut(retStr);
 		
@@ -144,11 +145,26 @@ public class PageParser
 		for(int i = 2; i < filterSepStr.length; i++)
 		{
 			String match = filterSepStr[i];
+			LinkedHashMap<String, ArrayList<String>> filter = new LinkedHashMap<String, ArrayList<String>>();
 			if(i+1 < filterSepStr.length)
 			{
 				i++;
 				String [] replaces = filterSepStr[i].split(DELIMITER_REPLACE_SEPERATOR);
-//				pageMatchAndReplace.put(match, replaces);
+				filter.put(replaces[0], new ArrayList<String>());
+				if(replaces.length > 1)
+				{
+					for(int j = 1; j < replaces.length; j++)
+					{
+						filter.get(replaces[0]).add(replaces[j]);
+					}	
+				}
+				else
+				{
+					filter.get(replaces[0]).add(filterSepStr[i+1]);
+					i++;
+				}
+				LoggingMessages.printOut(match);
+				pageMatchAndReplace.put(ParseAttribute.valueOf(match), filter);
 			}
 		}
 	}
@@ -185,7 +201,18 @@ public class PageParser
 	
 	public static void main(String [] args)
 	{
-		
+		PageParser youtube = new PageParser("");
+		youtube.setTitleLabel("Youtube");
+		youtube.setDomainMatch("youtube.com");
+		youtube.addMatchAndReplace(ParseAttribute.Image, "https://yt3.googleusercontent.com([^\"])*(\")", 
+				new ArrayList<String>(Arrays.asList(new String [] {"\""}))
+				);
+		youtube.addMatchAndReplace(ParseAttribute.Title, "<title>([^<])*</title>", 
+				new ArrayList<String>(Arrays.asList(new String [] {"<title>","</title>"}))
+				);
+		String xmlString = youtube.getXmlString();
+		youtube.setXmlString(xmlString);
+		youtube.getXmlString();
 	}
 	
 }

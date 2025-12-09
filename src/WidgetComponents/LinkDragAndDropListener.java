@@ -38,6 +38,7 @@ public class LinkDragAndDropListener extends DropTargetAdapter
 				//TODO
 				PageParser youtube = new PageParser("");
 				youtube.isParser(dragDropString);
+				youtube.setTitleLabel("Youtube");
 				youtube.setDomainMatch("youtube.com");
 				youtube.addMatchAndReplace(ParseAttribute.Image, "https://yt3.googleusercontent.com([^\"])*(\")", 
 						new ArrayList<String>(Arrays.asList(new String [] {"\""}))
