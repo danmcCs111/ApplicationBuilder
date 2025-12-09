@@ -31,8 +31,10 @@ public class PageParserDialog extends JDialog
 		ADD_FILTER_LABEL_PREFIX = " + ",
 		ADD_FILTER_MATCH_LABEL_SUFFIX = " Match Filter",
 		ADD_FILTER_REPLACE_LABEL_SUFFIX = " Replace Filter",
-		MATCH_LABEL = "Match:      ",
-		REPLACE_LABEL = "Replace:  ",
+		MATCH_LABEL =	"Match:      ",
+		REPLACE_LABEL =	"Replace:  ",
+		TITLE_LABEL =	"Title:  ",
+		DOMAIN_LABEL =	"Domain: ",
 		PARAM_DELETE_TEXT = "X",
 		SAVE_BUTTON_LABEL = "Save",
 		CANCEL_BUTTON_LABEL = "Cancel";
@@ -129,7 +131,13 @@ public class PageParserDialog extends JDialog
 		
 		JPanel topPanel = new JPanel();
 		topPanel.setLayout(new GridLayout(0,1));
+		
+		JLabel titleLabel = new JLabel(TITLE_LABEL);
+		topPanel.add(titleLabel);
 		topPanel.add(title);
+		
+		JLabel domainLabel = new JLabel(DOMAIN_LABEL);
+		topPanel.add(domainLabel);
 		topPanel.add(domain);
 		
 		saveCancelPanelOuter.add(saveCancelPanel, BorderLayout.EAST);
