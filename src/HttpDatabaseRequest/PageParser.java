@@ -53,6 +53,11 @@ public class PageParser
 		pageMatchAndReplace.put(pa, matchRepl);
 	}
 	
+	public ParseAttribute[] getParseAttributes()
+	{
+		return pageMatchAndReplace.keySet().toArray(new ParseAttribute[] {});
+	}
+	
 	public LinkedHashMap<String, ArrayList<String>> getMatchAndReplace(ParseAttribute pa)
 	{
 		return pageMatchAndReplace.get(pa);

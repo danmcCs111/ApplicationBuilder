@@ -9,7 +9,6 @@ import javax.swing.JButton;
 import Graphics2D.ColorTemplate;
 import HttpDatabaseRequest.PageParser;
 import Params.ParameterEditor;
-import WidgetComponentDialogs.CommandDialog;
 import WidgetComponentDialogs.PageParserDialog;
 
 public class PageParserEditor extends JButton implements ParameterEditor
@@ -62,9 +61,9 @@ public class PageParserEditor extends JButton implements ParameterEditor
 	}
 
 	@Override
-	public void setComponentValue(Object value) {
-		// TODO Auto-generated method stub
-		
+	public void setComponentValue(Object value) 
+	{
+		parserDialog.setPageParser((PageParser) value);
 	}
 
 	@Override

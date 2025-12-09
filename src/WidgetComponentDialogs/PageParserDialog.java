@@ -6,10 +6,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -21,7 +19,6 @@ import Graphics2D.ColorTemplate;
 import HttpDatabaseRequest.PageParser;
 import HttpDatabaseRequest.PageParser.ParseAttribute;
 import ObjectTypeConversionEditors.PageParserEditor;
-import WidgetComponentInterfaces.ParamOption;
 
 public class PageParserDialog extends JDialog
 {
@@ -29,17 +26,13 @@ public class PageParserDialog extends JDialog
 	
 	private static final String 
 		TITLE = "Command Entry",
-		ADD_IMAGE_FILTER_LABEL = " + Image Filter",
-		ADD_TITLE_FILTER_LABEL = " + Title Filter",
+		ADD_FILTER_LABEL_PREFIX = " + ",
+		ADD_FILTER_MATCH_LABEL_SUFFIX = " Match Filter",
+		ADD_FILTER_REPLACE_LABEL_SUFFIX = " Replace Filter",
 		PARAM_DELETE_TEXT = "X",
 		SAVE_BUTTON_LABEL = "Save",
 		CANCEL_BUTTON_LABEL = "Cancel";
 	private static final Dimension MIN_DIMENSION_DIALOG = new Dimension(400, 300);
-	public static final List<String> PARAM_OPTIONS = Arrays.asList(new String[] {
-			ParamOption.TextField.getDisplayText(),
-			ParamOption.Directory.getDisplayText(),
-			ParamOption.File.getDisplayText()
-	});
 	
 	private JPanel 
 		innerPanel = new JPanel(),
@@ -48,9 +41,11 @@ public class PageParserDialog extends JDialog
 	private JTextField 
 		title = new JTextField(),
 		domain = new JTextField();
+	private ArrayList<JButton>
+		addFilterButton = new ArrayList<JButton>();
+	private HashMap<ParseAttribute, ArrayList<JButton>>
+		addReplaceButton = new HashMap<ParseAttribute, ArrayList<JButton>>();
 	private JButton 
-		addImageFilterButton = new JButton(ADD_IMAGE_FILTER_LABEL),
-		addTitleFilterButton = new JButton(ADD_TITLE_FILTER_LABEL),
 		saveButton = new JButton(SAVE_BUTTON_LABEL),
 		cancelButton = new JButton(CANCEL_BUTTON_LABEL);
 	private HashMap<ParseAttribute, LinkedHashMap<JTextField, ArrayList<JTextField>>>
@@ -58,9 +53,11 @@ public class PageParserDialog extends JDialog
 	
 	private String retSelection = null;
 	private PageParserEditor pageParserEditor;
+	private PageParser pageParser = null;
 
 	public PageParserDialog(PageParserEditor cbe, PageParser pp)
 	{
+		this.pageParser = pp;
 		buildWidgets(cbe, pp);
 	}
 	
@@ -74,23 +71,22 @@ public class PageParserDialog extends JDialog
 		this.setLayout(new BorderLayout());
 		
 		innerPanel.setLayout(new GridLayout(0, 1));
-		addImageFilterButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				addParserImageFilter();
-			}
-		});
-		addTitleFilterButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				addParserTitleFilter();
-			}
-		});
+		
 		this.add(innerPanel, BorderLayout.NORTH);
 		innerPanel.add(title);
 		innerPanel.add(domain);
-		innerPanel.add(addImageFilterButton);
-		innerPanel.add(addTitleFilterButton);
+		for(ParseAttribute pa : ParseAttribute.values())
+		{
+			JButton jbut = new JButton(ADD_FILTER_LABEL_PREFIX + pa.name() + ADD_FILTER_MATCH_LABEL_SUFFIX);
+			jbut.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					addFilter(pa, pp);
+				}
+			});
+			innerPanel.add(jbut);
+			addFilterButton.add(jbut);
+		}
 		saveCancelPanelOuter.setLayout(new BorderLayout());
 		saveCancelPanel.setLayout(new GridLayout(1,2));
 		
@@ -115,16 +111,7 @@ public class PageParserDialog extends JDialog
 		
 		if(pp != null)
 		{
-			//Construct
-			title.setText(pp.getTitleLabel());
-			domain.setText(pp.getDomainMatch());
-			for(ParseAttribute pa : ParseAttribute.values())
-			{
-				LinkedHashMap<JTextField, ArrayList<JTextField>> replFields = constructReplacementFields(
-						pp.getMatchAndReplace(pa), this.parserFilter.get(pa));
-				parserFilter.put(pa, replFields);
-			}
-			
+			constructPageParser(pp);
 		}
 		
 		ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
@@ -134,19 +121,22 @@ public class PageParserDialog extends JDialog
 		this.setVisible(true);
 	}
 	
-	public void addParserImageFilter()
+	public void addFilter(ParseAttribute pa, PageParser pp)
 	{
-		
-	}
-	
-	public void addParserTitleFilter()
-	{
-		
+		LinkedHashMap<JTextField, ArrayList<JTextField>> replFields = constructMatchAndReplacementFields(
+				pp.getMatchAndReplace(pa), this.parserFilter.get(pa));
+		parserFilter.put(pa, replFields);
 	}
 	
 	public PageParser getPageParser()
 	{
 		return buildPageParser();
+	}
+	
+	public void setPageParser(PageParser pageParser)
+	{
+		this.pageParser = pageParser;
+		constructPageParser(this.pageParser);
 	}
 	
 	private PageParser buildPageParser()
@@ -169,22 +159,40 @@ public class PageParserDialog extends JDialog
 		return pp;
 	}
 	
-	private LinkedHashMap<JTextField, ArrayList<JTextField>> constructReplacementFields(
+	private void constructPageParser(PageParser pp)
+	{
+		title.setText(pp.getTitleLabel());
+		domain.setText(pp.getDomainMatch());
+		for(ParseAttribute pa : pp.getParseAttributes())
+		{
+			LinkedHashMap<JTextField, ArrayList<JTextField>> replFields = constructMatchAndReplacementFields(
+					pp.getMatchAndReplace(pa), this.parserFilter.get(pa));
+			parserFilter.put(pa, replFields);
+		}
+	}
+	
+	private LinkedHashMap<JTextField, ArrayList<JTextField>> constructMatchAndReplacementFields(
 			LinkedHashMap<String, ArrayList<String>> replacementFields, 
 			LinkedHashMap<JTextField, ArrayList<JTextField>> parserFilter)
 	{
 		if(replacementFields == null)
-			return null;
-		
-		for(String match : replacementFields.keySet())
 		{
-			JTextField matchField = new JTextField(match);
+			JTextField matchField = new JTextField();
 			ArrayList<JTextField> replFields = new ArrayList<JTextField>();
-			for(String repl : replacementFields.get(match))
-			{
-				replFields.add(new JTextField(repl));
-			}
 			parserFilter.put(matchField, replFields);
+		}
+		else
+		{
+			for(String match : replacementFields.keySet())
+			{
+				JTextField matchField = new JTextField(match);
+				ArrayList<JTextField> replFields = new ArrayList<JTextField>();
+				for(String repl : replacementFields.get(match))
+				{
+					replFields.add(new JTextField(repl));
+				}
+				parserFilter.put(matchField, replFields);
+			}
 		}
 		return parserFilter;
 	}
