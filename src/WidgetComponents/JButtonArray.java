@@ -749,8 +749,10 @@ PostWidgetBuildProcessing, ButtonArray
 	{
 		int indexPos = NavigationButtonActionListener.getCurPosition();
 		String path = SwappableCollection.indexPaths.get(indexPos);
+		String channelName = linkTitleAndImageUrl[1].replaceAll("[^a-zA-Z0-9\\-\s]", "");
+		
 		JButtonLengthLimited jbl = (JButtonLengthLimited) FileListOptionGenerator.buildComponent(
-				path, linkTitleAndImageUrl[1], linkTitleAndImageUrl[0], JButtonLengthLimited.class);
+				path, channelName, linkTitleAndImageUrl[0], JButtonLengthLimited.class);
 		filterText(jbl);
 		if(collectionJButtons.get(path).contains(jbl))
 		{
@@ -763,7 +765,7 @@ PostWidgetBuildProcessing, ButtonArray
 		//Save results.
 		CommandBuild cb = ShellHeadlessExecutor.getWindowsCommand(new String []{
 				ds.getPathLinux() + "/" + SAVE_DROP_SCRIPT + " " +
-				linkTitleAndImageUrl[0] + " " + linkTitleAndImageUrl[1].replaceAll("\s", "\\\\ ") + " " + linkTitleAndImageUrl[2] });
+				linkTitleAndImageUrl[0] + " " + channelName.replaceAll("\s", "\\\\ ") + " " + linkTitleAndImageUrl[2] });
 		
 		try {
 			CommandExecutor.executeProcess(cb, true);
