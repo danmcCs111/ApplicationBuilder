@@ -21,6 +21,7 @@ import Graphics2D.ColorTemplate;
 import HttpDatabaseRequest.PageParser;
 import HttpDatabaseRequest.PageParser.ParseAttribute;
 import ObjectTypeConversionEditors.PageParserEditor;
+import Properties.LoggingMessages;
 
 public class PageParserDialog extends JDialog
 {
@@ -167,25 +168,27 @@ public class PageParserDialog extends JDialog
 	
 	public void addMatchFilter(ParseAttribute pa, PageParser pp, String matchInitValue)
 	{
+		JTextField lastMatchText = getLastMatchTextField(pa);
 		LinkedHashMap<JTextField, ArrayList<JTextField>> replFields = addMatchField(
 				pa,
 				matchFilterPanel.get(pa),
 				pp.getMatchAndReplace(pa), 
 				this.parserFilter.get(pa),
+				lastMatchText.getText(),
 				matchInitValue);
 		parserFilter.put(pa, replFields);
 	}
 	
 	public void addReplaceFilter(ParseAttribute pa, PageParser pp, String replaceInitValue)
 	{
-		JTextField [] keys = this.parserFilter.get(pa).keySet().toArray(new JTextField[] {});
+		JTextField lastMatchText = getLastMatchTextField(pa);
 		
 		LinkedHashMap<JTextField, ArrayList<JTextField>> replFields = addReplacementField(
 				pa,
 				matchFilterPanel.get(pa),
 				pp.getMatchAndReplace(pa), 
 				this.parserFilter.get(pa),
-				keys[keys.length-1].getText(),
+				lastMatchText.getText(),
 				replaceInitValue);
 		parserFilter.put(pa, replFields);
 	}
@@ -199,6 +202,15 @@ public class PageParserDialog extends JDialog
 	{
 		this.pageParser = pageParser;
 		constructPageParser(this.pageParser);
+	}
+	
+	private JTextField getLastMatchTextField(ParseAttribute pa)
+	{
+		if(parserFilter.size() == 0 || parserFilter.get(pa).size() == 0)
+			return new JTextField();
+		
+		JTextField [] keys = this.parserFilter.get(pa).keySet().toArray(new JTextField[] {});
+		return keys[keys.length-1];
 	}
 	
 	private PageParser buildPageParser()
@@ -230,7 +242,9 @@ public class PageParserDialog extends JDialog
 			LinkedHashMap<JTextField, ArrayList<JTextField>> replFields = constructMatchAndReplacementFields(
 					pa,
 					matchFilterPanel.get(pa),
-					pp.getMatchAndReplace(pa), this.parserFilter.get(pa));
+					pp.getMatchAndReplace(pa), 
+					this.parserFilter.get(pa)
+			);
 			parserFilter.put(pa, replFields);
 		}
 	}
@@ -251,13 +265,12 @@ public class PageParserDialog extends JDialog
 		{
 			for(String match : replacementFields.keySet())
 			{
-				parserFilter = addMatchField(pa, parentComponent, replacementFields, parserFilter, match);
+				parserFilter = addMatchField(pa, parentComponent, replacementFields, parserFilter, match, match);
 				
 				for(String repl : replacementFields.get(match))
 				{
 					parserFilter = addReplacementField(pa, parentComponent, replacementFields, parserFilter, match, repl);
 				}
-				
 			}
 		}
 		return parserFilter;
@@ -268,9 +281,24 @@ public class PageParserDialog extends JDialog
 			JComponent parentComponent,
 			LinkedHashMap<String, ArrayList<String>> replacementFields, 
 			LinkedHashMap<JTextField, ArrayList<JTextField>> parserFilter,
+			String prevMatch,
 			String fieldText
 			)
 	{
+		if(prevMatch.isBlank())
+		{
+			return parserFilter;
+		}
+		if(parserFilter == null)
+		{
+			parserFilter = new LinkedHashMap<JTextField, ArrayList<JTextField>>();
+		}
+		ArrayList<JTextField> replFields = parserFilter.get(matchStringAndTextField.get(prevMatch));
+		if(replFields != null && (replFields.size() != 0 && replFields.get(replFields.size()-1).getText().isBlank()))
+		{
+			return parserFilter;
+		}
+		
 		JPanel matchPanel = new JPanel();
 		matchPanel.setLayout(new BorderLayout());
 		JLabel matchLabel = new JLabel(MATCH_LABEL);
@@ -280,10 +308,7 @@ public class PageParserDialog extends JDialog
 		
 		parentComponent.add(matchPanel);
 		
-		if(parserFilter == null)
-		{
-			parserFilter = new LinkedHashMap<JTextField, ArrayList<JTextField>>();
-		}
+		
 		matchStringAndTextField.put(fieldText, matchField);
 		parserFilter.put(matchField, new ArrayList<JTextField>());
 		
@@ -301,11 +326,20 @@ public class PageParserDialog extends JDialog
 			String fieldText
 			)
 	{
+		if(match.isBlank())
+		{
+			return parserFilter;
+		}
+		ArrayList<JTextField> replFields = parserFilter.get(matchStringAndTextField.get(match));
+		if(replFields.size() != 0 && replFields.get(replFields.size()-1).getText().isBlank())
+		{
+			return parserFilter;
+		}
+		
 		JLabel replLabel = new JLabel(REPLACE_LABEL);
 		JTextField replField = new JTextField(fieldText);
-		ArrayList<JTextField> replFields = parserFilter.get(matchStringAndTextField.get(match));
+		LoggingMessages.printOut(match);
 		replFields.add(replField);
-		
 		
 		JPanel replPanel = new JPanel();
 		replPanel.setLayout(new BorderLayout());
