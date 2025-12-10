@@ -1,6 +1,7 @@
 package WidgetComponentDialogs;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
@@ -16,8 +18,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
 
 import Graphics2D.ColorTemplate;
+import HttpDatabaseRequest.HttpDatabaseRequest;
 import HttpDatabaseRequest.PageParser;
 import HttpDatabaseRequest.PageParser.ParseAttribute;
 import ObjectTypeConversionEditors.PageParserEditor;
@@ -37,21 +42,29 @@ public class PageParserDialog extends JDialog
 		TITLE_LABEL =	"Title:  ",
 		DOMAIN_LABEL =	"Domain: ",
 		PARAM_DELETE_TEXT = "X",
+		SIMULATE_LABEL = "Simulate",
+		SIMULATE_TITLE_STRIPPED = "Title Filtered: ",
+		SIMULATE_IMAGE_STRIPPED = "Image Filtered: ",
+		SIMULATE_URL_ENTRY_STRIPPED = "Simulate with Url: ",
 		SAVE_BUTTON_LABEL = "Save",
 		CANCEL_BUTTON_LABEL = "Cancel";
-	private static final Dimension MIN_DIMENSION_DIALOG = new Dimension(400, 300);
+	private static final Dimension MIN_DIMENSION_DIALOG = new Dimension(400, 600);
 	
 	private JPanel 
 		innerPanel = new JPanel(),
 		saveCancelPanel = new JPanel(),
 		saveCancelPanelOuter = new JPanel();
 	private JTextField 
+		simulateTextField = new JTextField(20),
+		simulateTitleTextField = new JTextField(20),
+		simulateImageTextField = new JTextField(20),
 		title = new JTextField(),
 		domain = new JTextField();
 	private ArrayList<JButton>
 		addMatchFilterButton = new ArrayList<JButton>(),
 		addReplaceFilterButton = new ArrayList<JButton>();
 	private JButton 
+		simulateButton = new JButton(SIMULATE_LABEL),
 		saveButton = new JButton(SAVE_BUTTON_LABEL),
 		cancelButton = new JButton(CANCEL_BUTTON_LABEL);
 	
@@ -116,6 +129,42 @@ public class PageParserDialog extends JDialog
 			
 			innerPanel.add(matchPanel);
 		}
+		
+		buildSaveCancel();
+		
+		JPanel topPanel = new JPanel();
+		topPanel.setLayout(new GridLayout(0,1));
+		
+		JLabel titleLabel = new JLabel(TITLE_LABEL);
+		topPanel.add(titleLabel);
+		topPanel.add(title);
+		
+		JLabel domainLabel = new JLabel(DOMAIN_LABEL);
+		topPanel.add(domainLabel);
+		topPanel.add(domain);
+		
+		JPanel outerPanel = new JPanel();
+		outerPanel.setLayout(new BorderLayout());
+		outerPanel.add(innerPanel, BorderLayout.NORTH);
+		
+		this.add(topPanel, BorderLayout.NORTH);
+		this.add(outerPanel, BorderLayout.CENTER);
+		this.add(saveCancelPanelOuter, BorderLayout.SOUTH);
+		
+		if(pp != null)
+		{
+			constructPageParser(pp);
+		}
+		
+		ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
+		ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
+		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
+		
+		this.setVisible(true);
+	}
+	
+	private void buildSaveCancel()
+	{
 		saveCancelPanelOuter.setLayout(new BorderLayout());
 		saveCancelPanel.setLayout(new GridLayout(1,2));
 		
@@ -134,36 +183,46 @@ public class PageParserDialog extends JDialog
 			}
 		});
 		saveCancelPanel.add(cancelButton);
+		JPanel simulatePanel = buildSimulatePanel();
 		
-		JPanel topPanel = new JPanel();
-		topPanel.setLayout(new GridLayout(0,1));
-		
-		JLabel titleLabel = new JLabel(TITLE_LABEL);
-		topPanel.add(titleLabel);
-		topPanel.add(title);
-		
-		JLabel domainLabel = new JLabel(DOMAIN_LABEL);
-		topPanel.add(domainLabel);
-		topPanel.add(domain);
-		
+		saveCancelPanelOuter.add(simulatePanel, BorderLayout.NORTH);
 		saveCancelPanelOuter.add(saveCancelPanel, BorderLayout.EAST);
-		JPanel outerPanel = new JPanel();
-		outerPanel.setLayout(new BorderLayout());
-		outerPanel.add(innerPanel, BorderLayout.NORTH);
-		this.add(outerPanel, BorderLayout.CENTER);
-		this.add(topPanel, BorderLayout.NORTH);
-		this.add(saveCancelPanelOuter, BorderLayout.SOUTH);
+	}
+	
+	public JPanel buildSimulatePanel()
+	{
+		//TODO
+		JPanel simulatePanel = new JPanel();
+		simulatePanel.setLayout(new GridLayout(0,1));
+		simulateButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				simulateAction(simulateTextField.getText());
+			}
+		});
+		Border b = BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.gray, Color.gray);
+		simulatePanel.setBorder(b);
 		
-		if(pp != null)
-		{
-			constructPageParser(pp);
-		}
+		JPanel innerPanelTitle = new JPanel();
+		innerPanelTitle.setLayout(new BorderLayout());
+		innerPanelTitle.add(new JLabel(SIMULATE_TITLE_STRIPPED), BorderLayout.WEST);
+		innerPanelTitle.add(simulateTitleTextField, BorderLayout.CENTER);
+		simulatePanel.add(innerPanelTitle);
 		
-		ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
-		ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
-		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
+		JPanel innerPanelImage = new JPanel();
+		innerPanelImage.setLayout(new BorderLayout());
+		innerPanelImage.add(new JLabel(SIMULATE_IMAGE_STRIPPED), BorderLayout.WEST);
+		innerPanelImage.add(simulateImageTextField, BorderLayout.CENTER);
+		simulatePanel.add(innerPanelImage);
 		
-		this.setVisible(true);
+		JPanel innerPanelSimulate = new JPanel();
+		innerPanelSimulate.setLayout(new BorderLayout());
+		innerPanelSimulate.add(new JLabel(SIMULATE_URL_ENTRY_STRIPPED), BorderLayout.WEST);
+		innerPanelSimulate.add(simulateTextField, BorderLayout.CENTER);
+		innerPanelSimulate.add(simulateButton, BorderLayout.EAST);
+		simulatePanel.add(innerPanelSimulate);
+		
+		return simulatePanel;
 	}
 	
 	public void addMatchFilter(ParseAttribute pa, PageParser pp, String matchInitValue)
@@ -353,6 +412,24 @@ public class PageParserDialog extends JDialog
 		this.validate();
 		
 		return parserFilter;
+	}
+	
+	private void simulateAction(String dragDropString)
+	{
+		PageParser youtube = getPageParser();
+		
+		HttpDatabaseRequest.addHttpsIfMissing(dragDropString);
+		LoggingMessages.printOut("drag and drop value: " + dragDropString);
+		String resp = HttpDatabaseRequest.executeGetRequest(dragDropString);
+		LoggingMessages.printOut("response");
+		
+		String imageDownload = youtube.getAttributeFromResponse(ParseAttribute.Image, resp);
+		String title = youtube.getAttributeFromResponse(ParseAttribute.Title, resp);
+		
+		LoggingMessages.printOut(imageDownload);
+		simulateImageTextField.setText(imageDownload);
+		LoggingMessages.printOut(title);
+		simulateTitleTextField.setText(title);
 	}
 	
 	private void saveAction()
