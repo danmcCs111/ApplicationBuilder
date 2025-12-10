@@ -621,6 +621,24 @@ PostWidgetBuildProcessing, ButtonArray
 	@Override
 	public void postExecute() //perform mouse listener adapter add as post processing TODO include in xml.
 	{
+		JFrame f = WidgetBuildController.getInstance().getFrame();
+		refreshAllMouseListeners();
+		f.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent e) {
+				closeAll();
+			}
+		});
+		addDragAndDropListener(this);
+	}
+
+	private void addDragAndDropListener(Component target)
+	{
+		new DropTarget(target, new LinkDragAndDropListener(this));
+	}
+	
+	private void refreshAllMouseListeners()
+	{
 		if(pathAndMouseAdapter == null || pathAndMouseAdapter.isEmpty())
 		{
 			return;
@@ -646,19 +664,6 @@ PostWidgetBuildProcessing, ButtonArray
 				c.addMouseListener(ima);
 			}
 		}
-		JFrame f = WidgetBuildController.getInstance().getFrame();
-		f.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosed(WindowEvent e) {
-				closeAll();
-			}
-		});
-		addDragAndDropListener(this);
-	}
-
-	private void addDragAndDropListener(Component target)
-	{
-		new DropTarget(target, new LinkDragAndDropListener(this));
 	}
 	
 	@Override
@@ -761,8 +766,8 @@ PostWidgetBuildProcessing, ButtonArray
 				linkTitleAndImageUrl[0] + " " + linkTitleAndImageUrl[1].replaceAll("\s", "\\\\ ") + " " + linkTitleAndImageUrl[2] });
 		
 		try {
-			CommandExecutor.executeProcess(cb);
-			
+			CommandExecutor.executeProcess(cb, true);
+			refreshAllMouseListeners();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
