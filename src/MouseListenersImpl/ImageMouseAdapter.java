@@ -112,7 +112,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		for(JButtonLengthLimited c : components)
 		{
 			String text = c.getFullLengthText();
-			keepsCurrentCollection.add(new KeepSelection(this.path, text, getButtonArray(), c));
+			keepsCurrentCollection.add(new KeepSelection(this.path, text, c.getText(), getButtonArray(), c));
 		}
 	}
 	
@@ -302,7 +302,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		p2.setLayout(new BorderLayout());
 		if(SHOW_TITLE_ON_POSTER || KeepSelection.isDefaultImg(ks.getImg()))
 		{
-			l.setText(ks.getText());
+			l.setText(ks.getDisplayText());
 		}
 		p2.add(l, BorderLayout.CENTER);
 		p.add(p2, BorderLayout.NORTH);

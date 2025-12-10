@@ -54,16 +54,17 @@ public class KeepSelection implements ShapeDrawingCollectionLoad, Comparator<Kee
 		
 	}
 	
-	public KeepSelection(String path, String fullText, ButtonArray ba, JButtonLengthLimited ab)
+	public KeepSelection(String path, String fullText, String displayText, ButtonArray ba, JButtonLengthLimited ab)
 	{
-		this(path, fullText, ba);
+		this(path, fullText, displayText, ba);
 		this.ab = ab;
 	}
 	
-	public KeepSelection(String path, String fullText, ButtonArray ba)
+	public KeepSelection(String path, String fullText, String displayText, ButtonArray ba)
 	{
 		this.path = path;
 		this.fullText = fullText;
+		this.displayText = displayText;
 		this.ba = ba;
 		this.fileLocation = PathUtility.getCurrentDirectory() + 
 				PathUtility.removeCurrentWorkingDirectoryFromPath(path)  + 
@@ -127,6 +128,11 @@ public class KeepSelection implements ShapeDrawingCollectionLoad, Comparator<Kee
 	public String getText()
 	{
 		return this.fullText;
+	}
+	
+	public String getDisplayText()
+	{
+		return this.displayText;
 	}
 	
 	public String getPath()
