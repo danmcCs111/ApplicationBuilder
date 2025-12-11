@@ -76,23 +76,24 @@ public class PageParserDialog extends JDialog
 	private PageParserEditor pageParserEditor;
 	private PageParser pageParser = null;
 
-	public PageParserDialog(PageParserEditor cbe, PageParser pp)
+	public PageParserDialog(PageParserEditor ppe, PageParser pp)
 	{
 		this.pageParser = pp;
-		buildWidgets(cbe, pp);
+		buildWidgets(ppe, pp);
 	}
 	
-	private void buildWidgets(PageParserEditor cbe, PageParser pp)
+	private void buildWidgets(PageParserEditor ppe, PageParser pp)
 	{
 		Point parentLocation = null;
-		if(cbe.getRootPane() == null || cbe.getRootPane().getParent() == null)
+		this.pageParserEditor = ppe;
+		if(ppe.getRootPane() == null || ppe.getRootPane().getParent() == null)
 		{
 			return;
 		}
-		parentLocation = cbe.getRootPane().getParent().getLocation();
+		parentLocation = ppe.getRootPane().getParent().getLocation();
 		this.setLocation(parentLocation);
 		
-		this.pageParserEditor = cbe;
+		this.pageParserEditor = ppe;
 		this.setTitle(TITLE);
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setMinimumSize(MIN_DIMENSION_DIALOG);
@@ -486,6 +487,7 @@ public class PageParserDialog extends JDialog
 	
 	private void saveAction()
 	{
+		pageParserEditor.setComponentValue(getPageParser());
 		this.dispose();
 	}
 	

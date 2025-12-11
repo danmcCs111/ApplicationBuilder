@@ -15,7 +15,8 @@ public class PageParserEditor extends JButton implements ParameterEditor
 {
 	private static final long serialVersionUID = 1L;
 	
-	private static final int CHARACTER_LIMIT = 100;
+	private static final int 
+		CHARACTER_LIMIT = 100;
 	private static final String 
 		LIMIT_POSTFIX = "..",
 		DEFAULT_EDITOR_TEXT = "<Enter Page Filter>";
@@ -26,6 +27,7 @@ public class PageParserEditor extends JButton implements ParameterEditor
 	
 	public PageParserEditor()
 	{
+		super();
 		buildWidgets();
 	}
 	
@@ -44,8 +46,6 @@ public class PageParserEditor extends JButton implements ParameterEditor
 				parserDialog.setVisible(true);
 			}
 		});
-		
-		parserDialog = new PageParserDialog(PageParserEditor.this, pageParser);
 		
 		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
 		ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
@@ -66,7 +66,17 @@ public class PageParserEditor extends JButton implements ParameterEditor
 	@Override
 	public void setComponentValue(Object value) 
 	{
-		parserDialog.setPageParser((PageParser) value);
+		pageParser = (PageParser) value;
+		if(parserDialog == null)
+		{
+			parserDialog = new PageParserDialog(PageParserEditor.this, pageParser);
+			this.setText(pageParser.getTitleLabel());
+		}
+		else
+		{
+			parserDialog.setPageParser(pageParser);
+			this.setText(pageParser.getTitleLabel());
+		}
 	}
 
 	@Override
