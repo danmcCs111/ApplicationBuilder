@@ -6,6 +6,9 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
+
+import Properties.LoggingMessages;
+
 import java.net.http.HttpRequest.BodyPublisher;
 
 public interface HttpDatabaseRequest 
@@ -60,10 +63,16 @@ public interface HttpDatabaseRequest
 	public static String addHttpsIfMissing(String url)
 	{
 		url = url.strip();
-		if(!url.startsWith("https://www") && !url.startsWith("http://www"))
+		if(!url.matches("^(https|http)://.*"))
 		{
-			return "https://www." + url;
+			String prefix = "https://";
+			if(!url.matches("^(www.).*"))
+			{
+				prefix += "www.";
+			}
+			url = prefix + url;
 		}
+		LoggingMessages.printOut(url);
 		return url;
 	}
 }

@@ -471,7 +471,7 @@ public class PageParserDialog extends JDialog
 	{
 		PageParser youtube = getPageParser();
 		
-		HttpDatabaseRequest.addHttpsIfMissing(dragDropString);
+		dragDropString = HttpDatabaseRequest.addHttpsIfMissing(dragDropString);
 		LoggingMessages.printOut("drag and drop value: " + dragDropString);
 		String resp = HttpDatabaseRequest.executeGetRequest(dragDropString);
 		LoggingMessages.printOut("response");
