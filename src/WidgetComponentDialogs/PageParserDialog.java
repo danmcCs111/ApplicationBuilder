@@ -233,12 +233,14 @@ public class PageParserDialog extends JDialog
 		
 		JPanel innerPanelTitle = new JPanel();
 		innerPanelTitle.setLayout(new BorderLayout());
+		simulateTitleTextField.setEditable(false);
 		innerPanelTitle.add(new JLabel(SIMULATE_TITLE_STRIPPED), BorderLayout.WEST);
 		innerPanelTitle.add(simulateTitleTextField, BorderLayout.CENTER);
 		simulatePanel.add(innerPanelTitle);
 		
 		JPanel innerPanelImage = new JPanel();
 		innerPanelImage.setLayout(new BorderLayout());
+		simulateImageTextField.setEditable(false);
 		innerPanelImage.add(new JLabel(SIMULATE_IMAGE_STRIPPED), BorderLayout.WEST);
 		innerPanelImage.add(simulateImageTextField, BorderLayout.CENTER);
 		simulatePanel.add(innerPanelImage);
