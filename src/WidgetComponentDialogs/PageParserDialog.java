@@ -3,6 +3,7 @@ package WidgetComponentDialogs;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -42,7 +43,8 @@ public class PageParserDialog extends JDialog
 		REPLACE_LABEL =	"Replace:  ",
 		TITLE_LABEL =	"Title:  ",
 		DOMAIN_LABEL =	"Domain: ",
-		PARAM_DELETE_TEXT = "X",
+		PARAM_DELETE_TEXT = "X Remove",
+		PARAM_DELETE_TOOLTIP = "Remove Last Filter",
 		SIMULATE_LABEL = "Simulate",
 		SIMULATE_TITLE_STRIPPED = "Title Filtered: ",
 		SIMULATE_IMAGE_STRIPPED = "Image Filtered: ",
@@ -101,7 +103,7 @@ public class PageParserDialog extends JDialog
 		{
 			JPanel matchPanel = new JPanel();
 			JPanel addMatchReplace = new JPanel();
-			addMatchReplace.setLayout(new GridLayout(0,3));
+			addMatchReplace.setLayout(new FlowLayout());
 			
 			matchPanel.setLayout(new GridLayout(0,1));
 			matchFilterPanel.put(pa, matchPanel);
@@ -174,7 +176,8 @@ public class PageParserDialog extends JDialog
 	
 	private JPanel buildDeleteButton(ParseAttribute pa)
 	{
-		JButton remButton = new JButton("X Remove");
+		JButton remButton = new JButton(PARAM_DELETE_TEXT);
+		remButton.setToolTipText(PARAM_DELETE_TOOLTIP);
 		remButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
