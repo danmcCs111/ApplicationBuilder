@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 
 import ObjectTypeConversion.PageParser;
 import ObjectTypeConversion.PageParser.ParseAttribute;
@@ -23,6 +24,7 @@ public class PageParsersDialog extends JDialog
 	private static final long serialVersionUID = 1L;
 	
 	private static String
+		TITLE_TEXT = "Edit Page Parser Collection",
 		ADD_PARSER_BUTTON_TEXT = "+ Add Page Parser",
 		DELETE_PARSER_BUTTON_TEXT = "X";
 	private static final Dimension 
@@ -41,6 +43,8 @@ public class PageParsersDialog extends JDialog
 	
 	private void buildWidgets()
 	{
+		this.setTitle(TITLE_TEXT);
+		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setLayout(new BorderLayout());
 		this.setMinimumSize(MIN_DIMENSION_DIALOG);
 		arrayPageParser.setLayout(new GridLayout(0,1));
