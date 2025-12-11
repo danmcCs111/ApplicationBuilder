@@ -64,6 +64,7 @@ import WidgetExtensions.ExtendedLayoutApplyParent;
 import WidgetExtensions.ExtendedMinimizeActionListener;
 import WidgetExtensions.ExtendedNewFileActionListener;
 import WidgetExtensions.ExtendedOpenActionListener;
+import WidgetExtensions.ExtendedPageParser;
 import WidgetExtensions.ExtendedRestoreActionListener;
 import WidgetExtensions.ExtendedSaveActionListener;
 import WidgetExtensions.ExtendedScheduledCommandStartActionListener;
@@ -247,6 +248,7 @@ public class WidgetAttributes
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSwappableHolder.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedTextStripper.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedImageMouseAdapterArray.class, ExtendedMethodArgDef.ImageMouseAdapter.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedPageParser.class, ExtendedMethodArgDef.PageParser.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetBackgroundPanelColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetButtonBackgroundColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetButtonForegroundColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef())

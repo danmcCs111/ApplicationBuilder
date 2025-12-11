@@ -35,6 +35,7 @@ import MouseListenersImpl.PicLabelMouseListener;
 import ObjectTypeConversion.CommandBuild;
 import ObjectTypeConversion.DirectorySelection;
 import ObjectTypeConversion.FileSelection;
+import ObjectTypeConversion.PageParser;
 import Params.KeepSelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
@@ -51,6 +52,7 @@ import WidgetExtensionInterfaces.ComboListDialogSelectedListener;
 import WidgetExtensionInterfaces.MinimizeActionExtension;
 import WidgetExtensionInterfaces.MouseAdapterArrayExtension;
 import WidgetExtensionInterfaces.OpenActionExtension;
+import WidgetExtensionInterfaces.PageParserLoad;
 import WidgetExtensionInterfaces.RestoreActionExtension;
 import WidgetExtensionInterfaces.SaveActionExtension;
 import WidgetExtensionInterfaces.ShiftFramesExtension;
@@ -65,7 +67,7 @@ import WidgetUtility.WidgetBuildController;
  */
 public class JButtonArray extends JPanel implements ArrayActionListener, CharacterLimited, 
 SaveActionExtension, OpenActionExtension, CloseActionExtension, CloseAllActionExtension, MinimizeActionExtension, RestoreActionExtension, ShiftFramesExtension,
-ComboListDialogSelectedListener, MouseAdapterArrayExtension, LinkDragAndDropSubscriber,
+ComboListDialogSelectedListener, MouseAdapterArrayExtension, LinkDragAndDropSubscriber, PageParserLoad,
 PostWidgetBuildProcessing, ButtonArray
 {
 	private static final long serialVersionUID = 1883L;
@@ -114,6 +116,8 @@ PostWidgetBuildProcessing, ButtonArray
 	private HashMap<String, MouseListener> pathAndMouseAdapter;
 	private ArrayList<String> stripFilter = new ArrayList<String>();
 	private boolean isHighlight = true;
+	private PageParser pageParser;
+	
 	
 	private int characterLimit=0;
 	
@@ -773,6 +777,12 @@ PostWidgetBuildProcessing, ButtonArray
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void addPageParser(PageParser pageParser) 
+	{
+		this.pageParser = pageParser;
 	}
 
 }

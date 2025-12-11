@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 import Graphics2D.ColorTemplate;
-import HttpDatabaseRequest.PageParser;
+import ObjectTypeConversion.PageParser;
 import Params.ParameterEditor;
 import WidgetComponentDialogs.PageParserDialog;
 
@@ -26,7 +26,7 @@ public class PageParserEditor extends JButton implements ParameterEditor
 	
 	public PageParserEditor()
 	{
-		
+		buildWidgets();
 	}
 	
 	public void buildWidgets()
@@ -36,13 +36,16 @@ public class PageParserEditor extends JButton implements ParameterEditor
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				if(parserDialog != null && parserDialog.isVisible())
+				if(parserDialog != null)
 				{
 					parserDialog.dispose();
 				}
 				parserDialog = new PageParserDialog(PageParserEditor.this, pageParser);
+				parserDialog.setVisible(true);
 			}
 		});
+		
+		parserDialog = new PageParserDialog(PageParserEditor.this, pageParser);
 		
 		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
 		ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());

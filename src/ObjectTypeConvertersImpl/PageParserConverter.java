@@ -1,6 +1,6 @@
 package ObjectTypeConvertersImpl;
 
-import HttpDatabaseRequest.PageParser;
+import ObjectTypeConversion.PageParser;
 import ObjectTypeConversion.StringToObjectConverter;
 
 public class PageParserConverter implements StringToObjectConverter

@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import HttpDatabaseRequest.HttpDatabaseRequest;
-import HttpDatabaseRequest.PageParser;
-import HttpDatabaseRequest.PageParser.ParseAttribute;
+import ObjectTypeConversion.PageParser;
+import ObjectTypeConversion.PageParser.ParseAttribute;
 import Properties.LoggingMessages;
 import WidgetComponentInterfaces.LinkDragAndDropSubscriber;
 

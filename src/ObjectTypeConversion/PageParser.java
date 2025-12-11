@@ -1,4 +1,4 @@
-package HttpDatabaseRequest;
+package ObjectTypeConversion;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -230,6 +230,7 @@ public class PageParser
 		PageParserEditor ppe = new PageParserEditor();
 		f.add(ppe);
 		PageParserDialog ppd = new PageParserDialog(ppe, youtube);
+		ppd.setVisible(true);
 		ppd.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosed(WindowEvent e) {
