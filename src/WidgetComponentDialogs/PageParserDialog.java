@@ -101,16 +101,18 @@ public class PageParserDialog extends JDialog
 		{
 			JPanel matchPanel = new JPanel();
 			JPanel addMatchReplace = new JPanel();
-			addMatchReplace.setLayout(new GridLayout(0,2));
+			addMatchReplace.setLayout(new GridLayout(0,3));
 			
 			matchPanel.setLayout(new GridLayout(0,1));
 			matchFilterPanel.put(pa, matchPanel);
 			
 			JPanel inner = buildFilterButton(pa, MatchOrReplace.match);
 			JPanel inner2 = buildFilterButton(pa, MatchOrReplace.replace);
+			JPanel inner3 = buildDeleteButton(pa);
 			
 			addMatchReplace.add(inner);
 			addMatchReplace.add(inner2);
+			addMatchReplace.add(inner3);
 			matchPanel.add(addMatchReplace);
 			
 			innerPanel.add(matchPanel);
@@ -166,6 +168,22 @@ public class PageParserDialog extends JDialog
 		JPanel inner2 = new JPanel();
 		inner2.setLayout(new BorderLayout());
 		inner2.add(jbut2, BorderLayout.NORTH);
+		
+		return inner2;
+	}
+	
+	private JPanel buildDeleteButton(ParseAttribute pa)
+	{
+		JButton remButton = new JButton("X Remove");
+		remButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				deleteLast(pa);
+			}
+		});
+		JPanel inner2 = new JPanel();
+		inner2.setLayout(new BorderLayout());
+		inner2.add(remButton, BorderLayout.NORTH);
 		
 		return inner2;
 	}
@@ -266,6 +284,31 @@ public class PageParserDialog extends JDialog
 		return keys[keys.length-1];
 	}
 	
+	private void deleteLast(ParseAttribute pa)
+	{
+		JTextField lastMatch = getLastMatchTextField(pa);
+		if(lastMatch == null)
+			return;
+		
+		ArrayList<JTextField> repls = parserFilter.get(pa).get(lastMatch);
+		if(repls == null || repls.isEmpty())
+		{
+			//delete match
+			LoggingMessages.printOut(lastMatch.getText());
+			matchFilterPanel.get(pa).remove(lastMatch.getParent().getParent());
+			parserFilter.get(pa).remove(lastMatch);
+		}
+		else
+		{
+			//delete last repl
+			JTextField lastRepl = repls.get(repls.size()-1);
+			matchFilterPanel.get(pa).remove(lastRepl.getParent().getParent());
+			repls.remove(lastRepl);
+			LoggingMessages.printOut(lastRepl.getText());
+		}
+		this.validate();
+	}
+	
 	private PageParser buildPageParser()
 	{
 		PageParser pp = new PageParser("");
@@ -360,9 +403,16 @@ public class PageParserDialog extends JDialog
 		{
 			return parserFilter;
 		}
-		if(parserFilter == null)
+		if(parserFilter == null || parserFilter.get(prevMatch) == null)
 		{
-			parserFilter = new LinkedHashMap<JTextField, ArrayList<JTextField>>();
+			if(mor == MatchOrReplace.match)
+			{
+				parserFilter = new LinkedHashMap<JTextField, ArrayList<JTextField>>();
+			}
+			else
+			{
+				return parserFilter;
+			}
 		}
 		else
 		{
