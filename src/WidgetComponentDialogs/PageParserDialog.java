@@ -116,7 +116,7 @@ public class PageParserDialog extends JDialog
 			jbut.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					addMatchFilter(pa, getPageParser(), "");
+					addFilter(pa, getPageParser(), "", MatchOrReplace.match);
 				}
 			});
 			JPanel inner = new JPanel();
@@ -128,7 +128,7 @@ public class PageParserDialog extends JDialog
 			jbut2.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					addReplaceFilter(pa, getPageParser(), "");
+					addFilter(pa, getPageParser(), "", MatchOrReplace.replace);
 				}
 			});
 			JPanel inner2 = new JPanel();
@@ -233,32 +233,17 @@ public class PageParserDialog extends JDialog
 		return simulatePanel;
 	}
 	
-	public void addMatchFilter(ParseAttribute pa, PageParser pp, String matchInitValue)
+	public void addFilter(ParseAttribute pa, PageParser pp, String matchInitValue, MatchOrReplace mor)
 	{
 		JTextField lastMatchText = getLastMatchTextField(pa);
-		LinkedHashMap<JTextField, ArrayList<JTextField>> replFields = addMatchField(
+		LinkedHashMap<JTextField, ArrayList<JTextField>> replFields = addMatchReplaceField(
 				pa,
 				matchFilterPanel.get(pa),
 				pp.getMatchAndReplace(pa), 
 				this.parserFilter.get(pa),
 				lastMatchText,
 				matchInitValue,
-				MatchOrReplace.match);
-		parserFilter.put(pa, replFields);
-	}
-	
-	public void addReplaceFilter(ParseAttribute pa, PageParser pp, String replaceInitValue)
-	{
-		JTextField lastMatchText = getLastMatchTextField(pa);
-		
-		LinkedHashMap<JTextField, ArrayList<JTextField>> replFields = addMatchField(
-				pa,
-				matchFilterPanel.get(pa),
-				pp.getMatchAndReplace(pa), 
-				this.parserFilter.get(pa),
-				lastMatchText,
-				replaceInitValue,
-				MatchOrReplace.replace);
+				mor);
 		parserFilter.put(pa, replFields);
 	}
 	
@@ -346,13 +331,13 @@ public class PageParserDialog extends JDialog
 		{
 			for(String match : replacementFields.keySet())
 			{
-				parserFilter = addMatchField(
+				parserFilter = addMatchReplaceField(
 						pa, parentComponent, replacementFields, parserFilter, getLastMatchTextField(pa), match, MatchOrReplace.match);
 				this.parserFilter.put(pa, parserFilter);
 				
 				for(String repl : replacementFields.get(match))
 				{
-					parserFilter = addMatchField(
+					parserFilter = addMatchReplaceField(
 							pa, parentComponent, replacementFields, parserFilter, getLastMatchTextField(pa), repl, MatchOrReplace.replace);
 					this.parserFilter.put(pa, parserFilter);
 				}
@@ -361,7 +346,7 @@ public class PageParserDialog extends JDialog
 		return parserFilter;
 	}
 	
-	private LinkedHashMap<JTextField, ArrayList<JTextField>> addMatchField(
+	private LinkedHashMap<JTextField, ArrayList<JTextField>> addMatchReplaceField(
 			ParseAttribute pa,
 			JComponent parentComponent,
 			LinkedHashMap<String, ArrayList<String>> replacementFields, 
