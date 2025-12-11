@@ -44,7 +44,7 @@ public class LinkDragAndDropListener extends DropTargetAdapter
 						new ArrayList<String>(Arrays.asList(new String [] {"\""}))
 						);
 				youtube.addMatchAndReplace(ParseAttribute.Title, "<title>([^<])*</title>", 
-						new ArrayList<String>(Arrays.asList(new String [] {"<title>","</title>"}))
+						new ArrayList<String>(Arrays.asList(new String [] {"<title>","</title>","[^a-zA-Z0-9\\-\\s]"}))
 						);
 				
 				if(youtube.isParser(dragDropString))

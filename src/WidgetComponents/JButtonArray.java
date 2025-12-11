@@ -753,7 +753,7 @@ PostWidgetBuildProcessing, ButtonArray
 	{
 		int indexPos = NavigationButtonActionListener.getCurPosition();
 		String path = SwappableCollection.indexPaths.get(indexPos);
-		String channelName = linkTitleAndImageUrl[1].replaceAll("[^a-zA-Z0-9\\-\s]", "");
+		String channelName = linkTitleAndImageUrl[1];
 		
 		JButtonLengthLimited jbl = (JButtonLengthLimited) FileListOptionGenerator.buildComponent(
 				path, channelName, linkTitleAndImageUrl[0], JButtonLengthLimited.class);
