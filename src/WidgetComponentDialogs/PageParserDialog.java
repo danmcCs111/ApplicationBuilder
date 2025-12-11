@@ -33,6 +33,8 @@ public class PageParserDialog extends JDialog
 {
 	private static final long serialVersionUID = 1L;
 	
+//	private Dimension maxSize = new Dimension(200,50);
+	
 	private static final String 
 		TITLE = "Command Entry",
 		ADD_FILTER_LABEL_PREFIX = " + ",
@@ -119,7 +121,9 @@ public class PageParserDialog extends JDialog
 					addMatchFilter(pa, getPageParser(), "");
 				}
 			});
-			addMatchReplace.add(jbut);
+			JPanel inner = new JPanel();
+			inner.setLayout(new BorderLayout());
+			inner.add(jbut, BorderLayout.NORTH);
 			addMatchFilterButton.add(jbut);
 			
 			JButton jbut2 = new JButton(ADD_FILTER_LABEL_PREFIX + pa.name() + ADD_FILTER_REPLACE_LABEL_SUFFIX);
@@ -129,9 +133,13 @@ public class PageParserDialog extends JDialog
 					addReplaceFilter(pa, getPageParser(), "");
 				}
 			});
-			addMatchReplace.add(jbut2);
+			JPanel inner2 = new JPanel();
+			inner2.setLayout(new BorderLayout());
+			inner2.add(jbut2, BorderLayout.NORTH);
 			addReplaceFilterButton.add(jbut2);
 			
+			addMatchReplace.add(inner);
+			addMatchReplace.add(inner2);
 			matchPanel.add(addMatchReplace);
 			
 			innerPanel.add(matchPanel);
@@ -388,8 +396,10 @@ public class PageParserDialog extends JDialog
 		matchPanel.add(matchLabel, BorderLayout.WEST);
 		matchPanel.add(matchField, BorderLayout.CENTER);
 		
-		parentComponent.add(matchPanel);
-		
+		JPanel inner = new JPanel();
+		inner.setLayout(new BorderLayout());
+		inner.add(matchPanel, BorderLayout.NORTH);
+		parentComponent.add(inner);
 		
 		parserFilter.put(matchField, new ArrayList<JTextField>());
 		
@@ -435,12 +445,16 @@ public class PageParserDialog extends JDialog
 		LoggingMessages.printOut(match.getText());
 		replFields.add(replField);
 		
+		JPanel inner = new JPanel();
+		inner.setLayout(new BorderLayout());
 		JPanel replPanel = new JPanel();
 		replPanel.setLayout(new BorderLayout());
 		
 		replPanel.add(replLabel, BorderLayout.WEST);
 		replPanel.add(replField, BorderLayout.CENTER);
-		parentComponent.add(replPanel);
+		inner.add(replPanel, BorderLayout.NORTH);
+		
+		parentComponent.add(inner);
 		parserFilter.put(match, replFields);
 		
 		this.validate();
