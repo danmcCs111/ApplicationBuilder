@@ -69,14 +69,11 @@ public class PageParserDialog extends JDialog
 		saveButton = new JButton(SAVE_BUTTON_LABEL),
 		cancelButton = new JButton(CANCEL_BUTTON_LABEL);
 	
-	private HashMap<ParseAttribute, ArrayList<JButton>>
-		addReplaceButton = new HashMap<ParseAttribute, ArrayList<JButton>>();
 	private HashMap<ParseAttribute, LinkedHashMap<JTextField, ArrayList<JTextField>>>
 		parserFilter = new HashMap<ParseAttribute, LinkedHashMap<JTextField, ArrayList<JTextField>>>();
 	private HashMap<ParseAttribute, JComponent> 
 		matchFilterPanel = new HashMap<PageParser.ParseAttribute, JComponent>();
 	
-	private String retSelection = null;
 	private PageParserEditor pageParserEditor;
 	private PageParser pageParser = null;
 
@@ -112,29 +109,8 @@ public class PageParserDialog extends JDialog
 			matchPanel.setLayout(new GridLayout(0,1));
 			matchFilterPanel.put(pa, matchPanel);
 			
-			JButton jbut = new JButton(ADD_FILTER_LABEL_PREFIX + pa.name() + ADD_FILTER_MATCH_LABEL_SUFFIX);
-			jbut.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					addFilter(pa, getPageParser(), "", MatchOrReplace.match);
-				}
-			});
-			JPanel inner = new JPanel();
-			inner.setLayout(new BorderLayout());
-			inner.add(jbut, BorderLayout.NORTH);
-			addMatchFilterButton.add(jbut);
-			
-			JButton jbut2 = new JButton(ADD_FILTER_LABEL_PREFIX + pa.name() + ADD_FILTER_REPLACE_LABEL_SUFFIX);
-			jbut2.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					addFilter(pa, getPageParser(), "", MatchOrReplace.replace);
-				}
-			});
-			JPanel inner2 = new JPanel();
-			inner2.setLayout(new BorderLayout());
-			inner2.add(jbut2, BorderLayout.NORTH);
-			addReplaceFilterButton.add(jbut2);
+			JPanel inner = buildFilterButton(pa, MatchOrReplace.match);
+			JPanel inner2 = buildFilterButton(pa, MatchOrReplace.replace);
 			
 			addMatchReplace.add(inner);
 			addMatchReplace.add(inner2);
@@ -169,6 +145,33 @@ public class PageParserDialog extends JDialog
 		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
 		
 		constructPageParser(pp);
+	}
+	
+	private JPanel buildFilterButton(ParseAttribute pa, MatchOrReplace mor)
+	{
+		String suffix = null;
+		switch(mor)
+		{
+		case match:
+			suffix = ADD_FILTER_MATCH_LABEL_SUFFIX;
+			break;
+		case replace:
+			suffix = ADD_FILTER_REPLACE_LABEL_SUFFIX;
+			break;
+		}
+		JButton jbut2 = new JButton(ADD_FILTER_LABEL_PREFIX + pa.name() + suffix);
+		jbut2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				addFilter(pa, getPageParser(), "", mor);
+			}
+		});
+		JPanel inner2 = new JPanel();
+		inner2.setLayout(new BorderLayout());
+		inner2.add(jbut2, BorderLayout.NORTH);
+		addReplaceFilterButton.add(jbut2);
+		
+		return inner2;
 	}
 	
 	private void buildSaveCancel()
