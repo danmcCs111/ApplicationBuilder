@@ -49,7 +49,8 @@ public class PageParserDialog extends JDialog
 		SIMULATE_URL_ENTRY_STRIPPED = "Simulate with Url: ",
 		SAVE_BUTTON_LABEL = "Save",
 		CANCEL_BUTTON_LABEL = "Cancel";
-	private static final Dimension MIN_DIMENSION_DIALOG = new Dimension(400, 600);
+	private static final Dimension 
+		MIN_DIMENSION_DIALOG = new Dimension(400, 600);
 	
 	private JPanel 
 		innerPanel = new JPanel(),
@@ -61,14 +62,10 @@ public class PageParserDialog extends JDialog
 		simulateImageTextField = new JTextField(20),
 		title = new JTextField(),
 		domain = new JTextField();
-	private ArrayList<JButton>
-		addMatchFilterButton = new ArrayList<JButton>(),
-		addReplaceFilterButton = new ArrayList<JButton>();
 	private JButton 
 		simulateButton = new JButton(SIMULATE_LABEL),
 		saveButton = new JButton(SAVE_BUTTON_LABEL),
 		cancelButton = new JButton(CANCEL_BUTTON_LABEL);
-	
 	private HashMap<ParseAttribute, LinkedHashMap<JTextField, ArrayList<JTextField>>>
 		parserFilter = new HashMap<ParseAttribute, LinkedHashMap<JTextField, ArrayList<JTextField>>>();
 	private HashMap<ParseAttribute, JComponent> 
@@ -169,7 +166,6 @@ public class PageParserDialog extends JDialog
 		JPanel inner2 = new JPanel();
 		inner2.setLayout(new BorderLayout());
 		inner2.add(jbut2, BorderLayout.NORTH);
-		addReplaceFilterButton.add(jbut2);
 		
 		return inner2;
 	}
@@ -406,6 +402,9 @@ public class PageParserDialog extends JDialog
 		inner.setLayout(new BorderLayout());
 		inner.add(matchPanel, BorderLayout.NORTH);
 		parentComponent.add(inner);
+		
+		ColorTemplate.setForegroundColorButtons(matchPanel, ColorTemplate.getButtonForegroundColor());
+		ColorTemplate.setBackgroundColorButtons(matchPanel, ColorTemplate.getButtonBackgroundColor());
 		
 		this.validate();
 		
