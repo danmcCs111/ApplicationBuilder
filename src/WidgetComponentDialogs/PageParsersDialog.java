@@ -15,6 +15,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import Graphics2D.ColorTemplate;
 import ObjectTypeConversion.PageParser;
 import ObjectTypeConversion.PageParser.ParseAttribute;
 import ObjectTypeConversionEditors.PageParserEditor;
@@ -49,6 +50,9 @@ public class PageParsersDialog extends JDialog
 		this.setMinimumSize(MIN_DIMENSION_DIALOG);
 		arrayPageParser.setLayout(new GridLayout(0,1));
 		JButton addParserButton = new JButton(ADD_PARSER_BUTTON_TEXT);
+		ColorTemplate.setForegroundColorButtons(addParserButton, ColorTemplate.getButtonForegroundColor());
+		ColorTemplate.setBackgroundColorButtons(addParserButton, ColorTemplate.getButtonBackgroundColor());
+		
 		addParserButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -62,6 +66,7 @@ public class PageParsersDialog extends JDialog
 			addPageParser(pp);
 		}
 		this.add(arrayPageParser, BorderLayout.NORTH);
+		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
 	}
 	
 	private ArrayList<PageParser> getPageParsers()
@@ -87,6 +92,11 @@ public class PageParsersDialog extends JDialog
 		inner.add(ppe, BorderLayout.CENTER);
 		pageParserAndComponent.put(pp, inner);
 		arrayPageParser.add(inner);
+		ColorTemplate.setForegroundColorButtons(ppe, ColorTemplate.getButtonForegroundColor());
+		ColorTemplate.setBackgroundColorButtons(ppe, ColorTemplate.getButtonBackgroundColor());
+		
+		ColorTemplate.setForegroundColorButtons(delButton, ColorTemplate.getDeleteForegroundColor());
+		ColorTemplate.setBackgroundColorButtons(delButton, ColorTemplate.getDeleteBackgroundColor());
 	}
 	
 	private void addPageParsers()//TODO test

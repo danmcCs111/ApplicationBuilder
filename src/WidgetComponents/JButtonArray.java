@@ -118,7 +118,6 @@ PostWidgetBuildProcessing, ButtonArray
 	private boolean isHighlight = true;
 	private PageParser pageParser;
 	
-	
 	private int characterLimit=0;
 	
 	public JButtonArray()
