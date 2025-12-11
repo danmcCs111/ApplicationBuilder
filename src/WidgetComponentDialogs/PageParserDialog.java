@@ -268,7 +268,7 @@ public class PageParserDialog extends JDialog
 	private JTextField getLastMatchTextField(ParseAttribute pa)
 	{
 		if(parserFilter.size() == 0 || parserFilter.get(pa) == null || parserFilter.get(pa).size() == 0)
-			return new JTextField();
+			return null;
 		
 		JTextField [] keys = this.parserFilter.get(pa).keySet().toArray(new JTextField[] {});
 		return keys[keys.length-1];
@@ -360,10 +360,10 @@ public class PageParserDialog extends JDialog
 			String fieldText
 			)
 	{
-//		if(prevMatch.isBlank())
-//		{
-//			return parserFilter;
-//		}
+		if(prevMatch != null && prevMatch.getText().isBlank())
+		{
+			return parserFilter;
+		}
 		if(parserFilter == null)
 		{
 			parserFilter = new LinkedHashMap<JTextField, ArrayList<JTextField>>();
