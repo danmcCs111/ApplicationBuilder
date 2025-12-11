@@ -136,7 +136,6 @@ public class PageParserDialog extends JDialog
 			
 			innerPanel.add(matchPanel);
 		}
-		constructPageParser(pp);
 		
 		buildSaveCancel();
 		
@@ -163,6 +162,7 @@ public class PageParserDialog extends JDialog
 		ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
 		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
 		
+		constructPageParser(pp);
 	}
 	
 	private void buildSaveCancel()
@@ -338,11 +338,13 @@ public class PageParserDialog extends JDialog
 		{
 			for(String match : replacementFields.keySet())
 			{
-				parserFilter = addMatchField(pa, parentComponent, replacementFields, parserFilter, null, match);
+				parserFilter = addMatchField(pa, parentComponent, replacementFields, parserFilter, getLastMatchTextField(pa), match);
+				this.parserFilter.put(pa, parserFilter);
 				
 				for(String repl : replacementFields.get(match))
 				{
 					parserFilter = addReplacementField(pa, parentComponent, replacementFields, parserFilter, getLastMatchTextField(pa), repl);
+					this.parserFilter.put(pa, parserFilter);
 				}
 			}
 		}
@@ -439,7 +441,6 @@ public class PageParserDialog extends JDialog
 		replPanel.add(replLabel, BorderLayout.WEST);
 		replPanel.add(replField, BorderLayout.CENTER);
 		parentComponent.add(replPanel);
-		
 		parserFilter.put(match, replFields);
 		
 		this.validate();
