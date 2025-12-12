@@ -23,7 +23,7 @@ public class PageParser
 	}
 	
 	private static final String
-		QUOTE_REPLACEMENT = "&quot&",
+		QUOTE_REPLACEMENT = "@Q@",
 		DELIMITER_FILTER_SEPERATOR = "@F@",
 		DELIMITER_REPLACE_SEPERATOR = "@R@",
 		DELIMITER_LIST_FILTER_SEPERATOR = "@L@";
@@ -213,7 +213,7 @@ public class PageParser
 	
 	public static void main(String [] args)
 	{
-		PageParser youtube = new PageParser("Youtube@F@youtube.com@F@Image@F@https://yt3.googleusercontent.com([^&quot&])*(&quot&)@F@&quot&@F@Title@F@<title>([^<])*</title>@F@<title>@R@</title>@R@[^a-zA-Z0-9\\-\\s]");
+		PageParser youtube = new PageParser("Youtube@F@youtube.com@F@Image@F@https://yt3.googleusercontent.com([^@Q@])*(@Q@)@F@@Q@@F@Title@F@<title>([^<])*</title>@F@<title>@R@</title>@R@[^a-zA-Z0-9\\-\\s]");
 		JFrame f = new JFrame();
 		PageParserEditor ppe = new PageParserEditor();
 		f.add(ppe);

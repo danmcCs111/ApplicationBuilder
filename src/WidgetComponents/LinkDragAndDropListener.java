@@ -7,22 +7,23 @@ import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTargetAdapter;
 import java.awt.dnd.DropTargetDropEvent;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import HttpDatabaseRequest.HttpDatabaseRequest;
 import ObjectTypeConversion.PageParser;
 import ObjectTypeConversion.PageParser.ParseAttribute;
+import ObjectTypeConversion.PageParserCollection;
 import Properties.LoggingMessages;
 import WidgetComponentInterfaces.LinkDragAndDropSubscriber;
 
 public class LinkDragAndDropListener extends DropTargetAdapter
 {
 	private LinkDragAndDropSubscriber ldds;
+	private PageParserCollection pageParserCollection;
 	
-	public LinkDragAndDropListener(LinkDragAndDropSubscriber ldds)
+	public LinkDragAndDropListener(LinkDragAndDropSubscriber ldds, PageParserCollection pageParserCollection)
 	{
 		this.ldds = ldds;
+		this.pageParserCollection = pageParserCollection;
 	}
 	
 	@Override
@@ -35,31 +36,22 @@ public class LinkDragAndDropListener extends DropTargetAdapter
 			{
 				String dragDropString = (String) t.getTransferData(DataFlavor.stringFlavor);
 				
-				//TODO
-				PageParser youtube = new PageParser("");
-				youtube.isParser(dragDropString);
-				youtube.setTitleLabel("Youtube");
-				youtube.setDomainMatch("youtube.com");
-				youtube.addMatchAndReplace(ParseAttribute.Image, "https://yt3.googleusercontent.com([^\"])*(\")", 
-						new ArrayList<String>(Arrays.asList(new String [] {"\""}))
-						);
-				youtube.addMatchAndReplace(ParseAttribute.Title, "<title>([^<])*</title>", 
-						new ArrayList<String>(Arrays.asList(new String [] {"<title>","</title>","[^a-zA-Z0-9\\-\\s]"}))
-						);
-				
-				if(youtube.isParser(dragDropString))
+				for(PageParser pp : pageParserCollection.getPageParsers())
 				{
-					dragDropString = HttpDatabaseRequest.addHttpsIfMissing(dragDropString);
-					LoggingMessages.printOut("drag and drop value: " + dragDropString);
-					String resp = HttpDatabaseRequest.executeGetRequest(dragDropString);
-					LoggingMessages.printOut("response");
-					
-					String imageDownload = youtube.getAttributeFromResponse(ParseAttribute.Image, resp);
-					String title = youtube.getAttributeFromResponse(ParseAttribute.Title, resp);
-					
-					LoggingMessages.printOut(imageDownload);
-					LoggingMessages.printOut(title);
-					ldds.notifyLinkTitleAndImageUrl(new String [] {dragDropString, title, imageDownload});
+					if(pp.isParser(dragDropString))
+					{
+						dragDropString = HttpDatabaseRequest.addHttpsIfMissing(dragDropString);
+						LoggingMessages.printOut("drag and drop value: " + dragDropString);
+						String resp = HttpDatabaseRequest.executeGetRequest(dragDropString);
+						LoggingMessages.printOut("response");
+						
+						String imageDownload = pp.getAttributeFromResponse(ParseAttribute.Image, resp);
+						String title = pp.getAttributeFromResponse(ParseAttribute.Title, resp);
+						
+						LoggingMessages.printOut(imageDownload);
+						LoggingMessages.printOut(title);
+						ldds.notifyLinkTitleAndImageUrl(new String [] {dragDropString, title, imageDownload});
+					}
 				}
 			}
 		} catch (UnsupportedFlavorException e) {

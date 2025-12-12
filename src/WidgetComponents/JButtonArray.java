@@ -35,7 +35,7 @@ import MouseListenersImpl.PicLabelMouseListener;
 import ObjectTypeConversion.CommandBuild;
 import ObjectTypeConversion.DirectorySelection;
 import ObjectTypeConversion.FileSelection;
-import ObjectTypeConversion.PageParser;
+import ObjectTypeConversion.PageParserCollection;
 import Params.KeepSelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
@@ -52,7 +52,7 @@ import WidgetExtensionInterfaces.ComboListDialogSelectedListener;
 import WidgetExtensionInterfaces.MinimizeActionExtension;
 import WidgetExtensionInterfaces.MouseAdapterArrayExtension;
 import WidgetExtensionInterfaces.OpenActionExtension;
-import WidgetExtensionInterfaces.PageParserLoad;
+import WidgetExtensionInterfaces.PageParserCollectionLoad;
 import WidgetExtensionInterfaces.RestoreActionExtension;
 import WidgetExtensionInterfaces.SaveActionExtension;
 import WidgetExtensionInterfaces.ShiftFramesExtension;
@@ -67,7 +67,7 @@ import WidgetUtility.WidgetBuildController;
  */
 public class JButtonArray extends JPanel implements ArrayActionListener, CharacterLimited, 
 SaveActionExtension, OpenActionExtension, CloseActionExtension, CloseAllActionExtension, MinimizeActionExtension, RestoreActionExtension, ShiftFramesExtension,
-ComboListDialogSelectedListener, MouseAdapterArrayExtension, LinkDragAndDropSubscriber, PageParserLoad,
+ComboListDialogSelectedListener, MouseAdapterArrayExtension, LinkDragAndDropSubscriber, PageParserCollectionLoad,
 PostWidgetBuildProcessing, ButtonArray
 {
 	private static final long serialVersionUID = 1883L;
@@ -116,7 +116,7 @@ PostWidgetBuildProcessing, ButtonArray
 	private HashMap<String, MouseListener> pathAndMouseAdapter;
 	private ArrayList<String> stripFilter = new ArrayList<String>();
 	private boolean isHighlight = true;
-	private PageParser pageParser;
+	private PageParserCollection pageParserCollection;
 	
 	private int characterLimit=0;
 	
@@ -637,7 +637,7 @@ PostWidgetBuildProcessing, ButtonArray
 
 	private void addDragAndDropListener(Component target)
 	{
-		new DropTarget(target, new LinkDragAndDropListener(this));
+		new DropTarget(target, new LinkDragAndDropListener(this, pageParserCollection));
 	}
 	
 	private void refreshAllMouseListeners()
@@ -779,9 +779,9 @@ PostWidgetBuildProcessing, ButtonArray
 	}
 
 	@Override
-	public void addPageParser(PageParser pageParser) 
+	public void addPageParserCollection(PageParserCollection pageParserCollection) 
 	{
-		this.pageParser = pageParser;
+		this.pageParserCollection = pageParserCollection;
 	}
 
 }

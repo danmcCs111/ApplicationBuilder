@@ -16,11 +16,13 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import Graphics2D.ColorTemplate;
+import Graphics2D.GraphicsUtil;
 import ObjectTypeConversion.PageParser;
 import ObjectTypeConversion.PageParserCollection;
 import ObjectTypeConversionEditors.PageParserCollectionEditor;
 import ObjectTypeConversionEditors.PageParserEditor;
 import Properties.LoggingMessages;
+import WidgetUtility.WidgetBuildController;
 
 public class PageParserCollectionDialog extends JDialog 
 {
@@ -67,6 +69,12 @@ public class PageParserCollectionDialog extends JDialog
 	
 	private void buildWidgets()
 	{
+		if(pageParserCollectionEditor != null)
+		{
+//			GraphicsUtil.centerWindow(pageParserCollectionEditor, this);
+			GraphicsUtil.centerReferenceOnlyWindow(pageParserCollectionEditor, this);
+//			this.setLocation(pageParserCollectionEditor.getLocationOnScreen());
+		}
 		this.setTitle(TITLE_TEXT);
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setLayout(new BorderLayout());
@@ -183,7 +191,7 @@ public class PageParserCollectionDialog extends JDialog
 	public static void main(String [] args)
 	{
 		PageParserCollection ppc = new PageParserCollection(
-				"Youtube@F@youtube.com@F@Image@F@https://yt3.googleusercontent.com([^&quot&])*(&quot&)@F@&quot&@F@Title@F@<title>([^<])*</title>@F@<title>@R@</title>@R@[^a-zA-Z0-9\\-\\s]@C@Youtube2@F@youtube.com@F@Image@F@https://yt3.googleusercontent.com([^&quot&])*(&quot&)@F@&quot&@F@Title@F@<title>([^<])*</title>@F@<title>@R@</title>@R@[^a-zA-Z0-9\\-\\s]"
+				"Youtube@F@youtube.com@F@Image@F@https://yt3.googleusercontent.com([^@Q@])*(@Q@)@F@@Q@@F@Title@F@<title>([^<])*</title>@F@<title>@R@</title>@R@[^a-zA-Z0-9\\-\\s]@C@Youtube2@F@youtube.com@F@Image@F@https://yt3.googleusercontent.com([^@Q@])*(@Q@)@F@@Q@@F@Title@F@<title>([^<])*</title>@F@<title>@R@</title>@R@[^a-zA-Z0-9\\-\\s]"
 				);
 		
 		PageParserCollectionEditor ppce = new PageParserCollectionEditor();

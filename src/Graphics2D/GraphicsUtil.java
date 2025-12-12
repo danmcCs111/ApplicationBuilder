@@ -62,12 +62,12 @@ public interface GraphicsUtil
 	{
 		Point loc = referenceComponent.getLocationOnScreen();
 		
-		int 
+		double 
 			rw = referenceComponent.getWidth(),
 			rh = referenceComponent.getHeight(),
 			h = comp.getHeight();
 		
-		comp.setLocation(loc.x + (rw / 2), loc.y + (rh/2 - h/2));
+		comp.setLocation((int)(loc.x + (rw / 2.0)), (int)(loc.y + (rh/2.0 - h/2.0)));
 	}
 	
 	public static Image getImageFromXml(int width, int height, File defaultImageLocation, Color backgroundColor)
