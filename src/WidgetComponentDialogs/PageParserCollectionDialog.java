@@ -6,7 +6,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 
 import javax.swing.JButton;
@@ -18,10 +17,10 @@ import javax.swing.WindowConstants;
 
 import Graphics2D.ColorTemplate;
 import ObjectTypeConversion.PageParser;
-import ObjectTypeConversion.PageParser.ParseAttribute;
 import ObjectTypeConversion.PageParserCollection;
 import ObjectTypeConversionEditors.PageParserCollectionEditor;
 import ObjectTypeConversionEditors.PageParserEditor;
+import Properties.LoggingMessages;
 
 public class PageParserCollectionDialog extends JDialog 
 {
@@ -170,6 +169,9 @@ public class PageParserCollectionDialog extends JDialog
 		}
 		pageParserCollection.setPageParsers(pps);
 		pageParserCollectionEditor.setComponentValue(pageParserCollection);
+		
+		LoggingMessages.printOut(pageParserCollection.getXmlString());
+		
 		this.dispose();
 	}
 	
@@ -178,40 +180,11 @@ public class PageParserCollectionDialog extends JDialog
 		this.dispose();
 	}
 	
-	public static ArrayList<PageParser> getTestPageParserCollection()//TODO test
-	{
-		ArrayList<PageParser> pps = new ArrayList<PageParser>();
-		
-		PageParser youtube = new PageParser("");
-		PageParser youtube2 = new PageParser("");
-		youtube.setTitleLabel("Youtube");
-		youtube.setDomainMatch("youtube.com");
-		youtube.addMatchAndReplace(ParseAttribute.Image, "https://yt3.googleusercontent.com([^\"])*(\")", 
-				new ArrayList<String>(Arrays.asList(new String [] {"\""}))
-				);
-		youtube.addMatchAndReplace(ParseAttribute.Title, "<title>([^<])*</title>", 
-				new ArrayList<String>(Arrays.asList(new String [] {"<title>","</title>","[^a-zA-Z0-9\\-\\s]"}))
-				);
-		
-		youtube2.setTitleLabel("Youtube2");
-		youtube2.setDomainMatch("youtube.com");
-		youtube2.addMatchAndReplace(ParseAttribute.Image, "https://yt3.googleusercontent.com([^\"])*(\")", 
-				new ArrayList<String>(Arrays.asList(new String [] {"\""}))
-				);
-		youtube2.addMatchAndReplace(ParseAttribute.Title, "<title>([^<])*</title>", 
-				new ArrayList<String>(Arrays.asList(new String [] {"<title>","</title>","[^a-zA-Z0-9\\-\\s]"}))
-				);
-		
-		pps.add(youtube);
-		pps.add(youtube2);
-		
-		return pps;
-	}
 	public static void main(String [] args)
 	{
-		PageParserCollection ppc = new PageParserCollection("");
-		for(PageParser pp : PageParserCollectionDialog.getTestPageParserCollection())
-			ppc.addPageParser(pp);
+		PageParserCollection ppc = new PageParserCollection(
+				"Youtube@F@youtube.com@F@Image@F@https://yt3.googleusercontent.com([^&quot&])*(&quot&)@F@&quot&@F@Title@F@<title>([^<])*</title>@F@<title>@R@</title>@R@[^a-zA-Z0-9\\-\\s]@C@Youtube2@F@youtube.com@F@Image@F@https://yt3.googleusercontent.com([^&quot&])*(&quot&)@F@&quot&@F@Title@F@<title>([^<])*</title>@F@<title>@R@</title>@R@[^a-zA-Z0-9\\-\\s]"
+				);
 		
 		PageParserCollectionEditor ppce = new PageParserCollectionEditor();
 		ppce.setComponentValue(ppc);

@@ -3,7 +3,6 @@ package ObjectTypeConversion;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.regex.Matcher;
@@ -24,20 +23,19 @@ public class PageParser
 	}
 	
 	private static final String
-		DELIMITER_FILTER_SEPERATOR = "@F",
-		DELIMITER_REPLACE_SEPERATOR = "@R",
-		DELIMITER_LIST_FILTER_SEPERATOR = "@L";
+		QUOTE_REPLACEMENT = "&quot&",
+		DELIMITER_FILTER_SEPERATOR = "@F@",
+		DELIMITER_REPLACE_SEPERATOR = "@R@",
+		DELIMITER_LIST_FILTER_SEPERATOR = "@L@";
 			
 	private String 
 		titleLabel = "",
 		domain = "";
 	private HashMap<ParseAttribute, LinkedHashMap<String, ArrayList<String>>>
 		pageMatchAndReplace = new HashMap<ParseAttribute, LinkedHashMap<String, ArrayList<String>>>();
-	private String xmlString;
 	
 	public PageParser(String xmlString)
 	{
-		this.xmlString = xmlString;
 		readXmlString(xmlString);
 	}
 	
@@ -135,6 +133,8 @@ public class PageParser
 		}
 		retStr = (String) retStr.subSequence(0, retStr.length()-DELIMITER_FILTER_SEPERATOR.length());
 		
+		retStr = retStr.replaceAll("\"", QUOTE_REPLACEMENT);
+		
 		LoggingMessages.printOut(retStr);
 		
 		return retStr;
@@ -144,6 +144,8 @@ public class PageParser
 	{
 		if(xmlString == null || xmlString.isBlank())
 			return;
+		
+		xmlString = xmlString.replaceAll(QUOTE_REPLACEMENT, "\"");
 		
 		String [] filterSepStr = xmlString.split(DELIMITER_FILTER_SEPERATOR);
 		this.titleLabel = filterSepStr[0];
@@ -182,7 +184,6 @@ public class PageParser
 	
 	public void setXmlString(String xmlString)
 	{
-		this.xmlString = xmlString;
 		readXmlString(xmlString);
 	}
 	
@@ -212,20 +213,7 @@ public class PageParser
 	
 	public static void main(String [] args)
 	{
-		PageParser youtube = new PageParser("");
-		youtube.setTitleLabel("Youtube");
-		youtube.setDomainMatch("youtube.com");
-		youtube.addMatchAndReplace(ParseAttribute.Image, "https://yt3.googleusercontent.com([^\"])*(\")", 
-				new ArrayList<String>(Arrays.asList(new String [] {"\""}))
-				);
-		youtube.addMatchAndReplace(ParseAttribute.Title, "<title>([^<])*</title>", 
-				new ArrayList<String>(Arrays.asList(new String [] {"<title>","</title>","[^a-zA-Z0-9\\-\\s]"}))
-				);
-		
-		String xmlString = youtube.getXmlString();
-		youtube.setXmlString(xmlString);
-		youtube.getXmlString();
-		
+		PageParser youtube = new PageParser("Youtube@F@youtube.com@F@Image@F@https://yt3.googleusercontent.com([^&quot&])*(&quot&)@F@&quot&@F@Title@F@<title>([^<])*</title>@F@<title>@R@</title>@R@[^a-zA-Z0-9\\-\\s]");
 		JFrame f = new JFrame();
 		PageParserEditor ppe = new PageParserEditor();
 		f.add(ppe);
