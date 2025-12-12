@@ -35,7 +35,7 @@ public class PageParserDialog extends JDialog
 	private static final long serialVersionUID = 1L;
 	
 	private static final String 
-		TITLE = "Command Entry",
+		TITLE = "Edit Page Parsing Entry",
 		ADD_FILTER_LABEL_PREFIX = " + ",
 		ADD_FILTER_MATCH_LABEL_SUFFIX = " Match",
 		ADD_FILTER_REPLACE_LABEL_SUFFIX = " Replace",
