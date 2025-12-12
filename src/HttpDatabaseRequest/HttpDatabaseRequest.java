@@ -48,7 +48,6 @@ public interface HttpDatabaseRequest
                 .uri(URI.create(url))
                 .GET()
                 .build();
-
         try {
         	response = client.send(request, BodyHandlers.ofString());
         	comb = response.body().toString();
@@ -60,7 +59,7 @@ public interface HttpDatabaseRequest
         return comb;
 	}
 	
-	public static String addHttpsIfMissing(String url)
+	public static String addHttpsIfMissing(String url)//TODO
 	{
 		url = url.strip();
 		if(!url.matches("^(https|http)://.*"))

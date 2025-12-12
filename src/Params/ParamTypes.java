@@ -19,6 +19,7 @@ import ObjectTypeConvertersImpl.MouseAdapterConverter;
 import ObjectTypeConvertersImpl.MouseListenerConverter;
 import ObjectTypeConvertersImpl.MouseMotionListenerConverter;
 import ObjectTypeConvertersImpl.NameIdConverter;
+import ObjectTypeConvertersImpl.PageParserCollectionConverter;
 import ObjectTypeConvertersImpl.PageParserConverter;
 import ObjectTypeConvertersImpl.PathArrayProcessingConverter;
 import ObjectTypeConvertersImpl.PointConverter;
@@ -48,6 +49,7 @@ public enum ParamTypes
 	nameId(new NameIdConverter()),
 	lookAndFeel(new LookAndFeelClassNameConverter()),
 	pageParser(new PageParserConverter()),
+	pageParserCollection(new PageParserCollectionConverter()),
 	WindowListener(new WindowListenerConverter()),
 	KeyListener(new KeyListenerConverter()),
 	DirectorySelection(new DirectorySelectionConverter()),
