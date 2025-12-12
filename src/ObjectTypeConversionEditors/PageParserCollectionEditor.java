@@ -63,9 +63,10 @@ public class PageParserCollectionEditor extends JButton implements ParameterEdit
 		{
 			if(pp.getTitleLabel() != null && !pp.getTitleLabel().isBlank())
 			{
-				title += pp.getTitleLabel();
+				title += pp.getTitleLabel() + ", ";
 			}
 		}
+		title = title.replaceAll("(, )$", "");
 		return title;
 	}
 	
