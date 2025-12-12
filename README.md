@@ -1,7 +1,6 @@
 added drag and drop capability with an editable page parser
 
-
-<img width="1335" height="584" alt="page-parser" src="https://github.com/user-attachments/assets/35078148-6a1d-42b1-be99-288c308c5a2d" />
+<img width="1419" height="587" alt="page-parser" src="https://github.com/user-attachments/assets/7e2fb4da-1cf3-4fd4-82cc-604ab133ae71" />
 
 
 added roku videos. changed scaling to only use width and keep aspect ratio of image.
