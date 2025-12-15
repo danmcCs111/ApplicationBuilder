@@ -301,14 +301,14 @@ public class PageParserDialog extends JDialog
 		{
 			//delete match
 			LoggingMessages.printOut(lastMatch.getText());
-			matchFilterPanel.get(pa).remove(lastMatch.getParent().getParent());
+			matchFilterPanel.get(pa).remove(lastMatch.getParent().getParent().getParent());
 			parserFilter.get(pa).remove(lastMatch);
 		}
 		else
 		{
 			//delete last repl
 			JTextField [] lastRepl = repls.get(repls.size()-1);
-			matchFilterPanel.get(pa).remove(lastRepl[0].getParent().getParent());
+			matchFilterPanel.get(pa).remove(lastRepl[0].getParent().getParent().getParent());
 			repls.remove(lastRepl);
 			LoggingMessages.printOut(lastRepl[0].getText() + " : " + lastRepl[1].getText());
 		}

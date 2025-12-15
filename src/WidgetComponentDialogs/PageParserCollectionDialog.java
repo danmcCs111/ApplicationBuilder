@@ -70,9 +70,7 @@ public class PageParserCollectionDialog extends JDialog
 	{
 		if(pageParserCollectionEditor != null)
 		{
-//			GraphicsUtil.centerWindow(pageParserCollectionEditor, this);
 			GraphicsUtil.centerReferenceOnlyWindow(pageParserCollectionEditor, this);
-//			this.setLocation(pageParserCollectionEditor.getLocationOnScreen());
 		}
 		this.setTitle(TITLE_TEXT);
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -202,7 +200,5 @@ public class PageParserCollectionDialog extends JDialog
 		jf.add(ppce);
 		jf.setVisible(true);
 	}
-	
-	
 
 }
