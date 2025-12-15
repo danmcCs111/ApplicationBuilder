@@ -769,7 +769,6 @@ PostWidgetBuildProcessing, ButtonArray
 		CommandBuild cb = ShellHeadlessExecutor.getWindowsCommand(new String []{
 				ds.getPathLinux() + "/" + SAVE_DROP_SCRIPT + " " +
 				linkTitleAndImageUrl[0] + " " + channelName.replaceAll("\s", "\\\\ ") + " " + linkTitleAndImageUrl[2] });
-		
 		try {
 			CommandExecutor.executeProcess(cb, true);
 			refreshAllMouseListeners();

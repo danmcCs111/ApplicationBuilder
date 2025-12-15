@@ -26,13 +26,14 @@ public class PageParser
 		QUOTE_REPLACEMENT = "@Q@",
 		DELIMITER_FILTER_SEPERATOR = "@F@",
 		DELIMITER_REPLACE_SEPERATOR = "@R@",
+		DELIMITER_REPLACE_VALUE_SEPERATOR = "@RV@",
 		DELIMITER_LIST_FILTER_SEPERATOR = "@L@";
 			
 	private String 
 		titleLabel = "",
 		domain = "";
-	private HashMap<ParseAttribute, LinkedHashMap<String, ArrayList<String>>>
-		pageMatchAndReplace = new HashMap<ParseAttribute, LinkedHashMap<String, ArrayList<String>>>();
+	private HashMap<ParseAttribute, LinkedHashMap<String, ArrayList<String[]>>>
+		pageMatchAndReplace = new HashMap<ParseAttribute, LinkedHashMap<String, ArrayList<String[]>>>();
 	
 	public PageParser(String xmlString)
 	{
@@ -44,12 +45,12 @@ public class PageParser
 		this.domain = domain;
 	}
 	
-	public void addMatchAndReplace(ParseAttribute pa, String match, ArrayList<String> replacementStrips)
+	public void addMatchAndReplace(ParseAttribute pa, String match, ArrayList<String[]> replacementStrips)
 	{
-		LinkedHashMap<String, ArrayList<String>> matchRepl = null;
+		LinkedHashMap<String, ArrayList<String[]>> matchRepl = null;
 		if(!pageMatchAndReplace.containsKey(pa))
 		{
-			matchRepl = new LinkedHashMap<String, ArrayList<String>>();
+			matchRepl = new LinkedHashMap<String, ArrayList<String[]>>();
 			matchRepl.put(match, replacementStrips);
 		}
 		else
@@ -65,7 +66,7 @@ public class PageParser
 		return pageMatchAndReplace.keySet().toArray(new ParseAttribute[] {});
 	}
 	
-	public LinkedHashMap<String, ArrayList<String>> getMatchAndReplace(ParseAttribute pa)
+	public LinkedHashMap<String, ArrayList<String[]>> getMatchAndReplace(ParseAttribute pa)
 	{
 		return pageMatchAndReplace.get(pa);
 	}
@@ -120,9 +121,9 @@ public class PageParser
 			for(String mat : pageMatchAndReplace.get(pa).keySet())
 			{
 				retStr += mat + DELIMITER_FILTER_SEPERATOR;
-				for(String repl : pageMatchAndReplace.get(pa).get(mat))
+				for(String [] repl : pageMatchAndReplace.get(pa).get(mat))
 				{
-					retStr += repl + DELIMITER_REPLACE_SEPERATOR;
+					retStr += repl[0] + DELIMITER_REPLACE_VALUE_SEPERATOR + repl[1] + DELIMITER_REPLACE_SEPERATOR;
 				}
 				retStr = (String) retStr.subSequence(0, retStr.length()-DELIMITER_REPLACE_SEPERATOR.length());
 				retStr += DELIMITER_LIST_FILTER_SEPERATOR;
@@ -153,7 +154,7 @@ public class PageParser
 		for(int i = 2; i < filterSepStr.length; i++)
 		{
 			String match = filterSepStr[i];
-			LinkedHashMap<String, ArrayList<String>> filter = new LinkedHashMap<String, ArrayList<String>>();
+			LinkedHashMap<String, ArrayList<String[]>> filter = new LinkedHashMap<String, ArrayList<String[]>>();
 			if(i+1 < filterSepStr.length)
 			{
 				i++;
@@ -162,18 +163,28 @@ public class PageParser
 				parseType = replaces[0];
 				replaces = filterSepStr[i+1].split(DELIMITER_REPLACE_SEPERATOR);
 				
-				filter.put(parseType, new ArrayList<String>());
+				filter.put(parseType, new ArrayList<String[]>());
 				LoggingMessages.printOut(replaces.length + " " + parseType);
 				if(replaces.length > 1)
 				{
 					for(int j = 0; j < replaces.length; j++)
 					{
-						filter.get(parseType).add(replaces[j]);
+						String [] repls = replaces[j].split(DELIMITER_REPLACE_VALUE_SEPERATOR);
+						if(repls.length == 1 || repls.length == 0)
+						{
+							repls = new String [] {repls[0],""};
+						}
+						filter.get(parseType).add(repls);
 					}	
 				}
 				else
 				{
-					filter.get(parseType).add(filterSepStr[i+1]);
+					String [] repls = filterSepStr[i+1].split(DELIMITER_REPLACE_VALUE_SEPERATOR);
+					if(repls.length == 1 || repls.length == 0)
+					{
+						repls = new String [] {repls[0],""};
+					}
+					filter.get(parseType).add(repls);
 					i++;
 				}
 				LoggingMessages.printOut(match);
@@ -201,19 +212,19 @@ public class PageParser
 		}
 	}
 	
-	private String replaceStrip(String response, ArrayList<String> replaces)
+	private String replaceStrip(String response, ArrayList<String[]> replaces)
 	{
 		String retStr = response;
-		for(String repl : replaces)
+		for(String [] repl : replaces)
 		{
-			retStr = retStr.replaceAll(repl, "");
+			retStr = retStr.replaceAll(repl[0], repl[1]);
 		}
 		return retStr;
 	}
 	
 	public static void main(String [] args)
 	{
-		PageParser youtube = new PageParser("Youtube@F@youtube.com@F@Image@F@https://yt3.googleusercontent.com([^@Q@])*(@Q@)@F@@Q@@F@Title@F@<title>([^<])*</title>@F@<title>@R@</title>@R@[^a-zA-Z0-9\\-\\s]");
+		PageParser youtube = new PageParser("Youtube@F@youtube.com@F@Image@F@https://yt3.googleusercontent.com([^@Q@])*(@Q@)@F@@Q@@RV@@F@Title@F@<title>([^<])*</title>@F@<title>@RV@@R@</title>@RV@ boo@R@[^a-zA-Z0-9\\-\\s]@RV@");
 		JFrame f = new JFrame();
 		PageParserEditor ppe = new PageParserEditor();
 		f.add(ppe);

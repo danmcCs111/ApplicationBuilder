@@ -22,7 +22,6 @@ import ObjectTypeConversion.PageParserCollection;
 import ObjectTypeConversionEditors.PageParserCollectionEditor;
 import ObjectTypeConversionEditors.PageParserEditor;
 import Properties.LoggingMessages;
-import WidgetUtility.WidgetBuildController;
 
 public class PageParserCollectionDialog extends JDialog 
 {
@@ -191,7 +190,7 @@ public class PageParserCollectionDialog extends JDialog
 	public static void main(String [] args)
 	{
 		PageParserCollection ppc = new PageParserCollection(
-				"Youtube@F@youtube.com@F@Image@F@https://yt3.googleusercontent.com([^@Q@])*(@Q@)@F@@Q@@F@Title@F@<title>([^<])*</title>@F@<title>@R@</title>@R@[^a-zA-Z0-9\\-\\s]@C@Youtube2@F@youtube.com@F@Image@F@https://yt3.googleusercontent.com([^@Q@])*(@Q@)@F@@Q@@F@Title@F@<title>([^<])*</title>@F@<title>@R@</title>@R@[^a-zA-Z0-9\\-\\s]"
+				"Youtube@F@youtube.com@F@Image@F@https://yt3.googleusercontent.com([^@Q@])*(@Q@)@F@@Q@@RV@@F@Title@F@<title>([^<])*</title>@F@<title>@RV@@R@</title>@RV@ boo@R@[^a-zA-Z0-9\\-\\s]@RV@"
 				);
 		
 		PageParserCollectionEditor ppce = new PageParserCollectionEditor();
