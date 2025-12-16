@@ -160,16 +160,18 @@ public class PageParser
 		LoggingMessages.printOut(titleLabel);
 		this.domain = filterSepStr[1];
 		LoggingMessages.printOut(domain);
+		
 		for(int i = 2; i < filterSepStr.length-1; i++)
 		{
 			String parseType = filterSepStr[i];
+			String match = filterSepStr[i+1];
 			LinkedHashMap<String, ArrayList<String[]>> filter = new LinkedHashMap<String, ArrayList<String[]>>();
-			i++;
+			i+=2;
 			
-			String [] replaces = filterSepStr[i+1].split(DELIMITER_REPLACE_SEPERATOR);
+			String [] replaces = filterSepStr[i].split(DELIMITER_REPLACE_SEPERATOR);//filterSepStr[i+1].split(DELIMITER_REPLACE_SEPERATOR);
 			
-			filter.put(parseType, new ArrayList<String[]>());
-			LoggingMessages.printOut(replaces.length + " " + parseType);
+			filter.put(match, new ArrayList<String[]>());
+			LoggingMessages.printOut(replaces.length + " parseType: " + parseType + " match value: " + match);
 			if(replaces.length > 1)
 			{
 				for(int j = 0; j < replaces.length; j++)
@@ -179,18 +181,19 @@ public class PageParser
 					{
 						repls = new String [] {repls[0],""};
 					}
-					filter.get(parseType).add(repls);
-				}	
+					filter.get(match).add(repls);
+				}
+//				i++;
 			}
 			else
 			{
-				String [] repls = filterSepStr[i+1].split(DELIMITER_REPLACE_VALUE_SEPERATOR);
+				String [] repls = filterSepStr[i].split(DELIMITER_REPLACE_VALUE_SEPERATOR);
 				if(repls.length == 1)
 				{
 					repls = new String [] {repls[0],""};
 				}
-				filter.get(parseType).add(repls);
-				i++;
+				filter.get(match).add(repls);
+//					i++;
 			}
 			LoggingMessages.printOut(parseType);
 			pageMatchAndReplace.put(ParseAttribute.valueOf(parseType), filter);
