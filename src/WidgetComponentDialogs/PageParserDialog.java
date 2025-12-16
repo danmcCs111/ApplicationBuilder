@@ -581,9 +581,9 @@ public class PageParserDialog extends JDialog
 		LoggingMessages.printOut(title.length + "");
 		LoggingMessages.printOut(imageDownload.length + "");
 		
-		int len = (title.length > imageDownload.length)
-				?title.length
-				:imageDownload.length;
+		int len = (title.length < imageDownload.length)
+				? title.length
+				: imageDownload.length;
 		
 		for(int i = 0; i < len; i++)
 		{
