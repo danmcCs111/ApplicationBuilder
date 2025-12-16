@@ -2,9 +2,10 @@ package ObjectTypeConversion;
 
 import java.util.ArrayList;
 
+import Properties.LoggingMessages;
+
 public class PageParserCollection 
 {
-	private static String PARSER_DELIMIT = "@C@";
 	private ArrayList<PageParser> 
 		pageParsers = new ArrayList<PageParser>();
 	
@@ -21,9 +22,10 @@ public class PageParserCollection
 	
 	public void readXmlString(String xmlString)
 	{
-		String [] tmp = xmlString.split(PARSER_DELIMIT);
+		String [] tmp = xmlString.split(PageParser.PARSER_DELIMIT_COLLECTION);
 		for(String t : tmp)
 		{
+			LoggingMessages.printOut(t + "xml value");
 			PageParser pp = new PageParser(t);
 			addPageParser(pp);
 		}
@@ -34,9 +36,9 @@ public class PageParserCollection
 		String xmlStr = "";
 		for(PageParser pp : pageParsers)
 		{
-			xmlStr += pp.getXmlString() + PARSER_DELIMIT;
+			xmlStr += pp.getXmlString() + PageParser.PARSER_DELIMIT_COLLECTION;
 		}
-		xmlStr = xmlStr.replaceAll("(" + PARSER_DELIMIT + ")$", "");
+		xmlStr = xmlStr.replaceAll("(" + PageParser.PARSER_DELIMIT_COLLECTION + ")$", "");
 		
 		return xmlStr;
 	}

@@ -22,7 +22,8 @@ public class PageParser
 		Image
 	}
 	
-	private static final String
+	public static final String
+		PARSER_DELIMIT_COLLECTION = "@C@",
 		QUOTE_REPLACEMENT = "@Q@",
 		DELIMITER_FILTER_SEPERATOR = "@F@",
 		DELIMITER_REPLACE_SEPERATOR = "@R@",
@@ -143,6 +144,10 @@ public class PageParser
 		return retStr;
 	}
 	
+	/**
+	 * title,domain,parsetype,[matches&replaces]
+	 * @param xmlString
+	 */
 	private void readXmlString(String xmlString)//TODO need json
 	{
 		if(xmlString == null || xmlString.isBlank())
@@ -152,46 +157,43 @@ public class PageParser
 		
 		String [] filterSepStr = xmlString.split(DELIMITER_FILTER_SEPERATOR);
 		this.titleLabel = filterSepStr[0];
+		LoggingMessages.printOut(titleLabel);
 		this.domain = filterSepStr[1];
-		for(int i = 2; i < filterSepStr.length; i++)
+		LoggingMessages.printOut(domain);
+		for(int i = 2; i < filterSepStr.length-1; i++)
 		{
-			String match = filterSepStr[i];
+			String parseType = filterSepStr[i];
 			LinkedHashMap<String, ArrayList<String[]>> filter = new LinkedHashMap<String, ArrayList<String[]>>();
-			if(i+1 < filterSepStr.length)
+			i++;
+			
+			String [] replaces = filterSepStr[i+1].split(DELIMITER_REPLACE_SEPERATOR);
+			
+			filter.put(parseType, new ArrayList<String[]>());
+			LoggingMessages.printOut(replaces.length + " " + parseType);
+			if(replaces.length > 1)
 			{
-				i++;
-				String parseType = null;
-				String [] replaces = filterSepStr[i].split(DELIMITER_REPLACE_SEPERATOR);
-				parseType = replaces[0];
-				replaces = filterSepStr[i+1].split(DELIMITER_REPLACE_SEPERATOR);
-				
-				filter.put(parseType, new ArrayList<String[]>());
-				LoggingMessages.printOut(replaces.length + " " + parseType);
-				if(replaces.length > 1)
+				for(int j = 0; j < replaces.length; j++)
 				{
-					for(int j = 0; j < replaces.length; j++)
-					{
-						String [] repls = replaces[j].split(DELIMITER_REPLACE_VALUE_SEPERATOR);
-						if(repls.length == 1 || repls.length == 0)
-						{
-							repls = new String [] {repls[0],""};
-						}
-						filter.get(parseType).add(repls);
-					}	
-				}
-				else
-				{
-					String [] repls = filterSepStr[i+1].split(DELIMITER_REPLACE_VALUE_SEPERATOR);
-					if(repls.length == 1 || repls.length == 0)
+					String [] repls = replaces[j].split(DELIMITER_REPLACE_VALUE_SEPERATOR);
+					if(repls.length == 1)
 					{
 						repls = new String [] {repls[0],""};
 					}
 					filter.get(parseType).add(repls);
-					i++;
-				}
-				LoggingMessages.printOut(match);
-				pageMatchAndReplace.put(ParseAttribute.valueOf(match), filter);
+				}	
 			}
+			else
+			{
+				String [] repls = filterSepStr[i+1].split(DELIMITER_REPLACE_VALUE_SEPERATOR);
+				if(repls.length == 1)
+				{
+					repls = new String [] {repls[0],""};
+				}
+				filter.get(parseType).add(repls);
+				i++;
+			}
+			LoggingMessages.printOut(parseType);
+			pageMatchAndReplace.put(ParseAttribute.valueOf(parseType), filter);
 		}
 	}
 	
