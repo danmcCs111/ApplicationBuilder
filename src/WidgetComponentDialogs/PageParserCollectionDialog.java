@@ -188,8 +188,8 @@ public class PageParserCollectionDialog extends JDialog
 	public static void main(String [] args)
 	{
 		PageParserCollection ppc = new PageParserCollection(
-				"Youtube@F@youtube.com@F@Image@F@https://yt3.googleusercontent.com([^@Q@])*(@Q@)@F@@Q@@RV@@F@Title@F@<title>([^<])*</title>@F@<title>@RV@@R@</title>@RV@ boo@R@[^a-zA-Z0-9\\-\\s]@RV@" + PageParser.PARSER_DELIMIT_COLLECTION + 
-				"GitHub@F@github.com@F@Image@F@meta property=@Q@og:image@Q@ content=@Q@([^@Q@])*(@Q@)@F@meta property=@Q@og:image@Q@ content=@Q@@RV@@R@@Q@@RV@@F@Title@F@<title>([^<])*</title>@F@<title>@RV@@R@</title>@RV@@R@[^a-zA-Z0-9\\-\\s]@RV@"
+				"Youtube@F@youtube.com@F@Image@F@@M@https://yt3.googleusercontent.com([^@Q@])*(@Q@)@R@@Q@@RV@@F@Title@F@@M@<title>([^<])*</title>@R@<title>@RV@@R@</title>@RV@@R@[^a-zA-Z0-9\\-\\s]@RV@" + PageParser.PARSER_DELIMIT_COLLECTION + 
+				"GitHub@F@github.com@F@Image@F@@M@meta property=@Q@og:image@Q@ content=@Q@([^@Q@])*(@Q@)@R@meta property=@Q@og:image@Q@ content=@RV@@R@@Q@@RV@@F@Title@F@@M@<title>([^<])*</title>@R@<title>@RV@@R@</title>@RV@@R@[^a-zA-Z0-9\\-\\s]@RV@"
 				);
 		
 		PageParserCollectionEditor ppce = new PageParserCollectionEditor();
