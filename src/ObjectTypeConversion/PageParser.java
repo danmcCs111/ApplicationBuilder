@@ -16,13 +16,6 @@ import WidgetComponentDialogs.PageParserDialog;
 
 public class PageParser
 {
-	public enum ParseAttribute
-	{
-		Title,
-		Url,
-		Image
-	}
-	
 	public static final String
 		PARSER_DELIMIT_COLLECTION = "@C@",
 		QUOTE_REPLACEMENT = "@Q@",
@@ -171,6 +164,8 @@ public class PageParser
 	 */
 	private void readXmlString(String xmlString)//TODO need json
 	{
+		ParseAttributes pas = new ParseAttributes(getParseAttributes());
+		
 		if(xmlString == null || xmlString.isBlank())
 			return;
 		
@@ -207,7 +202,10 @@ public class PageParser
 				
 				filter = getMatchReplace(filterSepStr[i], filter, match, replaces);
 			}
-			pageMatchAndReplace.put(ParseAttribute.valueOf(parseType), filter);
+			
+			ParseAttribute pa = new ParseAttribute(parseType);
+			pas.addAttribute(pa);
+			pageMatchAndReplace.put(pa, filter);
 		}
 	}
 	

@@ -30,7 +30,8 @@ import javax.swing.border.Border;
 import Graphics2D.ColorTemplate;
 import HttpDatabaseRequest.HttpDatabaseRequest;
 import ObjectTypeConversion.PageParser;
-import ObjectTypeConversion.PageParser.ParseAttribute;
+import ObjectTypeConversion.ParseAttribute;
+import ObjectTypeConversion.ParseAttributes;
 import ObjectTypeConversionEditors.PageParserEditor;
 import Properties.LoggingMessages;
 
@@ -85,8 +86,9 @@ public class PageParserDialog extends JDialog
 	private HashMap<ParseAttribute, LinkedHashMap<JTextField, ArrayList<JTextField[]>>>
 		parserFilter = new HashMap<ParseAttribute, LinkedHashMap<JTextField, ArrayList<JTextField[]>>>();
 	private HashMap<ParseAttribute, JComponent> 
-		matchFilterPanel = new HashMap<PageParser.ParseAttribute, JComponent>();
+		matchFilterPanel = new HashMap<ParseAttribute, JComponent>();
 	
+	private ParseAttributes pas; 
 	private PageParserEditor pageParserEditor;
 	private PageParser pageParser = null;
 	private String htmlResponse;
@@ -99,6 +101,8 @@ public class PageParserDialog extends JDialog
 	
 	private void buildWidgets(PageParserEditor ppe, PageParser pp)
 	{
+		pas = new ParseAttributes(pp.getParseAttributes());
+		
 		Point parentLocation = null;
 		this.pageParserEditor = ppe;
 		if(ppe.getRootPane() == null || ppe.getRootPane().getParent() == null)
@@ -115,7 +119,7 @@ public class PageParserDialog extends JDialog
 		this.setLayout(new BorderLayout());
 		
 		innerPanel.setLayout(new GridLayout(0, 1));
-		for(ParseAttribute pa : ParseAttribute.values())
+		for(ParseAttribute pa : pas.parseAttributes)
 		{
 			JPanel matchPanel = new JPanel();
 			JPanel addMatchReplace = new JPanel();
@@ -294,7 +298,7 @@ public class PageParserDialog extends JDialog
 		Border b = BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.gray, Color.gray);
 		simulatePanel.setBorder(b);
 		
-		for(ParseAttribute pa : ParseAttribute.values())
+		for(ParseAttribute pa : pas.parseAttributes)
 		{
 			JPanel innerPanelTitle = new JPanel();
 			innerPanelTitle.setLayout(new BorderLayout());
@@ -568,9 +572,9 @@ public class PageParserDialog extends JDialog
 		htmlResponse = HttpDatabaseRequest.executeGetRequest(dragDropString);
 		LoggingMessages.printOut("response");
 		
-		LinkedHashMap<ParseAttribute, String[]> parsePagesAndMatches = new LinkedHashMap<PageParser.ParseAttribute, String[]>();
+		LinkedHashMap<ParseAttribute, String[]> parsePagesAndMatches = new LinkedHashMap<ParseAttribute, String[]>();
 		int len = 0;
-		for(ParseAttribute pa : ParseAttribute.values())
+		for(ParseAttribute pa : pas.parseAttributes)
 		{
 			String [] matches = youtube.getAttributesFromResponse(pa, htmlResponse, !multiButton.isSelected());
 			if(matches == null || matches.length == 0)
@@ -621,7 +625,6 @@ public class PageParserDialog extends JDialog
 				}
 				this.validate();
 			}
-				
 		}
 	}
 	
