@@ -17,9 +17,11 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.border.BevelBorder;
@@ -51,13 +53,16 @@ public class PageParserDialog extends JDialog
 		PARAM_DELETE_TEXT = "X Remove",
 		PARAM_DELETE_TOOLTIP = "Remove Last Filter",
 		SIMULATE_LABEL = "Simulate",
+		MULTI_MATCH_OPTION_TEXT = "Multi Match?",
+		SHOW_RESPONSE_BUTTON_TEXT = "Show Response",
 		SIMULATE_TITLE_STRIPPED = "Title Filtered: ",
 		SIMULATE_IMAGE_STRIPPED = "Image Filtered: ",
 		SIMULATE_URL_ENTRY_STRIPPED = "Simulate with Url: ",
 		SAVE_BUTTON_LABEL = "Save",
 		CANCEL_BUTTON_LABEL = "Cancel";
 	private static final Dimension 
-		MIN_DIMENSION_DIALOG = new Dimension(750, 600);
+		MIN_DIMENSION_DIALOG = new Dimension(750, 600),
+		DIMENSION_SHOW_HTML = new Dimension(800,600);
 	
 	private JPanel 
 		editPanel = new JPanel(),
@@ -78,7 +83,7 @@ public class PageParserDialog extends JDialog
 		saveButton = new JButton(SAVE_BUTTON_LABEL),
 		cancelButton = new JButton(CANCEL_BUTTON_LABEL);
 	private JCheckBox
-		multiButton = new JCheckBox("Multi Match?");
+		multiButton = new JCheckBox(MULTI_MATCH_OPTION_TEXT);
 	private HashMap<ParseAttribute, LinkedHashMap<JTextField, ArrayList<JTextField[]>>>
 		parserFilter = new HashMap<ParseAttribute, LinkedHashMap<JTextField, ArrayList<JTextField[]>>>();
 	private HashMap<ParseAttribute, JComponent> 
@@ -86,6 +91,7 @@ public class PageParserDialog extends JDialog
 	
 	private PageParserEditor pageParserEditor;
 	private PageParser pageParser = null;
+	private String htmlResponse;
 
 	public PageParserDialog(PageParserEditor ppe, PageParser pp)
 	{
@@ -252,23 +258,24 @@ public class PageParserDialog extends JDialog
 		Border b = BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.gray, Color.gray);
 		simulatePanel.setBorder(b);
 		
-//		JPanel innerPanelTitle = new JPanel();
-//		innerPanelTitle.setLayout(new BorderLayout());
-//		simulateTitleTextField.setEditable(false);
-//		innerPanelTitle.add(new JLabel(SIMULATE_TITLE_STRIPPED), BorderLayout.WEST);
-//		innerPanelTitle.add(simulateTitleTextField, BorderLayout.CENTER);
-//		simulatePanel.add(innerPanelTitle);
-//		
-//		JPanel innerPanelImage = new JPanel();
-//		innerPanelImage.setLayout(new BorderLayout());
-//		simulateImageTextField.setEditable(false);
-//		innerPanelImage.add(new JLabel(SIMULATE_IMAGE_STRIPPED), BorderLayout.WEST);
-//		innerPanelImage.add(simulateImageTextField, BorderLayout.CENTER);
-//		simulatePanel.add(innerPanelImage);
-		
 		JPanel simulateButtonOption = new JPanel();
-		simulateButtonOption.add(simulateButton);
+		JButton showResponse = new JButton(SHOW_RESPONSE_BUTTON_TEXT);
+		showResponse.addActionListener(new ActionListener() {
+			JFrame f;
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				f = new JFrame();
+				f.setSize(DIMENSION_SHOW_HTML);
+				f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				JTextArea simulateViewResponseHtml = new JTextArea();
+				simulateViewResponseHtml.setText(htmlResponse);
+				JScrollPane jsp = new JScrollPane(simulateViewResponseHtml);
+				f.add(jsp);
+				f.setVisible(true);
+			}
+		});
 		simulateButtonOption.add(multiButton);
+		simulateButtonOption.add(showResponse);
 		
 		JPanel innerPanelSimulate = new JPanel();
 		innerPanelSimulate.setLayout(new BorderLayout());
@@ -276,7 +283,7 @@ public class PageParserDialog extends JDialog
 		innerPanelSimulate.add(simulateTextField, BorderLayout.CENTER);
 		
 		innerPanelSimulate.add(simulateButton, BorderLayout.EAST);
-		innerPanelSimulate.add(multiButton, BorderLayout.SOUTH);
+		innerPanelSimulate.add(simulateButtonOption, BorderLayout.SOUTH);
 		simulatePanel.add(innerPanelSimulate);
 		
 		return simulatePanel;
@@ -563,17 +570,18 @@ public class PageParserDialog extends JDialog
 		
 		dragDropString = HttpDatabaseRequest.addHttpsIfMissing(dragDropString);
 		LoggingMessages.printOut("drag and drop value: " + dragDropString);
-		String resp = HttpDatabaseRequest.executeGetRequest(dragDropString);
+		htmlResponse = HttpDatabaseRequest.executeGetRequest(dragDropString);
 		LoggingMessages.printOut("response");
 		
-		String [] imageDownload = youtube.getAttributesFromResponse(ParseAttribute.Image, resp, !multiButton.isSelected());
-		String [] title = youtube.getAttributesFromResponse(ParseAttribute.Title, resp, !multiButton.isSelected());
+		String [] imageDownload = youtube.getAttributesFromResponse(ParseAttribute.Image, htmlResponse, !multiButton.isSelected());
+		String [] title = youtube.getAttributesFromResponse(ParseAttribute.Title, htmlResponse, !multiButton.isSelected());
 		
 		LoggingMessages.printOut(title.length + "");
 		LoggingMessages.printOut(imageDownload.length + "");
 		int len = (title.length > imageDownload.length)
 				?title.length
 				:imageDownload.length;
+		
 		for(int i = 0; i < len; i++)
 		{
 			if(simulateImageTextField.size() <= i)
@@ -611,7 +619,6 @@ public class PageParserDialog extends JDialog
 			}
 			this.validate();
 		}
-				
 	}
 	
 	private void saveAction()
