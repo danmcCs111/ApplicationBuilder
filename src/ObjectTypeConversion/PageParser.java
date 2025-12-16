@@ -19,6 +19,7 @@ public class PageParser
 	public enum ParseAttribute
 	{
 		Title,
+		Url,
 		Image
 	}
 	
@@ -98,6 +99,9 @@ public class PageParser
 	
 	public String [] getAttributesFromResponse(ParseAttribute pa, String response, boolean singleMatch)
 	{
+		if(!pageMatchAndReplace.containsKey(pa))
+			return null;
+		
 		String [] attributes = null;
 		int count = 1;
 		for(String key : pageMatchAndReplace.get(pa).keySet()) 

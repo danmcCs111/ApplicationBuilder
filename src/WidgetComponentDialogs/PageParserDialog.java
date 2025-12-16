@@ -55,8 +55,7 @@ public class PageParserDialog extends JDialog
 		SIMULATE_LABEL = "Simulate",
 		MULTI_MATCH_OPTION_TEXT = "Multi Match?",
 		SHOW_RESPONSE_BUTTON_TEXT = "Show Response",
-		SIMULATE_TITLE_STRIPPED = "Title Filtered: ",
-		SIMULATE_IMAGE_STRIPPED = "Image Filtered: ",
+		SIMULATE_PARSE_ATTRIBUTE_SUFFIX = " Filtered: ",
 		SIMULATE_URL_ENTRY_STRIPPED = "Simulate with Url: ",
 		SAVE_BUTTON_LABEL = "Save",
 		CANCEL_BUTTON_LABEL = "Cancel";
@@ -75,9 +74,8 @@ public class PageParserDialog extends JDialog
 		simulateTextField = new JTextField(JTEXT_FIELD_SIZE),
 		title = new JTextField(),
 		domain = new JTextField();
-	private ArrayList<JTextField>
-		simulateTitleTextField = new ArrayList<JTextField>(JTEXT_FIELD_SIZE),
-		simulateImageTextField = new ArrayList<JTextField>(JTEXT_FIELD_SIZE);
+	private HashMap<ParseAttribute, ArrayList<JTextField>>
+		simulateParseAttributeTextField = new HashMap<ParseAttribute, ArrayList<JTextField>>();
 	private JButton 
 		simulateButton = new JButton(SIMULATE_LABEL),
 		saveButton = new JButton(SAVE_BUTTON_LABEL),
@@ -154,19 +152,20 @@ public class PageParserDialog extends JDialog
 		JPanel outerPanel = new JPanel();
 		outerPanel.setLayout(new BorderLayout());
 		outerPanel.add(innerPanel, BorderLayout.NORTH);
+		JScrollPane viewScroll = new JScrollPane(outerPanel);
+		viewScroll.getVerticalScrollBar().setUnitIncrement(SCROLL_INCREMENT);
 		
 		editPanel.setLayout(new BorderLayout());
 		
 		editPanel.add(topPanel, BorderLayout.NORTH);
-		editPanel.add(outerPanel, BorderLayout.CENTER);
+		editPanel.add(viewScroll, BorderLayout.CENTER);
 		editPanel.add(saveCancelPanelOuter, BorderLayout.SOUTH);
 		
 		this.add(editPanel, BorderLayout.CENTER);
-		JScrollPane viewScroll = new JScrollPane(viewPanel);
-		viewScroll.getVerticalScrollBar().setUnitIncrement(SCROLL_INCREMENT);
+		JScrollPane viewScroll2 = new JScrollPane(viewPanel);
+		viewScroll2.getVerticalScrollBar().setUnitIncrement(SCROLL_INCREMENT);
 		buildSimulateViewPanel();
-		
-		this.add(viewScroll, BorderLayout.EAST);
+		this.add(viewScroll2, BorderLayout.EAST);
 		
 		ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
 		ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
@@ -295,45 +294,39 @@ public class PageParserDialog extends JDialog
 		Border b = BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.gray, Color.gray);
 		simulatePanel.setBorder(b);
 		
-		JPanel innerPanelTitle = new JPanel();
-		innerPanelTitle.setLayout(new BorderLayout());
-		JTextField titleField = new JTextField(JTEXT_FIELD_SIZE);
-		titleField.setEditable(false);
-		innerPanelTitle.add(new JLabel(SIMULATE_TITLE_STRIPPED), BorderLayout.WEST);
-		innerPanelTitle.add(titleField, BorderLayout.CENTER);
-		simulatePanel.add(innerPanelTitle);
-		
-		JPanel innerPanelImage = new JPanel();
-		innerPanelImage.setLayout(new BorderLayout());
-		JTextField imageText = new JTextField(JTEXT_FIELD_SIZE);
-		imageText.setEditable(false);
-		innerPanelImage.add(new JLabel(SIMULATE_IMAGE_STRIPPED), BorderLayout.WEST);
-		innerPanelImage.add(imageText, BorderLayout.CENTER);
-		simulatePanel.add(innerPanelImage);
-		
-		simulateTitleTextField.add(titleField);
-		simulateImageTextField.add(imageText);
+		for(ParseAttribute pa : ParseAttribute.values())
+		{
+			JPanel innerPanelTitle = new JPanel();
+			innerPanelTitle.setLayout(new BorderLayout());
+			JTextField titleField = new JTextField(JTEXT_FIELD_SIZE);
+			titleField.setEditable(false);
+			innerPanelTitle.add(new JLabel(pa.name() + SIMULATE_PARSE_ATTRIBUTE_SUFFIX), BorderLayout.WEST);
+			innerPanelTitle.add(titleField, BorderLayout.CENTER);
+			if(simulateParseAttributeTextField.get(pa) == null)
+			{
+				simulateParseAttributeTextField.put(pa, new ArrayList<JTextField>());
+			}
+			simulateParseAttributeTextField.get(pa).add(titleField);
+			simulatePanel.add(innerPanelTitle);
+		}
 		
 		viewPanel.add(simulatePanel);
 		
 		return simulatePanel;
 	}
 	
-	public JPanel addToSimulateViewPanel(JTextField image, JTextField title)
+	public JPanel addToSimulateViewPanel(LinkedHashMap<ParseAttribute, JTextField> mats)
 	{
-		JPanel innerPanelTitle = new JPanel();
-		innerPanelTitle.setLayout(new BorderLayout());
-		title.setEditable(false);
-		innerPanelTitle.add(new JLabel(SIMULATE_TITLE_STRIPPED), BorderLayout.WEST);
-		innerPanelTitle.add(title, BorderLayout.CENTER);
-		simulatePanel.add(innerPanelTitle);
-		
-		JPanel innerPanelImage = new JPanel();
-		innerPanelImage.setLayout(new BorderLayout());
-		image.setEditable(false);
-		innerPanelImage.add(new JLabel(SIMULATE_IMAGE_STRIPPED), BorderLayout.WEST);
-		innerPanelImage.add(image, BorderLayout.CENTER);
-		simulatePanel.add(innerPanelImage);
+		for(ParseAttribute pa : mats.keySet())
+		{
+			JTextField jt = mats.get(pa);
+			JPanel innerPanelAttr = new JPanel();
+			innerPanelAttr.setLayout(new BorderLayout());
+			jt.setEditable(false);
+			innerPanelAttr.add(new JLabel(pa.name() + SIMULATE_PARSE_ATTRIBUTE_SUFFIX), BorderLayout.WEST);
+			innerPanelAttr.add(jt, BorderLayout.CENTER);
+			simulatePanel.add(innerPanelAttr);
+		}
 		
 		viewPanel.add(simulatePanel);
 		this.validate();
@@ -575,52 +568,60 @@ public class PageParserDialog extends JDialog
 		htmlResponse = HttpDatabaseRequest.executeGetRequest(dragDropString);
 		LoggingMessages.printOut("response");
 		
-		String [] imageDownload = youtube.getAttributesFromResponse(ParseAttribute.Image, htmlResponse, !multiButton.isSelected());
-		String [] title = youtube.getAttributesFromResponse(ParseAttribute.Title, htmlResponse, !multiButton.isSelected());
-		
-		LoggingMessages.printOut(title.length + "");
-		LoggingMessages.printOut(imageDownload.length + "");
-		
-		int len = (title.length < imageDownload.length)
-				? title.length
-				: imageDownload.length;
-		
+		LinkedHashMap<ParseAttribute, String[]> parsePagesAndMatches = new LinkedHashMap<PageParser.ParseAttribute, String[]>();
+		int len = 0;
+		for(ParseAttribute pa : ParseAttribute.values())
+		{
+			String [] matches = youtube.getAttributesFromResponse(pa, htmlResponse, !multiButton.isSelected());
+			if(matches == null || matches.length == 0)
+				continue;
+			parsePagesAndMatches.put(pa, matches);
+			
+			len = matches.length;//TODO
+		}
 		for(int i = 0; i < len; i++)
 		{
-			if(simulateImageTextField.size() <= i)
+			LinkedHashMap<ParseAttribute, JTextField> mats = new LinkedHashMap<ParseAttribute, JTextField>();
+			ParseAttribute [] parses = parsePagesAndMatches.keySet().toArray(new ParseAttribute[] {});
+			for(ParseAttribute pa : parsePagesAndMatches.keySet())
 			{
-				JTextField newI = new JTextField(JTEXT_FIELD_SIZE);
-				newI.setEditable(false);
-				simulateImageTextField.add(newI);
-				JTextField newT = new JTextField(JTEXT_FIELD_SIZE);
-				newT.setEditable(false);
-				simulateTitleTextField.add(newT);
-				addToSimulateViewPanel(newI, newT);
+				if(simulateParseAttributeTextField.get(pa).size() <= i)
+				{
+					JTextField newI = new JTextField(JTEXT_FIELD_SIZE);
+					newI.setEditable(false);
+					simulateParseAttributeTextField.get(pa).add(newI);
+					
+				}
+				String stripText = (i < parsePagesAndMatches.get(pa).length)
+						?parsePagesAndMatches.get(pa)[i]
+								:"";
+				LoggingMessages.printOut(pa.name() + " " + stripText + "");
+				JTextField jt = simulateParseAttributeTextField.get(pa).get(i);
+				jt.setText(stripText);
+				mats.put(pa, jt);
 			}
-			String titleText = (i < title.length)
-					?title[i]
-					:"";
-			String imageText = (i < imageDownload.length)
-					?imageDownload[i]
-					:"";
-			LoggingMessages.printOut(titleText + "");
-			LoggingMessages.printOut(imageText + "");
+			if(i != 0)
+			{
+				addToSimulateViewPanel(mats);
+			}
 			
-			simulateImageTextField.get(i).setText(imageText);
-			simulateTitleTextField.get(i).setText(titleText);
-		}
-		if(len < simulateImageTextField.size())
-		{
-			int collectionSize = simulateImageTextField.size();
-			for(int i = 0; i < (collectionSize-len); i++)
+			int parsesSize = parses.length;
+			if(len < simulateParseAttributeTextField.get(parses[0]).size())
 			{
-				int lastIndex = (((collectionSize)*2) - 1) - (i*2);//double as removing 2 per
-				removeLastFromSimulatePanel(lastIndex);
-				removeLastFromSimulatePanel(lastIndex-1);
-				simulateImageTextField.remove(simulateImageTextField.size()-1);
-				simulateTitleTextField.remove(simulateTitleTextField.size()-1);
+				int collectionSize = simulateParseAttributeTextField.get(parses[0]).size();
+				for(int j = 0; j < (collectionSize-len); j++)
+				{
+					int newCollectionSize = simulateParseAttributeTextField.get(parses[0]).size();
+					int lastIndex = (((collectionSize)*parsesSize) - 1) - (j*parsesSize);
+					for(int k = 0; k < parsesSize; k++)
+					{
+						removeLastFromSimulatePanel(lastIndex-k);
+						simulateParseAttributeTextField.get(parses[k]).remove(newCollectionSize-1);
+					}
+				}
+				this.validate();
 			}
-			this.validate();
+				
 		}
 	}
 	
