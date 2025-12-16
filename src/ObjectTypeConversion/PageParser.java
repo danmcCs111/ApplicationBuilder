@@ -99,10 +99,23 @@ public class PageParser
 	public String [] getAttributesFromResponse(ParseAttribute pa, String response, boolean singleMatch)
 	{
 		String [] attributes = null;
+		int count = 1;
 		for(String key : pageMatchAndReplace.get(pa).keySet()) 
 		{
-			String [] tmp = stripToMatch(response, key, singleMatch);
-			attributes = replaceStrip(tmp, pageMatchAndReplace.get(pa).get(key));
+			if(count == 1)
+			{
+				attributes = stripToMatch(response, key, singleMatch);
+				attributes = replaceStrip(pageMatchAndReplace.get(pa).get(key), attributes);
+			}
+			else
+			{
+				for(int i = 0; i < attributes.length; i++)
+				{
+					attributes[i] = stripToMatch(attributes[i], key, true)[0];
+					attributes[i] = replaceStrip(pageMatchAndReplace.get(pa).get(key), attributes[i])[0];
+				}
+			}
+			count++;
 		}
 		if(attributes.length != 0)
 			LoggingMessages.printOut(attributes[0]);
@@ -263,7 +276,7 @@ public class PageParser
 		}
 	}
 	
-	private String [] replaceStrip(String [] attributes, ArrayList<String[]> replaces)
+	private String [] replaceStrip(ArrayList<String[]> replaces, String ... attributes)
 	{
 		String [] retAttributes = new String [attributes.length];
 		int count = 0;

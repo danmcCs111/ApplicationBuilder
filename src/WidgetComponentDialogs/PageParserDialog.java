@@ -526,6 +526,8 @@ public class PageParserDialog extends JDialog
 		JPanel matchPanel = new JPanel();
 		matchPanel.setLayout(new BorderLayout());
 		String labelText = null;
+		if(fieldText.length == 0)//empty field in save file.
+			return parserFilter;
 		JTextField textField = new JTextField(fieldText[0]);
 		JPanel textFieldPanel = new JPanel();
 		
@@ -578,6 +580,7 @@ public class PageParserDialog extends JDialog
 		
 		LoggingMessages.printOut(title.length + "");
 		LoggingMessages.printOut(imageDownload.length + "");
+		
 		int len = (title.length > imageDownload.length)
 				?title.length
 				:imageDownload.length;
