@@ -45,8 +45,8 @@ public class LinkDragAndDropListener extends DropTargetAdapter
 						String resp = HttpDatabaseRequest.executeGetRequest(dragDropString);
 						LoggingMessages.printOut("response");
 						
-						String imageDownload = pp.getAttributeFromResponse(ParseAttribute.Image, resp);
-						String title = pp.getAttributeFromResponse(ParseAttribute.Title, resp);
+						String imageDownload = pp.getAttributesFromResponse(ParseAttribute.Image, resp, true)[0];
+						String title = pp.getAttributesFromResponse(ParseAttribute.Title, resp, true)[0];
 						
 						LoggingMessages.printOut(imageDownload);
 						LoggingMessages.printOut(title);

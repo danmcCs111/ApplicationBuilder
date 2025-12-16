@@ -94,15 +94,17 @@ public class PageParser
 		return (url.contains(domain));
 	}
 	
-	public String getAttributeFromResponse(ParseAttribute pa, String response)
+	public String [] getAttributesFromResponse(ParseAttribute pa, String response, boolean singleMatch)
 	{
-		String ret = response;
+		String [] attributes = null;
 		for(String key : pageMatchAndReplace.get(pa).keySet()) 
 		{
-			ret = stripToMatch(response, key);
-			ret = replaceStrip(ret, pageMatchAndReplace.get(pa).get(key));
+			String [] tmp = stripToMatch(response, key, singleMatch);
+			attributes = replaceStrip(tmp, pageMatchAndReplace.get(pa).get(key));
 		}
-		return ret;
+		if(attributes.length != 0)
+			LoggingMessages.printOut(attributes[0]);
+		return attributes;
 	}
 	
 	public String getXmlString()
@@ -198,28 +200,48 @@ public class PageParser
 		readXmlString(xmlString);
 	}
 	
-	private String stripToMatch(String response, String pat)
+	private String [] stripToMatch(String response, String pat, boolean singleMatch)
 	{
 		Pattern pattern = Pattern.compile(pat);
 		Matcher m = pattern.matcher(response);
-		if(m.find())
+		if(singleMatch)
 		{
-			return m.group();
+			if(m.find())
+			{
+				return new String [] {m.group()};
+			}
+			else
+			{
+				return new String []{""};
+			}
 		}
 		else
 		{
-			return "";
+			ArrayList<String> retMatches = new ArrayList<String>();
+			while(m.find())
+			{
+				String s = m.group();
+				retMatches.add(s);
+			}
+			return retMatches.toArray(new String[retMatches.size()]);
 		}
 	}
 	
-	private String replaceStrip(String response, ArrayList<String[]> replaces)
+	private String [] replaceStrip(String [] attributes, ArrayList<String[]> replaces)
 	{
-		String retStr = response;
-		for(String [] repl : replaces)
+		String [] retAttributes = new String [attributes.length];
+		int count = 0;
+		for(String att : attributes)
 		{
-			retStr = retStr.replaceAll(repl[0], repl[1]);
+			for(String [] repl : replaces)
+			{
+				att = att.replaceAll(repl[0], repl[1]);
+			}
+			LoggingMessages.printOut(att);
+			retAttributes[count] = att;
+			count++;
 		}
-		return retStr;
+		return retAttributes;
 	}
 	
 	public static void main(String [] args)
