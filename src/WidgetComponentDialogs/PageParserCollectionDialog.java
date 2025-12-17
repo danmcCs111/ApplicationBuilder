@@ -190,7 +190,7 @@ public class PageParserCollectionDialog extends JDialog
 		PageParserCollection ppc = new PageParserCollection(
 				"Youtube@F@youtube.com@F@Title@F@@M@<title>([^<])*</title>@R@<title>@RV@@R@</title>@RV@@R@[^a-zA-Z0-9\\\\-\\\\s]@RV@@F@Image@F@@M@https://yt3.googleusercontent.com([^@Q@])*(@Q@)@R@@Q@@RV@" + PageParser.PARSER_DELIMIT_COLLECTION + 
 				"GitHub@F@github.com@F@Title@F@@M@<title>([^<])*</title>@R@<title>@RV@@R@</title>@RV@@R@[^a-zA-Z0-9\\\\-\\\\s]@RV@@F@Image@F@@M@meta property=@Q@og:image@Q@ content=@Q@([^@Q@])*(@Q@)@R@meta property=@Q@og:image@Q@ content=@RV@@R@@Q@@RV@@M@Gary@R@" + PageParser.PARSER_DELIMIT_COLLECTION + 
-				"GOG@F@gog.com@F@Title@F@@M@product-tile[^@Q@]*@Q@ href=@Q@[^@Q@]*@Q@.*.jpg@R@product-tile[^@Q@]*@Q@ href=@Q@@RV@@R@(@Q@).*.jpg$@RV@@F@Url@F@@M@product-tile[^@Q@]*@Q@ href=@Q@[^@Q@]*@Q@.*.jpg@R@product-tile[^@Q@]*@Q@ href=@Q@@RV@@R@(@Q@).*.jpg$@RV@@F@Image@F@@M@product-tile[^@Q@]*@Q@ href=@Q@[^@Q@]*@Q@.*.jpg@R@product-tile[^@Q@]*@Q@ href=@Q@@RV@@R@(@Q@)$@RV@@M@[^\\s]*.jpg@R@srcset=@Q@@RV@"
+				"GOG@F@gog.com@F@Title@F@@M@product-tile[^@Q@]*@Q@ href=@Q@[^@Q@]*@Q@.*.jpg@R@product-tile[^@Q@]*@Q@ href=@Q@@RV@@R@(@Q@).*.jpg$@RV@@R@https://www.gog.com/en/game/@RV@@F@Url@F@@M@product-tile[^@Q@]*@Q@ href=@Q@[^@Q@]*@Q@.*.jpg@R@product-tile[^@Q@]*@Q@ href=@Q@@RV@@R@(@Q@).*.jpg$@RV@@F@Image@F@@M@product-tile[^@Q@]*@Q@ href=@Q@[^@Q@]*@Q@.*.jpg@R@product-tile[^@Q@]*@Q@ href=@Q@@RV@@R@(@Q@)$@RV@@M@[^\\s]*.jpg@R@srcset=@Q@@RV@"
 				);
 		
 		PageParserCollectionEditor ppce = new PageParserCollectionEditor();

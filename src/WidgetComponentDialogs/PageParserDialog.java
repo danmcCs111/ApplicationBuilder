@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -34,6 +35,8 @@ import ObjectTypeConversion.ParseAttribute;
 import ObjectTypeConversion.ParseAttributes;
 import ObjectTypeConversionEditors.PageParserEditor;
 import Properties.LoggingMessages;
+import Properties.OpenDialog;
+import Properties.PathUtility;
 
 public class PageParserDialog extends JDialog
 {
@@ -255,7 +258,7 @@ public class PageParserDialog extends JDialog
 		simulateButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				simulateAction(simulateTextField.getText());
+				simulateActionWithUrl(simulateTextField.getText());
 			}
 		});
 		Border b = BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.gray, Color.gray);
@@ -277,8 +280,22 @@ public class PageParserDialog extends JDialog
 				f.setVisible(true);
 			}
 		});
+		JButton openResponseFile = new JButton("Open html file");
+		openResponseFile.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				OpenDialog od = new OpenDialog();
+				File f = od.performOpen(PageParserDialog.this, 
+						"", "html", ".");
+				htmlResponse = PathUtility.readFileToString(f);
+				LoggingMessages.printOut(f.getAbsolutePath());
+				LoggingMessages.printOut(htmlResponse);
+				simulateAction();
+			}
+		});
 		simulateButtonOption.add(multiButton);
 		simulateButtonOption.add(showResponse);
+		simulateButtonOption.add(openResponseFile);
 		
 		JPanel innerPanelSimulate = new JPanel();
 		innerPanelSimulate.setLayout(new BorderLayout());
@@ -565,14 +582,19 @@ public class PageParserDialog extends JDialog
 		return parserFilter;
 	}
 	
-	private void simulateAction(String dragDropString)
+	private void simulateActionWithUrl(String url)
+	{
+		
+		url = HttpDatabaseRequest.addHttpsIfMissing(url);
+		LoggingMessages.printOut("drag and drop value: " + url);
+		htmlResponse = HttpDatabaseRequest.executeGetRequest(url);
+		LoggingMessages.printOut("response");
+		simulateAction();
+	}
+	
+	private void simulateAction()
 	{
 		PageParser youtube = getPageParser();
-		
-		dragDropString = HttpDatabaseRequest.addHttpsIfMissing(dragDropString);
-		LoggingMessages.printOut("drag and drop value: " + dragDropString);
-		htmlResponse = HttpDatabaseRequest.executeGetRequest(dragDropString);
-		LoggingMessages.printOut("response");
 		
 		LinkedHashMap<ParseAttribute, String[]> parsePagesAndMatches = new LinkedHashMap<ParseAttribute, String[]>();
 		int len = 0;
@@ -583,7 +605,8 @@ public class PageParserDialog extends JDialog
 				continue;
 			parsePagesAndMatches.put(pa, matches);
 			
-			len = matches.length;//TODO
+			if(matches.length < len || len == 0)
+				len = matches.length;//TODO
 		}
 		
 		int widgetCount = -1;
@@ -607,15 +630,22 @@ public class PageParserDialog extends JDialog
 			{
 				JTextField newI = new JTextField(JTEXT_FIELD_SIZE);
 				newI.setEditable(false);
-				simulateParseAttributeTextField.get(pa).add(newI);
 				String stripText = (i < parsePagesAndMatches.get(pa).length)
 						?parsePagesAndMatches.get(pa)[i]
 								:"";
+				if(stripText.isBlank())
+				{
+					break;
+				}
 				LoggingMessages.printOut(pa.name() + " " + stripText + "");
-				JTextField jt = simulateParseAttributeTextField.get(pa).get(i);
-				jt.setText(stripText);
-				mats.put(pa, jt);
+				newI.setText(stripText);
+				mats.put(pa, newI);
 			}
+			for(ParseAttribute pa : mats.keySet())
+			{
+				simulateParseAttributeTextField.get(pa).add(mats.get(pa));
+			}
+			LoggingMessages.printOut("");
 			addToSimulateViewPanel(mats);
 		}
 		this.validate();
