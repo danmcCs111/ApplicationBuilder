@@ -324,6 +324,8 @@ public class PageParserDialog extends JDialog
 		for(ParseAttribute pa : mats.keySet())
 		{
 			JTextField jt = mats.get(pa);
+			if(jt.getText().isBlank())
+				continue;
 			JPanel innerPanelAttr = new JPanel();
 			innerPanelAttr.setLayout(new BorderLayout());
 			jt.setEditable(false);
@@ -583,19 +585,29 @@ public class PageParserDialog extends JDialog
 			
 			len = matches.length;//TODO
 		}
+		
+		int widgetCount = -1;
+		for(ParseAttribute pa : simulateParseAttributeTextField.keySet())
+		{
+			LoggingMessages.printOut("WidgetSize: " + widgetCount);
+			widgetCount += simulateParseAttributeTextField.get(pa).size();
+			simulateParseAttributeTextField.get(pa).clear();
+		}
+		LoggingMessages.printOut("WidgetSize: " + widgetCount);
+		while(widgetCount >= 0)
+		{
+			removeLastFromSimulatePanel(widgetCount);
+			widgetCount--;
+		}
+		
+		LinkedHashMap<ParseAttribute, JTextField> mats = new LinkedHashMap<ParseAttribute, JTextField>();
 		for(int i = 0; i < len; i++)
 		{
-			LinkedHashMap<ParseAttribute, JTextField> mats = new LinkedHashMap<ParseAttribute, JTextField>();
-			ParseAttribute [] parses = parsePagesAndMatches.keySet().toArray(new ParseAttribute[] {});
 			for(ParseAttribute pa : parsePagesAndMatches.keySet())
 			{
-				if(simulateParseAttributeTextField.get(pa).size() <= i)
-				{
-					JTextField newI = new JTextField(JTEXT_FIELD_SIZE);
-					newI.setEditable(false);
-					simulateParseAttributeTextField.get(pa).add(newI);
-					
-				}
+				JTextField newI = new JTextField(JTEXT_FIELD_SIZE);
+				newI.setEditable(false);
+				simulateParseAttributeTextField.get(pa).add(newI);
 				String stripText = (i < parsePagesAndMatches.get(pa).length)
 						?parsePagesAndMatches.get(pa)[i]
 								:"";
@@ -604,28 +616,9 @@ public class PageParserDialog extends JDialog
 				jt.setText(stripText);
 				mats.put(pa, jt);
 			}
-			if(i != 0)
-			{
-				addToSimulateViewPanel(mats);
-			}
-			
-			int parsesSize = parses.length;
-			if(len < simulateParseAttributeTextField.get(parses[0]).size())
-			{
-				int collectionSize = simulateParseAttributeTextField.get(parses[0]).size();
-				for(int j = 0; j < (collectionSize-len); j++)
-				{
-					int newCollectionSize = simulateParseAttributeTextField.get(parses[0]).size();
-					int lastIndex = (((collectionSize)*parsesSize) - 1) - (j*parsesSize);
-					for(int k = 0; k < parsesSize; k++)
-					{
-						removeLastFromSimulatePanel(lastIndex-k);
-						simulateParseAttributeTextField.get(parses[k]).remove(newCollectionSize-1);
-					}
-				}
-				this.validate();
-			}
+			addToSimulateViewPanel(mats);
 		}
+		this.validate();
 	}
 	
 	private void saveAction()
