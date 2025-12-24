@@ -1,10 +1,7 @@
 package ObjectTypeConversion;
 
-import java.util.ArrayList;
-
 public class ParseAttribute 
 {
-	public ArrayList<String> values = new ArrayList<String>();
 	private String name;
 	
 	public ParseAttribute(String name)

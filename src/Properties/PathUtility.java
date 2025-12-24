@@ -11,8 +11,8 @@ import java.util.Scanner;
 public interface PathUtility 
 {
 	public static final String [] 
-			PATH_STRIP_FILTER = new String [] {"([\\.]|[0-9\\sa-zA-Z])+[/]", ""},
-			PATH_REMOVE_CURRENT_DIRECTORY = new String []{"\\./", "/"};
+		PATH_STRIP_FILTER = new String [] {"([\\.]|[0-9\\sa-zA-Z])+[/]", ""},
+		PATH_REMOVE_CURRENT_DIRECTORY = new String []{"\\./", "/"};
 	public static final String 
 		ESCAPE_CHARACTER = "\\",
 		NEW_LINE = "\n";

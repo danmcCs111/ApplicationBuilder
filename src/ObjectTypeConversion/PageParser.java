@@ -167,7 +167,15 @@ public class PageParser
 		ParseAttributes pas = new ParseAttributes(getParseAttributes());
 		
 		if(xmlString == null || xmlString.isBlank())
+		{
+			pas.addAttribute(new ParseAttribute("Title"));//Default
+			pas.addAttribute(new ParseAttribute("Image"));
+			for(ParseAttribute pa : pas.parseAttributes)
+			{
+				pageMatchAndReplace.put(pa, new LinkedHashMap<String, ArrayList<String[]>>());
+			}
 			return;
+		}
 		
 		xmlString = xmlString.replaceAll(QUOTE_REPLACEMENT, "\"");
 		

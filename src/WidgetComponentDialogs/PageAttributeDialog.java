@@ -20,6 +20,6 @@ public class PageAttributeDialog extends JDialog
 	public PageAttributeDialog()
 	{
 		
-	}
+	} 
 
 }
