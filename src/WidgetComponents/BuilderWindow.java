@@ -138,7 +138,8 @@ public class BuilderWindow extends RedrawableFrame
 		setWidgetCreatorProperty(wcp);
 		
 		scrPane = new JScrollPane(componentMethods);
-		innerPanel2.add(scrPane, BorderLayout.CENTER);innerPanel2.setOpaque(rootPaneCheckingEnabled);
+		innerPanel2.add(scrPane, BorderLayout.CENTER);
+		innerPanel2.setOpaque(rootPaneCheckingEnabled);
 		BuilderWindow.this.add(innerPanel2, BorderLayout.CENTER);
 		
 		BuilderWindow.this.validate();

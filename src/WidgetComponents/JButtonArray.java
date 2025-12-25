@@ -754,6 +754,9 @@ PostWidgetBuildProcessing, ButtonArray
 		String path = SwappableCollection.indexPaths.get(indexPos);
 		String channelName = linkTitleAndImageUrl[1];
 		
+		if(channelName.isBlank())
+			return;
+		
 		JButtonLengthLimited jbl = (JButtonLengthLimited) FileListOptionGenerator.buildComponent(
 				path, channelName, linkTitleAndImageUrl[0], JButtonLengthLimited.class);
 		filterText(jbl);
