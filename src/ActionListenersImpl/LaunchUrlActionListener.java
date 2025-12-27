@@ -23,6 +23,8 @@ public class LaunchUrlActionListener implements ActionListener
 		PROCESS_LINUX = "google-chrome",
 		CLOSE_LAUNCH_ACTION_EVENT="closeLaunchAction",
 		CHROME_HIDE_OPTION = "--hide-crash-restore-bubble",
+		CHROME_SEPERATE_OPTION = "--user-data-dir=" + PathUtility.getCurrentDirectory() + "\"NewProfile\"",
+		CHROME_NO_DEFAULT_CHECK = "--no-default-browser-check",
 		AHK_RELATIVE_PATH = "./plugin-projects/AutoHotKey-Utils/pid.txt";
 	private String
 		processWindows = PROCESS_WINDOWS,
@@ -67,7 +69,8 @@ public class LaunchUrlActionListener implements ActionListener
 		}
 		else
 		{
-			executeProcess(PathUtility.isWindows()?getProcessWindowsOS():getProcessLinuxOS(), CHROME_HIDE_OPTION, button.getName());
+			executeProcess(PathUtility.isWindows()?getProcessWindowsOS():getProcessLinuxOS(), 
+					CHROME_HIDE_OPTION, CHROME_SEPERATE_OPTION, CHROME_NO_DEFAULT_CHECK, button.getName());
 		}
 		lastButton = button;
 		lastButtonParent = lastButton.getParent();
