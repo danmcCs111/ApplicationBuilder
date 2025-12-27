@@ -1,3 +1,5 @@
+*fixed browser process to be seperate profile. switched to using PID and sharing with ahk to give direct key press control.
+
 added drag and drop capability with an editable page parser
 
 <img width="1631" height="590" alt="page-parser" src="https://github.com/user-attachments/assets/b3ea2bc8-72e1-419d-b1ef-c5da89cc7bd1" />
