@@ -8,7 +8,7 @@ public class ExitPopupLaunchActionListener implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		LaunchActionListener.destroyRunningProcess();
+		LaunchUrlActionListener.destroyRunningProcess();
 		System.exit(0);
 	}
 	

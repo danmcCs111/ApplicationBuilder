@@ -3,24 +3,27 @@ package ActionListenersImpl;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 
 import javax.swing.AbstractButton;
 
 import ActionListeners.ArrayActionListener;
 import MouseListenersImpl.PicLabelMouseListener;
+import ObjectTypeConversion.DirectorySelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
 import WidgetComponents.JButtonLengthLimited;
 
-public class LaunchActionListener implements ActionListener
+public class LaunchUrlActionListener implements ActionListener
 {
 	private static Process runningProcess = null;
 	private static final String
 		PROCESS_WINDOWS = "chrome.exe",
 		PROCESS_LINUX = "google-chrome",
 		CLOSE_LAUNCH_ACTION_EVENT="closeLaunchAction",
-		CHROME_HIDE_OPTION = "--hide-crash-restore-bubble";
+		CHROME_HIDE_OPTION = "--hide-crash-restore-bubble",
+		AHK_RELATIVE_PATH = "./plugin-projects/AutoHotKey-Utils/pid.txt";
 	private String
 		processWindows = PROCESS_WINDOWS,
 		processLinux = PROCESS_LINUX;
@@ -76,6 +79,9 @@ public class LaunchActionListener implements ActionListener
 			destroyRunningProcess();
 			ProcessBuilder pb = new ProcessBuilder(args);
 			runningProcess = pb.start();
+			Long pid = runningProcess.pid();
+			File f = new File(new DirectorySelection(AHK_RELATIVE_PATH).getFullPath());
+			PathUtility.writeStringToFile(f, pid + "");
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

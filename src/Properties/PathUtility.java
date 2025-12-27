@@ -141,6 +141,19 @@ public interface PathUtility
 		return fileContents;
 	}
 	
+	public static void writeStringToFile(File locationFile, String contents)
+	{
+		try {
+			FileWriter myWriter = new FileWriter(locationFile);
+			myWriter.write(contents);	
+			myWriter.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static void writeProperties(String path, String [] [] namesAndValues)
 	{
 		try {

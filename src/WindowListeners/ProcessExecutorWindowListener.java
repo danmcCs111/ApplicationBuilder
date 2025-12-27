@@ -3,19 +3,19 @@ package WindowListeners;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import ActionListenersImpl.LaunchActionListener;
+import ActionListenersImpl.LaunchUrlActionListener;
 
 public class ProcessExecutorWindowListener extends WindowAdapter
 {
 	@Override
 	public void windowClosing(WindowEvent e) 
 	{
-		LaunchActionListener.destroyRunningProcess();
+		LaunchUrlActionListener.destroyRunningProcess();
 	}
 	
 	@Override 
 	public void windowClosed(WindowEvent e)
 	{
-		LaunchActionListener.destroyRunningProcess();
+		LaunchUrlActionListener.destroyRunningProcess();
 	}
 }
