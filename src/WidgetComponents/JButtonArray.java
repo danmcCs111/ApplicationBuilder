@@ -26,6 +26,7 @@ import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import ActionListeners.ArrayActionListener;
+import ActionListenersImpl.LaunchUrlActionListener;
 import ActionListenersImpl.NavigationButtonActionListener;
 import Actions.CommandExecutor;
 import ApplicationBuilder.ShellHeadlessExecutor;
@@ -123,6 +124,11 @@ PostWidgetBuildProcessing, ButtonArray
 	public JButtonArray()
 	{
 		
+	}
+	
+	public static void setIsKiosk(boolean isKiosk)
+	{
+		LaunchUrlActionListener.setIsKiosk(isKiosk);
 	}
 	
 	public static void setDeleteForegroundColor(Color c)

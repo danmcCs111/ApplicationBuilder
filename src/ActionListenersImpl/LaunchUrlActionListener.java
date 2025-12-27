@@ -25,6 +25,7 @@ public class LaunchUrlActionListener implements ActionListener
 		CHROME_HIDE_OPTION = "--hide-crash-restore-bubble",
 		CHROME_SEPERATE_OPTION = "--user-data-dir=" + PathUtility.getCurrentDirectory() + "\"NewProfile\"",
 		CHROME_NO_DEFAULT_CHECK = "--no-default-browser-check",
+		CHROME_KIOSK = "--kiosk",
 		AHK_RELATIVE_PATH = "./plugin-projects/AutoHotKey-Utils/pid.txt";
 	private String
 		processWindows = PROCESS_WINDOWS,
@@ -32,6 +33,7 @@ public class LaunchUrlActionListener implements ActionListener
 	
 	private static AbstractButton lastButton = null;
 	private static Container lastButtonParent = null;
+	private static boolean isKiosk = false;
 	
 	public String getProcessWindowsOS()
 	{
@@ -40,6 +42,11 @@ public class LaunchUrlActionListener implements ActionListener
 	public void setProcessWindowsOS(String windowsProc)
 	{
 		processWindows = windowsProc;
+	}
+	
+	public static void setIsKiosk(boolean isKiosk)
+	{
+		LaunchUrlActionListener.isKiosk = isKiosk;
 	}
 	
 	public String getProcessLinuxOS()
@@ -69,8 +76,18 @@ public class LaunchUrlActionListener implements ActionListener
 		}
 		else
 		{
-			executeProcess(PathUtility.isWindows()?getProcessWindowsOS():getProcessLinuxOS(), 
-					CHROME_HIDE_OPTION, CHROME_SEPERATE_OPTION, CHROME_NO_DEFAULT_CHECK, button.getName());
+			if(LaunchUrlActionListener.isKiosk)
+			{
+				executeProcess(PathUtility.isWindows()?getProcessWindowsOS():getProcessLinuxOS(), 
+						CHROME_HIDE_OPTION, CHROME_SEPERATE_OPTION, CHROME_NO_DEFAULT_CHECK, CHROME_KIOSK, 
+						button.getName());
+			}
+			else
+			{
+				executeProcess(PathUtility.isWindows()?getProcessWindowsOS():getProcessLinuxOS(), 
+						CHROME_HIDE_OPTION, CHROME_SEPERATE_OPTION, CHROME_NO_DEFAULT_CHECK, 
+						button.getName());
+			}
 		}
 		lastButton = button;
 		lastButtonParent = lastButton.getParent();
