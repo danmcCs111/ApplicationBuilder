@@ -1,3 +1,3 @@
 <ScheduledCommands> 
-<ScheduledCommand Schedule="12,0,AM,|" Command="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Fn./VideoLaunchFiles/RokuVideos/import_roku-windows.sh%Tn /c/Users/danie/codebase/danmcCs111/SeleniumPython/" > </ScheduledCommand>
+<ScheduledCommand Schedule="12,0,AM,|" Command="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Fn./VideoLaunchFiles/RokuVideos/import_roku-windows.sh%Tn ../../plugin-projects/SeleniumPython/" > </ScheduledCommand>
 </ScheduledCommands>

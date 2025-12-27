@@ -1,0 +1,10 @@
+PoliceActivity - YouTube@529@586=./VideoLaunchFiles/YoutubeChannels
+VICE - YouTube@31@681=./VideoLaunchFiles/YoutubeChannels
+VICE TV - YouTube@198@685=./VideoLaunchFiles/YoutubeChannels
+Java Discover  Free Global Documentaries amp Clips - YouTube@369@683=./VideoLaunchFiles/YoutubeChannels
+60 Minutes - YouTube@531@779=./VideoLaunchFiles/YoutubeChannels
+LADbible Stories - YouTube@37@876=./VideoLaunchFiles/YoutubeChannels
+Timeline - World History Documentaries - YouTube@201@876=./VideoLaunchFiles/YoutubeChannels
+48 Hours - YouTube@367@872=./VideoLaunchFiles/YoutubeChannels
+Thought Architect - YouTube@532@974=./VideoLaunchFiles/YoutubeChannels
+Micro Center@112@1066=./VideoLaunchFiles/YoutubeChannels
