@@ -1,9 +1,9 @@
 <Build>
 	<JFrame extendedSetupTaskbar="./src/ApplicationBuilder/launch_xsm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="550, 500" setMinimumSize="250, 100" setResizable="False" setTitle="Remote" >
 		<JPanel addMouseListener="MouseListenersImpl.MouseDragMoveWindowListener" addMouseMotionListener="MouseListenersImpl.MouseDragMoveWindowListener" extendedLayoutApplyParent="Center" setBackground="0, 0, 0" setLayout="java.awt.FlowLayout" >
-			<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tn/c/Program\ Files/AutoHotkey/v2/AutoHotkey %Tnplugin-projects/AutoHotKey-Utils/play_pause.ahk" extendedLayoutApplyParent="" setBackground="0, 153, 153" setText="| &gt; |" setToolTipText="Play/Pause" >
+			<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tn/c/Program\ Files/AutoHotkey/v2/AutoHotkey %Tn plugin-projects/AutoHotKey-Utils/play_pause.ahk" extendedLayoutApplyParent="" setBackground="0, 153, 153" setText="| &gt; |" setToolTipText="Play/Pause" >
 			</JButton>
-			<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%TnAutoHotkey%Tnplugin-projects/AutoHotKey-Utils/fullscreen-roku-tubi-youtube.ahk" extendedLayoutApplyParent="" setBackground="0, 153, 153" setText="| [Full] |" setToolTipText="Go Fullscreen" >
+			<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tn/c/Program\ Files/AutoHotkey/v2/AutoHotkey%Tn plugin-projects/AutoHotKey-Utils/fullscreen-roku-tubi-youtube.ahk" extendedLayoutApplyParent="" setBackground="0, 153, 153" setText="| [Full] |" setToolTipText="Go Fullscreen" >
 			</JButton>
 		</JPanel>
 	</JFrame>
