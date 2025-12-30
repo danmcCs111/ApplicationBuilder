@@ -166,7 +166,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		keeps.remove(ks);
 	}
 	
-	public void setupKeepFrame(Component c, int x, int y)
+	public void setupKeepFrame(Component c, int x, int y) 
 	{
 		KeepSelection keep = getKeepSelectionVisible(c);
 		if(!keepFrame && !keeps.contains(keep))
@@ -175,6 +175,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 			keepFrame = true;
 			f.setLocation(x, y);
 			createKeepFrame(c);
+			//TODO read if youtube and perform query
 		}
 	}
 	
