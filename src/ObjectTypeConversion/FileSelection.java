@@ -44,6 +44,6 @@ public class FileSelection
 	
 	public String getFullPath()
 	{
-		return PathUtility.getCurrentDirectory() + this.relativePath;
+		return PathUtility.getCurrentDirectory() + this.relativePath.substring(1);
 	}
 }

@@ -34,7 +34,7 @@ public interface PathUtility
 	
 	public static String getCurrentDirectory()
 	{
-		return System.getProperty("user.dir");
+		return replaceBackslash(System.getProperty("user.dir"));
 	}
 	
 	public static boolean isWindows()
@@ -124,7 +124,7 @@ public interface PathUtility
 	public static String readFileToString(File locationFile)
 	{
 		Scanner sc;
-		String fileContents = null;
+		String fileContents = "";
 		
 		if(!locationFile.exists())
 		{

@@ -1,15 +1,19 @@
 package MouseListenersImpl;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import Actions.CommandExecutor;
 import HttpDatabaseRequest.HttpDatabaseRequest;
 import HttpDatabaseRequest.SelectWebServiceQueries;
 import HttpDatabaseResponse.DatabaseResponseNode;
 import HttpDatabaseResponse.HttpDatabaseResponse;
+import ObjectTypeConversion.CommandBuild;
+import ObjectTypeConversion.FileSelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
 
@@ -18,7 +22,8 @@ public class LookupOrCreateYoutube
 	public static final String 
 		YOUTUBE_CHANNEL_HANDLE_STRIP = "/[^/]*$",
 		OPERATION = "showResult",
-		SAVE_INSERT_PATH = "./VideoLaunchFiles/YoutubeChannels/video-images/",
+		PLUGIN_JAR_LOCATION = "plugin-projects/YouTube-API-list/YoutubeApiList/YoutubeApiList.jar",
+		SAVE_INSERT_PATH = "./VideoLaunchFiles/YoutubeChannels/video-images/", //TODO
 		KEY_PATH = "C:\\Users\\danie\\OneDrive\\Documents\\api-key.txt", //TODO
 		YOUTUBE_QUERY_PREFIX = "SELECT * FROM videodatabase.video WHERE VideoName_Video_VideoDatabase = ",
 		YOUTUBE_QUERY_SUFFIX = ";",
@@ -146,17 +151,33 @@ public class LookupOrCreateYoutube
 		LoggingMessages.printOut("Epoch Time: " + lastDate);
 		
 		String youtubeHandleMinusAt = youtubeHandle.replace("@", "");
-		String key = PathUtility.readFileToString(new File(KEY_PATH));
+		String key = PathUtility.readFileToString(new File(KEY_PATH)).replace("\n", "").replace(" ", "");
 		String [] args = new String [] {
+			PLUGIN_JAR_LOCATION,
+			"YoutubeApiList.YoutubeApiList",
 			OPERATION, 
 			key,
 			parentId + "", 
 			youtubeHandle, 
 			lastDate + "", 
-			SAVE_INSERT_PATH + youtubeHandleMinusAt
+			new FileSelection(SAVE_INSERT_PATH + youtubeHandleMinusAt).getFullPath() + ".sql"
 		};
+		WidgetComponents.Parameter param = new WidgetComponents.Parameter();
+		for(String arg : args)
+		{
+			param.addParamString(arg + " ");
+		}
 		//run plugin.
+		CommandBuild cb = new CommandBuild();
+		cb.setCommand("java", new String []{"-cp"}, args);
+		try {
+			CommandExecutor.executeProcess(cb, true);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		//run insert & image grab jobs. use loading screen.
 		
+		//load. using loading screen again.
 	}
 	
 	public static void main(String [] args)
