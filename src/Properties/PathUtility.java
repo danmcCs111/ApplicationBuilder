@@ -1,12 +1,19 @@
 package Properties;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+
+import javax.imageio.ImageIO;
 
 public interface PathUtility 
 {
@@ -96,6 +103,42 @@ public interface PathUtility
 		return files;
 	}
 	
+	/**
+	 * 
+	 * @param imageUrl
+	 * @param destinationPath
+	 * @param writeType the image format (e.g., "jpg", "png", "gif")
+	 */
+	public static void imageDownloadAndSave(String imageUrl, String destinationPath, String writeImageType)
+	{
+		try {
+            URL url = new URL(imageUrl);
+            BufferedImage img = ImageIO.read(url);
+            if (img != null) 
+            {
+                File file = new File(destinationPath);
+                ImageIO.write(img, writeImageType, file); 
+                System.out.println("Image downloaded successfully to " + destinationPath);
+            } 
+            else 
+            {
+                System.out.println("Could not read image from URL.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
+	
+	public static void createDirectoryIfNotExist(String dirPath)
+	{
+		Path directoryPath = Paths.get(dirPath);
+		try {
+			Files.createDirectories(directoryPath);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static HashMap<String, String> readProperties(String location, String delimter)
 	{
 		HashMap<String,String> props = new HashMap<String,String>();
@@ -169,4 +212,5 @@ public interface PathUtility
 			e.printStackTrace();
 		}
 	}
+	
 }

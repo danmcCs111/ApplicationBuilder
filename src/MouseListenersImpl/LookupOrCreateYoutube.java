@@ -25,12 +25,17 @@ public class LookupOrCreateYoutube
 		PLUGIN_JAR_LOCATION = "plugin-projects/YouTube-API-list/YoutubeApiList/YoutubeApiList.jar",
 		SAVE_INSERT_PATH = "./VideoLaunchFiles/YoutubeChannels/video-images/", //TODO
 		KEY_PATH = "C:\\Users\\danie\\OneDrive\\Documents\\api-key.txt", //TODO
-		YOUTUBE_QUERY_PREFIX = "SELECT * FROM videodatabase.video WHERE VideoName_Video_VideoDatabase = ",
-		YOUTUBE_QUERY_SUFFIX = ";",
-		YOUTUBE_VIDEO_QUERY_PREFIX = "SELECT * FROM videodatabase.videoYoutube WHERE ParentID_VideoYoutube_VideoYoutubeDatabase = ",
-		YOUTUBE_VIDEO_QUERY_SUFFIX = " ORDER BY UploadDate_VideoYoutube_VideoYoutubeDatabase DESC;",
+		
+		YOUTUBE_QUERY = 
+			"SELECT * FROM videodatabase.video WHERE VideoName_Video_VideoDatabase = <arg0>"+
+			";",
+		YOUTUBE_VIDEO_QUERY = 
+			"SELECT * FROM videodatabase.videoYoutube WHERE ParentID_VideoYoutube_VideoYoutubeDatabase = <arg0> "+
+			" ORDER BY UploadDate_VideoYoutube_VideoYoutubeDatabase DESC;",
+		
 		YOUTUBE_INSERT_PREFIX = "INSERT INTO videodatabase.video (VideoName_Video_VideoDatabase, VideoUrl_Video_VideoDatabase, InsertDate_Video_VideoDatabase) values( ",
 		YOUTUBE_INSERT_SUFFIX = " CURRENT_TIMESTAMP);",
+		
 		IS_LOOKUP_FRAME_FILTER = "",
 		ENDPOINT = "http://localhost:",
 		REQUEST_TYPE_HEADER_KEY = "Get-request-type",
@@ -48,7 +53,7 @@ public class LookupOrCreateYoutube
 	
 	public void lookup(String videoChannelName, String videoChannelLink)
 	{
-		String query = YOUTUBE_QUERY_PREFIX + PathUtility.surroundString(videoChannelName, "\"") + YOUTUBE_QUERY_SUFFIX;
+		String query = YOUTUBE_QUERY.replaceFirst("<arg0>",PathUtility.surroundString(videoChannelName, "\""));
 		String response = executeQuery(query);
 		
 		HttpDatabaseResponse hdr = new HttpDatabaseResponse();
@@ -65,6 +70,7 @@ public class LookupOrCreateYoutube
 				{
 					int parentId = Integer.parseInt(drn.getNodeAttributes().get("content"));
 					LoggingMessages.printOut("parentID is: " + parentId);
+					LoggingMessages.printOut("channelLink is: " + videoChannelLink);
 					lookupYoutubeVideo(parentId, videoChannelLink);
 				}
 			}
@@ -111,7 +117,7 @@ public class LookupOrCreateYoutube
 	
 	public void lookupYoutubeVideo(int parentId, String videoChannelLink)
 	{
-		String query = YOUTUBE_VIDEO_QUERY_PREFIX + parentId + YOUTUBE_VIDEO_QUERY_SUFFIX;
+		String query = YOUTUBE_VIDEO_QUERY.replaceFirst("<arg0>", parentId+"");
 		String response = executeQuery(query);
 		
 		HttpDatabaseResponse hdr = new HttpDatabaseResponse();
@@ -179,6 +185,41 @@ public class LookupOrCreateYoutube
 		LoggingMessages.printOut(contents);
 		executeInsert(contents);
 		
+		String query = YOUTUBE_VIDEO_QUERY.replaceFirst("<arg0>", parentId+"");
+		String response = executeQuery(query);
+		HttpDatabaseResponse hdr = new HttpDatabaseResponse();
+		ArrayList <ArrayList <DatabaseResponseNode>> drns = hdr.parseResponse(response);
+		if(drns.isEmpty())
+		{
+			LoggingMessages.printOut("Empty");
+		}
+		else
+		{
+			String saveLoc = SAVE_INSERT_PATH + youtubeHandleMinusAt;
+			PathUtility.createDirectoryIfNotExist(saveLoc);
+			
+			for(int i = 1; i < drns.size(); i++)
+			{
+				String img = "";
+				String title = "";
+				for(DatabaseResponseNode drn : drns.get(i))
+				{
+					if(drn.getNodeName().equals("Title_VideoYoutube_VideoYoutubeDatabase"))
+					{
+						title = drn.getNodeAttributes().get("content");
+					}
+					if(drn.getNodeName().equals("PosterImageUrl_VideoYoutube_VideoYoutubeDatabase"))
+					{
+						img = drn.getNodeAttributes().get("content");
+						
+						break;
+					}
+				}
+				String saveFileImage = saveLoc + "/" + title + ".png";
+				PathUtility.imageDownloadAndSave(img, saveFileImage, "png");
+			}
+		}
+		
 		//load. using loading screen again.
 		
 	}
@@ -186,6 +227,10 @@ public class LookupOrCreateYoutube
 	public static void main(String [] args)
 	{
 		LookupOrCreateYoutube lcy = new LookupOrCreateYoutube();
+//		String query = YOUTUBE_VIDEO_QUERY.replaceFirst("<arg0>", 8+"");
+//		LoggingMessages.printOut(query);
+//		String response = executeQuery(query);
+		
 		lcy.lookup("test abc", "https://www.youtube.com/@ABCNews");
 		lcy.lookup("test nbc", "https://www.youtube.com/@NBCNews");
 	}
