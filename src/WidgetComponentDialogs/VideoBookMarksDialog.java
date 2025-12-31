@@ -155,12 +155,13 @@ public class VideoBookMarksDialog extends JDialog
 				}
 			}
 		});
+		JScrollPane scrollPaneTitles = new JScrollPane(fileList);
 		
 		buildSaveCancel();
 		
 		innerPanel = new JPanel();
 		innerPanel.setLayout(new BorderLayout());
-		innerPanel.add(fileList, BorderLayout.WEST);
+		innerPanel.add(scrollPaneTitles, BorderLayout.WEST);
 		innerPanel.add(scrollPane, BorderLayout.CENTER);
 		if(save)
 		{
