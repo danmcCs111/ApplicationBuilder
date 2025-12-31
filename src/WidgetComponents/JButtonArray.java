@@ -12,7 +12,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -28,12 +27,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import ActionListeners.ArrayActionListener;
 import ActionListenersImpl.LaunchUrlActionListener;
 import ActionListenersImpl.NavigationButtonActionListener;
-import Actions.CommandExecutor;
-import ApplicationBuilder.ShellHeadlessExecutor;
 import Graphics2D.ColorTemplate;
 import MouseListenersImpl.ImageMouseAdapter;
 import MouseListenersImpl.PicLabelMouseListener;
-import ObjectTypeConversion.CommandBuild;
 import ObjectTypeConversion.DirectorySelection;
 import ObjectTypeConversion.FileSelection;
 import ObjectTypeConversion.PageParserCollection;
@@ -774,16 +770,19 @@ PostWidgetBuildProcessing, ButtonArray
 		Collections.sort(collectionJButtons.get(path), new JButtonLengthLimited());
 		rebuildButtons();
 		DirectorySelection ds = new DirectorySelection(path);
-		//Save results.
-		CommandBuild cb = ShellHeadlessExecutor.getWindowsCommand(new String []{
-				ds.getPathLinux() + "/" + SAVE_DROP_SCRIPT + " " +
-				linkTitleAndImageUrl[0] + " " + channelName.replaceAll("\s", "\\\\ ") + " " + linkTitleAndImageUrl[2] });
-		try {
-			CommandExecutor.executeProcess(cb, true);
-			refreshAllMouseListeners();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		
+		String 
+			contents = "[InternetShortcut]" + "\n" + "URL=" + linkTitleAndImageUrl[0],
+			urlFilename = channelName + ".url",
+			pngFilename = channelName + ".png",
+			imgUrl = linkTitleAndImageUrl[2],
+			savePathUrl = ds.getPathLinux(),
+			savePathImg = ds.getPathLinux() + "/images/";
+		
+		PathUtility.imageDownloadAndSave(imgUrl, savePathImg + "/" + pngFilename, "png");
+		PathUtility.writeStringToFile(new File(savePathUrl + "/" + urlFilename), contents);
+		refreshAllMouseListeners();
+		
 	}
 
 	@Override
