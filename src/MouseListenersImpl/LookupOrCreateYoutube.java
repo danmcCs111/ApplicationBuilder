@@ -49,15 +49,8 @@ public class LookupOrCreateYoutube
 	public void lookup(String videoChannelName, String videoChannelLink)
 	{
 		String query = YOUTUBE_QUERY_PREFIX + PathUtility.surroundString(videoChannelName, "\"") + YOUTUBE_QUERY_SUFFIX;
+		String response = executeQuery(query);
 		
-		String response = HttpDatabaseRequest.executeGetRequest
-		(
-				SelectWebServiceQueries.ENDPOINT,
-				SelectWebServiceQueries.PORT_NUMBER,
-				query,
-				SelectWebServiceQueries.REQUEST_TYPE_HEADER_KEY,
-				REQUEST_TYPE_HEADER_VALUE_QUERY
-		);
 		HttpDatabaseResponse hdr = new HttpDatabaseResponse();
 		ArrayList <ArrayList <DatabaseResponseNode>> drns = hdr.parseResponse(response);
 		if(drns.isEmpty())
@@ -85,7 +78,16 @@ public class LookupOrCreateYoutube
 				PathUtility.surroundString(url, "\"") + ", " +
 				YOUTUBE_INSERT_SUFFIX;
 		
-		HttpDatabaseRequest.executeGetRequest
+		executeInsert(insert);
+		lookup(videoChannelName, url);
+		
+//		HttpDatabaseResponse hdr = new HttpDatabaseResponse();
+//		ArrayList <ArrayList <DatabaseResponseNode>> drns = hdr.parseResponse(response);
+	}
+	
+	private static String executeInsert(String insert)
+	{
+		return HttpDatabaseRequest.executeGetRequest
 		(
 				SelectWebServiceQueries.ENDPOINT,
 				SelectWebServiceQueries.PORT_NUMBER,
@@ -93,24 +95,25 @@ public class LookupOrCreateYoutube
 				SelectWebServiceQueries.REQUEST_TYPE_HEADER_KEY,
 				REQUEST_TYPE_HEADER_VALUE_INSERT
 		);
-		lookup(videoChannelName, url);
-		
-//		HttpDatabaseResponse hdr = new HttpDatabaseResponse();
-//		ArrayList <ArrayList <DatabaseResponseNode>> drns = hdr.parseResponse(response);
+	}
+	
+	private static String executeQuery(String query)
+	{
+		return HttpDatabaseRequest.executeGetRequest
+				(
+						SelectWebServiceQueries.ENDPOINT,
+						SelectWebServiceQueries.PORT_NUMBER,
+						query,
+						SelectWebServiceQueries.REQUEST_TYPE_HEADER_KEY,
+						REQUEST_TYPE_HEADER_VALUE_QUERY
+				);
 	}
 	
 	public void lookupYoutubeVideo(int parentId, String videoChannelLink)
 	{
 		String query = YOUTUBE_VIDEO_QUERY_PREFIX + parentId + YOUTUBE_VIDEO_QUERY_SUFFIX;
+		String response = executeQuery(query);
 		
-		String response = HttpDatabaseRequest.executeGetRequest
-		(
-				SelectWebServiceQueries.ENDPOINT,
-				SelectWebServiceQueries.PORT_NUMBER,
-				query,
-				SelectWebServiceQueries.REQUEST_TYPE_HEADER_KEY,
-				REQUEST_TYPE_HEADER_VALUE_QUERY
-		);
 		HttpDatabaseResponse hdr = new HttpDatabaseResponse();
 		ArrayList <ArrayList <DatabaseResponseNode>> drns = hdr.parseResponse(response);
 		Date lastDate = null;
@@ -152,6 +155,7 @@ public class LookupOrCreateYoutube
 		
 		String youtubeHandleMinusAt = youtubeHandle.replace("@", "");
 		String key = PathUtility.readFileToString(new File(KEY_PATH)).replace("\n", "").replace(" ", "");
+		String saveFile = new FileSelection(SAVE_INSERT_PATH + youtubeHandleMinusAt).getFullPath() + ".sql";
 		String [] args = new String [] {
 			PLUGIN_JAR_LOCATION,
 			"YoutubeApiList.YoutubeApiList",
@@ -160,13 +164,8 @@ public class LookupOrCreateYoutube
 			parentId + "", 
 			youtubeHandle, 
 			lastDate + "", 
-			new FileSelection(SAVE_INSERT_PATH + youtubeHandleMinusAt).getFullPath() + ".sql"
+			saveFile
 		};
-		WidgetComponents.Parameter param = new WidgetComponents.Parameter();
-		for(String arg : args)
-		{
-			param.addParamString(arg + " ");
-		}
 		//run plugin.
 		CommandBuild cb = new CommandBuild();
 		cb.setCommand("java", new String []{"-cp"}, args);
@@ -176,8 +175,12 @@ public class LookupOrCreateYoutube
 			e.printStackTrace();
 		}
 		//run insert & image grab jobs. use loading screen.
+		String contents = PathUtility.readFileToString(new File(saveFile));
+		LoggingMessages.printOut(contents);
+		executeInsert(contents);
 		
 		//load. using loading screen again.
+		
 	}
 	
 	public static void main(String [] args)
