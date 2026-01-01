@@ -103,6 +103,18 @@ public interface PathUtility
 		return files;
 	}
 	
+	public static boolean isFileExisting(String destinationPath)
+	{
+		try {
+			File file = new File(destinationPath);
+			BufferedImage bi = ImageIO.read(file); 
+			return (bi != null);
+        } catch (IOException e) {
+            LoggingMessages.printOut("Image: " + destinationPath + " not found!");
+        }
+		return false;
+	}
+	
 	/**
 	 * 
 	 * @param imageUrl

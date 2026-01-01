@@ -1,5 +1,6 @@
 package MouseListenersImpl;
 
+import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import Actions.CommandExecutor;
+import Graphics2D.GraphicsUtil;
 import HttpDatabaseRequest.HttpDatabaseRequest;
 import HttpDatabaseRequest.SelectWebServiceQueries;
 import HttpDatabaseResponse.DatabaseResponseNode;
@@ -104,13 +106,13 @@ public class LookupOrCreateYoutube
 	private static String executeQuery(String query)
 	{
 		return HttpDatabaseRequest.executeGetRequest
-				(
-						SelectWebServiceQueries.ENDPOINT,
-						SelectWebServiceQueries.PORT_NUMBER,
-						query,
-						SelectWebServiceQueries.REQUEST_TYPE_HEADER_KEY,
-						REQUEST_TYPE_HEADER_VALUE_QUERY
-				);
+		(
+				SelectWebServiceQueries.ENDPOINT,
+				SelectWebServiceQueries.PORT_NUMBER,
+				query,
+				SelectWebServiceQueries.REQUEST_TYPE_HEADER_KEY,
+				REQUEST_TYPE_HEADER_VALUE_QUERY
+		);
 	}
 	
 	public void lookupYoutubeVideo(int parentId, String videoChannelLink)
@@ -187,13 +189,14 @@ public class LookupOrCreateYoutube
 		String response = executeQuery(query);
 		HttpDatabaseResponse hdr = new HttpDatabaseResponse();
 		ArrayList <ArrayList <DatabaseResponseNode>> drns = hdr.parseResponse(response);
+		
+		String saveLoc = SAVE_INSERT_PATH + youtubeHandleMinusAt;
 		if(drns.isEmpty())
 		{
 			LoggingMessages.printOut("Empty");
 		}
 		else
 		{
-			String saveLoc = SAVE_INSERT_PATH + youtubeHandleMinusAt;
 			PathUtility.createDirectoryIfNotExist(saveLoc);
 			
 			for(int i = 1; i < drns.size(); i++)
@@ -214,7 +217,12 @@ public class LookupOrCreateYoutube
 					}
 				}
 				String saveFileImage = saveLoc + "/" + title + ".png";
-				PathUtility.imageDownloadAndSave(img, saveFileImage, "png");
+				if(!PathUtility.isFileExisting(saveFileImage))
+				{
+					PathUtility.imageDownloadAndSave(img, saveFileImage, "png");
+				}
+				Image imgPng = GraphicsUtil.getImageFromFile(new File(saveFileImage));
+				LoggingMessages.printOut(imgPng.toString());
 			}
 		}
 		
