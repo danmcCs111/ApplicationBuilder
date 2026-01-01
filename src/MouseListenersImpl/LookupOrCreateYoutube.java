@@ -87,8 +87,6 @@ public class LookupOrCreateYoutube
 		executeInsert(insert);
 		lookup(videoChannelName, url);
 		
-//		HttpDatabaseResponse hdr = new HttpDatabaseResponse();
-//		ArrayList <ArrayList <DatabaseResponseNode>> drns = hdr.parseResponse(response);
 	}
 	
 	private static String executeInsert(String insert)
@@ -200,18 +198,18 @@ public class LookupOrCreateYoutube
 			
 			for(int i = 1; i < drns.size(); i++)
 			{
-				String img = "";
-				String title = "";
+				String 
+					img = "",
+					title = "";
 				for(DatabaseResponseNode drn : drns.get(i))
 				{
 					if(drn.getNodeName().equals("Title_VideoYoutube_VideoYoutubeDatabase"))
 					{
 						title = drn.getNodeAttributes().get("content");
 					}
-					if(drn.getNodeName().equals("PosterImageUrl_VideoYoutube_VideoYoutubeDatabase"))
+					else if(drn.getNodeName().equals("PosterImageUrl_VideoYoutube_VideoYoutubeDatabase"))
 					{
 						img = drn.getNodeAttributes().get("content");
-						
 						break;
 					}
 				}

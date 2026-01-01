@@ -13,7 +13,11 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -57,7 +61,7 @@ public class VideoBookMarksDialog extends JDialog
 		PROPERTIES_FILE_DELIMITER = "=",
 		PROPERTIES_FILE_FILTER = ".txt";
 	
-	private HashMap<String, String[]> filenameAndTitles = new HashMap<String, String[]>();
+	private LinkedHashMap<String, String[]> filenameAndTitles = new LinkedHashMap<String, String[]>();
 	
 	private JList<String> fileList;
 	private JTextArea titlesList;
@@ -134,8 +138,9 @@ public class VideoBookMarksDialog extends JDialog
 		titlesList = new JTextArea();
 		titlesList.setEditable(false);
 		JScrollPane scrollPane = new JScrollPane(titlesList);
-		String [] titles = filenameAndTitles.keySet().toArray(new String [] {});
-		fileList = new JList<String>(titles);
+		List<String> titles = Arrays.asList(filenameAndTitles.keySet().toArray(new String [] {}));
+		Collections.sort(titles);
+		fileList = new JList<String>(titles.toArray(new String[titles.size()]));
 		Dimension d = fileList.getPreferredSize();
 		d.width = LIST_WIDTH;
 		fileList.setPreferredSize(d);
