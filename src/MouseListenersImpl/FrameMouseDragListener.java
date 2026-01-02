@@ -1,7 +1,5 @@
 package MouseListenersImpl;
 
-import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,14 +15,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import javax.swing.JScrollPane;
 
 import ActionListenersImpl.LaunchUrlActionListener;
 import Properties.LoggingMessages;
 import WidgetComponents.JButtonLengthLimited;
 import WidgetComponents.JMenuItemLaunchUrl;
+import WidgetComponentsTips4Java.MenuScroller;
 
 public class FrameMouseDragListener extends MouseAdapter implements MouseListener, MouseMotionListener
 {
@@ -75,7 +72,6 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 			});
 			pm.add(mi);
 			
-			JPanel panel = new JPanel(new GridLayout(0, 1));
 			LoggingMessages.printOut(jbll.getName());
 			if(jbll.getName().contains("youtube.com"))
 			{
@@ -107,13 +103,10 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 								}
 							}
 						});
-//						panel.add(jmi);
 						mi2.add(jmi);
 					}
 				}
-				JScrollPane scrollPane = new JScrollPane(panel);
-				scrollPane.setPreferredSize(new Dimension(450, 300));
-//				mi2.add(scrollPane);
+				MenuScroller.setScrollerFor(mi2, 8, 125, 0, 0);
 				pm.add(mi2);
 			}
 			picLabel.add(pm);
