@@ -151,6 +151,15 @@ public interface PathUtility
 		}
 	}
 	
+	public static void deleteIfExits(String file)
+	{
+		try {
+            Files.deleteIfExists(Paths.get(file));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
+	
 	public static HashMap<String, String> readProperties(String location, String delimter)
 	{
 		HashMap<String,String> props = new HashMap<String,String>();

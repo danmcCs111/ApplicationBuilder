@@ -77,37 +77,38 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 			{
 				JMenu mi2 = new JMenu(VIEW_LATEST_VIDEOS);
 				HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs = lcv.lookup(jbll.getText(), jbll.getName());
-				//TODO
-				//load in menu;
-				for(int key : ycvs.keySet())
+				if(ycvs != null)//load in menu;
 				{
-					for(YoutubeChannelVideo ycv : ycvs.get(key))
+					for(int key : ycvs.keySet())
 					{
-						JMenuItemLaunchUrl jmi = new JMenuItemLaunchUrl(ycv.getTitle());
-						jmi.setHighlightButton(jbll);
-						jmi.setName(ycv.getUrl());
-						jmi.addActionListener(new ActionListener() {
-							@Override
-							public void actionPerformed(ActionEvent e) {
-								for(ActionListener al : component.getActionListeners())
-								{
-									if(al instanceof LaunchUrlActionListener)
+						for(YoutubeChannelVideo ycv : ycvs.get(key))
+						{
+							JMenuItemLaunchUrl jmi = new JMenuItemLaunchUrl(ycv.getTitle());
+							jmi.setHighlightButton(jbll);
+							jmi.setName(ycv.getUrl());
+							jmi.addActionListener(new ActionListener() {
+								@Override
+								public void actionPerformed(ActionEvent e) {
+									for(ActionListener al : component.getActionListeners())
 									{
-										al.actionPerformed(new ActionEvent(jmi, 1, "Open From Image"));
-									}
-									else
-									{
-										al.actionPerformed(new ActionEvent(jbll, 1, "Open From Image"));
-										PicLabelMouseListener.highLightLabel(jbll, true);//TODO
+										if(al instanceof LaunchUrlActionListener)
+										{
+											al.actionPerformed(new ActionEvent(jmi, 1, "Open From Image"));
+										}
+										else
+										{
+											al.actionPerformed(new ActionEvent(jbll, 1, "Open From Image"));
+											PicLabelMouseListener.highLightLabel(jbll, true);//TODO
+										}
 									}
 								}
-							}
-						});
-						mi2.add(jmi);
+							});
+							mi2.add(jmi);
+						}
 					}
+					MenuScroller.setScrollerFor(mi2, 8, 125, 0, 0);
+					pm.add(mi2);
 				}
-				MenuScroller.setScrollerFor(mi2, 8, 125, 0, 0);
-				pm.add(mi2);
 			}
 			picLabel.add(pm);
 			int x = e.getPoint().x, y = e.getPoint().y;

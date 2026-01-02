@@ -22,8 +22,9 @@ import Properties.PathUtility;
 
 public class LookupOrCreateYoutube 
 {
+	public static final String []
+			YOUTUBE_CHANNEL_HANDLE_STRIP = new String [] {"/videos", "/featured"};
 	public static final String
-		YOUTUBE_CHANNEL_HANDLE_STRIP = "/videos",
 		YOUTUBE_CHANNEL_HANDLE_MATCH = "/[^/]*$",
 		
 		OPERATION = "showResult",
@@ -154,7 +155,10 @@ public class LookupOrCreateYoutube
 		HashMap<Integer, ArrayList<YoutubeChannelVideo>> parentIdAndYoutubeChannelVideos = 
 				new HashMap<Integer, ArrayList<YoutubeChannelVideo>>();
 		
-		videoChannelLink = videoChannelLink.replace(YOUTUBE_CHANNEL_HANDLE_STRIP, "");
+		for(String strip : YOUTUBE_CHANNEL_HANDLE_STRIP)
+		{
+			videoChannelLink = videoChannelLink.replace(strip, "");
+		}
 		String youtubeHandle = videoChannelLink;
 		Pattern pattern = Pattern.compile(YOUTUBE_CHANNEL_HANDLE_MATCH);
 		Matcher m = pattern.matcher(youtubeHandle);
@@ -192,8 +196,13 @@ public class LookupOrCreateYoutube
 		}
 		//run insert & image grab jobs. use loading screen.
 		String contents = PathUtility.readFileToString(new File(saveFile));
+		if(contents == null)
+		{
+			return null;
+		}
 		LoggingMessages.printOut(contents);
 		executeInsert(contents);
+		PathUtility.deleteIfExits(saveFile);
 		
 		String query = YOUTUBE_VIDEO_QUERY.replaceFirst("<arg0>", parentId+"");
 		String response = executeQuery(query);
@@ -211,26 +220,34 @@ public class LookupOrCreateYoutube
 			parentIdAndYoutubeChannelVideos.put(parentId, new ArrayList<YoutubeChannelVideo>());
 			for(int i = 1; i < drns.size(); i++)
 			{
-				String 
-					img = "",
-					title = "";
 				YoutubeChannelVideo ycv = new YoutubeChannelVideo(drns.get(i));
-				img = ycv.getImageUrl();
-				title = ycv.getTitle();
+				//TODO. don't not storing png yet.
+				//Image imgPng = getPng(ycv);
+				//ycv.setImagePng(imgPng);
 				
-				String saveFileImage = saveLoc + "/" + title + ".png";
-				if(!PathUtility.isFileExisting(saveFileImage))
-				{
-					PathUtility.imageDownloadAndSave(img, saveFileImage, "png");
-				}
-				Image imgPng = GraphicsUtil.getImageFromFile(new File(saveFileImage));
-				ycv.setImagePng(imgPng);
 				parentIdAndYoutubeChannelVideos.get(parentId).add(ycv);
-				LoggingMessages.printOut(imgPng.toString());
 			}
 		}
 		
 		return parentIdAndYoutubeChannelVideos;
+	}
+	
+	private Image getPng(YoutubeChannelVideo ycv)
+	{
+		String
+			img = ycv.getImageUrl(),
+			title = ycv.getTitle(),
+			saveLoc = SAVE_INSERT_PATH + title;
+		
+		String saveFileImage = saveLoc + "/" + title + ".png";
+		if(!PathUtility.isFileExisting(saveFileImage))
+		{
+			PathUtility.imageDownloadAndSave(img, saveFileImage, "png");
+		}
+		Image imgPng = GraphicsUtil.getImageFromFile(new File(saveFileImage));
+		LoggingMessages.printOut(imgPng.toString());
+		
+		return imgPng;
 	}
 	
 	public static void main(String [] args)
