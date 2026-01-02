@@ -29,6 +29,7 @@ import ActionListenersImpl.LaunchUrlActionListener;
 import ActionListenersImpl.NavigationButtonActionListener;
 import Graphics2D.ColorTemplate;
 import MouseListenersImpl.ImageMouseAdapter;
+import MouseListenersImpl.LookupOrCreateYoutube;
 import MouseListenersImpl.PicLabelMouseListener;
 import ObjectTypeConversion.DirectorySelection;
 import ObjectTypeConversion.FileSelection;
@@ -120,6 +121,11 @@ PostWidgetBuildProcessing, ButtonArray
 	public JButtonArray()
 	{
 		
+	}
+	
+	public static void setYoutubeApiKeyPath(FileSelection fs)
+	{
+		LookupOrCreateYoutube.setKeyPath(fs.getFullPath());
 	}
 	
 	public static void setIsKiosk(boolean isKiosk)

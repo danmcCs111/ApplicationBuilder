@@ -30,7 +30,6 @@ public class LookupOrCreateYoutube
 		OPERATION = "showResult",
 		PLUGIN_JAR_LOCATION = "plugin-projects/YouTube-API-list/YoutubeApiList/YoutubeApiList.jar",
 		SAVE_INSERT_PATH = "./VideoLaunchFiles/YoutubeChannels/video-images/", //TODO
-		KEY_PATH = "C:\\Users\\danie\\OneDrive\\Documents\\api-key.txt", //TODO
 		
 		YOUTUBE_QUERY = 
 			"SELECT * FROM videodatabase.video WHERE VideoName_Video_VideoDatabase = <arg0>"+
@@ -52,9 +51,17 @@ public class LookupOrCreateYoutube
 	public static final int
 		PORT_NUMBER = 8000;
 	
+	private static String
+		KEY_PATH = "./Properties/api-keys/api-key.txt";
+	
 	public LookupOrCreateYoutube()
 	{
 		
+	}
+	
+	public static void setKeyPath(String keyPath)
+	{
+		KEY_PATH = keyPath;
 	}
 	
 	public HashMap<Integer, ArrayList<YoutubeChannelVideo>> lookup(String videoChannelName, String videoChannelLink)

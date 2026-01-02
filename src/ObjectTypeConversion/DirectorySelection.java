@@ -45,11 +45,11 @@ public class DirectorySelection
 	{
 		if(PathUtility.isWindows())
 		{
-			return PathUtility.getCurrentDirectory() + this.relativePath.substring(1, this.relativePath.length());
+			return PathUtility.getCurrentDirectory() + this.relativePath.substring(1);
 		}
 		else
 		{
-			return PathUtility.getCurrentDirectory() + this.linuxPath.substring(1, this.linuxPath.length());
+			return PathUtility.getCurrentDirectory() + this.linuxPath.substring(1);
 		}
 	}
 }
