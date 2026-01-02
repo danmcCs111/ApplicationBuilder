@@ -2,9 +2,12 @@ package WidgetComponents;
 
 import java.util.Comparator;
 
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
 
-public class JButtonLengthLimited extends JButton implements Comparator<JButtonLengthLimited>
+import WidgetComponentInterfaces.LaunchUrlButton;
+
+public class JButtonLengthLimited extends JButton implements Comparator<JButtonLengthLimited>, LaunchUrlButton
 {
 	private static final String CHARACTER_LIMIT_TEXT = "..";
 	private static final long serialVersionUID = 1L;
@@ -52,6 +55,12 @@ public class JButtonLengthLimited extends JButton implements Comparator<JButtonL
 		{
 			return false;
 		}
+	}
+
+	@Override
+	public AbstractButton getHighlightButton() 
+	{
+		return this;
 	}
 
 }

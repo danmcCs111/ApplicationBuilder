@@ -1,31 +1,44 @@
 package MouseListenersImpl;
 
-import java.awt.MenuItem;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.Point;
-import java.awt.PopupMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.AbstractButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
 
+import ActionListenersImpl.LaunchUrlActionListener;
+import Properties.LoggingMessages;
 import WidgetComponents.JButtonLengthLimited;
+import WidgetComponents.JMenuItemLaunchUrl;
 
 public class FrameMouseDragListener extends MouseAdapter implements MouseListener, MouseMotionListener
 {
 	private static final int FRAME_AND_TITLE_HEIGHT = 45; 
-	private static final String OPEN_MENU_TEXT = "OPEN";
+	private static final String 
+		OPEN_MENU_TEXT = "OPEN",
+		VIEW_LATEST_VIDEOS = "VIEW";
 	
 	
 	private Point mouseDownCompCoords = null;
 	private JFrame f;
 	private AbstractButton component;
 	private JLabel picLabel;
+	private LookupOrCreateYoutube lcv = new LookupOrCreateYoutube();
 	
 	private boolean mouse1Pressed = false;
 	
@@ -47,20 +60,62 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	{
 		if(e.getButton() == MouseEvent.BUTTON3)//Offer option to keep
 		{
-			PopupMenu pm = new PopupMenu();
-			MenuItem mi = new MenuItem();
-			mi.setLabel(OPEN_MENU_TEXT);
+			JButtonLengthLimited jbll = (JButtonLengthLimited) component;//TODO
+			JPopupMenu pm = new JPopupMenu();
+			JMenuItem mi = new JMenuItem(OPEN_MENU_TEXT);
 			mi.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					for(ActionListener al : component.getActionListeners())
 					{
 						al.actionPerformed(new ActionEvent(component, 1, "Open From Image"));
-						PicLabelMouseListener.highLightLabel((JButtonLengthLimited) component, true);//TODO
+						PicLabelMouseListener.highLightLabel(jbll, true);//TODO
 					}
 				}
 			});
 			pm.add(mi);
+			
+			JPanel panel = new JPanel(new GridLayout(0, 1));
+			LoggingMessages.printOut(jbll.getName());
+			if(jbll.getName().contains("youtube.com"))
+			{
+				JMenu mi2 = new JMenu(VIEW_LATEST_VIDEOS);
+				HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs = lcv.lookup(jbll.getText(), jbll.getName());
+				//TODO
+				//load in menu;
+				for(int key : ycvs.keySet())
+				{
+					for(YoutubeChannelVideo ycv : ycvs.get(key))
+					{
+						JMenuItemLaunchUrl jmi = new JMenuItemLaunchUrl(ycv.getTitle());
+						jmi.setHighlightButton(jbll);
+						jmi.setName(ycv.getUrl());
+						jmi.addActionListener(new ActionListener() {
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								for(ActionListener al : component.getActionListeners())
+								{
+									if(al instanceof LaunchUrlActionListener)
+									{
+										al.actionPerformed(new ActionEvent(jmi, 1, "Open From Image"));
+									}
+									else
+									{
+										al.actionPerformed(new ActionEvent(jbll, 1, "Open From Image"));
+										PicLabelMouseListener.highLightLabel(jbll, true);//TODO
+									}
+								}
+							}
+						});
+//						panel.add(jmi);
+						mi2.add(jmi);
+					}
+				}
+				JScrollPane scrollPane = new JScrollPane(panel);
+				scrollPane.setPreferredSize(new Dimension(450, 300));
+//				mi2.add(scrollPane);
+				pm.add(mi2);
+			}
 			picLabel.add(pm);
 			int x = e.getPoint().x, y = e.getPoint().y;
 			pm.show(picLabel, x, y);

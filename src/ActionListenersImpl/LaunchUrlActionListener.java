@@ -13,6 +13,7 @@ import MouseListenersImpl.PicLabelMouseListener;
 import ObjectTypeConversion.DirectorySelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
+import WidgetComponentInterfaces.LaunchUrlButton;
 import WidgetComponents.JButtonLengthLimited;
 
 public class LaunchUrlActionListener implements ActionListener
@@ -89,7 +90,14 @@ public class LaunchUrlActionListener implements ActionListener
 						button.getName());
 			}
 		}
-		lastButton = button;
+		if(button instanceof LaunchUrlButton)
+		{
+			lastButton = ((LaunchUrlButton) button).getHighlightButton();
+		}
+		else
+		{
+			lastButton = button;
+		}
 		lastButtonParent = lastButton.getParent();
 	}
 	

@@ -22,8 +22,10 @@ import Properties.PathUtility;
 
 public class LookupOrCreateYoutube 
 {
-	public static final String 
-		YOUTUBE_CHANNEL_HANDLE_STRIP = "/[^/]*$",
+	public static final String
+		YOUTUBE_CHANNEL_HANDLE_STRIP = "/videos",
+		YOUTUBE_CHANNEL_HANDLE_MATCH = "/[^/]*$",
+		
 		OPERATION = "showResult",
 		PLUGIN_JAR_LOCATION = "plugin-projects/YouTube-API-list/YoutubeApiList/YoutubeApiList.jar",
 		SAVE_INSERT_PATH = "./VideoLaunchFiles/YoutubeChannels/video-images/", //TODO
@@ -152,9 +154,10 @@ public class LookupOrCreateYoutube
 		HashMap<Integer, ArrayList<YoutubeChannelVideo>> parentIdAndYoutubeChannelVideos = 
 				new HashMap<Integer, ArrayList<YoutubeChannelVideo>>();
 		
-		Pattern pattern = Pattern.compile(YOUTUBE_CHANNEL_HANDLE_STRIP);
-		Matcher m = pattern.matcher(videoChannelLink);
-		String youtubeHandle = "";
+		videoChannelLink = videoChannelLink.replace(YOUTUBE_CHANNEL_HANDLE_STRIP, "");
+		String youtubeHandle = videoChannelLink;
+		Pattern pattern = Pattern.compile(YOUTUBE_CHANNEL_HANDLE_MATCH);
+		Matcher m = pattern.matcher(youtubeHandle);
 		if(m.find())
 		{
 			youtubeHandle = m.group();
