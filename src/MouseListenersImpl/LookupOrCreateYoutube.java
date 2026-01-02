@@ -228,7 +228,6 @@ public class LookupOrCreateYoutube
 		}
 		
 		return parentIdAndYoutubeChannelVideos;
-		
 	}
 	
 	public static void main(String [] args)
