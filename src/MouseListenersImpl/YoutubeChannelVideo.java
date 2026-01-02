@@ -1,5 +1,6 @@
 package MouseListenersImpl;
 
+import java.awt.Image;
 import java.util.ArrayList;
 
 import HttpDatabaseResponse.DatabaseResponseNode;
@@ -24,6 +25,8 @@ public class YoutubeChannelVideo
 		IMAGE_URL_COLUMN = "PosterImageUrl_VideoYoutube_VideoYoutubeDatabase",
 		UPLOAD_DATE_COLUMN = "UploadDate_VideoYoutube_VideoYoutubeDatabase",
 		INSERT_DATE_COLUMN = "InsertDate_VideoYoutube_VideoYoutubeDatabase";
+	
+	private Image imgPng;
 	
 	public YoutubeChannelVideo(ArrayList<DatabaseResponseNode> drns)
 	{
@@ -58,6 +61,16 @@ public class YoutubeChannelVideo
 				insertDate = Long.parseLong(drn.getNodeAttributes().get("content"));
 			}
 		}
+	}
+	
+	public void setImagePng(Image img)
+	{
+		this.imgPng = img;
+	}
+	
+	public Image getImagePng()
+	{
+		return this.imgPng;
 	}
 	
 	public String getIdVideo()
@@ -105,7 +118,8 @@ public class YoutubeChannelVideo
 				this.getUrl() + " " + 
 				this.getImageUrl() + " " + 
 				this.getUploadDate() + " " + 
-				this.getInsertDate();
+				this.getInsertDate() + " " + 
+				"[" + this.getImagePng().toString() + "]";
 	}
 	
 }

@@ -212,7 +212,6 @@ public class LookupOrCreateYoutube
 					img = "",
 					title = "";
 				YoutubeChannelVideo ycv = new YoutubeChannelVideo(drns.get(i));
-				parentIdAndYoutubeChannelVideos.get(parentId).add(ycv);
 				img = ycv.getImageUrl();
 				title = ycv.getTitle();
 				
@@ -222,6 +221,8 @@ public class LookupOrCreateYoutube
 					PathUtility.imageDownloadAndSave(img, saveFileImage, "png");
 				}
 				Image imgPng = GraphicsUtil.getImageFromFile(new File(saveFileImage));
+				ycv.setImagePng(imgPng);
+				parentIdAndYoutubeChannelVideos.get(parentId).add(ycv);
 				LoggingMessages.printOut(imgPng.toString());
 			}
 		}
