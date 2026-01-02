@@ -95,4 +95,17 @@ public class YoutubeChannelVideo
 		return this.insertDate;
 	}
 	
+	@Override
+	public String toString()
+	{
+		return 
+				this.getIdVideo() + " " + 
+				this.getParentId() + " " +  
+				this.getTitle() + " " + 
+				this.getUrl() + " " + 
+				this.getImageUrl() + " " + 
+				this.getUploadDate() + " " + 
+				this.getInsertDate();
+	}
+	
 }

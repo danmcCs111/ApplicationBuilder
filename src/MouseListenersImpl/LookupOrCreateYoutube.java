@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -53,8 +54,10 @@ public class LookupOrCreateYoutube
 		
 	}
 	
-	public void lookup(String videoChannelName, String videoChannelLink)
+	public HashMap<Integer, ArrayList<YoutubeChannelVideo>> lookup(String videoChannelName, String videoChannelLink)
 	{
+		HashMap<Integer, ArrayList<YoutubeChannelVideo>> parentIdAndYoutubeChannelVideos = null;
+		
 		String query = YOUTUBE_QUERY.replaceFirst("<arg0>",PathUtility.surroundString(videoChannelName, "\""));
 		String response = executeQuery(query);
 		
@@ -73,10 +76,11 @@ public class LookupOrCreateYoutube
 					int parentId = Integer.parseInt(drn.getNodeAttributes().get("content"));
 					LoggingMessages.printOut("parentID is: " + parentId);
 					LoggingMessages.printOut("channelLink is: " + videoChannelLink);
-					lookupYoutubeVideo(parentId, videoChannelLink);
+					parentIdAndYoutubeChannelVideos = lookupYoutubeVideo(parentId, videoChannelLink);
 				}
 			}
 		}
+		return parentIdAndYoutubeChannelVideos;
 	}
 	
 	private void createIfEmpty(String videoChannelName, String url)
@@ -115,7 +119,7 @@ public class LookupOrCreateYoutube
 		);
 	}
 	
-	public void lookupYoutubeVideo(int parentId, String videoChannelLink)
+	public HashMap<Integer, ArrayList<YoutubeChannelVideo>> lookupYoutubeVideo(int parentId, String videoChannelLink)
 	{
 		String query = YOUTUBE_VIDEO_QUERY.replaceFirst("<arg0>", parentId+"");
 		String response = executeQuery(query);
@@ -140,11 +144,14 @@ public class LookupOrCreateYoutube
 				}
 			}
 		}
-		getYoutubeVideos(parentId, videoChannelLink, (lastDate == null) ? -1 : lastDate.getTime());
+		return getYoutubeVideos(parentId, videoChannelLink, (lastDate == null) ? -1 : lastDate.getTime());
 	}
 	
-	private void getYoutubeVideos(int parentId, String videoChannelLink, long lastDate)
+	private HashMap<Integer, ArrayList<YoutubeChannelVideo>> getYoutubeVideos(int parentId, String videoChannelLink, long lastDate)
 	{
+		HashMap<Integer, ArrayList<YoutubeChannelVideo>> parentIdAndYoutubeChannelVideos = 
+				new HashMap<Integer, ArrayList<YoutubeChannelVideo>>();
+		
 		Pattern pattern = Pattern.compile(YOUTUBE_CHANNEL_HANDLE_STRIP);
 		Matcher m = pattern.matcher(videoChannelLink);
 		String youtubeHandle = "";
@@ -198,13 +205,14 @@ public class LookupOrCreateYoutube
 		else
 		{
 			PathUtility.createDirectoryIfNotExist(saveLoc);
-			
+			parentIdAndYoutubeChannelVideos.put(parentId, new ArrayList<YoutubeChannelVideo>());
 			for(int i = 1; i < drns.size(); i++)
 			{
 				String 
 					img = "",
 					title = "";
 				YoutubeChannelVideo ycv = new YoutubeChannelVideo(drns.get(i));
+				parentIdAndYoutubeChannelVideos.get(parentId).add(ycv);
 				img = ycv.getImageUrl();
 				title = ycv.getTitle();
 				
@@ -218,19 +226,31 @@ public class LookupOrCreateYoutube
 			}
 		}
 		
-		//load. using loading screen again.
+		return parentIdAndYoutubeChannelVideos;
 		
 	}
 	
 	public static void main(String [] args)
 	{
 		LookupOrCreateYoutube lcy = new LookupOrCreateYoutube();
-//		String query = YOUTUBE_VIDEO_QUERY.replaceFirst("<arg0>", 8+"");
-//		LoggingMessages.printOut(query);
-//		String response = executeQuery(query);
+		HashMap<Integer, ArrayList<YoutubeChannelVideo>> ycvs = null;
+		ycvs = lcy.lookup("test abc", "https://www.youtube.com/@ABCNews");
+		printYoutubeChannelVideos(ycvs);
+		ycvs = lcy.lookup("test nbc", "https://www.youtube.com/@NBCNews");
+		printYoutubeChannelVideos(ycvs);
+		ycvs = lcy.lookup("microcentertech", "https://www.youtube.com/@microcentertech");
+		printYoutubeChannelVideos(ycvs);
+	}
+	
+	private static void printYoutubeChannelVideos(HashMap<Integer, ArrayList<YoutubeChannelVideo>> ycvs)
+	{
+		for(int key : ycvs.keySet())
+		{
+			for(YoutubeChannelVideo ycv : ycvs.get(key))
+			{
+				LoggingMessages.printOut(ycv.toString());
+			}
+		}
 		
-		lcy.lookup("test abc", "https://www.youtube.com/@ABCNews");
-		lcy.lookup("test nbc", "https://www.youtube.com/@NBCNews");
-		lcy.lookup("microcentertech", "https://www.youtube.com/@microcentertech");
 	}
 }
