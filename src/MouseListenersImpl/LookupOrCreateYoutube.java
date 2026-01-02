@@ -204,18 +204,10 @@ public class LookupOrCreateYoutube
 				String 
 					img = "",
 					title = "";
-				for(DatabaseResponseNode drn : drns.get(i))
-				{
-					if(drn.getNodeName().equals("Title_VideoYoutube_VideoYoutubeDatabase"))
-					{
-						title = drn.getNodeAttributes().get("content");
-					}
-					else if(drn.getNodeName().equals("PosterImageUrl_VideoYoutube_VideoYoutubeDatabase"))
-					{
-						img = drn.getNodeAttributes().get("content");
-						break;
-					}
-				}
+				YoutubeChannelVideo ycv = new YoutubeChannelVideo(drns.get(i));
+				img = ycv.getImageUrl();
+				title = ycv.getTitle();
+				
 				String saveFileImage = saveLoc + "/" + title + ".png";
 				if(!PathUtility.isFileExisting(saveFileImage))
 				{
@@ -239,5 +231,6 @@ public class LookupOrCreateYoutube
 		
 		lcy.lookup("test abc", "https://www.youtube.com/@ABCNews");
 		lcy.lookup("test nbc", "https://www.youtube.com/@NBCNews");
+		lcy.lookup("microcentertech", "https://www.youtube.com/@microcentertech");
 	}
 }
