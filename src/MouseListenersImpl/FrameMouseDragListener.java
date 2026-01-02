@@ -86,6 +86,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 							JMenuItemLaunchUrl jmi = new JMenuItemLaunchUrl(ycv.getTitle());
 							jmi.setHighlightButton(jbll);
 							jmi.setName(ycv.getUrl());
+							jmi.setToolTipText("Upload Date: " + ycv.getUploadDate().toString());
 							jmi.addActionListener(new ActionListener() {
 								@Override
 								public void actionPerformed(ActionEvent e) {
@@ -147,21 +148,4 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		}
 	}
 
-	@Override
-	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 }

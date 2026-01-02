@@ -2,6 +2,7 @@ package MouseListenersImpl;
 
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.Date;
 
 import HttpDatabaseResponse.DatabaseResponseNode;
 
@@ -98,14 +99,22 @@ public class YoutubeChannelVideo
 		return this.parentId;
 	}
 	
-	public long getUploadDate()
+	public long getUploadDateEpoch()
 	{
 		return this.uploadDate;
 	}
+	public Date getUploadDate()
+	{
+		return new Date(this.uploadDate);
+	}
 	
-	public long getInsertDate()
+	public long getInsertDateEpoch()
 	{
 		return this.insertDate;
+	}
+	public Date getInsertDate()
+	{
+		return new Date(this.insertDate);
 	}
 	
 	@Override
