@@ -3,7 +3,7 @@ package WidgetExtensions;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JMenuItem;
+import javax.swing.AbstractButton;
 
 import WidgetExtensionDefs.ExtendedAttributeStringParam;
 import WidgetExtensionInterfaces.ShiftFramesExtension;
@@ -18,9 +18,9 @@ public class ExtendedShiftFramesActionListener implements ExtendedAttributeStrin
 		String name = arg0;
 		Object m = widgetProperties.getInstance();
 		
-		if(m instanceof JMenuItem)
+		if(m instanceof AbstractButton)
 		{
-			JMenuItem mi = (JMenuItem) m;
+			AbstractButton mi = (AbstractButton) m;
 			mi.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {

@@ -18,11 +18,13 @@
 		</JPanel>
 		<JPanel extendedLayoutApplyParent="South" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" >
 			<JPanel extendedLayoutApplyParent="Center" setBackground="51, 51, 51" setLayout="java.awt.FlowLayout" >
+				<JButton extendedLayoutApplyParent="" extendedShiftFramesActionListener="channels" setBackground="0, 0, 0" setForeground="51, 255, 255" setText="[ ]" setToolTipText="Shift Frames" >
+				</JButton>
 				<JButton extendedLayoutApplyParent="" extendedRestoreActionListener="channels" setBackground="0, 0, 0" setForeground="255, 255, 255" setText="^" setToolTipText="Restore Frames" >
 				</JButton>
 				<JButton extendedLayoutApplyParent="" extendedMinimizeActionListener="channels" setBackground="0, 0, 0" setForeground="255, 255, 255" setText="_" setToolTipText="Minimize frames" >
 				</JButton>
-				<JButton addActionListener="ActionListenersImpl.LaunchUrlActionListener" extendedLayoutApplyParent="" setBackground="0, 0, 0" setForeground="255, 255, 255" setName="closeLaunchAction" setPreferredSize="60, 25" setText=" X" setToolTipText="close browser" >
+				<JButton addActionListener="ActionListenersImpl.LaunchUrlActionListener" extendedLayoutApplyParent="" setBackground="0, 0, 0" setForeground="153, 0, 0" setName="closeLaunchAction" setPreferredSize="60, 25" setText=" X" setToolTipText="close browser" >
 				</JButton>
 			</JPanel>
 			<JLabel extendedCalculationPad="JButton" extendedLayoutApplyParent="East" >
