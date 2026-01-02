@@ -52,7 +52,7 @@ public class LookupOrCreateYoutube
 		PORT_NUMBER = 8000;
 	
 	private static String
-		KEY_PATH = "./Properties/api-keys/api-key.txt";
+		KEY_PATH = "./Properties/api-keys/youtube-api-key.txt";
 	
 	public LookupOrCreateYoutube()
 	{
