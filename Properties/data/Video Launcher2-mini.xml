@@ -10,7 +10,7 @@
 				</SwappableCollection>
 			</JScrollPane>
 			<JPanel extendedLayoutApplyParent="North" setLayout="java.awt.BorderLayout" >
-				<SearchBar extendedLayoutApplyParent="East" extendedSearchField="swapVideos" setButtonBackground="0, 0, 0" setButtonForeground="255, 255, 255" setColumnCharacterLength="10" >
+				<SearchBar extendedLayoutApplyParent="East" extendedSearchField="swapVideos" setButtonBackground="0, 0, 0" setButtonForeground="204, 204, 204" setColumnCharacterLength="10" >
 				</SearchBar>
 				<JLabel extendedLayoutApplyParent="West" extendedTitleSwitcher="swapVideos" setBackground="150, 150, 150" setForeground="100, 50, 150" setHorizontalAlignment="0" setName="title" setText="TODO" >
 				</JLabel>
@@ -33,11 +33,11 @@
 			</JLabel>
 		</JPanel>
 		<JPanel extendedLayoutApplyParent="West" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" >
-			<JButton addActionListener="ActionListenersImpl.NavigationButtonActionListener" extendedActionListenerConnectedComponent="swapVideos" extendedActionListenerSubType="WidgetComponents.Direction@BACKWARD" extendedLayoutApplyParent="North" setBackground="0, 0, 0" setForeground="0, 153, 102" setText="[&lt;]" >
+			<JButton addActionListener="ActionListenersImpl.NavigationButtonActionListener" extendedActionListenerConnectedComponent="swapVideos" extendedActionListenerSubType="WidgetComponents.Direction@BACKWARD" extendedLayoutApplyParent="North" setBackground="0, 0, 0" setForeground="153, 153, 153" setText="[&lt;]" >
 			</JButton>
 		</JPanel>
 		<JPanel extendedLayoutApplyParent="East" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" >
-			<JButton addActionListener="ActionListenersImpl.NavigationButtonActionListener" extendedActionListenerConnectedComponent="swapVideos" extendedActionListenerSubType="WidgetComponents.Direction@FORWARD" extendedLayoutApplyParent="North" setBackground="0, 0, 0" setForeground="0, 153, 102" setText="[&gt;]" >
+			<JButton addActionListener="ActionListenersImpl.NavigationButtonActionListener" extendedActionListenerConnectedComponent="swapVideos" extendedActionListenerSubType="WidgetComponents.Direction@FORWARD" extendedLayoutApplyParent="North" setBackground="0, 0, 0" setForeground="153, 153, 153" setText="[&gt;]" >
 			</JButton>
 		</JPanel>
 		<JMenuBar extendedSetJMenuBarParent="" >
