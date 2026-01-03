@@ -1,12 +1,12 @@
 #!/bin/bash
-
+cd "$(dirname "$0")"
 if [ -z $1 ];
 then
 	echo "enter filename"
 	exit
 fi
 
-rm *.url; rm -r images/*
+ls | egrep .*.url | awk '{system("rm " "\""$0"\"")}'
 
 youtube_file=$1
 echo $youtube_file
