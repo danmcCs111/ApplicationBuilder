@@ -209,7 +209,6 @@ public class LookupOrCreateYoutube
 		}
 		LoggingMessages.printOut(contents);
 		executeInsert(contents);
-		PathUtility.deleteIfExits(saveFile);
 		
 		String query = YOUTUBE_VIDEO_QUERY.replaceFirst("<arg0>", parentId+"");
 		String response = executeQuery(query);
