@@ -25,6 +25,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import Graphics2D.ColorTemplate;
+import Properties.LoggingMessages;
+import WidgetComponentInterfaces.EditButtonArrayUrls;
 
 public class AbstractButtonCollectionEditor extends JFrame 
 {
@@ -38,7 +40,8 @@ public class AbstractButtonCollectionEditor extends JFrame
 		SCROLL_INCREMENT = 15;
 	private static String
 		APPLY_BUTTON_TEXT = "Apply",
-		CANCEL_BUTTON_TEXT = "Cancel",
+		APPLY_AND_CLOSE_BUTTON_TEXT = "Apply And Close",
+		CANCEL_BUTTON_TEXT = "Close",
 		URL_LABEL_TEXT = "Enter New Url: ",
 		URL_ADD_BUTTON_TEXT = "Add",
 		ADD_BUTTON_TEXT = "restore",
@@ -62,15 +65,26 @@ public class AbstractButtonCollectionEditor extends JFrame
 	private JButton
 		removeButton,
 		addButton;
-	private ArrayList<AbstractButton> 
+	private ArrayList<?> 
 		collection;
 	private String [] 
 		collectionText;
 	
-	public AbstractButtonCollectionEditor(ArrayList<AbstractButton> collection)
+	private EditButtonArrayUrls ebau;
+	private String path;
+	private ArrayList<String> addUrls = new ArrayList<String>();
+	
+	public AbstractButtonCollectionEditor(String path, ArrayList<?> collection, EditButtonArrayUrls ebau, String title)
 	{
+		this.path = path;
 		this.collection = collection;
+		this.ebau = ebau;
+		this.setTitle(title);
 		buildWidgets();
+		
+		this.setMinimumSize(MIN_DIMENSION_DIALOG);
+		this.setResizable(false);
+		this.setVisible(true);
 	}
 	
 	private void buildWidgets()
@@ -97,8 +111,16 @@ public class AbstractButtonCollectionEditor extends JFrame
 		collectionText = new String[this.collection.size()];
 		for(int i = 0; i < this.collection.size(); i++)
 		{
-			collectionText[i] = this.collection.get(i).getText();
-			buttonCollectionIndexAndText.put(i, collectionText[i]);
+			Object o = this.collection.get(i);
+			if(o instanceof AbstractButton)
+			{
+				collectionText[i] = ((AbstractButton) o).getText();
+				buttonCollectionIndexAndText.put(i, collectionText[i]);
+			}
+			else
+			{
+				LoggingMessages.printOut("collection type not abstract button.");
+			}
 		}
 		buttonCollection.setListData(collectionText);
 		buttonCollection.addListSelectionListener(new ListSelectionListener() {
@@ -182,14 +204,43 @@ public class AbstractButtonCollectionEditor extends JFrame
 		urlField = new JTextField();
 		urlField.setColumns(URL_COLUMNSIZE);
 		JButton addUrlButton = new JButton(URL_ADD_BUTTON_TEXT);
+		addUrlButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String url = urlField.getText();
+				addUrl(url);
+				urlField.setText("");
+			}
+		});
 		urlPanel.add(urlLabel);
 		urlPanel.add(urlField);
 		urlPanel.add(addUrlButton);
 
 		JPanel applyCancelPanel = new JPanel();
 		JButton apply = new JButton(APPLY_BUTTON_TEXT);
+		apply.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				applyAction();
+			}
+		});
+		JButton applyAndClose = new JButton(APPLY_AND_CLOSE_BUTTON_TEXT);
+		applyAndClose.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				applyAction();
+				closeAction();
+			}
+		});
 		JButton cancel = new JButton(CANCEL_BUTTON_TEXT);
+		cancel.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				closeAction();
+			}
+		});
 		applyCancelPanel.add(apply);
+		applyCancelPanel.add(applyAndClose);
 		applyCancelPanel.add(cancel);
 		
 		JPanel southPanel = new JPanel();
@@ -251,7 +302,37 @@ public class AbstractButtonCollectionEditor extends JFrame
 		btnCollection.setListData(refesh);
 	}
 	
-	public static ArrayList<AbstractButton> setupTest()
+	private ArrayList<?> copyToRemove()
+	{
+		ArrayList<Object> collectionRemove = new ArrayList<Object>();
+		for(int key : this.buttonCollectionRemoveIndexAndText.keySet())
+		{
+			Object o = this.collection.get(key);
+			collectionRemove.add(o);
+		}
+		return collectionRemove;
+	}
+	
+	private void addUrl(String url)
+	{
+		this.addUrls.add(url);
+	}
+	
+	private void applyAction()
+	{
+		//TODO
+		if(ebau != null)
+		{
+			ebau.updateButtonArrayCollection(this.path, addUrls, copyToRemove());
+		}
+	}
+	
+	private void closeAction()
+	{
+		this.dispose();
+	}
+	
+	private static ArrayList<AbstractButton> setupTest()
 	{
 		ArrayList<AbstractButton> jblls = new ArrayList<AbstractButton>();
 		for(int i = 0; i < 30; i++)
@@ -265,10 +346,7 @@ public class AbstractButtonCollectionEditor extends JFrame
 	
 	public static void main(String [] args)
 	{
-		AbstractButtonCollectionEditor abce = new AbstractButtonCollectionEditor(setupTest());
-		abce.setMinimumSize(MIN_DIMENSION_DIALOG);
-		abce.setResizable(false);
-		abce.setVisible(true);
+		AbstractButtonCollectionEditor abce = new AbstractButtonCollectionEditor("", setupTest(), null, "Edit");
 	}
 
 }

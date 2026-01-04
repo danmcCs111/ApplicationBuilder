@@ -59,6 +59,7 @@ import WidgetExtensions.ExtendedConnectedComponent;
 import WidgetExtensions.ExtendedCsvAddSubscriber;
 import WidgetExtensions.ExtendedCsvReader;
 import WidgetExtensions.ExtendedDatabaseResponseNodeListener;
+import WidgetExtensions.ExtendedEditCollectionActionListener;
 import WidgetExtensions.ExtendedImageMouseAdapterArray;
 import WidgetExtensions.ExtendedLayoutApplyParent;
 import WidgetExtensions.ExtendedMinimizeActionListener;
@@ -148,6 +149,7 @@ public class WidgetAttributes
 				ExtendedAttributeParam.getMethodDefinition(ExtendedOpenActionListener.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSaveActionListener.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedClearActionListener.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedEditCollectionActionListener.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedCommandExecution.class, ExtendedMethodArgDef.CommandBuildSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedScheduledCommandStartActionListener.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
@@ -184,6 +186,7 @@ public class WidgetAttributes
 				ExtendedAttributeParam.getMethodDefinition(ExtendedCloseActionListener.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedCloseAllActionListener.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedMinimizeActionListener.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedEditCollectionActionListener.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedRestoreActionListener.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedShiftFramesActionListener.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedCommandExecution.class, ExtendedMethodArgDef.CommandBuildSelection.getMethodArgDef())

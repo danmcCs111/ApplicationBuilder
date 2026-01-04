@@ -1,0 +1,42 @@
+package WidgetExtensions;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.AbstractButton;
+
+import WidgetExtensionDefs.ExtendedAttributeStringParam;
+import WidgetExtensionInterfaces.EditCollectionExtension;
+import WidgetUtility.WidgetBuildController;
+import WidgetUtility.WidgetCreatorProperty;
+
+public class ExtendedEditCollectionActionListener implements ExtendedAttributeStringParam
+{
+	EditCollectionExtension ece = null;
+	
+	@Override
+	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 
+	{
+		String name = arg0;
+		Object m = widgetProperties.getInstance();
+		WidgetCreatorProperty wcp = WidgetBuildController.getInstance().findRefByName(name);
+		if(wcp != null)
+		{
+			Object o = wcp.getInstance();
+			if(o instanceof EditCollectionExtension)
+			{
+				ece = (EditCollectionExtension) o;
+			}
+		}
+		if(m instanceof AbstractButton)
+		{
+			AbstractButton ab = (AbstractButton) m;
+			ab.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					ece.performEditCollection();
+				}
+			});
+		}
+	}
+}

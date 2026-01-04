@@ -28,6 +28,7 @@ import ActionListeners.ArrayActionListener;
 import ActionListenersImpl.LaunchUrlActionListener;
 import ActionListenersImpl.NavigationButtonActionListener;
 import Graphics2D.ColorTemplate;
+import Graphics2D.GraphicsUtil;
 import MouseListenersImpl.ImageMouseAdapter;
 import MouseListenersImpl.LookupOrCreateYoutube;
 import MouseListenersImpl.PicLabelMouseListener;
@@ -41,12 +42,14 @@ import WidgetComponentDialogs.ShiftDialog;
 import WidgetComponentDialogs.VideoBookMarksDialog;
 import WidgetComponentInterfaces.ButtonArray;
 import WidgetComponentInterfaces.CharacterLimited;
+import WidgetComponentInterfaces.EditButtonArrayUrls;
 import WidgetComponentInterfaces.LinkDragAndDropSubscriber;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetExtensionDefs.ExtendedStringCollection;
 import WidgetExtensionInterfaces.CloseActionExtension;
 import WidgetExtensionInterfaces.CloseAllActionExtension;
 import WidgetExtensionInterfaces.ComboListDialogSelectedListener;
+import WidgetExtensionInterfaces.EditCollectionExtension;
 import WidgetExtensionInterfaces.MinimizeActionExtension;
 import WidgetExtensionInterfaces.MouseAdapterArrayExtension;
 import WidgetExtensionInterfaces.OpenActionExtension;
@@ -65,7 +68,7 @@ import WidgetUtility.WidgetBuildController;
  */
 public class JButtonArray extends JPanel implements ArrayActionListener, CharacterLimited, 
 SaveActionExtension, OpenActionExtension, CloseActionExtension, CloseAllActionExtension, MinimizeActionExtension, RestoreActionExtension, ShiftFramesExtension,
-ComboListDialogSelectedListener, MouseAdapterArrayExtension, LinkDragAndDropSubscriber, PageParserCollectionLoad,
+ComboListDialogSelectedListener, MouseAdapterArrayExtension, LinkDragAndDropSubscriber, PageParserCollectionLoad, EditButtonArrayUrls, EditCollectionExtension,
 PostWidgetBuildProcessing, ButtonArray
 {
 	private static final long serialVersionUID = 1883L;
@@ -81,7 +84,7 @@ PostWidgetBuildProcessing, ButtonArray
 		PROPERTIES_FILE_DELIMITER = "=";
 	
 	public static String
-		SAVE_DROP_SCRIPT = "addUrlAndImage.sh";
+		DEFAULT_IMG = "./Properties/shapes/Default-Play-Image.xml";
 	
 	private static Dimension
 		DIM_DEFAULT_PIC = new Dimension(279,150),
@@ -89,9 +92,6 @@ PostWidgetBuildProcessing, ButtonArray
 	private static int
 		SCALED_WIDTH = 279,
 		SCALED_WIDTH_PREVIEW = SCALED_WIDTH;
-	
-	public static String 
-		DEFAULT_IMG = "./Properties/shapes/Default-Play-Image.xml";
 	public static File 
 		MOVIE_IMAGE_FILE_LOCATION = new File(PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/film-movies-icon.png");
 	private static boolean
@@ -104,18 +104,29 @@ PostWidgetBuildProcessing, ButtonArray
 		setShowPreview(SHOW_PREVIEW);
 	}
 	
-	private DirectorySelection keepsFileLocation;
+	private DirectorySelection 
+		keepsFileLocation;
 	public Color []
 		foregroundAndBackgroundColor = new Color [] {new JButton().getForeground(), new JButton().getBackground()},
 		highlightForegroundAndBackgroundColor = new Color [] {foregroundAndBackgroundColor[0], foregroundAndBackgroundColor[1]};
-	private JButton highlightButton = null;
-	private ShiftDialog shiftDialog;
-	private HashMap<String, ArrayList<JButtonLengthLimited>> collectionJButtons = new HashMap<String, ArrayList<JButtonLengthLimited>>();
-	private HashMap<String, MouseListener> pathAndMouseAdapter;
-	private ArrayList<String> stripFilter = new ArrayList<String>();
-	private boolean isHighlight = true;
-	private LinkDragAndDropListener linkDropListener;
-	private PageParserCollection pageParserCollection;
+	private JButton 
+		highlightButton = null;
+	private ShiftDialog 
+		shiftDialog;
+	private HashMap<String, ArrayList<JButtonLengthLimited>> 
+		collectionJButtons = new HashMap<String, ArrayList<JButtonLengthLimited>>();
+	private HashMap<String, MouseListener> 
+		pathAndMouseAdapter;
+	private ArrayList<String> 
+		stripFilter = new ArrayList<String>();
+	private boolean 
+		isHighlight = true;
+	private LinkDragAndDropListener 
+		linkDropListener;
+	private PageParserCollection 
+		pageParserCollection;
+	private AbstractButtonCollectionEditor 
+		abce;
 	
 	private int characterLimit=0;
 	
@@ -469,6 +480,12 @@ PostWidgetBuildProcessing, ButtonArray
 		collectionJButtons.put(path, jbuts);
 	}
 	
+	public void removeJButton(JButtonLengthLimited jbl, String path)
+	{
+		ArrayList<JButtonLengthLimited> jbuts = collectionJButtons.get(path);
+		jbuts.remove(jbl);
+	}
+	
 	public void filterText(JButtonLengthLimited jbl)
 	{
 		String txt = jbl.getText();
@@ -791,13 +808,49 @@ PostWidgetBuildProcessing, ButtonArray
 		PathUtility.imageDownloadAndSave(imgUrl, savePathImg + "/" + pngFilename, "png");
 		PathUtility.writeStringToFile(new File(savePathUrl + "/" + urlFilename), contents);
 		refreshAllMouseListeners();
-		
 	}
 
 	@Override
 	public void addPageParserCollection(PageParserCollection pageParserCollection) 
 	{
 		this.pageParserCollection = pageParserCollection;
+	}
+
+	@Override
+	public void updateButtonArrayCollection(String path, ArrayList<String> addUrls, ArrayList<?> remove) 
+	{
+		for(String url : addUrls)
+		{
+			linkDropListener.processUrl(url);
+		}
+		for(Object ab : remove)
+		{
+			if(ab instanceof JButtonLengthLimited)//TODO
+			{
+				//remove.
+				JButtonLengthLimited jbl = (JButtonLengthLimited) ab;
+				String filename = jbl.getFullLengthText() + ".url";//TODO.
+				PathUtility.deleteIfExits(path + "/" + filename);
+				removeJButton(jbl, path);
+			}
+		}
+		Collections.sort(collectionJButtons.get(path), new JButtonLengthLimited());
+		rebuildButtons();
+	}
+
+	@Override
+	public void performEditCollection() 
+	{
+		int indexPos = NavigationButtonActionListener.getCurPosition();
+		String path = SwappableCollection.indexPaths.get(indexPos);
+		ArrayList <JButtonLengthLimited> currentCollection = collectionJButtons.get(path);
+		if(abce == null || !abce.isVisible())
+		{
+			abce = new AbstractButtonCollectionEditor(path,
+					currentCollection, this, "Edit Collection " + PathUtility.filterPathToFilename(path));
+			
+			GraphicsUtil.rightEdgeTopWindow(this, abce);
+		}
 	}
 
 }
