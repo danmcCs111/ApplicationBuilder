@@ -15,11 +15,15 @@ import java.util.List;
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
+import Graphics2D.ColorTemplate;
 
 public class AbstractButtonCollectionEditor extends JFrame 
 {
@@ -29,11 +33,18 @@ public class AbstractButtonCollectionEditor extends JFrame
 		COLLECTION_SIZE = new Dimension(250,0),
 		MIN_DIMENSION_DIALOG = new Dimension(600,500);
 	private static int 
+		URL_COLUMNSIZE = 35,
 		SCROLL_INCREMENT = 15;
 	private static String
+		APPLY_BUTTON_TEXT = "Apply",
+		CANCEL_BUTTON_TEXT = "Cancel",
+		URL_LABEL_TEXT = "Enter New Url: ",
+		URL_ADD_BUTTON_TEXT = "Add",
 		ADD_BUTTON_TEXT = "restore",
 		REMOVE_BUTTON_TEXT = "delete";
 	
+	private JTextField 
+		urlField;
 	private JScrollPane 
 		collectionScrollPane,
 		removeScrollPane; 
@@ -132,11 +143,43 @@ public class AbstractButtonCollectionEditor extends JFrame
 			}
 		});
 		
+		JPanel southPanel = buildSouthPanel();
+		
 		this.setLayout(new BorderLayout());
 		this.add(collectionScrollPane, BorderLayout.WEST);
 		this.add(addRemovePanel, BorderLayout.CENTER);
-		this.add(removeScrollPane, BorderLayout.EAST	);
+		this.add(removeScrollPane, BorderLayout.EAST);
+		this.add(southPanel, BorderLayout.SOUTH);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
+		ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
+		ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
+		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
+	}
+	
+	public JPanel buildSouthPanel()
+	{
+		JPanel urlPanel = new JPanel();
+		JLabel urlLabel = new JLabel(URL_LABEL_TEXT);
+		urlField = new JTextField();
+		urlField.setColumns(URL_COLUMNSIZE);
+		JButton addUrlButton = new JButton(URL_ADD_BUTTON_TEXT);
+		urlPanel.add(urlLabel);
+		urlPanel.add(urlField);
+		urlPanel.add(addUrlButton);
+
+		JPanel applyCancelPanel = new JPanel();
+		JButton apply = new JButton(APPLY_BUTTON_TEXT);
+		JButton cancel = new JButton(CANCEL_BUTTON_TEXT);
+		applyCancelPanel.add(apply);
+		applyCancelPanel.add(cancel);
+		
+		JPanel southPanel = new JPanel();
+		southPanel.setLayout(new GridLayout(0,1));
+		southPanel.add(urlPanel);
+		southPanel.add(applyCancelPanel);
+		
+		return southPanel;
 	}
 	
 	private void swapCollection(
