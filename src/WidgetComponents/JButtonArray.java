@@ -81,7 +81,8 @@ PostWidgetBuildProcessing, ButtonArray
 		PROPERTIES_FILE_OPEN_FILTER = "txt",
 		PROPERTIES_FILE_EXTENSION = "\\.txt",
 		PROPERTIES_FILE_ARG_DELIMITER = "@",
-		PROPERTIES_FILE_DELIMITER = "=";
+		PROPERTIES_FILE_DELIMITER = "=",
+		EDIT_COLLECTION_DIALOG_TITLE = "Edit Collection | <arg0> |";
 	
 	public static String
 		DEFAULT_IMG = "./Properties/shapes/Default-Play-Image.xml";
@@ -846,8 +847,9 @@ PostWidgetBuildProcessing, ButtonArray
 		ArrayList <JButtonLengthLimited> currentCollection = collectionJButtons.get(path);
 		if(abce == null || !abce.isVisible())
 		{
+			String titlePath = PathUtility.filterPathToFilename(path);
 			abce = new AbstractButtonCollectionEditor(path,
-					currentCollection, this, "Edit Collection " + PathUtility.filterPathToFilename(path));
+					currentCollection, this, EDIT_COLLECTION_DIALOG_TITLE.replace("<arg0>", titlePath));
 			
 			GraphicsUtil.rightEdgeTopWindow(this, abce);
 		}
