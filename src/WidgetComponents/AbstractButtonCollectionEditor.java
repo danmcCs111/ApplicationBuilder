@@ -2,6 +2,7 @@ package WidgetComponents;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,19 +18,21 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 public class AbstractButtonCollectionEditor extends JFrame 
 {
 	private static final long serialVersionUID = 1L;
 	
 	private static final Dimension
-		COLLECTION_SIZE = new Dimension(265,500),
+		COLLECTION_SIZE = new Dimension(250,500),
 		MIN_DIMENSION_DIALOG = new Dimension(600,500);
 	private static int 
 		SCROLL_INCREMENT = 15;
 	private static String
-		ADD_BUTTON_TEXT = "<",
-		REMOVE_BUTTON_TEXT = ">";
+		ADD_BUTTON_TEXT = "restore",
+		REMOVE_BUTTON_TEXT = "delete";
 	
 	private JScrollPane 
 		collectionScrollPane,
@@ -62,11 +65,16 @@ public class AbstractButtonCollectionEditor extends JFrame
 	{
 		addButton = new JButton(ADD_BUTTON_TEXT);
 		removeButton = new JButton(REMOVE_BUTTON_TEXT);
+		addButton.setEnabled(false);
+		removeButton.setEnabled(false);
 		
 		addRemovePanel = new JPanel();
-		addRemovePanel.setLayout(new GridLayout(0,1));
-		addRemovePanel.add(removeButton);
-		addRemovePanel.add(addButton);
+		addRemovePanel.setLayout(new FlowLayout());
+		JPanel innerPanel = new JPanel();
+		innerPanel.setLayout(new GridLayout(0,1));
+		innerPanel.add(removeButton);
+		innerPanel.add(addButton);
+		addRemovePanel.add(innerPanel);
 		
 		collectionText = new String[this.collection.size()];
 		for(int i = 0; i < this.collection.size(); i++)
@@ -76,6 +84,13 @@ public class AbstractButtonCollectionEditor extends JFrame
 		}
 		buttonCollection.setListData(collectionText);
 		buttonCollection.setPreferredSize(COLLECTION_SIZE);
+		buttonCollection.addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				int [] indexes = buttonCollection.getSelectedIndices();
+				removeButton.setEnabled((indexes != null && indexes.length > 0));
+			}
+		});
 		collectionPanel = new JPanel();
 		collectionPanel.setLayout(new GridLayout(0,1));
 		collectionPanel.add(buttonCollection);
@@ -85,6 +100,13 @@ public class AbstractButtonCollectionEditor extends JFrame
 		
 		buttonCollectionRemove.setListData(new String [] {});
 		buttonCollectionRemove.setPreferredSize(COLLECTION_SIZE);
+		buttonCollectionRemove.addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				int [] indexes = buttonCollectionRemove.getSelectedIndices();
+				addButton.setEnabled((indexes != null && indexes.length > 0));
+			}
+		});
 		removePanel = new JPanel();
 		removePanel.setLayout(new GridLayout(0,1));
 		removePanel.add(buttonCollectionRemove);
