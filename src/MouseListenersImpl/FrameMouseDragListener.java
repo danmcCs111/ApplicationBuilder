@@ -107,6 +107,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 							mi2.add(jmi);
 						}
 					}
+					
 					MenuScroller.setScrollerFor(mi2, 8, 125, 0, 0);
 					pm.add(mi2);
 				}

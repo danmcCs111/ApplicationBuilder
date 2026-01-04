@@ -23,6 +23,8 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 
+import Properties.LoggingMessages;
+
 //Copied from **https://github.com/tips4java/tips4java/blob/main/source/MenuScroller.java**
 
 /** 
@@ -297,6 +299,8 @@ public class MenuScroller {
     setBottomFixedCount(bottomFixedCount);
 
     this.menu = menu;
+    this.menuItems = menu.getComponents();//TODO...
+    refreshMenu();
     menu.addPopupMenuListener(menuListener);
   }
 
@@ -493,6 +497,7 @@ public class MenuScroller {
     }
 
     private void setMenuItems() {
+      restoreMenuItems();
       menuItems = menu.getComponents();
       if (keepVisibleIndex >= topFixedCount
               && keepVisibleIndex <= menuItems.length - bottomFixedCount
