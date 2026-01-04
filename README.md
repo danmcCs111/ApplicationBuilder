@@ -3,7 +3,7 @@
 
 projects required are contained in plugin-projects folder now. 
 
-Added an Edit collection dialog in Action Menu
+Added an Edit collection dialog in Action Menu (drag and drop url support also replicated into dialog)
 <p float="left">
 <img width="45%" alt="popup" src="https://github.com/user-attachments/assets/25b23245-0c20-4517-9cbb-1cd0ff9ad636" />
 <img width="45%" height="497" alt="remove" src="https://github.com/user-attachments/assets/32ae2127-f5a0-44e2-abc2-ebb1c229770c" />
