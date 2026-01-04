@@ -20,6 +20,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.border.BevelBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -72,21 +73,27 @@ public class AbstractButtonCollectionEditor extends JFrame
 		buildWidgets();
 	}
 	
-	public void buildWidgets()
+	private void buildWidgets()
 	{
-		addButton = new JButton(ADD_BUTTON_TEXT);
-		removeButton = new JButton(REMOVE_BUTTON_TEXT);
-		addButton.setEnabled(false);
-		removeButton.setEnabled(false);
+		buildCenterPanel();
+		buildEastPanel();
+		buildWestPanel();
+		JPanel southPanel = buildSouthPanel();
 		
-		addRemovePanel = new JPanel();
-		addRemovePanel.setLayout(new FlowLayout());
-		JPanel innerPanel = new JPanel();
-		innerPanel.setLayout(new GridLayout(0,1));
-		innerPanel.add(removeButton);
-		innerPanel.add(addButton);
-		addRemovePanel.add(innerPanel);
+		this.setLayout(new BorderLayout());
+		this.add(collectionScrollPane, BorderLayout.WEST);
+		this.add(addRemovePanel, BorderLayout.CENTER);
+		this.add(removeScrollPane, BorderLayout.EAST);
+		this.add(southPanel, BorderLayout.SOUTH);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
+		ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
+		ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
+		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
+	}
+	
+	private void buildWestPanel()
+	{
 		collectionText = new String[this.collection.size()];
 		for(int i = 0; i < this.collection.size(); i++)
 		{
@@ -101,14 +108,19 @@ public class AbstractButtonCollectionEditor extends JFrame
 				removeButton.setEnabled((indexes != null && indexes.length > 0));
 			}
 		});
+		
 		collectionPanel = new JPanel();
+		BevelBorder bb = new BevelBorder(BevelBorder.RAISED);
+		collectionPanel.setBorder(bb);
 		collectionPanel.setLayout(new GridLayout(0,1));
 		collectionPanel.add(buttonCollection);
 		collectionScrollPane = new JScrollPane(collectionPanel);
 		collectionScrollPane.setPreferredSize(COLLECTION_SIZE);
 		collectionScrollPane.getVerticalScrollBar().setUnitIncrement(SCROLL_INCREMENT);
-		
-		
+	}
+	
+	private void buildEastPanel()
+	{
 		buttonCollectionRemove.setListData(new String [] {});
 		buttonCollectionRemove.addListSelectionListener(new ListSelectionListener() {
 			@Override
@@ -117,12 +129,23 @@ public class AbstractButtonCollectionEditor extends JFrame
 				addButton.setEnabled((indexes != null && indexes.length > 0));
 			}
 		});
+		
 		removePanel = new JPanel();
+		BevelBorder bb = new BevelBorder(BevelBorder.RAISED);
+		removePanel.setBorder(bb);
 		removePanel.setLayout(new GridLayout(0,1));
 		removePanel.add(buttonCollectionRemove);
 		removeScrollPane = new JScrollPane(removePanel);
 		removeScrollPane.setPreferredSize(COLLECTION_SIZE);
 		removeScrollPane.getVerticalScrollBar().setUnitIncrement(SCROLL_INCREMENT);
+	}
+	
+	private void buildCenterPanel()
+	{
+		addButton = new JButton(ADD_BUTTON_TEXT);
+		removeButton = new JButton(REMOVE_BUTTON_TEXT);
+		addButton.setEnabled(false);
+		removeButton.setEnabled(false);
 		
 		addButton.addActionListener(new ActionListener() {
 			@Override
@@ -143,21 +166,16 @@ public class AbstractButtonCollectionEditor extends JFrame
 			}
 		});
 		
-		JPanel southPanel = buildSouthPanel();
-		
-		this.setLayout(new BorderLayout());
-		this.add(collectionScrollPane, BorderLayout.WEST);
-		this.add(addRemovePanel, BorderLayout.CENTER);
-		this.add(removeScrollPane, BorderLayout.EAST);
-		this.add(southPanel, BorderLayout.SOUTH);
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
-		ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
-		ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
-		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
+		addRemovePanel = new JPanel();
+		addRemovePanel.setLayout(new FlowLayout());
+		JPanel innerPanel = new JPanel();
+		innerPanel.setLayout(new GridLayout(0,1));
+		innerPanel.add(removeButton);
+		innerPanel.add(addButton);
+		addRemovePanel.add(innerPanel);
 	}
 	
-	public JPanel buildSouthPanel()
+	private JPanel buildSouthPanel()
 	{
 		JPanel urlPanel = new JPanel();
 		JLabel urlLabel = new JLabel(URL_LABEL_TEXT);
