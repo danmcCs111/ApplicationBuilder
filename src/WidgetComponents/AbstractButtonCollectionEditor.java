@@ -26,7 +26,7 @@ public class AbstractButtonCollectionEditor extends JFrame
 	private static final long serialVersionUID = 1L;
 	
 	private static final Dimension
-		COLLECTION_SIZE = new Dimension(250,500),
+		COLLECTION_SIZE = new Dimension(250,0),
 		MIN_DIMENSION_DIALOG = new Dimension(600,500);
 	private static int 
 		SCROLL_INCREMENT = 15;
@@ -83,7 +83,6 @@ public class AbstractButtonCollectionEditor extends JFrame
 			buttonCollectionIndexAndText.put(i, collectionText[i]);
 		}
 		buttonCollection.setListData(collectionText);
-		buttonCollection.setPreferredSize(COLLECTION_SIZE);
 		buttonCollection.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
@@ -95,11 +94,11 @@ public class AbstractButtonCollectionEditor extends JFrame
 		collectionPanel.setLayout(new GridLayout(0,1));
 		collectionPanel.add(buttonCollection);
 		collectionScrollPane = new JScrollPane(collectionPanel);
+		collectionScrollPane.setPreferredSize(COLLECTION_SIZE);
 		collectionScrollPane.getVerticalScrollBar().setUnitIncrement(SCROLL_INCREMENT);
 		
 		
 		buttonCollectionRemove.setListData(new String [] {});
-		buttonCollectionRemove.setPreferredSize(COLLECTION_SIZE);
 		buttonCollectionRemove.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
@@ -111,6 +110,7 @@ public class AbstractButtonCollectionEditor extends JFrame
 		removePanel.setLayout(new GridLayout(0,1));
 		removePanel.add(buttonCollectionRemove);
 		removeScrollPane = new JScrollPane(removePanel);
+		removeScrollPane.setPreferredSize(COLLECTION_SIZE);
 		removeScrollPane.getVerticalScrollBar().setUnitIncrement(SCROLL_INCREMENT);
 		
 		addButton.addActionListener(new ActionListener() {
