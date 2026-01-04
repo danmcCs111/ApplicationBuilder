@@ -803,7 +803,7 @@ PostWidgetBuildProcessing, ButtonArray
 			pngFilename = channelName + ".png",
 			imgUrl = linkTitleAndImageUrl[2],
 			savePathUrl = ds.getPathLinux(),
-			savePathImg = ds.getPathLinux() + "/images/";
+			savePathImg = ds.getPathLinux() + "/images";
 		
 		PathUtility.imageDownloadAndSave(imgUrl, savePathImg + "/" + pngFilename, "png");
 		PathUtility.writeStringToFile(new File(savePathUrl + "/" + urlFilename), contents);
