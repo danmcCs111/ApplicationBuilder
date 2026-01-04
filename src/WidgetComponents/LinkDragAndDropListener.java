@@ -35,31 +35,35 @@ public class LinkDragAndDropListener extends DropTargetAdapter
 			if(t.isDataFlavorSupported(DataFlavor.stringFlavor))
 			{
 				String dragDropString = (String) t.getTransferData(DataFlavor.stringFlavor);
-				
-				for(PageParser pp : pageParserCollection.getPageParsers())
-				{
-					if(pp.isParser(dragDropString))
-					{
-						ParseAttributes pas = new ParseAttributes(pp.getParseAttributes());
-						
-						dragDropString = HttpDatabaseRequest.addHttpsIfMissing(dragDropString);
-						LoggingMessages.printOut("drag and drop value: " + dragDropString);
-						String resp = HttpDatabaseRequest.executeGetRequest(dragDropString);
-						LoggingMessages.printOut("response");
-						
-						String imageDownload = pp.getAttributesFromResponse(pas.valueOf("Image"), resp, true)[0];
-						String title = pp.getAttributesFromResponse(pas.valueOf("Title"), resp, true)[0];
-						
-						LoggingMessages.printOut(imageDownload);
-						LoggingMessages.printOut(title);
-						ldds.notifyLinkTitleAndImageUrl(new String [] {dragDropString, title, imageDownload});
-					}
-				}
+				processUrl(dragDropString);
 			}
 		} catch (UnsupportedFlavorException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public void processUrl(String url)
+	{
+		for(PageParser pp : pageParserCollection.getPageParsers())
+		{
+			if(pp.isParser(url))
+			{
+				ParseAttributes pas = new ParseAttributes(pp.getParseAttributes());
+				
+				url = HttpDatabaseRequest.addHttpsIfMissing(url);
+				LoggingMessages.printOut("drag and drop value: " + url);
+				String resp = HttpDatabaseRequest.executeGetRequest(url);
+				LoggingMessages.printOut("response");
+				
+				String imageDownload = pp.getAttributesFromResponse(pas.valueOf("Image"), resp, true)[0];
+				String title = pp.getAttributesFromResponse(pas.valueOf("Title"), resp, true)[0];
+				
+				LoggingMessages.printOut(imageDownload);
+				LoggingMessages.printOut(title);
+				ldds.notifyLinkTitleAndImageUrl(new String [] {url, title, imageDownload});
+			}
 		}
 	}
 

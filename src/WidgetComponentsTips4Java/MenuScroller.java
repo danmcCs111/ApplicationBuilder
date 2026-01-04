@@ -23,8 +23,6 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 
-import Properties.LoggingMessages;
-
 //Copied from **https://github.com/tips4java/tips4java/blob/main/source/MenuScroller.java**
 
 /** 

@@ -114,6 +114,7 @@ PostWidgetBuildProcessing, ButtonArray
 	private HashMap<String, MouseListener> pathAndMouseAdapter;
 	private ArrayList<String> stripFilter = new ArrayList<String>();
 	private boolean isHighlight = true;
+	private LinkDragAndDropListener linkDropListener;
 	private PageParserCollection pageParserCollection;
 	
 	private int characterLimit=0;
@@ -323,7 +324,8 @@ PostWidgetBuildProcessing, ButtonArray
 	private void rebuildButtons()
 	{
 		clearJButtons();
-		for(AbstractButton ab : collectionJButtons.get(SwappableCollection.indexPaths.get(NavigationButtonActionListener.getCurPosition())))
+		for(AbstractButton ab : collectionJButtons.get(SwappableCollection.indexPaths.get(
+				NavigationButtonActionListener.getCurPosition())))
 		{
 			if(ab.isVisible())
 			{
@@ -645,7 +647,8 @@ PostWidgetBuildProcessing, ButtonArray
 
 	private void addDragAndDropListener(Component target)
 	{
-		new DropTarget(target, new LinkDragAndDropListener(this, pageParserCollection));
+		linkDropListener = new LinkDragAndDropListener(this, pageParserCollection);
+		new DropTarget(target, linkDropListener);
 	}
 	
 	private void refreshAllMouseListeners()

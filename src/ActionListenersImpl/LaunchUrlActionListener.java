@@ -68,27 +68,39 @@ public class LaunchUrlActionListener implements ActionListener
 		if(button.getName().equals(CLOSE_LAUNCH_ACTION_EVENT))
 		{
 			destroyRunningProcess();
-			if(lastButton != null && !button.equals(lastButton) && lastButtonParent instanceof ArrayActionListener)
+			if(lastButton != null)
 			{
-				ArrayActionListener aal = (ArrayActionListener)lastButtonParent;
-				aal.unselect();
+				if(!button.equals(lastButton) && lastButtonParent instanceof ArrayActionListener)
+				{
+					ArrayActionListener aal = (ArrayActionListener)lastButtonParent;
+					aal.unselect();
+				}
+				if(lastButton instanceof JButtonLengthLimited)
+				{
+					PicLabelMouseListener.highLightLabel((JButtonLengthLimited) lastButton, false);//TODO interface?
+				}
 			}
-			PicLabelMouseListener.highLightLabel((JButtonLengthLimited) lastButton, false);//TODO interface?
 		}
 		else
 		{
+			String [] args = null;
 			if(LaunchUrlActionListener.isKiosk)
 			{
-				executeProcess(PathUtility.isWindows()?getProcessWindowsOS():getProcessLinuxOS(), 
-						CHROME_HIDE_OPTION, CHROME_SEPERATE_OPTION, CHROME_NO_DEFAULT_CHECK, CHROME_KIOSK, 
-						button.getName());
+				args = new String [] {
+					PathUtility.isWindows()?getProcessWindowsOS():getProcessLinuxOS(), 
+					CHROME_HIDE_OPTION, CHROME_SEPERATE_OPTION, CHROME_NO_DEFAULT_CHECK, CHROME_KIOSK, 
+					button.getName()	
+				};
 			}
 			else
 			{
-				executeProcess(PathUtility.isWindows()?getProcessWindowsOS():getProcessLinuxOS(), 
+				args = new String [] {
+						PathUtility.isWindows()?getProcessWindowsOS():getProcessLinuxOS(), 
 						CHROME_HIDE_OPTION, CHROME_SEPERATE_OPTION, CHROME_NO_DEFAULT_CHECK, 
-						button.getName());
+						button.getName()
+				};
 			}
+			executeProcess(args);
 		}
 		if(button instanceof LaunchUrlButton)
 		{

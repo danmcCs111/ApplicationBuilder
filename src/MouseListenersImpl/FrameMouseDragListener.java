@@ -18,6 +18,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
 import ActionListenersImpl.LaunchUrlActionListener;
+import Graphics2D.ColorTemplate;
 import Properties.LoggingMessages;
 import WidgetComponents.JButtonLengthLimited;
 import WidgetComponents.JMenuItemLaunchUrl;
@@ -114,6 +115,10 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 			}
 			picLabel.add(pm);
 			int x = e.getPoint().x, y = e.getPoint().y;
+			
+			ColorTemplate.setBackgroundColorButtons(pm, ColorTemplate.getButtonBackgroundColor());//TODO
+			ColorTemplate.setForegroundColorButtons(pm, ColorTemplate.getButtonForegroundColor());
+			
 			pm.show(picLabel, x, y);
 		}
 	}

@@ -37,6 +37,9 @@ public class PicLabelMouseListener extends MouseAdapter
 	public static void highLightLabel(JButtonLengthLimited ab, boolean on)
 	{
 		LoggingMessages.printOut("highlight label.");
+		if(ab == null)
+			return;
+		
 		for(JLabel l : PicLabelMouseListener.connectedLabels)
 		{
 			if(l.getName().equals(ab.getFullLengthText()))
