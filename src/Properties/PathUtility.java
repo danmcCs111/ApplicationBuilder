@@ -128,6 +128,7 @@ public interface PathUtility
             BufferedImage img = ImageIO.read(url);
             if (img != null) 
             {
+            	createDirectoryIfNotExist(destinationPath);
                 File file = new File(destinationPath);
                 ImageIO.write(img, writeImageType, file); 
                 System.out.println("Image downloaded successfully to " + destinationPath);
