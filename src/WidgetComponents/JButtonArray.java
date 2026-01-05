@@ -820,19 +820,25 @@ PostWidgetBuildProcessing, ButtonArray
 	@Override
 	public void updateButtonArrayCollection(String path, ArrayList<String> addUrls, ArrayList<?> remove) 
 	{
-		for(String url : addUrls)
+		if(addUrls != null)
 		{
-			linkDropListener.processUrl(url);
-		}
-		for(Object ab : remove)
-		{
-			if(ab instanceof JButtonLengthLimited)//TODO
+			for(String url : addUrls)
 			{
-				//remove.
-				JButtonLengthLimited jbl = (JButtonLengthLimited) ab;
-				String filename = jbl.getFullLengthText() + ".url";//TODO.
-				PathUtility.deleteIfExits(path + "/" + filename);
-				removeJButton(jbl, path);
+				linkDropListener.processUrl(url);
+			}
+		}
+		if(remove != null)
+		{
+			for(Object ab : remove)
+			{
+				if(ab instanceof JButtonLengthLimited)//TODO
+				{
+					//remove.
+					JButtonLengthLimited jbl = (JButtonLengthLimited) ab;
+					String filename = jbl.getFullLengthText() + ".url";//TODO.
+					PathUtility.deleteIfExits(path + "/" + filename);
+					removeJButton(jbl, path);
+				}
 			}
 		}
 		Collections.sort(collectionJButtons.get(path), new JButtonLengthLimited());

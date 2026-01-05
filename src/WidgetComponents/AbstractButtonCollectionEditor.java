@@ -40,10 +40,13 @@ public class AbstractButtonCollectionEditor extends JFrame
 		SCROLL_INCREMENT = 15;
 	private static String
 		APPLY_BUTTON_TEXT = "Apply",
+		APPLY_BUTTON_TOOLTIP_TEXT = "Delete Selected",
 		APPLY_AND_CLOSE_BUTTON_TEXT = "Apply And Close",
+		APPLY_AND_CLOSE_BUTTON_TOOLTIP_TEXT = "Delete Selected And Close",
 		CANCEL_BUTTON_TEXT = "Close",
 		URL_LABEL_TEXT = "Enter New Url: ",
 		URL_ADD_BUTTON_TEXT = "Add",
+		URL_ADD_BUTTON_TOOLTIP_TEXT = "Add new to collection",
 		ADD_BUTTON_TEXT = "restore",
 		REMOVE_BUTTON_TEXT = "delete";
 	
@@ -206,12 +209,14 @@ public class AbstractButtonCollectionEditor extends JFrame
 		urlField = new JTextField();
 		urlField.setColumns(URL_COLUMNSIZE);
 		JButton addUrlButton = new JButton(URL_ADD_BUTTON_TEXT);
+		addUrlButton.setToolTipText(URL_ADD_BUTTON_TOOLTIP_TEXT);
 		addUrlButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String url = urlField.getText();
 				addUrl(url);
 				urlField.setText("");
+				addUrlAction();
 			}
 		});
 		urlPanel.add(urlLabel);
@@ -220,6 +225,7 @@ public class AbstractButtonCollectionEditor extends JFrame
 
 		JPanel applyCancelPanel = new JPanel();
 		apply = new JButton(APPLY_BUTTON_TEXT);
+		apply.setToolTipText(APPLY_BUTTON_TOOLTIP_TEXT);
 		apply.setEnabled(false);
 		apply.addActionListener(new ActionListener() {
 			@Override
@@ -228,6 +234,7 @@ public class AbstractButtonCollectionEditor extends JFrame
 			}
 		});
 		applyAndClose = new JButton(APPLY_AND_CLOSE_BUTTON_TEXT);
+		applyAndClose.setToolTipText(APPLY_AND_CLOSE_BUTTON_TOOLTIP_TEXT);
 		applyAndClose.setEnabled(false);
 		applyAndClose.addActionListener(new ActionListener() {
 			@Override
@@ -305,7 +312,7 @@ public class AbstractButtonCollectionEditor extends JFrame
 		btnCollection.removeAll();
 		btnCollection.setListData(refesh);
 		
-		if(buttonCollectionRemoveIndexAndText.size() > 0 || addUrls.size() > 0)
+		if(buttonCollectionRemoveIndexAndText.size() > 0)
 		{
 			applyAndClose.setEnabled(true);
 			apply.setEnabled(true);
@@ -344,22 +351,18 @@ public class AbstractButtonCollectionEditor extends JFrame
 	
 	private void addUrl(String url)
 	{
-		this.addUrls.add(url);
-		applyAndClose.setEnabled(true);
-		apply.setEnabled(true);
+		addUrls.add(url);
+		ebau.updateButtonArrayCollection(this.path, addUrls, null);
+		addUrls.clear();
 	}
 	
 	private void applyAction()
 	{
-		//TODO
-		if(ebau != null)
-		{
-			ebau.updateButtonArrayCollection(this.path, addUrls, copyToRemove());
-			clearRemovePanel();
-			addUrls.clear();
-			applyAndClose.setEnabled(false);
-			apply.setEnabled(false);
-		}
+		ebau.updateButtonArrayCollection(this.path, addUrls, copyToRemove());
+		clearRemovePanel();
+		addUrls.clear();
+		applyAndClose.setEnabled(false);
+		apply.setEnabled(false);
 	}
 	
 	private void closeAction()
