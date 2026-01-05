@@ -216,7 +216,6 @@ public class AbstractButtonCollectionEditor extends JFrame
 				String url = urlField.getText();
 				addUrl(url);
 				urlField.setText("");
-				addUrlAction();
 			}
 		});
 		urlPanel.add(urlLabel);
