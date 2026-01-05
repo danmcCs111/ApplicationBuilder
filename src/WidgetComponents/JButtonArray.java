@@ -845,14 +845,15 @@ PostWidgetBuildProcessing, ButtonArray
 		int indexPos = NavigationButtonActionListener.getCurPosition();
 		String path = SwappableCollection.indexPaths.get(indexPos);
 		ArrayList <JButtonLengthLimited> currentCollection = collectionJButtons.get(path);
-		if(abce == null || !abce.isVisible())
+		if(abce != null)
 		{
-			String titlePath = PathUtility.filterPathToFilename(path);
-			abce = new AbstractButtonCollectionEditor(path,
-					currentCollection, this, EDIT_COLLECTION_DIALOG_TITLE.replace("<arg0>", titlePath));
-			
-			GraphicsUtil.rightEdgeTopWindow(this, abce);
+			abce.dispose();
 		}
+		String titlePath = PathUtility.filterPathToFilename(path);
+		abce = new AbstractButtonCollectionEditor(path,
+				currentCollection, this, EDIT_COLLECTION_DIALOG_TITLE.replace("<arg0>", titlePath));
+		
+		GraphicsUtil.rightEdgeTopWindow(this, abce);
 	}
 
 }
