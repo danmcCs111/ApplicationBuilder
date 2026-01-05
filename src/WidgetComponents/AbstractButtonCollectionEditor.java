@@ -305,8 +305,16 @@ public class AbstractButtonCollectionEditor extends JFrame
 		btnCollection.removeAll();
 		btnCollection.setListData(refesh);
 		
-		applyAndClose.setEnabled(true);
-		apply.setEnabled(true);
+		if(buttonCollectionRemoveIndexAndText.size() > 0 || addUrls.size() > 0)
+		{
+			applyAndClose.setEnabled(true);
+			apply.setEnabled(true);
+		}
+		else
+		{
+			applyAndClose.setEnabled(false);
+			apply.setEnabled(false);
+		}
 	}
 	
 	private ArrayList<?> copyToRemove()
@@ -317,8 +325,6 @@ public class AbstractButtonCollectionEditor extends JFrame
 			Object o = this.collection.get(key);
 			collectionRemove.add(o);
 		}
-		clearRemovePanel();
-		
 		return collectionRemove;
 	}
 	
@@ -349,6 +355,8 @@ public class AbstractButtonCollectionEditor extends JFrame
 		if(ebau != null)
 		{
 			ebau.updateButtonArrayCollection(this.path, addUrls, copyToRemove());
+			clearRemovePanel();
+			addUrls.clear();
 			applyAndClose.setEnabled(false);
 			apply.setEnabled(false);
 		}
@@ -371,9 +379,4 @@ public class AbstractButtonCollectionEditor extends JFrame
 		return jblls;
 	}
 	
-	public static void main(String [] args)
-	{
-		AbstractButtonCollectionEditor abce = new AbstractButtonCollectionEditor("", setupTest(), null, "Edit");
-	}
-
 }
