@@ -317,7 +317,23 @@ public class AbstractButtonCollectionEditor extends JFrame
 			Object o = this.collection.get(key);
 			collectionRemove.add(o);
 		}
+		clearRemovePanel();
+		
 		return collectionRemove;
+	}
+	
+	private void clearRemovePanel()
+	{
+		this.buttonCollectionRemoveIndexAndText = new HashMap<Integer, String>();
+		removePanel.remove(buttonCollectionRemove);
+		this.buttonCollectionRemove = new JList<String>();
+		removePanel.add(buttonCollectionRemove);
+		
+		ColorTemplate.setBackgroundColorButtons(removePanel, ColorTemplate.getButtonBackgroundColor());
+		ColorTemplate.setForegroundColorButtons(removePanel, ColorTemplate.getButtonForegroundColor());
+		ColorTemplate.setBackgroundColorPanel(removePanel, ColorTemplate.getPanelBackgroundColor());
+		
+		removePanel.repaint();
 	}
 	
 	private void addUrl(String url)
