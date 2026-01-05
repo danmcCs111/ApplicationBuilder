@@ -63,6 +63,8 @@ public class AbstractButtonCollectionEditor extends JFrame
 		buttonCollectionIndexAndText = new HashMap<Integer, String>(),
 		buttonCollectionRemoveIndexAndText = new HashMap<Integer, String>();;
 	private JButton
+		apply,
+		applyAndClose,
 		removeButton,
 		addButton;
 	private ArrayList<?> 
@@ -217,14 +219,16 @@ public class AbstractButtonCollectionEditor extends JFrame
 		urlPanel.add(addUrlButton);
 
 		JPanel applyCancelPanel = new JPanel();
-		JButton apply = new JButton(APPLY_BUTTON_TEXT);
+		apply = new JButton(APPLY_BUTTON_TEXT);
+		apply.setEnabled(false);
 		apply.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				applyAction();
 			}
 		});
-		JButton applyAndClose = new JButton(APPLY_AND_CLOSE_BUTTON_TEXT);
+		applyAndClose = new JButton(APPLY_AND_CLOSE_BUTTON_TEXT);
+		applyAndClose.setEnabled(false);
 		applyAndClose.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -300,6 +304,9 @@ public class AbstractButtonCollectionEditor extends JFrame
 		}
 		btnCollection.removeAll();
 		btnCollection.setListData(refesh);
+		
+		applyAndClose.setEnabled(true);
+		apply.setEnabled(true);
 	}
 	
 	private ArrayList<?> copyToRemove()
@@ -316,6 +323,8 @@ public class AbstractButtonCollectionEditor extends JFrame
 	private void addUrl(String url)
 	{
 		this.addUrls.add(url);
+		applyAndClose.setEnabled(true);
+		apply.setEnabled(true);
 	}
 	
 	private void applyAction()
@@ -324,6 +333,8 @@ public class AbstractButtonCollectionEditor extends JFrame
 		if(ebau != null)
 		{
 			ebau.updateButtonArrayCollection(this.path, addUrls, copyToRemove());
+			applyAndClose.setEnabled(false);
+			apply.setEnabled(false);
 		}
 	}
 	
