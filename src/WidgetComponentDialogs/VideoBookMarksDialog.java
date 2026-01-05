@@ -29,6 +29,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -133,6 +135,7 @@ public class VideoBookMarksDialog extends JDialog
 		this.setLayout(new BorderLayout());
 		
 		applyButton = new JButton(save ? SAVE_BUTTON_LABEL : OPEN_BUTTON_LABEL);
+		applyButton.setEnabled(false);
 		cancelButton = new JButton(CANCEL_BUTTON_LABEL);
 		
 		titlesList = new JTextArea();
@@ -173,6 +176,20 @@ public class VideoBookMarksDialog extends JDialog
 			saveLabel = new JLabel();
 			saveLabel.setText(SAVE_FIELD_LABEL);
 			saveField = new JTextField();
+			saveField.getDocument().addDocumentListener(new DocumentListener() {
+				@Override
+				public void removeUpdate(DocumentEvent e) {
+					updateApplyButton(saveField.getText());
+				}
+				@Override
+				public void insertUpdate(DocumentEvent e) {
+					updateApplyButton(saveField.getText());
+				}
+				@Override
+				public void changedUpdate(DocumentEvent e) {
+					// TODO Auto-generated method stub
+				}
+			});
 			saveField.setColumns(SAVE_FILE_COLUMN_LENGTH);
 			JPanel saveFilePanel = new JPanel();
 			saveFilePanel.setLayout(new FlowLayout());
@@ -200,6 +217,11 @@ public class VideoBookMarksDialog extends JDialog
 			saveField.setText(select);
 		}
 		
+		updateApplyButton(select);
+		
+		if(select == null)
+			return;
+		
 		String [] selectedTitles = filenameAndTitles.get(select);
 		titlesList.setText("");
 		String text = "";
@@ -208,6 +230,11 @@ public class VideoBookMarksDialog extends JDialog
 			text += t + "\n";
 		}
 		titlesList.setText(text);
+	}
+	
+	private void updateApplyButton(String text)
+	{
+		applyButton.setEnabled(text != null && !text.isBlank());
 	}
 	
 	private void setupFileNameAndTitles(DirectorySelection chosenFileDirectory)
