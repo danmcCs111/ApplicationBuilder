@@ -128,13 +128,7 @@ public class AbstractButtonCollectionEditor extends JFrame
 			}
 		}
 		buttonCollection.setListData(collectionText);
-		buttonCollection.addListSelectionListener(new ListSelectionListener() {
-			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				int [] indexes = buttonCollection.getSelectedIndices();
-				removeButton.setEnabled((indexes != null && indexes.length > 0));
-			}
-		});
+		addListSelectionListener(buttonCollection, removeButton);
 		
 		collectionPanel = new JPanel();
 		BevelBorder bb = new BevelBorder(BevelBorder.RAISED);
@@ -149,13 +143,7 @@ public class AbstractButtonCollectionEditor extends JFrame
 	private void buildEastPanel()
 	{
 		buttonCollectionRemove.setListData(new String [] {});
-		buttonCollectionRemove.addListSelectionListener(new ListSelectionListener() {
-			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				int [] indexes = buttonCollectionRemove.getSelectedIndices();
-				addButton.setEnabled((indexes != null && indexes.length > 0));
-			}
-		});
+		addListSelectionListener(buttonCollectionRemove, addButton);
 		
 		removePanel = new JPanel();
 		BevelBorder bb = new BevelBorder(BevelBorder.RAISED);
@@ -165,6 +153,17 @@ public class AbstractButtonCollectionEditor extends JFrame
 		removeScrollPane = new JScrollPane(removePanel);
 		removeScrollPane.setPreferredSize(COLLECTION_SIZE);
 		removeScrollPane.getVerticalScrollBar().setUnitIncrement(SCROLL_INCREMENT);
+	}
+	
+	private void addListSelectionListener(JList<String> collList, JButton btn)
+	{
+		collList.addListSelectionListener( new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				int [] indexes = collList.getSelectedIndices();
+				btn.setEnabled((indexes != null && indexes.length > 0));
+			}
+		});
 	}
 	
 	private void buildCenterPanel()
@@ -339,6 +338,8 @@ public class AbstractButtonCollectionEditor extends JFrame
 		this.buttonCollectionRemoveIndexAndText = new HashMap<Integer, String>();
 		removePanel.remove(buttonCollectionRemove);
 		this.buttonCollectionRemove = new JList<String>();
+		addButton.setEnabled(false);
+		addListSelectionListener(buttonCollectionRemove, addButton);
 		removePanel.add(buttonCollectionRemove);
 		
 		ColorTemplate.setBackgroundColorButtons(removePanel, ColorTemplate.getButtonBackgroundColor());
