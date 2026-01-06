@@ -70,6 +70,8 @@ public class LookupOrCreateYoutube
 		
 		String query = YOUTUBE_QUERY.replaceFirst("<arg0>",PathUtility.surroundString(videoChannelName, "\""));
 		String response = executeQuery(query);
+		if(response == null)
+			return null;
 		
 		HttpDatabaseResponse hdr = new HttpDatabaseResponse();
 		ArrayList <ArrayList <DatabaseResponseNode>> drns = hdr.parseResponse(response);

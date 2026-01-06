@@ -37,7 +37,8 @@ public class DirectorySelectionEditor extends JButton implements ParameterEditor
 					String replPath = PathUtility.replaceBackslash(chosenFile.getAbsolutePath());
 					
 					DirectorySelection ds = new DirectorySelection(
-							replPath.replaceAll(PathUtility.replaceBackslash(PathUtility.getCurrentDirectory()), "") + END_DIRECTORY_SUFFIX);
+							replPath.replaceAll(PathUtility.replaceBackslash(PathUtility.getCurrentDirectory()), "") + 
+							END_DIRECTORY_SUFFIX);
 					DirectorySelectionEditor.this.setText(ds.getRelativePath());
 					jcc.setSelectedFile(chosenFile);
 				}
