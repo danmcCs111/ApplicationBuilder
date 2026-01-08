@@ -369,17 +369,4 @@ public class AbstractButtonCollectionEditor extends JFrame
 	{
 		this.dispose();
 	}
-	
-	private static ArrayList<AbstractButton> setupTest()
-	{
-		ArrayList<AbstractButton> jblls = new ArrayList<AbstractButton>();
-		for(int i = 0; i < 30; i++)
-		{
-			JButtonLengthLimited jbll = new JButtonLengthLimited();
-			jbll.setText("test-" + i);
-			jblls.add(jbll);
-		}
-		return jblls;
-	}
-	
 }

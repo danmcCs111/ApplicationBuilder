@@ -23,6 +23,11 @@ public class DirectorySelectionEditor extends JButton implements ParameterEditor
 
 	public DirectorySelectionEditor()
 	{
+		buildWidgets();
+	}
+	
+	private void buildWidgets()
+	{
 		jcc = new JFileChooser();
 		jcc.setDialogType(JFileChooser.DIRECTORIES_ONLY);
 		this.addActionListener(new ActionListener() {
