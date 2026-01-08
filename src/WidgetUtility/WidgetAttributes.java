@@ -30,6 +30,7 @@ import ShapeWidgetComponents.ShapeCreator;
 import ShapeWidgetComponents.ShapeCreatorEditPanel;
 import ShapeWidgetComponents.ShapeCreatorToolBarPanel;
 import WidgetComponents.ApplicationLayoutEditor;
+import WidgetComponents.DatabaseEditor;
 import WidgetComponents.DatabaseResponseNodeTextArea;
 import WidgetComponents.JButtonArray;
 import WidgetComponents.JButtonArrayListPicture;
@@ -104,6 +105,7 @@ public class WidgetAttributes
 		COMPONENT_CLASSES.add(JMenuItem.class);
 		
 		COMPONENT_CLASSES.add(DatabaseResponseNodeTextArea.class);
+		COMPONENT_CLASSES.add(DatabaseEditor.class);
 		COMPONENT_CLASSES.add(ShapeCreator.class);
 		COMPONENT_CLASSES.add(ShapeCreatorToolBarPanel.class);
 		COMPONENT_CLASSES.add(ShapeCreatorEditPanel.class);
@@ -193,6 +195,10 @@ public class WidgetAttributes
 		});
 		
 		//EXTENDED WIDGETS
+		EXTENDED_METHODS.put(DatabaseEditor.class, new String [] {
+				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedDatabaseResponseNodeListener.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef())
+		});
 		EXTENDED_METHODS.put(ShapeCreator.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
@@ -221,7 +227,7 @@ public class WidgetAttributes
 		});
 		EXTENDED_METHODS.put(DatabaseResponseNodeTextArea.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
-				ExtendedAttributeParam.getMethodDefinition(ExtendedDatabaseResponseNodeListener.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
+				ExtendedAttributeParam.getMethodDefinition(ExtendedDatabaseResponseNodeListener.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(WeatherGraphViewer.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),

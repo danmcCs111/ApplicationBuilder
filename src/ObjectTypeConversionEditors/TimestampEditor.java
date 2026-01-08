@@ -17,8 +17,6 @@ public class TimestampEditor extends JSpinner implements ParameterEditor
 {
 	private static final long serialVersionUID = 1L;
 	
-	private Timestamp timestamp;
-
 	public TimestampEditor()
 	{
 		buildWidgets();
@@ -41,7 +39,7 @@ public class TimestampEditor extends JSpinner implements ParameterEditor
 	@Override
 	public void setComponentValue(Object value) 
 	{
-		this.timestamp = (Timestamp) value;
+		Timestamp timestamp = (Timestamp) value;
 		SpinnerDateModel sm = (SpinnerDateModel) this.getModel();
 		sm.setValue(new Date(timestamp.getTime()));
 	}
@@ -75,7 +73,7 @@ public class TimestampEditor extends JSpinner implements ParameterEditor
 	public void destroy() {
 		// TODO Auto-generated method stub
 	}
-	
+	 
 	public static void main(String [] args)
 	{
 		JFrame f = new JFrame();
