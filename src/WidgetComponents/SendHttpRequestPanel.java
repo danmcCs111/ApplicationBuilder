@@ -98,6 +98,9 @@ public class SendHttpRequestPanel extends JPanel implements PostWidgetBuildProce
 	private JPanel buildFilePanel()
 	{
 		JPanel fileSelectionPanel = new JPanel();
+		fileSelectionPanel.setLayout(new BorderLayout());
+		JPanel innerPanel = new JPanel();
+		
 		FileSelectionEditor fse = new FileSelectionEditor();
 		fse.setComponentValue(new FileSelection(""));
 		fileOpenAndSend = new JButton(SEND_BUTTON_TEXT);
@@ -110,8 +113,10 @@ public class SendHttpRequestPanel extends JPanel implements PostWidgetBuildProce
 			}
 		});
 		
-		fileSelectionPanel.add(fileOpenAndSend);
-		fileSelectionPanel.add(fse);
+		innerPanel.add(fileOpenAndSend);
+		innerPanel.add(fse);
+		
+		fileSelectionPanel.add(innerPanel, BorderLayout.EAST);
 		
 		return fileSelectionPanel;
 	}

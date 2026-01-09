@@ -45,6 +45,7 @@ public class DatabaseEditor extends JScrollPane implements DatabaseResponseNodeL
 	@Override
 	public void setResults(ArrayList<ArrayList<DatabaseResponseNode>> results) 
 	{
+		parentPanel.removeAll();
 		for(ArrayList<DatabaseResponseNode> result : results)
 		{
 			JPanel resultPanel = new JPanel();
