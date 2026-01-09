@@ -58,6 +58,8 @@
 				</JMenuItem>
 			</JMenu>
 			<JMenu extendedLayoutApplyParent="" setText="Launch" >
+				<JMenuItem extendedLayoutApplyParent="" addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellExecutor|%Fn./plugin-projects/DatabaseAdapterService/runDatabase.sh" setText="Database Service" >
+				</JMenuItem>
 				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ApplicationBuilder|%Fn./Properties/data/Video Tile-mini.xml" extendedLayoutApplyParent="" setText="Create List Editor" >
 				</JMenuItem>
 				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ApplicationBuilder|%Fn./Properties/data/ScheduledCommandListEditor.xml" extendedLayoutApplyParent="" setText="Create Reload Tool" >
