@@ -35,7 +35,7 @@ public class SendHttpRequestPanel extends JPanel implements PostWidgetBuildProce
 	private static final int
 		PORT_NUMBER = 8000;
 	private static final String [] 
-		GET_HTTP_OPTIONS = new String [] {"Query"};
+		GET_HTTP_OPTIONS = new String [] {"Query", "Insert", "Update"};
 	
 	private String 
 		database = DATABASE;
@@ -79,7 +79,8 @@ public class SendHttpRequestPanel extends JPanel implements PostWidgetBuildProce
 		sendButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				populateResponse(getRequest.getSelectedItem().toString());
+				populateResponse(getRequest.getSelectedItem().toString(),
+						getType.getSelectedItem().toString());
 			}
 		});
 		
@@ -103,17 +104,20 @@ public class SendHttpRequestPanel extends JPanel implements PostWidgetBuildProce
 		
 		FileSelectionEditor fse = new FileSelectionEditor();
 		fse.setComponentValue(new FileSelection(""));
+		JComboBox<String> httpOptions = new JComboBox<String>(GET_HTTP_OPTIONS);
 		fileOpenAndSend = new JButton(SEND_BUTTON_TEXT);
-		
 		fileOpenAndSend.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				File f = new File(((FileSelection)fse.getComponentValueObj()).getPathLinux());
-				createResponseFromFile(f);
+				createResponseFromFile(f, 
+						httpOptions.getSelectedItem().toString());
 			}
 		});
 		
+		
 		innerPanel.add(fileOpenAndSend);
+		innerPanel.add(httpOptions);
 		innerPanel.add(fse);
 		
 		fileSelectionPanel.add(innerPanel, BorderLayout.EAST);
@@ -126,26 +130,26 @@ public class SendHttpRequestPanel extends JPanel implements PostWidgetBuildProce
 		this.database = database;
 	}
 	
-	private String executeRequest(String request)
+	private String executeRequest(String request, String type)
 	{
 		return HttpDatabaseRequest.executeGetRequest(
 				ENDPOINT, 
 				PORT_NUMBER, 
 				request, 
 				REQUEST_TYPE_HEADER_KEY, 
-				getType.getSelectedItem().toString()
+				type
 		);
 	}
 	
-	private void createResponseFromFile(File f)
+	private void createResponseFromFile(File f, String type)
 	{
 		String request = PathUtility.readFileToString(f);
-		populateResponse(request);
+		populateResponse(request, type);
 	}
 	
-	private void populateResponse(String request)
+	private void populateResponse(String request, String type)
 	{
-		String responseBody = executeRequest(request);
+		String responseBody = executeRequest(request, type);
 		HttpDatabaseResponse hdr = new HttpDatabaseResponse();
 		ArrayList<ArrayList<DatabaseResponseNode>> responseNodes = hdr.parseResponse(responseBody);
 		

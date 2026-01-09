@@ -1,5 +1,6 @@
 package WidgetComponents;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.GridLayout;
 import java.util.ArrayList;
@@ -48,7 +49,11 @@ public class DatabaseEditor extends JScrollPane implements DatabaseResponseNodeL
 		parentPanel.removeAll();
 		for(ArrayList<DatabaseResponseNode> result : results)
 		{
-			JPanel resultPanel = new JPanel();
+			JPanel 
+				resultPanel = new JPanel(),
+				innerPanel = new JPanel();
+			resultPanel.setLayout(new BorderLayout());
+			
 			for(DatabaseResponseNode drn : result)
 			{
 				HashMap<String, String> attrs = drn.getNodeAttributes();
@@ -63,10 +68,11 @@ public class DatabaseEditor extends JScrollPane implements DatabaseResponseNodeL
 				StringToObjectConverter soc = pt.getConverter();
 				pe.setComponentValue(soc.conversionCall(content));
 				
-				resultPanel.add(resLabel);
-				resultPanel.add((Component) pe);
+				innerPanel.add(resLabel);
+				innerPanel.add((Component) pe);
 			}
 			LoggingMessages.printOut("add result panel");
+			resultPanel.add(innerPanel, BorderLayout.WEST);
 			parentPanel.add(resultPanel);
 		}
 		this.revalidate();
