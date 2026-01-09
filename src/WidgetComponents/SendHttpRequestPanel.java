@@ -1,7 +1,10 @@
 package WidgetComponents;
 
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -13,7 +16,10 @@ import HttpDatabaseRequest.SelectWebServiceQueries;
 import HttpDatabaseResponse.DatabaseResponseNode;
 import HttpDatabaseResponse.DatabaseSelection;
 import HttpDatabaseResponse.HttpDatabaseResponse;
+import ObjectTypeConversion.FileSelection;
+import ObjectTypeConversionEditors.FileSelectionEditor;
 import Properties.LoggingMessages;
+import Properties.PathUtility;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetExtensionInterfaces.DatabaseResponseNodeListenerExtension;
 
@@ -22,51 +28,92 @@ public class SendHttpRequestPanel extends JPanel implements PostWidgetBuildProce
 	private static final long serialVersionUID = 3000L;
 	
 	private static final String 
-		SEND_BUTTON_TEXT = "Send Http Get",
+		SEND_BUTTON_TEXT = "Execute",
 		ENDPOINT = "http://localhost:",
 		REQUEST_TYPE_HEADER_KEY = "Get-request-type",
 		DATABASE = "WeatherDatabase";
-	private String database = DATABASE;
 	private static final int
 		PORT_NUMBER = 8000;
-	private static final String [] GET_HTTP_OPTIONS = new String [] {"Query"};
+	private static final String [] 
+		GET_HTTP_OPTIONS = new String [] {"Query"};
 	
-	private JButton sendButton;
-	private JComboBox<String> getType;
-	private JComboBox<String> getRequest;
-	private SelectWebServiceQueries swsq;
-	private ArrayList<DatabaseResponseNodeListenerExtension> drnleList = new ArrayList<DatabaseResponseNodeListenerExtension>();
+	private String 
+		database = DATABASE;
+	private JButton 
+		sendButton,
+		fileOpenAndSend;
+	private JComboBox<String> 
+		getType,
+		getRequest;
+	private JPanel 
+		innerQsPanel;
+	private SelectWebServiceQueries 
+		swsq;
+	private ArrayList<DatabaseResponseNodeListenerExtension> 
+		drnleList = new ArrayList<DatabaseResponseNodeListenerExtension>();
 
 	public SendHttpRequestPanel()
 	{
+		buildWidgets();
+	}
+	
+	private void buildWidgets()
+	{
+		this.setLayout(new GridLayout(0,1));
+		
+		JPanel qsPanel = buildQuerySelectionPanel();
+		JPanel fsPanel = buildFilePanel();
+		
+		this.add(qsPanel);
+		this.add(fsPanel);
+	}
+	
+	private JPanel buildQuerySelectionPanel()
+	{
+		JPanel  qsPanel = new JPanel();
+		innerQsPanel = new JPanel();
+		qsPanel.setLayout(new BorderLayout());
+		
 		sendButton = new JButton();
 		sendButton.setText(SEND_BUTTON_TEXT);
 		sendButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String responseBody = executeRequest();
-				HttpDatabaseResponse hdr = new HttpDatabaseResponse();
-				ArrayList<ArrayList<DatabaseResponseNode>> responseNodes = hdr.parseResponse(responseBody);
-				
-				for(ArrayList<DatabaseResponseNode> drns : responseNodes)
-				{
-					LoggingMessages.printOut("");
-					for(DatabaseResponseNode drn : drns)
-					{
-						LoggingMessages.printOut(drn.toString());
-					}
-				}
-				for(DatabaseResponseNodeListenerExtension drnl : drnleList)
-					drnl.setResults(responseNodes);
+				populateResponse(getRequest.getSelectedItem().toString());
 			}
 		});
 		
 		getType = new JComboBox<String>(GET_HTTP_OPTIONS);
 		getRequest = new JComboBox<String>();
 		
-		this.add(sendButton);
-		this.add(getType);
-		this.add(getRequest);
+		innerQsPanel.add(sendButton);
+		innerQsPanel.add(getType);
+		innerQsPanel.add(getRequest);
+		
+		qsPanel.add(innerQsPanel, BorderLayout.EAST);
+		
+		return qsPanel;
+	}
+	
+	private JPanel buildFilePanel()
+	{
+		JPanel fileSelectionPanel = new JPanel();
+		FileSelectionEditor fse = new FileSelectionEditor();
+		fse.setComponentValue(new FileSelection(""));
+		fileOpenAndSend = new JButton(SEND_BUTTON_TEXT);
+		
+		fileOpenAndSend.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				File f = new File(((FileSelection)fse.getComponentValueObj()).getPathLinux());
+				createResponseFromFile(f);
+			}
+		});
+		
+		fileSelectionPanel.add(fileOpenAndSend);
+		fileSelectionPanel.add(fse);
+		
+		return fileSelectionPanel;
 	}
 	
 	public void setDatabase(String database)
@@ -74,15 +121,41 @@ public class SendHttpRequestPanel extends JPanel implements PostWidgetBuildProce
 		this.database = database;
 	}
 	
-	private String executeRequest()
+	private String executeRequest(String request)
 	{
 		return HttpDatabaseRequest.executeGetRequest(
 				ENDPOINT, 
 				PORT_NUMBER, 
-				getRequest.getSelectedItem().toString(), 
+				request, 
 				REQUEST_TYPE_HEADER_KEY, 
 				getType.getSelectedItem().toString()
 		);
+	}
+	
+	private void createResponseFromFile(File f)
+	{
+		String request = PathUtility.readFileToString(f);
+		populateResponse(request);
+	}
+	
+	private void populateResponse(String request)
+	{
+		String responseBody = executeRequest(request);
+		HttpDatabaseResponse hdr = new HttpDatabaseResponse();
+		ArrayList<ArrayList<DatabaseResponseNode>> responseNodes = hdr.parseResponse(responseBody);
+		
+		for(ArrayList<DatabaseResponseNode> drns : responseNodes)
+		{
+			LoggingMessages.printOut("");
+			for(DatabaseResponseNode drn : drns)
+			{
+				LoggingMessages.printOut(drn.toString());
+			}
+		}
+		for(DatabaseResponseNodeListenerExtension drnl : drnleList)
+		{
+			drnl.setResults(responseNodes);
+		}
 	}
 
 	@Override
@@ -92,9 +165,9 @@ public class SendHttpRequestPanel extends JPanel implements PostWidgetBuildProce
 		{
 			swsq = new SelectWebServiceQueries(getDatabase());
 		}
-		this.remove(getRequest);
+		innerQsPanel.remove(getRequest);
 		getRequest = new JComboBox<String>(swsq.getQueryOptions());
-		this.add(getRequest);
+		innerQsPanel.add(getRequest);
 		this.getRootPane().validate();
 	}
 
