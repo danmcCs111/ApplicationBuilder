@@ -4,7 +4,7 @@ import Properties.PathUtility;
 
 public class YoutubeSql implements YoutubeQuery
 {
-	public String
+	public static String
 		YOUTUBE_QUERY = 
 			"SELECT * FROM videodatabase.video WHERE VideoName_Video_VideoDatabase = <arg0>"+
 			";",

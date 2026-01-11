@@ -52,6 +52,18 @@ public class LookupOrCreateYoutube
 		
 	}
 	
+	public static void setSqlType(String sqlType)//TODO
+	{
+		if(sqlType.equals("SQL"))
+		{
+			youtubeSql = new YoutubeSql();
+		}
+		else if(sqlType.equals("SQLite"))
+		{
+			youtubeSql = new YoutubeSQLite();
+		}
+	}
+	
 	public static void setKeyPath(String keyPath)
 	{
 		KEY_PATH = keyPath;
@@ -142,8 +154,7 @@ public class LookupOrCreateYoutube
 			{
 				if(drn.getNodeName().equals("UploadDate_VideoYoutube_VideoYoutubeDatabase"))
 				{
-					long timestamp = Long.valueOf(drn.getNodeAttributes().get("content"));
-					lastDate = new Date(timestamp);
+					lastDate = DateParser.getDate(drn.getNodeAttributes());
 					LoggingMessages.printOut("last time: " + lastDate);
 					break;
 				}
@@ -199,14 +210,14 @@ public class LookupOrCreateYoutube
 		}
 		//run insert & image grab jobs. use loading screen.
 		String contents = PathUtility.readFileToString(new File(saveFile));
-		if(contents == null)
+		if(contents != null)
 		{
-			return null;
+			LoggingMessages.printOut(contents);
+			executeInsert(contents);
 		}
-		LoggingMessages.printOut(contents);
-		executeInsert(contents);
 		
 		String query = youtubeSql.getYoutubeVideoQuery(parentId);
+		LoggingMessages.printOut(query);
 		String response = executeQuery(query);
 		HttpDatabaseResponse hdr = new HttpDatabaseResponse();
 		ArrayList <ArrayList <DatabaseResponseNode>> drns = hdr.parseResponse(response);

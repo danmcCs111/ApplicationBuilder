@@ -55,11 +55,11 @@ public class YoutubeChannelVideo
 			}
 			else if(drn.getNodeName().equals(UPLOAD_DATE_COLUMN))
 			{
-				uploadDate = Long.parseLong(drn.getNodeAttributes().get("content"));
+				uploadDate = DateParser.getDate(drn.getNodeAttributes()).getTime();
 			}
 			else if(drn.getNodeName().equals(INSERT_DATE_COLUMN))
 			{
-				insertDate = Long.parseLong(drn.getNodeAttributes().get("content"));
+				insertDate = DateParser.getDate(drn.getNodeAttributes()).getTime();
 			}
 		}
 	}

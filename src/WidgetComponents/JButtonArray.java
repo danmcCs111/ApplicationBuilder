@@ -136,6 +136,11 @@ PostWidgetBuildProcessing, ButtonArray
 		
 	}
 	
+	public static void setSqlType(String sqlType)
+	{
+		LookupOrCreateYoutube.setSqlType(sqlType);
+	}
+	
 	public static void setYoutubeApiKeyPath(FileSelection fs)
 	{
 		LookupOrCreateYoutube.setKeyPath(fs.getFullPath());

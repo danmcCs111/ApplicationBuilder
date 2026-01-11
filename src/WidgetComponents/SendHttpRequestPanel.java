@@ -172,11 +172,11 @@ public class SendHttpRequestPanel extends JPanel implements PostWidgetBuildProce
 	{
 		if(swsq == null)
 		{
-			swsq = new SelectWebServiceQueries(getDatabase());
+//			swsq = new SelectWebServiceQueries(getDatabase());
 		}
-		innerQsPanel.remove(getRequest);
-		getRequest = new JComboBox<String>(swsq.getQueryOptions());
-		innerQsPanel.add(getRequest);
+//		innerQsPanel.remove(getRequest);
+//		getRequest = new JComboBox<String>(swsq.getQueryOptions());
+//		innerQsPanel.add(getRequest);
 		this.getRootPane().validate();
 	}
 

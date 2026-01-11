@@ -84,6 +84,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 					{
 						for(YoutubeChannelVideo ycv : ycvs.get(key))
 						{
+							LoggingMessages.printOut("video found! " + ycv.getTitle());
 							JMenuItemLaunchUrl jmi = new JMenuItemLaunchUrl(ycv.getTitle());
 							jmi.setHighlightButton(jbll);
 							jmi.setName(ycv.getUrl());
