@@ -1,3 +1,5 @@
+*switched to a local sqlite install keeping database contents within project directory
+
 *Added launching of database service in launch menu for video launching app
 
 *Added youtube api lookup (requiring key), database table and lookup for popup. adds based on time lapsed since last viewed.
