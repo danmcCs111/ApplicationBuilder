@@ -28,18 +28,9 @@ public class LookupOrCreateYoutube
 		YOUTUBE_CHANNEL_HANDLE_MATCH = "/[^/]*$",
 		
 		OPERATION = "showResult",
+		SQL_TYPE = "SQL",
 		PLUGIN_JAR_LOCATION = "plugin-projects/YouTube-API-list/YoutubeApiList/YoutubeApiList.jar",
 		SAVE_INSERT_PATH = "./VideoLaunchFiles/YoutubeChannels/video-images/", //TODO
-		
-		YOUTUBE_QUERY = 
-			"SELECT * FROM videodatabase.video WHERE VideoName_Video_VideoDatabase = <arg0>"+
-			";",
-		YOUTUBE_VIDEO_QUERY = 
-			"SELECT * FROM videodatabase.videoYoutube WHERE ParentID_VideoYoutube_VideoYoutubeDatabase = <arg0> "+
-			" ORDER BY UploadDate_VideoYoutube_VideoYoutubeDatabase DESC;",
-		
-		YOUTUBE_INSERT_PREFIX = "INSERT INTO videodatabase.video (VideoName_Video_VideoDatabase, VideoUrl_Video_VideoDatabase, InsertDate_Video_VideoDatabase) values( ",
-		YOUTUBE_INSERT_SUFFIX = " CURRENT_TIMESTAMP);",
 		
 		IS_LOOKUP_FRAME_FILTER = "",
 		ENDPOINT = "http://localhost:",
@@ -53,6 +44,8 @@ public class LookupOrCreateYoutube
 	
 	private static String
 		KEY_PATH = "./Properties/api-keys/youtube-api-key.txt";
+	private static YoutubeQuery 
+		youtubeSql = new YoutubeSql();
 	
 	public LookupOrCreateYoutube()
 	{
@@ -68,7 +61,7 @@ public class LookupOrCreateYoutube
 	{
 		HashMap<Integer, ArrayList<YoutubeChannelVideo>> parentIdAndYoutubeChannelVideos = null;
 		
-		String query = YOUTUBE_QUERY.replaceFirst("<arg0>",PathUtility.surroundString(videoChannelName, "\""));
+		String query = youtubeSql.getYoutubeQuery(videoChannelName);
 		String response = executeQuery(query);
 		if(response == null)
 			return null;
@@ -97,10 +90,10 @@ public class LookupOrCreateYoutube
 	
 	private void createIfEmpty(String videoChannelName, String url)
 	{
-		String insert = YOUTUBE_INSERT_PREFIX + 
+		String insert = youtubeSql.getYoutubeInsertPrefix() + 
 				PathUtility.surroundString(videoChannelName, "\"") + ", " + 
 				PathUtility.surroundString(url, "\"") + ", " +
-				YOUTUBE_INSERT_SUFFIX;
+				youtubeSql.getYoutubeInsertSuffix();
 		
 		executeInsert(insert);
 		lookup(videoChannelName, url);
@@ -133,7 +126,7 @@ public class LookupOrCreateYoutube
 	
 	public HashMap<Integer, ArrayList<YoutubeChannelVideo>> lookupYoutubeVideo(int parentId, String videoChannelLink)
 	{
-		String query = YOUTUBE_VIDEO_QUERY.replaceFirst("<arg0>", parentId+"");
+		String query = youtubeSql.getYoutubeVideoQuery(parentId);
 		String response = executeQuery(query);
 		
 		HttpDatabaseResponse hdr = new HttpDatabaseResponse();
@@ -188,7 +181,8 @@ public class LookupOrCreateYoutube
 		String [] args = new String [] {
 			PLUGIN_JAR_LOCATION,
 			"YoutubeApiList.YoutubeApiList",
-			OPERATION, 
+			OPERATION,
+			SQL_TYPE,
 			key,
 			parentId + "", 
 			youtubeHandle, 
@@ -212,7 +206,7 @@ public class LookupOrCreateYoutube
 		LoggingMessages.printOut(contents);
 		executeInsert(contents);
 		
-		String query = YOUTUBE_VIDEO_QUERY.replaceFirst("<arg0>", parentId+"");
+		String query = youtubeSql.getYoutubeVideoQuery(parentId);
 		String response = executeQuery(query);
 		HttpDatabaseResponse hdr = new HttpDatabaseResponse();
 		ArrayList <ArrayList <DatabaseResponseNode>> drns = hdr.parseResponse(response);
