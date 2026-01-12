@@ -1,5 +1,5 @@
 #!/bin/bash
 #path="$1"
-path="../SeleniumPython/"
+path="plugin-projects/SeleniumPython/"
 cd $path
 start "rokuCategoryGrab.cmd"
