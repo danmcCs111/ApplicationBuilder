@@ -6,4 +6,5 @@ public interface YoutubeQuery
 	public String getYoutubeVideoQuery(int parentId);
 	public String getYoutubeInsertPrefix();
 	public String getYoutubeInsertSuffix();
+	public String getSqlType();
 }

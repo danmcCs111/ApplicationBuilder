@@ -28,7 +28,6 @@ public class LookupOrCreateYoutube
 		YOUTUBE_CHANNEL_HANDLE_MATCH = "/[^/]*$",
 		
 		OPERATION = "showResult",
-		SQL_TYPE = "SQL",
 		PLUGIN_JAR_LOCATION = "plugin-projects/YouTube-API-list/YoutubeApiList/YoutubeApiList.jar",
 		SAVE_INSERT_PATH = "./VideoLaunchFiles/YoutubeChannels/video-images/", //TODO
 		
@@ -54,11 +53,11 @@ public class LookupOrCreateYoutube
 	
 	public static void setSqlType(String sqlType)//TODO
 	{
-		if(sqlType.equals("SQL"))
+		if(YoutubeSql.isType(sqlType))
 		{
 			youtubeSql = new YoutubeSql();
 		}
-		else if(sqlType.equals("SQLite"))
+		else if(YoutubeSQLite.isType(sqlType))
 		{
 			youtubeSql = new YoutubeSQLite();
 		}
@@ -193,7 +192,7 @@ public class LookupOrCreateYoutube
 			PLUGIN_JAR_LOCATION,
 			"YoutubeApiList.YoutubeApiList",
 			OPERATION,
-			SQL_TYPE,
+			youtubeSql.getSqlType(),
 			key,
 			parentId + "", 
 			youtubeHandle, 

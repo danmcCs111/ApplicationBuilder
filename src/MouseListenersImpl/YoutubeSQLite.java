@@ -19,6 +19,14 @@ public class YoutubeSQLite implements YoutubeQuery
 		YOUTUBE_INSERT_SUFFIX = 
 			" CURRENT_TIMESTAMP);";
 
+	private static String 
+		TYPE = "SQLite";
+	
+	public static boolean isType(String type)
+	{
+		return TYPE.equals(type);
+	}
+	
 	@Override
 	public String getYoutubeQuery(String VideoName) 
 	{
@@ -41,5 +49,10 @@ public class YoutubeSQLite implements YoutubeQuery
 	public String getYoutubeInsertSuffix() 
 	{
 		return YOUTUBE_INSERT_SUFFIX;
+	}
+
+	@Override
+	public String getSqlType() {
+		return TYPE;
 	}
 }

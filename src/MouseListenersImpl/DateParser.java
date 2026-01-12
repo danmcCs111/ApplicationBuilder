@@ -25,7 +25,13 @@ public class DateParser
 				lastDate = sdf.parse(timestamp);
 				LoggingMessages.printOut(lastDate.toString());
 			} catch (ParseException e) {
-				e.printStackTrace();
+				SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+				try {
+					lastDate = sdf2.parse(timestamp);
+				} catch (ParseException e1) {
+					e.printStackTrace();
+					e1.printStackTrace();
+				}
 			}
 		}
 		else
