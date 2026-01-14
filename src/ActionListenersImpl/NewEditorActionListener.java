@@ -3,15 +3,15 @@ package ActionListenersImpl;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import WidgetComponentInterfaces.DependentRedrawableFrame;
-import WidgetComponentInterfaces.DependentRedrawableFrameListener;
+import WidgetComponentInterfaces.RedrawableFrame;
+import WidgetComponentInterfaces.RedrawableFrameListener;
 import WidgetUtility.WidgetBuildController;
 
-public class NewEditorActionListener implements DependentRedrawableFrameListener, ActionListener
+public class NewEditorActionListener implements RedrawableFrameListener, ActionListener
 {
-	private DependentRedrawableFrame applicationLayoutEditor;
+	private RedrawableFrame applicationLayoutEditor;
 	
-	public void setDependentRedrawableFrame(DependentRedrawableFrame applicationLayoutEditor)
+	public void setRedrawableFrame(RedrawableFrame applicationLayoutEditor)
 	{
 		this.applicationLayoutEditor = applicationLayoutEditor;
 	}

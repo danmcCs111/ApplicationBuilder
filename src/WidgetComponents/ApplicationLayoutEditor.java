@@ -1,10 +1,10 @@
 package WidgetComponents;
 
-import WidgetComponentInterfaces.DependentRedrawableFrame;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
+import WidgetComponentInterfaces.RedrawableFrame;
 import WidgetUtility.WidgetBuildController;
 
-public class ApplicationLayoutEditor extends DependentRedrawableFrame implements PostWidgetBuildProcessing
+public class ApplicationLayoutEditor extends RedrawableFrame implements PostWidgetBuildProcessing
 {
 	private static final long serialVersionUID = 1897L;
 	
@@ -22,16 +22,6 @@ public class ApplicationLayoutEditor extends DependentRedrawableFrame implements
 	}
 	
 	@Override
-	public void updateDependentWindow()
-	{
-		if(builderWindow != null)
-		{
-			builderWindow.clearInnerPanels();
-			builderWindow.rebuildInnerPanels();
-		}
-	}
-
-	@Override
 	public void clearInnerPanels() 
 	{
 		xe.destroyPanel();
@@ -43,7 +33,7 @@ public class ApplicationLayoutEditor extends DependentRedrawableFrame implements
 		if(xe == null)
 		{
 			xe = new XmlToEditor();
-			xe.setDependentRedrawableFrame(this);
+			xe.setRedrawableFrame(this);
 			xe.rebuildPanel();
 		}
 		else if(xe != null)

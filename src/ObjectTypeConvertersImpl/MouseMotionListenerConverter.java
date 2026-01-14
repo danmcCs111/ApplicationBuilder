@@ -7,7 +7,8 @@ import java.util.List;
 
 import Properties.LoggingMessages;
 import WidgetComponentInterfaces.DependentRedrawableFrame;
-import WidgetComponentInterfaces.DependentRedrawableFrameListener;
+import WidgetComponentInterfaces.RedrawableFrame;
+import WidgetComponentInterfaces.RedrawableFrameListener;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
@@ -19,7 +20,7 @@ public class MouseMotionListenerConverter extends MouseAdapterConverter
 		try {
 			Class<?> c = Class.forName(arg0);
 			al = (MouseMotionListener) c.getConstructor().newInstance();
-			if(al instanceof DependentRedrawableFrameListener)//TODO loading for interface
+			if(al instanceof RedrawableFrameListener)//TODO loading for interface
 			{
 				List<WidgetCreatorProperty> wcps = WidgetBuildController.getInstance().getWidgetCreatorProperties();
 				if(wcps != null && !wcps.isEmpty())
@@ -27,8 +28,8 @@ public class MouseMotionListenerConverter extends MouseAdapterConverter
 					Object o = wcps.get(0).getInstance();
 					if(o instanceof DependentRedrawableFrame)
 					{
-						DependentRedrawableFrameListener drFrame = (DependentRedrawableFrameListener) al;
-						drFrame.setDependentRedrawableFrame((DependentRedrawableFrame) o);
+						RedrawableFrameListener drFrame = (RedrawableFrameListener) al;
+						drFrame.setRedrawableFrame((RedrawableFrame) o);
 					}
 				}
 			}

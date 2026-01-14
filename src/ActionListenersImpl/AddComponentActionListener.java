@@ -10,8 +10,8 @@ import javax.swing.JOptionPane;
 import Params.XmlToWidgetGenerator;
 import Properties.LoggingMessages;
 import WidgetComponentDialogs.ComboSelectionDialog;
-import WidgetComponentInterfaces.DependentRedrawableFrame;
-import WidgetComponentInterfaces.DependentRedrawableFrameListener;
+import WidgetComponentInterfaces.RedrawableFrame;
+import WidgetComponentInterfaces.RedrawableFrameListener;
 import WidgetExtensionDefs.ExtendedAttributeParam;
 import WidgetExtensionDefs.ExtendedMethodArgDef;
 import WidgetExtensionInterfaces.ComboListDialogSelectedListener;
@@ -22,7 +22,7 @@ import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetComponent;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class AddComponentActionListener implements DependentRedrawableFrameListener, ActionListener, ComboListDialogSelectedListener
+public class AddComponentActionListener implements RedrawableFrameListener, ActionListener, ComboListDialogSelectedListener
 {
 	private static final String 
 		DIALOG_SELECT_COMPONENT_TITLE = "Component Selection",
@@ -34,7 +34,7 @@ public class AddComponentActionListener implements DependentRedrawableFrameListe
 		STRIP_PACKAGE_NAME_FROM_CLASS_FILTER = "[a-zA-Z]+[\\.]+";
 	private WidgetCreatorProperty wcpBuild;
 	
-	private DependentRedrawableFrame applicationLayoutEditor;
+	private RedrawableFrame redrawableFrame;
 	
 	private String
 		dialogSelectComponentTitle = DIALOG_SELECT_COMPONENT_TITLE,
@@ -98,17 +98,12 @@ public class AddComponentActionListener implements DependentRedrawableFrameListe
 		dialogSelectChildComponentsMessage = message;
 	}
 	
-	public void setDependentRedrawableFrame(DependentRedrawableFrame applicationLayoutEditor)
-	{
-		this.applicationLayoutEditor = applicationLayoutEditor;
-	}
-	
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
 		List<String> componentOptions = ComponentSelectorUtility.generateComboSelectionOptions();
 		String opt = (String) JOptionPane.showInputDialog(
-				applicationLayoutEditor,
+				redrawableFrame,
 				DIALOG_SELECT_COMPONENT_LABEL_MESSAGE, DIALOG_SELECT_COMPONENT_TITLE, 
 				JOptionPane.PLAIN_MESSAGE, 
 				null, 
@@ -120,7 +115,7 @@ public class AddComponentActionListener implements DependentRedrawableFrameListe
 		}
 		
 		String optP = (String) JOptionPane.showInputDialog(
-				applicationLayoutEditor,
+				redrawableFrame,
 				DIALOG_SELECT_PARENT_LABEL_MESSAGE, DIALOG_SELECT_PARENT_TITLE, 
 				JOptionPane.PLAIN_MESSAGE, 
 				null, 
@@ -150,7 +145,7 @@ public class AddComponentActionListener implements DependentRedrawableFrameListe
 			csd.buildAndShow(components, 
 				DIALOG_SELECT_CHILD_COMPONENTS_TITLE,
 				DIALOG_SELECT_CHILD_COMPONENTS_MESSAGE,
-				this, applicationLayoutEditor);
+				this, redrawableFrame);
 		}
 		else//new JFrame.
  		{
@@ -164,7 +159,7 @@ public class AddComponentActionListener implements DependentRedrawableFrameListe
  			wcpBuild.addXmlToWidgetGenerator(xmlG);
  
  			WidgetBuildController.getInstance().addWidgetCreatorProperty(wcpBuild, true);
- 			applicationLayoutEditor.rebuildInnerPanels();
+ 			redrawableFrame.rebuildInnerPanels();
  		}
 	
 	}
@@ -187,6 +182,11 @@ public class AddComponentActionListener implements DependentRedrawableFrameListe
 		wcpBuild.addXmlToWidgetGenerator(xmlG);
 
 		WidgetBuildController.getInstance().addWidgetCreatorProperty(wcpBuild, true);
-		applicationLayoutEditor.rebuildInnerPanels();
+		redrawableFrame.rebuildInnerPanels();
+	}
+	@Override
+	public void setRedrawableFrame(RedrawableFrame redrawableFrame) 
+	{
+		this.redrawableFrame = redrawableFrame;
 	}
 }

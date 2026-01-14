@@ -9,11 +9,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Properties.LoggingMessages;
 import Properties.PathUtility;
-import WidgetComponentInterfaces.DependentRedrawableFrame;
-import WidgetComponentInterfaces.DependentRedrawableFrameListener;
+import WidgetComponentInterfaces.RedrawableFrame;
+import WidgetComponentInterfaces.RedrawableFrameListener;
 import WidgetUtility.WidgetBuildController;
 
-public class OpenFileActionListener implements DependentRedrawableFrameListener, ActionListener
+public class OpenFileActionListener implements RedrawableFrameListener, ActionListener
 {
 	private static final String 
 		XML_PATH_SUFFIX = "/Properties/data/ ",
@@ -25,7 +25,7 @@ public class OpenFileActionListener implements DependentRedrawableFrameListener,
 		xmlFilterTitle = XML_FILTER_TITLE,
 		xmlFilter = XML_FILTER;
 	
-	private DependentRedrawableFrame applicationLayoutEditor;
+	private RedrawableFrame applicationLayoutEditor;
 	
 	public String getXmlPathSuffix()
 	{
@@ -54,7 +54,7 @@ public class OpenFileActionListener implements DependentRedrawableFrameListener,
 		xmlFilter = filter;
 	}
 	
-	public void setDependentRedrawableFrame(DependentRedrawableFrame applicationLayoutEditor)
+	public void setRedrawableFrame(RedrawableFrame applicationLayoutEditor)
 	{
 		this.applicationLayoutEditor = applicationLayoutEditor;
 	}

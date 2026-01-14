@@ -3,14 +3,14 @@ package ActionListenersImpl;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import WidgetComponentInterfaces.DependentRedrawableFrame;
-import WidgetComponentInterfaces.DependentRedrawableFrameListener;
+import WidgetComponentInterfaces.RedrawableFrame;
+import WidgetComponentInterfaces.RedrawableFrameListener;
 
-public class ComponentComboBoxActionListener implements DependentRedrawableFrameListener, ActionListener 
+public class ComponentComboBoxActionListener implements RedrawableFrameListener, ActionListener 
 {
-	private DependentRedrawableFrame redrawFrame;
+	private RedrawableFrame redrawFrame;
 	
-	public void setDependentRedrawableFrame(DependentRedrawableFrame redrawFrame)
+	public void setRedrawableFrame(RedrawableFrame redrawFrame)
 	{
 		this.redrawFrame = redrawFrame;
 	}

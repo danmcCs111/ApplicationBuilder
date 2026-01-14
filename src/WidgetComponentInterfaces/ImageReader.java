@@ -63,17 +63,10 @@ public class ImageReader
 		Image retImage = null;
 		try {
 			Image tmpImage = ImageIO.read(file);
-			if(tmpImage != null)
-			{
-				Dimension scaled = getScaledDimension(tmpImage, ba.getScaledWidth());
-				retImage = tmpImage.getScaledInstance(
-						scaled.width, 
-						scaled.height, 0);
-			}
-			else
-			{
-				retImage = getDefaultImage();
-			}
+			Dimension scaled = getScaledDimension(tmpImage, ba.getScaledWidth());
+			retImage = tmpImage.getScaledInstance(
+					scaled.width, 
+					scaled.height, 0);
 		} catch (IOException e) {
 			retImage = getDefaultImage();
 		}

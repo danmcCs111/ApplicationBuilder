@@ -9,11 +9,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Properties.EditorToXml;
 import Properties.PathUtility;
-import WidgetComponentInterfaces.DependentRedrawableFrame;
-import WidgetComponentInterfaces.DependentRedrawableFrameListener;
+import WidgetComponentInterfaces.RedrawableFrame;
+import WidgetComponentInterfaces.RedrawableFrameListener;
 import WidgetUtility.WidgetBuildController;
 
-public class SaveAsEditorActionListener implements DependentRedrawableFrameListener, ActionListener
+public class SaveAsEditorActionListener implements RedrawableFrameListener, ActionListener
 {
 	private static final String 
 		XML_PATH_SUFFIX = "/Properties/data/ ",
@@ -24,7 +24,7 @@ public class SaveAsEditorActionListener implements DependentRedrawableFrameListe
 		xmlPathSuffix = XML_PATH_SUFFIX,
 		xmlFilterTitle = XML_FILTER_TITLE,
 		xmlFilter = XML_FILTER;
-	private DependentRedrawableFrame applicationLayoutEditor;
+	private RedrawableFrame applicationLayoutEditor;
 	
 	public String getXmlPathDefault()
 	{
@@ -53,7 +53,7 @@ public class SaveAsEditorActionListener implements DependentRedrawableFrameListe
 		xmlFilter = filter;
 	}
 	
-	public void setDependentRedrawableFrame(DependentRedrawableFrame applicationLayoutEditor)
+	public void setRedrawableFrame(RedrawableFrame applicationLayoutEditor)
 	{
 		this.applicationLayoutEditor = applicationLayoutEditor;
 	}
@@ -67,7 +67,7 @@ public class SaveAsEditorActionListener implements DependentRedrawableFrameListe
 	/**
 	 * @return save performed.
 	 */
-	public boolean performSaveAs(DependentRedrawableFrame applicationLayoutEditor)
+	public boolean performSaveAs(RedrawableFrame applicationLayoutEditor)
 	{
 		if(WidgetBuildController.getInstance().getWidgetCreatorProperties().isEmpty())
 			return false;

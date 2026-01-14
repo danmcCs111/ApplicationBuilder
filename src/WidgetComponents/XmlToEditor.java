@@ -8,13 +8,13 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 
 import ActionListenersImpl.RemoveEditorTabActionListener;
-import WidgetComponentInterfaces.DependentRedrawableFrame;
-import WidgetComponentInterfaces.DependentRedrawableFrameListener;
+import WidgetComponentInterfaces.RedrawableFrame;
+import WidgetComponentInterfaces.RedrawableFrameListener;
 import WidgetComponentInterfaces.TabbedPanel;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class XmlToEditor extends TabbedPanel implements DependentRedrawableFrameListener
+public class XmlToEditor extends TabbedPanel implements RedrawableFrameListener
 {
 	private static final long serialVersionUID = 1888L;
 
@@ -24,10 +24,10 @@ public class XmlToEditor extends TabbedPanel implements DependentRedrawableFrame
 		COMPONENT_REGEX = COMPONENT_SUFFIX + "[0-9]*",
 		DELETE_BUTTON_TEXT = "X";
 	
-	private DependentRedrawableFrame editorFrame;
+	private RedrawableFrame editorFrame;
 	
 	@Override
-	public void setDependentRedrawableFrame(DependentRedrawableFrame editorFrame)
+	public void setRedrawableFrame(RedrawableFrame editorFrame)
 	{
 		this.editorFrame = editorFrame;
 	}
@@ -75,22 +75,21 @@ public class XmlToEditor extends TabbedPanel implements DependentRedrawableFrame
 			{
 				String compName = wcp.getRef() + COMPONENT_SUFFIX + count;
 				
-				JPanel outP = new JPanel(new BorderLayout());
-				JPanel outI = new JPanel(new BorderLayout());
+				JPanel outI = new JPanel();
+				outI.setLayout(new BorderLayout());
 				WidgetPropertiesPanelArray pArray = new WidgetPropertiesPanelArray();
 				outI.add(pArray, BorderLayout.NORTH);
 				JScrollPane js = new JScrollPane(outI);
 				js.getVerticalScrollBar().setUnitIncrement(15);
 				
 				pArray.buildPropertiesArray(wcp);
-				pArray.setDependentRedrawableFrame(editorFrame);
-				outP.add(js, BorderLayout.CENTER);
-				this.add(outP);
+				pArray.setRedrawableFrame(editorFrame);
+				this.add(js);
 				this.setTitleAt(count++, compName);
 			}
 		}
+		this.validate();
 		editorFrame.add(this, BorderLayout.CENTER);
-		editorFrame.validate();
 	}
 
 }

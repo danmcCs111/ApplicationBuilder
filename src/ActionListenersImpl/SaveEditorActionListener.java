@@ -5,15 +5,15 @@ import java.awt.event.ActionListener;
 
 import Properties.EditorToXml;
 import Properties.LoggingMessages;
-import WidgetComponentInterfaces.DependentRedrawableFrame;
-import WidgetComponentInterfaces.DependentRedrawableFrameListener;
+import WidgetComponentInterfaces.RedrawableFrame;
+import WidgetComponentInterfaces.RedrawableFrameListener;
 import WidgetUtility.WidgetBuildController;
 
-public class SaveEditorActionListener implements DependentRedrawableFrameListener, ActionListener
+public class SaveEditorActionListener implements RedrawableFrameListener, ActionListener
 {
-	private DependentRedrawableFrame applicationLayoutEditor;
+	private RedrawableFrame applicationLayoutEditor;
 	
-	public void setDependentRedrawableFrame(DependentRedrawableFrame applicationLayoutEditor)
+	public void setRedrawableFrame(RedrawableFrame applicationLayoutEditor)
 	{
 		this.applicationLayoutEditor = applicationLayoutEditor;
 	}

@@ -15,11 +15,11 @@ import javax.swing.JPanel;
 import Params.ParameterEditor;
 import Params.ParameterUtility;
 import Params.XmlToWidgetGenerator;
-import WidgetComponentInterfaces.DependentRedrawableFrame;
-import WidgetComponentInterfaces.DependentRedrawableFrameListener;
+import WidgetComponentInterfaces.RedrawableFrame;
+import WidgetComponentInterfaces.RedrawableFrameListener;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class WidgetPropertiesPanelArray extends JPanel implements DependentRedrawableFrameListener
+public class WidgetPropertiesPanelArray extends JPanel implements RedrawableFrameListener
 {
 	public static final String 
 		MENU_ITEM_REMOVE_TEXT = "remove",
@@ -29,7 +29,7 @@ public class WidgetPropertiesPanelArray extends JPanel implements DependentRedra
 		DELETE_BUTTON_TEXT = "X";
 	private static final long serialVersionUID = 1891L;
 	
-	private DependentRedrawableFrame dependentRedrawableFrame;
+	private RedrawableFrame redrawableFrame;
 	
 	public WidgetPropertiesPanelArray()
 	{
@@ -66,10 +66,7 @@ public class WidgetPropertiesPanelArray extends JPanel implements DependentRedra
 					pi.remove(l);
 					pi.remove(del);
 					WidgetPropertiesPanelArray.this.repaint();
-					dependentRedrawableFrame.validate();
 					wcp.getXmlToWidgetGenerators().remove(xwg);//remove from generators for saving removal
-					
-					dependentRedrawableFrame.updateDependentWindow();
 				}
 			});
 			
@@ -88,8 +85,8 @@ public class WidgetPropertiesPanelArray extends JPanel implements DependentRedra
 	}
 
 	@Override
-	public void setDependentRedrawableFrame(DependentRedrawableFrame dependentRedrawableFrame) 
+	public void setRedrawableFrame(RedrawableFrame RedrawableFrame) 
 	{
-		this.dependentRedrawableFrame = dependentRedrawableFrame;
+		this.redrawableFrame = RedrawableFrame;
 	}
 }
