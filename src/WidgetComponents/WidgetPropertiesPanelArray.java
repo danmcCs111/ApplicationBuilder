@@ -30,6 +30,7 @@ public class WidgetPropertiesPanelArray extends JPanel implements RedrawableFram
 	private static final long serialVersionUID = 1891L;
 	
 	private RedrawableFrame redrawableFrame;
+	private WidgetCreatorProperty wcp;
 	
 	public WidgetPropertiesPanelArray()
 	{
@@ -44,6 +45,7 @@ public class WidgetPropertiesPanelArray extends JPanel implements RedrawableFram
 	
 	public void buildPropertiesArray(WidgetCreatorProperty wcp)
 	{
+		this.wcp = wcp;
 		for(XmlToWidgetGenerator xwg : wcp.getXmlToWidgetGenerators())
 		{
 			String metName = xwg.getMethodName();
@@ -88,5 +90,11 @@ public class WidgetPropertiesPanelArray extends JPanel implements RedrawableFram
 	public void setRedrawableFrame(RedrawableFrame RedrawableFrame) 
 	{
 		this.redrawableFrame = RedrawableFrame;
+	}
+	
+	@Override
+	public String toString()
+	{
+		return this.wcp.getRefWithID();
 	}
 }

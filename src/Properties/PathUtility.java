@@ -18,7 +18,7 @@ import javax.imageio.ImageIO;
 public interface PathUtility 
 {
 	public static final String [] 
-		PATH_STRIP_FILTER = new String [] {"([\\.]|[0-9\\sa-zA-Z])+[/]", ""},
+		PATH_STRIP_FILTER = new String [] {"([\\.]|[^/])+[/]", ""},
 		PATH_REMOVE_CURRENT_DIRECTORY = new String []{"\\./", "/"};
 	public static final String 
 		ESCAPE_CHARACTER = "\\",
@@ -27,6 +27,7 @@ public interface PathUtility
 	public static String filterPathToFilename(String path)
 	{
 		path = path.strip();
+		path = getPathLinux(path);
 		if(path.endsWith("/"))
 		{
 			path = path.substring(0, path.length()-1);

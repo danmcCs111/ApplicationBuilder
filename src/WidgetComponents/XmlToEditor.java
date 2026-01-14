@@ -6,15 +6,16 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 
 import ActionListenersImpl.RemoveEditorTabActionListener;
 import WidgetComponentInterfaces.RedrawableFrame;
 import WidgetComponentInterfaces.RedrawableFrameListener;
-import WidgetComponentInterfaces.TabbedPanel;
+import WidgetComponentInterfaces.WidgetBuildIndexSelector;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class XmlToEditor extends TabbedPanel implements RedrawableFrameListener
+public class XmlToEditor extends JTabbedPane implements WidgetBuildIndexSelector, RedrawableFrameListener
 {
 	private static final long serialVersionUID = 1888L;
 
@@ -90,6 +91,12 @@ public class XmlToEditor extends TabbedPanel implements RedrawableFrameListener
 		}
 		this.validate();
 		editorFrame.add(this, BorderLayout.CENTER);
+	}
+
+	@Override
+	public String getTitleAt(int index) 
+	{
+		return this.getTitleAt(index);
 	}
 
 }

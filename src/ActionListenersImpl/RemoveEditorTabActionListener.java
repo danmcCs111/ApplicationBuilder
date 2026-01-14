@@ -4,16 +4,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-import WidgetComponentInterfaces.TabbedPanel;
+import WidgetComponentInterfaces.WidgetBuildIndexSelector;
 import WidgetUtility.ComponentSelectorUtility;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
 public class RemoveEditorTabActionListener implements ActionListener 
 {
-	private TabbedPanel xmlToEditor;
+	private WidgetBuildIndexSelector xmlToEditor;
 	
-	public RemoveEditorTabActionListener(TabbedPanel xmlToEditor)
+	public RemoveEditorTabActionListener(WidgetBuildIndexSelector xmlToEditor)
 	{
 		this.xmlToEditor = xmlToEditor;
 	}

@@ -7,9 +7,9 @@ import java.util.List;
 import Properties.LoggingMessages;
 import WidgetComponentInterfaces.RedrawableFrame;
 import WidgetComponentInterfaces.RedrawableFrameListener;
+import WidgetComponentInterfaces.WidgetBuildIndexSelector;
 import WidgetComponents.ApplicationLayoutEditor;
 import WidgetComponents.BuilderWindow;
-import WidgetComponents.XmlToEditor;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
@@ -17,7 +17,7 @@ public class OpenParameterEditorActionListener implements RedrawableFrameListene
 {
 	private BuilderWindow builderWindow;
 	private RedrawableFrame redrawableFrame;
-	private XmlToEditor xe;
+	private WidgetBuildIndexSelector xe;
 	
 	public BuilderWindow getBuilderWindow()
 	{

@@ -9,9 +9,9 @@ public class ApplicationLayoutEditor extends RedrawableFrame implements PostWidg
 	private static final long serialVersionUID = 1897L;
 	
 	private BuilderWindow builderWindow;
-	private XmlToEditor xe;
+	private XmlToEditorJTree xe;
 	
-	public XmlToEditor getXmlToEditor()
+	public XmlToEditorJTree getXmlToEditor()
 	{
 		return xe;
 	}
@@ -32,7 +32,7 @@ public class ApplicationLayoutEditor extends RedrawableFrame implements PostWidg
 	{
 		if(xe == null)
 		{
-			xe = new XmlToEditor();
+			xe = new XmlToEditorJTree();
 			xe.setRedrawableFrame(this);
 			xe.rebuildPanel();
 		}

@@ -1,6 +1,7 @@
 package WidgetComponentInterfaces;
 
-public interface WidgetBuildIndexSelector 
+public interface WidgetBuildIndexSelector extends RedrawablePanel
 {
-	
+	public int getSelectedIndex();
+	public String getTitleAt(int index);
 }
