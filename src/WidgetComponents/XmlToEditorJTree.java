@@ -74,12 +74,6 @@ public class XmlToEditorJTree extends JPanel implements RedrawableFrameListener,
 	private void buildEditors()
 	{
 		int count = 0;
-		JPopupMenu pm = new JPopupMenu();
-		JMenuItem mi = new JMenuItem(MENU_ITEM_REMOVE_TEXT);
-		mi.addActionListener(new RemoveEditorTabActionListener(this));
-		pm.setEnabled(true);
-		pm.add(mi);
-		this.setComponentPopupMenu(pm);
 		
 		if(WidgetBuildController.getInstance().getWidgetCreatorProperties() != null)
 		{
@@ -130,6 +124,13 @@ public class XmlToEditorJTree extends JPanel implements RedrawableFrameListener,
 				}
 			});
 		}
+		JPopupMenu pm = new JPopupMenu();
+		JMenuItem mi = new JMenuItem(MENU_ITEM_REMOVE_TEXT);
+		mi.addActionListener(new RemoveEditorTabActionListener(this));
+		pm.setEnabled(true);
+		pm.add(mi);
+		tree.setComponentPopupMenu(pm);
+		
 		treePanel.add(tree, BorderLayout.CENTER);
 		this.add(treeJs, BorderLayout.WEST);
 		this.add(viewPanel, BorderLayout.CENTER);
@@ -159,7 +160,7 @@ public class XmlToEditorJTree extends JPanel implements RedrawableFrameListener,
 		if(selRow != null && selRow.length != 0)
 		{
 			LoggingMessages.printOut(selRow[0] + "");
-			return selRow[0];
+			return selRow[0]-1;
 		}
 		return 0;
 	}
