@@ -13,6 +13,7 @@ import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 import ActionListenersImpl.RemoveEditorTabActionListener;
@@ -128,6 +129,7 @@ public class XmlToEditorJTree extends JPanel implements RedrawableFrameListener,
 		pm.setEnabled(true);
 		pm.add(mi);
 		tree.setComponentPopupMenu(pm);
+		expandPaths();
 		
 		treePanel.add(tree, BorderLayout.CENTER);
 		this.add(treeJs, BorderLayout.WEST);
@@ -170,6 +172,15 @@ public class XmlToEditorJTree extends JPanel implements RedrawableFrameListener,
 			{
 				dmtn.add(n);
 			}
+		}
+	}
+	
+	private void expandPaths()
+	{
+		for(DefaultMutableTreeNode node : parentChildTreeNodes.keySet())
+		{
+			TreePath tp = new TreePath(node.getPath());
+			tree.expandPath(tp);
 		}
 	}
 	
