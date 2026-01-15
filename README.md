@@ -1,3 +1,6 @@
+
+*switched to a tree structure in layout editor
+
 *switched to a local sqlite install keeping database contents within project directory
 
 *Added launching of database service in launch menu for video launching app
@@ -10,7 +13,7 @@ Added an Edit collection dialog in Action Menu (drag and drop url support also r
 <p float="left">
 <img width="45%" alt="popup" src="https://github.com/user-attachments/assets/25b23245-0c20-4517-9cbb-1cd0ff9ad636" />
 <img width="45%" height="497" alt="remove" src="https://github.com/user-attachments/assets/32ae2127-f5a0-44e2-abc2-ebb1c229770c" />
-
+<img width="45%" height="586" alt="tree-structure" src="https://github.com/user-attachments/assets/617688ee-b6e8-4200-ad2d-a090d1ff1998" />
 </p>
 
 *fixed browser process to be seperate profile. switched to using PID and sharing with ahk to give direct key press control.
