@@ -70,7 +70,7 @@ public class PageParserCollectionDialog extends JDialog
 	{
 		if(pageParserCollectionEditor != null)
 		{
-			GraphicsUtil.centerReferenceOnlyWindow(pageParserCollectionEditor, this);
+			GraphicsUtil.centerHeightOnlyWindow(pageParserCollectionEditor, this);
 		}
 		this.setTitle(TITLE_TEXT);
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);

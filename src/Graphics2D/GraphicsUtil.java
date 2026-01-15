@@ -31,6 +31,27 @@ public interface GraphicsUtil
 		
 		comp.setLocation(loc.x + (int)((rw/2.0) - (w / 2.0)), loc.y + (int)((rh/2.0) - (h/2.0)) );
 	}
+	public static void centerHeightOnlyWindow(Container referenceComponent, Container comp)
+	{
+		Point loc = referenceComponent.getLocationOnScreen();
+		
+		double 
+			rw = referenceComponent.getWidth(),
+			rh = referenceComponent.getHeight(),
+			h = comp.getHeight();
+		
+		comp.setLocation((int)(loc.x + (rw / 2.0)), (int)(loc.y + (rh/2.0 - h/2.0)));
+	}
+	public static void centerReferenceOnlyWindow(Container referenceComponent, Container comp)
+	{
+		Point loc = referenceComponent.getLocationOnScreen();
+		
+		double 
+			rw = referenceComponent.getWidth(),
+			rh = referenceComponent.getHeight();
+		
+		comp.setLocation((int)(loc.x + (rw / 2.0)), (int)(loc.y + (rh/2.0)));
+	}
 	
 	public static void rightEdgeTopWindow(Container referenceComponent, Container comp)
 	{
@@ -56,18 +77,6 @@ public interface GraphicsUtil
 			h = comp.getHeight();
 		
 		comp.setLocation(loc.x + rw, loc.y + (rh/2 - h/2));
-	}
-	
-	public static void centerReferenceOnlyWindow(Container referenceComponent, Container comp)
-	{
-		Point loc = referenceComponent.getLocationOnScreen();
-		
-		double 
-			rw = referenceComponent.getWidth(),
-			rh = referenceComponent.getHeight(),
-			h = comp.getHeight();
-		
-		comp.setLocation((int)(loc.x + (rw / 2.0)), (int)(loc.y + (rh/2.0 - h/2.0)));
 	}
 	
 	public static Image getImageFromXml(int width, int height, File defaultImageLocation, Color backgroundColor)

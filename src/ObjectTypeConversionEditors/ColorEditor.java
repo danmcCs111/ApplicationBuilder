@@ -76,7 +76,7 @@ public class ColorEditor extends JButton implements ParameterEditor
 				}
 				d.setVisible(true);
 				d.pack();
-				GraphicsUtil.rightEdgeTopWindow(ColorEditor.this, d);
+				GraphicsUtil.centerReferenceOnlyWindow(ColorEditor.this, d);
 			}
 		});
 	}
