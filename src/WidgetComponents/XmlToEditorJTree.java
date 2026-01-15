@@ -211,11 +211,11 @@ public class XmlToEditorJTree extends JPanel implements RedrawableFrameListener,
 		}
 		return 0;
 	}
-
+	
 	@Override
 	public String getTitleAt(int index) 
 	{
-		Component c = (Component)tree.getComponent(index);
-		return c.toString();
+		WidgetCreatorProperty wcp = WidgetBuildController.getInstance().getWidgetCreatorProperties().get(index);
+		return wcp.getRefWithID();
 	}
 }
