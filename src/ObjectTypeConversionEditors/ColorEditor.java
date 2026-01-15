@@ -40,7 +40,6 @@ public class ColorEditor extends JButton implements ParameterEditor
 				if(d == null)
 				{
 					d = new JDialog();
-					GraphicsUtil.centerWindow(ColorEditor.this.getRootPane().getParent(), d);
 					d.setTitle(titleText);
 					d.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 					d.addWindowListener(new WindowAdapter() {
@@ -77,6 +76,7 @@ public class ColorEditor extends JButton implements ParameterEditor
 				}
 				d.setVisible(true);
 				d.pack();
+				GraphicsUtil.rightEdgeTopWindow(ColorEditor.this, d);
 			}
 		});
 	}

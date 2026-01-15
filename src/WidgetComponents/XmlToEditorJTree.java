@@ -18,7 +18,6 @@ import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 import ActionListenersImpl.RemoveEditorTabActionListener;
-import Properties.LoggingMessages;
 import Properties.PathUtility;
 import WidgetComponentInterfaces.RedrawableFrame;
 import WidgetComponentInterfaces.RedrawableFrameListener;
@@ -106,7 +105,6 @@ public class XmlToEditorJTree extends JPanel implements RedrawableFrameListener,
 				@Override
 				public void valueChanged(TreeSelectionEvent e) 
 				{
-					LoggingMessages.printOut("changed.");
 					DefaultMutableTreeNode node = (DefaultMutableTreeNode)tree.getLastSelectedPathComponent();
 					viewPanel.removeAll();
 					if(node != null && node.getUserObject() instanceof Component)

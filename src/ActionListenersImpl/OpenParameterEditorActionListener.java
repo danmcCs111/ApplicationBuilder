@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import Graphics2D.GraphicsUtil;
 import Properties.LoggingMessages;
 import WidgetComponentInterfaces.RedrawableFrame;
 import WidgetComponentInterfaces.RedrawableFrameListener;
@@ -56,6 +57,7 @@ public class OpenParameterEditorActionListener implements RedrawableFrameListene
 		builderWindow.setWidgetCreatorProperty(wcp);
 		
 		builderWindow.setVisible(true);
+		GraphicsUtil.rightEdgeTopWindow(redrawableFrame, builderWindow);
 	}
 
 }

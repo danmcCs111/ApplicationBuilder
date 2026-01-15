@@ -27,7 +27,6 @@ public class BuilderWindow extends RedrawableFrame
 		TITLE = "Add Property: ",
 		ACTION_BUTTON_TEXT = "Add Property";
 	private static final Dimension 
-		WINDOW_LOCATION = new Dimension(100, 50),
 		WINDOW_SIZE = new Dimension(480, 640);
 	
 	private JScrollPane scrPane = null;
@@ -41,7 +40,6 @@ public class BuilderWindow extends RedrawableFrame
 	public BuilderWindow(RedrawableFrame rParentFrame, WidgetCreatorProperty wcp)
 	{
 		setTitle(TITLE);
-		setLocation(WINDOW_LOCATION.width, WINDOW_LOCATION.height);
 		
 		ArrayList<ClassAndSetters> classAndSetters = WidgetAttributes.getClassAndSetters();
 		
