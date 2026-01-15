@@ -43,6 +43,11 @@ public class WidgetPropertiesPanelArray extends JPanel implements RedrawableFram
 		//TODO
 	}
 	
+	public WidgetCreatorProperty getWidgetCreatorProperty()
+	{
+		return this.wcp;
+	}
+	
 	public void buildPropertiesArray(WidgetCreatorProperty wcp)
 	{
 		this.wcp = wcp;

@@ -2,6 +2,8 @@ package WidgetComponents;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -14,7 +16,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeSelectionModel;
 
 import ActionListenersImpl.RemoveEditorTabActionListener;
-import Properties.LoggingMessages;
 import Properties.PathUtility;
 import WidgetComponentInterfaces.RedrawableFrame;
 import WidgetComponentInterfaces.RedrawableFrameListener;
@@ -27,21 +28,26 @@ public class XmlToEditorJTree extends JPanel implements RedrawableFrameListener,
 	private static final long serialVersionUID = 1L;
 
 	private static final String 
-		MENU_ITEM_REMOVE_TEXT = "remove",
-		COMPONENT_SUFFIX = "@",
-		COMPONENT_REGEX = COMPONENT_SUFFIX + "[0-9]*",
-		DELETE_BUTTON_TEXT = "X";
+		MENU_ITEM_REMOVE_TEXT = "remove";
 	private static int
 		SCROLL_UNIT_INC = 15;
 	
-	private RedrawableFrame editorFrame;
-	private JTree tree;
+	private RedrawableFrame 
+		editorFrame;
+	private JTree 
+		tree;
 	private JPanel
 		treePanel,
 		viewPanel;
 	private JScrollPane
 		treeJs,
 		js;
+	private DefaultMutableTreeNode 
+		top;
+	private LinkedHashMap<String, DefaultMutableTreeNode>
+		refIdAndTreeNode = new LinkedHashMap<String, DefaultMutableTreeNode>();
+	private LinkedHashMap<DefaultMutableTreeNode, ArrayList<DefaultMutableTreeNode>> 
+		parentChildTreeNodes = new LinkedHashMap<DefaultMutableTreeNode, ArrayList<DefaultMutableTreeNode>>();
 	
 	public XmlToEditorJTree()
 	{
@@ -57,10 +63,8 @@ public class XmlToEditorJTree extends JPanel implements RedrawableFrameListener,
 	@Override
 	public void rebuildPanel()
 	{
-//		int select = getSelectedIndex();
 		destroyPanel();
 		buildEditors();
-//		setSelectedIndex(select);
 	}
 	
 	@Override
@@ -73,25 +77,21 @@ public class XmlToEditorJTree extends JPanel implements RedrawableFrameListener,
 	
 	private void buildEditors()
 	{
-		int count = 0;
-		
 		if(WidgetBuildController.getInstance().getWidgetCreatorProperties() != null)
 		{
 			String topName = PathUtility.filterPathToFilename(WidgetBuildController.getInstance().getFilename());
-			DefaultMutableTreeNode top = new DefaultMutableTreeNode(topName);
+			top = new DefaultMutableTreeNode(topName);
 			
 			for(WidgetCreatorProperty wcp : WidgetBuildController.getInstance().getWidgetCreatorProperties())
 			{
-				String compName = wcp.getRef() + COMPONENT_SUFFIX + count;
-				
 				WidgetPropertiesPanelArray pArray = new WidgetPropertiesPanelArray(); 
 				
 				pArray.buildPropertiesArray(wcp);
 				pArray.setRedrawableFrame(editorFrame);
-				
-				DefaultMutableTreeNode dmtn = new DefaultMutableTreeNode(pArray);
-				top.add(dmtn);
+				buildTreeNode(wcp, pArray);
 			}
+			connectNodes(parentChildTreeNodes);
+			
 			viewPanel = new JPanel();
 			viewPanel.setLayout(new BorderLayout());
 			
@@ -100,14 +100,12 @@ public class XmlToEditorJTree extends JPanel implements RedrawableFrameListener,
 			treeJs = new JScrollPane(treePanel);
 			treeJs.getVerticalScrollBar().setUnitIncrement(SCROLL_UNIT_INC);
 			
-			
 			tree = new JTree(top);
 			tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 			tree.addTreeSelectionListener(new TreeSelectionListener() {
 				@Override
 				public void valueChanged(TreeSelectionEvent e) 
 				{
-					int index = getSelectedIndex();
 					DefaultMutableTreeNode node = (DefaultMutableTreeNode)tree.getLastSelectedPathComponent();
 					viewPanel.removeAll();
 					if(node.getUserObject() instanceof Component)
@@ -139,6 +137,42 @@ public class XmlToEditorJTree extends JPanel implements RedrawableFrameListener,
 		editorFrame.validate();
 	}
 	
+	private DefaultMutableTreeNode buildTreeNode(WidgetCreatorProperty wcp, WidgetPropertiesPanelArray pArray)
+	{
+		DefaultMutableTreeNode dmtn = new DefaultMutableTreeNode(pArray);
+		refIdAndTreeNode.put(wcp.getRefWithID(), dmtn);
+		if(wcp.getParentRefWithID() != null && !wcp.getParentRefWithID().isBlank())
+		{
+			DefaultMutableTreeNode parentNode = refIdAndTreeNode.get(wcp.getParentRefWithID());
+			ArrayList<DefaultMutableTreeNode> nodes = parentChildTreeNodes.get(parentNode);
+			if(nodes == null)
+			{
+				nodes = new ArrayList<DefaultMutableTreeNode>();
+			}
+			nodes.add(dmtn);
+			parentChildTreeNodes.put(parentNode, nodes);
+		}
+		else
+		{
+			ArrayList<DefaultMutableTreeNode> nodes = new ArrayList<DefaultMutableTreeNode>();
+			nodes.add(dmtn);
+			parentChildTreeNodes.put(top, nodes);
+		}
+		return dmtn;
+	}
+	
+	private void connectNodes(LinkedHashMap<DefaultMutableTreeNode, ArrayList<DefaultMutableTreeNode>> parentAndChildNodes)
+	{
+		for(DefaultMutableTreeNode dmtn : parentAndChildNodes.keySet())
+		{
+			ArrayList<DefaultMutableTreeNode> nodes = parentAndChildNodes.get(dmtn);
+			for(DefaultMutableTreeNode n : nodes)
+			{
+				dmtn.add(n);
+			}
+		}
+	}
+	
 	private void setScrollableComponent(Component c)
 	{
 		JPanel outI = new JPanel();
@@ -148,19 +182,21 @@ public class XmlToEditorJTree extends JPanel implements RedrawableFrameListener,
 		js.getVerticalScrollBar().setUnitIncrement(SCROLL_UNIT_INC);
 	}
 	
-	private void setSelectedIndex(int selIndex)
-	{
-		tree.setSelectionRow(selIndex);
-	}
+//	private void setSelectedIndex(int selIndex)
+//	{
+//		tree.setSelectionRow(selIndex);
+//	}
 
 	@Override
 	public int getSelectedIndex() 
 	{
-		int[] selRow = tree.getSelectionRows();
-		if(selRow != null && selRow.length != 0)
+		DefaultMutableTreeNode node = (DefaultMutableTreeNode)tree.getLastSelectedPathComponent();
+		node.getUserObject();
+		if(node.getUserObject() instanceof WidgetPropertiesPanelArray)
 		{
-			LoggingMessages.printOut(selRow[0] + "");
-			return selRow[0]-1;
+			WidgetPropertiesPanelArray pArray = (WidgetPropertiesPanelArray) node.getUserObject();
+			WidgetCreatorProperty wcp = pArray.getWidgetCreatorProperty();
+			return WidgetBuildController.getInstance().getWidgetCreatorProperties().indexOf(wcp);
 		}
 		return 0;
 	}
