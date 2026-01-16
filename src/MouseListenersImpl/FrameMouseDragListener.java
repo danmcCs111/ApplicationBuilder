@@ -97,10 +97,6 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 										if(al instanceof LaunchUrlActionListener)
 										{
 											al.actionPerformed(new ActionEvent(jmi, 1, "Open From Image"));
-										}
-										else
-										{
-											al.actionPerformed(new ActionEvent(jbll, 1, "Open From Image"));
 											PicLabelMouseListener.highLightLabel(jbll, true);//TODO
 										}
 									}
