@@ -23,6 +23,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import Graphics2D.ColorTemplate;
+import ObjectTypeConversion.ParseAttribute;
 import Properties.LoggingMessages;
 import WidgetComponentInterfaces.EditButtonArrayUrls;
 
@@ -88,7 +89,7 @@ public class CollectionEditor extends JFrame
 	private void addToCollection(Object o)
 	{
 		int i = collectionText.size();
-		if(o instanceof AbstractButton)
+		if(o instanceof AbstractButton) //TODO
 		{
 			collectionText.add(((AbstractButton) o).getText());
 			buttonCollectionIndexAndText.put(i, collectionText.get(i));
@@ -96,6 +97,12 @@ public class CollectionEditor extends JFrame
 		else if (o instanceof String)
 		{
 			collectionText.add((String) o);
+			buttonCollectionIndexAndText.put(i, collectionText.get(i));
+		}
+		else if(o instanceof ParseAttribute)
+		{
+			ParseAttribute pa = (ParseAttribute)o;
+			collectionText.add(pa.name());
 			buttonCollectionIndexAndText.put(i, collectionText.get(i));
 		}
 		else

@@ -29,6 +29,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
 import Graphics2D.ColorTemplate;
+import Graphics2D.GraphicsUtil;
 import HttpDatabaseRequest.HttpDatabaseRequest;
 import ObjectTypeConversion.PageParser;
 import ObjectTypeConversion.ParseAttribute;
@@ -48,6 +49,7 @@ public class PageParserDialog extends JDialog implements EditButtonArrayUrls
 		JTEXT_FIELD_SIZE = 20;
 	private static final String 
 		TITLE = "Edit Page Parsing Entry",
+		BUTTON_PAGE_ATTRIBUTE_TITLE = "Add/Edit Page Attributes",
 		ADD_FILTER_LABEL_PREFIX = " + ",
 		ADD_FILTER_MATCH_LABEL_SUFFIX = " Match",
 		ADD_FILTER_REPLACE_LABEL_SUFFIX = " Replace",
@@ -69,12 +71,9 @@ public class PageParserDialog extends JDialog implements EditButtonArrayUrls
 		DIMENSION_SHOW_HTML = new Dimension(800,600);
 	
 	private JPanel 
-		editPanel = new JPanel(),
+		innerMatchReplacePanel = new JPanel(),
 		viewPanel = new JPanel(),
-		simulatePanel = new JPanel(),
-		innerPanel = new JPanel(),
-		saveCancelPanel = new JPanel(),
-		saveCancelPanelOuter = new JPanel();
+		simulatePanel = new JPanel();
 	private JTextField 
 		simulateTextField = new JTextField(JTEXT_FIELD_SIZE),
 		title = new JTextField(),
@@ -92,7 +91,9 @@ public class PageParserDialog extends JDialog implements EditButtonArrayUrls
 	private HashMap<ParseAttribute, JComponent> 
 		matchFilterPanel = new HashMap<ParseAttribute, JComponent>();
 	
-	private ParseAttributes pas; 
+	private ParseAttributes pas;
+	private PageAttributeDialog pad;
+	private ActionListener padListener;
 	private PageParserEditor pageParserEditor;
 	private PageParser pageParser = null;
 	private String htmlResponse;
@@ -120,18 +121,19 @@ public class PageParserDialog extends JDialog implements EditButtonArrayUrls
 		this.setMinimumSize(MIN_DIMENSION_DIALOG);
 		this.setLayout(new BorderLayout());
 		
-		innerPanel.setLayout(new GridLayout(0, 1));
+		innerMatchReplacePanel.setLayout(new GridLayout(0, 1));
 		for(ParseAttribute pa : pas.parseAttributes)
 		{
 			JPanel matchPanel = buildFilterPanel(pa);
-			innerPanel.add(matchPanel);
+			innerMatchReplacePanel.add(matchPanel);
 		}
 		
 		JPanel topPanel = buildTopPanel();
-		buildSaveCancel();
-		JScrollPane viewScroll = buildViewScrollPanel();
-		JScrollPane viewScroll2 = buildSimulateViewScrollPanel();
+		JPanel saveCancelPanelOuter = buildSaveCancel();
+		JScrollPane viewScroll = buildViewScrollPanel(innerMatchReplacePanel);
+		JScrollPane viewScroll2 = buildSimulateViewScrollPanel(simulatePanel, viewPanel);
 		
+		JPanel editPanel = new JPanel();
 		editPanel.setLayout(new BorderLayout());
 		editPanel.add(topPanel, BorderLayout.NORTH);
 		editPanel.add(viewScroll, BorderLayout.CENTER);
@@ -147,15 +149,31 @@ public class PageParserDialog extends JDialog implements EditButtonArrayUrls
 		constructPageParser(pp);
 	}
 	
-	private void buildPageAttributeDialog()
+	private ActionListener getPageAttributeActionListener()
 	{
-		JButton editPageAttributes = new JButton();
-		editPageAttributes.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				PageAttributeDialog pad = new PageAttributeDialog("", pas.parseAttributes, null, "Add/Edit Page Attriubtes");
-			}
-		});
+		if(padListener == null)
+		{
+			padListener = new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if(pad != null)
+					{
+						pad.dispose();
+					}
+					pad = new PageAttributeDialog(
+							"", pas.parseAttributes, PageParserDialog.this, "Add/Edit Page Attriubtes");
+					GraphicsUtil.rightEdgeTopWindow(PageParserDialog.this, pad);
+				}
+			};
+		}
+		return padListener;
+	}
+	
+	private JButton buildPageAttributeDialog()
+	{
+		JButton editPageAttributes = new JButton(BUTTON_PAGE_ATTRIBUTE_TITLE);
+		editPageAttributes.addActionListener(getPageAttributeActionListener());
+		return editPageAttributes;
 	}
 	
 	private JPanel buildFilterButton(ParseAttribute pa, MatchOrReplace mor)
@@ -225,7 +243,13 @@ public class PageParserDialog extends JDialog implements EditButtonArrayUrls
 		JPanel topPanel = new JPanel();
 		topPanel.setLayout(new GridLayout(0,1));
 		
+		JButton pageAttributeDialog = buildPageAttributeDialog();
+		JPanel attPanel = new JPanel();
+		attPanel.setLayout(new BorderLayout());
+		attPanel.add(pageAttributeDialog, BorderLayout.WEST);
+		
 		JLabel titleLabel = new JLabel(TITLE_LABEL);
+		topPanel.add(attPanel);
 		topPanel.add(titleLabel);
 		topPanel.add(title);
 		
@@ -236,7 +260,7 @@ public class PageParserDialog extends JDialog implements EditButtonArrayUrls
 		return topPanel;
 	}
 	
-	private JScrollPane buildViewScrollPanel()
+	private JScrollPane buildViewScrollPanel(JPanel innerPanel)
 	{
 		JPanel outerPanel = new JPanel();
 		outerPanel.setLayout(new BorderLayout());
@@ -247,8 +271,12 @@ public class PageParserDialog extends JDialog implements EditButtonArrayUrls
 		return viewScroll;
 	}
 	
-	private void buildSaveCancel()
+	private JPanel buildSaveCancel()
 	{
+		JPanel 
+			saveCancelPanel = new JPanel(),
+			saveCancelPanelOuter = new JPanel();
+		
 		saveCancelPanelOuter.setLayout(new BorderLayout());
 		saveCancelPanel.setLayout(new GridLayout(1,2));
 		
@@ -271,6 +299,8 @@ public class PageParserDialog extends JDialog implements EditButtonArrayUrls
 		
 		saveCancelPanelOuter.add(simulatePanel, BorderLayout.NORTH);
 		saveCancelPanelOuter.add(saveCancelPanel, BorderLayout.EAST);
+		
+		return saveCancelPanelOuter;
 	}
 	
 	public JPanel buildSimulatePanel()
@@ -332,7 +362,7 @@ public class PageParserDialog extends JDialog implements EditButtonArrayUrls
 		return simulatePanel;
 	}
 	
-	public JScrollPane buildSimulateViewScrollPanel()
+	public JScrollPane buildSimulateViewScrollPanel(JPanel simulatePanel, JPanel viewPanel)
 	{
 		
 		simulatePanel.setLayout(new GridLayout(0,1));
@@ -697,15 +727,30 @@ public class PageParserDialog extends JDialog implements EditButtonArrayUrls
 	@Override
 	public void updateButtonArrayCollection(String path, ArrayList<String> addUrls, ArrayList<?> remove) //TODO
 	{
-		for(String att : addUrls)
+		if(addUrls != null)
 		{
-			ParseAttribute pa = new ParseAttribute(att);
-			pas.addAttribute(pa);
-			JPanel matchPanel = buildFilterPanel(pa);
+			for(String att : addUrls)
+			{
+				ParseAttribute pa = new ParseAttribute(att);
+				pas.addAttribute(pa);
+				JPanel matchPanel = buildFilterPanel(pa);
+				innerMatchReplacePanel.add(matchPanel);
+				this.revalidate();
+				getPageAttributeActionListener().actionPerformed(new ActionEvent(this, 1, "reopen"));
+			}	
 		}
-		for(Object rem : remove)
+		if(remove != null)
 		{
-//			pas.get
+			for(Object rem : remove)
+			{
+				for(ParseAttribute pa : pas.parseAttributes)
+				{
+					if(pa.name().equals(rem.toString()))
+					{
+//						pas.removeAttribute(pa);
+					}
+				}
+			}
 		}
 	}
 	
