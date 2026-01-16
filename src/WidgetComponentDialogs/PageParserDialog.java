@@ -37,8 +37,9 @@ import ObjectTypeConversionEditors.PageParserEditor;
 import Properties.LoggingMessages;
 import Properties.OpenDialog;
 import Properties.PathUtility;
+import WidgetComponentInterfaces.EditButtonArrayUrls;
 
-public class PageParserDialog extends JDialog
+public class PageParserDialog extends JDialog implements EditButtonArrayUrls
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -114,8 +115,6 @@ public class PageParserDialog extends JDialog
 		}
 		parentLocation = ppe.getRootPane().getParent().getLocation();
 		this.setLocation(parentLocation);
-		
-		this.pageParserEditor = ppe;
 		this.setTitle(TITLE);
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setMinimumSize(MIN_DIMENSION_DIALOG);
@@ -124,54 +123,21 @@ public class PageParserDialog extends JDialog
 		innerPanel.setLayout(new GridLayout(0, 1));
 		for(ParseAttribute pa : pas.parseAttributes)
 		{
-			JPanel matchPanel = new JPanel();
-			JPanel addMatchReplace = new JPanel();
-			addMatchReplace.setLayout(new FlowLayout());
-			
-			matchPanel.setLayout(new GridLayout(0,1));
-			matchFilterPanel.put(pa, matchPanel);
-			
-			JPanel inner = buildFilterButton(pa, MatchOrReplace.match);
-			JPanel inner2 = buildFilterButton(pa, MatchOrReplace.replace);
-			JPanel inner3 = buildDeleteButton(pa);
-			
-			addMatchReplace.add(inner);
-			addMatchReplace.add(inner2);
-			addMatchReplace.add(inner3);
-			matchPanel.add(addMatchReplace);
-			
+			JPanel matchPanel = buildFilterPanel(pa);
 			innerPanel.add(matchPanel);
 		}
 		
+		JPanel topPanel = buildTopPanel();
 		buildSaveCancel();
-		
-		JPanel topPanel = new JPanel();
-		topPanel.setLayout(new GridLayout(0,1));
-		
-		JLabel titleLabel = new JLabel(TITLE_LABEL);
-		topPanel.add(titleLabel);
-		topPanel.add(title);
-		
-		JLabel domainLabel = new JLabel(DOMAIN_LABEL);
-		topPanel.add(domainLabel);
-		topPanel.add(domain);
-		
-		JPanel outerPanel = new JPanel();
-		outerPanel.setLayout(new BorderLayout());
-		outerPanel.add(innerPanel, BorderLayout.NORTH);
-		JScrollPane viewScroll = new JScrollPane(outerPanel);
-		viewScroll.getVerticalScrollBar().setUnitIncrement(SCROLL_INCREMENT);
+		JScrollPane viewScroll = buildViewScrollPanel();
+		JScrollPane viewScroll2 = buildSimulateViewScrollPanel();
 		
 		editPanel.setLayout(new BorderLayout());
-		
 		editPanel.add(topPanel, BorderLayout.NORTH);
 		editPanel.add(viewScroll, BorderLayout.CENTER);
 		editPanel.add(saveCancelPanelOuter, BorderLayout.SOUTH);
 		
 		this.add(editPanel, BorderLayout.CENTER);
-		JScrollPane viewScroll2 = new JScrollPane(viewPanel);
-		viewScroll2.getVerticalScrollBar().setUnitIncrement(SCROLL_INCREMENT);
-		buildSimulateViewPanel();
 		this.add(viewScroll2, BorderLayout.EAST);
 		
 		ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
@@ -179,6 +145,17 @@ public class PageParserDialog extends JDialog
 		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
 		
 		constructPageParser(pp);
+	}
+	
+	private void buildPageAttributeDialog()
+	{
+		JButton editPageAttributes = new JButton();
+		editPageAttributes.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				PageAttributeDialog pad = new PageAttributeDialog("", pas.parseAttributes, null, "Add/Edit Page Attriubtes");
+			}
+		});
 	}
 	
 	private JPanel buildFilterButton(ParseAttribute pa, MatchOrReplace mor)
@@ -206,7 +183,26 @@ public class PageParserDialog extends JDialog
 		
 		return inner2;
 	}
-	
+	private JPanel buildFilterPanel(ParseAttribute pa)
+	{
+		JPanel matchPanel = new JPanel();
+		JPanel addMatchReplace = new JPanel();
+		addMatchReplace.setLayout(new FlowLayout());
+		
+		matchPanel.setLayout(new GridLayout(0,1));
+		matchFilterPanel.put(pa, matchPanel);
+		
+		JPanel inner = buildFilterButton(pa, MatchOrReplace.match);
+		JPanel inner2 = buildFilterButton(pa, MatchOrReplace.replace);
+		JPanel inner3 = buildDeleteButton(pa);
+		
+		addMatchReplace.add(inner);
+		addMatchReplace.add(inner2);
+		addMatchReplace.add(inner3);
+		matchPanel.add(addMatchReplace);
+		
+		return matchPanel;
+	}
 	private JPanel buildDeleteButton(ParseAttribute pa)
 	{
 		JButton remButton = new JButton(PARAM_DELETE_TEXT);
@@ -222,6 +218,33 @@ public class PageParserDialog extends JDialog
 		inner2.add(remButton, BorderLayout.NORTH);
 		
 		return inner2;
+	}
+	
+	private JPanel buildTopPanel()
+	{
+		JPanel topPanel = new JPanel();
+		topPanel.setLayout(new GridLayout(0,1));
+		
+		JLabel titleLabel = new JLabel(TITLE_LABEL);
+		topPanel.add(titleLabel);
+		topPanel.add(title);
+		
+		JLabel domainLabel = new JLabel(DOMAIN_LABEL);
+		topPanel.add(domainLabel);
+		topPanel.add(domain);
+		
+		return topPanel;
+	}
+	
+	private JScrollPane buildViewScrollPanel()
+	{
+		JPanel outerPanel = new JPanel();
+		outerPanel.setLayout(new BorderLayout());
+		outerPanel.add(innerPanel, BorderLayout.NORTH);
+		JScrollPane viewScroll = new JScrollPane(outerPanel);
+		viewScroll.getVerticalScrollBar().setUnitIncrement(SCROLL_INCREMENT);
+		
+		return viewScroll;
 	}
 	
 	private void buildSaveCancel()
@@ -309,8 +332,9 @@ public class PageParserDialog extends JDialog
 		return simulatePanel;
 	}
 	
-	public JPanel buildSimulateViewPanel()
+	public JScrollPane buildSimulateViewScrollPanel()
 	{
+		
 		simulatePanel.setLayout(new GridLayout(0,1));
 		Border b = BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.gray, Color.gray);
 		simulatePanel.setBorder(b);
@@ -332,8 +356,10 @@ public class PageParserDialog extends JDialog
 		}
 		
 		viewPanel.add(simulatePanel);
+		JScrollPane viewScroll2 = new JScrollPane(viewPanel);
+		viewScroll2.getVerticalScrollBar().setUnitIncrement(SCROLL_INCREMENT);
 		
-		return simulatePanel;
+		return viewScroll2;
 	}
 	
 	public JPanel addToSimulateViewPanel(LinkedHashMap<ParseAttribute, JTextField> mats)
@@ -666,6 +692,21 @@ public class PageParserDialog extends JDialog
 	{
 		match,
 		replace
+	}
+
+	@Override
+	public void updateButtonArrayCollection(String path, ArrayList<String> addUrls, ArrayList<?> remove) //TODO
+	{
+		for(String att : addUrls)
+		{
+			ParseAttribute pa = new ParseAttribute(att);
+			pas.addAttribute(pa);
+			JPanel matchPanel = buildFilterPanel(pa);
+		}
+		for(Object rem : remove)
+		{
+//			pas.get
+		}
 	}
 	
 }
