@@ -82,7 +82,8 @@ PostWidgetBuildProcessing, ButtonArray
 		PROPERTIES_FILE_EXTENSION = "\\.txt",
 		PROPERTIES_FILE_ARG_DELIMITER = "@",
 		PROPERTIES_FILE_DELIMITER = "=",
-		EDIT_COLLECTION_DIALOG_TITLE = "Edit Collection | <arg0> |";
+		EDIT_COLLECTION_DIALOG_TITLE = "Edit Collection | <arg0> |",
+		EDIT_COLLECTION_ADD_TEXT = "Enter New Url: ";
 	
 	public static String
 		DEFAULT_IMG = "./Properties/shapes/Default-Play-Image.xml";
@@ -866,7 +867,7 @@ PostWidgetBuildProcessing, ButtonArray
 		}
 		String titlePath = PathUtility.filterPathToFilename(path);
 		abce = new CollectionEditor(path,
-				currentCollection, this, EDIT_COLLECTION_DIALOG_TITLE.replace("<arg0>", titlePath));
+				currentCollection, this, EDIT_COLLECTION_DIALOG_TITLE.replace("<arg0>", titlePath), EDIT_COLLECTION_ADD_TEXT);
 		
 		GraphicsUtil.rightEdgeTopWindow(this, abce);
 	}

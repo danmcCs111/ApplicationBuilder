@@ -42,7 +42,6 @@ public class CollectionEditor extends JFrame
 		APPLY_AND_CLOSE_BUTTON_TEXT = "Apply And Close",
 		APPLY_AND_CLOSE_BUTTON_TOOLTIP_TEXT = "Delete Selected And Close",
 		CANCEL_BUTTON_TEXT = "Close",
-		URL_LABEL_TEXT = "Enter New Url: ",
 		ADD_BUTTON_TEXT = "restore",
 		REMOVE_BUTTON_TEXT = "delete";
 	
@@ -69,15 +68,20 @@ public class CollectionEditor extends JFrame
 	private ArrayList<String>
 		collectionText = new ArrayList<String>();
 	
-	private EditButtonArrayUrls ebau;
-	private String path;
-	private ArrayList<String> addUrls = new ArrayList<String>();
+	private EditButtonArrayUrls 
+		ebau;
+	private String
+		addText,
+		path;
+	private ArrayList<String> 
+		addUrls = new ArrayList<String>();
 	
-	public CollectionEditor(String path, ArrayList<?> collection, EditButtonArrayUrls ebau, String title)
+	public CollectionEditor(String path, ArrayList<?> collection, EditButtonArrayUrls ebau, String title, String addText)
 	{
 		this.path = path;
 		this.collection = collection;
 		this.ebau = ebau;
+		this.addText = addText;
 		this.setTitle(title);
 		buildWidgets();
 		
@@ -257,7 +261,7 @@ public class CollectionEditor extends JFrame
 		
 		JPanel southPanel = new JPanel();
 		southPanel.setLayout(new GridLayout(0,1));
-		new CollectionEditorAddPanel(southPanel, ebau, path, URL_LABEL_TEXT);
+		new CollectionEditorAddPanel(southPanel, ebau, path, this.addText);
 		southPanel.add(applyCancelPanel);
 		
 		return southPanel;

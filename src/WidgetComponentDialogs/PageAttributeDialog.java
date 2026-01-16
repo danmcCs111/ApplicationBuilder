@@ -12,6 +12,7 @@ public class PageAttributeDialog extends CollectionEditor
 	
 	private static String
 		TITLE_TEXT = "Edit Page Attribute",
+		ADD_ATTRIBUTE_TEXT = "Enter New Attribute: ",
 		ADD_PARSER_BUTTON_TEXT = "+ Add Page Parser",
 		DELETE_PARSER_BUTTON_TEXT = "X",
 		SAVE_BUTTON_LABEL = "Save",
@@ -24,7 +25,7 @@ public class PageAttributeDialog extends CollectionEditor
 	
 	public PageAttributeDialog(String path, ArrayList<?> collection, EditButtonArrayUrls ebau, String title) 
 	{
-		super(path, collection, ebau, title);
+		super(path, collection, ebau, title, ADD_ATTRIBUTE_TEXT);
 	}
 	
 	public static void main(String [] args)
