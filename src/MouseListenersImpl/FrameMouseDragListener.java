@@ -26,18 +26,17 @@ import WidgetComponentsTips4Java.MenuScroller;
 
 public class FrameMouseDragListener extends MouseAdapter implements MouseListener, MouseMotionListener
 {
-	private static final int FRAME_AND_TITLE_HEIGHT = 45; 
+	private static final int 
+		FRAME_AND_TITLE_HEIGHT = 45; 
 	private static final String 
 		OPEN_MENU_TEXT = "OPEN",
 		VIEW_LATEST_VIDEOS = "VIEW";
-	
 	
 	private Point mouseDownCompCoords = null;
 	private JFrame f;
 	private AbstractButton component;
 	private JLabel picLabel;
 	private LookupOrCreateYoutube lcv = new LookupOrCreateYoutube();
-	
 	private boolean mouse1Pressed = false;
 	
 	public FrameMouseDragListener()

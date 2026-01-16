@@ -135,6 +135,14 @@ public class LaunchUrlActionListener implements ActionListener
 		{
 			runningProcess.destroy();
 			runningProcess.descendants().forEach(ProcessHandle::destroy);
+			while(runningProcess.isAlive())
+			{
+				try {
+					Thread.sleep(100);//millis
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
 			return true;
 		}
 		return false;
