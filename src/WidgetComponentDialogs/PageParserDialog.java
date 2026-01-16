@@ -727,7 +727,7 @@ public class PageParserDialog extends JDialog implements EditButtonArrayUrls
 	@Override
 	public void updateButtonArrayCollection(String path, ArrayList<String> addUrls, ArrayList<?> remove) //TODO
 	{
-		if(addUrls != null)
+		if(addUrls != null && !addUrls.isEmpty())
 		{
 			for(String att : addUrls)
 			{
@@ -736,20 +736,25 @@ public class PageParserDialog extends JDialog implements EditButtonArrayUrls
 				JPanel matchPanel = buildFilterPanel(pa);
 				innerMatchReplacePanel.add(matchPanel);
 				this.revalidate();
-				getPageAttributeActionListener().actionPerformed(new ActionEvent(this, 1, "reopen"));
 			}	
+			getPageAttributeActionListener().actionPerformed(new ActionEvent(this, 1, "reopen"));
 		}
 		if(remove != null)
 		{
 			for(Object rem : remove)
 			{
-				for(ParseAttribute pa : pas.parseAttributes)
+				String remStr = "";
+				if(rem instanceof ParseAttribute)
 				{
-					if(pa.name().equals(rem.toString()))
-					{
-//						pas.removeAttribute(pa);
-					}
+					remStr = ((ParseAttribute) rem).name();
 				}
+				ParseAttribute pa = pas.valueOf(remStr);
+				
+				pas.removeAttribute(pa);
+				JComponent remPanel = matchFilterPanel.get(pa);
+				innerMatchReplacePanel.remove(remPanel);
+				matchFilterPanel.remove(pa);
+				this.revalidate();
 			}
 		}
 	}
