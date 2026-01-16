@@ -126,7 +126,7 @@ PostWidgetBuildProcessing, ButtonArray
 		linkDropListener;
 	private PageParserCollection 
 		pageParserCollection;
-	private AbstractButtonCollectionEditor 
+	private CollectionEditor 
 		abce;
 	
 	private int characterLimit=0;
@@ -814,6 +814,10 @@ PostWidgetBuildProcessing, ButtonArray
 		PathUtility.imageDownloadAndSave(imgUrl, savePathImg + "/" + pngFilename, "png");
 		PathUtility.writeStringToFile(new File(savePathUrl + "/" + urlFilename), contents);
 		refreshAllMouseListeners();
+		if(abce != null && abce.isVisible())
+		{
+			performEditCollection();//TODO?
+		}
 	}
 
 	@Override
@@ -861,7 +865,7 @@ PostWidgetBuildProcessing, ButtonArray
 			abce.dispose();
 		}
 		String titlePath = PathUtility.filterPathToFilename(path);
-		abce = new AbstractButtonCollectionEditor(path,
+		abce = new CollectionEditor(path,
 				currentCollection, this, EDIT_COLLECTION_DIALOG_TITLE.replace("<arg0>", titlePath));
 		
 		GraphicsUtil.rightEdgeTopWindow(this, abce);

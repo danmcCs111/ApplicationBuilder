@@ -15,11 +15,9 @@ import java.util.List;
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -28,7 +26,7 @@ import Graphics2D.ColorTemplate;
 import Properties.LoggingMessages;
 import WidgetComponentInterfaces.EditButtonArrayUrls;
 
-public class AbstractButtonCollectionEditor extends JFrame 
+public class CollectionEditor extends JFrame 
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -36,7 +34,6 @@ public class AbstractButtonCollectionEditor extends JFrame
 		COLLECTION_SIZE = new Dimension(250,0),
 		MIN_DIMENSION_DIALOG = new Dimension(600,500);
 	private static int 
-		URL_COLUMNSIZE = 35,
 		SCROLL_INCREMENT = 15;
 	private static String
 		APPLY_BUTTON_TEXT = "Apply",
@@ -45,13 +42,9 @@ public class AbstractButtonCollectionEditor extends JFrame
 		APPLY_AND_CLOSE_BUTTON_TOOLTIP_TEXT = "Delete Selected And Close",
 		CANCEL_BUTTON_TEXT = "Close",
 		URL_LABEL_TEXT = "Enter New Url: ",
-		URL_ADD_BUTTON_TEXT = "Add",
-		URL_ADD_BUTTON_TOOLTIP_TEXT = "Add new to collection",
 		ADD_BUTTON_TEXT = "restore",
 		REMOVE_BUTTON_TEXT = "delete";
 	
-	private JTextField 
-		urlField;
 	private JScrollPane 
 		collectionScrollPane,
 		removeScrollPane; 
@@ -72,14 +65,14 @@ public class AbstractButtonCollectionEditor extends JFrame
 		addButton;
 	private ArrayList<?> 
 		collection;
-	private String [] 
-		collectionText;
+	private ArrayList<String>
+		collectionText = new ArrayList<String>();
 	
 	private EditButtonArrayUrls ebau;
 	private String path;
 	private ArrayList<String> addUrls = new ArrayList<String>();
 	
-	public AbstractButtonCollectionEditor(String path, ArrayList<?> collection, EditButtonArrayUrls ebau, String title)
+	public CollectionEditor(String path, ArrayList<?> collection, EditButtonArrayUrls ebau, String title)
 	{
 		this.path = path;
 		this.collection = collection;
@@ -91,6 +84,36 @@ public class AbstractButtonCollectionEditor extends JFrame
 		this.setResizable(false);
 		this.setVisible(true);
 	}
+	
+	private void addToCollection(Object o)
+	{
+		int i = collectionText.size();
+		if(o instanceof AbstractButton)
+		{
+			collectionText.add(((AbstractButton) o).getText());
+			buttonCollectionIndexAndText.put(i, collectionText.get(i));
+		}
+		else if (o instanceof String)
+		{
+			collectionText.add((String) o);
+			buttonCollectionIndexAndText.put(i, collectionText.get(i));
+		}
+		else
+		{
+			LoggingMessages.printOut("collection type not recognized.");
+		}
+	}
+	
+//	public void updateAddToCollection(Object o)
+//	{
+//		addToCollection(o);
+//		buttonCollection.setListData(collectionText.toArray(new String [] {}));
+//		for(ListSelectionListener lsl : buttonCollection.getListSelectionListeners())
+//		{
+//			buttonCollection.removeListSelectionListener(lsl);
+//		}
+//		addListSelectionListener(buttonCollection, removeButton);
+//	}
 	
 	private void buildWidgets()
 	{
@@ -113,21 +136,12 @@ public class AbstractButtonCollectionEditor extends JFrame
 	
 	private void buildWestPanel()
 	{
-		collectionText = new String[this.collection.size()];
 		for(int i = 0; i < this.collection.size(); i++)
 		{
 			Object o = this.collection.get(i);
-			if(o instanceof AbstractButton)
-			{
-				collectionText[i] = ((AbstractButton) o).getText();
-				buttonCollectionIndexAndText.put(i, collectionText[i]);
-			}
-			else
-			{
-				LoggingMessages.printOut("collection type not abstract button.");
-			}
+			addToCollection(o);
 		}
-		buttonCollection.setListData(collectionText);
+		buttonCollection.setListData(collectionText.toArray(new String [] {}));
 		addListSelectionListener(buttonCollection, removeButton);
 		
 		collectionPanel = new JPanel();
@@ -203,24 +217,6 @@ public class AbstractButtonCollectionEditor extends JFrame
 	
 	private JPanel buildSouthPanel()
 	{
-		JPanel urlPanel = new JPanel();
-		JLabel urlLabel = new JLabel(URL_LABEL_TEXT);
-		urlField = new JTextField();
-		urlField.setColumns(URL_COLUMNSIZE);
-		JButton addUrlButton = new JButton(URL_ADD_BUTTON_TEXT);
-		addUrlButton.setToolTipText(URL_ADD_BUTTON_TOOLTIP_TEXT);
-		addUrlButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String url = urlField.getText();
-				addUrl(url);
-				urlField.setText("");
-			}
-		});
-		urlPanel.add(urlLabel);
-		urlPanel.add(urlField);
-		urlPanel.add(addUrlButton);
-
 		JPanel applyCancelPanel = new JPanel();
 		apply = new JButton(APPLY_BUTTON_TEXT);
 		apply.setToolTipText(APPLY_BUTTON_TOOLTIP_TEXT);
@@ -254,7 +250,7 @@ public class AbstractButtonCollectionEditor extends JFrame
 		
 		JPanel southPanel = new JPanel();
 		southPanel.setLayout(new GridLayout(0,1));
-		southPanel.add(urlPanel);
+		new CollectionEditorAddPanel(southPanel, ebau, path, URL_LABEL_TEXT);
 		southPanel.add(applyCancelPanel);
 		
 		return southPanel;
@@ -347,13 +343,6 @@ public class AbstractButtonCollectionEditor extends JFrame
 		ColorTemplate.setBackgroundColorPanel(removePanel, ColorTemplate.getPanelBackgroundColor());
 		
 		removePanel.repaint();
-	}
-	
-	private void addUrl(String url)
-	{
-		addUrls.add(url);
-		ebau.updateButtonArrayCollection(this.path, addUrls, null);
-		addUrls.clear();
 	}
 	
 	private void applyAction()
