@@ -479,26 +479,30 @@ public class PageParserDialog extends JDialog implements EditButtonArrayUrls
 	
 	private PageParser buildPageParser()
 	{
-		PageParser pp = new PageParser("");
+		PageParser pp = new PageParser();
 		pp.setTitleLabel(title.getText());
 		pp.setDomainMatch(domain.getText());
-		for(ParseAttribute pa : parserFilter.keySet())
+		for(ParseAttribute pa : pas.parseAttributes)
 		{
-			if(parserFilter.get(pa) == null)
+			if(parserFilter.get(pa) == null || parserFilter.get(pa).isEmpty())
 			{
 				parserFilter.put(pa, new LinkedHashMap<JTextField, ArrayList<JTextField[]>>());
+				pp.addBlankMatchAndReplace(pa);
 			}
-			for(JTextField key : parserFilter.get(pa).keySet())
+			else
 			{
-				if(key == null)
-					break;
-				ArrayList<String[]> repls = new ArrayList<String[]>();
-				LoggingMessages.printOut(key + " is key");
-				for(JTextField [] jt : parserFilter.get(pa).get(key))
+				for(JTextField key : parserFilter.get(pa).keySet())
 				{
-					repls.add(new String[] {jt[0].getText(), jt[1].getText()});
+					if(key == null)
+						break;
+					ArrayList<String[]> repls = new ArrayList<String[]>();
+					LoggingMessages.printOut(key + " is key");
+					for(JTextField [] jt : parserFilter.get(pa).get(key))
+					{
+						repls.add(new String[] {jt[0].getText(), jt[1].getText()});
+					}
+					pp.addMatchAndReplace(pa, key.getText(), repls);
 				}
-				pp.addMatchAndReplace(pa, key.getText(), repls);
 			}
 		}
 		return pp;
@@ -709,7 +713,8 @@ public class PageParserDialog extends JDialog implements EditButtonArrayUrls
 	
 	private void saveAction()
 	{
-		pageParserEditor.setComponentValue(getPageParser());
+		PageParser pp = getPageParser();
+		pageParserEditor.setComponentValue(pp);
 		this.dispose();
 	}
 	
@@ -733,6 +738,7 @@ public class PageParserDialog extends JDialog implements EditButtonArrayUrls
 			{
 				ParseAttribute pa = new ParseAttribute(att);
 				pas.addAttribute(pa);
+				LoggingMessages.printOut(LoggingMessages.combine(pas.parseAttributes));
 				JPanel matchPanel = buildFilterPanel(pa);
 				innerMatchReplacePanel.add(matchPanel);
 				this.revalidate();

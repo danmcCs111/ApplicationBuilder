@@ -70,16 +70,11 @@ public class PageParserEditor extends JButton implements ParameterEditor
 		String title = pageParser.getTitleLabel().isBlank()
 				? DEFAULT_EDITOR_TEXT
 				: pageParser.getTitleLabel();
-		if(parserDialog == null)
+		if(parserDialog != null)
 		{
-			parserDialog = new PageParserDialog(PageParserEditor.this, pageParser);
-			this.setText(title);
+			parserDialog.dispose();
 		}
-		else
-		{
-			parserDialog.setPageParser(pageParser);
-			this.setText(title);
-		}
+		this.setText(title);
 	}
 
 	@Override

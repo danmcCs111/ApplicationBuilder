@@ -15,11 +15,21 @@ public class ParseAttribute
 	}
 	
 	@Override
+	public String toString()
+	{
+		return name();
+	}
+	
+	@Override
 	public boolean equals(Object o)
 	{
 		if(o instanceof ParseAttribute)
+		{
 			return name().equals(((ParseAttribute) o).name());
+		}
 		else
+		{
 			return false;
+		}
 	}
 }

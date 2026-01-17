@@ -1,7 +1,6 @@
 package ObjectTypeConversion;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ParseAttributes 
 {
@@ -9,7 +8,10 @@ public class ParseAttributes
 	
 	public ParseAttributes(ParseAttribute ... parseAttributes)
 	{
-		this.parseAttributes.addAll(Arrays.asList(parseAttributes));
+		for(ParseAttribute pa : parseAttributes)
+		{
+			addAttribute(pa);
+		}
 	}
 	
 	public ParseAttribute valueOf(String val)

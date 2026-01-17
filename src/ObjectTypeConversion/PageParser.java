@@ -31,6 +31,11 @@ public class PageParser
 	private HashMap<ParseAttribute, LinkedHashMap<String, ArrayList<String[]>>>
 		pageMatchAndReplace = new HashMap<ParseAttribute, LinkedHashMap<String, ArrayList<String[]>>>();
 	
+	public PageParser()
+	{
+		
+	}
+	
 	public PageParser(String xmlString)
 	{
 		readXmlString(xmlString);
@@ -39,6 +44,12 @@ public class PageParser
 	public void setDomainMatch(String domain)
 	{
 		this.domain = domain;
+	}
+	
+	public void addBlankMatchAndReplace(ParseAttribute pa)
+	{
+		LinkedHashMap<String, ArrayList<String[]>> matchRepl = new LinkedHashMap<String, ArrayList<String[]>>();
+		pageMatchAndReplace.put(pa, matchRepl);
 	}
 	
 	public void addMatchAndReplace(ParseAttribute pa, String match, ArrayList<String[]> replacementStrips)
