@@ -869,7 +869,7 @@ PostWidgetBuildProcessing, ButtonArray
 		abce = new CollectionEditor(path,
 				currentCollection, this, EDIT_COLLECTION_DIALOG_TITLE.replace("<arg0>", titlePath), EDIT_COLLECTION_ADD_TEXT);
 		
-		GraphicsUtil.rightEdgeTopWindow(this, abce);
+		GraphicsUtil.rightEdgeTopWindow(WidgetBuildController.getInstance().getFrame(), abce);
 	}
 
 }
