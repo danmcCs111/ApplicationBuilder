@@ -191,7 +191,7 @@ public class PageParserCollectionDialog extends JDialog
 				"Youtube@F@youtube.com@F@Title@F@@M@<title>([^<])*</title>@R@<title>@RV@@R@</title>@RV@@R@[^a-zA-Z0-9\\\\-\\\\s]@RV@@F@Image@F@@M@https://yt3.googleusercontent.com([^@Q@])*(@Q@)@R@@Q@@RV@" + PageParser.PARSER_DELIMIT_COLLECTION + 
 				"GitHub@F@github.com@F@Title@F@@M@<title>([^<])*</title>@R@<title>@RV@@R@</title>@RV@@R@[^a-zA-Z0-9\\\\-\\\\s]@RV@@F@Image@F@@M@meta property=@Q@og:image@Q@ content=@Q@([^@Q@])*(@Q@)@R@meta property=@Q@og:image@Q@ content=@RV@@R@@Q@@RV@@M@Gary@R@" + PageParser.PARSER_DELIMIT_COLLECTION + 
 				"GOG@F@gog.com@F@Title@F@@M@product-tile[^@Q@]*@Q@ href=@Q@[^@Q@]*@Q@@R@product-tile[^@Q@]*@Q@ href=@Q@@RV@@R@@Q@@RV@@R@https://www.gog.com/en/game/@RV@@F@Url@F@@M@product-tile[^@Q@]*@Q@ href=@Q@[^@Q@]*@Q@@R@product-tile[^@Q@]*@Q@ href=@Q@@RV@@R@@Q@@RV@" + PageParser.PARSER_DELIMIT_COLLECTION +
-				"YoutubeFreeMovies@F@youtube.com@F@Url@F@@M@watch\\?[^@Q@]*@Q@@R@@Q@@RV@@R@^@RV@www.youtube.com/@F@Image@F@@M@https://i.ytimg.com/vi_webp[^@Q@]*@Q@@R@@Q@@RV@@F@Title@F@@M@@Q@title@Q@:\\{@Q@runs@Q@:\\[\\{@Q@text@Q@:@Q@((?!Primetime)[^@Q@])*@Q@\\}\\]@R@@Q@title@Q@:\\{@Q@runs@Q@:\\[\\{@Q@text@Q@:@Q@@RV@@R@\\}\\]@RV@@R@@Q@@RV@" + PageParser.PARSER_DELIMIT_COLLECTION +
+				"YoutubeFreeMovies@F@youtube.com@F@Image@F@@M@https://i.ytimg.com/vi_webp[^@Q@]*@Q@@R@@Q@@RV@@F@Url@F@@M@watch\\?[^@Q@]*@Q@@R@@Q@@RV@@R@^@RV@www.youtube.com/@F@Title@F@@M@@Q@title@Q@:\\{@Q@runs@Q@:\\[\\{@Q@text@Q@:@Q@((?!Primetime movies for you)[^@Q@])*@Q@\\}\\]@R@@Q@title@Q@:\\{@Q@runs@Q@:\\[\\{@Q@text@Q@:@Q@@RV@@R@\\}\\]@RV@@R@@Q@@RV@" + PageParser.PARSER_DELIMIT_COLLECTION +
 				""
 				);
 		
