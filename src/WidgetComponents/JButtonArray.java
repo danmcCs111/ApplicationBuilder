@@ -137,6 +137,11 @@ PostWidgetBuildProcessing, ButtonArray
 		
 	}
 	
+	public static void setFrameHightlightColor(Color c)
+	{
+		PicLabelMouseListener.setFrameHighlightColor(c);
+	}
+	
 	public static void setSqlType(String sqlType)
 	{
 		LookupOrCreateYoutube.setSqlType(sqlType);

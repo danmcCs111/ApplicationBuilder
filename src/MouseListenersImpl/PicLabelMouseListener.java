@@ -21,17 +21,28 @@ public class PicLabelMouseListener extends MouseAdapter
 {
 	private static ArrayList<JLabel> connectedLabels = new ArrayList<JLabel>();
 	
-	private static final Border 
+	private static Color
+		HIGHLIGHT_COLOR = Color.blue;
+	
+	private static Border 
 		EMPTY_BORDER = BorderFactory.createEmptyBorder(),
-		HIGHLIGHT_BORDER = new BevelBorder(BevelBorder.RAISED, Color.blue, Color.blue);
-	private AbstractButton connectedButton;
-	public boolean singleClick = false;
+		HIGHLIGHT_BORDER = new BevelBorder(BevelBorder.RAISED, HIGHLIGHT_COLOR, HIGHLIGHT_COLOR);
+	private AbstractButton 
+		connectedButton;
+	public boolean 
+		singleClick = false;
 	
 	public PicLabelMouseListener(AbstractButton connectedButton, JLabel label, boolean singleClick)
 	{
 		this.connectedButton = connectedButton;
 		PicLabelMouseListener.connectedLabels.add(label);
 		setSingleClick(singleClick);
+	}
+	
+	public static void setFrameHighlightColor(Color c)
+	{
+		HIGHLIGHT_COLOR = c;
+		HIGHLIGHT_BORDER = new BevelBorder(BevelBorder.RAISED, HIGHLIGHT_COLOR, HIGHLIGHT_COLOR);
 	}
 	
 	public static void highLightLabel(JButtonLengthLimited ab, boolean on)
