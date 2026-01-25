@@ -1,5 +1,7 @@
 (Recommend saving on a seperate external SSD for portability of the app as well as files accumulated and database entries)
 
+*seperated view and update
+
 *switched to a tree structure in layout editor
 
 *switched to a local sqlite install keeping database contents within project directory
