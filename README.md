@@ -1,3 +1,4 @@
+(Recommend saving on a seperate external SSD for portability of the app as well as files accumulated and database entries)
 
 *switched to a tree structure in layout editor
 
