@@ -202,22 +202,8 @@ public class LookupOrCreateYoutube
 		HashMap<Integer, ArrayList<YoutubeChannelVideo>> parentIdAndYoutubeChannelVideos = 
 				new HashMap<Integer, ArrayList<YoutubeChannelVideo>>();
 		
-		for(String strip : YOUTUBE_CHANNEL_HANDLE_STRIP)
-		{
-			videoChannelLink = videoChannelLink.replace(strip, "");
-		}
-		String youtubeHandle = videoChannelLink;
-		Pattern pattern = Pattern.compile(YOUTUBE_CHANNEL_HANDLE_MATCH);
-		Matcher m = pattern.matcher(youtubeHandle);
-		if(m.find())
-		{
-			youtubeHandle = m.group();
-		}
-		youtubeHandle = youtubeHandle.replace("/", "");
-		
 		LoggingMessages.printOut("Parent ID: " + parentId);
 		LoggingMessages.printOut("Channel Link: " + videoChannelLink);
-		LoggingMessages.printOut("Handle: " + youtubeHandle);
 		LoggingMessages.printOut("Epoch Time: " + lastDate);
 		
 		String query = youtubeSql.getYoutubeVideoQuery(parentId);
@@ -247,9 +233,27 @@ public class LookupOrCreateYoutube
 		return parentIdAndYoutubeChannelVideos;
 	}
 	
-	private void updateYoutubeChannel(int parentId, String youtubeHandle, long lastDate)
+	private String getYoutubeHandle(String videoChannelLink)
 	{
-		String 
+		String youtubeHandle = videoChannelLink;
+		for(String strip : YOUTUBE_CHANNEL_HANDLE_STRIP)
+		{
+			youtubeHandle = youtubeHandle.replace(strip, "");
+		}
+		Pattern pattern = Pattern.compile(YOUTUBE_CHANNEL_HANDLE_MATCH);
+		Matcher m = pattern.matcher(youtubeHandle);
+		if(m.find())
+		{
+			youtubeHandle = m.group();
+		}
+		youtubeHandle = youtubeHandle.replace("/", "");
+		return youtubeHandle;
+	}
+	
+	private void updateYoutubeChannel(int parentId, String youtubeChannelLink, long lastDate)
+	{
+		String
+			youtubeHandle = getYoutubeHandle(youtubeChannelLink),
 			youtubeHandleMinusAt = youtubeHandle.replace("@", ""),
 			saveLoc = SAVE_INSERT_PATH + youtubeHandleMinusAt,
 			key = PathUtility.readFileToString(new File(KEY_PATH)).replace("\n", "").replace(" ", ""),
