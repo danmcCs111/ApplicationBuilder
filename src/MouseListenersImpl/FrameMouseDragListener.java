@@ -30,7 +30,8 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		FRAME_AND_TITLE_HEIGHT = 45; 
 	private static final String 
 		OPEN_MENU_TEXT = "OPEN",
-		VIEW_LATEST_VIDEOS = "VIEW";
+		VIEW_LATEST_VIDEOS = "VIEW",
+		UPDATE_VIDEOS = "UPDATE";
 	
 	private Point mouseDownCompCoords = null;
 	private JFrame f;
@@ -75,43 +76,10 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 			LoggingMessages.printOut(jbll.getName());
 			if(jbll.getName().contains("youtube.com"))
 			{
-				JMenu mi2 = new JMenu(VIEW_LATEST_VIDEOS);
-				HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs = lcv.lookup(jbll.getText(), jbll.getName());
-				if(ycvs != null)//load in menu;
-				{
-					for(int key : ycvs.keySet())
-					{
-						for(YoutubeChannelVideo ycv : ycvs.get(key))
-						{
-							LoggingMessages.printOut("video found! " + ycv.getTitle());
-							JMenuItemLaunchUrl jmi = new JMenuItemLaunchUrl(ycv.getTitle());
-							jmi.setHighlightButton(jbll);
-							jmi.setName(ycv.getUrl());
-							jmi.setToolTipText("Upload Date: " + ycv.getUploadDate().toString());
-							jmi.addActionListener(new ActionListener() {
-								@Override
-								public void actionPerformed(ActionEvent e) {
-									for(ActionListener al : component.getActionListeners())
-									{
-										if(al instanceof LaunchUrlActionListener)
-										{
-											al.actionPerformed(new ActionEvent(jmi, 1, "Open From Image"));
-										}
-										else
-										{
-											al.actionPerformed(new ActionEvent(jbll, 1, "Open From Image"));
-											PicLabelMouseListener.highLightLabel(jbll, true);//TODO
-										}
-									}
-								}
-							});
-							mi2.add(jmi);
-						}
-					}
-					
-					MenuScroller.setScrollerFor(mi2, 8, 125, 0, 0);
-					pm.add(mi2);
-				}
+				JMenu mi2 = buildViewMenu(jbll);
+				JMenuItem mi3 = buildUpdateMenu(jbll);
+				pm.add(mi2);
+				pm.add(mi3);
 			}
 			picLabel.add(pm);
 			int x = e.getPoint().x, y = e.getPoint().y;
@@ -121,6 +89,59 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 			
 			pm.show(picLabel, x, y);
 		}
+	}
+
+	private JMenu buildViewMenu(JButtonLengthLimited jbll)
+	{
+		JMenu mi2 = new JMenu(VIEW_LATEST_VIDEOS);
+		HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs = lcv.lookup(jbll.getText(), jbll.getName());
+		if(ycvs != null)//load in menu;
+		{
+			for(int key : ycvs.keySet())
+			{
+				for(YoutubeChannelVideo ycv : ycvs.get(key))
+				{
+					LoggingMessages.printOut("video found! " + ycv.getTitle());
+					JMenuItemLaunchUrl jmi = new JMenuItemLaunchUrl(ycv.getTitle());
+					jmi.setHighlightButton(jbll);
+					jmi.setName(ycv.getUrl());
+					jmi.setToolTipText("Upload Date: " + ycv.getUploadDate().toString());
+					jmi.addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							for(ActionListener al : component.getActionListeners())
+							{
+								if(al instanceof LaunchUrlActionListener)
+								{
+									al.actionPerformed(new ActionEvent(jmi, 1, "Open From Image"));
+								}
+								else
+								{
+									al.actionPerformed(new ActionEvent(jbll, 1, "Open From Image"));
+									PicLabelMouseListener.highLightLabel(jbll, true);//TODO
+								}
+							}
+						}
+					});
+					mi2.add(jmi);
+				}
+			}
+			MenuScroller.setScrollerFor(mi2, 8, 125, 0, 0);
+		}
+		
+		return mi2;
+	}
+	
+	private JMenuItem buildUpdateMenu(JButtonLengthLimited jbll)
+	{
+		JMenuItem mi3 = new JMenuItem(UPDATE_VIDEOS);
+		mi3.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				lcv.update(jbll.getText(), jbll.getName());
+			}
+		});
+		return mi3;
 	}
 	
 	@Override

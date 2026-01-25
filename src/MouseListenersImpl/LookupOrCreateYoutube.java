@@ -68,6 +68,35 @@ public class LookupOrCreateYoutube
 		KEY_PATH = keyPath;
 	}
 	
+	public void update(String videoChannelName, String videoChannelLink)
+	{
+		String query = youtubeSql.getYoutubeQuery(videoChannelName);
+		String response = executeQuery(query);
+		if(response == null)
+			return;
+		
+		HttpDatabaseResponse hdr = new HttpDatabaseResponse();
+		ArrayList <ArrayList <DatabaseResponseNode>> drns = hdr.parseResponse(response);
+		if(drns.isEmpty())
+		{
+			createIfEmpty(videoChannelName, videoChannelLink);
+		}
+		else
+		{
+			for(DatabaseResponseNode drn : drns.get(1))
+			{
+				if(drn.getNodeName().equals("VideoId_Video_VideoDatabase"))
+				{
+					int parentId = Integer.parseInt(drn.getNodeAttributes().get("content"));
+					LoggingMessages.printOut("parentID is: " + parentId);
+					LoggingMessages.printOut("channelLink is: " + videoChannelLink);
+					Date lastDate = getLastDate(parentId, videoChannelLink);
+					updateYoutubeChannel(parentId, videoChannelLink, (lastDate == null) ? -1 : lastDate.getTime());
+				}
+			}
+		}
+	}
+	
 	public HashMap<Integer, ArrayList<YoutubeChannelVideo>> lookup(String videoChannelName, String videoChannelLink)
 	{
 		HashMap<Integer, ArrayList<YoutubeChannelVideo>> parentIdAndYoutubeChannelVideos = null;
@@ -137,6 +166,12 @@ public class LookupOrCreateYoutube
 	
 	public HashMap<Integer, ArrayList<YoutubeChannelVideo>> lookupYoutubeVideo(int parentId, String videoChannelLink)
 	{
+		Date lastDate = getLastDate(parentId, videoChannelLink);
+		return getYoutubeVideos(parentId, videoChannelLink, (lastDate == null) ? -1 : lastDate.getTime());
+	}
+	
+	private Date getLastDate(int parentId, String videoChannelLink)
+	{
 		String query = youtubeSql.getYoutubeVideoQuery(parentId);
 		String response = executeQuery(query);
 		
@@ -159,7 +194,7 @@ public class LookupOrCreateYoutube
 				}
 			}
 		}
-		return getYoutubeVideos(parentId, videoChannelLink, (lastDate == null) ? -1 : lastDate.getTime());
+		return lastDate;
 	}
 	
 	private HashMap<Integer, ArrayList<YoutubeChannelVideo>> getYoutubeVideos(int parentId, String videoChannelLink, long lastDate)
@@ -185,20 +220,53 @@ public class LookupOrCreateYoutube
 		LoggingMessages.printOut("Handle: " + youtubeHandle);
 		LoggingMessages.printOut("Epoch Time: " + lastDate);
 		
-		String youtubeHandleMinusAt = youtubeHandle.replace("@", "");
-		String key = PathUtility.readFileToString(new File(KEY_PATH)).replace("\n", "").replace(" ", "");
-		String saveFile = new FileSelection(SAVE_INSERT_PATH + youtubeHandleMinusAt).getFullPath() + ".sql";
+		String query = youtubeSql.getYoutubeVideoQuery(parentId);
+		LoggingMessages.printOut(query);
+		String response = executeQuery(query);
+		HttpDatabaseResponse hdr = new HttpDatabaseResponse();
+		ArrayList <ArrayList <DatabaseResponseNode>> drns = hdr.parseResponse(response);
+		
+		if(drns.isEmpty())
+		{
+			LoggingMessages.printOut("Empty");
+		}
+		else
+		{
+			parentIdAndYoutubeChannelVideos.put(parentId, new ArrayList<YoutubeChannelVideo>());
+			for(int i = 1; i < drns.size(); i++)
+			{
+				YoutubeChannelVideo ycv = new YoutubeChannelVideo(drns.get(i));
+				//TODO. don't not storing png yet.
+				//Image imgPng = getPng(ycv);
+				//ycv.setImagePng(imgPng);
+				
+				parentIdAndYoutubeChannelVideos.get(parentId).add(ycv);
+			}
+		}
+		
+		return parentIdAndYoutubeChannelVideos;
+	}
+	
+	private void updateYoutubeChannel(int parentId, String youtubeHandle, long lastDate)
+	{
+		String 
+			youtubeHandleMinusAt = youtubeHandle.replace("@", ""),
+			saveLoc = SAVE_INSERT_PATH + youtubeHandleMinusAt,
+			key = PathUtility.readFileToString(new File(KEY_PATH)).replace("\n", "").replace(" ", ""),
+			saveFile = new FileSelection(SAVE_INSERT_PATH + youtubeHandleMinusAt).getFullPath() + ".sql";
+		
+		PathUtility.createDirectoryIfNotExist(saveLoc);
 		String [] args = new String [] {
-			PLUGIN_JAR_LOCATION,
-			"YoutubeApiList.YoutubeApiList",
-			OPERATION,
-			youtubeSql.getSqlType(),
-			key,
-			parentId + "", 
-			youtubeHandle, 
-			lastDate + "", 
-			saveFile
-		};
+				PLUGIN_JAR_LOCATION,
+				"YoutubeApiList.YoutubeApiList",
+				OPERATION,
+				youtubeSql.getSqlType(),
+				key,
+				parentId + "", 
+				youtubeHandle, 
+				lastDate + "", 
+				saveFile
+			};
 		//run plugin.
 		CommandBuild cb = new CommandBuild();
 		cb.setCommand("java", new String []{"-cp"}, args);
@@ -214,34 +282,6 @@ public class LookupOrCreateYoutube
 			LoggingMessages.printOut(contents);
 			executeInsert(contents);
 		}
-		
-		String query = youtubeSql.getYoutubeVideoQuery(parentId);
-		LoggingMessages.printOut(query);
-		String response = executeQuery(query);
-		HttpDatabaseResponse hdr = new HttpDatabaseResponse();
-		ArrayList <ArrayList <DatabaseResponseNode>> drns = hdr.parseResponse(response);
-		
-		String saveLoc = SAVE_INSERT_PATH + youtubeHandleMinusAt;
-		if(drns.isEmpty())
-		{
-			LoggingMessages.printOut("Empty");
-		}
-		else
-		{
-			PathUtility.createDirectoryIfNotExist(saveLoc);
-			parentIdAndYoutubeChannelVideos.put(parentId, new ArrayList<YoutubeChannelVideo>());
-			for(int i = 1; i < drns.size(); i++)
-			{
-				YoutubeChannelVideo ycv = new YoutubeChannelVideo(drns.get(i));
-				//TODO. don't not storing png yet.
-				//Image imgPng = getPng(ycv);
-				//ycv.setImagePng(imgPng);
-				
-				parentIdAndYoutubeChannelVideos.get(parentId).add(ycv);
-			}
-		}
-		
-		return parentIdAndYoutubeChannelVideos;
 	}
 	
 	private Image getPng(YoutubeChannelVideo ycv)
