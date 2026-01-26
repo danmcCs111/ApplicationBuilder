@@ -77,6 +77,7 @@ import WidgetExtensions.ExtendedSetButtonBackgroundColorTemplate;
 import WidgetExtensions.ExtendedSetButtonForegroundColorTemplate;
 import WidgetExtensions.ExtendedSetJMenuBarParent;
 import WidgetExtensions.ExtendedSetLookAndFeel;
+import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
 import WidgetExtensions.ExtendedSetViewportView;
 import WidgetExtensions.ExtendedSetupTaskbar;
 import WidgetExtensions.ExtendedShapeDrawingCollectionLoader;
@@ -165,6 +166,7 @@ public class WidgetAttributes
 		});
 		EXTENDED_METHODS.put(JScrollPane.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetScrollBackgroundForegroundColor.class, ExtendedMethodArgDef.ColorSelectionBackgroundForeground.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedScrollBarSetUnit.class, ExtendedMethodArgDef.ExtendedScrollBarSetUnit.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(JComboBox.class, new String [] {
