@@ -210,7 +210,7 @@ public class ColorTemplate
         {
 			JSlider js = (JSlider) container;
         	js.setForeground(c);
-        } 
+        }
 		else if(container instanceof JCheckBoxLimited)
 		{
 			JCheckBoxLimited jc = (JCheckBoxLimited) container;

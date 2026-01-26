@@ -13,6 +13,11 @@ public class ExtendedSetScrollBackgroundForegroundColor implements ExtendedAttri
 	public void applyMethod(Color background, Color foreground, WidgetCreatorProperty widgetProperties) 
 	{
 		JScrollPane scrollPane = (JScrollPane) widgetProperties.getInstance();
+		applyBackgroundForeground(background, foreground, scrollPane);
+	}
+	
+	public static void applyBackgroundForeground(Color background, Color foreground, JScrollPane scrollPane)
+	{
 		BasicScrollBarUI bsb = new BasicScrollBarUI() {
 		    @Override
 		    protected void configureScrollBarColors() {

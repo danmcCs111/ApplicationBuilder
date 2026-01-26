@@ -40,6 +40,7 @@ import ObjectTypeConversion.DirectorySelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
 import WidgetComponentInterfaces.OpenAndSaveKeepsSubscriber;
+import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
 
 public class VideoBookMarksDialog extends JDialog 
 {
@@ -204,6 +205,10 @@ public class VideoBookMarksDialog extends JDialog
 		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
 		ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
 		ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
+		ExtendedSetScrollBackgroundForegroundColor.applyBackgroundForeground(
+				ColorTemplate.getPanelBackgroundColor(), ColorTemplate.getButtonBackgroundColor(), scrollPaneTitles);
+		ExtendedSetScrollBackgroundForegroundColor.applyBackgroundForeground(
+				ColorTemplate.getPanelBackgroundColor(), ColorTemplate.getButtonBackgroundColor(), scrollPane);
 		
 		this.setVisible(true);
 		GraphicsUtil.centerWindow(refContainer, this);

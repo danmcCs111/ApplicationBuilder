@@ -26,6 +26,7 @@ import Graphics2D.ColorTemplate;
 import ObjectTypeConversion.ParseAttribute;
 import Properties.LoggingMessages;
 import WidgetComponentInterfaces.EditButtonArrayUrls;
+import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
 
 public class CollectionEditor extends JFrame 
 {
@@ -143,6 +144,11 @@ public class CollectionEditor extends JFrame
 		ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
 		ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
 		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
+		
+		ExtendedSetScrollBackgroundForegroundColor.applyBackgroundForeground(
+				ColorTemplate.getPanelBackgroundColor(), ColorTemplate.getButtonBackgroundColor(), collectionScrollPane);
+		ExtendedSetScrollBackgroundForegroundColor.applyBackgroundForeground(
+				ColorTemplate.getPanelBackgroundColor(), ColorTemplate.getButtonBackgroundColor(), removeScrollPane);
 	}
 	
 	private void buildWestPanel()
@@ -352,6 +358,11 @@ public class CollectionEditor extends JFrame
 		ColorTemplate.setBackgroundColorButtons(removePanel, ColorTemplate.getButtonBackgroundColor());
 		ColorTemplate.setForegroundColorButtons(removePanel, ColorTemplate.getButtonForegroundColor());
 		ColorTemplate.setBackgroundColorPanel(removePanel, ColorTemplate.getPanelBackgroundColor());
+		
+		ExtendedSetScrollBackgroundForegroundColor.applyBackgroundForeground(
+				ColorTemplate.getPanelBackgroundColor(), ColorTemplate.getButtonBackgroundColor(), collectionScrollPane);
+		ExtendedSetScrollBackgroundForegroundColor.applyBackgroundForeground(
+				ColorTemplate.getPanelBackgroundColor(), ColorTemplate.getButtonBackgroundColor(), removeScrollPane);
 		
 		removePanel.repaint();
 	}
