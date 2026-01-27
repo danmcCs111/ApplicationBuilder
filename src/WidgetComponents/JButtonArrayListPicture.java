@@ -564,7 +564,7 @@ PostWidgetBuildProcessing
 		{
 			if(vbmd != null)
 			{
-				vbmd.dispose();
+				vbmd.performSelect(false);
 			}
 			vbmd = new VideoBookMarksDialog(keepsFileLocation, this, WidgetBuildController.getInstance().getFrame());
 		}
@@ -592,7 +592,7 @@ PostWidgetBuildProcessing
 		{
 			if(vbmd != null)
 			{
-				vbmd.dispose();
+				vbmd.performSelect(false);
 			}
 			vbmd = new VideoBookMarksDialog(keepsFileLocation, this, WidgetBuildController.getInstance().getFrame(), props);
 		}

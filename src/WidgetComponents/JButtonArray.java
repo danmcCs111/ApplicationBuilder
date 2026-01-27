@@ -532,6 +532,7 @@ PostWidgetBuildProcessing, ButtonArray
 	@Override
 	public void performSave() 
 	{
+		performCancelAll();
 		int indexPos = NavigationButtonActionListener.getCurPosition();
 		for(MouseListener ml : collectionJButtons.get(SwappableCollection.indexPaths.get(indexPos)).get(0).getMouseListeners())
 		{
@@ -543,15 +544,29 @@ PostWidgetBuildProcessing, ButtonArray
 		}
 	}
 	
+	private void performCancelAll()
+	{
+		if(vbmd != null)
+		{
+			vbmd.performSelect(false);
+		}
+		int indexPos = NavigationButtonActionListener.getCurPosition();
+		for(MouseListener ml : collectionJButtons.get(SwappableCollection.indexPaths.get(indexPos)).get(0).getMouseListeners())
+		{
+			if(ml instanceof ImageMouseAdapter)
+			{
+				((ImageMouseAdapter) ml).closeSaveDialog();
+				return;
+			}
+		}
+	}
+	
 	@Override
 	public void performOpen()
 	{
 		if(!SHOW_JAVA_SWING_FILE_CHOOSER)
 		{
-			if(vbmd != null)
-			{
-				vbmd.dispose();
-			}
+			performCancelAll();
 			vbmd = new VideoBookMarksDialog(keepsFileLocation, this, WidgetBuildController.getInstance().getFrame());
 		}
 		else

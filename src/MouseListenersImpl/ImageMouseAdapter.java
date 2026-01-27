@@ -368,9 +368,9 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 			DirectorySelection ds = new DirectorySelection(BOOKMARKS_FILE_RELATIVE_LOCATION);
 			if(vbmd != null)
 			{
-				vbmd.dispose();
+				vbmd.performSelect(false);
 			}
-			VideoBookMarksDialog vbmd = new VideoBookMarksDialog(ds, 
+			vbmd = new VideoBookMarksDialog(ds, 
 					(OpenAndSaveKeepsSubscriber)ba,
 					WidgetBuildController.getInstance().getFrame(),
 					getProperties());
@@ -395,6 +395,14 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 				}
 				getSaveSelections();
 			}
+		}
+	}
+	
+	public void closeSaveDialog()
+	{
+		if(vbmd != null)
+		{
+			vbmd.performSelect(false);
 		}
 	}
 	

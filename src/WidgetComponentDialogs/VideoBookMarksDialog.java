@@ -287,11 +287,11 @@ public class VideoBookMarksDialog extends JDialog
 		this.add(openCancelPanelOuter, BorderLayout.SOUTH);
 	}
 	
-	private void performSelect(boolean cancel)
+	public void performSelect(boolean perform)
 	{
 		if(!save)
 		{
-			if(cancel)
+			if(!perform)
 			{
 				openKeepsSubscriber.openKeeps(null);
 			}
@@ -303,7 +303,7 @@ public class VideoBookMarksDialog extends JDialog
 		}
 		else
 		{
-			if(cancel)
+			if(!perform)
 			{
 				openKeepsSubscriber.saveKeeps(null, null);
 			}
