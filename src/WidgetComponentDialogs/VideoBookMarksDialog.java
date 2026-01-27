@@ -130,7 +130,7 @@ public class VideoBookMarksDialog extends JDialog
 		this.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosed(WindowEvent e) {
-				performSelect(true);
+				performSelect(false);
 			}
 		});
 		this.setLayout(new BorderLayout());
@@ -160,7 +160,7 @@ public class VideoBookMarksDialog extends JDialog
 			public void keyReleased(KeyEvent e) {
 				if(e.getKeyCode() == KeyEvent.VK_ENTER)
 				{
-					performSelect(false);
+					performSelect(true);
 				}
 			}
 		});
@@ -270,7 +270,7 @@ public class VideoBookMarksDialog extends JDialog
 		applyButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-					performSelect(false);
+					performSelect(true);
 			}
 		});
 		openCancelPanel.add(applyButton);
@@ -278,7 +278,7 @@ public class VideoBookMarksDialog extends JDialog
 		cancelButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				performSelect(true);
+				performSelect(false);
 			}
 		});
 		openCancelPanel.add(cancelButton);
