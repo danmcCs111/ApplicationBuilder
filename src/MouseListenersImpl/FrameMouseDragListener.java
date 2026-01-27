@@ -22,6 +22,7 @@ import Graphics2D.ColorTemplate;
 import Properties.LoggingMessages;
 import WidgetComponents.JButtonLengthLimited;
 import WidgetComponents.JMenuItemLaunchUrl;
+import WidgetComponents.VideoQueuePlayer;
 import WidgetComponentsTips4Java.MenuScroller;
 
 public class FrameMouseDragListener extends MouseAdapter implements MouseListener, MouseMotionListener
@@ -31,6 +32,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	private static final String 
 		OPEN_MENU_TEXT = "OPEN",
 		VIEW_LATEST_VIDEOS = "VIEW",
+		VIEW_LIST_VIDEOS = "VIEW LIST",
 		UPDATE_VIDEOS = "UPDATE";
 	
 	private Point mouseDownCompCoords = null;
@@ -76,10 +78,13 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 			LoggingMessages.printOut(jbll.getName());
 			if(jbll.getName().contains("youtube.com"))
 			{
-				JMenu mi2 = buildViewMenu(jbll);
-				JMenuItem mi3 = buildUpdateMenu(jbll);
+				HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs = lcv.lookup(jbll.getText(), jbll.getName());
+				JMenu mi2 = buildViewMenu(jbll, ycvs);
+				JMenuItem mi3 = buildOpenVideosView(jbll, ycvs);
+				JMenuItem mi4 = buildUpdateMenu(jbll);
 				pm.add(mi2);
 				pm.add(mi3);
+				pm.add(mi4);
 			}
 			picLabel.add(pm);
 			int x = e.getPoint().x, y = e.getPoint().y;
@@ -91,10 +96,9 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		}
 	}
 
-	private JMenu buildViewMenu(JButtonLengthLimited jbll)
+	private JMenu buildViewMenu(JButtonLengthLimited jbll, HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
 	{
 		JMenu mi2 = new JMenu(VIEW_LATEST_VIDEOS);
-		HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs = lcv.lookup(jbll.getText(), jbll.getName());
 		if(ycvs != null)//load in menu;
 		{
 			for(int key : ycvs.keySet())
@@ -102,27 +106,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 				for(YoutubeChannelVideo ycv : ycvs.get(key))
 				{
 					LoggingMessages.printOut("video found! " + ycv.getTitle());
-					JMenuItemLaunchUrl jmi = new JMenuItemLaunchUrl(ycv.getTitle());
-					jmi.setHighlightButton(jbll);
-					jmi.setName(ycv.getUrl());
-					jmi.setToolTipText("Upload Date: " + ycv.getUploadDate().toString());
-					jmi.addActionListener(new ActionListener() {
-						@Override
-						public void actionPerformed(ActionEvent e) {
-							for(ActionListener al : component.getActionListeners())
-							{
-								if(al instanceof LaunchUrlActionListener)
-								{
-									al.actionPerformed(new ActionEvent(jmi, 1, "Open From Image"));
-								}
-								else
-								{
-									al.actionPerformed(new ActionEvent(jbll, 1, "Open From Image"));
-									PicLabelMouseListener.highLightLabel(jbll, true);//TODO
-								}
-							}
-						}
-					});
+					JMenuItemLaunchUrl jmi = buildJMenuItem(ycv, jbll);
 					mi2.add(jmi);
 				}
 			}
@@ -130,6 +114,32 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		}
 		
 		return mi2;
+	}
+	
+	private JMenuItemLaunchUrl buildJMenuItem(YoutubeChannelVideo ycv, JButtonLengthLimited jbll)
+	{
+		JMenuItemLaunchUrl jmi = new JMenuItemLaunchUrl(ycv.getTitle());
+		jmi.setHighlightButton(jbll);
+		jmi.setName(ycv.getUrl());
+		jmi.setToolTipText("Upload Date: " + ycv.getUploadDate().toString());
+		jmi.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				for(ActionListener al : component.getActionListeners())
+				{
+					if(al instanceof LaunchUrlActionListener)
+					{
+						al.actionPerformed(new ActionEvent(jmi, 1, "Open From Image"));
+					}
+					else
+					{
+						al.actionPerformed(new ActionEvent(jbll, 1, "Open From Image"));
+						PicLabelMouseListener.highLightLabel(jbll, true);//TODO
+					}
+				}
+			}
+		});
+		return jmi;
 	}
 	
 	private JMenuItem buildUpdateMenu(JButtonLengthLimited jbll)
@@ -142,6 +152,24 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 			}
 		});
 		return mi3;
+	}
+	
+	private JMenuItem buildOpenVideosView(JButtonLengthLimited jbll, HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
+	{
+		JMenuItem mi4 = new JMenuItem(VIEW_LIST_VIDEOS);
+		mi4.addActionListener(new ActionListener() {
+			private VideoQueuePlayer vqp = null;
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				if(vqp != null)
+				{
+					vqp.dispose();
+				}
+				VideoQueuePlayer vqp = new VideoQueuePlayer(ycvs, jbll, f);
+			}
+		});
+		return mi4;
 	}
 	
 	@Override
