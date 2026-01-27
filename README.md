@@ -17,7 +17,9 @@ Added an Edit collection dialog in Action Menu (drag and drop url support also r
 <img width="45%" alt="popup" src="https://github.com/user-attachments/assets/25b23245-0c20-4517-9cbb-1cd0ff9ad636" />
 <img width="45%" height="497" alt="remove" src="https://github.com/user-attachments/assets/32ae2127-f5a0-44e2-abc2-ebb1c229770c" />
 <img width="45%" height="586" alt="tree-structure" src="https://github.com/user-attachments/assets/617688ee-b6e8-4200-ad2d-a090d1ff1998" />
+<img width="45%" width="1057" height="439" alt="right_click-final" src="https://github.com/user-attachments/assets/3b1b81bd-be2e-49c8-bc4e-7c41269e8fec" />
 </p>
+
 
 *fixed browser process to be seperate profile. switched to using PID and sharing with ahk to give direct key press control.
 
