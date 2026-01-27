@@ -100,6 +100,7 @@ PostWidgetBuildProcessing
 	private ArrayList<ButtonArrayLoadingNotification> loadingNofications = new ArrayList<ButtonArrayLoadingNotification>();
 	private FileSelection xmlFile = new FileSelection("./Properties/shapes/reload.xml");
 	private JFrame loadingFrame;
+	private VideoBookMarksDialog vbmd = null;
 	
 	public JButtonArrayListPicture()
 	{
@@ -561,7 +562,11 @@ PostWidgetBuildProcessing
 	{
 		if(!SHOW_JAVA_SWING_FILE_CHOOSER)
 		{
-			new VideoBookMarksDialog(keepsFileLocation, this, WidgetBuildController.getInstance().getFrame());
+			if(vbmd != null)
+			{
+				vbmd.dispose();
+			}
+			vbmd = new VideoBookMarksDialog(keepsFileLocation, this, WidgetBuildController.getInstance().getFrame());
 		}
 		else //TODO linux / alternate option
 		{
@@ -585,7 +590,11 @@ PostWidgetBuildProcessing
 	{
 		if(!SHOW_JAVA_SWING_FILE_CHOOSER)
 		{
-			new VideoBookMarksDialog(keepsFileLocation, this, WidgetBuildController.getInstance().getFrame(), props);
+			if(vbmd != null)
+			{
+				vbmd.dispose();
+			}
+			vbmd = new VideoBookMarksDialog(keepsFileLocation, this, WidgetBuildController.getInstance().getFrame(), props);
 		}
 		else
 		{

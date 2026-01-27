@@ -129,6 +129,8 @@ PostWidgetBuildProcessing, ButtonArray
 		pageParserCollection;
 	private CollectionEditor 
 		abce;
+	private VideoBookMarksDialog 
+		vbmd = null;
 	
 	private int characterLimit=0;
 	
@@ -546,7 +548,11 @@ PostWidgetBuildProcessing, ButtonArray
 	{
 		if(!SHOW_JAVA_SWING_FILE_CHOOSER)
 		{
-			new VideoBookMarksDialog(keepsFileLocation, this, WidgetBuildController.getInstance().getFrame());
+			if(vbmd != null)
+			{
+				vbmd.dispose();
+			}
+			vbmd = new VideoBookMarksDialog(keepsFileLocation, this, WidgetBuildController.getInstance().getFrame());
 		}
 		else
 		{

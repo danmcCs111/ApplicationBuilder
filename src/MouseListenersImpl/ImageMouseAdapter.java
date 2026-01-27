@@ -69,6 +69,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		keepFrame = false,
 		singleClick = false;
 	private ButtonArray ba;
+	private VideoBookMarksDialog vbmd = null;
 		
 	public ImageMouseAdapter(JFrame parentFrame, String path, boolean singleClick)
 	{
@@ -365,7 +366,11 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		if(!SHOW_JAVA_SWING_FILE_CHOOSER)
 		{
 			DirectorySelection ds = new DirectorySelection(BOOKMARKS_FILE_RELATIVE_LOCATION);
-			new VideoBookMarksDialog(ds, 
+			if(vbmd != null)
+			{
+				vbmd.dispose();
+			}
+			VideoBookMarksDialog vbmd = new VideoBookMarksDialog(ds, 
 					(OpenAndSaveKeepsSubscriber)ba,
 					WidgetBuildController.getInstance().getFrame(),
 					getProperties());
