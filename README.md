@@ -1,5 +1,9 @@
 (Recommend saving on a seperate external SSD for portability of the app as well as files accumulated and database entries)
 
+(using in a dual monitor setup.)
+![1000037873](https://github.com/user-attachments/assets/a5dc474a-e387-48ec-9ecb-7680b0b8e732)
+
+
 *seperated view and update
 
 *switched to a tree structure in layout editor
