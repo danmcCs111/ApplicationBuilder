@@ -92,7 +92,7 @@ PostWidgetBuildProcessing, ButtonArray
 		DIM_DEFAULT_PIC = new Dimension(279,150),
 		SCALED_DEFAULT_PIC = new Dimension(279, 150);
 	private static int
-//		BUTTON_ICON_HEIGHT = 20,
+		BUTTON_ICON_HEIGHT = 20,
 		SCALED_WIDTH = 279,
 		SCALED_WIDTH_PREVIEW = SCALED_WIDTH;
 	public static File 
@@ -142,15 +142,15 @@ PostWidgetBuildProcessing, ButtonArray
 		
 	}
 	
-//	public static void setButtonIconHeight(int height)
-//	{
-//		BUTTON_ICON_HEIGHT = height;
-//	}
-//	
-//	public static int getButtonIconHeight()
-//	{
-//		return BUTTON_ICON_HEIGHT;
-//	}
+	public static void setButtonIconHeight(int height)
+	{
+		BUTTON_ICON_HEIGHT = height;
+	}
+	
+	public static int getButtonIconHeight()
+	{
+		return BUTTON_ICON_HEIGHT;
+	}
 	
 	public static void setFrameHightlightColor(Color c)
 	{
