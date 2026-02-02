@@ -18,7 +18,7 @@ public class ImageReaderDimensionObserver implements ImageObserver
 		return true;
 	}
 	
-	public Dimension getWidthHeightScaled(double scaledWidth)
+	public Dimension getScaledFromWidth(double scaledWidth)
 	{
 		while(width == -1 || height == -1)
 		{
@@ -29,6 +29,21 @@ public class ImageReaderDimensionObserver implements ImageObserver
 			}
 		}
 		double factor = scaledWidth / width;
+		
+		return new Dimension((int)(factor * width), (int)(factor * height));
+	}
+	
+	public Dimension getScaledFromHeight(double scaledHeight)
+	{
+		while(width == -1 || height == -1)
+		{
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		double factor = scaledHeight / height;
 		
 		return new Dimension((int)(factor * width), (int)(factor * height));
 	}

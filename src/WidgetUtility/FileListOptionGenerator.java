@@ -1,14 +1,24 @@
 package WidgetUtility;
 
+import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 
+import Graphics2D.GraphicsUtil;
+import ObjectTypeConversion.FileSelection;
 import Properties.PathUtility;
 import Properties.UrlToValueReader;
+import WidgetComponentInterfaces.ButtonArray;
+import WidgetComponentInterfaces.ImageReader;
+import WidgetComponentInterfaces.ImageReaderDimensionObserver;
+import WidgetComponents.JButtonArray;
 import WidgetComponents.JButtonLengthLimited;
 
 public class FileListOptionGenerator 
@@ -50,16 +60,7 @@ public class FileListOptionGenerator
 	}
 	public static JComponent buildComponent(String path, String fileName, Class<?> componentType)
 	{
-		JComponent comp = null;
-		if(componentType.equals(JButtonLengthLimited.class))//TODO impl
-		{
-			JButtonLengthLimited button = new JButtonLengthLimited();
-			button.setText(fileName);
-			button.setFullText(PathUtility.getFilenameNoExtension(fileName));
-			button.setName(UrlToValueReader.parse(fileName, path));
-			comp = button;
-		}
-		return comp;
+		return buildComponent(path, fileName, null, componentType);
 	}
 	public static JComponent buildComponent(String path, String fileName, String url, Class<?> componentType)
 	{
@@ -67,9 +68,12 @@ public class FileListOptionGenerator
 		if(componentType.equals(JButtonLengthLimited.class))//TODO impl
 		{
 			JButtonLengthLimited button = new JButtonLengthLimited();
+//			button.setHorizontalAlignment(JButton.LEFT);
 			button.setText(fileName);
 			button.setFullText(PathUtility.getFilenameNoExtension(fileName));
-			button.setName(url);
+			button.setName(url == null
+					?UrlToValueReader.parse(fileName, path)
+					:url);
 			comp = button;
 		}
 		return comp;

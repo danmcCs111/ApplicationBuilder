@@ -92,6 +92,7 @@ PostWidgetBuildProcessing, ButtonArray
 		DIM_DEFAULT_PIC = new Dimension(279,150),
 		SCALED_DEFAULT_PIC = new Dimension(279, 150);
 	private static int
+//		BUTTON_ICON_HEIGHT = 20,
 		SCALED_WIDTH = 279,
 		SCALED_WIDTH_PREVIEW = SCALED_WIDTH;
 	public static File 
@@ -131,6 +132,8 @@ PostWidgetBuildProcessing, ButtonArray
 		abce;
 	private VideoBookMarksDialog 
 		vbmd = null;
+//	private ImageReader 
+//		buttonImageReader;
 	
 	private int characterLimit=0;
 	
@@ -138,6 +141,16 @@ PostWidgetBuildProcessing, ButtonArray
 	{
 		
 	}
+	
+//	public static void setButtonIconHeight(int height)
+//	{
+//		BUTTON_ICON_HEIGHT = height;
+//	}
+//	
+//	public static int getButtonIconHeight()
+//	{
+//		return BUTTON_ICON_HEIGHT;
+//	}
 	
 	public static void setFrameHightlightColor(Color c)
 	{
@@ -455,11 +468,24 @@ PostWidgetBuildProcessing, ButtonArray
 		
 		if(!SwappableCollection.indexPaths.contains(path))
 		{
+//			if(buttonImageReader == null)
+//			{
+//				buttonImageReader = new ImageReader(this, true);
+//			}
 			collectionJButtons.put(path, jbuts);
 			for(Component comp : FileListOptionGenerator.buildComponents(path, listOf, JButtonLengthLimited.class))
 			{
 				JButtonLengthLimited jbl = (JButtonLengthLimited)comp;
 				addJButton(jbl, path);
+				
+//				DirectorySelection ds = new DirectorySelection(path);
+//				File f = new File(ds.getFullPath() + "/images/" + jbl.getFullLengthText() + ".png");
+//				LoggingMessages.printOut(f.toString());
+//				ImageIcon icon = buttonImageReader.getImageIcon(f);
+//				if(icon != null)
+//				{
+//					jbl.setIcon(icon);
+//				}
 			}
 			Collections.sort(jbuts, new JButtonLengthLimited());
 			SwappableCollection.indexPaths.add(path);

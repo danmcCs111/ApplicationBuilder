@@ -22,7 +22,7 @@ import Graphics2D.ColorTemplate;
 import Properties.LoggingMessages;
 import WidgetComponents.JButtonLengthLimited;
 import WidgetComponents.JMenuItemLaunchUrl;
-import WidgetComponents.VideoQueuePlayer;
+import WidgetComponents.VideoChannelPlayer;
 import WidgetComponentsTips4Java.MenuScroller;
 
 public class FrameMouseDragListener extends MouseAdapter implements MouseListener, MouseMotionListener
@@ -158,7 +158,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	{
 		JMenuItem mi4 = new JMenuItem(VIEW_LIST_VIDEOS);
 		mi4.addActionListener(new ActionListener() {
-			private VideoQueuePlayer vqp = null;
+			private VideoChannelPlayer vqp = null;
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
@@ -166,7 +166,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 				{
 					vqp.dispose();
 				}
-				VideoQueuePlayer vqp = new VideoQueuePlayer(ycvs, jbll, f);
+				VideoChannelPlayer vqp = new VideoChannelPlayer(ycvs, jbll, f);
 			}
 		});
 		return mi4;
