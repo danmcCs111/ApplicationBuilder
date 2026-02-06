@@ -101,6 +101,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		JMenu mi2 = new JMenu(VIEW_LATEST_VIDEOS);
 		if(ycvs != null)//load in menu;
 		{
+			int count = 0; 
 			for(int key : ycvs.keySet())
 			{
 				for(YoutubeChannelVideo ycv : ycvs.get(key))
@@ -108,9 +109,18 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 					LoggingMessages.printOut("video found! " + ycv.getTitle());
 					JMenuItemLaunchUrl jmi = buildJMenuItem(ycv, jbll);
 					mi2.add(jmi);
+					count++;
 				}
 			}
-			MenuScroller.setScrollerFor(mi2, 8, 125, 0, 0);
+			LoggingMessages.printOut("scroller count: " + count);
+			if(count < 8)
+			{
+				MenuScroller.setScrollerFor(mi2, count, 125, 0, 0);
+			}
+			else
+			{
+				MenuScroller.setScrollerFor(mi2, 8, 125, 0, 0);
+			}
 		}
 		
 		return mi2;
