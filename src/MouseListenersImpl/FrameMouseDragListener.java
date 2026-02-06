@@ -113,7 +113,11 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 				}
 			}
 			LoggingMessages.printOut("scroller count: " + count);
-			if(count < 8)
+			if(count == 0)
+			{
+				//None.
+			}
+			else if(count < 8)
 			{
 				MenuScroller.setScrollerFor(mi2, count, 125, 0, 0);
 			}
