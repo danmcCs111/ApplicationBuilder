@@ -80,10 +80,16 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 			{
 				HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs = lcv.lookup(jbll.getText(), jbll.getName());
 				JMenu mi2 = buildViewMenu(jbll, ycvs);
-				JMenuItem mi3 = buildOpenVideosView(jbll, ycvs);
+				if(mi2 != null)
+				{
+					pm.add(mi2);
+				}
+				if(mi2 != null)
+				{
+					JMenuItem mi3 = buildOpenVideosView(jbll, ycvs);
+					pm.add(mi3);
+				}
 				JMenuItem mi4 = buildUpdateMenu(jbll);
-				pm.add(mi2);
-				pm.add(mi3);
 				pm.add(mi4);
 			}
 			picLabel.add(pm);
@@ -116,6 +122,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 			if(count == 0)
 			{
 				//None.
+				return null;
 			}
 			else if(count < 8)
 			{
