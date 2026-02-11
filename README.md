@@ -1,4 +1,25 @@
+Install git with git bash.
+
+https://git-scm.com/
+
+In the drive and directory desired
+
 (Recommend saving on a seperate external SSD for portability of the app as well as files accumulated and database entries)
+
+Run:
+
+    git clone https://github.com/danmcCs111/ApplicationBuilder.git
+
+In the project:
+
+Run:
+
+    install.sh
+
+Run:
+
+    mavenBuild.sh
+
 
 (using in a dual monitor setup.)
 
