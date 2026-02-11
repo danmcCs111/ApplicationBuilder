@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source ./packages.sh
+mvnPath="`pwd`/mavenInstall/apache-maven-3.9.12/bin/mvn"
 
 for proj in ${projects[@]}
 do
@@ -14,8 +15,12 @@ do
 		git clone $proj
 	fi
 
-	installFolder=$projFolder"/install/install.sh"
-	ls $installFolder
-	$installFolder
+	maven=`find $projFolder -name maven-build.sh`
+	if [[ -z "$maven" ]]
+	then
+		echo "no maven"
+	else
+		echo $maven
+		./$maven $mvnPath
+	fi
 done
-
