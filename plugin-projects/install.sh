@@ -13,5 +13,8 @@ do
 		echo "installing -> " $projFolder 
 		git clone $proj
 	fi
+	installFolder=$projFolder"/install/install.sh"
+	ls $installFolder
+	$installFolder
 done
 
