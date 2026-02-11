@@ -14,7 +14,7 @@ In the project:
 
 Run:
 
-    install.sh
+    installAndUpdate.sh
 
 Run:
 
