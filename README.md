@@ -2,6 +2,14 @@ Install git with git bash.
 
 https://git-scm.com/
 
+To build sqlite in **Windows** included scripts are using **visual studio community install**
+
+With "Desktop development with C++" package. seen in checkbox below. (buildLite.cmd in my sqlite project is using to build)
+
+<img width="75%" width="1263" height="711" alt="image" src="https://github.com/user-attachments/assets/54f20ee9-8fb9-4c52-9e12-6b31b73d7c0a" />
+
+
+
 In the drive and directory desired
 
 (Recommend saving on a seperate external SSD for portability of the app as well as files accumulated and database entries)
