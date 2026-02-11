@@ -13,6 +13,16 @@ do
 		echo "installing -> " $projFolder 
 		git clone $proj
 	fi
+
+	maven=`find $projFolder -name maven-build.sh`
+	if [[ -z "$maven" ]]
+	then
+		echo "no maven"
+	else
+		echo $maven
+		./$maven
+	fi
+
 	installFolder=$projFolder"/install/install.sh"
 	ls $installFolder
 	$installFolder
