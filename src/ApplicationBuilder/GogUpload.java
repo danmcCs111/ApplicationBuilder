@@ -12,13 +12,15 @@ public class GogUpload
 {
 	private static final String 
 		gameMatch = "\\([^\\)]*\\)",
-		valueMatch = "[^\\|\\(]*\\|[^\\|]*\\|",
-		tagMatch = ",\\|[^\\|]*\\|",
+		valueAndTagMatch = "[^\\|\\(]*\\|[^\\|]*\\|",
+		tagMatch = "\\|[^\\|]*\\|",
+		valueMatch = "[^\\|]*\\|",
 		gogFiles = PathUtility.getCurrentDirectory() + "/plugin-projects/SeleniumPython/gog/tmp/";
-	private static char [] 
+	private static char []
+		stripCharsValue = new char[] {',', '|', '$'},
 		stripCharsTag = new char[] {',', '|'};
 	private static final String []
-			gogFileFilter = new String [] {"formatted-page", ".txt.tmp"};
+		gogFileFilter = new String [] {"formatted-page", ".txt.tmp"};
 	private static final HashMap<String, String> textTagAndColumnName = new HashMap<String, String>();
 	static {
 		textTagAndColumnName.put("link", "GameUrl_Game_GameDatabase");
@@ -39,14 +41,20 @@ public class GogUpload
 			ArrayList<String> games = StringUtility.getMatches(fileContents, gameMatch);
 			for(String game : games)
 			{
-				ArrayList<String> gameValues = StringUtility.getMatches(game, valueMatch);
+				ArrayList<String> gameValues = StringUtility.getMatches(game, valueAndTagMatch);
 				for(String gameValue : gameValues)
 				{
 					ArrayList<String> tags = StringUtility.getMatches(gameValue, tagMatch);
-					for(String tag : tags)
+					ArrayList<String> values = StringUtility.getMatches(gameValue, valueMatch);
+					for(int i = 0; i < tags.size(); i++)
 					{
+						String tag = tags.get(i);
+						String value = values.get(i);
+						
 						tag = StringUtility.stripChars(tag, stripCharsTag).strip();
-						LoggingMessages.printOut(tag + " " + textTagAndColumnName.get(tag));
+						value = StringUtility.stripChars(value, stripCharsValue).strip();
+						
+						LoggingMessages.printOut(value + " " + tag + " " + textTagAndColumnName.get(tag));
 					}
 				}
 			}
