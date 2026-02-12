@@ -29,6 +29,10 @@ Run:
     mavenBuild.sh
 
 
+Edit https://wpythub.com/documentation/getting-started/set-youtube-oauth-client-id-client-secret/ :
+
+    Properties/api-keys/youtube-api-key.txt
+
 (using in a dual monitor setup.)
 
 <img width="45%" src="https://github.com/user-attachments/assets/a5dc474a-e387-48ec-9ecb-7680b0b8e732" />
