@@ -11,6 +11,7 @@ import Properties.StringUtility;
 public class GogUpload 
 {
 	private static final String 
+		primaryKey = "title",
 		gameMatch = "\\([^\\)]*\\)",
 		valueAndTagMatch = "[^\\|\\(]*\\|[^\\|]*\\|",
 		tagMatch = "\\|[^\\|]*\\|",
@@ -21,7 +22,8 @@ public class GogUpload
 		stripCharsTag = new char[] {',', '|'};
 	private static final String []
 		gogFileFilter = new String [] {"formatted-page", ".txt.tmp"};
-	private static final HashMap<String, String> textTagAndColumnName = new HashMap<String, String>();
+	private static final HashMap<String, String>
+		textTagAndColumnName = new HashMap<String, String>();
 	static {
 		textTagAndColumnName.put("link", "GameUrl_Game_GameDatabase");
 		textTagAndColumnName.put("title", "GameTitle_Game_GameDatabase");
@@ -29,8 +31,15 @@ public class GogUpload
 		textTagAndColumnName.put("base-value", "GameBaseValue_GameCost_GameDatabase");
 	}
 	
-	public static void main(String [] args)
+	public GogUpload()
 	{
+		
+	}
+	
+	public ArrayList<HashMap<String, String>> getUploadFromFiles()
+	{
+		ArrayList<HashMap<String, String>> primaryKeyTagAndValue = new ArrayList<HashMap<String, String>>();
+		
 		ArrayList<String> files = PathUtility.getOSFileList(gogFiles, gogFileFilter);
 		for(String s : files)
 		{
@@ -46,6 +55,8 @@ public class GogUpload
 				{
 					ArrayList<String> tags = StringUtility.getMatches(gameValue, tagMatch);
 					ArrayList<String> values = StringUtility.getMatches(gameValue, valueMatch);
+					HashMap<String, String> tagAndValue = new HashMap<String, String>();
+					
 					for(int i = 0; i < tags.size(); i++)
 					{
 						String tag = tags.get(i);
@@ -54,9 +65,26 @@ public class GogUpload
 						tag = StringUtility.stripChars(tag, stripCharsTag).strip();
 						value = StringUtility.stripChars(value, stripCharsValue).strip();
 						
-						LoggingMessages.printOut(value + " " + tag + " " + textTagAndColumnName.get(tag));
+						tagAndValue.put(tag, value);
 					}
+					primaryKeyTagAndValue.add(tagAndValue);
 				}
+			}
+		}
+		return primaryKeyTagAndValue;
+	}
+	
+	public static void main(String [] args)
+	{
+		GogUpload gog = new GogUpload();
+		ArrayList<HashMap<String, String>> primaryKeyTagAndValue = gog.getUploadFromFiles();
+		for(int i = 0; i <primaryKeyTagAndValue.size(); i++)
+		{
+			for(String tag : primaryKeyTagAndValue.get(i).keySet())
+			{
+				String value = primaryKeyTagAndValue.get(i).get(tag);
+				String columnName = textTagAndColumnName.get(tag);
+				LoggingMessages.printOut(value + " " + tag + " " + columnName);
 			}
 		}
 	}
