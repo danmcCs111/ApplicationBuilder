@@ -187,7 +187,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 				{
 					vqp.dispose();
 				}
-				VideoChannelPlayer vqp = new VideoChannelPlayer(ycvs, jbll, f);
+				vqp = new VideoChannelPlayer(ycvs, jbll, f);
 			}
 		});
 		return mi4;

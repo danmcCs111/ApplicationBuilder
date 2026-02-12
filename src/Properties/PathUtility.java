@@ -82,7 +82,7 @@ public interface PathUtility
 		return surround + target + surround;
 	}
 	
-	public static ArrayList<String> getOSFileList(String dir, String filter) 
+	public static ArrayList<String> getOSFileList(String dir, String ... filter) 
 	{
 		ArrayList<String> files = new ArrayList<String>();
 		if(!PathUtility.isWindows())//remove ending forward slash
@@ -93,13 +93,18 @@ public interface PathUtility
 		LoggingMessages.printOut(dir);
 		File [] fs = new File(dir).listFiles();
 		
+		skip:
 		for (File f : fs)
 		{
-			if(f.getName().contains(filter))
+			for(String fil : filter)
 			{
-				files.add(f.getName());
-				LoggingMessages.printOut(f.getName());
+				if(!f.getName().contains(fil))
+				{
+					continue skip;
+				}
 			}
+			files.add(f.getName());
+			LoggingMessages.printOut(f.getName());
 		}
 		return files;
 	}

@@ -1,24 +1,14 @@
 package WidgetUtility;
 
-import java.awt.Dimension;
-import java.awt.Image;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 
-import Graphics2D.GraphicsUtil;
-import ObjectTypeConversion.FileSelection;
 import Properties.PathUtility;
 import Properties.UrlToValueReader;
-import WidgetComponentInterfaces.ButtonArray;
-import WidgetComponentInterfaces.ImageReader;
-import WidgetComponentInterfaces.ImageReaderDimensionObserver;
-import WidgetComponents.JButtonArray;
 import WidgetComponents.JButtonLengthLimited;
 
 public class FileListOptionGenerator 

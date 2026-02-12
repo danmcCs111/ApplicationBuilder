@@ -12,14 +12,11 @@ import javax.swing.ImageIcon;
 import Graphics2D.GraphicsUtil;
 import Properties.LoggingMessages;
 import WidgetComponents.JButtonArray;
-import WidgetComponents.JButtonLengthLimited;
 
 public class ImageReader
 {
 	private ButtonArray 
 		ba;
-	private JButtonLengthLimited
-		jbll;
 	private Image 
 		defaultImage;
 	private ImageIcon
