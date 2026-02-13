@@ -29,4 +29,14 @@ public interface StringUtility
 		}
 		return text;
 	}
+	
+	public static String getDatabaseName(String columnName)
+	{
+		return columnName.split("_")[2];
+	}
+	
+	public static String getTableName(String columnName)
+	{
+		return columnName.split("_")[1];
+	}
 }

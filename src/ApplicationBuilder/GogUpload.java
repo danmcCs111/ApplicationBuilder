@@ -4,12 +4,19 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import HttpDatabaseRequest.HttpDatabaseRequest;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
 import Properties.StringUtility;
 
 public class GogUpload 
 {
+	private static final String 
+		ENDPOINT = "http://localhost:",
+		REQUEST_TYPE_HEADER_KEY = "Get-request-type";
+	private static final int
+		PORT_NUMBER = 8000;
+
 	private static final String 
 		primaryKey = "title",
 		gameMatch = "\\([^\\)]*\\)",
@@ -34,6 +41,16 @@ public class GogUpload
 	public GogUpload()
 	{
 		
+	}
+	
+	public void queryDatabase(String request)
+	{
+		HttpDatabaseRequest.executeGetRequest(
+			ENDPOINT, 
+			PORT_NUMBER, 
+			request, 
+			REQUEST_TYPE_HEADER_KEY, 
+			"Query");
 	}
 	
 	public ArrayList<HashMap<String, String>> getUploadFromFiles()
@@ -87,6 +104,13 @@ public class GogUpload
 				LoggingMessages.printOut(value + " " + tag + " " + columnName);
 			}
 		}
+		String databaseName = StringUtility.getDatabaseName("GameTitle_Game_GameDatabase");
+		String tableName = StringUtility.getTableName("GameTitle_Game_GameDatabase");
+		
+//		databaseName = "VideoDatabase";
+//		tableName = "videoYoutube";
+		
+		gog.queryDatabase("Select * from " + databaseName + "." + tableName + ";");
 	}
 	
 }
