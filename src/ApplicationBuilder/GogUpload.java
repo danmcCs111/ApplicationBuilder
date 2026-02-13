@@ -29,13 +29,13 @@ public class GogUpload
 		stripCharsTag = new char[] {',', '|'};
 	private static final String []
 		gogFileFilter = new String [] {"formatted-page", ".txt.tmp"};
-	private static final HashMap<String, String>
-		textTagAndColumnName = new HashMap<String, String>();
+	private static final HashMap<String, String[]>
+		textTagAndColumnName = new HashMap<String, String []>();
 	static {
-		textTagAndColumnName.put("link", "GameUrl_Game_GameDatabase");
-		textTagAndColumnName.put("title", "GameTitle_Game_GameDatabase");
-		textTagAndColumnName.put("final-value", "GameFinalValue_GameCost_GameDatabase");
-		textTagAndColumnName.put("base-value", "GameBaseValue_GameCost_GameDatabase");
+		textTagAndColumnName.put("link", new String []{"GameUrl_Game_GameDatabase"});
+		textTagAndColumnName.put("title", new String []{"GameTitle_Game_GameDatabase", "GameTitle_GameCost_GameDatabase"});
+		textTagAndColumnName.put("final-value", new String []{"GameFinalValue_GameCost_GameDatabase"});
+		textTagAndColumnName.put("base-value", new String []{"GameBaseValue_GameCost_GameDatabase"});
 	}
 	
 	public GogUpload()
@@ -55,7 +55,7 @@ public class GogUpload
 	
 	public ArrayList<HashMap<String, String>> getUploadFromFiles()
 	{
-		ArrayList<HashMap<String, String>> primaryKeyTagAndValue = new ArrayList<HashMap<String, String>>();
+		ArrayList<HashMap<String, String>> columnAndValues = new ArrayList<HashMap<String, String>>();
 		
 		ArrayList<String> files = PathUtility.getOSFileList(gogFiles, gogFileFilter);
 		for(String s : files)
@@ -72,7 +72,7 @@ public class GogUpload
 				{
 					ArrayList<String> tags = StringUtility.getMatches(gameValue, tagMatch);
 					ArrayList<String> values = StringUtility.getMatches(gameValue, valueMatch);
-					HashMap<String, String> tagAndValue = new HashMap<String, String>();
+					HashMap<String, String> columnAndValue = new HashMap<String, String>();
 					
 					for(int i = 0; i < tags.size(); i++)
 					{
@@ -80,37 +80,33 @@ public class GogUpload
 						String value = values.get(i);
 						
 						tag = StringUtility.stripChars(tag, stripCharsTag).strip();
+						String[] columns = textTagAndColumnName.get(tag);
 						value = StringUtility.stripChars(value, stripCharsValue).strip();
-						
-						tagAndValue.put(tag, value);
+						for(String col : columns)
+						{
+							columnAndValue.put(col, value);
+						}
 					}
-					primaryKeyTagAndValue.add(tagAndValue);
+					columnAndValues.add(columnAndValue);
 				}
 			}
 		}
-		return primaryKeyTagAndValue;
+		return columnAndValues;
 	}
 	
 	public static void main(String [] args)
 	{
 		GogUpload gog = new GogUpload();
-		ArrayList<HashMap<String, String>> primaryKeyTagAndValue = gog.getUploadFromFiles();
-		for(int i = 0; i <primaryKeyTagAndValue.size(); i++)
+		ArrayList<HashMap<String, String>> columnAndValues = gog.getUploadFromFiles();
+		for(int i = 0; i <columnAndValues.size(); i++)
 		{
-			for(String tag : primaryKeyTagAndValue.get(i).keySet())
+			for(String column : columnAndValues.get(i).keySet())
 			{
-				String value = primaryKeyTagAndValue.get(i).get(tag);
-				String columnName = textTagAndColumnName.get(tag);
-				LoggingMessages.printOut(value + " " + tag + " " + columnName);
+				String value = columnAndValues.get(i).get(column);
+				LoggingMessages.printOut(value + " " + column);
 			}
 		}
-		String databaseName = StringUtility.getDatabaseName("GameTitle_Game_GameDatabase");
-		String tableName = StringUtility.getTableName("GameTitle_Game_GameDatabase");
 		
-//		databaseName = "VideoDatabase";
-//		tableName = "videoYoutube";
-		
-		gog.queryDatabase("Select * from " + databaseName + "." + tableName + ";");
 	}
 	
 }
