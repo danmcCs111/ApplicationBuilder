@@ -63,6 +63,16 @@ public class GogUpload
 			"Query");
 	}
 	
+	public void insertDatabase(String request)
+	{
+		HttpDatabaseRequest.executeGetRequest(
+			ENDPOINT, 
+			PORT_NUMBER, 
+			request, 
+			REQUEST_TYPE_HEADER_KEY, 
+			"Insert");
+	}
+	
 	public ArrayList<HashMap<String, String>> getUploadFromFiles()
 	{
 		ArrayList<HashMap<String, String>> columnAndValues = new ArrayList<HashMap<String, String>>();
@@ -110,6 +120,7 @@ public class GogUpload
 		String insert = SqlInsert.buildIinsertStatement(columnAndValues, columnNameAndQuoted);
 		
 		LoggingMessages.printOut(insert);
+		gog.insertDatabase(insert);
 		
 	}
 	

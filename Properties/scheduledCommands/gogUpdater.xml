@@ -1,0 +1,4 @@
+<ScheduledCommands> 
+<ScheduledCommand Schedule="12,0,AM,|" Command="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Fn./plugin-projects/SeleniumPython/gog/navigateAndStoreGogPages.sh" > </ScheduledCommand>
+<ScheduledCommand Schedule="12,0,AM,|" Command="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.GogUpload" > </ScheduledCommand>
+</ScheduledCommands>
