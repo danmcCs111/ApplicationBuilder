@@ -7,6 +7,7 @@ import java.util.HashMap;
 import HttpDatabaseRequest.HttpDatabaseRequest;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
+import Properties.SqlInsert;
 import Properties.StringUtility;
 
 public class GogUpload 
@@ -60,7 +61,6 @@ public class GogUpload
 		ArrayList<String> files = PathUtility.getOSFileList(gogFiles, gogFileFilter);
 		for(String s : files)
 		{
-			LoggingMessages.printOut(s);
 			String fileContents = PathUtility.readFileToString(new File(gogFiles + s));
 			fileContents = fileContents.substring(1, fileContents.length()-1) + ")"; //specific to page formatting ehh...
 			
@@ -68,11 +68,11 @@ public class GogUpload
 			for(String game : games)
 			{
 				ArrayList<String> gameValues = StringUtility.getMatches(game, valueAndTagMatch);
+				HashMap<String, String> columnAndValue = new HashMap<String, String>();
 				for(String gameValue : gameValues)
 				{
 					ArrayList<String> tags = StringUtility.getMatches(gameValue, tagMatch);
 					ArrayList<String> values = StringUtility.getMatches(gameValue, valueMatch);
-					HashMap<String, String> columnAndValue = new HashMap<String, String>();
 					
 					for(int i = 0; i < tags.size(); i++)
 					{
@@ -87,8 +87,8 @@ public class GogUpload
 							columnAndValue.put(col, value);
 						}
 					}
-					columnAndValues.add(columnAndValue);
 				}
+				columnAndValues.add(columnAndValue);
 			}
 		}
 		return columnAndValues;
@@ -98,14 +98,10 @@ public class GogUpload
 	{
 		GogUpload gog = new GogUpload();
 		ArrayList<HashMap<String, String>> columnAndValues = gog.getUploadFromFiles();
-		for(int i = 0; i <columnAndValues.size(); i++)
-		{
-			for(String column : columnAndValues.get(i).keySet())
-			{
-				String value = columnAndValues.get(i).get(column);
-				LoggingMessages.printOut(value + " " + column);
-			}
-		}
+		SqlInsert sqlInsert = new SqlInsert();
+		String insert = sqlInsert.buildIinsertStatement(columnAndValues);
+		
+		LoggingMessages.printOut(insert);
 		
 	}
 	
