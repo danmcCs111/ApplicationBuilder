@@ -38,6 +38,15 @@ public class GogUpload
 		textTagAndColumnName.put("final-value", new String []{"GameFinalValue_GameCost_GameDatabase"});
 		textTagAndColumnName.put("base-value", new String []{"GameBaseValue_GameCost_GameDatabase"});
 	}
+	private static final HashMap<String, Boolean>
+		columnNameAndQuoted = new HashMap<String, Boolean>();//TODO use value mapping
+	static {
+		columnNameAndQuoted.put("GameUrl_Game_GameDatabase", true);
+		columnNameAndQuoted.put("GameTitle_Game_GameDatabase", true);
+		columnNameAndQuoted.put("GameTitle_GameCost_GameDatabase", true);
+		columnNameAndQuoted.put("GameFinalValue_GameCost_GameDatabase", false);
+		columnNameAndQuoted.put("GameBaseValue_GameCost_GameDatabase", false);
+	}
 	
 	public GogUpload()
 	{
@@ -98,8 +107,7 @@ public class GogUpload
 	{
 		GogUpload gog = new GogUpload();
 		ArrayList<HashMap<String, String>> columnAndValues = gog.getUploadFromFiles();
-		SqlInsert sqlInsert = new SqlInsert();
-		String insert = sqlInsert.buildIinsertStatement(columnAndValues);
+		String insert = SqlInsert.buildIinsertStatement(columnAndValues, columnNameAndQuoted);
 		
 		LoggingMessages.printOut(insert);
 		

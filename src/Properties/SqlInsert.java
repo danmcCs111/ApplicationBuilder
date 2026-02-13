@@ -10,7 +10,9 @@ public class SqlInsert
 			"INSERT INTO <arg0> (<arg1>)" +"\n" +
 			"VALUES (<arg2>); " + "\n";
 	
-	public String buildIinsertStatement(ArrayList<HashMap<String, String>> columnAndValues)
+	public static String buildIinsertStatement(
+			ArrayList<HashMap<String, String>> columnAndValues, 
+			HashMap<String, Boolean> columnNameAndQuoted)
 	{
 		String insertAccumulated = "";
 		
@@ -38,33 +40,38 @@ public class SqlInsert
 				}
 			}
 			
-			String insert = createInserts(tableAndInsertStatement);
+			String insert = createInserts(tableAndInsertStatement, columnNameAndQuoted);
 			insertAccumulated += insert;
 		}
 		return insertAccumulated;
 	}
 	
-	private static String createInserts(HashMap<String, HashMap<String, String>> tableAndInsertStatement)
+	private static String createInserts(
+				HashMap<String, HashMap<String, String>> tableAndInsertStatement, HashMap<String, Boolean> columnNameAndQuoted)
 	{
 		String inserts = "";
 		for(String dbTable : tableAndInsertStatement.keySet())
 		{
 			HashMap<String, String> columnAndValues = tableAndInsertStatement.get(dbTable);
 			String insert = INSERT_STATMENT.replace("<arg0>", dbTable);
-			insert = createInsert(insert, columnAndValues);
+			insert = createInsert(insert, columnAndValues, columnNameAndQuoted);
 			inserts += insert;
 		}
 		return inserts;
 	}
 	
-	private static String createInsert(String insert, HashMap<String, String> columnAndValues)
+	private static String createInsert(String insert, HashMap<String, String> columnAndValues,
+			HashMap<String, Boolean> columnNameAndQuoted)
 	{
 		String values = "";
 		String columns = "";
 		for(String column : columnAndValues.keySet())
 		{
 			String value = columnAndValues.get(column);
-			values += value + ",";
+			boolean quoted = columnNameAndQuoted.get(column);
+			values += quoted
+					? "'" + value + "',"
+					: value + ",";
 			columns += column + ",";
 		}
 		values = values.substring(0, values.length()-1);
