@@ -40,6 +40,8 @@ Edit https://wpythub.com/documentation/getting-started/set-youtube-oauth-client-
 
 *added powerdvd remote
 
+<img width="279" height="154" alt="image" src="https://github.com/user-attachments/assets/3cac88c4-18dc-4824-9448-c711a9eb8c71" />
+
 
 *seperated view and update
 
