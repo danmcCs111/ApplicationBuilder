@@ -1,12 +1,30 @@
 <Build>
-	<JFrame extendedSetupTaskbar="./src/ApplicationBuilder/video-icon.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="450, 550" setMinimumSize="250, 100" setResizable="False" setTitle="PowerDVD" >
-		<JPanel addMouseListener="MouseListenersImpl.MouseDragMoveWindowListener" addMouseMotionListener="MouseListenersImpl.MouseDragMoveWindowListener" extendedLayoutApplyParent="Center" setBackground="0, 0, 0" setLayout="java.awt.FlowLayout" >
-			<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Fn./plugin-projects/AutoHotKey-Utils/get-power-dvd-pid.sh" extendedLayoutApplyParent="" setBackground="0, 153, 153" setText="[Con]" setToolTipText="Connect To PowerDVD" >
-			</JButton>
-			<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/play_pause-power-dvd.ahk" extendedLayoutApplyParent="" setBackground="0, 153, 153" setText="| &gt; |" setToolTipText="Play/Pause" >
-			</JButton>
-			<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/fullscreen-powerDVD.ahk" extendedLayoutApplyParent="" setBackground="0, 153, 153" setText="| [Full] |" setToolTipText="Go Fullscreen" >
-			</JButton>
+	<JFrame extendedSetupTaskbar="./src/ApplicationBuilder/video-icon.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="450, 550" setMinimumSize="300, 145" setResizable="False" setTitle="PowerDVD" >
+		<JPanel addMouseListener="MouseListenersImpl.MouseDragMoveWindowListener" addMouseMotionListener="MouseListenersImpl.MouseDragMoveWindowListener" extendedLayoutApplyParent="Center" setBackground="0, 0, 0" setLayout="java.awt.BorderLayout" >
+			<JPanel extendedLayoutApplyParent="Center" setBackground="0, 0, 0" setLayout="java.awt.FlowLayout" >
+				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/stop-power-dvd.ahk" extendedLayoutApplyParent="" setBackground="0, 153, 153" setText="[--]" setToolTipText="Stop" >
+				</JButton>
+				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/show-power-dvd.ahk" extendedLayoutApplyParent="" setBackground="0, 153, 153" setText="^" setToolTipText="Activate Window / Show" >
+				</JButton>
+			</JPanel>
+			<JPanel extendedLayoutApplyParent="North" setBackground="0, 0, 0" setLayout="java.awt.FlowLayout" >
+				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Fn./plugin-projects/AutoHotKey-Utils/get-power-dvd-pid.sh" extendedLayoutApplyParent="" setBackground="0, 153, 153" setText="| [Con] |" setToolTipText="Connect To PowerDVD" >
+				</JButton>
+				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/play_pause-power-dvd.ahk" extendedLayoutApplyParent="" setBackground="0, 153, 153" setText="| [ &gt; ] |" setToolTipText="Play/Pause" >
+				</JButton>
+				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/fullscreen-powerDVD.ahk" extendedLayoutApplyParent="" setBackground="0, 153, 153" setText="| [Full] |" setToolTipText="Go Fullscreen" >
+				</JButton>
+			</JPanel>
+			<JPanel extendedLayoutApplyParent="South" setBackground="0, 0, 0" setLayout="java.awt.FlowLayout" >
+				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/fastforward-power-dvd.ahk" extendedLayoutApplyParent="" setBackground="0, 153, 153" setText="&lt;" setToolTipText="Previous track" >
+				</JButton>
+				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/rewind-power-dvd.ahk" extendedLayoutApplyParent="" setBackground="0, 153, 153" setText="| &lt;&lt; |" setToolTipText="Rewind" >
+				</JButton>
+				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/fastforward-power-dvd.ahk" extendedLayoutApplyParent="" setBackground="0, 153, 153" setText="| &gt;&gt; |" setToolTipText="Fast Forward" >
+				</JButton>
+				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/fastforward-power-dvd.ahk" extendedLayoutApplyParent="" setBackground="0, 153, 153" setText="&gt;" setToolTipText="Next Track" >
+				</JButton>
+			</JPanel>
 		</JPanel>
 	</JFrame>
 </Build>
