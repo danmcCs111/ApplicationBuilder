@@ -37,6 +37,10 @@ Edit https://wpythub.com/documentation/getting-started/set-youtube-oauth-client-
 
 <img width="45%" src="https://github.com/user-attachments/assets/a5dc474a-e387-48ec-9ecb-7680b0b8e732" />
 
+
+*added powerdvd remote
+
+
 *seperated view and update
 
 *switched to a tree structure in layout editor
