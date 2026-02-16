@@ -1,3 +1,3 @@
 <ScheduledCommands> 
-<ScheduledCommand Schedule="12,0,AM,|" Command="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellExecutor|%Fn./VideoLaunchFiles/YoutubeFreeMovies2/youtube_collect_n_strip.sh%Tn /c/Program\ Files/AutoHotkey/v2/AutoHotkey%Tn ../../plugin-projects/AutoHotKey-Utils/youtube_scrape.ahk%Tn /c/Users/danie/OneDrive/Desktop/page_scrapes/view-source_https___www.youtube.com_feed_storefront_bp=EgCSAQMI9gOiBQIoBg3D.html" > </ScheduledCommand>
+<ScheduledCommand Schedule="12,0,AM,|" Command="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellExecutor|%Fn./VideoLaunchFiles/YoutubeFreeMovies2/youtube_collect_n_strip.sh%Tn ../../plugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe %Tn ../../plugin-projects/AutoHotKey-Utils/youtube_scrape.ahk%Tn /c/Users/danie/OneDrive/Desktop/page_scrapes/view-source_https___www.youtube.com_feed_storefront_bp=EgCSAQMI9gOiBQIoBg3D.html" > </ScheduledCommand>
 </ScheduledCommands>
