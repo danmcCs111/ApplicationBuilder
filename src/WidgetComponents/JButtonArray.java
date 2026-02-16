@@ -622,6 +622,10 @@ PostWidgetBuildProcessing, ButtonArray
 		
 		for(String s : collectionJButtons.keySet())//search entire collection. issue with duplicates when link is in more than one folder
 		{
+			if(collectionJButtons.get(s).isEmpty())
+			{
+				continue;
+			}
 			for(MouseListener ml : collectionJButtons.get(s).get(0).getMouseListeners())
 			{
 				if(ml instanceof ImageMouseAdapter)
