@@ -55,6 +55,11 @@ Edit https://wpythub.com/documentation/getting-started/set-youtube-oauth-client-
 
 projects required are contained in plugin-projects folder now. 
 
+*improved linux install and support
+
+<img width="1802" height="828" alt="image" src="https://github.com/user-attachments/assets/07c2c831-cb19-4c59-95ab-8990f40db9c9" />
+
+
 Added an Edit collection dialog in Action Menu (drag and drop url support also replicated into dialog)
 <p float="left">
 <img width="45%" alt="popup" src="https://github.com/user-attachments/assets/25b23245-0c20-4517-9cbb-1cd0ff9ad636" />
