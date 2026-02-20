@@ -17,6 +17,11 @@ public class ShellExecutor
 	
 	public static void main(String [] args) 
 	{
+		run(args, false);
+	}
+	
+	public static void run(String [] args, boolean block)
+	{
 		boolean isWindows = PathUtility.isWindows();
 		CommandBuild cb;
 		if(isWindows)
@@ -29,7 +34,7 @@ public class ShellExecutor
 		}
 		try {
 			LoggingMessages.printOut(cb.getCommand());
-			CommandExecutor.executeProcess(cb, false);
+			CommandExecutor.executeProcess(cb, block);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

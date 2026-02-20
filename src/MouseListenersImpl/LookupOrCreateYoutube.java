@@ -2,20 +2,18 @@ package MouseListenersImpl;
 
 import java.awt.Image;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import Actions.CommandExecutor;
+import ApplicationBuilder.ShellHeadlessExecutor;
 import Graphics2D.GraphicsUtil;
 import HttpDatabaseRequest.HttpDatabaseRequest;
 import HttpDatabaseRequest.SelectWebServiceQueries;
 import HttpDatabaseResponse.DatabaseResponseNode;
 import HttpDatabaseResponse.HttpDatabaseResponse;
-import ObjectTypeConversion.CommandBuild;
 import ObjectTypeConversion.FileSelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
@@ -23,12 +21,12 @@ import Properties.PathUtility;
 public class LookupOrCreateYoutube 
 {
 	public static final String []
-			YOUTUBE_CHANNEL_HANDLE_STRIP = new String [] {"/videos", "/featured"};
+		YOUTUBE_CHANNEL_HANDLE_STRIP = new String [] {"/videos", "/featured"};
 	public static final String
 		YOUTUBE_CHANNEL_HANDLE_MATCH = "/[^/]*$",
 		
 		OPERATION = "showResult",
-		PLUGIN_JAR_LOCATION = "plugin-projects/YouTube-API-list/YoutubeApiList/YoutubeApiList.jar",
+		PLUGIN_JAR_LOCATION = "plugin-projects/YouTube-API-list/YoutubeApiList/youtubeApiList.sh",
 		SAVE_INSERT_PATH = "./VideoLaunchFiles/YoutubeChannels/video-images/", //TODO
 		
 		IS_LOOKUP_FRAME_FILTER = "",
@@ -260,25 +258,21 @@ public class LookupOrCreateYoutube
 			saveFile = new FileSelection(SAVE_INSERT_PATH + youtubeHandleMinusAt).getFullPath() + ".sql";
 		
 		PathUtility.createDirectoryIfNotExist(saveLoc);
+		
+		
 		String [] args = new String [] {
-				PLUGIN_JAR_LOCATION,
-				"YoutubeApiList.YoutubeApiList",
-				OPERATION,
-				youtubeSql.getSqlType(),
-				key,
-				parentId + "", 
-				youtubeHandle, 
-				lastDate + "", 
+				PLUGIN_JAR_LOCATION + " " +
+				OPERATION + " " + 
+				youtubeSql.getSqlType() + " " + 
+				key + " " +
+				parentId + " " + 
+				youtubeHandle + " " +
+				lastDate + " " + 
 				saveFile
 			};
 		//run plugin.
-		CommandBuild cb = new CommandBuild();
-		cb.setCommand("java", new String []{"-cp"}, args);
-		try {
-			CommandExecutor.executeProcess(cb, true);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		ShellHeadlessExecutor.run(args, true);
+		
 		//run insert & image grab jobs. use loading screen.
 		String contents = PathUtility.readFileToString(new File(saveFile));
 		if(contents != null)
