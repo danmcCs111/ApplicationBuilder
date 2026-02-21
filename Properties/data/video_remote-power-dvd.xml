@@ -14,7 +14,7 @@
 				</JButton>
 			</JPanel>
 			<JPanel extendedLayoutApplyParent="North" setBackground="0, 0, 0" setLayout="java.awt.FlowLayout" >
-				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Fn./plugin-projects/AutoHotKey-Utils/get-power-dvd-pid.sh" extendedLayoutApplyParent="" setBackground="51, 0, 51" setForeground="204, 204, 204" setText="| [Con] |" setToolTipText="Connect To PowerDVD" >
+				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Fn./plugin-projects/AutoHotKey-Utils/store-pid-by-process-name.sh%Tn PowerDVD.exe%Tn read-power-dvd-pid.txt" extendedLayoutApplyParent="" setBackground="51, 0, 51" setForeground="204, 204, 204" setText="| [Con] |" setToolTipText="Connect To PowerDVD" >
 				</JButton>
 				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/send-pid-key.ahk%Tn read-power-dvd-pid.txt%Tn {space}" extendedLayoutApplyParent="" setBackground="51, 0, 51" setForeground="204, 204, 204" setText="| [ &gt; ] |" setToolTipText="Play/Pause" >
 				</JButton>
