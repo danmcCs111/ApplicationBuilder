@@ -30,24 +30,29 @@ public class KeepSelection implements ShapeDrawingCollectionLoad, Comparator<Kee
 	private static final String 
 		IMAGES_RELATIVE_PATH = "/images/";
 	
+	private static Image
+		defaultImg;
+	public static boolean 
+		skip = true;
+	private static ShapeDrawingCollection 
+		sdc = new ShapeDrawingCollection();
+	
+	private JFrame 
+		frame;
+	private Image 
+		img,
+		previewImage;
 	private String 
 		path,
 		fullText,
 		displayText,
 		fileLocation;
-	private JFrame frame;
-	private Image 
-		img,
-		previewImage;
-	private static Image
-		defaultImg;
-	public static boolean 
-		skip = true;
-	private static ShapeDrawingCollection sdc = new ShapeDrawingCollection();
-	private ButtonArray ba;
-	private JButtonLengthLimited ab;
-	
-	private JPanel connectedPanel;
+	private ButtonArray 
+		ba;
+	private JButtonLengthLimited 
+		ab;
+	private JPanel 
+		connectedPanel;
 	
 	public KeepSelection()
 	{

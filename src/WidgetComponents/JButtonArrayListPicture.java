@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,6 +20,8 @@ import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import ActionListeners.AddActionSend;
@@ -82,25 +86,35 @@ PostWidgetBuildProcessing
 		SHOW_JAVA_SWING_FILE_CHOOSER = false,
 		SHOW_TITLE_ON_POSTER = false;
 	private static Color
+		highlightColor = Color.orange,
 		buttonCheckboxBackground = null,
 		buttonCheckboxForeground = null;
+	private static Border
+		highlightBorder = new BevelBorder(BevelBorder.RAISED, highlightColor, highlightColor),
+		defaultBorder = new JCheckBoxLimited().getBorder();
 	
 	private HashMap<String, ArrayList<JCheckBoxLimited>> collectionJButtons = new HashMap<String, ArrayList<JCheckBoxLimited>>();
 	private Point 
 		saveIncPoint = new Point(100, 0),
 		saveStartLocation = new Point(100, 700);
-	private ArrayList<String> stripFilter = new ArrayList<String>();
+	private ArrayList<String> 
+		stripFilter = new ArrayList<String>();
 	private int 
 		characterLimit=0,
 		columns = 3;
 	private boolean 
 		showAll = false,
 		isLoadingSpinGraphic = true;
-	private String connectedComponentName;
-	private ArrayList<ButtonArrayLoadingNotification> loadingNofications = new ArrayList<ButtonArrayLoadingNotification>();
-	private FileSelection xmlFile = new FileSelection("./Properties/shapes/reload.xml");
-	private JFrame loadingFrame;
-	private VideoBookMarksDialog vbmd = null;
+	private String 
+		connectedComponentName;
+	private ArrayList<ButtonArrayLoadingNotification> 
+		loadingNofications = new ArrayList<ButtonArrayLoadingNotification>();
+	private FileSelection 
+		xmlFile = new FileSelection("./Properties/shapes/reload.xml");
+	private JFrame 
+		loadingFrame;
+	private VideoBookMarksDialog 
+		vbmd = null;
 	
 	public JButtonArrayListPicture()
 	{
@@ -110,6 +124,17 @@ PostWidgetBuildProcessing
 	private void buildWidgets()
 	{
 		this.setLayout(new GridLayout(0, this.columns));
+	}
+	
+	public static void setHighlightColor(Color color)
+	{
+		highlightColor = color;
+		highlightBorder = new BevelBorder(BevelBorder.RAISED, highlightColor, highlightColor);
+	}
+	
+	public static void setDefaultBorder(Color color)
+	{
+		defaultBorder = new BevelBorder(BevelBorder.RAISED, color, color);
 	}
 	
 	public static void setDeleteForegroundColor(Color c)
@@ -353,6 +378,22 @@ PostWidgetBuildProcessing
 			button.setToolTipText(fileName);
 			button.setPathKey(path);
 			button.setBorderPainted(true);
+			button.addItemListener(new ItemListener() 
+			{
+				@Override
+				public void itemStateChanged(ItemEvent e) {
+					int stateChange = e.getStateChange();
+					if(stateChange == ItemEvent.SELECTED)
+					{
+						
+						button.setBorder(highlightBorder);
+					}
+					else
+					{
+						button.setBorder(defaultBorder);
+					}
+				}
+			});
 			components.add(button);
 			
 			count++;
