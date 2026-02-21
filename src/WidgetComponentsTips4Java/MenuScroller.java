@@ -11,6 +11,9 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
+
 import javax.swing.Icon;
 import javax.swing.JComponent;
 import javax.swing.JMenu;
@@ -297,6 +300,7 @@ public class MenuScroller {
     setBottomFixedCount(bottomFixedCount);
 
     this.menu = menu;
+    this.menu.addMouseWheelListener(new MouseScrollMenu());
     this.menuItems = menu.getComponents();//TODO...
     refreshMenu();
     menu.addPopupMenuListener(menuListener);
@@ -496,6 +500,7 @@ public class MenuScroller {
 
     private void setMenuItems() {
       restoreMenuItems();
+      menu.addMouseWheelListener(null);
       menuItems = menu.getComponents();
       if (keepVisibleIndex >= topFixedCount
               && keepVisibleIndex <= menuItems.length - bottomFixedCount
@@ -515,6 +520,19 @@ public class MenuScroller {
         menu.add(component);
       }
     }
+  }
+  
+  private class MouseScrollMenu implements MouseWheelListener
+  {
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent e) 
+	{
+		int inc = (e.getWheelRotation() > 0)
+				? 1
+				:-1;
+		firstIndex += inc;
+        refreshMenu();
+	}
   }
 
   private class MenuScrollTimer extends Timer {
