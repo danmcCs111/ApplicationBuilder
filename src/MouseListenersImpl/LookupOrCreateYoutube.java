@@ -24,12 +24,10 @@ public class LookupOrCreateYoutube
 		YOUTUBE_CHANNEL_HANDLE_STRIP = new String [] {"/videos", "/featured"};
 	public static final String
 		YOUTUBE_CHANNEL_HANDLE_MATCH = "/[^/]*$",
-		
 		OPERATION = "showResult",
 		PLUGIN_JAR_LOCATION = PathUtility.getCurrentDirectory() + "/" + 
 				"plugin-projects/YouTube-API-list/YoutubeApiList/youtubeApiList.sh",
 		SAVE_INSERT_PATH = "./VideoLaunchFiles/YoutubeChannels/video-images/", //TODO
-		
 		IS_LOOKUP_FRAME_FILTER = "",
 		ENDPOINT = "http://localhost:",
 		REQUEST_TYPE_HEADER_KEY = "Get-request-type",

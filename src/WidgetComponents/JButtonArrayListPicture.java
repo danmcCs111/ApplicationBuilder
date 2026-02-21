@@ -70,9 +70,6 @@ PostWidgetBuildProcessing
 		PROPERTIES_FILE_ARG_DELIMITER = "@",
 		PROPERTIES_FILE_DELIMITER = "=";
 
-	public ImageReader 
-		imageReader = null;
-	
 	public static String 
 		DEFAULT_IMG = "./Properties/shapes/Default-Play-Image.xml";
 	public static Dimension
@@ -93,7 +90,10 @@ PostWidgetBuildProcessing
 		highlightBorder = new BevelBorder(BevelBorder.RAISED, highlightColor, highlightColor),
 		defaultBorder = new JCheckBoxLimited().getBorder();
 	
-	private HashMap<String, ArrayList<JCheckBoxLimited>> collectionJButtons = new HashMap<String, ArrayList<JCheckBoxLimited>>();
+	public ImageReader 
+		imageReader = null;
+	private HashMap<String, ArrayList<JCheckBoxLimited>> 
+		collectionJButtons = new HashMap<String, ArrayList<JCheckBoxLimited>>();
 	private Point 
 		saveIncPoint = new Point(100, 0),
 		saveStartLocation = new Point(100, 700);

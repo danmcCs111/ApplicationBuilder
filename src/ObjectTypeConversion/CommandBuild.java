@@ -20,7 +20,8 @@ public class CommandBuild
 		commandXmlArg;
 	private String [] 
 		commandLineOptions;
-	private ArrayList<Parameter> parameters = new ArrayList<Parameter>();
+	private ArrayList<Parameter> 
+		parameters = new ArrayList<Parameter>();
 	
 	public CommandBuild()
 	{
