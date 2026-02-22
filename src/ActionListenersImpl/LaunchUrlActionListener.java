@@ -57,6 +57,11 @@ public class LaunchUrlActionListener implements ActionListener
 	{
 		return lastButtonOrigin;
 	}
+	public static void setLastButtonOrigin(AbstractButton ab)
+	{
+		lastButtonOrigin = ab;
+		storeLast(lastButtonOrigin);
+	}
 	
 	public String getProcessLinuxOS()
 	{
@@ -131,6 +136,11 @@ public class LaunchUrlActionListener implements ActionListener
 			}
 			executeProcess(args);
 		}
+		storeLast(button);
+	}
+	
+	private static void storeLast(AbstractButton button)
+	{
 		lastButtons = new ArrayList<AbstractButton>();
 		if(button instanceof LaunchUrlButton)
 		{

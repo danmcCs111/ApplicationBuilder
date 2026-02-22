@@ -35,7 +35,16 @@ public class VideoSubSelectionActionListener implements ActionListener
 		{
 			if(al instanceof LaunchUrlActionListener)
 			{
-				al.actionPerformed(new ActionEvent(childButton, 1, "Open From Image"));
+				Object source = childButton;
+				if(hlListener != null)
+				{
+					AbstractButton ab = hlListener.getMatchingButton(childButton.getName());
+					if(ab != null)
+					{
+						source = ab;
+					}
+				}
+				al.actionPerformed(new ActionEvent(source, 1, "Open From Image"));
 			}
 		}
 		for(ActionListener al : component.getActionListeners())
@@ -46,6 +55,9 @@ public class VideoSubSelectionActionListener implements ActionListener
 				PicLabelMouseListener.highLightLabel(component, true);//TODO
 			}
 		}
-		hlListener.highlight();
+		if(hlListener != null)
+		{
+			hlListener.highlight();
+		}
 	}
 }

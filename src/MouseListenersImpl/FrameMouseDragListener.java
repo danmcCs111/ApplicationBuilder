@@ -218,4 +218,12 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		}
 	}
 
+	@Override
+	public AbstractButton getMatchingButton(String name) 
+	{
+		if(vqp == null)
+			return null;
+		return vqp.getVideoChannelListView().getAbstractButton(name);
+	}
+
 }

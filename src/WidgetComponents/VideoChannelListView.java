@@ -104,14 +104,24 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 				: last.getName();
 		
 		LoggingMessages.printOut("Find highlight: " + name);
+		AbstractButton ab = getAbstractButton(name);
+		if(ab == null)
+			return;
 		
+		LaunchUrlActionListener.setLastButtonOrigin(ab);
+		performSelect(videoButtons.get(ab));
+	}
+	
+	public AbstractButton getAbstractButton(String name)
+	{
 		for(AbstractButton ab : videoButtons.keySet())
 		{
 			if(name != null && name.equals(ab.getName()))
 			{
-				performSelect(videoButtons.get(ab));
+				return ab;
 			}
 		}
+		return null;
 	}
 	
 	public void performSelect(Highlighter hl)
