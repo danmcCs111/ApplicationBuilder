@@ -108,7 +108,8 @@ public class LaunchUrlActionListener implements ActionListener
 					if(lastButton != null)
 					{
 						Container lastButtonParent = lastButton.getParent();
-						if(!lastButtonParent.equals(button.getParent()) && lastButtonParent instanceof ArrayActionListener)
+						if(lastButtonParent != null && !lastButtonParent.equals(button.getParent()) 
+								&& lastButtonParent instanceof ArrayActionListener)
 						{
 							ArrayActionListener aal = (ArrayActionListener)lastButtonParent;
 							aal.unselect();
