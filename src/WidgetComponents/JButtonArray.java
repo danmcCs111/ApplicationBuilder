@@ -307,7 +307,11 @@ PostWidgetBuildProcessing, ButtonArray
 			{
 				setHighlightForegroundAndBackground(false);
 			}
-			highlightButton = (JButton) e.getSource();
+			
+			JButtonLengthLimited source = (JButtonLengthLimited) e.getSource();
+			highlightButton = (JButton) source.getHighlightButton();
+			LoggingMessages.printOut(highlightButton +" jbutton selected highlightbutton");
+			
 			setHighlightForegroundAndBackground(true);
 		}
 	};

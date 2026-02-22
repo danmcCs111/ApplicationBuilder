@@ -35,7 +35,8 @@ public class LaunchUrlActionListener implements ActionListener
 	
 	private static ArrayList<AbstractButton> 
 		lastButtons = new ArrayList<AbstractButton>();
-//	private static Container lastButtonParent = null;
+	private static AbstractButton
+		lastButtonOrigin;
 	private static boolean isKiosk = false;
 	
 	public String getProcessWindowsOS()
@@ -89,15 +90,19 @@ public class LaunchUrlActionListener implements ActionListener
 		}
 		else
 		{
-			for(AbstractButton lastButton : lastButtons)
+			if(lastButtonOrigin != null && 
+					!lastButtonOrigin.equals(button.getParent()))
 			{
-				if(lastButton != null)
+				for(AbstractButton lastButton : lastButtons)
 				{
-					Container lastButtonParent = lastButton.getParent();
-					if(!lastButtonParent.equals(button.getParent()) && lastButtonParent instanceof ArrayActionListener)
+					if(lastButton != null)
 					{
-						ArrayActionListener aal = (ArrayActionListener)lastButtonParent;
-						aal.unselect();
+						Container lastButtonParent = lastButton.getParent();
+						if(!lastButtonParent.equals(button.getParent()) && lastButtonParent instanceof ArrayActionListener)
+						{
+							ArrayActionListener aal = (ArrayActionListener)lastButtonParent;
+							aal.unselect();
+						}
 					}
 				}
 			}
@@ -135,6 +140,7 @@ public class LaunchUrlActionListener implements ActionListener
 		{
 			lastButtons.add(button);
 		}
+		lastButtonOrigin = button;
 	}
 	
 	private static void executeProcess(String ...args)

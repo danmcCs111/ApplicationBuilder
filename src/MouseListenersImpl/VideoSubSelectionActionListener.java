@@ -20,7 +20,7 @@ public class VideoSubSelectionActionListener implements ActionListener
 	}
 	
 	@Override
-	public void actionPerformed(ActionEvent e) 
+	public void actionPerformed(ActionEvent e) //double loop b/c of order.
 	{
 		for(ActionListener al : component.getActionListeners())
 		{
@@ -28,7 +28,10 @@ public class VideoSubSelectionActionListener implements ActionListener
 			{
 				al.actionPerformed(new ActionEvent(childButton, 1, "Open From Image"));
 			}
-			else
+		}
+		for(ActionListener al : component.getActionListeners())
+		{
+			if(!(al instanceof LaunchUrlActionListener))
 			{
 				al.actionPerformed(new ActionEvent(component, 1, "Open From Image"));
 				PicLabelMouseListener.highLightLabel(component, true);//TODO
