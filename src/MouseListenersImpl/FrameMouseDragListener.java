@@ -17,7 +17,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
-import ActionListenersImpl.LaunchUrlActionListener;
 import Graphics2D.ColorTemplate;
 import Properties.LoggingMessages;
 import WidgetComponents.JButtonLengthLimited;
@@ -86,7 +85,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 				}
 				if(mi2 != null)
 				{
-					JMenuItem mi3 = buildOpenVideosView(jbll, ycvs);
+					JMenuItem mi3 = buildOpenVideosView(component, ycvs);
 					pm.add(mi3);
 				}
 				JMenuItem mi4 = buildUpdateMenu(jbll);
@@ -140,26 +139,10 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	private JMenuItemLaunchUrl buildJMenuItem(YoutubeChannelVideo ycv, JButtonLengthLimited jbll)
 	{
 		JMenuItemLaunchUrl jmi = new JMenuItemLaunchUrl(ycv.getTitle());
-		jmi.setHighlightButton(jbll);
+		jmi.setHighlightButton(component);
 		jmi.setName(ycv.getUrl());
 		jmi.setToolTipText("Upload Date: " + ycv.getUploadDate().toString());
-		jmi.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				for(ActionListener al : component.getActionListeners())
-				{
-					if(al instanceof LaunchUrlActionListener)
-					{
-						al.actionPerformed(new ActionEvent(jmi, 1, "Open From Image"));
-					}
-					else
-					{
-						al.actionPerformed(new ActionEvent(jbll, 1, "Open From Image"));
-						PicLabelMouseListener.highLightLabel(jbll, true);//TODO
-					}
-				}
-			}
-		});
+		jmi.addActionListener(new VideoSubSelectionActionListener(component, jmi));
 		return jmi;
 	}
 	
@@ -175,7 +158,8 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		return mi3;
 	}
 	
-	private JMenuItem buildOpenVideosView(JButtonLengthLimited jbll, HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
+	private JMenuItem buildOpenVideosView(
+			AbstractButton parentButton, HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
 	{
 		JMenuItem mi4 = new JMenuItem(VIEW_LIST_VIDEOS);
 		mi4.addActionListener(new ActionListener() {
@@ -187,7 +171,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 				{
 					vqp.dispose();
 				}
-				vqp = new VideoChannelPlayer(ycvs, jbll, f);
+				vqp = new VideoChannelPlayer(ycvs, parentButton, f);
 			}
 		});
 		return mi4;

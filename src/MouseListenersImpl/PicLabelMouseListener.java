@@ -45,7 +45,7 @@ public class PicLabelMouseListener extends MouseAdapter
 		HIGHLIGHT_BORDER = new BevelBorder(BevelBorder.RAISED, HIGHLIGHT_COLOR, HIGHLIGHT_COLOR);
 	}
 	
-	public static void highLightLabel(JButtonLengthLimited ab, boolean on)
+	public static void highLightLabel(AbstractButton ab, boolean on)
 	{
 		LoggingMessages.printOut("highlight label.");
 		if(ab == null)
@@ -53,7 +53,8 @@ public class PicLabelMouseListener extends MouseAdapter
 		
 		for(JLabel l : PicLabelMouseListener.connectedLabels)
 		{
-			if(l.getName().equals(ab.getFullLengthText()))
+			if(ab instanceof JButtonLengthLimited && 
+					l.getName().equals(((JButtonLengthLimited) ab).getFullLengthText()))
 			{
 				l.setBorder(on
 					? HIGHLIGHT_BORDER

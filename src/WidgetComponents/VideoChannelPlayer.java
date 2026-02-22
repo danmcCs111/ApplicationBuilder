@@ -3,19 +3,17 @@ package WidgetComponents;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.AbstractButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import ActionListenersImpl.LaunchUrlActionListener;
 import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
-import MouseListenersImpl.PicLabelMouseListener;
+import MouseListenersImpl.VideoSubSelectionActionListener;
 import MouseListenersImpl.YoutubeChannelVideo;
 import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
 import WidgetUtility.FileListOptionGenerator;
@@ -31,12 +29,13 @@ public class VideoChannelPlayer extends JFrame
 	private static int 
 		SCROLL_UNIT_INC = 25;
 	
-	private JButtonLengthLimited jbllParent;
+	private AbstractButton parentButton;
 
-	public VideoChannelPlayer(HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs, JButtonLengthLimited jbllParent, Container parent)
+	public VideoChannelPlayer(
+			HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs, AbstractButton parentButton, Container parent)
 	{
-		this.jbllParent = jbllParent;
-		this.setTitle(TITLE_PREFIX + jbllParent.getText());
+		this.parentButton = parentButton;
+		this.setTitle(TITLE_PREFIX + parentButton.getText());
 		buildWidgets(ycvs);
 		GraphicsUtil.rightEdgeCenterWindow(parent, this);
 	}
@@ -72,24 +71,8 @@ public class VideoChannelPlayer extends JFrame
 		JButtonLengthLimited jbll = (JButtonLengthLimited) FileListOptionGenerator.buildComponent(
 				"", ycv.getTitle(), ycv.getUrl(), JButtonLengthLimited.class);
 		jbll.setToolTipText("Upload Date: " + ycv.getUploadDate().toString());
-		
-		jbll.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				for(ActionListener al : jbllParent.getActionListeners())
-				{
-					if(al instanceof LaunchUrlActionListener)
-					{
-						al.actionPerformed(new ActionEvent(jbll, 1, "Open From Image"));
-					}
-					else
-					{
-						al.actionPerformed(new ActionEvent(jbllParent, 1, "Open From Image"));
-						PicLabelMouseListener.highLightLabel(jbllParent, true);//TODO
-					}
-				}
-			}
-		});
+		jbll.setHighlightButton(parentButton);
+		jbll.addActionListener(new VideoSubSelectionActionListener(parentButton, jbll));
 		return jbll;
 	}
 }

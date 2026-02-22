@@ -32,33 +32,37 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 		directionsIndex = 0, 
 		controlPointSelectedIndex = -1,
 		controlPointShapeSelectedIndex = -1;
-	private ShapeDrawingCollection sdc;
-	
-	private ArrayList<ShapeStyling> shapeSelectedIndexes = new ArrayList<ShapeStyling>();
-	private HashMap<ShapeStyling, HashMap<Integer, ArrayList<ControlPointChangedListener>>> shapeAndControlPointChangedListener = 
-			new HashMap<ShapeStyling, HashMap<Integer, ArrayList<ControlPointChangedListener>>>();
+	private ShapeDrawingCollection 
+		sdc;
+	private ArrayList<ShapeStyling> 
+		shapeSelectedIndexes = new ArrayList<ShapeStyling>();
+	private HashMap<ShapeStyling, HashMap<Integer, ArrayList<ControlPointChangedListener>>> 
+		shapeAndControlPointChangedListener = new HashMap<ShapeStyling, HashMap<Integer, ArrayList<ControlPointChangedListener>>>();
 	private boolean 
 		mousePressed = false,
 		controlPointSelected = false;
 	private Point 
 		mouseDragStartPoint,
 		mouseDragLastPoint;
-	private ArrayList<Point> controlPoints = new ArrayList<Point>();
-	private Rectangle2D selectTool;
-	private Rectangle2D selectionRect;
-	
+	private ArrayList<Point> 
+		controlPoints = new ArrayList<Point>();
+	private Rectangle2D 
+		selectTool,
+		selectionRect;
 	private JPanel 
 		draw;
-	private ShapeCreatorEditPanel shapeCreatorEditPanel;
-	private DrawMouseListener dml;
-	
-	private DrawMode mode;
-	
-	private Operation operation = Operation.Select;
-	
-	private Color colorPallette;
-	
-	private ArrayList<ShapeDirectionsNotification> shapeDirectionsNotification = new ArrayList<ShapeDirectionsNotification>();
+	private ShapeCreatorEditPanel 
+		shapeCreatorEditPanel;
+	private DrawMouseListener 
+		dml;
+	private DrawMode 
+		mode;
+	private Operation 
+		operation = Operation.Select;
+	private Color 
+		colorPallette;
+	private ArrayList<ShapeDirectionsNotification> 
+		shapeDirectionsNotification = new ArrayList<ShapeDirectionsNotification>();
 	
 	public ShapeCreator()
 	{

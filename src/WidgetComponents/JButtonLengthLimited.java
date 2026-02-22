@@ -13,6 +13,7 @@ public class JButtonLengthLimited extends JButton implements Comparator<JButtonL
 	private static final long serialVersionUID = 1L;
 	private int characterLimit = 0;
 	private String fullLengthText;
+	private AbstractButton highlightButton = this;
 	
 	public void setCharacterLimit(int charLimit)
 	{
@@ -56,11 +57,16 @@ public class JButtonLengthLimited extends JButton implements Comparator<JButtonL
 			return false;
 		}
 	}
+	
+	public void setHighlightButton(AbstractButton ab)
+	{
+		this.highlightButton = ab;
+	}
 
 	@Override
 	public AbstractButton getHighlightButton() 
 	{
-		return this;
+		return highlightButton;
 	}
 
 }

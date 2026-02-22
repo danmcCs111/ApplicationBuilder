@@ -194,7 +194,8 @@ public class LookupOrCreateYoutube
 		return lastDate;
 	}
 	
-	private HashMap<Integer, ArrayList<YoutubeChannelVideo>> getYoutubeVideos(int parentId, String videoChannelLink, long lastDate)
+	private HashMap<Integer, ArrayList<YoutubeChannelVideo>> getYoutubeVideos(
+			int parentId, String videoChannelLink, long lastDate)
 	{
 		HashMap<Integer, ArrayList<YoutubeChannelVideo>> parentIdAndYoutubeChannelVideos = 
 				new HashMap<Integer, ArrayList<YoutubeChannelVideo>>();
