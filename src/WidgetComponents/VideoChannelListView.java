@@ -11,6 +11,7 @@ import javax.swing.AbstractButton;
 import javax.swing.JPanel;
 
 import ActionListeners.ArrayActionListener;
+import ActionListenersImpl.LaunchUrlActionListener;
 import Graphics2D.ColorTemplate;
 import MouseListenersImpl.VideoSubSelectionActionListener;
 import MouseListenersImpl.YoutubeChannelVideo;
@@ -56,17 +57,27 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 	private void buildWidgets(HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
 	{
 		this.setLayout(new GridLayout(0, 1));
+		AbstractButton last = LaunchUrlActionListener.getLastButtonOrigin();
+		String name = (last == null)
+				? null
+				: last.getName();
+		
 		hlPanel = new Highlighter(this, borderColor);
 		for(int key : ycvs.keySet())
 		{
 			for(YoutubeChannelVideo ycv : ycvs.get(key))
 			{
-				this.add(buildVideoButton(ycv));
+				this.add(buildVideoButton(ycv, name));
 			}
 		}
 	}
 	
-	private JButtonLengthLimited buildVideoButton(YoutubeChannelVideo ycv)
+	public void postFrameBuild()
+	{
+		performSelect(selectedBtn);
+	}
+	
+	private JButtonLengthLimited buildVideoButton(YoutubeChannelVideo ycv, String name)
 	{
 		JButtonLengthLimited jbll = (JButtonLengthLimited) FileListOptionGenerator.buildComponent(
 				"", ycv.getTitle(), ycv.getUrl(), JButtonLengthLimited.class);
@@ -74,16 +85,30 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 		jbll.setHighlightButton(parentButton);
 		jbll.addActionListener(new VideoSubSelectionActionListener(parentButton, jbll));
 		Highlighter hl = new Highlighter(jbll, highlightForegroundAndBackgroundColor, foregroundAndBackgroundColor);
+		
+		if(name != null && name.equals(jbll.getName()))
+		{
+			performSelect(hl);
+		}
+		
 		jbll.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				unselect();
-				hlPanel.setHighlightForegroundAndBackground(true);
-				hl.setHighlightForegroundAndBackground(true);
-				selectedBtn = hl;
+				performSelect(hl);
 			}
 		});
 		return jbll;
+	}
+	
+	public void performSelect(Highlighter hl)
+	{
+		if(hl == null)
+			return;
+		
+		unselect();
+		hlPanel.setHighlightForegroundAndBackground(true);
+		hl.setHighlightForegroundAndBackground(true);
+		selectedBtn = hl;
 	}
 
 	@Override

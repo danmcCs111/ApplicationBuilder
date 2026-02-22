@@ -7,7 +7,6 @@ import java.util.HashMap;
 
 import javax.swing.AbstractButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import Graphics2D.ColorTemplate;
@@ -39,7 +38,7 @@ public class VideoChannelPlayer extends JFrame
 	
 	private void buildWidgets(HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
 	{
-		JPanel listView = new VideoChannelListView(parentButton, ycvs);
+		VideoChannelListView listView = new VideoChannelListView(parentButton, ycvs);
 		JScrollPane scrollPane = new JScrollPane(listView);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(SCROLL_UNIT_INC);
 		this.add(scrollPane);
@@ -53,6 +52,8 @@ public class VideoChannelPlayer extends JFrame
 		this.setMinimumSize(MIN_SIZE);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setVisible(true);
+		
+		listView.postFrameBuild();
 	}
 	
 }

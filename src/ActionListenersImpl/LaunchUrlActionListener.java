@@ -53,6 +53,11 @@ public class LaunchUrlActionListener implements ActionListener
 		LaunchUrlActionListener.isKiosk = isKiosk;
 	}
 	
+	public static AbstractButton getLastButtonOrigin()
+	{
+		return lastButtonOrigin;
+	}
+	
 	public String getProcessLinuxOS()
 	{
 		return processLinux;
