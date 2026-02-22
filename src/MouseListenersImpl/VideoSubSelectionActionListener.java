@@ -6,17 +6,26 @@ import java.awt.event.ActionListener;
 import javax.swing.AbstractButton;
 
 import ActionListenersImpl.LaunchUrlActionListener;
+import WidgetComponentInterfaces.HighlightListener;
 
 public class VideoSubSelectionActionListener implements ActionListener
 {
 	private AbstractButton 
 		component,
 		childButton;
+	private HighlightListener hlListener;
 	
 	public VideoSubSelectionActionListener(AbstractButton component, AbstractButton childButton)
 	{
 		this.component = component;
 		this.childButton = childButton;
+	}
+	
+	public VideoSubSelectionActionListener(AbstractButton component, AbstractButton childButton, HighlightListener hlListener)
+	{
+		this.component = component;
+		this.childButton = childButton;
+		this.hlListener = hlListener;
 	}
 	
 	@Override
@@ -37,5 +46,6 @@ public class VideoSubSelectionActionListener implements ActionListener
 				PicLabelMouseListener.highLightLabel(component, true);//TODO
 			}
 		}
+		hlListener.highlight();
 	}
 }

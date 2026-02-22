@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.AbstractButton;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import ActionListeners.ArrayActionListener;
@@ -15,6 +16,7 @@ import ActionListenersImpl.LaunchUrlActionListener;
 import Graphics2D.ColorTemplate;
 import MouseListenersImpl.VideoSubSelectionActionListener;
 import MouseListenersImpl.YoutubeChannelVideo;
+import Properties.LoggingMessages;
 import WidgetUtility.FileListOptionGenerator;
 
 public class VideoChannelListView extends JPanel implements ArrayActionListener
@@ -32,6 +34,8 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 	private Highlighter 
 		hlPanel,
 		selectedBtn;
+	private HashMap<JButton, Highlighter> 
+		videoButtons = new HashMap<JButton, Highlighter>();
 	
 	public VideoChannelListView(AbstractButton parentButton, HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
 	{
@@ -57,27 +61,24 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 	private void buildWidgets(HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
 	{
 		this.setLayout(new GridLayout(0, 1));
-		AbstractButton last = LaunchUrlActionListener.getLastButtonOrigin();
-		String name = (last == null)
-				? null
-				: last.getName();
 		
 		hlPanel = new Highlighter(this, borderColor);
 		for(int key : ycvs.keySet())
 		{
 			for(YoutubeChannelVideo ycv : ycvs.get(key))
 			{
-				this.add(buildVideoButton(ycv, name));
+				JButtonLengthLimited jbll = buildVideoButton(ycv);
+				this.add(jbll);
 			}
 		}
 	}
 	
 	public void postFrameBuild()
 	{
-		performSelect(selectedBtn);
+		findHighlight();
 	}
 	
-	private JButtonLengthLimited buildVideoButton(YoutubeChannelVideo ycv, String name)
+	private JButtonLengthLimited buildVideoButton(YoutubeChannelVideo ycv)
 	{
 		JButtonLengthLimited jbll = (JButtonLengthLimited) FileListOptionGenerator.buildComponent(
 				"", ycv.getTitle(), ycv.getUrl(), JButtonLengthLimited.class);
@@ -85,12 +86,7 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 		jbll.setHighlightButton(parentButton);
 		jbll.addActionListener(new VideoSubSelectionActionListener(parentButton, jbll));
 		Highlighter hl = new Highlighter(jbll, highlightForegroundAndBackgroundColor, foregroundAndBackgroundColor);
-		
-		if(name != null && name.equals(jbll.getName()))
-		{
-			performSelect(hl);
-		}
-		
+		videoButtons.put(jbll, hl);
 		jbll.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -98,6 +94,24 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 			}
 		});
 		return jbll;
+	}
+	
+	public void findHighlight()
+	{
+		AbstractButton last = LaunchUrlActionListener.getLastButtonOrigin();
+		String name = (last == null)
+				? null
+				: last.getName();
+		
+		LoggingMessages.printOut("Find highlight: " + name);
+		
+		for(AbstractButton ab : videoButtons.keySet())
+		{
+			if(name != null && name.equals(ab.getName()))
+			{
+				performSelect(videoButtons.get(ab));
+			}
+		}
 	}
 	
 	public void performSelect(Highlighter hl)

@@ -19,12 +19,13 @@ import javax.swing.JPopupMenu;
 
 import Graphics2D.ColorTemplate;
 import Properties.LoggingMessages;
+import WidgetComponentInterfaces.HighlightListener;
 import WidgetComponents.JButtonLengthLimited;
 import WidgetComponents.JMenuItemLaunchUrl;
 import WidgetComponents.VideoChannelPlayer;
 import WidgetComponentsTips4Java.MenuScroller;
 
-public class FrameMouseDragListener extends MouseAdapter implements MouseListener, MouseMotionListener
+public class FrameMouseDragListener extends MouseAdapter implements MouseListener, MouseMotionListener, HighlightListener
 {
 	private static final int 
 		FRAME_AND_TITLE_HEIGHT = 45; 
@@ -40,6 +41,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	private JLabel picLabel;
 	private LookupOrCreateYoutube lcv = new LookupOrCreateYoutube();
 	private boolean mouse1Pressed = false;
+	private VideoChannelPlayer vqp = null;
 	
 	public FrameMouseDragListener()
 	{
@@ -142,7 +144,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		jmi.setHighlightButton(component);
 		jmi.setName(ycv.getUrl());
 		jmi.setToolTipText("Upload Date: " + ycv.getUploadDate().toString());
-		jmi.addActionListener(new VideoSubSelectionActionListener(component, jmi));
+		jmi.addActionListener(new VideoSubSelectionActionListener(component, jmi, this));
 		return jmi;
 	}
 	
@@ -163,7 +165,6 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	{
 		JMenuItem mi4 = new JMenuItem(VIEW_LIST_VIDEOS);
 		mi4.addActionListener(new ActionListener() {
-			private VideoChannelPlayer vqp = null;
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
@@ -205,6 +206,15 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	        Point currCoords = e.getLocationOnScreen();
 	        currCoords.setLocation(currCoords.x, currCoords.y - FRAME_AND_TITLE_HEIGHT);
 	        f.setLocation(currCoords.x - mouseDownCompCoords.x, currCoords.y - mouseDownCompCoords.y);
+		}
+	}
+	
+	@Override
+	public void highlight()
+	{
+		if(vqp != null)
+		{
+			vqp.getVideoChannelListView().findHighlight();
 		}
 	}
 

@@ -25,7 +25,10 @@ public class VideoChannelPlayer extends JFrame
 	private static int 
 		SCROLL_UNIT_INC = 25;
 	
-	private AbstractButton parentButton;
+	private AbstractButton 
+		parentButton;
+	private VideoChannelListView 
+		listView; 
 
 	public VideoChannelPlayer(
 			HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs, AbstractButton parentButton, Container parent)
@@ -36,9 +39,14 @@ public class VideoChannelPlayer extends JFrame
 		GraphicsUtil.rightEdgeCenterWindow(parent, this);
 	}
 	
+	public VideoChannelListView getVideoChannelListView()
+	{
+		return this.listView;
+	}
+	
 	private void buildWidgets(HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
 	{
-		VideoChannelListView listView = new VideoChannelListView(parentButton, ycvs);
+		listView = new VideoChannelListView(parentButton, ycvs);
 		JScrollPane scrollPane = new JScrollPane(listView);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(SCROLL_UNIT_INC);
 		this.add(scrollPane);
