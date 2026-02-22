@@ -89,6 +89,19 @@ public class LaunchUrlActionListener implements ActionListener
 		}
 		else
 		{
+			for(AbstractButton lastButton : lastButtons)
+			{
+				if(lastButton != null)
+				{
+					Container lastButtonParent = lastButton.getParent();
+					if(!lastButtonParent.equals(button.getParent()) && lastButtonParent instanceof ArrayActionListener)
+					{
+						ArrayActionListener aal = (ArrayActionListener)lastButtonParent;
+						aal.unselect();
+					}
+				}
+			}
+			
 			String [] args = null;
 			if(LaunchUrlActionListener.isKiosk)
 			{
