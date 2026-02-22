@@ -2,7 +2,6 @@ package WidgetComponents;
 
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -13,10 +12,8 @@ import javax.swing.JScrollPane;
 
 import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
-import MouseListenersImpl.VideoSubSelectionActionListener;
 import MouseListenersImpl.YoutubeChannelVideo;
 import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
-import WidgetUtility.FileListOptionGenerator;
 
 public class VideoChannelPlayer extends JFrame
 {
@@ -42,17 +39,9 @@ public class VideoChannelPlayer extends JFrame
 	
 	private void buildWidgets(HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
 	{
-		JPanel listView = new JPanel();
-		listView.setLayout(new GridLayout(0, 1));
+		JPanel listView = new VideoChannelListView(parentButton, ycvs);
 		JScrollPane scrollPane = new JScrollPane(listView);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(SCROLL_UNIT_INC);
-		for(int key : ycvs.keySet())
-		{
-			for(YoutubeChannelVideo ycv : ycvs.get(key))
-			{
-				listView.add(buildVideoButton(ycv));
-			}
-		}
 		this.add(scrollPane);
 		
 		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
@@ -66,13 +55,4 @@ public class VideoChannelPlayer extends JFrame
 		this.setVisible(true);
 	}
 	
-	private JButtonLengthLimited buildVideoButton(YoutubeChannelVideo ycv)
-	{
-		JButtonLengthLimited jbll = (JButtonLengthLimited) FileListOptionGenerator.buildComponent(
-				"", ycv.getTitle(), ycv.getUrl(), JButtonLengthLimited.class);
-		jbll.setToolTipText("Upload Date: " + ycv.getUploadDate().toString());
-		jbll.setHighlightButton(parentButton);
-		jbll.addActionListener(new VideoSubSelectionActionListener(parentButton, jbll));
-		return jbll;
-	}
 }

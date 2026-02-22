@@ -142,6 +142,21 @@ PostWidgetBuildProcessing, ButtonArray
 		
 	}
 	
+	public static void setBorderColorVideoChannelListView(Color c)
+	{
+		VideoChannelListView.setBorderColor(c);
+	}
+	
+	public static void setHighlightForegroundBackgroundColorVideoChannelListView(Color cForeground, Color cBackground)
+	{
+		VideoChannelListView.setHighlightForegroundBackgroundColor(cForeground, cBackground);
+	}
+	
+	public static void setForegroundBackgroundColorVideoChannelListView(Color cForeground, Color cBackground)
+	{
+		VideoChannelListView.setForegroundBackgroundColor(cForeground, cBackground);
+	}
+	
 	public static void setButtonIconHeight(int height)
 	{
 		BUTTON_ICON_HEIGHT = height;

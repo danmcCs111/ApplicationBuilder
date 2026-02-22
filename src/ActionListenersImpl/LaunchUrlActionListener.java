@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.AbstractButton;
 
@@ -32,8 +33,9 @@ public class LaunchUrlActionListener implements ActionListener
 		processWindows = PROCESS_WINDOWS,
 		processLinux = PROCESS_LINUX;
 	
-	private static AbstractButton lastButton = null;
-	private static Container lastButtonParent = null;
+	private static ArrayList<AbstractButton> 
+		lastButtons = new ArrayList<AbstractButton>();
+//	private static Container lastButtonParent = null;
 	private static boolean isKiosk = false;
 	
 	public String getProcessWindowsOS()
@@ -68,16 +70,20 @@ public class LaunchUrlActionListener implements ActionListener
 		if(button.getName().equals(CLOSE_LAUNCH_ACTION_EVENT))
 		{
 			destroyRunningProcess();
-			if(lastButton != null)
+			for(AbstractButton lastButton : lastButtons)
 			{
-				if(!button.equals(lastButton) && lastButtonParent instanceof ArrayActionListener)
+				if(lastButton != null)
 				{
-					ArrayActionListener aal = (ArrayActionListener)lastButtonParent;
-					aal.unselect();
-				}
-				if(lastButton instanceof JButtonLengthLimited)
-				{
-					PicLabelMouseListener.highLightLabel((JButtonLengthLimited) lastButton, false);//TODO interface?
+					Container lastButtonParent = lastButton.getParent();
+					if(!button.equals(lastButton) && lastButtonParent instanceof ArrayActionListener)
+					{
+						ArrayActionListener aal = (ArrayActionListener)lastButtonParent;
+						aal.unselect();
+					}
+					if(lastButton instanceof JButtonLengthLimited)
+					{
+						PicLabelMouseListener.highLightLabel((JButtonLengthLimited) lastButton, false);//TODO interface?
+					}
 				}
 			}
 		}
@@ -102,15 +108,20 @@ public class LaunchUrlActionListener implements ActionListener
 			}
 			executeProcess(args);
 		}
+		lastButtons = new ArrayList<AbstractButton>();
 		if(button instanceof LaunchUrlButton)
 		{
-			lastButton = ((LaunchUrlButton) button).getHighlightButton();
+			AbstractButton highlight = ((LaunchUrlButton) button).getHighlightButton();
+			lastButtons.add(highlight);
+			if(highlight != button)
+			{
+				lastButtons.add(button);
+			}
 		}
 		else
 		{
-			lastButton = button;
+			lastButtons.add(button);
 		}
-		lastButtonParent = lastButton.getParent();
 	}
 	
 	private static void executeProcess(String ...args)
