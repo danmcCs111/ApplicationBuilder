@@ -37,9 +37,12 @@ public class ShapeCreatorToolBarPanel extends JPanel implements PostWidgetBuildP
 	private JLabel 
 		directionsLabel,
 		operationLabel;
-	private ColorEditor colorEditorTop;
-	private JComboBox<DrawMode> modeSelections;
-	private ShapeCreator shapeCreator; 
+	private ColorEditor 
+		colorEditorTop;
+	private JComboBox<DrawMode> 
+		modeSelections;
+	private ShapeCreator 
+		shapeCreator; 
 	
 	public ShapeCreatorToolBarPanel()
 	{

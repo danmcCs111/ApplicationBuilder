@@ -37,12 +37,13 @@ public class RotateDialog extends JDialog
 		SCALE_LABEL = "Rotation Degrees: ",
 		APPLY_BUTTON_LABEL = "Apply",
 		CANCEL_BUTTON_LABEL = "Cancel";
-	private static final Dimension MIN_DIMENSION_DIALOG = new Dimension(400, 125);
+	private static final Dimension 
+		MIN_DIMENSION_DIALOG = new Dimension(400, 125);
 	
-	private boolean isSave = false;
-	
-	private JSlider scalingSlider = new JSlider(-100, 100, 0);
-	private JLabel scalingLabel = new JLabel(SCALE_LABEL);
+	private JSlider 
+		scalingSlider = new JSlider(-100, 100, 0);
+	private JLabel 
+		scalingLabel = new JLabel(SCALE_LABEL);
 	private JButton 
 		applyButton = new JButton(APPLY_BUTTON_LABEL),
 		cancelButton = new JButton(CANCEL_BUTTON_LABEL);
@@ -51,10 +52,16 @@ public class RotateDialog extends JDialog
 		saveCancelPanel = new JPanel(),
 		saveCancelPanelOuter = new JPanel();
 	
-	private ShapeCreator sc;
-	private ShapeStyling originalSs;
-	private Shape originalShape;
-	private ArrayList<Point> originalControlPoints;
+	private ShapeCreator 
+		sc;
+	private ShapeStyling 
+		originalSs;
+	private Shape 
+		originalShape;
+	private ArrayList<Point> 
+		originalControlPoints;
+	private boolean 
+		isSave = false;	
 	
 	public RotateDialog(Container referenceContainer, ShapeCreator sc, ShapeStyling ss)
 	{
@@ -92,7 +99,6 @@ public class RotateDialog extends JDialog
 				}
 			}
 		});
-		
 		
 		innerPanel.add(scalingLabel);
 		innerPanel.add(scalingSlider);

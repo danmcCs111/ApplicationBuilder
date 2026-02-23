@@ -40,7 +40,8 @@ public class ScaleDialog extends JDialog
 		SCALE_LABEL = "Scale: ",
 		APPLY_BUTTON_LABEL = "Apply",
 		CANCEL_BUTTON_LABEL = "Cancel";
-	private static final Dimension MIN_DIMENSION_DIALOG = new Dimension(400, 125);
+	private static final Dimension 
+		MIN_DIMENSION_DIALOG = new Dimension(400, 125);
 	
 	private JSlider scalingSlider = new JSlider(-100, 100, 0);
 	private JSpinner fontSpinner = new JSpinner();
@@ -53,11 +54,16 @@ public class ScaleDialog extends JDialog
 		saveCancelPanel = new JPanel(),
 		saveCancelPanelOuter = new JPanel();
 	
-	private ShapeCreator sc;
-	private ShapeStyling originalSs;
-	private Shape originalShape;
-	private ArrayList<Point> originalControlPoints;
-	private boolean isSave = false;
+	private ShapeCreator 
+		sc;
+	private ShapeStyling 
+		originalSs;
+	private Shape 
+		originalShape;
+	private ArrayList<Point> 
+		originalControlPoints;
+	private boolean 
+		isSave = false;
 	
 	public ScaleDialog(Container referenceContainer, ShapeCreator sc, ShapeStyling ss)
 	{

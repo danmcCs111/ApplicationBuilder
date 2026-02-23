@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.WindowConstants;
 
+import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
 import ObjectTypeConversionEditors.ColorEditor;
 import ShapeWidgetComponents.NumberGeneratorConfig;
@@ -35,7 +36,8 @@ public class NumberGeneratorConfigDialog extends JDialog
 		SAVE_BUTTON_LABEL = "Save",
 		REMOVE_BUTTON_LABEL = "Remove",
 		CANCEL_BUTTON_LABEL = "Cancel";
-	private static final Dimension MIN_DIMENSION_DIALOG = new Dimension(400, 300);
+	private static final Dimension 
+		MIN_DIMENSION_DIALOG = new Dimension(400, 300);
 	
 	private JPanel 
 		innerPanel = new JPanel(),
@@ -57,10 +59,12 @@ public class NumberGeneratorConfigDialog extends JDialog
 		saveButton = new JButton(SAVE_BUTTON_LABEL),
 		removeButton = new JButton(REMOVE_BUTTON_LABEL),
 		cancelButton = new JButton(CANCEL_BUTTON_LABEL);
-	
-	private ShapeCreator sc;
-	private int index;
-	private NumberGeneratorConfig ngConfig;
+	private ShapeCreator 
+		sc;
+	private int 
+		index;
+	private NumberGeneratorConfig 
+		ngConfig;
 	
 	
 	public NumberGeneratorConfigDialog(Container referenceContainer, ShapeCreator sc, int index)
@@ -84,6 +88,12 @@ public class NumberGeneratorConfigDialog extends JDialog
 		
 		this.sc = sc;
 		this.index = index;
+		
+		buildWidgets(referenceContainer);
+	}
+	
+	private void buildWidgets(Container referenceContainer)
+	{
 		this.setTitle(TITLE);
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setMinimumSize(MIN_DIMENSION_DIALOG);
@@ -95,6 +105,11 @@ public class NumberGeneratorConfigDialog extends JDialog
 		setDefaults(this.ngConfig);
 		buildOptionsPanel();
 		buildSaveCancel();
+		
+		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
+		ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
+		ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
+		
 		this.setVisible(true);
 	}
 	

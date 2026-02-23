@@ -28,10 +28,13 @@ public class ShapeCreatorEditPanel extends JPanel implements PostWidgetBuildProc
 {
 	private static final long serialVersionUID = 1L;
 	
-	private static final String SHAPE_TITLE_SUFFIX = "#";
+	private static final String 
+		SHAPE_TITLE_SUFFIX = "#";
 	
-	private ShapeCreator sc;
-	private HashMap<Integer, ArrayList<PointEditor>> indexAndPointEditors;
+	private ShapeCreator 
+		sc;
+	private HashMap<Integer, ArrayList<PointEditor>> 
+		indexAndPointEditors;
 	
 	public ShapeCreatorEditPanel()
 	{
