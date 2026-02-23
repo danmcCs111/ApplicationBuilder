@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-import ObjectTypeConversion.FileSelection;
+import ObjectTypeConversion.ShapeFileSelection;
 import WidgetComponentInterfaces.ButtonArrayLoadingNotification;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetComponents.LoadingLabel;
@@ -37,7 +37,7 @@ ButtonArrayLoadingNotification
 		this.add(loadingLabel, BorderLayout.SOUTH);
 	}
 	
-	public void addShapeDrawingCollectionLoader(FileSelection fs)
+	public void addShapeDrawingCollectionLoader(ShapeFileSelection fs)
 	{
 		ShapeDrawingCollectionLoad sdcL = this;
 		File file = new File(fs.getFullPath());
