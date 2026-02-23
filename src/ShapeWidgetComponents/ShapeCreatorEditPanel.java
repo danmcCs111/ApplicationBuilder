@@ -18,6 +18,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
 import DrawModesAbstract.DrawMode;
+import Graphics2D.ColorTemplate;
 import ObjectTypeConversionEditors.PointEditor;
 import ShapeEditorListeners.ShapePointChangeListener;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
@@ -41,6 +42,7 @@ public class ShapeCreatorEditPanel extends JPanel implements PostWidgetBuildProc
 	{
 		sc = (ShapeCreator) WidgetBuildController.getInstance().findRefByName("ShapeCreator").getInstance();//TODO
 		indexAndPointEditors = new HashMap<Integer, ArrayList<PointEditor>>();
+		
 	}
 	
 	public void generatePointEditor(int index, Point [] points, DrawMode dm, Color colorPallette)
@@ -156,6 +158,10 @@ public class ShapeCreatorEditPanel extends JPanel implements PostWidgetBuildProc
 		shapeEditOuterPanel.add(shapeEditPanel, BorderLayout.NORTH);
 		
 		this.add(shapeEditOuterPanel);
+		
+		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
+		ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
+		ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
 		
 		indexAndPointEditors.put(index, pointEditors);
 		sc.validateFrame();

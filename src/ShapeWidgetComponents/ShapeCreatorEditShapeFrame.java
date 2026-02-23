@@ -20,6 +20,7 @@ import javax.swing.JSpinner;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
 import ObjectTypeConversionEditors.ColorEditor;
 import Properties.LoggingMessages;
@@ -191,6 +192,10 @@ public class ShapeCreatorEditShapeFrame extends JFrame
 		
 		this.add(parentPanel1);
 		this.add(parentPanel2);
+		
+		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
+		ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
+		ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
 	}
 	
 }

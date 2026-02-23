@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import DrawModesAbstract.DrawMode;
+import Graphics2D.ColorTemplate;
 import ObjectTypeConversionEditors.ColorEditor;
 import ShapeEditorListeners.DrawInputActionListener;
 import ShapeEditorListeners.OpenShapeActionListener;
@@ -77,6 +78,10 @@ public class ShapeCreatorToolBarPanel extends JPanel implements PostWidgetBuildP
 		
 		shapeCreator.setMode((DrawMode) modeSelections.getSelectedItem());
 		shapeCreator.addShapeDirectionsNotification(this);
+		
+		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
+		ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
+		ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
 	}
 	
 	public ShapeCreator getShapeCreator()

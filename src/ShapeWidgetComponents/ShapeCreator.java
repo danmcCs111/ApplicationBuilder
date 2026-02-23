@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 
 import DrawModes.PenDrawMode;
 import DrawModesAbstract.DrawMode;
+import Graphics2D.ColorTemplate;
 import Graphics2D.ShapeDrawingCollectionGraphics;
 import ShapeEditorListeners.AddShapesImportedListener;
 import ShapeEditorListeners.ControlPointChangedListener;
@@ -78,6 +79,10 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 		this.add(draw, BorderLayout.CENTER);
 		LocationSouthBar scsb = new LocationSouthBar(this);
 		draw.addMouseMotionListener(scsb);
+		
+		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
+		ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
+		ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
 	}
 	
 	public void validateFrame()
