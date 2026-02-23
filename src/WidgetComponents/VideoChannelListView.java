@@ -110,6 +110,7 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 		
 		LaunchUrlActionListener.setLastButtonOrigin(ab);
 		performSelect(videoButtons.get(ab));
+		ab.requestFocusInWindow();
 	}
 	
 	public AbstractButton getAbstractButton(String name)
