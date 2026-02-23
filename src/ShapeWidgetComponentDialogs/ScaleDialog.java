@@ -23,6 +23,7 @@ import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
 import Graphics2D.TextShape;
 import Properties.LoggingMessages;
@@ -39,7 +40,7 @@ public class ScaleDialog extends JDialog
 		SCALE_LABEL = "Scale: ",
 		APPLY_BUTTON_LABEL = "Apply",
 		CANCEL_BUTTON_LABEL = "Cancel";
-	private static final Dimension MIN_DIMENSION_DIALOG = new Dimension(400, 300);
+	private static final Dimension MIN_DIMENSION_DIALOG = new Dimension(400, 125);
 	
 	private JSlider scalingSlider = new JSlider(-100, 100, 0);
 	private JSpinner fontSpinner = new JSpinner();
@@ -66,6 +67,11 @@ public class ScaleDialog extends JDialog
 		this.originalShape = sc.getShapeDrawingCollection().getShapes().get(index);
 		this.originalControlPoints = sc.getShapeDrawingCollection().getShapeControlPoints().get(index);
 		
+		buildWidgets(referenceContainer);
+	}
+	
+	private void buildWidgets(Container referenceContainer)
+	{
 		this.setTitle(TITLE);
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setMinimumSize(MIN_DIMENSION_DIALOG);
@@ -111,6 +117,11 @@ public class ScaleDialog extends JDialog
 		});
 		
 		buildSaveCancel();
+		
+		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
+		ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
+		ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
+		
 		this.setVisible(true);
 	}
 	
