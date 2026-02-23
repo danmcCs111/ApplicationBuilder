@@ -35,6 +35,10 @@ Edit https://wpythub.com/documentation/getting-started/set-youtube-oauth-client-
 
     Properties/api-keys/youtube-api-key.txt
 
+Launch video selector with:
+
+        video_launcher.sh OR video_launcher-linux.sh
+
 (using in a dual monitor setup.)
 
 <img width="45%" src="https://github.com/user-attachments/assets/a5dc474a-e387-48ec-9ecb-7680b0b8e732" />
