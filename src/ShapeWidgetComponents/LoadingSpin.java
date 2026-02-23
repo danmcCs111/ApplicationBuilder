@@ -2,9 +2,12 @@ package ShapeWidgetComponents;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.io.File;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import ObjectTypeConversion.FileSelection;
 import WidgetComponentInterfaces.ButtonArrayLoadingNotification;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetComponents.LoadingLabel;
@@ -32,6 +35,19 @@ ButtonArrayLoadingNotification
 		this.setLayout(new BorderLayout());
 		setDoubleBuffered(true);
 		this.add(loadingLabel, BorderLayout.SOUTH);
+	}
+	
+	public void addShapeDrawingCollectionLoader(FileSelection fs)
+	{
+		ShapeDrawingCollectionLoad sdcL = this;
+		File file = new File(fs.getFullPath());
+		ShapeDrawingCollection sdc = new ShapeDrawingCollection();
+		sdcL.addShapeDrawingCollection(sdc);
+		ShapeImportExport sie = new ShapeImportExport();
+		@SuppressWarnings("unchecked")
+		ArrayList<ShapeElement> shapeElements = (ArrayList<ShapeElement>) sie.openXml(file);
+		
+		sdc.addShapeImports(shapeElements, sdcL);
 	}
 	
 	@Override

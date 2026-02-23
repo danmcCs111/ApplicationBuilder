@@ -35,13 +35,20 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		VIEW_LIST_VIDEOS = "VIEW LIST",
 		UPDATE_VIDEOS = "UPDATE";
 	
-	private Point mouseDownCompCoords = null;
-	private JFrame f;
-	private AbstractButton component;
-	private JLabel picLabel;
-	private LookupOrCreateYoutube lcv = new LookupOrCreateYoutube();
-	private boolean mouse1Pressed = false;
-	private VideoChannelPlayer vqp = null;
+	private JFrame 
+		f;
+	private AbstractButton 
+		component;
+	private JLabel 
+		picLabel;
+	private LookupOrCreateYoutube 
+		lcv = new LookupOrCreateYoutube();
+	private 
+		VideoChannelPlayer vqp = null;
+	private Point 
+		mouseDownCompCoords = null;
+	private boolean 
+		mouse1Pressed = false;
 	
 	public FrameMouseDragListener()
 	{

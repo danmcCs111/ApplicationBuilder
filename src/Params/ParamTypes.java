@@ -23,6 +23,7 @@ import ObjectTypeConvertersImpl.PageParserCollectionConverter;
 import ObjectTypeConvertersImpl.PageParserConverter;
 import ObjectTypeConvertersImpl.PathArrayProcessingConverter;
 import ObjectTypeConvertersImpl.PointConverter;
+import ObjectTypeConvertersImpl.ShapeFileSelectionConverter;
 import ObjectTypeConvertersImpl.StringConverter;
 import ObjectTypeConvertersImpl.TimestampConverter;
 import ObjectTypeConvertersImpl.WavReaderConverter;
@@ -56,6 +57,7 @@ public enum ParamTypes
 	CsvReader(new CsvReaderConverter()),
 	WavReader(new WavReaderConverter()),
 	FileSelection(new FileSelectionConverter()),
+	ShapeFileSelection(new ShapeFileSelectionConverter()),
 	CommandBuild(new CommandBuildConverter());
 	
 	private StringToObjectConverter converter;

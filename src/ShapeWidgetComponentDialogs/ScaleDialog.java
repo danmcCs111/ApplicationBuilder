@@ -43,9 +43,12 @@ public class ScaleDialog extends JDialog
 	private static final Dimension 
 		MIN_DIMENSION_DIALOG = new Dimension(400, 125);
 	
-	private JSlider scalingSlider = new JSlider(-100, 100, 0);
-	private JSpinner fontSpinner = new JSpinner();
-	private JLabel scalingLabel = new JLabel(SCALE_LABEL);
+	private JSlider 
+		scalingSlider = new JSlider(-100, 100, 0);
+	private JSpinner 
+		fontSpinner = new JSpinner();
+	private JLabel 
+		scalingLabel = new JLabel(SCALE_LABEL);
 	private JButton 
 		applyButton = new JButton(APPLY_BUTTON_LABEL),
 		cancelButton = new JButton(CANCEL_BUTTON_LABEL);

@@ -1,8 +1,13 @@
 package ShapeWidgetComponents;
 
 
+import java.io.File;
+import java.util.ArrayList;
+
 import javax.swing.JPanel;
 
+import ObjectTypeConversion.FileSelection;
+import ObjectTypeConversion.ShapeFileSelection;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetExtensionInterfaces.ShapeDrawingCollectionLoad;
 
@@ -20,6 +25,19 @@ public class ClockApp extends JPanel implements PostWidgetBuildProcessing, Shape
 	public ClockApp()
 	{
 		
+	}
+	
+	public void addShapeDrawingCollectionLoader(ShapeFileSelection sfs)
+	{
+		ShapeDrawingCollectionLoad sdcL = this;
+		File file = new File(sfs.getFullPath());
+		ShapeDrawingCollection sdc = new ShapeDrawingCollection();
+		sdcL.addShapeDrawingCollection(sdc);
+		ShapeImportExport sie = new ShapeImportExport();
+		@SuppressWarnings("unchecked")
+		ArrayList<ShapeElement> shapeElements = (ArrayList<ShapeElement>) sie.openXml(file);
+		
+		sdc.addShapeImports(shapeElements, sdcL);
 	}
 	
 	@Override
