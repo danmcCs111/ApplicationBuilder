@@ -34,7 +34,7 @@ public class PageParserCollectionDialog extends JDialog
 		SAVE_BUTTON_LABEL = "Save",
 		CANCEL_BUTTON_LABEL = "Cancel";
 	private static final Dimension 
-		MIN_DIMENSION_DIALOG = new Dimension(400, 600);
+		MIN_DIMENSION_DIALOG = new Dimension(400, 250);
 	
 	private JPanel 
 		saveCancelPanel = new JPanel(),

@@ -10,8 +10,14 @@ public class ApplicationBuilder
 	
 	public static void main(String [] args)
 	{
-		if(args.length == 1) buildAppFromXML(args[0]);
-		else buildAppFromXML(DEFAULT_APPLICATION_EDITOR_PATH);
+		if(args.length == 1) 
+		{
+			buildAppFromXML(args[0]);
+		}
+		else 
+		{
+			buildAppFromXML(DEFAULT_APPLICATION_EDITOR_PATH);
+		}
 	}
 	
 	public static void buildAppFromXML(String SOURCE_FILE)

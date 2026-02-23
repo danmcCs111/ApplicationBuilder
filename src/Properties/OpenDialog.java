@@ -6,13 +6,14 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import ObjectTypeConversion.FileSelection;
+
 public class OpenDialog 
 {
 	public File performOpen(Component parent, String title, String fileFilter, String defaultPathRelative)
 	{
 		JFileChooser jfc = new JFileChooser();
-		String currentDirectory = PathUtility.getCurrentDirectory();
-		File f = new File(currentDirectory + defaultPathRelative);
+		File f = new File(new FileSelection(defaultPathRelative).getFullPath());
 		jfc.setFileFilter(new FileNameExtensionFilter(title, fileFilter));
 		jfc.setSelectedFile(f);
 		

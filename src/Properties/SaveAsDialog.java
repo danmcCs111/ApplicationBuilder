@@ -6,6 +6,8 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import ObjectTypeConversion.FileSelection;
+
 public class SaveAsDialog 
 {
 	private String 
@@ -26,7 +28,7 @@ public class SaveAsDialog
 	{
 		JFileChooser jfc = new JFileChooser();
 		jfc.setDialogType(JFileChooser.SAVE_DIALOG);
-		File f = new File(PathUtility.getCurrentDirectory() + defaultPathRelative);
+		File f = new File(new FileSelection(defaultPathRelative).getFullPath());
 		LoggingMessages.printOut(f.getAbsolutePath());
 		jfc.setFileFilter(new FileNameExtensionFilter(title, fileFilter));
 		jfc.setSelectedFile(f);
