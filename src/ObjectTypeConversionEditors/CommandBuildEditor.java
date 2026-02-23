@@ -19,9 +19,12 @@ public class CommandBuildEditor extends JButton implements ParameterEditor
 		LIMIT_POSTFIX = "..",
 		DEFAULT_EDITOR_TEXT = "<Click to Enter Command>";
 	
-	private String commandText = DEFAULT_EDITOR_TEXT;
-	private CommandBuild commandArg;
-	private CommandDialog commandDialog;
+	private String 
+		commandText = DEFAULT_EDITOR_TEXT;
+	private 
+		CommandBuild commandArg;
+	private 
+		CommandDialog commandDialog;
 	
 	public CommandBuildEditor()
 	{

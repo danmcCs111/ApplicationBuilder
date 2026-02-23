@@ -10,8 +10,10 @@ import java.awt.geom.Rectangle2D;
 
 public class TriangleCubic implements Shape
 {
-	Point [] points = new Point [10];
-	Rectangle2D bounds;
+	private Point [] 
+		points = new Point [10];
+	private Rectangle2D 
+		bounds;
 	
 	public TriangleCubic(Point p1, Point p2, Point p3, Point c11, Point c12, Point c21, Point c22, Point c31, Point c32)
 	{

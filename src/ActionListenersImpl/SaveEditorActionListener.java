@@ -11,7 +11,8 @@ import WidgetUtility.WidgetBuildController;
 
 public class SaveEditorActionListener implements RedrawableFrameListener, ActionListener
 {
-	private RedrawableFrame applicationLayoutEditor;
+	private RedrawableFrame 
+		applicationLayoutEditor;
 	
 	public void setRedrawableFrame(RedrawableFrame applicationLayoutEditor)
 	{

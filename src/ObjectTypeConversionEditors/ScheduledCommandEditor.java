@@ -27,8 +27,10 @@ public class ScheduledCommandEditor extends JButton implements ParameterEditor, 
 	
 	private static final String DEFAULT_TEXT = "Edit Command";
 	
-	private ScheduledCommand sc = null;
-	private EditorStateChangedDistributor editorStateChangedDistributor = new EditorStateChangedDistributor(this);
+	private ScheduledCommand 
+		sc = null;
+	private EditorStateChangedDistributor 
+		editorStateChangedDistributor = new EditorStateChangedDistributor(this);
 	
 	public ScheduledCommandEditor()
 	{

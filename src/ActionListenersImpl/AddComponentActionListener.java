@@ -32,10 +32,11 @@ public class AddComponentActionListener implements RedrawableFrameListener, Acti
 		DIALOG_SELECT_CHILD_COMPONENTS_TITLE = "Components Selection",
 		DIALOG_SELECT_CHILD_COMPONENTS_MESSAGE = "Select Child Components: ",
 		STRIP_PACKAGE_NAME_FROM_CLASS_FILTER = "[a-zA-Z]+[\\.]+";
-	private WidgetCreatorProperty wcpBuild;
 	
-	private RedrawableFrame redrawableFrame;
-	
+	private WidgetCreatorProperty 
+		wcpBuild;
+	private RedrawableFrame 
+		redrawableFrame;
 	private String
 		dialogSelectComponentTitle = DIALOG_SELECT_COMPONENT_TITLE,
 		dialogSelectComponentMessage = DIALOG_SELECT_COMPONENT_LABEL_MESSAGE,

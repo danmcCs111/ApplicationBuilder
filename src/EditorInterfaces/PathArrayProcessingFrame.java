@@ -33,14 +33,20 @@ public class PathArrayProcessingFrame extends JFrame
 		ADD_FOLDER_ACTION = "Add Folder",
 		TITLE = "Add/Edit Folders";
 	
-	private PathArrayProcessing pa;
-	private PathArrayChangeListener pacl;
-	private Container refContainer;
-	private JPanel innerPanel;
-	private JButton addFolderButton;
-	
-	private ArrayList<DirectorySelectionEditor> directories;
-	private ArrayList<JTextField> extensions;
+	private PathArrayProcessing 
+		pa;
+	private PathArrayChangeListener 
+		pacl;
+	private Container 
+		refContainer;
+	private JPanel 
+		innerPanel;
+	private JButton 
+		addFolderButton;
+	private ArrayList<DirectorySelectionEditor> 
+		directories;
+	private ArrayList<JTextField> 
+		extensions;
 
 	public PathArrayProcessingFrame(Container refContainer, PathArrayChangeListener pacl)
 	{

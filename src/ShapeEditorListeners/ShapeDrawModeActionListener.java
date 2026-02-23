@@ -12,8 +12,10 @@ import ShapeWidgetComponents.ShapeCreatorToolBarPanel;
 
 public class ShapeDrawModeActionListener implements ActionListener 
 {
-	private ShapeCreator sc;
-	private ShapeCreatorToolBarPanel sctp;
+	private ShapeCreator 
+		sc;
+	private ShapeCreatorToolBarPanel 
+		sctp;
 	
 	public ShapeDrawModeActionListener(ShapeCreator sc, ShapeCreatorToolBarPanel sctp)
 	{

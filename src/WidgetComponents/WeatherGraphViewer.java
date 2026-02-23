@@ -67,13 +67,16 @@ public class WeatherGraphViewer extends GraphViewer implements CsvReaderSubscrib
 		SDF_TIMELINE = new SimpleDateFormat("MMM, dd: h a"),//TODO converter
 		SDF_TOOLTIP = new SimpleDateFormat("MMM, dd: h a");
 	
-	private HashMap<Date, WeatherReading> readings;
-	private HashMap<Date, Point> xYPoints;
-	
-	private JComboBox<String> comboSelect = new JComboBox<String>();
-	
-	private ShapeDrawingCollection shapeDrawingCollection;
-	private GlyphDrawingCollection glyphDrawingCollection;
+	private HashMap<Date, WeatherReading> 
+		readings;
+	private HashMap<Date, Point> 
+		xYPoints;
+	private JComboBox<String> 
+		comboSelect = new JComboBox<String>();
+	private ShapeDrawingCollection 
+		shapeDrawingCollection;
+	private GlyphDrawingCollection 
+		glyphDrawingCollection;
 	
 	public WeatherGraphViewer()
 	{

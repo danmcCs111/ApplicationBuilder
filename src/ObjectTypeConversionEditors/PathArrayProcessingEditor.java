@@ -20,9 +20,11 @@ public class PathArrayProcessingEditor extends JButton implements ParameterEdito
 	
 	private static final String
 		DIRECTORY_SELECT_DIALOG_TITLE_TEXT = "Select Directories";
-	protected JFileChooser jcc;
-
-	private PathArrayProcessing pa;
+	
+	protected JFileChooser 
+		jcc;
+	private PathArrayProcessing 
+		pa;
 	
 	public PathArrayProcessingEditor() 
 	{

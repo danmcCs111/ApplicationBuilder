@@ -7,7 +7,8 @@ import ShapeWidgetComponents.ShapeCreator;
 
 public class ClearActionListener implements ActionListener
 {
-	private ShapeCreator sc;
+	private ShapeCreator 
+		sc;
 	
 	public ClearActionListener(ShapeCreator sc)
 	{

@@ -8,10 +8,13 @@ import DrawModes.GeneralPathDrawMode.DrawPaths;
 
 public class GeneralPathShape extends Path2D.Float
 {
-	static final int INIT_SIZE = 20;
 	private static final long serialVersionUID = 1L;
 	
-	private ArrayList<DrawPaths> drawPaths = new ArrayList<DrawPaths>();
+	static final int 
+		INIT_SIZE = 20;
+	
+	private ArrayList<DrawPaths> 
+		drawPaths = new ArrayList<DrawPaths>();
 	
 	public ArrayList<DrawPaths> getDrawPaths()
 	{

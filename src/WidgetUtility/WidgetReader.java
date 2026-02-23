@@ -17,8 +17,10 @@ import Properties.XmlNodeReader;
  */
 public class WidgetReader extends XmlNodeReader
 {
-	private ArrayList<WidgetCreatorProperty> widgetCreatorProperties = new ArrayList<WidgetCreatorProperty>(); 
-	private String sourceFile;
+	private ArrayList<WidgetCreatorProperty> 
+		widgetCreatorProperties = new ArrayList<WidgetCreatorProperty>(); 
+	private String 
+		sourceFile;
 	
 	@SuppressWarnings("unchecked")
 	public WidgetReader(String sourceFile)

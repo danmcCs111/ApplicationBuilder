@@ -8,7 +8,8 @@ import WidgetUtility.WidgetBuildController;
 
 public class WavReaderListener implements ActionListener 
 {
-	private WavReader wavReader;
+	private WavReader 
+		wavReader;
 	
 	public WavReaderListener()
 	{

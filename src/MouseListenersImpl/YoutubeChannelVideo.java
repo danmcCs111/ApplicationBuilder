@@ -8,6 +8,15 @@ import HttpDatabaseResponse.DatabaseResponseNode;
 
 public class YoutubeChannelVideo 
 {
+	private static final String 
+		ID_COLUMN = "Id_VideoYoutube_VideoYoutubeDatabase",
+		PARENT_ID_COLUMN = "ParentID_VideoYoutube_VideoYoutubeDatabase", 
+		TITLE_COLUMN = "Title_VideoYoutube_VideoYoutubeDatabase",
+		URL_COLUMN = "Url_VideoYoutube_VideoYoutubeDatabase",
+		IMAGE_URL_COLUMN = "PosterImageUrl_VideoYoutube_VideoYoutubeDatabase",
+		UPLOAD_DATE_COLUMN = "UploadDate_VideoYoutube_VideoYoutubeDatabase",
+		INSERT_DATE_COLUMN = "InsertDate_VideoYoutube_VideoYoutubeDatabase";
+	
 	private int 
 		parentId = -1;
 	private String
@@ -18,16 +27,8 @@ public class YoutubeChannelVideo
 	private long
 		uploadDate = -1,
 		insertDate = -1;
-	private static final String 
-		ID_COLUMN = "Id_VideoYoutube_VideoYoutubeDatabase",
-		PARENT_ID_COLUMN = "ParentID_VideoYoutube_VideoYoutubeDatabase", 
-		TITLE_COLUMN = "Title_VideoYoutube_VideoYoutubeDatabase",
-		URL_COLUMN = "Url_VideoYoutube_VideoYoutubeDatabase",
-		IMAGE_URL_COLUMN = "PosterImageUrl_VideoYoutube_VideoYoutubeDatabase",
-		UPLOAD_DATE_COLUMN = "UploadDate_VideoYoutube_VideoYoutubeDatabase",
-		INSERT_DATE_COLUMN = "InsertDate_VideoYoutube_VideoYoutubeDatabase";
-	
-	private Image imgPng;
+	private Image 
+		imgPng;
 	
 	public YoutubeChannelVideo(ArrayList<DatabaseResponseNode> drns)
 	{

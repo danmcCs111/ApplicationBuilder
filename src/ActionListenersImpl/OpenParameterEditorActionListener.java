@@ -16,9 +16,12 @@ import WidgetUtility.WidgetCreatorProperty;
 
 public class OpenParameterEditorActionListener implements RedrawableFrameListener, ActionListener 
 {
-	private BuilderWindow builderWindow;
-	private RedrawableFrame redrawableFrame;
-	private WidgetBuildIndexSelector xe;
+	private BuilderWindow 
+		builderWindow;
+	private RedrawableFrame 
+		redrawableFrame;
+	private WidgetBuildIndexSelector 
+		xe;
 	
 	public BuilderWindow getBuilderWindow()
 	{

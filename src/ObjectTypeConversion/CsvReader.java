@@ -11,9 +11,12 @@ import Properties.LoggingMessages;
 
 public class CsvReader
 {
-	private File f;
-	private ArrayList<ArrayList<String>> capturedCsvValues = new ArrayList<ArrayList<String>>();
-	private ArrayList<CsvReaderSubscriber> subs = new ArrayList<CsvReaderSubscriber>();
+	private File 
+		f;
+	private ArrayList<ArrayList<String>> 
+		capturedCsvValues = new ArrayList<ArrayList<String>>();
+	private ArrayList<CsvReaderSubscriber> 
+		subs = new ArrayList<CsvReaderSubscriber>();
 	
 	public CsvReader(String arg)
 	{

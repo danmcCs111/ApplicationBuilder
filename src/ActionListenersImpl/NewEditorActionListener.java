@@ -9,7 +9,8 @@ import WidgetUtility.WidgetBuildController;
 
 public class NewEditorActionListener implements RedrawableFrameListener, ActionListener
 {
-	private RedrawableFrame applicationLayoutEditor;
+	private RedrawableFrame 
+		applicationLayoutEditor;
 	
 	public void setRedrawableFrame(RedrawableFrame applicationLayoutEditor)
 	{

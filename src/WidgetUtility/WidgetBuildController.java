@@ -28,31 +28,33 @@ import WidgetExtensions.ExtendedTitleSwitcher;
 
 public class WidgetBuildController 
 {
-	private HashMap<String, Object> appObjs = new HashMap<String, Object>();
-	
 	private static final String 
 		EXTENSIONS_PACKAGE_NAME = "WidgetExtensions";
 	private static String
 		TEMP_FILE_LOCATION = "/Properties/data/tmp.xml";
-	
-	private static final Class<?> [] FIRST_ORDERED_GENERATORS = new Class<?> [] {
-		ExtendedButtonArrayLoadingGraphic.class,
-		ExtendedLayoutApplyParent.class, 
-		ExtendedTextStripper.class
+	private static final Class<?> [] 
+		FIRST_ORDERED_GENERATORS = new Class<?> [] {
+			ExtendedButtonArrayLoadingGraphic.class,
+			ExtendedLayoutApplyParent.class, 
+			ExtendedTextStripper.class
 	};
-	
-	private static final Class<?> [] LAST_ORDERED_GENERATORS = new Class<?> [] {
-		ExtendedSwappableHolder.class,
-		ExtendedTitleSwitcher.class
+	private static final Class<?> [] 
+		LAST_ORDERED_GENERATORS = new Class<?> [] {
+			ExtendedSwappableHolder.class,
+			ExtendedTitleSwitcher.class
 	};
-	
-	private static ArrayList<WidgetBuildController> widgetBuildController = new ArrayList<WidgetBuildController> ();
+	private static ArrayList<WidgetBuildController> 
+		widgetBuildController = new ArrayList<WidgetBuildController> ();
 	static {
 		widgetBuildController.add(new WidgetBuildController());
 	}
-	private static ArrayList<WidgetReader> widgetReaders = new ArrayList<WidgetReader>();
+	private static ArrayList<WidgetReader> 
+		widgetReaders = new ArrayList<WidgetReader>();
+	private static int 
+		selInstance = 0;
 	
-	private static int selInstance = 0;
+	private HashMap<String, Object> 
+		appObjs = new HashMap<String, Object>();
 	
 	private WidgetBuildController() {
 		//adjusted to controlled instances.

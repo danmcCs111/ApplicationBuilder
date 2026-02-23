@@ -12,12 +12,16 @@ import javax.swing.JFrame;
 
 public class MouseDragMoveWindowListener extends MouseAdapter implements MouseListener, MouseMotionListener
 {
-	private Point mouseDownCompCoords = null;
-	
-	public boolean mouse1Pressed = false;
-	JComponent parentPanel;
-	JFrame f;
-	int heightDiff;
+	private JComponent 
+		parentPanel;
+	private JFrame 
+		f;
+	public boolean 
+		mouse1Pressed = false;
+	private int 
+		heightDiff;
+	private Point 
+		mouseDownCompCoords = null;
 	
 	public MouseDragMoveWindowListener()
 	{

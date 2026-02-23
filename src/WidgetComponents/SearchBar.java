@@ -18,9 +18,13 @@ public class SearchBar extends JPanel
 {
 	private static final long serialVersionUID = 1L;
 	
-	private JTextField searchField;
-	private JButton searchButton;
-	private static int columnCharacterLength = 10;
+	private static int 
+		columnCharacterLength = 10;
+	
+	private JTextField 
+		searchField;
+	private JButton 
+		searchButton;
 	
 	private ArrayList<SearchSubscriber> searchSubscribers = new ArrayList<SearchSubscriber>();
 

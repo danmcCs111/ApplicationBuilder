@@ -17,12 +17,18 @@ import java.util.ArrayList;
 
 public class TextShape implements Shape
 {
-	private double characterSpacingPercent = .25;
-	private ArrayList<Shape> glyphShapes = new ArrayList<Shape>();
-	private PathIteratorAccumilated piAcc;
-	private String text;
-	private Font font;
-	private Graphics2D g2d;
+	private double 
+		characterSpacingPercent = .25;
+	private ArrayList<Shape> 
+		glyphShapes = new ArrayList<Shape>();
+	private PathIteratorAccumilated 
+		piAcc;
+	private String 
+		text;
+	private Font 
+		font;
+	private Graphics2D 
+		g2d;
 	
 	public TextShape(String text, Point startPoint, Font font, Graphics2D g2d)
 	{

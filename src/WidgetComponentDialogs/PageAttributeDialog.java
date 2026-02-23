@@ -13,8 +13,10 @@ public class PageAttributeDialog extends CollectionEditor
 		TITLE_TEXT = "Edit Page Attribute",
 		ADD_ATTRIBUTE_TEXT = "Enter New Attribute: ";
 	
-	private static PageAttributeDialog pad = null;
-	private static EditButtonArrayUrls ebau;
+	private static PageAttributeDialog 
+		pad = null;
+	private static EditButtonArrayUrls 
+		ebau;
 	
 	public PageAttributeDialog(String path, ArrayList<?> collection, EditButtonArrayUrls ebau, String title) 
 	{

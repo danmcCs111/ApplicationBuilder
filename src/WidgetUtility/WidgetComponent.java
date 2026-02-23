@@ -10,19 +10,26 @@ import Properties.LoggingMessages;
 
 public class WidgetComponent 
 {
-	public static final String ID_SPLIT = "#";
-	private static final String [] PACKAGE_PREFIXES = new String [] {
+	public static final String 
+		ID_SPLIT = "#";
+	private static final String [] 
+		PACKAGE_PREFIXES = new String [] {
 			"java.awt.", 
 			"WidgetComponents.",
 			"ShapeWidgetComponents.",
 			"javax.swing."
 	};
-	private static int counter = 0;
+	private static int 
+		counter = 0;
 
-	private String componentLabel;
-	private JComponent jComponent = null;
-	private Component component = null;
-	private SystemTray systemTray = null;
+	private String 
+		componentLabel;
+	private JComponent 
+		jComponent = null;
+	private Component 
+		component = null;
+	private SystemTray 
+		systemTray = null;
 	
 	public static int nextCountId()
 	{

@@ -5,7 +5,9 @@ import java.util.HashMap;
 
 public abstract class CsvConverter 
 {
-	protected CsvReader csvReader;
+	protected CsvReader 
+		csvReader;
+	
 	public CsvConverter (CsvReader csvReader)
 	{
 		this.csvReader = csvReader;

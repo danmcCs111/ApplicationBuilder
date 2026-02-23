@@ -24,8 +24,10 @@ import ShapeWidgetComponents.ShapeStyling;
 
 public class DrawMouseListener extends MouseAdapter implements ControlPointChangedListener 
 {
-	private ShapeCreator sc;
-	private HashMap<Integer, Point> moveTos = new HashMap<Integer, Point>();
+	private ShapeCreator 
+		sc;
+	private HashMap<Integer, Point> 
+		moveTos = new HashMap<Integer, Point>();
 	
 	public DrawMouseListener(ShapeCreator sc)
 	{ 

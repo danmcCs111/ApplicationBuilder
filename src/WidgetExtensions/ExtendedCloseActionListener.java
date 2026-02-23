@@ -15,14 +15,15 @@ import WidgetUtility.WidgetCreatorProperty;
 
 public class ExtendedCloseActionListener implements ExtendedAttributeStringParam
 {
-	private CloseActionExtension cae = null;
-	
 	public static final String 
 		DIALOG_TITLE = "Close Selector",
 		DIALOG_MESSAGE = "Select Items to Close",
 		CLOSE_BUTTON_TEXT = "Close",
 		CLOSE_ALL_BUTTON_TEXT = "Close All";
 //		CANCEL_BUTTON_TEXT ="Cancel";
+	
+	private CloseActionExtension 
+	cae = null;
 	
 	@Override
 	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 

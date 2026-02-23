@@ -89,9 +89,12 @@ import WidgetExtensions.ExtendedWavReader;
 
 public class WidgetAttributes 
 {
-	private static ArrayList<ClassAndSetters> classesAndSetters = new ArrayList<ClassAndSetters>();
-	private static final String [] METHODS_PREFIX = new String [] {"set", "add"};
-	private static final ArrayList<Class<?>> COMPONENT_CLASSES = new ArrayList<Class<?>>();
+	private static ArrayList<ClassAndSetters> 
+		classesAndSetters = new ArrayList<ClassAndSetters>();
+	private static final String [] 
+		METHODS_PREFIX = new String [] {"set", "add"};
+	private static final ArrayList<Class<?>> 
+		COMPONENT_CLASSES = new ArrayList<Class<?>>();
 	static {
 		COMPONENT_CLASSES.add(JFrame.class);
 		COMPONENT_CLASSES.add(JPanel.class);

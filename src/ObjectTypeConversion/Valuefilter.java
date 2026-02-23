@@ -2,7 +2,8 @@ package ObjectTypeConversion;
 
 public class Valuefilter 
 {
-	private String [] deleteFilters;
+	private String [] 
+		deleteFilters;
 	
 	public Valuefilter(String [] deleteFilters)
 	{

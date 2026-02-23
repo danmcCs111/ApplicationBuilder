@@ -16,7 +16,8 @@ public class NameIdEditor extends JComboBox<NameId> implements ParameterEditor, 
 {
 	private static final long serialVersionUID = 1L;
 	
-	private static final String SET_NAME_ATTR = "setName";
+	private static final String 
+		SET_NAME_ATTR = "setName";
 	
 	public NameIdEditor()
 	{

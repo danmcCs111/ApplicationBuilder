@@ -18,7 +18,9 @@ public class WavReaderEditor extends JButton implements ParameterEditor
 	private static final long serialVersionUID = 1L;
 	private static final String
 		DIRECTORY_SELECT_DIALOG_TITLE_TEXT = "Select Wav File";
-	protected JFileChooser jcc;
+	
+	protected JFileChooser 
+		jcc;
 	
 	public WavReaderEditor()
 	{

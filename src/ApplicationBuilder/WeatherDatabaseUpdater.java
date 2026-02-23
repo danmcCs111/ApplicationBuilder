@@ -21,7 +21,8 @@ public class WeatherDatabaseUpdater
 	public static final String
 		GIT_BASH = "C:\\Program Files\\Git\\git-bash.exe",
 		CSV_FILE_PREFIX = "weather_grab";
-	public static final SimpleDateFormat SDF_FILE = new SimpleDateFormat("_YYYY_M_d_h_m");
+	public static final SimpleDateFormat 
+		SDF_FILE = new SimpleDateFormat("_YYYY_M_d_h_m");
 	public static final String []//TODO
 		OPTIONS = new String [] {"-c"};
 	

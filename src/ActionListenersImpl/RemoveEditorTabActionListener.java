@@ -11,7 +11,8 @@ import WidgetUtility.WidgetCreatorProperty;
 
 public class RemoveEditorTabActionListener implements ActionListener 
 {
-	private WidgetBuildIndexSelector xmlToEditor;
+	private WidgetBuildIndexSelector 
+		xmlToEditor;
 	
 	public RemoveEditorTabActionListener(WidgetBuildIndexSelector xmlToEditor)
 	{

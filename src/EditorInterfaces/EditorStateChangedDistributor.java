@@ -7,7 +7,8 @@ import Params.ParameterEditor;
 
 public class EditorStateChangedDistributor 
 {
-	private ParameterEditor pe;
+	private ParameterEditor 
+		pe;
 	
 	public EditorStateChangedDistributor(ParameterEditor pe)
 	{

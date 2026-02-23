@@ -16,10 +16,13 @@ public class NavigationButtonActionListener implements ActionListener, ActionLis
 	private static int 
 		curPosition = 0, 
 		lastIndex = 0;
-	private static List<ActionListenerExtension> actionListenerExtensions = new ArrayList<ActionListenerExtension>();
-	private static ConnectedComponent connectedComp;
+	private static List<ActionListenerExtension> 
+		actionListenerExtensions = new ArrayList<ActionListenerExtension>();
+	private static ConnectedComponent 
+		connectedComp;
 	
-	private Direction direction = null;
+	private Direction 
+		direction = null;
 	
 	public static void setCurPosition(int position)
 	{

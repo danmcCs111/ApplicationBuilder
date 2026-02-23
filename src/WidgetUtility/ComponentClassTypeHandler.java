@@ -5,7 +5,8 @@ import java.awt.Container;
 
 public class ComponentClassTypeHandler implements ClassTypeHandler
 {
-	private Component component = null;
+	private Component 
+		component = null;
 	
 	public ComponentClassTypeHandler (Object o)
 	{

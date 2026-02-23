@@ -8,8 +8,10 @@ import Properties.LoggingMessages;
 
 public class WeatherGrabCsvConverter extends CsvConverter
 {
-	private ArrayList<HashMap<String, String>> csvValues = new ArrayList<HashMap<String,String>>();
-	private HashMap<Date, WeatherReading> weatherReadings = new HashMap<Date, WeatherReading>();
+	private ArrayList<HashMap<String, String>> 
+		csvValues = new ArrayList<HashMap<String,String>>();
+	private HashMap<Date, WeatherReading> 
+		weatherReadings = new HashMap<Date, WeatherReading>();
 	
 	private static final ArrayList<Valuefilter> valueFiltersAndKeys = new ArrayList<Valuefilter>();
 	static 

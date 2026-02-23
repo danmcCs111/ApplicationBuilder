@@ -6,9 +6,12 @@ import java.util.NoSuchElementException;
 
 public class TriangleIterator implements PathIterator
 {
-	Triangle triangle;
-    AffineTransform affine;
-    int index;
+	private Triangle 
+		triangle;
+    private AffineTransform 
+    	affine;
+    private int 
+    	index;
     
     public TriangleIterator(Triangle triangle, AffineTransform affine)
     {

@@ -14,7 +14,8 @@ import WidgetUtility.WidgetBuildController;
 
 public class DrawInputActionListener implements ActionListener
 {
-	private ShapeCreator sc;
+	private ShapeCreator 
+		sc;
 	
 	public DrawInputActionListener(ShapeCreator sc) 
 	{

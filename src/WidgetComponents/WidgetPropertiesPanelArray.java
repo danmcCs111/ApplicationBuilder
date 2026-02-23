@@ -21,16 +21,19 @@ import WidgetUtility.WidgetCreatorProperty;
 
 public class WidgetPropertiesPanelArray extends JPanel implements RedrawableFrameListener
 {
+	private static final long serialVersionUID = 1891L;
+	
 	public static final String 
 		MENU_ITEM_REMOVE_TEXT = "remove",
 		TITLE_TEXT_SEPERATOR = " <-> ",
 		COMPONENT_SUFFIX = "@",
 		COMPONENT_REGEX = COMPONENT_SUFFIX + "[0-9]*",
 		DELETE_BUTTON_TEXT = "X";
-	private static final long serialVersionUID = 1891L;
 	
-	private RedrawableFrame redrawableFrame;
-	private WidgetCreatorProperty wcp;
+	private RedrawableFrame 
+		redrawableFrame;
+	private WidgetCreatorProperty 
+		wcp;
 	
 	public WidgetPropertiesPanelArray()
 	{

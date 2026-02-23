@@ -15,11 +15,15 @@ import WidgetUtility.WidgetCreatorProperty;
 
 public class XmlToWidgetGenerator 
 {
-	private String methodName;
-	private ArrayList<StringToObjectConverter> stringToObjectConverterList = new ArrayList<StringToObjectConverter>();
-	private ArrayList<ParameterEditor> parameterEditors = new ArrayList<ParameterEditor>();
+	private String 
+		methodName;
+	private ArrayList<StringToObjectConverter> 
+		stringToObjectConverterList = new ArrayList<StringToObjectConverter>();
+	private ArrayList<ParameterEditor> 
+		parameterEditors = new ArrayList<ParameterEditor>();
 	//list of lists, example: setArrayForegroundAndBackground [240, 240, 240], [175, 204, 175] class ClassDefintions.ColorConverter, class ClassDefintions.ColorConverter
-	private ArrayList<List<String>> paramsList = new ArrayList<List<String>>();
+	private ArrayList<List<String>> 
+		paramsList = new ArrayList<List<String>>();
 	
 	public XmlToWidgetGenerator(StringToObjectConverter stringToObjectConverter, String methodName, List<String> params)
 	{

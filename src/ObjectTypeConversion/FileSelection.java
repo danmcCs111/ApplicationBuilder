@@ -8,7 +8,8 @@ public class FileSelection
 	private String 
 		relativePath,
 		linuxPath;
-	private PathModifier pm;
+	private PathModifier 
+		pm;
 	
 	public FileSelection(String relativePath)
 	{

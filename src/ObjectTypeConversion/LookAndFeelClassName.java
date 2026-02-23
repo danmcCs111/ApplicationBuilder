@@ -7,14 +7,17 @@ import javax.swing.UIManager;
 
 public class LookAndFeelClassName
 {
-	private static HashMap<String, String> lookAndFeels = new HashMap<String, String>();
+	private static HashMap<String, String> 
+		lookAndFeels = new HashMap<String, String>();
 	static
 	{
 		lookAndFeels.put("System", UIManager.getSystemLookAndFeelClassName());
 		lookAndFeels.put("CrossPlatform", UIManager.getCrossPlatformLookAndFeelClassName());
 	};
-	private static ArrayList<String> keyList = new ArrayList<String>(lookAndFeels.keySet());
-	private String key;
+	private static ArrayList<String> 
+		keyList = new ArrayList<String>(lookAndFeels.keySet());
+	private String 
+		key;
 	
 	public LookAndFeelClassName(String arg1)
 	{

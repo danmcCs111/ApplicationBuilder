@@ -30,7 +30,8 @@ public class ComboSelectionDialog extends JDialog
 		ADD_BUTTON_DEFAULT_TEXT = "Add",
 		ADD_ALL_BUTTON_DEFAULT_TEXT = "Add All",
 		CLOSE_BUTTON_DEFAULT_TEXT = "Close";
-	private static final Dimension MIN_DIMENSION_DIALOG = new Dimension(300,150);
+	private static final Dimension 
+		MIN_DIMENSION_DIALOG = new Dimension(300,150);
 	
 	private JList<String> componentMethods = new JList<String>();
 	

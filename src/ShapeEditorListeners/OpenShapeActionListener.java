@@ -11,7 +11,8 @@ import ShapeWidgetComponents.ShapeImportExport;
 
 public class OpenShapeActionListener implements ActionListener 
 {
-	private ShapeCreator shapeCreator;
+	private ShapeCreator 
+		shapeCreator;
 	
 	public OpenShapeActionListener(ShapeCreator shapeCreator)
 	{

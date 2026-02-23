@@ -8,7 +8,8 @@ import WidgetComponentInterfaces.RedrawableFrameListener;
 
 public class ComponentComboBoxActionListener implements RedrawableFrameListener, ActionListener 
 {
-	private RedrawableFrame redrawFrame;
+	private RedrawableFrame 
+		redrawFrame;
 	
 	public void setRedrawableFrame(RedrawableFrame redrawFrame)
 	{

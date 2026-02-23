@@ -15,8 +15,10 @@ import WidgetUtility.WidgetCreatorProperty;
 
 public class OpenDetailsActionListener implements ActionListener
 {
-	private JList<?> componentMethods;
-	private WidgetCreatorProperty wcp;
+	private JList<?> 
+		componentMethods;
+	private WidgetCreatorProperty 
+		wcp;
 	private RedrawableFrame 
 		rFrameParent,
 		rFrame;

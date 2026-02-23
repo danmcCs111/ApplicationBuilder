@@ -91,12 +91,18 @@ public class PageParserDialog extends JDialog implements EditButtonArrayUrls
 	private HashMap<ParseAttribute, JComponent> 
 		matchFilterPanel = new HashMap<ParseAttribute, JComponent>();
 	
-	private ParseAttributes pas;
-	private PageAttributeDialog pad;
-	private ActionListener padListener;
-	private PageParserEditor pageParserEditor;
-	private PageParser pageParser = null;
-	private String htmlResponse;
+	private ParseAttributes 
+		pas;
+	private PageAttributeDialog 
+		pad;
+	private ActionListener 
+		padListener;
+	private PageParserEditor 
+		pageParserEditor;
+	private PageParser 
+		pageParser = null;
+	private String 
+		htmlResponse;
 
 	public PageParserDialog(PageParserEditor ppe, PageParser pp)
 	{

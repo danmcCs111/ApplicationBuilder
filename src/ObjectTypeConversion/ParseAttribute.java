@@ -2,7 +2,8 @@ package ObjectTypeConversion;
 
 public class ParseAttribute 
 {
-	private String name;
+	private String 
+		name;
 	
 	public ParseAttribute(String name)
 	{

@@ -16,7 +16,8 @@ public class YoutubeSql implements YoutubeQuery
 		YOUTUBE_INSERT_SUFFIX = 
 			" CURRENT_TIMESTAMP);";
 
-	private static String TYPE = "SQL";
+	private static String 
+		TYPE = "SQL";
 	
 	public static boolean isType(String type)
 	{

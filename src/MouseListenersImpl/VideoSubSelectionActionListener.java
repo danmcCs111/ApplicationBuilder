@@ -13,7 +13,8 @@ public class VideoSubSelectionActionListener implements ActionListener
 	private AbstractButton 
 		component,
 		childButton;
-	private HighlightListener hlListener;
+	private HighlightListener 
+		hlListener;
 	
 	public VideoSubSelectionActionListener(AbstractButton component, AbstractButton childButton)
 	{

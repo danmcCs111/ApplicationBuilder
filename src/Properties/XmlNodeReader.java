@@ -19,8 +19,10 @@ import org.xml.sax.SAXException;
 
 public abstract class XmlNodeReader 
 {
-	private ArrayList<Object> elements = new ArrayList<Object>();
-	private int counter = 0;
+	private ArrayList<Object> 
+		elements = new ArrayList<Object>();
+	private int 
+		counter = 0;
 	
 	public ArrayList<?> getArrayList()
 	{

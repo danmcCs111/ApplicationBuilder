@@ -26,9 +26,12 @@ public class ColorEditor extends JButton implements ParameterEditor
 		SAVE_BUTTON_TEXT = "Save",
 		CANCEL_BUTTON_TEXT = "Cancel";
 	
-	private String titleText = "";
-	private JColorChooser jcc = null;
-	private JDialog d;
+	private String 
+		titleText = "";
+	private JColorChooser 
+		jcc = null;
+	private JDialog 
+		d;
 	
 	public ColorEditor()
 	{

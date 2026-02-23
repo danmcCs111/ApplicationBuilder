@@ -55,21 +55,30 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		SHOW_JAVA_SWING_FILE_CHOOSER = false,
 		SHOW_TITLE_ON_POSTER = true,
 		SHOW_PREVIEW = true;
-	
-	private static final ArrayList<KeepSelection> keeps = new ArrayList<KeepSelection>();//The whole app
-	private ArrayList<KeepSelection> keepsCurrentCollection = new ArrayList<KeepSelection>();//instance
-	private KeepSelection previewKeep;
-	private JFrame f;
-	private ArrayList<JFrame> frames = new ArrayList<JFrame>();
-	private JFrame parentFrame;
-	private List<String> saveChosenSelection = null;
 	private static String saveFilePathChosen = null;
-	private String path;
+	private static final ArrayList<KeepSelection> 
+		keeps = new ArrayList<KeepSelection>();//The whole app
+	
+	private ArrayList<KeepSelection> 
+		keepsCurrentCollection = new ArrayList<KeepSelection>();//instance
+	private KeepSelection 
+		previewKeep;
+	private JFrame 
+		f,
+		parentFrame;
+	private ArrayList<JFrame> 
+		frames = new ArrayList<JFrame>();
+	private List<String> 
+		saveChosenSelection = null;
+	private String 
+		path;
 	private boolean 
 		keepFrame = false,
 		singleClick = false;
-	private ButtonArray ba;
-	private VideoBookMarksDialog vbmd = null;
+	private ButtonArray 
+		ba;
+	private VideoBookMarksDialog 
+		vbmd = null;
 		
 	public ImageMouseAdapter(JFrame parentFrame, String path, boolean singleClick)
 	{

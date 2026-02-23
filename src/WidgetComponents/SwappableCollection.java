@@ -26,14 +26,20 @@ public class SwappableCollection extends JPanel implements ExtendedStringCollect
 {
 	private static final long serialVersionUID = 1880L;
 	
-	public static ArrayList<String> indexPaths = new ArrayList<String>();
+	public static ArrayList<String> 
+		indexPaths = new ArrayList<String>();
+	private static int 
+		fileCount = 0;
 	
 	//conceptually holding a collection of components to be swapped/redrawn
-	private LinkedHashMap<String, List<String>> pathAndFileList = new LinkedHashMap<String, List<String>>();
-	private String path;
-	private Component pathTextComponent;
-	private static int fileCount = 0;
-	private boolean isLoadingGraphic = false;
+	private LinkedHashMap<String, List<String>> 
+		pathAndFileList = new LinkedHashMap<String, List<String>>();
+	private String 
+		path;
+	private Component 
+		pathTextComponent;
+	private boolean 
+		isLoadingGraphic = false;
 
 	public int getFileCount()
 	{

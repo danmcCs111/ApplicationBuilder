@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 public class ParseAttributes 
 {
-	public ArrayList<ParseAttribute> parseAttributes = new ArrayList<ParseAttribute>();
+	public ArrayList<ParseAttribute> 
+		parseAttributes = new ArrayList<ParseAttribute>();
 	
 	public ParseAttributes(ParseAttribute ... parseAttributes)
 	{

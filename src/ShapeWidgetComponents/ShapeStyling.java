@@ -11,20 +11,26 @@ import ShapeEditorListeners.ShapeStylingActionListener;
 
 public class ShapeStyling 
 {
-	private int shapeIndex;
+	private int 
+		shapeIndex,
+		strokeWidth = -1;
 	private Color 
 		drawColor,
 		fillColor;
-	private ShapeStylingActionListener shapeStyleActionListener;
-	private Stroke stroke;
-	private int strokeWidth = -1;
+	private ShapeStylingActionListener 
+		shapeStyleActionListener;
+	private Stroke 
+		stroke;
 	private boolean 
 		drawControlPoints = true,
 		createStrokedShape = false,
 		skipShapeDraw = false;
-	private NumberGeneratorConfig numberGeneratorConfig;
-	private PathIterator pi;
-	private AffineTransformRasterizer afs; 
+	private NumberGeneratorConfig 
+		numberGeneratorConfig;
+	private PathIterator 
+		pi;
+	private AffineTransformRasterizer 
+		afs; 
 	
 	public ShapeStyling(ShapeStyling ss)
 	{

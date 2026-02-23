@@ -6,10 +6,15 @@ import java.util.NoSuchElementException;
 
 public class TriangleCubicIterator implements PathIterator
 {
-	TriangleCubic triangleCubic;
-    AffineTransform affine;
-    int index;
-    static final int NUM_OF_STEPS = 4;
+	private static final int 
+		NUM_OF_STEPS = 4;
+	
+	private TriangleCubic 
+		triangleCubic;
+    private AffineTransform 
+    	affine;
+    private int 
+    	index;
     
     public TriangleCubicIterator(TriangleCubic triangleCubic, AffineTransform affine)
     {

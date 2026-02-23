@@ -19,8 +19,10 @@ import WidgetUtility.WidgetBuildController;
 
 public class GeneralPathDrawMode extends DrawMode 
 {
-	private ArrayList<String> directions = new ArrayList<String>();
-	private GeneralPathShape gp = new GeneralPathShape();
+	private ArrayList<String> 
+		directions = new ArrayList<String>();
+	private GeneralPathShape 
+		gp = new GeneralPathShape();
 	
 	@Override
 	public String[] getDirections() {

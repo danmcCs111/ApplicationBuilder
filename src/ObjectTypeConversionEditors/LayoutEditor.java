@@ -14,7 +14,8 @@ public class LayoutEditor extends JComboBox<String> implements ParameterEditor
 {
 	private static final long serialVersionUID = 1997L;
 	
-	private static final String [] layoutManagers = new String [] {
+	private static final String [] 
+		layoutManagers = new String [] {
 			GridLayout.class.getName(),
 			BorderLayout.class.getName(),
 			FlowLayout.class.getName()

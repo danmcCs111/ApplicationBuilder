@@ -6,7 +6,8 @@ import Properties.LoggingMessages;
 
 public class NameId implements Comparator<NameId> 
 {
-	private String nameId;
+	private String 
+		nameId;
 	
 	public NameId(String arg0)
 	{

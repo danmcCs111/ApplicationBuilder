@@ -13,9 +13,12 @@ import ShapeWidgetComponents.ShapeStyling;
 
 public class ShapePointChangeListener implements ChangeListener, ControlPointChangedListener
 {
-	private ShapeCreator sc;
-	ShapeStyling ss;
-	private PointEditor pe;
+	private ShapeCreator 
+		sc;
+	private ShapeStyling 
+		ss;
+	private PointEditor 
+		pe;
 	private int
 		controlPointIndex;
 	

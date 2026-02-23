@@ -12,13 +12,19 @@ import ShapeEditorListeners.ShapeStylingActionListener;
 
 public class ShapeDrawingCollection 
 {
-	public static Dimension CONTROL_POINT_PIXEL_SIZE = new Dimension(6,6);
-	public static final BasicStroke defaultStroke = new BasicStroke(1);
+	public static Dimension 
+		CONTROL_POINT_PIXEL_SIZE = new Dimension(6,6);
+	public static final BasicStroke 
+		defaultStroke = new BasicStroke(1);
 	
-	private ArrayList<ArrayList<Point>> shapeControlPoints = new ArrayList<ArrayList<Point>>();
-	private ArrayList<Shape> shapes = new ArrayList<Shape>();
-	private ArrayList<ShapeStyling> shapeStylings = new ArrayList<ShapeStyling>();
-	private ArrayList<AddShapesImportedListener> asils = new ArrayList<AddShapesImportedListener>();
+	private ArrayList<ArrayList<Point>> 
+		shapeControlPoints = new ArrayList<ArrayList<Point>>();
+	private ArrayList<Shape> 
+		shapes = new ArrayList<Shape>();
+	private ArrayList<ShapeStyling> 
+		shapeStylings = new ArrayList<ShapeStyling>();
+	private ArrayList<AddShapesImportedListener> 
+		asils = new ArrayList<AddShapesImportedListener>();
 	
 	public ShapeDrawingCollection()
 	{

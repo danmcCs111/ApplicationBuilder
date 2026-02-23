@@ -64,12 +64,16 @@ public class VideoBookMarksDialog extends JDialog
 		PROPERTIES_FILE_DELIMITER = "=",
 		PROPERTIES_FILE_FILTER = ".txt";
 	
-	private LinkedHashMap<String, String[]> filenameAndTitles = new LinkedHashMap<String, String[]>();
-	
-	private JList<String> fileList;
-	private JTextArea titlesList;
-	private JTextField saveField;
-	private JLabel saveLabel;
+	private LinkedHashMap<String, String[]> 
+		filenameAndTitles = new LinkedHashMap<String, String[]>();
+	private JList<String> 
+		fileList;
+	private JTextArea 
+		titlesList;
+	private JTextField 
+		saveField;
+	private JLabel 
+		saveLabel;
 	private JPanel 
 		innerPanel,
 		openCancelPanel = new JPanel(),
@@ -78,11 +82,16 @@ public class VideoBookMarksDialog extends JDialog
 		applyButton,
 		cancelButton;
 	
-	private DirectorySelection chosenFileDirectory;
-	private OpenAndSaveKeepsSubscriber openKeepsSubscriber;
-	private Container refContainer;
-	private boolean save = false;
-	private String [] [] props = null;
+	private DirectorySelection 
+		chosenFileDirectory;
+	private OpenAndSaveKeepsSubscriber 
+		openKeepsSubscriber;
+	private Container 
+		refContainer;
+	private boolean 
+		save = false;
+	private String [] [] 
+		props = null;
 	
 	
 	public VideoBookMarksDialog(DirectorySelection chosenFileDirectory, OpenAndSaveKeepsSubscriber openKeepsSubscriber, Container refContainer)

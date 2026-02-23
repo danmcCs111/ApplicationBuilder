@@ -7,7 +7,8 @@ import ShapeWidgetComponents.ShapeCreator;
 
 public class DrawActionListener implements ActionListener 
 {
-	private ShapeCreator sc;
+	private ShapeCreator 
+		sc;
 	
 	public DrawActionListener(ShapeCreator sc)
 	{

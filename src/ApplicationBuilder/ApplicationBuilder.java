@@ -5,7 +5,8 @@ import WidgetUtility.WidgetBuildController;
 
 public class ApplicationBuilder
 {
-	public static final String DEFAULT_APPLICATION_EDITOR_PATH = PathUtility.getCurrentDirectory() + 
+	public static final String 
+		DEFAULT_APPLICATION_EDITOR_PATH = PathUtility.getCurrentDirectory() + 
 			"/Properties/data/GeneratedApplicationBuilder.xml";
 	
 	public static void main(String [] args)

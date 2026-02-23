@@ -10,8 +10,10 @@ import java.awt.geom.Rectangle2D;
 
 public class Triangle implements Shape
 {
-	Point [] points = new Point [3];
-	Rectangle2D bounds;
+	private Point [] 
+		points = new Point [3];
+	private Rectangle2D 
+		bounds;
 	
 	public Triangle()
 	{

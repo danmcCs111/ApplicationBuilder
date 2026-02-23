@@ -8,7 +8,8 @@ import WidgetUtility.WidgetBuildController;
 
 public class CsvReaderListener implements ActionListener 
 {
-	private CsvReader csvReader;
+	private CsvReader 
+		csvReader;
 	
 	public CsvReaderListener()
 	{

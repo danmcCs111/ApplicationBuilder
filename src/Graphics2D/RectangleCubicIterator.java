@@ -6,10 +6,15 @@ import java.util.NoSuchElementException;
 
 public class RectangleCubicIterator implements PathIterator
 {
-	RectangleCubic rectangleCubic;
-    AffineTransform affine;
-    int index;
-    static final int NUM_OF_STEPS = 5;
+	private static final int 
+		NUM_OF_STEPS = 5;
+	
+	private RectangleCubic 
+		rectangleCubic;
+    private AffineTransform 
+    	affine;
+    private int 
+    	index;
     
     public RectangleCubicIterator(RectangleCubic rectangleCubic, AffineTransform affine)
     {

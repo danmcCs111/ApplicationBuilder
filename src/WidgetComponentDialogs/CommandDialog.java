@@ -39,8 +39,10 @@ public class CommandDialog extends JDialog
 		PARAM_DIALOG_MESSAGE = "Select Type",
 		SAVE_BUTTON_LABEL = "Save",
 		CANCEL_BUTTON_LABEL = "Cancel";
-	private static final Dimension MIN_DIMENSION_DIALOG = new Dimension(400, 300);
-	public static final List<String> PARAM_OPTIONS = Arrays.asList(new String[] {
+	private static final Dimension 
+		MIN_DIMENSION_DIALOG = new Dimension(400, 300);
+	public static final List<String> 
+		PARAM_OPTIONS = Arrays.asList(new String[] {
 			ParamOption.TextField.getDisplayText(),
 			ParamOption.Directory.getDisplayText(),
 			ParamOption.File.getDisplayText()
@@ -50,7 +52,8 @@ public class CommandDialog extends JDialog
 		innerPanel = new JPanel(),
 		saveCancelPanel = new JPanel(),
 		saveCancelPanelOuter = new JPanel();
-	private JTextField command = new JTextField();
+	private JTextField 
+		command = new JTextField();
 	private JButton 
 		addCommandOptionButton = new JButton(COMMAND_OPTION_LABEL),
 		addParameterButton = new JButton(PARAMETER_LABEL),
@@ -61,8 +64,10 @@ public class CommandDialog extends JDialog
 	private ArrayList<Parameter>
 		paramters = new ArrayList<Parameter>();
 	
-	private String retSelection = null;
-	private CommandBuildEditor commandBuildEditor;
+	private String 
+		retSelection = null;
+	private CommandBuildEditor 
+		commandBuildEditor;
 	
 	public CommandDialog(CommandBuildEditor cbe, CommandBuild cb)
 	{

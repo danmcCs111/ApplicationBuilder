@@ -9,8 +9,10 @@ import Properties.XmlNodeReader;
 
 public class ScheduledCommand 
 {
-	private ArrayList<Schedule> schedules = new ArrayList<Schedule>();
-	private CommandBuild commandBuild;
+	private ArrayList<Schedule> 
+		schedules = new ArrayList<Schedule>();
+	private CommandBuild 
+		commandBuild;
 	
 	public ScheduledCommand()
 	{

@@ -26,8 +26,10 @@ public class ShapeImportExport extends XmlNodeReader
 		FILE_TYPE_FILTER = "xml",
 		DEFAULT_DIRECTORY_RELATIVE =  "./Properties/shapes/ ";
 	
-	ArrayList<ShapeElement> shapeElements = new ArrayList<ShapeElement>();
-	ShapeElement shapeElement;
+	private ArrayList<ShapeElement> 
+		shapeElements = new ArrayList<ShapeElement>();
+	private ShapeElement 
+		shapeElement;
 	
 	public ShapeImportExport()
 	{

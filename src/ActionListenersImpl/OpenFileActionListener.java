@@ -24,8 +24,8 @@ public class OpenFileActionListener implements RedrawableFrameListener, ActionLi
 		xmlPathSuffix = XML_PATH_SUFFIX,
 		xmlFilterTitle = XML_FILTER_TITLE,
 		xmlFilter = XML_FILTER;
-	
-	private RedrawableFrame applicationLayoutEditor;
+	private RedrawableFrame 
+		applicationLayoutEditor;
 	
 	public String getXmlPathSuffix()
 	{

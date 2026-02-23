@@ -25,24 +25,32 @@ public class ShapeElement
 	private String 
 		nodeName,
 		nodeId,
-		parentNode;
-	private ArrayList<String> attributes;
-	private Class<?> shapeClass = null;
-	
+		parentNode,
+		ngConfigString,
+		textString;
+	private ArrayList<String> 
+		attributes;
+	private Class<?> 
+		shapeClass = null;
 	private Color 
 		colorDraw,
 		colorFill;
-	private boolean isCreateStroke = false;
-	private boolean drawShapeControlPoints = true;
-	private int strokeWidth = -1;
-	private ArrayList<Point> controlPoints = new ArrayList<Point>();
-	private NumberGeneratorConfig ngConfig;
-	private String ngConfigString;
-	private Shape shape;
-	boolean skipShapeDraw = false;
-	private Font textFont;
-	private String textString;
-	private ArrayList<DrawPaths> drawPaths = new ArrayList<DrawPaths>();
+	private boolean 
+		isCreateStroke = false,
+		drawShapeControlPoints = true,
+		skipShapeDraw = false;
+	private int 
+		strokeWidth = -1;
+	private ArrayList<Point> 
+		controlPoints = new ArrayList<Point>();
+	private NumberGeneratorConfig 
+		ngConfig;
+	private Shape 
+		shape;
+	private Font 
+		textFont;
+	private ArrayList<DrawPaths> 
+		drawPaths = new ArrayList<DrawPaths>();
 	
 	public ShapeElement(String nodeName, int count, ArrayList<String> attributes, String parentNode)
 	{

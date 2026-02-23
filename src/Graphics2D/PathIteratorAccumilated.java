@@ -5,8 +5,10 @@ import java.util.ArrayList;
 
 public class PathIteratorAccumilated implements PathIterator
 {
-	ArrayList<PathIterator> pis;
-	private int pisIndex=0;
+	private ArrayList<PathIterator> 
+		pis;
+	private int 
+		pisIndex=0;
 	
 	public PathIteratorAccumilated(ArrayList<PathIterator> pis)
 	{

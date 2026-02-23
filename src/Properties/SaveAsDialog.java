@@ -14,7 +14,8 @@ public class SaveAsDialog
 		title,
 		fileFilter,
 		defaultPathRelative;
-	private Component parent;
+	private Component 
+		parent;
 	
 	public SaveAsDialog(Component parent, String title, String fileFilter, String defaultPathRelative)
 	{

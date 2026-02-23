@@ -17,8 +17,10 @@ import Properties.LoggingMessages;
 
 public class WavReader 
 {
-	private File f;
-	private ArrayList<WavReaderSubscriber> subs = new ArrayList<WavReaderSubscriber>();
+	private File 
+		f;
+	private ArrayList<WavReaderSubscriber> 
+		subs = new ArrayList<WavReaderSubscriber>();
 	
 	public WavReader(String arg)
 	{

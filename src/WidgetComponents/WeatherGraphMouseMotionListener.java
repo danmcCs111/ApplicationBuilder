@@ -18,13 +18,20 @@ public class WeatherGraphMouseMotionListener implements MouseMotionListener
 {
 	private static final int TOOL_ABOVE_OFFSET = 10;//TODO
 	
-	private List<Integer> xPoints;
-	private HashMap<Date, Number> plotPoints;
-	private HashMap<Integer, Date> xLocationAndDate = new HashMap<Integer, Date>();
-	private JFrame f = new JFrame();
-	private JTextArea toolTipLabel = new JTextArea();
-	private SimpleDateFormat sdf;
-	private JComponent parent;
+	private List<Integer> 
+		xPoints;
+	private HashMap<Date, Number> 
+		plotPoints;
+	private HashMap<Integer, Date> 
+		xLocationAndDate = new HashMap<Integer, Date>();
+	private JFrame 
+		f = new JFrame();
+	private JTextArea 
+		toolTipLabel = new JTextArea();
+	private SimpleDateFormat 
+		sdf;
+	private JComponent 
+		parent;
 	private int
 		limitXLow,
 		limitXHigh,

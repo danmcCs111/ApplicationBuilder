@@ -10,11 +10,12 @@ import Params.ParameterEditor;
 
 public abstract class ListenerEditor extends JPanel implements ParameterEditor
 {
-
 	private static final long serialVersionUID = 1990L;
 
-	protected JComboBox<String> comboSelection;
-	protected JButton editButton;
+	protected JComboBox<String> 
+		comboSelection;
+	protected JButton 
+		editButton;
 	
 	public ListenerEditor()
 	{

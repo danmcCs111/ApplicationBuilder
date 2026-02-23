@@ -18,11 +18,15 @@ public class PointEditor extends JPanel implements ParameterEditor
 	private static final int 
 		SPINNER_LIMIT = 1000000,
 		SPINNER_INTERVAL = 1;
-	private static final String SPINNER_FORMAT = "0";
-	private SpinnerNumberModel snm1 = new SpinnerNumberModel(0, 0, SPINNER_LIMIT, SPINNER_INTERVAL);
-	private SpinnerNumberModel snm2 = new SpinnerNumberModel(0, 0, SPINNER_LIMIT, SPINNER_INTERVAL);
-
-	private JSpinner spin1, spin2;
+	private static final String 
+		SPINNER_FORMAT = "0";
+	
+	private SpinnerNumberModel 
+		snm1 = new SpinnerNumberModel(0, 0, SPINNER_LIMIT, SPINNER_INTERVAL),
+		snm2 = new SpinnerNumberModel(0, 0, SPINNER_LIMIT, SPINNER_INTERVAL);
+	private JSpinner 
+		spin1, 
+		spin2;
 	
 	public PointEditor()
 	{

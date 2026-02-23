@@ -42,12 +42,16 @@ public class PageParserCollectionDialog extends JDialog
 	private JButton 
 		saveButton = new JButton(SAVE_BUTTON_LABEL),
 		cancelButton = new JButton(CANCEL_BUTTON_LABEL);
-	private JPanel arrayPageParser = new JPanel();
-	private LinkedHashMap<PageParser, JComponent> pageParserAndComponent = new LinkedHashMap<PageParser, JComponent>();
-	private ArrayList<PageParserEditor> pageParserEditors = new ArrayList<PageParserEditor>();
-	
-	private PageParserCollection pageParserCollection;
-	private PageParserCollectionEditor pageParserCollectionEditor;
+	private JPanel 
+		arrayPageParser = new JPanel();
+	private LinkedHashMap<PageParser, JComponent> 
+		pageParserAndComponent = new LinkedHashMap<PageParser, JComponent>();
+	private ArrayList<PageParserEditor> 
+		pageParserEditors = new ArrayList<PageParserEditor>();
+	private PageParserCollection 
+		pageParserCollection;
+	private PageParserCollectionEditor 
+		pageParserCollectionEditor;
 	
 	public PageParserCollectionDialog(PageParserCollectionEditor ppce, PageParserCollection pageParserCollection)
 	{

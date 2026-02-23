@@ -14,7 +14,8 @@ public class WidgetCreatorProperty
 	public static final String 
 		ID_SUFFIX_REGEX = "#[0-9]*";
 	
-	private Object instance;
+	private Object 
+		instance;
 	private String 
 		className,
 		parentNodeTextWithID,
@@ -22,8 +23,10 @@ public class WidgetCreatorProperty
 	private ArrayList<String> 
 		settings,
 		settingsName = new ArrayList<String>();
-	private HashMap<String, String> settingsNameAndValue = new HashMap<String, String>();
-	private ArrayList<XmlToWidgetGenerator> xmlToWidgetGenerators = new ArrayList<XmlToWidgetGenerator>();
+	private HashMap<String, String> 
+		settingsNameAndValue = new HashMap<String, String>();
+	private ArrayList<XmlToWidgetGenerator> 
+		xmlToWidgetGenerators = new ArrayList<XmlToWidgetGenerator>();
 
 	public WidgetCreatorProperty(String componentNameWithID, ArrayList<String> settings, String parentNodeTextWithID) 
 	{

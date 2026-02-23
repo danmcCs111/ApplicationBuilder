@@ -14,7 +14,8 @@ public class DoubleEditor extends JSpinner implements ParameterEditor
 	private static final int 
 		SPINNER_LIMIT = 1000000,
 		SPINNER_INTERVAL = 1;
-	private static final String SPINNER_FORMAT = "000000.00";
+	private static final String 
+		SPINNER_FORMAT = "000000.00";
 	
 	public DoubleEditor()
 	{

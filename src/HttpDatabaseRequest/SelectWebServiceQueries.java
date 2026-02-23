@@ -20,7 +20,8 @@ public class SelectWebServiceQueries
 	public static final int
 		PORT_NUMBER = 8000;
 	
-	private String [] queryOptions;
+	private String [] 
+		queryOptions;
 	
 	public SelectWebServiceQueries(String database)
 	{

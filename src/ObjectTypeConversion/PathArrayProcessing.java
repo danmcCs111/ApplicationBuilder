@@ -11,7 +11,8 @@ public class PathArrayProcessing
 		ARG_DELIMITER = ";",
 		VALUE_DELIMITER = "@";
 	
-	private HashMap<part, ArrayList<String>> pathArray = new HashMap<part, ArrayList<String>>();
+	private HashMap<part, ArrayList<String>> 
+		pathArray = new HashMap<part, ArrayList<String>>();
 	
 	public PathArrayProcessing(String arg0)
 	{

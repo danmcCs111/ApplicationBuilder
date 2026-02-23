@@ -23,7 +23,8 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 {
 	private static final long serialVersionUID = 1L;
 	
-	private AbstractButton parentButton;
+	private AbstractButton 
+		parentButton;
 	private static Color [] 
 		foregroundAndBackgroundColor = new Color [] {
 				ColorTemplate.getButtonForegroundColor(), ColorTemplate.getButtonBackgroundColor()},

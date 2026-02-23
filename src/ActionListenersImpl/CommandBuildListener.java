@@ -10,7 +10,8 @@ import Properties.LoggingMessages;
 
 public class CommandBuildListener implements ActionListener
 {
-	private CommandBuild commandBuild;
+	private CommandBuild 
+		commandBuild;
 	
 	@Override
 	public void actionPerformed(ActionEvent e) 

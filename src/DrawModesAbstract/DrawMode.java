@@ -16,7 +16,8 @@ public abstract class DrawMode
 		EDITOR_PARAMETER_FILE_PREFIX = ".java",
 		EDITOR_PARAMETER_FILE_FILTER = "java";
 	
-	private static final ArrayList<DrawMode> drawTypes = new ArrayList<DrawMode>();
+	private static final ArrayList<DrawMode> 
+		drawTypes = new ArrayList<DrawMode>();
 	static {
 		loadParameterEditorExtensions();
 	}

@@ -19,7 +19,8 @@ import WidgetComponents.JButtonLengthLimited;
 
 public class LaunchUrlActionListener implements ActionListener
 {
-	private static Process runningProcess = null;
+	private static Process 
+		runningProcess = null;
 	private static final String
 		PROCESS_WINDOWS = "chrome.exe",
 		PROCESS_LINUX = "google-chrome",
@@ -37,7 +38,8 @@ public class LaunchUrlActionListener implements ActionListener
 		lastButtons = new ArrayList<AbstractButton>();
 	private static AbstractButton
 		lastButtonOrigin;
-	private static boolean isKiosk = false;
+	private static boolean 
+		isKiosk = false;
 	
 	public String getProcessWindowsOS()
 	{

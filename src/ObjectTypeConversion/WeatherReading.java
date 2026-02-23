@@ -28,9 +28,12 @@ public class WeatherReading
 			"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"
 	});
 	
-	private HashMap<String, ValueModifier> valueModifiers = new HashMap<String, WeatherReading.ValueModifier>();
-	private HashMap<String, Object> queryValues = new HashMap<String, Object>();
-	private Date date;
+	private HashMap<String, ValueModifier> 
+		valueModifiers = new HashMap<String, WeatherReading.ValueModifier>();
+	private HashMap<String, Object> 
+		queryValues = new HashMap<String, Object>();
+	private Date 
+		date;
 	
 	public WeatherReading(HashMap<String, String> reading)
 	{

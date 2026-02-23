@@ -9,8 +9,10 @@ import Properties.LoggingMessages;
 
 public class AddActionListener implements ActionListener
 {
-	private AddActionSend addActionSendListener = null;
-	private ArrayList<AddActionReceive> addActionReceiveListeners = new ArrayList<AddActionReceive>();
+	private AddActionSend 
+		addActionSendListener = null;
+	private ArrayList<AddActionReceive> 
+		addActionReceiveListeners = new ArrayList<AddActionReceive>();
 	
 	public AddActionListener()
 	{

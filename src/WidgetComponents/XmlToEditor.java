@@ -25,7 +25,8 @@ public class XmlToEditor extends JTabbedPane implements WidgetBuildIndexSelector
 		COMPONENT_REGEX = COMPONENT_SUFFIX + "[0-9]*",
 		DELETE_BUTTON_TEXT = "X";
 	
-	private RedrawableFrame editorFrame;
+	private RedrawableFrame 
+		editorFrame;
 	
 	@Override
 	public void setRedrawableFrame(RedrawableFrame editorFrame)

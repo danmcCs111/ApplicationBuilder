@@ -27,8 +27,10 @@ public class HttpDatabaseResponse
 		RESULT_NODE_NAME = "Result",
 		RESULT_SET_TAG = "<ResultSet>";
 	
-	private ArrayList<ArrayList<DatabaseResponseNode>> databaseResponseNodesFull = new ArrayList<ArrayList<DatabaseResponseNode>>();
-	private ArrayList<DatabaseResponseNode> databaseResponseNodes = new ArrayList<DatabaseResponseNode>();
+	private ArrayList<ArrayList<DatabaseResponseNode>> 
+		databaseResponseNodesFull = new ArrayList<ArrayList<DatabaseResponseNode>>();
+	private ArrayList<DatabaseResponseNode> 
+		databaseResponseNodes = new ArrayList<DatabaseResponseNode>();
 	
 	public ArrayList<ArrayList<DatabaseResponseNode>> parseResponse(String responseBody)
 	{

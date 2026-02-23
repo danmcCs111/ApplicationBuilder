@@ -8,7 +8,8 @@ import ShapeWidgetComponents.ShapeImportExport;
 
 public class SaveShapeActionListener implements ActionListener 
 {
-	private ShapeCreator shapeCreator;
+	private ShapeCreator 
+		shapeCreator;
 	
 	public SaveShapeActionListener(ShapeCreator shapeCreator)
 	{
