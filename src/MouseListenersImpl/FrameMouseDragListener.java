@@ -151,7 +151,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		jmi.setHighlightButton(component);
 		jmi.setName(ycv.getUrl());
 		jmi.setToolTipText("Upload Date: " + ycv.getUploadDate().toString());
-		jmi.addActionListener(new VideoSubSelectionActionListener(component, jmi, this));
+		jmi.addActionListener(new VideoSubSelectionLauncher(component, jmi, this));
 		return jmi;
 	}
 	

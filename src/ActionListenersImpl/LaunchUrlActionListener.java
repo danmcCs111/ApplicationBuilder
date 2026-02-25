@@ -29,7 +29,7 @@ public class LaunchUrlActionListener implements ActionListener
 		CHROME_NO_DEFAULT_CHECK = "--no-default-browser-check",
 		CHROME_KIOSK = "--kiosk",
 		AHK_RELATIVE_PATH = "./plugin-projects/AutoHotKey-Utils/pid.txt";
-	private String
+	private static String
 		processWindows = PROCESS_WINDOWS,
 		processLinux = PROCESS_LINUX;
 	
@@ -43,19 +43,12 @@ public class LaunchUrlActionListener implements ActionListener
 		isKiosk = false;
 	private static int 
 		defaultId = -1;
-	private int 
-		id = defaultId;
 	
-	public void setId(int id)
-	{
-		this.id = id;
-	}
-	
-	public String getProcessWindowsOS()
+	public static String getProcessWindowsOS()
 	{
 		return processWindows;
 	}
-	public void setProcessWindowsOS(String windowsProc)
+	public static void setProcessWindowsOS(String windowsProc)
 	{
 		processWindows = windowsProc;
 	}
@@ -75,11 +68,11 @@ public class LaunchUrlActionListener implements ActionListener
 		storeLast(lastButtonOrigin);
 	}
 	
-	public String getProcessLinuxOS()
+	public static String getProcessLinuxOS()
 	{
 		return processLinux;
 	}
-	public void setProcessLinuxOS(String linuxProc)
+	public static void setProcessLinuxOS(String linuxProc)
 	{
 		processLinux = linuxProc;
 	}
@@ -93,7 +86,7 @@ public class LaunchUrlActionListener implements ActionListener
 		
 		if(button.getName().equals(CLOSE_LAUNCH_ACTION_EVENT))
 		{
-			destroyRunningProcess(id);
+			destroyRunningProcess(defaultId);
 		}
 		
 		performHighlight(button);
@@ -101,12 +94,12 @@ public class LaunchUrlActionListener implements ActionListener
 		if(!button.getName().equals(CLOSE_LAUNCH_ACTION_EVENT))
 		{
 			String [] args = buildCommand(button);
-			executeProcess(id, args);
+			executePrimaryProcess(args);
 		}
 		storeLast(button);
 	}
 	
-	private void performHighlight(AbstractButton button)
+	private static void performHighlight(AbstractButton button)
 	{
 		if(button.getName().equals(CLOSE_LAUNCH_ACTION_EVENT))
 		{
@@ -149,7 +142,12 @@ public class LaunchUrlActionListener implements ActionListener
 		}
 	}
 	
-	public String [] buildCommand(AbstractButton button)
+	private static String [] buildCommand(AbstractButton button)
+	{
+		return buildCommand(button, defaultId);
+	}
+	
+	public static String [] buildCommand(AbstractButton button, int id)
 	{
 		String chromeProfile = (id == -1)
 				?CHROME_PROFILE_OPTION
@@ -166,9 +164,9 @@ public class LaunchUrlActionListener implements ActionListener
 		else
 		{
 			args = new String [] {
-					PathUtility.isWindows()?getProcessWindowsOS():getProcessLinuxOS(), 
-					CHROME_HIDE_OPTION, chromeProfile, CHROME_NO_DEFAULT_CHECK, 
-					button.getName()
+				PathUtility.isWindows()?getProcessWindowsOS():getProcessLinuxOS(), 
+				CHROME_HIDE_OPTION, chromeProfile, CHROME_NO_DEFAULT_CHECK, 
+				button.getName()
 			};
 		}
 		
@@ -194,17 +192,27 @@ public class LaunchUrlActionListener implements ActionListener
 		lastButtonOrigin = button;
 	}
 	
-	public static void executeProcess(int id, String ...args)
+	private static void executePrimaryProcess(String [] args)
 	{
 		try {
-			destroyRunningProcess(id);
+			destroyRunningProcess(defaultId);
 			ProcessBuilder pb = new ProcessBuilder(args);
-			Process runningProcess = runningProcesses.get(-1);
+			Process runningProcess = runningProcesses.get(defaultId);
 			runningProcess = pb.start();
 			Long pid = runningProcess.pid();
 			File f = new File(new DirectorySelection(AHK_RELATIVE_PATH).getFullPath());
 			PathUtility.writeStringToFile(f, pid + "");
-			runningProcesses.put(-1, runningProcess);
+			runningProcesses.put(defaultId, runningProcess);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void executeProcess(int id, String ...args)
+	{
+		try {
+			ProcessBuilder pb = new ProcessBuilder(args);
+			pb.start();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

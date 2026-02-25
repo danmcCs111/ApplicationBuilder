@@ -8,7 +8,7 @@ import javax.swing.AbstractButton;
 import ActionListenersImpl.LaunchUrlActionListener;
 import WidgetComponentInterfaces.HighlightListener;
 
-public class VideoSubSelectionActionListener implements ActionListener
+public class VideoSubSelectionLauncher implements ActionListener
 {
 	private AbstractButton 
 		component,
@@ -16,21 +16,25 @@ public class VideoSubSelectionActionListener implements ActionListener
 	private HighlightListener 
 		hlListener;
 	
-	public VideoSubSelectionActionListener(AbstractButton component, AbstractButton childButton)
+	public VideoSubSelectionLauncher(AbstractButton component)
 	{
 		this.component = component;
-		this.childButton = childButton;
 	}
 	
-	public VideoSubSelectionActionListener(AbstractButton component, AbstractButton childButton, HighlightListener hlListener)
+	public VideoSubSelectionLauncher(AbstractButton component, AbstractButton childButton, HighlightListener hlListener)
 	{
 		this.component = component;
 		this.childButton = childButton;
 		this.hlListener = hlListener;
 	}
 	
-	@Override
-	public void actionPerformed(ActionEvent e) //double loop b/c of order.
+	public void performLaunch(AbstractButton childButton, int id)
+	{
+		String [] args = LaunchUrlActionListener.buildCommand(childButton, id);
+		LaunchUrlActionListener.executeProcess(id, args);
+	}
+	
+	public void performLaunch(AbstractButton childButton) //double loop b/c of order.
 	{
 		for(ActionListener al : component.getActionListeners())
 		{
@@ -60,5 +64,11 @@ public class VideoSubSelectionActionListener implements ActionListener
 		{
 			hlListener.highlight();
 		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) 
+	{
+		performLaunch(this.childButton);
 	}
 }

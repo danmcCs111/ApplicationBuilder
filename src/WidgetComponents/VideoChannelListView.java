@@ -2,8 +2,9 @@ package WidgetComponents;
 
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -14,7 +15,7 @@ import javax.swing.JPanel;
 import ActionListeners.ArrayActionListener;
 import ActionListenersImpl.LaunchUrlActionListener;
 import Graphics2D.ColorTemplate;
-import MouseListenersImpl.VideoSubSelectionActionListener;
+import MouseListenersImpl.VideoSubSelectionLauncher;
 import MouseListenersImpl.YoutubeChannelVideo;
 import Properties.LoggingMessages;
 import WidgetUtility.FileListOptionGenerator;
@@ -22,6 +23,9 @@ import WidgetUtility.FileListOptionGenerator;
 public class VideoChannelListView extends JPanel implements ArrayActionListener
 {
 	private static final long serialVersionUID = 1L;
+	
+	private static final String 
+		TOOLTIP_INSTRUCTION = "(Left click Primary Window, Middle click Alternate Window)";
 	
 	private AbstractButton 
 		parentButton;
@@ -37,10 +41,13 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 		selectedBtn;
 	private HashMap<JButton, Highlighter> 
 		videoButtons = new HashMap<JButton, Highlighter>();
+	private VideoSubSelectionLauncher 
+		vssl = null;
 	
 	public VideoChannelListView(AbstractButton parentButton, HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
 	{
 		this.parentButton = parentButton;
+		vssl = new VideoSubSelectionLauncher(parentButton);
 		buildWidgets(ycvs);
 	}
 	
@@ -83,15 +90,31 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 	{
 		JButtonLengthLimited jbll = (JButtonLengthLimited) FileListOptionGenerator.buildComponent(
 				"", ycv.getTitle(), ycv.getUrl(), JButtonLengthLimited.class);
-		jbll.setToolTipText("Upload Date: " + ycv.getUploadDate().toString());
+		jbll.setToolTipText(
+				"<html>Upload Date: " + ycv.getUploadDate().toString() + "<br>" + 
+				TOOLTIP_INSTRUCTION +
+				"</html>"
+				);
 		jbll.setHighlightButton(parentButton);
-		jbll.addActionListener(new VideoSubSelectionActionListener(parentButton, jbll));
 		Highlighter hl = new Highlighter(jbll, highlightForegroundAndBackgroundColor, foregroundAndBackgroundColor);
 		videoButtons.put(jbll, hl);
-		jbll.addActionListener(new ActionListener() {
+		jbll.addMouseListener(new MouseAdapter() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				performSelect(hl);
+			public void mouseClicked(MouseEvent e) 
+			{
+				int btn = e.getButton();
+				switch(btn)
+				{
+				case MouseEvent.BUTTON1:
+					vssl.performLaunch(jbll);
+					performSelect(hl);
+					break;
+				case MouseEvent.BUTTON2:
+					vssl.performLaunch(jbll, 1);
+					break;
+				case MouseEvent.BUTTON3:
+					break;
+				}
 			}
 		});
 		return jbll;
