@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.AbstractButton;
 
@@ -19,14 +20,12 @@ import WidgetComponents.JButtonLengthLimited;
 
 public class LaunchUrlActionListener implements ActionListener
 {
-	private static Process 
-		runningProcess = null;
 	private static final String
 		PROCESS_WINDOWS = "chrome.exe",
 		PROCESS_LINUX = "google-chrome",
 		CLOSE_LAUNCH_ACTION_EVENT="closeLaunchAction",
 		CHROME_HIDE_OPTION = "--hide-crash-restore-bubble",
-		CHROME_SEPERATE_OPTION = "--user-data-dir=" + PathUtility.getCurrentDirectory() + "\"NewProfile\"",
+		CHROME_PROFILE_OPTION = "--user-data-dir=" + PathUtility.getCurrentDirectory() + "-ChromeProfile",
 		CHROME_NO_DEFAULT_CHECK = "--no-default-browser-check",
 		CHROME_KIOSK = "--kiosk",
 		AHK_RELATIVE_PATH = "./plugin-projects/AutoHotKey-Utils/pid.txt";
@@ -34,12 +33,23 @@ public class LaunchUrlActionListener implements ActionListener
 		processWindows = PROCESS_WINDOWS,
 		processLinux = PROCESS_LINUX;
 	
+	private static HashMap<Integer, Process>
+		runningProcesses = new HashMap<Integer, Process>();
 	private static ArrayList<AbstractButton> 
 		lastButtons = new ArrayList<AbstractButton>();
 	private static AbstractButton
 		lastButtonOrigin;
 	private static boolean 
 		isKiosk = false;
+	private static int 
+		defaultId = -1;
+	private int 
+		id = defaultId;
+	
+	public void setId(int id)
+	{
+		this.id = id;
+	}
 	
 	public String getProcessWindowsOS()
 	{
@@ -80,9 +90,26 @@ public class LaunchUrlActionListener implements ActionListener
 		AbstractButton button = (AbstractButton) e.getSource();
 		LoggingMessages.printOut("Button Pressed. " + button.getText());
 		LoggingMessages.printOut("Button Pressed. " + e);
+		
 		if(button.getName().equals(CLOSE_LAUNCH_ACTION_EVENT))
 		{
-			destroyRunningProcess();
+			destroyRunningProcess(id);
+		}
+		
+		performHighlight(button);
+		
+		if(!button.getName().equals(CLOSE_LAUNCH_ACTION_EVENT))
+		{
+			String [] args = buildCommand(button);
+			executeProcess(id, args);
+		}
+		storeLast(button);
+	}
+	
+	private void performHighlight(AbstractButton button)
+	{
+		if(button.getName().equals(CLOSE_LAUNCH_ACTION_EVENT))
+		{
 			for(AbstractButton lastButton : lastButtons)
 			{
 				if(lastButton != null)
@@ -119,27 +146,33 @@ public class LaunchUrlActionListener implements ActionListener
 					}
 				}
 			}
-			
-			String [] args = null;
-			if(LaunchUrlActionListener.isKiosk)
-			{
-				args = new String [] {
-					PathUtility.isWindows()?getProcessWindowsOS():getProcessLinuxOS(), 
-					CHROME_HIDE_OPTION, CHROME_SEPERATE_OPTION, CHROME_NO_DEFAULT_CHECK, CHROME_KIOSK, 
-					button.getName()	
-				};
-			}
-			else
-			{
-				args = new String [] {
-						PathUtility.isWindows()?getProcessWindowsOS():getProcessLinuxOS(), 
-						CHROME_HIDE_OPTION, CHROME_SEPERATE_OPTION, CHROME_NO_DEFAULT_CHECK, 
-						button.getName()
-				};
-			}
-			executeProcess(args);
 		}
-		storeLast(button);
+	}
+	
+	public String [] buildCommand(AbstractButton button)
+	{
+		String chromeProfile = (id == -1)
+				?CHROME_PROFILE_OPTION
+				:CHROME_PROFILE_OPTION + id;
+		String [] args = null;
+		if(LaunchUrlActionListener.isKiosk)
+		{
+			args = new String [] {
+				PathUtility.isWindows()?getProcessWindowsOS():getProcessLinuxOS(), 
+				CHROME_HIDE_OPTION, chromeProfile, CHROME_NO_DEFAULT_CHECK, CHROME_KIOSK, 
+				button.getName()	
+			};
+		}
+		else
+		{
+			args = new String [] {
+					PathUtility.isWindows()?getProcessWindowsOS():getProcessLinuxOS(), 
+					CHROME_HIDE_OPTION, chromeProfile, CHROME_NO_DEFAULT_CHECK, 
+					button.getName()
+			};
+		}
+		
+		return args;
 	}
 	
 	private static void storeLast(AbstractButton button)
@@ -161,24 +194,30 @@ public class LaunchUrlActionListener implements ActionListener
 		lastButtonOrigin = button;
 	}
 	
-	private static void executeProcess(String ...args)
+	public static void executeProcess(int id, String ...args)
 	{
 		try {
-			destroyRunningProcess();
+			destroyRunningProcess(id);
 			ProcessBuilder pb = new ProcessBuilder(args);
+			Process runningProcess = runningProcesses.get(-1);
 			runningProcess = pb.start();
 			Long pid = runningProcess.pid();
 			File f = new File(new DirectorySelection(AHK_RELATIVE_PATH).getFullPath());
 			PathUtility.writeStringToFile(f, pid + "");
-			
+			runningProcesses.put(-1, runningProcess);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
 	public static boolean destroyRunningProcess()
 	{
+		return destroyRunningProcess(defaultId);
+	}
+	
+	public static boolean destroyRunningProcess(int id)
+	{
+		Process runningProcess = runningProcesses.get(id);
 		if(runningProcess != null)
 		{
 			runningProcess.destroy();
