@@ -49,6 +49,11 @@ Launch video selector with:
 <img width="279" height="154" alt="image" src="https://github.com/user-attachments/assets/3cac88c4-18dc-4824-9448-c711a9eb8c71" />
 
 
+*added backfill update dialog
+
+<img width="45%" width="492" height="149" alt="image" src="https://github.com/user-attachments/assets/89a3c7e1-1a89-4bbc-9c6f-09afa4a7e636" />
+
+
 *seperated view and update
 
 *switched to a tree structure in layout editor
