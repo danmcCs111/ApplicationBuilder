@@ -105,10 +105,11 @@ public class LaunchUrlActionListener implements ActionListener
 		{
 			for(AbstractButton lastButton : lastButtons)
 			{
+				LoggingMessages.printOut(lastButton.getText());
 				if(lastButton != null)
 				{
-					Container lastButtonParent = lastButton.getParent();
-					if(!button.equals(lastButton) && lastButtonParent instanceof ArrayActionListener)
+					ArrayActionListener lastButtonParent = findParentArrayActionListener(lastButton);
+					if(lastButtonParent != null)
 					{
 						ArrayActionListener aal = (ArrayActionListener)lastButtonParent;
 						aal.unselect();
@@ -122,16 +123,14 @@ public class LaunchUrlActionListener implements ActionListener
 		}
 		else
 		{
-			if(lastButtonOrigin != null && 
-					!lastButtonOrigin.equals(button.getParent()))
+			if(lastButtonOrigin != null)
 			{
 				for(AbstractButton lastButton : lastButtons)
 				{
 					if(lastButton != null)
 					{
-						Container lastButtonParent = lastButton.getParent();
-						if(lastButtonParent != null && !lastButtonParent.equals(button.getParent()) 
-								&& lastButtonParent instanceof ArrayActionListener)
+						ArrayActionListener lastButtonParent = findParentArrayActionListener(lastButton);
+						if(lastButtonParent != null)
 						{
 							ArrayActionListener aal = (ArrayActionListener)lastButtonParent;
 							aal.unselect();
@@ -139,6 +138,21 @@ public class LaunchUrlActionListener implements ActionListener
 					}
 				}
 			}
+		}
+	}
+	
+	private static ArrayActionListener findParentArrayActionListener(Container ab)
+	{
+		if(ab.getParent() == null)
+			return null;
+		
+		if(ab.getParent() instanceof ArrayActionListener)
+		{
+			return (ArrayActionListener) ab.getParent();
+		}
+		else
+		{
+			return findParentArrayActionListener(ab.getParent());
 		}
 	}
 	
