@@ -31,6 +31,7 @@ import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
 import MouseListenersImpl.ImageMouseAdapter;
 import MouseListenersImpl.LookupOrCreateYoutube;
+import MouseListenersImpl.MiddleClickLaunchUrlActionListener;
 import MouseListenersImpl.PicLabelMouseListener;
 import ObjectTypeConversion.DirectorySelection;
 import ObjectTypeConversion.FileSelection;
@@ -419,6 +420,7 @@ PostWidgetBuildProcessing, ButtonArray
 		if(this.actionListener != null)
 		{
 			jButton.addActionListener(actionListener);
+			jButton.addMouseListener(new MiddleClickLaunchUrlActionListener(jButton));//TODO.
 			jButton.addActionListener(highlightLabelActionListener);
 			addHighlightButtonActionListener(jButton);
 		}
