@@ -77,6 +77,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 			JButtonLengthLimited jbll = (JButtonLengthLimited) component;//TODO
 			JPopupMenu pm = new JPopupMenu();
 			JMenuItem mi = new JMenuItem(OPEN_MENU_TEXT);
+			
 			mi.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {

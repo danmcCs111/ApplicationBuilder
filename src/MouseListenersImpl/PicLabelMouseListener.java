@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
+import ActionListenersImpl.LaunchUrlActionListener;
 import Properties.LoggingMessages;
 import WidgetComponents.JButtonLengthLimited;
 
@@ -84,6 +85,11 @@ public class PicLabelMouseListener extends MouseAdapter
 					highLightLabel((JButtonLengthLimited) connectedButton, true);
 				}
 			}
+		}
+		else if(e.getButton() == MouseEvent.BUTTON2)//middle button
+		{
+			String [] args = LaunchUrlActionListener.buildCommand(connectedButton, 1);
+			LaunchUrlActionListener.executeProcess(1, args);
 		}
 	}
 }
