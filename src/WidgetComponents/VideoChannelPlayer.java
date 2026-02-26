@@ -1,17 +1,21 @@
 package WidgetComponents;
 
+import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.AbstractButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
 import MouseListenersImpl.YoutubeChannelVideo;
+import WidgetComponentInterfaces.SearchSubscriber;
 import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
 
 public class VideoChannelPlayer extends JFrame
@@ -23,12 +27,14 @@ public class VideoChannelPlayer extends JFrame
 	private static Dimension 
 		MIN_SIZE = new Dimension(750, 450);
 	private static int 
+		SEARCH_COLUMN_LENGTH = 25,
 		SCROLL_UNIT_INC = 25;
 	
 	private AbstractButton 
 		parentButton;
 	private VideoChannelListView 
 		listView; 
+	private JScrollPane scrollPane;
 
 	public VideoChannelPlayer(
 			HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs, AbstractButton parentButton, Container parent)
@@ -46,10 +52,25 @@ public class VideoChannelPlayer extends JFrame
 	
 	private void buildWidgets(HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
 	{
+		JPanel searchPanel = new JPanel();
+		searchPanel.setLayout(new FlowLayout());
+		SearchBar sb = new SearchBar();
+		sb.setColumnCharacterLength(SEARCH_COLUMN_LENGTH);
+		sb.addSearchSubscriber(new SearchSubscriber() {
+			@Override
+			public void notifySearchText(String searchPattern) {
+				listView.setVisible(searchPattern);
+				VideoChannelPlayer.this.validate();
+			}
+		});
+		searchPanel.add(sb);
 		listView = new VideoChannelListView(parentButton, ycvs);
-		JScrollPane scrollPane = new JScrollPane(listView);
+		scrollPane = new JScrollPane(listView);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(SCROLL_UNIT_INC);
-		this.add(scrollPane);
+		
+		this.setLayout(new BorderLayout());
+		this.add(searchPanel, BorderLayout.NORTH);
+		this.add(scrollPane, BorderLayout.CENTER);
 		
 		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
 		ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());

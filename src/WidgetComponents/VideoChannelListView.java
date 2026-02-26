@@ -1,5 +1,6 @@
 package WidgetComponents;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
@@ -7,6 +8,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
@@ -36,11 +38,13 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 				Color.blue, Color.white};
 	private static Color 
 		borderColor = Color.ORANGE;
+	private JPanel 
+		listPanel;
 	private Highlighter 
 		hlPanel,
 		selectedBtn;
-	private HashMap<JButton, Highlighter> 
-		videoButtons = new HashMap<JButton, Highlighter>();
+	private LinkedHashMap<JButton, Highlighter> 
+		videoButtons = new LinkedHashMap<JButton, Highlighter>();
 	private VideoSubSelectionLauncher 
 		vssl = null;
 	
@@ -68,7 +72,8 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 
 	private void buildWidgets(HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
 	{
-		this.setLayout(new GridLayout(0, 1));
+		listPanel = new JPanel();
+		listPanel.setLayout(new GridLayout(0,1));
 		
 		hlPanel = new Highlighter(this, borderColor);
 		for(int key : ycvs.keySet())
@@ -76,7 +81,22 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 			for(YoutubeChannelVideo ycv : ycvs.get(key))
 			{
 				JButtonLengthLimited jbll = buildVideoButton(ycv);
-				this.add(jbll);
+				listPanel.add(jbll);
+			}
+		}
+		
+		this.setLayout(new BorderLayout());
+		this.add(listPanel, BorderLayout.NORTH);
+	}
+	
+	public void setVisible(String searchText)
+	{
+		listPanel.removeAll();
+		for(JButton btn : videoButtons.keySet())
+		{
+			if(searchText.isEmpty() || btn.getText().toLowerCase().contains(searchText.toLowerCase()))
+			{
+				listPanel.add(btn);
 			}
 		}
 	}
