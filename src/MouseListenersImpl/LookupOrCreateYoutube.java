@@ -67,6 +67,11 @@ public class LookupOrCreateYoutube
 	
 	public void update(String videoChannelName, String videoChannelLink)
 	{
+		update(videoChannelName, videoChannelLink, null);
+	}
+	
+	public void update(String videoChannelName, String videoChannelLink, Date beginDate)
+	{
 		String query = youtubeSql.getYoutubeQuery(videoChannelName);
 		String response = executeQuery(query);
 		if(response == null)
@@ -87,8 +92,11 @@ public class LookupOrCreateYoutube
 					int parentId = Integer.parseInt(drn.getNodeAttributes().get("content"));
 					LoggingMessages.printOut("parentID is: " + parentId);
 					LoggingMessages.printOut("channelLink is: " + videoChannelLink);
-					Date lastDate = getLastDate(parentId, videoChannelLink);
-					updateYoutubeChannel(parentId, videoChannelLink, (lastDate == null) ? -1 : lastDate.getTime());
+					if(beginDate == null)
+					{
+						beginDate = getLastDate(parentId, videoChannelLink);
+					}
+					updateYoutubeChannel(parentId, videoChannelLink, (beginDate == null) ? -1 : beginDate.getTime());
 				}
 			}
 		}

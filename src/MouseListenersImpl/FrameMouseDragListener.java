@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import javax.swing.AbstractButton;
@@ -33,7 +34,10 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		OPEN_MENU_TEXT = "OPEN",
 		VIEW_LATEST_VIDEOS = "VIEW",
 		VIEW_LIST_VIDEOS = "VIEW LIST",
-		UPDATE_VIDEOS = "UPDATE";
+		UPDATE_BACKFILL = "BACKFILL UPDATE",
+		UPDATE_BACKFILL_TOOLTIP = "Bulk update to backfill from a selected begin date.",
+		UPDATE_VIDEOS = "UPDATE",
+		UPDATE_VIDEOS_TOOLTIP = "Update after last timestamp stored.";
 	
 	private JFrame 
 		f;
@@ -49,6 +53,8 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		mouseDownCompCoords = null;
 	private boolean 
 		mouse1Pressed = false;
+	private VideoUpdateTimespanDialog 
+		vutd = null;
 	
 	public FrameMouseDragListener()
 	{
@@ -155,16 +161,38 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		return jmi;
 	}
 	
-	private JMenuItem buildUpdateMenu(JButtonLengthLimited jbll)
+	private JMenu buildUpdateMenu(JButtonLengthLimited jbll)
 	{
-		JMenuItem mi3 = new JMenuItem(UPDATE_VIDEOS);
-		mi3.addActionListener(new ActionListener() {
+		JMenu miP = new JMenu(UPDATE_VIDEOS);
+		
+		JMenuItem mi1 = new JMenuItem(UPDATE_BACKFILL);
+		mi1.setToolTipText(UPDATE_BACKFILL_TOOLTIP);
+		mi1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Calendar cal = Calendar.getInstance();
+				cal.set(Calendar.MONTH, -6);
+				if(vutd != null)
+				{
+					vutd.dispose();
+				}
+				vutd = new VideoUpdateTimespanDialog(f, jbll, lcv, cal.getTime());
+			}
+		});
+		
+		JMenuItem mi2 = new JMenuItem(UPDATE_VIDEOS);
+		mi2.setToolTipText(UPDATE_VIDEOS_TOOLTIP);
+		mi2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				lcv.update(jbll.getText(), jbll.getName());
 			}
 		});
-		return mi3;
+		
+		miP.add(mi1);
+		miP.add(mi2);
+		
+		return miP;
 	}
 	
 	private JMenuItem buildOpenVideosView(
