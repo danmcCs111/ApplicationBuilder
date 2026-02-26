@@ -51,6 +51,8 @@ Launch video selector with:
 
 *added middle click to launch in alternate window
 
+*added search bar to video list view
+
 
 *added backfill update dialog
 
