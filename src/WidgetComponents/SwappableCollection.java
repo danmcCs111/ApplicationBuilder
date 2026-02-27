@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 
 import ActionListeners.ConnectedComponent;
 import ActionListenersImpl.NavigationButtonActionListener;
-import ObjectTypeConversion.PathArrayProcessing;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
 import WidgetComponentInterfaces.ButtonArray;
@@ -36,6 +35,8 @@ ExtendedStringCollection, SearchSubscriber, ConnectedComponent, RefreshActionExt
 	
 	private LinkedHashMap<String, List<String>> 
 		pathAndFileList = new LinkedHashMap<String, List<String>>();
+	private LinkedHashMap<String, String> 
+		pathAndExtension = new LinkedHashMap<String, String>();
 	private String 
 		path;
 	private Component 
@@ -61,6 +62,11 @@ ExtendedStringCollection, SearchSubscriber, ConnectedComponent, RefreshActionExt
 			count += pathAndFileList.get(key).size();
 		}
 		return count;
+	}
+	
+	public void setPathAndExtension(String path, String extension)
+	{
+		this.pathAndExtension.put(path, extension);
 	}
 	
 	@Override
@@ -137,8 +143,7 @@ ExtendedStringCollection, SearchSubscriber, ConnectedComponent, RefreshActionExt
 	
 	public void rebuildPathFileList()
 	{
-		PathArrayProcessing pap = new PathArrayProcessing(getPathSelected()+"@"+".url");
-		ArrayList<String> fileList = PathUtility.getOSFileList(pap.getPathValue(0), pap.getExtensionValue(0));
+		ArrayList<String> fileList = PathUtility.getOSFileList(getPathSelected(), pathAndExtension.get(getPathSelected()));
 		pathAndFileList.put(path, fileList);
 	}
 
