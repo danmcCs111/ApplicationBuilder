@@ -482,6 +482,10 @@ PostWidgetBuildProcessing, ButtonArray
 	@Override
 	public void addJButtons(String path, List<String> listOf, int index)
 	{
+		addJButtons(path, listOf, index, -1);
+	}
+	public void addJButtons(String path, List<String> listOf, int index, int indexPlace)
+	{
 		LoggingMessages.printOut("load buttons." + listOf.size() + " " + index);
 		ArrayList<JButtonLengthLimited> jbuts = new ArrayList<JButtonLengthLimited>();
 		
@@ -494,6 +498,7 @@ PostWidgetBuildProcessing, ButtonArray
 //				buttonImageReader = new ImageReader(this, true);
 //			}
 			collectionJButtons.put(path, jbuts);
+			
 			for(Component comp : FileListOptionGenerator.buildComponents(path, listOf, JButtonLengthLimited.class))
 			{
 				JButtonLengthLimited jbl = (JButtonLengthLimited)comp;
@@ -509,7 +514,14 @@ PostWidgetBuildProcessing, ButtonArray
 //				}
 			}
 			Collections.sort(jbuts, new JButtonLengthLimited());
-			SwappableCollection.indexPaths.add(path);
+			if(indexPlace == -1)
+			{
+				SwappableCollection.indexPaths.add(path);
+			}
+			else
+			{
+				SwappableCollection.indexPaths.add(indexPlace, path);
+			}
 		}
 		else
 		{
@@ -521,7 +533,6 @@ PostWidgetBuildProcessing, ButtonArray
 		
 		JFrame f = WidgetBuildController.getInstance().getFrame();
 		f.paintComponents(f.getGraphics());
-		
 	}
 	public void addJButton(JButtonLengthLimited jbl, String path)
 	{
@@ -545,6 +556,12 @@ PostWidgetBuildProcessing, ButtonArray
 	{
 		ArrayList<JButtonLengthLimited> jbuts = collectionJButtons.get(path);
 		jbuts.remove(jbl);
+	}
+	
+	public void refreshJButtons(String path, List<String> listOf, int index, int indexPl)
+	{
+		collectionJButtons.get(path).clear();
+		addJButtons(path, listOf, index, indexPl);
 	}
 	
 	public void filterText(JButtonLengthLimited jbl)

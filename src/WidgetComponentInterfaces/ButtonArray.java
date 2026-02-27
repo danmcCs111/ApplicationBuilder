@@ -10,6 +10,7 @@ import ObjectTypeConversion.FileSelection;
 public interface ButtonArray extends OpenAndSaveKeepsSubscriber
 {
 	public void addJButtons(String path, List<String> listOf, int index);
+	public void refreshJButtons(String path, List<String> listOf, int index, int indexPl);
 	
 	public Dimension getScaledDefaultPic();
 	public Dimension getDefaultPicSize();

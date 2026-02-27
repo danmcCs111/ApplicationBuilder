@@ -11,6 +11,6 @@ public interface ExtendedStringCollection
 	
 	public abstract void setTextPathComponent(Component c);
 	public abstract void setPathSelected(String path);
-	public abstract String getPathSelected(String path);
+	public abstract String getPathSelected();
 	
 }

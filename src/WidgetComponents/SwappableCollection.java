@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 
 import ActionListeners.ConnectedComponent;
 import ActionListenersImpl.NavigationButtonActionListener;
+import ObjectTypeConversion.PathArrayProcessing;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
 import WidgetComponentInterfaces.ButtonArray;
@@ -18,11 +19,13 @@ import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetComponentInterfaces.SearchSubscriber;
 import WidgetExtensionDefs.ExtendedAttributeParam;
 import WidgetExtensionDefs.ExtendedStringCollection;
+import WidgetExtensionInterfaces.RefreshActionExtension;
 
 /**
  * Holds a variable number of Components and controls/rebuilds child JComponents
  */
-public class SwappableCollection extends JPanel implements ExtendedStringCollection, SearchSubscriber, ConnectedComponent, PostWidgetBuildProcessing
+public class SwappableCollection extends JPanel implements 
+ExtendedStringCollection, SearchSubscriber, ConnectedComponent, RefreshActionExtension,  PostWidgetBuildProcessing
 {
 	private static final long serialVersionUID = 1880L;
 	
@@ -31,7 +34,6 @@ public class SwappableCollection extends JPanel implements ExtendedStringCollect
 	private static int 
 		fileCount = 0;
 	
-	//conceptually holding a collection of components to be swapped/redrawn
 	private LinkedHashMap<String, List<String>> 
 		pathAndFileList = new LinkedHashMap<String, List<String>>();
 	private String 
@@ -100,7 +102,7 @@ public class SwappableCollection extends JPanel implements ExtendedStringCollect
 	}
 
 	@Override
-	public String getPathSelected(String path) 
+	public String getPathSelected() 
 	{
 		return this.path;
 	}
@@ -132,6 +134,13 @@ public class SwappableCollection extends JPanel implements ExtendedStringCollect
 		ButtonArray buttonArray = (ButtonArray) ExtendedAttributeParam.findComponentWithInterface(ButtonArray.class);//TODO
 		buttonArray.addJButtons(key, pathAndFileList.get(key), index);
 	}
+	
+	public void rebuildPathFileList()
+	{
+		PathArrayProcessing pap = new PathArrayProcessing(getPathSelected()+"@"+".url");
+		ArrayList<String> fileList = PathUtility.getOSFileList(pap.getPathValue(0), pap.getExtensionValue(0));
+		pathAndFileList.put(path, fileList);
+	}
 
 	@Override
 	public void postExecute() 
@@ -139,6 +148,18 @@ public class SwappableCollection extends JPanel implements ExtendedStringCollect
 		int indexPos = NavigationButtonActionListener.getCurPosition();
 		ButtonArray buttonArray = (ButtonArray) ExtendedAttributeParam.findComponentWithInterface(ButtonArray.class);//TODO
 		buttonArray.addJButtons(indexPaths.get(indexPos), pathAndFileList.get(indexPaths.get(indexPos)), indexPos);
+	}
+
+	@Override
+	public void refresh() 
+	{
+		rebuildPathFileList();
+		int indexPos = NavigationButtonActionListener.getCurPosition();
+		ButtonArray buttonArray = (ButtonArray) ExtendedAttributeParam.findComponentWithInterface(ButtonArray.class);//TODO
+		String path = indexPaths.get(indexPos);
+		int indexPl = indexPaths.indexOf(path);
+		indexPaths.remove(indexPl);
+		buttonArray.refreshJButtons(path, pathAndFileList.get(path), indexPl, indexPl);
 	}
 
 }

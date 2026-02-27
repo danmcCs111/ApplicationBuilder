@@ -261,6 +261,11 @@ PostWidgetBuildProcessing
 	@Override
 	public void addJButtons(String path, List<String> listOf, int index) 
 	{
+		addJButtons(path, listOf, index, -1);
+	}
+	
+	public void addJButtons(String path, List<String> listOf, int index, int indexPl) 
+	{
 		ArrayList<JCheckBoxLimited> jbuts = new ArrayList<JCheckBoxLimited>();
 		
 		clearJButtons();
@@ -292,7 +297,14 @@ PostWidgetBuildProcessing
 			Collections.sort(jbuts, new JCheckBoxLimited());
 			collectionJButtons.put(path, jbuts);
 			
-			SwappableCollection.indexPaths.add(path);
+			if(indexPl == -1)
+			{
+				SwappableCollection.indexPaths.add(path);
+			}
+			else
+			{
+				SwappableCollection.indexPaths.add(indexPl, path);
+			}
 			
 			if(buttonCheckboxBackground == null)
 			{
@@ -313,6 +325,13 @@ PostWidgetBuildProcessing
 		
 		JFrame f = WidgetBuildController.getInstance().getFrame();
 		f.paintComponents(f.getGraphics());
+	}
+	
+	@Override
+	public void refreshJButtons(String path, List<String> listOf, int index, int indexPl) 
+	{
+		collectionJButtons.clear();
+		addJButtons(path, listOf, index, indexPl);
 	}
 	
 	private ImageIcon getImageIcon(String name, String path)
