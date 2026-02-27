@@ -419,10 +419,10 @@ PostWidgetBuildProcessing, ButtonArray
 		if(this.actionListener != null)
 		{
 			jButton.addActionListener(actionListener);
-			jButton.addMouseListener(new MiddleClickLaunchUrlActionListener(jButton));//TODO.
-			jButton.addActionListener(highlightLabelActionListener);
-			addHighlightButtonActionListener(jButton);
 		}
+		jButton.addMouseListener(new MiddleClickLaunchUrlActionListener(jButton));//TODO.
+		jButton.addActionListener(highlightLabelActionListener);
+		addHighlightButtonActionListener(jButton);
 	}
 	
 	public void setArrayForeground(Color c)

@@ -106,10 +106,10 @@ public class LaunchUrlActionListener implements ActionListener
 			for(AbstractButton lastButton : lastButtons)
 			{
 				LoggingMessages.printOut(lastButton.getText());
-				if(lastButton != null)
+				if(lastButton != null && lastButton != button)
 				{
 					ArrayActionListener lastButtonParent = findParentArrayActionListener(lastButton);
-					if(lastButtonParent != null)
+					if(lastButtonParent != null && lastButtonParent != findParentArrayActionListener(button))
 					{
 						ArrayActionListener aal = (ArrayActionListener)lastButtonParent;
 						aal.unselect();
@@ -123,14 +123,14 @@ public class LaunchUrlActionListener implements ActionListener
 		}
 		else
 		{
-			if(lastButtonOrigin != null)
+			if(lastButtonOrigin != null && lastButtonOrigin != null)
 			{
 				for(AbstractButton lastButton : lastButtons)
 				{
-					if(lastButton != null)
+					if(lastButton != null && lastButton != button)
 					{
 						ArrayActionListener lastButtonParent = findParentArrayActionListener(lastButton);
-						if(lastButtonParent != null)
+						if(lastButtonParent != null && lastButtonParent != findParentArrayActionListener(button))
 						{
 							ArrayActionListener aal = (ArrayActionListener)lastButtonParent;
 							aal.unselect();
