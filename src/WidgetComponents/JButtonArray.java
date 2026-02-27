@@ -135,6 +135,7 @@ PostWidgetBuildProcessing, ButtonArray
 		vbmd = null;
 //	private ImageReader 
 //		buttonImageReader;
+	private ActionListener actionListener = null;
 	
 	private int characterLimit=0;
 	
@@ -329,8 +330,6 @@ PostWidgetBuildProcessing, ButtonArray
 			}
 		}
 	};
-	
-	private ActionListener actionListener = null;
 	
 	public void setExpandedArrangementFileRelativeLocation(DirectorySelection directorySelection)
 	{
@@ -562,6 +561,7 @@ PostWidgetBuildProcessing, ButtonArray
 	{
 		collectionJButtons.get(path).clear();
 		addJButtons(path, listOf, index, indexPl);
+		refreshAllMouseListeners();
 	}
 	
 	public void filterText(JButtonLengthLimited jbl)
