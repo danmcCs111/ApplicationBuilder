@@ -561,6 +561,7 @@ PostWidgetBuildProcessing, ButtonArray
 	{
 		collectionJButtons.get(path).clear();
 		addJButtons(path, listOf, index, indexPl);
+		rebuildButtons();
 		refreshAllMouseListeners();
 	}
 	
