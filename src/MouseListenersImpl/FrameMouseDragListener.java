@@ -166,9 +166,18 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	{
 		JMenu miP = new JMenu(UPDATE_VIDEOS);
 		
-		JMenuItem mi1 = new JMenuItem(UPDATE_BACKFILL);
-		mi1.setToolTipText(UPDATE_BACKFILL_TOOLTIP);
+		JMenuItem mi1 = new JMenuItem(UPDATE_VIDEOS);
+		mi1.setToolTipText(UPDATE_VIDEOS_TOOLTIP);
 		mi1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				lcv.update(jbll.getText(), jbll.getName());
+			}
+		});
+		
+		JMenuItem mi2 = new JMenuItem(UPDATE_BACKFILL);
+		mi2.setToolTipText(UPDATE_BACKFILL_TOOLTIP);
+		mi2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Calendar cal = Calendar.getInstance();
@@ -178,15 +187,6 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 					vutd.dispose();
 				}
 				vutd = new VideoUpdateTimespanDialog(f, jbll, lcv, cal.getTime());
-			}
-		});
-		
-		JMenuItem mi2 = new JMenuItem(UPDATE_VIDEOS);
-		mi2.setToolTipText(UPDATE_VIDEOS_TOOLTIP);
-		mi2.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				lcv.update(jbll.getText(), jbll.getName());
 			}
 		});
 		
