@@ -34,10 +34,10 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 {
 	private static final long serialVersionUID = 1L;
 	
-	private static final String 
-		TOOLTIP_INSTRUCTION = "(Left click Primary Window, Middle click Alternate Window)";
+//	private static final String 
+//		TOOLTIP_INSTRUCTION = "[Left click Primary Window, Middle click Alternate Window]";
 	private static final SimpleDateFormat 
-		SDF_UPLOAD = new SimpleDateFormat("MM/dd/yyyy hh:mm a"),
+//		SDF_UPLOAD = new SimpleDateFormat("MM/dd/yyyy hh:mm a"),
 		SDF_UPLOAD_SHORT = new SimpleDateFormat("MM/dd/yyyy");
 	private static final int
 		VIDEO_TITLE_CHARACTER_LIMIT = 80;
@@ -203,17 +203,17 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 	{
 		JButtonLengthLimited jbll = (JButtonLengthLimited) FileListOptionGenerator.buildComponent(
 				"", ycv.getTitle(), ycv.getUrl(), JButtonLengthLimited.class);
-		String duration = ycv.getDuration();
-		String durText = "";
-		durText = formatDuration(duration);
-		durText += "<br>";
+//		String duration = ycv.getDuration();
+//		String durText = "";
+//		durText = formatDuration(duration);
+//		durText += "<br>";
 		
 		jbll.setToolTipText(
 				"<html>" +
 				ycv.getTitle() + "<br>" + 
-				SDF_UPLOAD.format(ycv.getUploadDate()) + "<br>" +
-				durText +  
-				TOOLTIP_INSTRUCTION +
+//				SDF_UPLOAD.format(ycv.getUploadDate()) + "<br>" +
+//				durText +  
+//				TOOLTIP_INSTRUCTION +
 				"</html>"
 				);
 		jbll.setHighlightButton(parentButton);
