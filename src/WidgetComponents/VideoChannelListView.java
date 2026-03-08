@@ -110,8 +110,23 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 	{
 		JButtonLengthLimited jbll = (JButtonLengthLimited) FileListOptionGenerator.buildComponent(
 				"", ycv.getTitle(), ycv.getUrl(), JButtonLengthLimited.class);
+		String duration = ycv.getDuration();
+		String durText = "";
+		if(duration != null && !duration.equals("null"))
+		{
+			durText = "Duration: ";
+			String [] hourMinSec = duration.split(",");
+			for(int i = 0; i < hourMinSec.length; i++)
+			{
+				durText += (i + 1 < hourMinSec.length)
+					? hourMinSec[i] + ":"
+					: hourMinSec[i];
+			}
+			durText += "<br>";
+		}
 		jbll.setToolTipText(
-				"<html>Upload Date: " + ycv.getUploadDate().toString() + "<br>" + 
+				"<html>Upload Date: " + ycv.getUploadDate().toString() + "<br>" +
+				durText +  
 				TOOLTIP_INSTRUCTION +
 				"</html>"
 				);

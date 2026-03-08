@@ -14,6 +14,7 @@ public class YoutubeChannelVideo
 		TITLE_COLUMN = "Title_VideoYoutube_VideoYoutubeDatabase",
 		URL_COLUMN = "Url_VideoYoutube_VideoYoutubeDatabase",
 		IMAGE_URL_COLUMN = "PosterImageUrl_VideoYoutube_VideoYoutubeDatabase",
+		DURATION_COLUMN = "Duration_VideoYoutube_VideoYoutubeDatabase",
 		UPLOAD_DATE_COLUMN = "UploadDate_VideoYoutube_VideoYoutubeDatabase",
 		INSERT_DATE_COLUMN = "InsertDate_VideoYoutube_VideoYoutubeDatabase";
 	
@@ -23,7 +24,8 @@ public class YoutubeChannelVideo
 		idVideo = null,
 		title = null,
 		url = null,
-		imageUrl = null;
+		imageUrl = null,
+		duration;
 	private long
 		uploadDate = -1,
 		insertDate = -1;
@@ -53,6 +55,10 @@ public class YoutubeChannelVideo
 			else if(drn.getNodeName().equals(IMAGE_URL_COLUMN))
 			{
 				imageUrl = drn.getNodeAttributes().get("content");
+			}
+			else if(drn.getNodeName().equals(DURATION_COLUMN))
+			{
+				duration = drn.getNodeAttributes().get("content");
 			}
 			else if(drn.getNodeName().equals(UPLOAD_DATE_COLUMN))
 			{
@@ -93,6 +99,11 @@ public class YoutubeChannelVideo
 	public String getImageUrl()
 	{
 		return this.imageUrl;
+	}
+	
+	public String getDuration()
+	{
+		return this.duration;
 	}
 	
 	public int getParentId()
