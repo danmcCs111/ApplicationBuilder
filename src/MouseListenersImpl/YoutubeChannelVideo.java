@@ -133,14 +133,14 @@ public class YoutubeChannelVideo
 	public String toString()
 	{
 		return 
-				this.getIdVideo() + " " + 
-				this.getParentId() + " " +  
-				this.getTitle() + " " + 
-				this.getUrl() + " " + 
-				this.getImageUrl() + " " + 
-				this.getUploadDate() + " " + 
-				this.getInsertDate() + " " + 
-				"[" + this.getImagePng().toString() + "]";
+			this.getIdVideo() + " " + 
+			this.getParentId() + " " +  
+			this.getTitle() + " " + 
+			this.getUrl() + " " + 
+			this.getImageUrl() + " " + 
+			this.getUploadDate() + " " + 
+			this.getInsertDate() + " " + 
+			"[" + this.getImagePng().toString() + "]";
 	}
 	
 }

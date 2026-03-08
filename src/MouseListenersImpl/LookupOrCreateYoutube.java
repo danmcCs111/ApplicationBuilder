@@ -70,6 +70,11 @@ public class LookupOrCreateYoutube
 		update(videoChannelName, videoChannelLink, null);
 	}
 	
+	public void updateDuration()
+	{
+		
+	}
+	
 	public void update(String videoChannelName, String videoChannelLink, Date beginDate)
 	{
 		String query = youtubeSql.getYoutubeQuery(videoChannelName);
@@ -142,7 +147,6 @@ public class LookupOrCreateYoutube
 		
 		executeInsert(insert);
 		lookup(videoChannelName, url);
-		
 	}
 	
 	private static String executeInsert(String insert)
