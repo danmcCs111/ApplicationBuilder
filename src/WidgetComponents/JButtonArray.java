@@ -567,7 +567,7 @@ PostWidgetBuildProcessing, ButtonArray
 	
 	public void filterText(JButtonLengthLimited jbl)
 	{
-		String txt = jbl.getText();
+		String txt = jbl.getFullLengthText();
 		for(String s : stripFilter)
 		{
 			txt = txt.replace(s, "");
