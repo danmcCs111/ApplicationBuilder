@@ -15,7 +15,9 @@ import javax.swing.JScrollPane;
 import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
 import MouseListenersImpl.YoutubeChannelVideo;
+import WidgetComponentInterfaces.DurationLimitSubscriber;
 import WidgetComponentInterfaces.SearchSubscriber;
+import WidgetComponents.DurationLimiter.Mode;
 import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
 
 public class VideoChannelPlayer extends JFrame
@@ -27,14 +29,15 @@ public class VideoChannelPlayer extends JFrame
 	private static Dimension 
 		MIN_SIZE = new Dimension(750, 450);
 	private static int 
-		SEARCH_COLUMN_LENGTH = 25,
+		SEARCH_COLUMN_LENGTH = 15,
 		SCROLL_UNIT_INC = 25;
 	
 	private AbstractButton 
 		parentButton;
 	private VideoChannelListView 
 		listView; 
-	private JScrollPane scrollPane;
+	private JScrollPane 
+		scrollPane;
 
 	public VideoChannelPlayer(
 			HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs, AbstractButton parentButton, Container parent)
@@ -63,7 +66,17 @@ public class VideoChannelPlayer extends JFrame
 				VideoChannelPlayer.this.validate();
 			}
 		});
+		DurationLimitSubscriber dls = new DurationLimitSubscriber() {
+			@Override
+			public void notifyDurationLimit(int hour, int minute, Mode m) {
+				listView.setVisible(hour, minute, m);
+				VideoChannelPlayer.this.validate();
+			}
+		};
+		DurationLimiter dl = new DurationLimiter(dls);
 		searchPanel.add(sb);
+		searchPanel.add(dl);
+		
 		listView = new VideoChannelListView(parentButton, ycvs);
 		scrollPane = new JScrollPane(listView);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(SCROLL_UNIT_INC);

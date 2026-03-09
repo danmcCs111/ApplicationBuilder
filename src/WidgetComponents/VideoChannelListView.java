@@ -28,6 +28,8 @@ import Graphics2D.ColorTemplate;
 import MouseListenersImpl.VideoSubSelectionLauncher;
 import MouseListenersImpl.YoutubeChannelVideo;
 import Properties.LoggingMessages;
+import Properties.StringUtility;
+import WidgetComponents.DurationLimiter.Mode;
 import WidgetUtility.FileListOptionGenerator;
 
 public class VideoChannelListView extends JPanel implements ArrayActionListener
@@ -170,6 +172,59 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 		}
 	}
 	
+	public void setVisible(int hour, int minute, Mode m)
+	{
+		videoListPanel.removeAll();
+		uploadDatePanel.removeAll();
+		durationPanel.removeAll();
+		
+		Iterator<Entry<JLabel, Highlighter>>
+			itDate = videoLabelDate.entrySet().iterator(),
+			itDuration = videoLabelDuration.entrySet().iterator();
+		
+		int totalValue = Integer.parseInt(StringUtility.padTimeValue2(hour) + StringUtility.padTimeValue2(minute));
+		
+		LoggingMessages.printOut(totalValue + "");
+		
+		for(JButton btn : videoButtons.keySet())
+		{
+			Map.Entry<JLabel, Highlighter> 
+				entryDate = itDate.next(),
+				entryDuration = itDuration.next();
+			
+			String text = entryDuration.getKey().getText();
+			int totalValueVideo = -1;
+			if(!text.isBlank())
+			{
+				text = text.substring(0, text.length()-2);//remove seconds.
+				text = text.replace(":", "");
+				totalValueVideo = Integer.parseInt(text);
+				LoggingMessages.printOut(totalValueVideo + "");
+			}
+			
+			switch(m)
+			{
+			case GreaterThan:
+				if(totalValueVideo >= totalValue)
+				{
+					videoListPanel.add(btn);
+					uploadDatePanel.add(entryDate.getKey());
+					durationPanel.add(entryDuration.getKey());
+				}
+				break;
+				
+			case LessThan:
+				if(totalValueVideo < totalValue)
+				{
+					videoListPanel.add(btn);
+					uploadDatePanel.add(entryDate.getKey());
+					durationPanel.add(entryDuration.getKey());
+				}
+				break;
+			}
+		}
+	}
+	
 	public void postFrameBuild()
 	{
 		findHighlight();
@@ -252,7 +307,7 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 		String [] hourMinSec = duration.split(",");
 		for(int i = 0; i < hourMinSec.length; i++)
 		{
-			String val = String.format("%02d", Integer.parseInt(hourMinSec[i]));
+			String val = StringUtility.padTimeValue2(hourMinSec[i]);
 			durText += (i + 1 < hourMinSec.length)
 				? val + ":"
 				: val;

@@ -30,4 +30,14 @@ public interface StringUtility
 		return text;
 	}
 	
+	public static String padTimeValue2(String value)
+	{
+		return padTimeValue2(Integer.parseInt(value));
+	}
+	public static String padTimeValue2(int value)
+	{
+		String val = String.format("%02d", value);
+		return val;
+	}
+	
 }

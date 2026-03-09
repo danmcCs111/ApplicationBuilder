@@ -16,16 +16,15 @@ public class QueryUpdateTool
 	public static final int
 		PORT_NUMBER = 8000;
 	
-	
 	public static String executeQuery(String query)
 	{
 		return HttpDatabaseRequest.executeGetRequest
 		(
-				SelectWebServiceQueries.ENDPOINT,
-				SelectWebServiceQueries.PORT_NUMBER,
-				query,
-				SelectWebServiceQueries.REQUEST_TYPE_HEADER_KEY,
-				REQUEST_TYPE_HEADER_VALUE_QUERY
+			SelectWebServiceQueries.ENDPOINT,
+			SelectWebServiceQueries.PORT_NUMBER,
+			query,
+			SelectWebServiceQueries.REQUEST_TYPE_HEADER_KEY,
+			REQUEST_TYPE_HEADER_VALUE_QUERY
 		);
 	}
 	
@@ -33,11 +32,11 @@ public class QueryUpdateTool
 	{
 		return HttpDatabaseRequest.executeGetRequest
 		(
-				SelectWebServiceQueries.ENDPOINT,
-				SelectWebServiceQueries.PORT_NUMBER,
-				insert,
-				SelectWebServiceQueries.REQUEST_TYPE_HEADER_KEY,
-				REQUEST_TYPE_HEADER_VALUE_INSERT
+			SelectWebServiceQueries.ENDPOINT,
+			SelectWebServiceQueries.PORT_NUMBER,
+			insert,
+			SelectWebServiceQueries.REQUEST_TYPE_HEADER_KEY,
+			REQUEST_TYPE_HEADER_VALUE_INSERT
 		);
 	}
 	
@@ -45,11 +44,11 @@ public class QueryUpdateTool
 	{
 		return HttpDatabaseRequest.executeGetRequest
 		(
-				SelectWebServiceQueries.ENDPOINT,
-				SelectWebServiceQueries.PORT_NUMBER,
-				update,
-				SelectWebServiceQueries.REQUEST_TYPE_HEADER_KEY,
-				REQUEST_TYPE_HEADER_VALUE_UPDATE
+			SelectWebServiceQueries.ENDPOINT,
+			SelectWebServiceQueries.PORT_NUMBER,
+			update,
+			SelectWebServiceQueries.REQUEST_TYPE_HEADER_KEY,
+			REQUEST_TYPE_HEADER_VALUE_UPDATE
 		);
 	}
 		
