@@ -119,9 +119,10 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 
 	private JMenu buildViewMenu(JButtonLengthLimited jbll, HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
 	{
-		JMenu mi2 = new JMenu(VIEW_LATEST_VIDEOS);
+		JMenu mi2 = null;
 		if(ycvs != null)//load in menu;
 		{
+			mi2 = new JMenu(VIEW_LATEST_VIDEOS);
 			int count = 0; 
 			for(int key : ycvs.keySet())
 			{
