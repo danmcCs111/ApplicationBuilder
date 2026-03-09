@@ -43,6 +43,10 @@ Launch video selector with:
 
 <img width="45%" src="https://github.com/user-attachments/assets/a5dc474a-e387-48ec-9ecb-7680b0b8e732" />
 
+*updated listview to include duration. added duration limit filter
+
+<img width="45%" width="897" height="436" alt="image" src="https://github.com/user-attachments/assets/96e2c035-ece8-40a7-ae5a-c5b0d911d079" />
+
 
 *added powerdvd remote
 
