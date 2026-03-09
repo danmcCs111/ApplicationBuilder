@@ -144,6 +144,11 @@ PostWidgetBuildProcessing, ButtonArray
 		
 	}
 	
+	public static void setDefaultVideoListViewMinute(int minute)//TODO.
+	{
+		VideoChannelPlayer.setDefaultMinuteSetting(minute);
+	}
+	
 	public static void setBorderColorVideoChannelListView(Color c)
 	{
 		VideoChannelListView.setBorderColor(c);

@@ -29,6 +29,7 @@ public class VideoChannelPlayer extends JFrame
 	private static Dimension 
 		MIN_SIZE = new Dimension(750, 450);
 	private static int 
+		DEFAULT_MINUTE_SETTING = 10,
 		SEARCH_COLUMN_LENGTH = 15,
 		SCROLL_UNIT_INC = 25;
 	
@@ -46,6 +47,11 @@ public class VideoChannelPlayer extends JFrame
 		this.setTitle(TITLE_PREFIX + parentButton.getText());
 		buildWidgets(ycvs);
 		GraphicsUtil.rightEdgeCenterWindow(parent, this);
+	}
+	
+	public static void setDefaultMinuteSetting(int minute)
+	{
+		DEFAULT_MINUTE_SETTING = minute;
 	}
 	
 	public VideoChannelListView getVideoChannelListView()
@@ -74,6 +80,7 @@ public class VideoChannelPlayer extends JFrame
 			}
 		};
 		DurationLimiter dl = new DurationLimiter(dls);
+		dl.setMinuteDefault(DEFAULT_MINUTE_SETTING);
 		searchPanel.add(sb);
 		searchPanel.add(dl);
 		

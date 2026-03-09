@@ -75,6 +75,11 @@ public class DurationLimiter extends JPanel
 		buildWidgets();
 	}
 	
+	public void setMinuteDefault(int minute)
+	{
+		minuteSpinner.setValue(minute);
+	}
+	
 	public void buildWidgets()
 	{
 		this.add(durationLabel);
