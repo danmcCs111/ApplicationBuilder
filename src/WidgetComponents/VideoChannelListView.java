@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -19,7 +20,9 @@ import java.util.Map.Entry;
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.border.BevelBorder;
 
 import ActionListeners.ArrayActionListener;
@@ -36,7 +39,9 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 {
 	private static final long serialVersionUID = 1L;
 	
-//	private static final String 
+	private static final String 
+		POPUP_OPEN = "OPEN",
+		POPUP_OPEN_NEW = "OPEN NEW";
 //		TOOLTIP_INSTRUCTION = "[Left click Primary Window, Middle click Alternate Window]";
 	private static final SimpleDateFormat 
 //		SDF_UPLOAD = new SimpleDateFormat("MM/dd/yyyy hh:mm a"),
@@ -289,6 +294,25 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 					vssl.performLaunch(jbll, 1);
 					break;
 				case MouseEvent.BUTTON3:
+					JPopupMenu rClickMenu = new JPopupMenu();
+					JMenuItem open = new JMenuItem(POPUP_OPEN);
+					open.addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							vssl.performLaunch(jbll);
+							performSelect(hl);
+						}
+					});
+					JMenuItem openNewTab = new JMenuItem(POPUP_OPEN_NEW);
+					openNewTab.addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							vssl.performLaunch(jbll, 1);
+						}
+					});
+					rClickMenu.add(open);
+					rClickMenu.add(openNewTab);
+					rClickMenu.show(jbll, e.getX(), e.getY());
 					break;
 				}
 			}
