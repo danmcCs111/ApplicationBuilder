@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
+import ApplicationBuilder.QueryUpdateTool;
 import HttpDatabaseRequest.HttpDatabaseRequest;
 import HttpDatabaseRequest.SelectWebServiceQueries;
 import HttpDatabaseResponse.DatabaseResponseNode;
@@ -29,11 +30,7 @@ public class SendHttpRequestPanel extends JPanel implements PostWidgetBuildProce
 	
 	private static final String 
 		SEND_BUTTON_TEXT = "Execute",
-		ENDPOINT = "http://localhost:",
-		REQUEST_TYPE_HEADER_KEY = "Get-request-type",
 		DATABASE = "WeatherDatabase";
-	private static final int
-		PORT_NUMBER = 8000;
 	private static final String [] 
 		GET_HTTP_OPTIONS = new String [] {"Query", "Insert", "Update"};
 	
@@ -133,10 +130,10 @@ public class SendHttpRequestPanel extends JPanel implements PostWidgetBuildProce
 	private String executeRequest(String request, String type)
 	{
 		return HttpDatabaseRequest.executeGetRequest(
-				ENDPOINT, 
-				PORT_NUMBER, 
+				QueryUpdateTool.ENDPOINT, 
+				QueryUpdateTool.PORT_NUMBER, 
 				request, 
-				REQUEST_TYPE_HEADER_KEY, 
+				QueryUpdateTool.REQUEST_TYPE_HEADER_KEY, 
 				type
 		);
 	}

@@ -8,10 +8,9 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import ApplicationBuilder.QueryUpdateTool;
 import ApplicationBuilder.ShellHeadlessExecutor;
 import Graphics2D.GraphicsUtil;
-import HttpDatabaseRequest.HttpDatabaseRequest;
-import HttpDatabaseRequest.SelectWebServiceQueries;
 import HttpDatabaseResponse.DatabaseResponseNode;
 import HttpDatabaseResponse.HttpDatabaseResponse;
 import ObjectTypeConversion.FileSelection;
@@ -28,15 +27,7 @@ public class LookupOrCreateYoutube
 		PLUGIN_JAR_LOCATION = PathUtility.getCurrentDirectory() + "/" + 
 				"plugin-projects/YouTube-API-list/YoutubeApiList/youtubeApiList.sh",
 		SAVE_INSERT_PATH = "./VideoLaunchFiles/YoutubeChannels/video-images/", //TODO
-		IS_LOOKUP_FRAME_FILTER = "",
-		ENDPOINT = "http://localhost:",
-		REQUEST_TYPE_HEADER_KEY = "Get-request-type",
-		REQUEST_TYPE_HEADER_VALUE_QUERY = "Query",
-		REQUEST_TYPE_HEADER_VALUE_INSERT = "Insert",
-		WEBSERVICE_QUERY_TAG_NAME = "WebserviceQuery",
-		WEBSERVICE_QUERY_ATTRIBUTE_NAME = "content";
-	public static final int
-		PORT_NUMBER = 8000;
+		IS_LOOKUP_FRAME_FILTER = "";
 	
 	private static String
 		KEY_PATH = "./Properties/api-keys/youtube-api-key.txt";
@@ -70,15 +61,10 @@ public class LookupOrCreateYoutube
 		update(videoChannelName, videoChannelLink, null);
 	}
 	
-	public void updateDuration()
-	{
-		
-	}
-	
 	public void update(String videoChannelName, String videoChannelLink, Date beginDate)
 	{
 		String query = youtubeSql.getYoutubeQuery(videoChannelName);
-		String response = executeQuery(query);
+		String response = QueryUpdateTool.executeQuery(query);
 		if(response == null)
 			return;
 		
@@ -112,7 +98,7 @@ public class LookupOrCreateYoutube
 		HashMap<Integer, ArrayList<YoutubeChannelVideo>> parentIdAndYoutubeChannelVideos = null;
 		
 		String query = youtubeSql.getYoutubeQuery(videoChannelName);
-		String response = executeQuery(query);
+		String response = QueryUpdateTool.executeQuery(query);
 		if(response == null)
 			return null;
 		
@@ -145,32 +131,8 @@ public class LookupOrCreateYoutube
 				PathUtility.surroundString(url, "\"") + ", " +
 				youtubeSql.getYoutubeInsertSuffix();
 		
-		executeInsert(insert);
+		QueryUpdateTool.executeInsert(insert);
 		lookup(videoChannelName, url);
-	}
-	
-	private static String executeInsert(String insert)
-	{
-		return HttpDatabaseRequest.executeGetRequest
-		(
-				SelectWebServiceQueries.ENDPOINT,
-				SelectWebServiceQueries.PORT_NUMBER,
-				insert,
-				SelectWebServiceQueries.REQUEST_TYPE_HEADER_KEY,
-				REQUEST_TYPE_HEADER_VALUE_INSERT
-		);
-	}
-	
-	private static String executeQuery(String query)
-	{
-		return HttpDatabaseRequest.executeGetRequest
-		(
-				SelectWebServiceQueries.ENDPOINT,
-				SelectWebServiceQueries.PORT_NUMBER,
-				query,
-				SelectWebServiceQueries.REQUEST_TYPE_HEADER_KEY,
-				REQUEST_TYPE_HEADER_VALUE_QUERY
-		);
 	}
 	
 	public HashMap<Integer, ArrayList<YoutubeChannelVideo>> lookupYoutubeVideo(int parentId, String videoChannelLink)
@@ -182,7 +144,7 @@ public class LookupOrCreateYoutube
 	private Date getLastDate(int parentId, String videoChannelLink)
 	{
 		String query = youtubeSql.getYoutubeVideoQuery(parentId);
-		String response = executeQuery(query);
+		String response = QueryUpdateTool.executeQuery(query);
 		
 		HttpDatabaseResponse hdr = new HttpDatabaseResponse();
 		ArrayList <ArrayList <DatabaseResponseNode>> drns = hdr.parseResponse(response);
@@ -218,7 +180,7 @@ public class LookupOrCreateYoutube
 		
 		String query = youtubeSql.getYoutubeVideoQuery(parentId);
 		LoggingMessages.printOut(query);
-		String response = executeQuery(query);
+		String response = QueryUpdateTool.executeQuery(query);
 		HttpDatabaseResponse hdr = new HttpDatabaseResponse();
 		ArrayList <ArrayList <DatabaseResponseNode>> drns = hdr.parseResponse(response);
 		
@@ -290,7 +252,7 @@ public class LookupOrCreateYoutube
 		if(contents != null)
 		{
 			LoggingMessages.printOut(contents);
-			executeInsert(contents);
+			QueryUpdateTool.executeInsert(contents);
 		}
 	}
 	

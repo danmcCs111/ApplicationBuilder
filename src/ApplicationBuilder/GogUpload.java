@@ -13,12 +13,6 @@ import Properties.StringUtility;
 public class GogUpload 
 {
 	private static final String 
-		ENDPOINT = "http://localhost:",
-		REQUEST_TYPE_HEADER_KEY = "Get-request-type";
-	private static final int
-		PORT_NUMBER = 8000;
-
-	private static final String 
 		primaryKey = "title",
 		gameMatch = "\\([^\\)]*\\)",
 		valueAndTagMatch = "[^\\|\\(]*\\|[^\\|]*\\|",
@@ -56,20 +50,20 @@ public class GogUpload
 	public void queryDatabase(String request)
 	{
 		HttpDatabaseRequest.executeGetRequest(
-			ENDPOINT, 
-			PORT_NUMBER, 
+			QueryUpdateTool.ENDPOINT, 
+			QueryUpdateTool.PORT_NUMBER, 
 			request, 
-			REQUEST_TYPE_HEADER_KEY, 
+			QueryUpdateTool.REQUEST_TYPE_HEADER_KEY, 
 			"Query");
 	}
 	
 	public void insertDatabase(String request)
 	{
 		HttpDatabaseRequest.executeGetRequest(
-			ENDPOINT, 
-			PORT_NUMBER, 
+			QueryUpdateTool.ENDPOINT, 
+			QueryUpdateTool.PORT_NUMBER, 
 			request, 
-			REQUEST_TYPE_HEADER_KEY, 
+			QueryUpdateTool.REQUEST_TYPE_HEADER_KEY, 
 			"Insert");
 	}
 	

@@ -8,7 +8,6 @@ import java.util.HashMap;
 
 import Actions.CommandExecutor;
 import HttpDatabaseRequest.HttpDatabaseRequest;
-import HttpDatabaseRequest.SelectWebServiceQueries;
 import ObjectTypeConversion.CommandBuild;
 import ObjectTypeConversion.CsvReader;
 import ObjectTypeConversion.WeatherGrabCsvConverter;
@@ -57,10 +56,10 @@ public class WeatherDatabaseUpdater
 			LoggingMessages.printOut(query);
 			HttpDatabaseRequest.executeGetRequest
 			(
-					SelectWebServiceQueries.ENDPOINT,
-					SelectWebServiceQueries.PORT_NUMBER,
+					QueryUpdateTool.ENDPOINT,
+					QueryUpdateTool.PORT_NUMBER,
 					query,
-					SelectWebServiceQueries.REQUEST_TYPE_HEADER_KEY,
+					QueryUpdateTool.REQUEST_TYPE_HEADER_KEY,
 					"Update"
 			);
 		} catch (IOException e) {

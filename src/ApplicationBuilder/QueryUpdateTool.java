@@ -1,11 +1,10 @@
 package ApplicationBuilder;
 
 import HttpDatabaseRequest.HttpDatabaseRequest;
-import HttpDatabaseRequest.SelectWebServiceQueries;
 
 public class QueryUpdateTool 
 {
-	private static final String
+	public static final String
 		ENDPOINT = "http://localhost:",
 		REQUEST_TYPE_HEADER_KEY = "Get-request-type",
 		REQUEST_TYPE_HEADER_VALUE_QUERY = "Query",
@@ -20,10 +19,10 @@ public class QueryUpdateTool
 	{
 		return HttpDatabaseRequest.executeGetRequest
 		(
-			SelectWebServiceQueries.ENDPOINT,
-			SelectWebServiceQueries.PORT_NUMBER,
+			ENDPOINT,
+			PORT_NUMBER,
 			query,
-			SelectWebServiceQueries.REQUEST_TYPE_HEADER_KEY,
+			REQUEST_TYPE_HEADER_KEY,
 			REQUEST_TYPE_HEADER_VALUE_QUERY
 		);
 	}
@@ -32,10 +31,10 @@ public class QueryUpdateTool
 	{
 		return HttpDatabaseRequest.executeGetRequest
 		(
-			SelectWebServiceQueries.ENDPOINT,
-			SelectWebServiceQueries.PORT_NUMBER,
+			ENDPOINT,
+			PORT_NUMBER,
 			insert,
-			SelectWebServiceQueries.REQUEST_TYPE_HEADER_KEY,
+			REQUEST_TYPE_HEADER_KEY,
 			REQUEST_TYPE_HEADER_VALUE_INSERT
 		);
 	}
@@ -44,10 +43,10 @@ public class QueryUpdateTool
 	{
 		return HttpDatabaseRequest.executeGetRequest
 		(
-			SelectWebServiceQueries.ENDPOINT,
-			SelectWebServiceQueries.PORT_NUMBER,
+			ENDPOINT,
+			PORT_NUMBER,
 			update,
-			SelectWebServiceQueries.REQUEST_TYPE_HEADER_KEY,
+			REQUEST_TYPE_HEADER_KEY,
 			REQUEST_TYPE_HEADER_VALUE_UPDATE
 		);
 	}

@@ -2,6 +2,7 @@ package HttpDatabaseRequest;
 
 import java.util.ArrayList;
 
+import ApplicationBuilder.QueryUpdateTool;
 import HttpDatabaseResponse.DatabaseResponseNode;
 import HttpDatabaseResponse.HttpDatabaseResponse;
 import Properties.LoggingMessages;
@@ -10,15 +11,6 @@ public class SelectWebServiceQueries
 {
 	public static final String 
 		SELECT_WEBSERVICES_SQL_REQUEST = ".Webservice";//TODO
-	
-	public static final String 
-		ENDPOINT = "http://localhost:",
-		REQUEST_TYPE_HEADER_KEY = "Get-request-type",
-		REQUEST_TYPE_HEADER_VALUE = "Query",
-		WEBSERVICE_QUERY_TAG_NAME = "WebserviceQuery",
-		WEBSERVICE_QUERY_ATTRIBUTE_NAME = "content";
-	public static final int
-		PORT_NUMBER = 8000;
 	
 	private String [] 
 		queryOptions;
@@ -36,7 +28,7 @@ public class SelectWebServiceQueries
 	
 	public static ArrayList<String> getQueries(ArrayList <ArrayList <DatabaseResponseNode>> drns)
 	{
-		return getAttributes(drns, WEBSERVICE_QUERY_TAG_NAME, WEBSERVICE_QUERY_ATTRIBUTE_NAME);
+		return getAttributes(drns, QueryUpdateTool.WEBSERVICE_QUERY_TAG_NAME, QueryUpdateTool.WEBSERVICE_QUERY_ATTRIBUTE_NAME);
 	}
 	
 	private static ArrayList<String> getAttributes(
@@ -64,11 +56,11 @@ public class SelectWebServiceQueries
 	private static String [] collectQueryOptions(String database)
 	{
 		String response = HttpDatabaseRequest.executeGetRequest(
-				ENDPOINT,
-				PORT_NUMBER,
+				QueryUpdateTool.ENDPOINT,
+				QueryUpdateTool.PORT_NUMBER,
 				"Select * from " + database + SELECT_WEBSERVICES_SQL_REQUEST,
-				REQUEST_TYPE_HEADER_KEY,
-				REQUEST_TYPE_HEADER_VALUE
+				QueryUpdateTool.REQUEST_TYPE_HEADER_KEY,
+				QueryUpdateTool.REQUEST_TYPE_HEADER_VALUE_QUERY
 		);
 		HttpDatabaseResponse hdr = new HttpDatabaseResponse();
 		ArrayList <ArrayList <DatabaseResponseNode>> drns = hdr.parseResponse(response);

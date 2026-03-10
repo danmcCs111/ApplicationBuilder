@@ -27,10 +27,10 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 
 import ActionListeners.CsvReaderSubscriber;
+import ApplicationBuilder.QueryUpdateTool;
 import Graphics2D.ShapeDrawingCollectionGraphics;
 import HttpDatabaseRequest.HttpDatabaseRequest;
 import HttpDatabaseRequest.SQLUtility;
-import HttpDatabaseRequest.SelectWebServiceQueries;
 import HttpDatabaseResponse.DatabaseResponseNode;
 import HttpDatabaseResponse.HttpDatabaseResponse;
 import ObjectTypeConversion.CsvReader;
@@ -169,11 +169,11 @@ public class WeatherGraphViewer extends GraphViewer implements CsvReaderSubscrib
 		readings = new HashMap<Date, WeatherReading>();
 		String response = HttpDatabaseRequest.executeGetRequest
 		(
-			SelectWebServiceQueries.ENDPOINT,
-			SelectWebServiceQueries.PORT_NUMBER,
+			QueryUpdateTool.ENDPOINT,
+			QueryUpdateTool.PORT_NUMBER,
 			query,
-			SelectWebServiceQueries.REQUEST_TYPE_HEADER_KEY,
-			SelectWebServiceQueries.REQUEST_TYPE_HEADER_VALUE
+			QueryUpdateTool.REQUEST_TYPE_HEADER_KEY,
+			QueryUpdateTool.REQUEST_TYPE_HEADER_VALUE_QUERY
 		);
 		
 		HttpDatabaseResponse hdr = new HttpDatabaseResponse();
