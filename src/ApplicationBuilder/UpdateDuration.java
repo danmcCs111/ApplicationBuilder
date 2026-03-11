@@ -86,6 +86,10 @@ public class UpdateDuration
 						videoIds.add(videoId);
 					}
 				}
+				
+				if(videoIds.isEmpty())
+					continue;
+				
 				String [] argsYou = buildUpdateFile(Integer.parseInt(parentId), videoIds);
 				//run plugin.
 				ShellHeadlessExecutor.run(argsYou, true);
