@@ -387,13 +387,14 @@ PostWidgetBuildProcessing
 
 			ImageIcon img = getImageIcon(fileName, path);
 			button.setIcon(img);
+			String nameNoExtension = PathUtility.getFilenameNoExtension(fileName);
 			
 			if(SHOW_TITLE_ON_POSTER || img.equals(imageReader.getDefaultImageIcon()))
 			{
-				button.setText(fileName);
+				button.setText(nameNoExtension);
 			}
 			
-			button.setName(fileName);
+			button.setName(nameNoExtension);
 			button.setToolTipText(fileName);
 			button.setPathKey(path);
 			button.setBorderPainted(true);
@@ -603,7 +604,7 @@ PostWidgetBuildProcessing
 		{
 			for(JCheckBoxLimited cbl : collectionJButtons.get(k))
 			{
-				allToSave.add(new String[] {cbl.getStrippedText()+"@"+x+"@"+y, cbl.getPathKey()});
+				allToSave.add(new String[] {cbl.getFullLengthText()+"@"+x+"@"+y, cbl.getPathKey()});
 				x+=saveIncPoint.x;
 				y+=saveIncPoint.y;
 			}
