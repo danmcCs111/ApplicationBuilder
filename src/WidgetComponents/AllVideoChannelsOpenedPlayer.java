@@ -56,6 +56,9 @@ public class AllVideoChannelsOpenedPlayer extends JFrame
 		for(JButtonLengthLimited jbll : jblls)
 		{
 			HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs = lcv.lookup(jbll.getText(), jbll.getName());
+			if(ycvs == null)
+				continue;
+			
 			Iterator<Integer> it = ycvs.keySet().iterator();
 			if(it.hasNext())
 			{
