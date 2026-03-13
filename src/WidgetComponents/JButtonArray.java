@@ -696,7 +696,7 @@ PostWidgetBuildProcessing, ButtonArray
 		}
 	}
 	
-	private ArrayList<KeepSelection> getKeepSelection()
+	public ArrayList<KeepSelection> getKeepSelection()
 	{
 		return ((ImageMouseAdapter)getAMouseListener()).getKeeps();
 	}

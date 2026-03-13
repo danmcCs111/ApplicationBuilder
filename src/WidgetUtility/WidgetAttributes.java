@@ -49,6 +49,7 @@ import WidgetExtensions.ExtendedActionListenerConnectedComponent;
 import WidgetExtensions.ExtendedActionListenerSubType;
 import WidgetExtensions.ExtendedAddActionSendReceive;
 import WidgetExtensions.ExtendedAddButtonArrayNotification;
+import WidgetExtensions.ExtendedAllVideoChannelsOpenedList;
 import WidgetExtensions.ExtendedArrayProcessingPath;
 import WidgetExtensions.ExtendedButtonArrayLoadingGraphic;
 import WidgetExtensions.ExtendedCalculationPad;
@@ -163,6 +164,7 @@ public class WidgetAttributes
 				ExtendedAttributeParam.getMethodDefinition(ExtendedEditCollectionActionListener.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedCommandExecution.class, ExtendedMethodArgDef.CommandBuildSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedRefreshAction.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedAllVideoChannelsOpenedList.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedScheduledCommandStartActionListener.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(JTextField.class, new String [] {
@@ -203,6 +205,7 @@ public class WidgetAttributes
 				ExtendedAttributeParam.getMethodDefinition(ExtendedRestoreActionListener.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedShiftFramesActionListener.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedRefreshAction.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedAllVideoChannelsOpenedList.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedCommandExecution.class, ExtendedMethodArgDef.CommandBuildSelection.getMethodArgDef())
 		});
 		
