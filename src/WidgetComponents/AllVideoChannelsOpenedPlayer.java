@@ -6,7 +6,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
 import javax.swing.AbstractButton;
 import javax.swing.JFrame;
@@ -15,7 +14,6 @@ import javax.swing.JScrollPane;
 
 import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
-import MouseListenersImpl.LookupOrCreateYoutube;
 import MouseListenersImpl.YoutubeChannelVideo;
 import Properties.LoggingMessages;
 import WidgetComponentInterfaces.DurationLimitSubscriber;
@@ -46,30 +44,63 @@ public class AllVideoChannelsOpenedPlayer extends JFrame
 		listView; 
 	private JScrollPane 
 		scrollPane;
-	private LookupOrCreateYoutube 
-		lcv = new LookupOrCreateYoutube();
+//	private LookupOrCreateYoutube 
+//		lcv = new LookupOrCreateYoutube();
 	
 	public AllVideoChannelsOpenedPlayer(ArrayList<JButtonLengthLimited> jblls, Container parentContainer)
 	{
 		this.parentButton = new HashMap<Integer, AbstractButton>();
 		this.ycvs = new HashMap<Integer, ArrayList<YoutubeChannelVideo>>();
+		ArrayList<Thread> threads = new ArrayList<Thread>();
+		ArrayList<ChannelLoadingRunnable> clrs = new ArrayList<ChannelLoadingRunnable>();
+		
 		for(JButtonLengthLimited jbll : jblls)
 		{
-			HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs = lcv.lookup(jbll.getText(), jbll.getName());
-			if(ycvs == null)
-				continue;
-			
-			Iterator<Integer> it = ycvs.keySet().iterator();
-			if(it.hasNext())
-			{
-				int key = it.next();
-				this.parentButton.put(key, jbll);
-				this.ycvs.put(key, ycvs.get(key));
-			}
+			ChannelLoadingRunnable clr = new ChannelLoadingRunnable(jbll);
+			clrs.add(clr);
+			Thread t = new Thread(clr);
+			t.start();
+			threads.add(t);
 		}
+		
+		waitOnLoad(threads);
+		collectYoutubeChannelsFromThreads(clrs);
+		
 		this.parentContainer = parentContainer;
 		LoggingMessages.printOut("Build player");
 		buildWidgets();
+	}
+	
+	private void waitOnLoad(ArrayList<Thread> threads)
+	{
+		for(int i = 0; i < threads.size(); i++)
+		{
+			Thread t = threads.get(i);
+			if(t.isAlive())
+			{
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				waitOnLoad(threads);
+			}
+		}
+	}
+	
+	private void collectYoutubeChannelsFromThreads(
+			ArrayList<ChannelLoadingRunnable> clrs)
+	{
+		for(ChannelLoadingRunnable clr : clrs)
+		{
+			HashMap <Integer, ArrayList <YoutubeChannelVideo>> vids = clr.getYoutubeChannels();
+			if(vids != null && !vids.isEmpty())
+			{
+				int key = vids.keySet().iterator().next();
+				this.ycvs.put(key, vids.get(key));
+				this.parentButton.put(key, clr.getButton());
+			}
+		}
 	}
 	
 	public static void setDefaultMinuteSetting(int minute)
