@@ -47,6 +47,9 @@ Launch video selector with:
 
 <img width="45%" width="897" height="436" alt="image" src="https://github.com/user-attachments/assets/96e2c035-ece8-40a7-ae5a-c5b0d911d079" />
 
+*added all open videos list view
+
+<img width="45%" width="924" height="434" alt="image" src="https://github.com/user-attachments/assets/d408c355-8dec-449d-af03-f27bc31326a5" />
 
 *added powerdvd remote
 
