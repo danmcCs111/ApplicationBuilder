@@ -21,6 +21,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.WindowConstants;
@@ -30,6 +31,7 @@ import javax.swing.event.ChangeListener;
 import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
 import Params.KeepSelection;
+import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
 import WidgetUtility.WidgetBuildController;
 
 public class ShiftDialog extends JDialog
@@ -57,6 +59,8 @@ public class ShiftDialog extends JDialog
 		applyButton = new JButton(APPLY_BUTTON_LABEL),
 		applyAndCloseButton = new JButton(APPLY_AND_CLOSE_BUTTON_LABEL),
 		cancelButton = new JButton(CANCEL_BUTTON_LABEL);
+	private JScrollPane
+		scrollPane;
 	private JPanel 
 		keepPanel = new JPanel(),
 		innerPanel = new JPanel(),
@@ -149,13 +153,18 @@ public class ShiftDialog extends JDialog
 		fillPanel.add(innerPanelSpin);
 		innerPanel.add(innerPanelSlide, BorderLayout.NORTH);
 		innerPanel.add(fillPanel, BorderLayout.SOUTH);
+		scrollPane = new JScrollPane(keepPanel);
+		scrollPane.getVerticalScrollBar().setUnitIncrement(25);
+		
 		this.add(innerPanel, BorderLayout.CENTER);
-		this.add(keepPanel, BorderLayout.EAST);
+		this.add(scrollPane, BorderLayout.EAST);
 		GraphicsUtil.centerHeightOnlyWindow(WidgetBuildController.getInstance().getFrame(), this);
 		
 		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
 		ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
 		ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
+		ExtendedSetScrollBackgroundForegroundColor.applyBackgroundForeground(
+				ColorTemplate.getPanelBackgroundColor(), ColorTemplate.getButtonBackgroundColor(), scrollPane);
 		
 		this.pack();
 		
