@@ -1,7 +1,6 @@
 package WidgetComponents;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -20,7 +19,6 @@ import WidgetComponentInterfaces.DurationLimitSubscriber;
 import WidgetComponentInterfaces.SearchSubscriber;
 import WidgetComponents.DurationLimiter.Mode;
 import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
-import WidgetUtility.WidgetBuildController;
 
 public class AllVideoChannelsOpenedPlayer extends JFrame
 {
@@ -73,7 +71,7 @@ public class AllVideoChannelsOpenedPlayer extends JFrame
 		JFrame loadingFrame = new JFrame();
 		loadingFrame.setResizable(false);
 		GraphicsUtil.rightEdgeTopWindow(parentContainer, loadingFrame);
-		loadingFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		loadingFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		loadingFrame.setVisible(true);
 		
 		loadingFrame.setMinimumSize(new Dimension(180,70));//TODO
