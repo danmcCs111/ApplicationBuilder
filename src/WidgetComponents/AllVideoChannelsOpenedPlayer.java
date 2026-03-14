@@ -1,6 +1,7 @@
 package WidgetComponents;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -15,11 +16,11 @@ import javax.swing.JScrollPane;
 import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
 import MouseListenersImpl.YoutubeChannelVideo;
-import Properties.LoggingMessages;
 import WidgetComponentInterfaces.DurationLimitSubscriber;
 import WidgetComponentInterfaces.SearchSubscriber;
 import WidgetComponents.DurationLimiter.Mode;
 import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
+import WidgetUtility.WidgetBuildController;
 
 public class AllVideoChannelsOpenedPlayer extends JFrame
 {
@@ -50,6 +51,7 @@ public class AllVideoChannelsOpenedPlayer extends JFrame
 	public AllVideoChannelsOpenedPlayer(ArrayList<JButtonLengthLimited> jblls, Container parentContainer)
 	{
 		this.parentButton = new HashMap<Integer, AbstractButton>();
+		this.parentContainer = parentContainer;
 		this.ycvs = new HashMap<Integer, ArrayList<YoutubeChannelVideo>>();
 		ArrayList<Thread> threads = new ArrayList<Thread>();
 		ArrayList<ChannelLoadingRunnable> clrs = new ArrayList<ChannelLoadingRunnable>();
@@ -63,29 +65,65 @@ public class AllVideoChannelsOpenedPlayer extends JFrame
 			threads.add(t);
 		}
 		
-		waitOnLoad(threads);
-		collectYoutubeChannelsFromThreads(clrs);
-		
-		this.parentContainer = parentContainer;
-		LoggingMessages.printOut("Build player");
-		buildWidgets();
+		buildLoadingFrame(threads, clrs);
 	}
 	
-	private void waitOnLoad(ArrayList<Thread> threads)
+	public void buildLoadingFrame(ArrayList<Thread> threads, ArrayList<ChannelLoadingRunnable> clrs) 
 	{
+		JFrame loadingFrame = new JFrame();
+		loadingFrame.setResizable(false);
+		GraphicsUtil.rightEdgeTopWindow(parentContainer, loadingFrame);
+		loadingFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		loadingFrame.setVisible(true);
+		
+		loadingFrame.setMinimumSize(new Dimension(180,70));//TODO
+		LoadingLabel label = new LoadingLabel();
+		label.updateCount(SCROLL_UNIT_INC, DEFAULT_MINUTE_SETTING);
+		loadingFrame.add(label);
+		
+		ColorTemplate.setBackgroundColorPanel(loadingFrame, ColorTemplate.getPanelBackgroundColor());
+		ColorTemplate.setBackgroundColorButtons(loadingFrame, ColorTemplate.getButtonBackgroundColor());
+		ColorTemplate.setForegroundColorButtons(loadingFrame, ColorTemplate.getButtonForegroundColor());
+		
+		Runnable r = new Runnable() 
+		{
+			@Override
+			public void run() {
+				while(true)
+				{
+					int count = getTotalLoaded(threads);
+					label.updateCount(count, threads.size());
+					if(count == threads.size())
+					{
+						break;
+					}
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+				loadingFrame.dispose();
+				collectYoutubeChannelsFromThreads(clrs);
+				buildWidgets();
+			}
+		};
+		Thread t = new Thread(r);
+		t.start();
+	}
+	
+	private int getTotalLoaded(ArrayList<Thread> threads)
+	{
+		int totalLoaded = 0;
 		for(int i = 0; i < threads.size(); i++)
 		{
 			Thread t = threads.get(i);
-			if(t.isAlive())
+			if(!t.isAlive())
 			{
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				waitOnLoad(threads);
+				totalLoaded++;
 			}
 		}
+		return totalLoaded;
 	}
 	
 	private void collectYoutubeChannelsFromThreads(
