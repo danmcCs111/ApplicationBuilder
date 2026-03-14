@@ -49,7 +49,9 @@ public class ShiftDialog extends JDialog
 		APPLY_AND_CLOSE_BUTTON_LABEL = "Apply And Close",
 		CANCEL_BUTTON_LABEL = "Cancel";
 	private static Dimension 
-		MIN_DIMENSION_DIALOG = new Dimension(600, 325);
+		MIN_DIMENSION_DIALOG = new Dimension(800, 350);
+	private static Dimension
+		MAX_DIMENSION_DIALOG = new Dimension(800, 850);
 	private static int 
 		SLIDER_PIXEL_SIZE = 150,
 		SLIDER_MAX_SETTING_X = 1500,
@@ -113,6 +115,7 @@ public class ShiftDialog extends JDialog
 		this.setTitle(TITLE);
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setMinimumSize(MIN_DIMENSION_DIALOG);
+		this.setMaximumSize(MAX_DIMENSION_DIALOG);
 		this.setLayout(new BorderLayout());
 		
 		this.addWindowListener(new WindowAdapter() {
@@ -166,9 +169,8 @@ public class ShiftDialog extends JDialog
 		ExtendedSetScrollBackgroundForegroundColor.applyBackgroundForeground(
 				ColorTemplate.getPanelBackgroundColor(), ColorTemplate.getButtonBackgroundColor(), scrollPane);
 		
-		this.pack();
-		
 		this.setVisible(true);
+		this.pack();
 	}
 	
 	protected void buildSliders(ChangeListener cl)

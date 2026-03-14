@@ -93,6 +93,39 @@ public class LookupOrCreateYoutube
 		}
 	}
 	
+	public HashMap<Integer, Date> lookupLatestDate(String videoChannelName, String videoChannelLink)
+	{
+		HashMap<Integer, Date> parentIdAndDate = new HashMap<Integer, Date>();
+		
+		String query = youtubeSql.getYoutubeQuery(videoChannelName);
+		String response = QueryUpdateTool.executeQuery(query);
+		if(response == null)
+			return null;
+		
+		HttpDatabaseResponse hdr = new HttpDatabaseResponse();
+		ArrayList <ArrayList <DatabaseResponseNode>> drns = hdr.parseResponse(response);
+		if(drns.isEmpty())
+		{
+			createIfEmpty(videoChannelName, videoChannelLink);
+		}
+		else
+		{
+			for(DatabaseResponseNode drn : drns.get(1))
+			{
+				if(drn.getNodeName().equals("VideoId_Video_VideoDatabase"))
+				{
+					int parentId = Integer.parseInt(drn.getNodeAttributes().get("content"));
+					LoggingMessages.printOut("parentID is: " + parentId);
+					LoggingMessages.printOut("channelLink is: " + videoChannelLink);
+					Date lastDate = getLastDate(parentId, videoChannelLink);
+					parentIdAndDate.put(parentId, lastDate);
+					break;
+				}
+			}
+		}
+		return parentIdAndDate;
+	}
+	
 	public HashMap<Integer, ArrayList<YoutubeChannelVideo>> lookup(String videoChannelName, String videoChannelLink)
 	{
 		HashMap<Integer, ArrayList<YoutubeChannelVideo>> parentIdAndYoutubeChannelVideos = null;
@@ -118,6 +151,7 @@ public class LookupOrCreateYoutube
 					LoggingMessages.printOut("parentID is: " + parentId);
 					LoggingMessages.printOut("channelLink is: " + videoChannelLink);
 					parentIdAndYoutubeChannelVideos = lookupYoutubeVideo(parentId, videoChannelLink);
+					break;
 				}
 			}
 		}
@@ -143,7 +177,7 @@ public class LookupOrCreateYoutube
 	
 	private Date getLastDate(int parentId, String videoChannelLink)
 	{
-		String query = youtubeSql.getYoutubeVideoQuery(parentId);
+		String query = youtubeSql.getYoutubeVideoLatestQuery(parentId);
 		String response = QueryUpdateTool.executeQuery(query);
 		
 		HttpDatabaseResponse hdr = new HttpDatabaseResponse();
@@ -295,6 +329,5 @@ public class LookupOrCreateYoutube
 				LoggingMessages.printOut(ycv.toString());
 			}
 		}
-		
 	}
 }
