@@ -1,6 +1,7 @@
 package WidgetComponents;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -18,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import Graphics2D.ColorTemplate;
+import Graphics2D.GraphicsUtil;
 import MouseListenersImpl.LookupOrCreateYoutube;
 import Properties.LoggingMessages;
 import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
@@ -51,9 +53,10 @@ public class OpenVideoChannelsUpdater extends JFrame
 	private LookupOrCreateYoutube
 		lcv = new LookupOrCreateYoutube();
 	
-	public OpenVideoChannelsUpdater(ArrayList<JButtonLengthLimited> jblls)
+	public OpenVideoChannelsUpdater(ArrayList<JButtonLengthLimited> jblls, Container parentContainer)
 	{
 		this.jblls = jblls;
+		GraphicsUtil.rightEdgeTopWindow(parentContainer, this);
 		buildWidgets();
 	}
 	

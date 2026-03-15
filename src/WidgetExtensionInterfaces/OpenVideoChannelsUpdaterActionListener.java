@@ -29,7 +29,7 @@ public class OpenVideoChannelsUpdaterActionListener implements ActionListener
 			JButtonLengthLimited jbll = ks.getJButtonLengthLimited();
 			jblls.add(jbll);
 		}
-		OpenVideoChannelsUpdater ovcu = new OpenVideoChannelsUpdater(jblls);
+		OpenVideoChannelsUpdater ovcu = new OpenVideoChannelsUpdater(jblls, ba);
 	}
 
 }
