@@ -33,6 +33,17 @@ public class SearchBar extends JPanel
 		buildWidgets();
 	}
 	
+	public void setSearchFieldBackground(Color c)
+	{
+		this.searchField.setBackground(c);
+	}
+	
+	public void setSearchFieldForeground(Color c)
+	{
+		this.searchField.setForeground(c);
+		this.searchField.setCaretColor(c);
+	}
+	
 	public void setButtonBackground(Color c)
 	{
 		this.searchButton.setBackground(c);
