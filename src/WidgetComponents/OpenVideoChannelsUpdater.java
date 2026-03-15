@@ -173,6 +173,7 @@ public class OpenVideoChannelsUpdater extends JFrame
 				LoggingMessages.printOut("args: " + args[0] + args[1]);
 				lcv.update(args[0], args[1], checkBoxLatestDate.get(cb));
 				cb = updateCheckBox(args[0], args[1], cb);
+				cb.setSelected(false);
 			}
 		}
 		this.validate();
