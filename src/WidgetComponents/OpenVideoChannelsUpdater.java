@@ -176,7 +176,6 @@ public class OpenVideoChannelsUpdater extends JFrame
 				cb.setSelected(false);
 			}
 		}
-		this.validate();
 	}
 
 }
