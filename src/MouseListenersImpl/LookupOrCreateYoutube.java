@@ -126,6 +126,39 @@ public class LookupOrCreateYoutube
 		return parentIdAndDate;
 	}
 	
+	public HashMap<Integer, Date> lookupFirstDate(String videoChannelName, String videoChannelLink)
+	{
+		HashMap<Integer, Date> parentIdAndDate = new HashMap<Integer, Date>();
+		
+		String query = youtubeSql.getYoutubeQuery(videoChannelName);
+		String response = QueryUpdateTool.executeQuery(query);
+		if(response == null)
+			return null;
+		
+		HttpDatabaseResponse hdr = new HttpDatabaseResponse();
+		ArrayList <ArrayList <DatabaseResponseNode>> drns = hdr.parseResponse(response);
+		if(drns.isEmpty())
+		{
+			createIfEmpty(videoChannelName, videoChannelLink);
+		}
+		else
+		{
+			for(DatabaseResponseNode drn : drns.get(1))
+			{
+				if(drn.getNodeName().equals("VideoId_Video_VideoDatabase"))
+				{
+					int parentId = Integer.parseInt(drn.getNodeAttributes().get("content"));
+					LoggingMessages.printOut("parentID is: " + parentId);
+					LoggingMessages.printOut("channelLink is: " + videoChannelLink);
+					Date lastDate = getFirstDate(parentId, videoChannelLink);
+					parentIdAndDate.put(parentId, lastDate);
+					break;
+				}
+			}
+		}
+		return parentIdAndDate;
+	}
+	
 	public HashMap<Integer, ArrayList<YoutubeChannelVideo>> lookup(String videoChannelName, String videoChannelLink)
 	{
 		HashMap<Integer, ArrayList<YoutubeChannelVideo>> parentIdAndYoutubeChannelVideos = null;
@@ -178,6 +211,33 @@ public class LookupOrCreateYoutube
 	private Date getLastDate(int parentId, String videoChannelLink)
 	{
 		String query = youtubeSql.getYoutubeVideoLatestQuery(parentId);
+		String response = QueryUpdateTool.executeQuery(query);
+		
+		HttpDatabaseResponse hdr = new HttpDatabaseResponse();
+		ArrayList <ArrayList <DatabaseResponseNode>> drns = hdr.parseResponse(response);
+		Date lastDate = null;
+		if(drns.isEmpty())
+		{
+			LoggingMessages.printOut("Empty");
+		}
+		else
+		{
+			for(DatabaseResponseNode drn : drns.get(1))
+			{
+				if(drn.getNodeName().equals("UploadDate_VideoYoutube_VideoYoutubeDatabase"))
+				{
+					lastDate = DateParser.getDate(drn.getNodeAttributes());
+					LoggingMessages.printOut("last time: " + lastDate);
+					break;
+				}
+			}
+		}
+		return lastDate;
+	}
+	
+	private Date getFirstDate(int parentId, String videoChannelLink)
+	{
+		String query = youtubeSql.getYoutubeVideoFirstQuery(parentId);
 		String response = QueryUpdateTool.executeQuery(query);
 		
 		HttpDatabaseResponse hdr = new HttpDatabaseResponse();

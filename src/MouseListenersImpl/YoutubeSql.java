@@ -11,6 +11,12 @@ public class YoutubeSql implements YoutubeQuery
 		YOUTUBE_VIDEO_QUERY = 
 			"SELECT * FROM videodatabase.videoYoutube WHERE ParentID_VideoYoutube_VideoYoutubeDatabase = <arg0> " +
 			" ORDER BY UploadDate_VideoYoutube_VideoYoutubeDatabase DESC;",
+		YOUTUBE_VIDEO_LATEST_QUERY = 
+			"SELECT * FROM videodatabase.videoYoutube WHERE ParentID_VideoYoutube_VideoYoutubeDatabase = <arg0> " +
+			" ORDER BY UploadDate_VideoYoutube_VideoYoutubeDatabase DESC;",
+		YOUTUBE_VIDEO_FIRST_QUERY = 
+			"SELECT * FROM videoYoutube WHERE ParentID_VideoYoutube_VideoYoutubeDatabase = <arg0> "+
+			" ORDER BY UploadDate_VideoYoutube_VideoYoutubeDatabase ASC LIMIT 1;",
 		YOUTUBE_INSERT_PREFIX = 
 			"INSERT INTO videodatabase.video (VideoName_Video_VideoDatabase, VideoUrl_Video_VideoDatabase, InsertDate_Video_VideoDatabase) values( ",
 		YOUTUBE_INSERT_SUFFIX = 
@@ -35,6 +41,18 @@ public class YoutubeSql implements YoutubeQuery
 	{
 		return YOUTUBE_VIDEO_QUERY.replaceFirst("<arg0>", parentId +"");
 	}
+	
+	@Override
+	public String getYoutubeVideoLatestQuery(int parentId) 
+	{
+		return YOUTUBE_VIDEO_LATEST_QUERY.replaceFirst("<arg0>", parentId +"");
+	}
+	
+	@Override
+	public String getYoutubeVideoFirstQuery(int parentId) 
+	{
+		return YOUTUBE_VIDEO_FIRST_QUERY.replaceFirst("<arg0>", parentId +"");
+	}
 
 	@Override
 	public String getYoutubeInsertPrefix() 
@@ -53,5 +71,6 @@ public class YoutubeSql implements YoutubeQuery
 	{
 		return TYPE;
 	}
+
 
 }

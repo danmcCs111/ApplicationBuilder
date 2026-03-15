@@ -56,7 +56,9 @@
 			<JMenu extendedLayoutApplyParent="" setText="Launch" >
 				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellExecutor|%Fn./plugin-projects/DatabaseAdapterService/runDatabase.sh" extendedLayoutApplyParent="" setText="Database Service" setToolTipText="Manages and retrieves stored database content" >
 				</JMenuItem>
-				<JMenuItem extendedAllVideoChannelsOpenedList="channels" extendedLayoutApplyParent="" setText="All Open Channels List" setToolTipText="" >
+				<JMenuItem extendedLayoutApplyParent="" extendedOpenVideoChannelsUpdater="channels" setText="Update Open Channels" >
+				</JMenuItem>
+				<JMenuItem extendedAllVideoChannelsOpenedList="channels" extendedLayoutApplyParent="" setText="All Open Channels List" >
 				</JMenuItem>
 				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ApplicationBuilder|%Fn./Properties/data/Video Tile-mini.xml" extendedLayoutApplyParent="" setText="List Creator" setToolTipText="Select available content and store under a bookmark file" >
 				</JMenuItem>

@@ -67,6 +67,7 @@ import WidgetExtensions.ExtendedLayoutApplyParent;
 import WidgetExtensions.ExtendedMinimizeActionListener;
 import WidgetExtensions.ExtendedNewFileActionListener;
 import WidgetExtensions.ExtendedOpenActionListener;
+import WidgetExtensions.ExtendedOpenVideoChannelsUpdater;
 import WidgetExtensions.ExtendedPageParserCollection;
 import WidgetExtensions.ExtendedRefreshAction;
 import WidgetExtensions.ExtendedRestoreActionListener;
@@ -165,6 +166,7 @@ public class WidgetAttributes
 				ExtendedAttributeParam.getMethodDefinition(ExtendedCommandExecution.class, ExtendedMethodArgDef.CommandBuildSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedRefreshAction.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedAllVideoChannelsOpenedList.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedOpenVideoChannelsUpdater.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedScheduledCommandStartActionListener.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(JTextField.class, new String [] {
@@ -206,6 +208,7 @@ public class WidgetAttributes
 				ExtendedAttributeParam.getMethodDefinition(ExtendedShiftFramesActionListener.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedRefreshAction.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedAllVideoChannelsOpenedList.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedOpenVideoChannelsUpdater.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedCommandExecution.class, ExtendedMethodArgDef.CommandBuildSelection.getMethodArgDef())
 		});
 		
