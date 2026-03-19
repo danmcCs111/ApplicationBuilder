@@ -1,7 +1,9 @@
 package Actions;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import ObjectTypeConversion.CommandBuild;
 import Properties.LoggingMessages;
@@ -22,7 +24,8 @@ public class CommandExecutor
 		runningProcess = pb.start();
 		LoggingMessages.printOut(commandBuild.getArgs());
 		LoggingMessages.printOut(" - executed");
-		try (InputStream inputStream = runningProcess.getInputStream()) {
+		try (BufferedReader reader = new BufferedReader(new InputStreamReader(runningProcess.getInputStream())))
+		{
 			//required for java jar launch
 		}
 		if(haltTillComplete)
