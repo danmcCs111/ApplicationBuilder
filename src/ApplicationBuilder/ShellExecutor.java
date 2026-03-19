@@ -10,9 +10,9 @@ public class ShellExecutor
 {
 	public static String 
 		WINDOWS_BASH_SHELL_LOCATION = "C:\\Program Files\\Git\\git-bash.exe",
-		LINUX_BASH_SHELL = "gnome-terminal";
+		LINUX_BASH_SHELL = "/bin/sh";
 	public static String [] 
-		LINUX_COMMAND_OPTION = new String [] {"--", "bash", "-c"},
+		LINUX_COMMAND_OPTION = new String [] {"-c"},
 		WINDOWS_COMMAND_OPTION = new String [] {"-c"};
 	
 	public static void main(String [] args) 
