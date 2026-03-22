@@ -243,7 +243,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	public void buildVideoChannelPlayer()
 	{
 		Point p = null;
-		if(vqp != null)
+		if(vqp != null && vqp.isVisible())
 		{
 			p = vqp.getLocationOnScreen();
 			vqp.dispose();
