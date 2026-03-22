@@ -127,9 +127,15 @@ public class VideoChannelPlayer extends JFrame
 		updateButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				fmdl.update();
-				fmdl.buildVideoChannelPlayer();
-				
+				Runnable r = new Runnable() {
+					@Override
+					public void run() {
+						fmdl.update();
+						fmdl.buildVideoChannelPlayer();
+					}
+				};
+				Thread t = new Thread(r);
+				t.start();
 			}
 		});		
 		
