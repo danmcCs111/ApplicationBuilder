@@ -238,11 +238,17 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	
 	public void buildVideoChannelPlayer()
 	{
+		Point p = null;
 		if(vqp != null)
 		{
+			p = vqp.getLocationOnScreen();
 			vqp.dispose();
 		}
 		vqp = new VideoChannelPlayer(getImage((JButtonLengthLimited)component), this, component, f);
+		if(p != null)
+		{
+			vqp.setLocation(p);
+		}
 	}
 	
 	public HashMap <Integer, ArrayList <YoutubeChannelVideo>> getYoutubeVideos()
