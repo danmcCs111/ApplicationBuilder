@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.AbstractButton;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -44,6 +45,7 @@ import WidgetComponentDialogs.VideoBookMarksDialog;
 import WidgetComponentInterfaces.ButtonArray;
 import WidgetComponentInterfaces.CharacterLimited;
 import WidgetComponentInterfaces.EditButtonArrayUrls;
+import WidgetComponentInterfaces.ImageReader;
 import WidgetComponentInterfaces.LinkDragAndDropSubscriber;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetExtensionDefs.ExtendedStringCollection;
@@ -599,6 +601,7 @@ PostWidgetBuildProcessing, ButtonArray
 		this.characterLimit = characterLimit;
 	}
 
+	
 	@Override
 	public void performSave() 
 	{

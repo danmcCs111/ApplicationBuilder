@@ -15,8 +15,8 @@ import WidgetComponents.JButtonArray;
 
 public class ImageReader
 {
-	private ButtonArray 
-		ba;
+	private DefaultAndScaledImage 
+		imageScalingOptions;
 	private Image 
 		defaultImage;
 	private ImageIcon
@@ -24,14 +24,14 @@ public class ImageReader
 	private boolean
 		buttonArrayImage = false;
 	
-	public ImageReader(ButtonArray ba)
+	public ImageReader(DefaultAndScaledImage imageScalingOptions)
 	{
-		this(ba, false);
+		this(imageScalingOptions, false);
 	}
 	
-	public ImageReader(ButtonArray ba, boolean buttonArrayImage)
+	public ImageReader(DefaultAndScaledImage imageScalingOptions, boolean buttonArrayImage)
 	{
-		this.ba = ba;
+		this.imageScalingOptions = imageScalingOptions;
 		this.buttonArrayImage = buttonArrayImage;
 		getDefaultImageIcon();
 	}
@@ -47,19 +47,23 @@ public class ImageReader
 	
 	public Image getDefaultImage()
 	{
-		if(defaultImage == null && ba != null && !buttonArrayImage)
+		if(defaultImage == null && imageScalingOptions != null && !buttonArrayImage)
 		{
 			Image tmpImage = GraphicsUtil.getImageFromXml(
-					ba.getDefaultPicSize().width, ba.getDefaultPicSize().height, new File(ba.getDefaultImagePath()), Color.black);
+					imageScalingOptions.getDefaultPicSize().width, 
+					imageScalingOptions.getDefaultPicSize().height, 
+					new File(imageScalingOptions.getDefaultImagePath()), Color.black);
 			defaultImage = tmpImage.getScaledInstance(
-					ba.getScaledDefaultPic().width, 
-					ba.getScaledDefaultPic().height, 0);
+					imageScalingOptions.getScaledDefaultPic().width, 
+					imageScalingOptions.getScaledDefaultPic().height, 0);
 		}
 		else if(defaultImage == null && buttonArrayImage)
 		{
 			LoggingMessages.printOut("default image creation!");
 			Image tmpImage = GraphicsUtil.getImageFromXml(
-					ba.getDefaultPicSize().width, ba.getDefaultPicSize().height, new File(ba.getDefaultImagePath()), Color.black);
+					imageScalingOptions.getDefaultPicSize().width, 
+					imageScalingOptions.getDefaultPicSize().height, 
+					new File(imageScalingOptions.getDefaultImagePath()), Color.black);
 			Dimension d = getScaledDimensionFromHeight(tmpImage, JButtonArray.getButtonIconHeight());//TODO.
 			defaultImage = tmpImage.getScaledInstance(
 					d.width, 
@@ -96,7 +100,7 @@ public class ImageReader
 				}
 				else
 				{
-					scaled = getScaledDimension(tmpImage, ba.getScaledWidth());
+					scaled = getScaledDimension(tmpImage, imageScalingOptions.getScaledWidth());
 				}
 				
 				retImage = tmpImage.getScaledInstance(

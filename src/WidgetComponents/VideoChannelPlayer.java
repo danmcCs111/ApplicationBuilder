@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.AbstractButton;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -39,11 +41,14 @@ public class VideoChannelPlayer extends JFrame
 		listView; 
 	private JScrollPane 
 		scrollPane;
+	private ImageIcon 
+		videoImage;
 
 	public VideoChannelPlayer(
-			HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs, AbstractButton parentButton, Container parent)
+			ImageIcon videoImage, HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs, AbstractButton parentButton, Container parent)
 	{
 		this.parentButton = parentButton;
+		this.videoImage = videoImage;
 		this.setTitle(TITLE_PREFIX + parentButton.getText());
 		buildWidgets(ycvs);
 		GraphicsUtil.rightEdgeCenterWindow(parent, this);
@@ -62,7 +67,9 @@ public class VideoChannelPlayer extends JFrame
 	private void buildWidgets(HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
 	{
 		JPanel searchPanel = new JPanel();
-		searchPanel.setLayout(new FlowLayout());
+		FlowLayout fl = new FlowLayout();
+		fl.setAlignment(FlowLayout.LEFT);
+		searchPanel.setLayout(fl);
 		SearchBar sb = new SearchBar();
 		sb.setColumnCharacterLength(SEARCH_COLUMN_LENGTH);
 		sb.addSearchSubscriber(new SearchSubscriber() {
@@ -81,6 +88,9 @@ public class VideoChannelPlayer extends JFrame
 		};
 		DurationLimiter dl = new DurationLimiter(dls);
 		dl.setMinuteDefault(DEFAULT_MINUTE_SETTING);
+		JLabel imageLabel = new JLabel();
+		imageLabel.setIcon(videoImage);
+		searchPanel.add(imageLabel);
 		searchPanel.add(sb);
 		searchPanel.add(dl);
 		
@@ -88,6 +98,7 @@ public class VideoChannelPlayer extends JFrame
 		scrollPane = new JScrollPane(listView);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(SCROLL_UNIT_INC);
 		
+		this.setIconImage(videoImage.getImage());
 		this.setLayout(new BorderLayout());
 		this.add(searchPanel, BorderLayout.NORTH);
 		this.add(scrollPane, BorderLayout.CENTER);
