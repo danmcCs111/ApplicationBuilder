@@ -71,10 +71,9 @@ public class VideoChannelPlayer extends JFrame
 	private void buildWidgets(HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
 	{
 		JPanel searchPanel = new JPanel();
-		JPanel innerSearchPanel = new JPanel();
 		FlowLayout fl = new FlowLayout();
 		fl.setAlignment(FlowLayout.LEFT);
-		innerSearchPanel.setLayout(fl);
+		searchPanel.setLayout(fl);
 		SearchBar sb = new SearchBar();
 		sb.setColumnCharacterLength(SEARCH_COLUMN_LENGTH);
 		sb.addSearchSubscriber(new SearchSubscriber() {
@@ -118,9 +117,8 @@ public class VideoChannelPlayer extends JFrame
 			}
 		});
 		searchPanel.add(imageLabel);
-		innerSearchPanel.add(sb);
-		innerSearchPanel.add(dl);
-		searchPanel.add(innerSearchPanel);
+		searchPanel.add(sb);
+		searchPanel.add(dl);
 		
 		listView = new VideoChannelListView(parentButton, ycvs);
 		scrollPane = new JScrollPane(listView);
