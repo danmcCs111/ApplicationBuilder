@@ -192,6 +192,10 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				update();
+				if(vqp != null && vqp.isVisible())
+				{
+					buildVideoChannelPlayer();
+				}
 			}
 		});
 		
