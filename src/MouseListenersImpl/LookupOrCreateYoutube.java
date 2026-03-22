@@ -2,17 +2,19 @@ package MouseListenersImpl;
 
 import java.awt.Image;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import Actions.CommandExecutor;
 import ApplicationBuilder.QueryUpdateTool;
-import ApplicationBuilder.ShellHeadlessExecutor;
 import Graphics2D.GraphicsUtil;
 import HttpDatabaseResponse.DatabaseResponseNode;
 import HttpDatabaseResponse.HttpDatabaseResponse;
+import ObjectTypeConversion.CommandBuild;
 import ObjectTypeConversion.FileSelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
@@ -20,8 +22,11 @@ import Properties.PathUtility;
 public class LookupOrCreateYoutube 
 {
 	public static final String []
-		YOUTUBE_CHANNEL_HANDLE_STRIP = new String [] {"/videos", "/featured"};
+		YOUTUBE_CHANNEL_HANDLE_STRIP = new String [] {"/videos", "/featured"},
+		APPLICATION_BUILDER_CLI_OPTIONS = new String [] {"-cp"};
 	public static final String
+		APPLICATION_BUILDER_JAR_LOC = "./Application Builder.jar",
+		APPLICATION_BUILDER_CLASS = "ApplicationBuilder.ShellHeadlessExecutor",//TDOD
 		YOUTUBE_CHANNEL_HANDLE_MATCH = "/[^/]*$",
 		OPERATION = "showResult",
 		PLUGIN_JAR_LOCATION = PathUtility.getCurrentDirectory() + "/" + 
@@ -329,6 +334,8 @@ public class LookupOrCreateYoutube
 		
 		
 		String [] args = new String [] {
+				new FileSelection(APPLICATION_BUILDER_JAR_LOC).getFullPath(),
+				APPLICATION_BUILDER_CLASS,
 				PLUGIN_JAR_LOCATION + " " +
 				OPERATION + " " + 
 				youtubeSql.getSqlType() + " " + 
@@ -339,7 +346,13 @@ public class LookupOrCreateYoutube
 				saveFile
 			};
 		//run plugin.
-		ShellHeadlessExecutor.run(args, true);
+		CommandBuild cb = new CommandBuild();
+		cb.setCommand("java", APPLICATION_BUILDER_CLI_OPTIONS, args);
+		try {
+			CommandExecutor.executeProcess(cb, true);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		//run insert & image grab jobs. use loading screen.
 		String contents = PathUtility.readFileToString(new File(saveFile));
