@@ -4,13 +4,16 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -27,6 +30,7 @@ public class VideoChannelPlayer extends JFrame
 	private static final long serialVersionUID = 1L;
 	
 	private static String
+		HOME_PAGE_TOOLTIP_TEXT = "[ <arg0> ] - Homepage",
 		TITLE_PREFIX = "Channel | ";
 	private static Dimension 
 		MIN_SIZE = new Dimension(750, 450);
@@ -67,9 +71,10 @@ public class VideoChannelPlayer extends JFrame
 	private void buildWidgets(HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
 	{
 		JPanel searchPanel = new JPanel();
+		JPanel innerSearchPanel = new JPanel();
 		FlowLayout fl = new FlowLayout();
 		fl.setAlignment(FlowLayout.LEFT);
-		searchPanel.setLayout(fl);
+		innerSearchPanel.setLayout(fl);
 		SearchBar sb = new SearchBar();
 		sb.setColumnCharacterLength(SEARCH_COLUMN_LENGTH);
 		sb.addSearchSubscriber(new SearchSubscriber() {
@@ -88,11 +93,34 @@ public class VideoChannelPlayer extends JFrame
 		};
 		DurationLimiter dl = new DurationLimiter(dls);
 		dl.setMinuteDefault(DEFAULT_MINUTE_SETTING);
-		JLabel imageLabel = new JLabel();
-		imageLabel.setIcon(videoImage);
+		
+		JButton imageLabel = new JButton(videoImage);
+		imageLabel.setToolTipText(HOME_PAGE_TOOLTIP_TEXT.replaceAll("<arg0>", parentButton.getText()));
+		imageLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int button = e.getButton();
+				switch(button)
+				{
+				case MouseEvent.BUTTON1:
+					parentButton.doClick();
+					break;
+				case MouseEvent.BUTTON2:
+					for(MouseListener ml : parentButton.getMouseListeners())
+					{
+						e.setSource(parentButton);
+						ml.mouseClicked(e);
+					}
+					break;
+				case MouseEvent.BUTTON3://ignore
+					break;
+				}
+			}
+		});
 		searchPanel.add(imageLabel);
-		searchPanel.add(sb);
-		searchPanel.add(dl);
+		innerSearchPanel.add(sb);
+		innerSearchPanel.add(dl);
+		searchPanel.add(innerSearchPanel);
 		
 		listView = new VideoChannelListView(parentButton, ycvs);
 		scrollPane = new JScrollPane(listView);

@@ -48,8 +48,8 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		UPDATE_VIDEOS = "UPDATE",
 		UPDATE_VIDEOS_TOOLTIP = "Update after last timestamp stored.";
 	
-	private static int
-		SCALED_WIDTH = 30;
+	public static int
+		SCALED_WIDTH_ICON = 35;
 	
 	private JFrame 
 		f;
@@ -317,7 +317,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	@Override
 	public int getScaledWidth() 
 	{
-		return SCALED_WIDTH;
+		return SCALED_WIDTH_ICON;
 	}
 
 	@Override
@@ -341,7 +341,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	@Override
 	public void setScaledWidth(int scaledWidth) 
 	{
-		SCALED_WIDTH = scaledWidth;
+		SCALED_WIDTH_ICON = scaledWidth;
 	}
 
 }

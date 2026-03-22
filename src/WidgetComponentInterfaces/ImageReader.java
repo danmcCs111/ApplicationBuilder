@@ -55,7 +55,7 @@ public class ImageReader
 					new File(imageScalingOptions.getDefaultImagePath()), Color.black);
 			defaultImage = tmpImage.getScaledInstance(
 					imageScalingOptions.getScaledDefaultPic().width, 
-					imageScalingOptions.getScaledDefaultPic().height, 0);
+					imageScalingOptions.getScaledDefaultPic().height, Image.SCALE_SMOOTH);
 		}
 		else if(defaultImage == null && buttonArrayImage)
 		{
@@ -67,7 +67,7 @@ public class ImageReader
 			Dimension d = getScaledDimensionFromHeight(tmpImage, JButtonArray.getButtonIconHeight());//TODO.
 			defaultImage = tmpImage.getScaledInstance(
 					d.width, 
-					d.height, 0);
+					d.height, Image.SCALE_SMOOTH);
 		}
 		return defaultImage;
 	}
