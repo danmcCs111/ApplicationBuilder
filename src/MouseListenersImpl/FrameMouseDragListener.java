@@ -71,6 +71,8 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		icon = null;
 	private DefaultAndScaledImage 
 		parentScaler;
+	private HashMap <Integer, ArrayList <YoutubeChannelVideo>> 
+		ycvs;
 	
 	public FrameMouseDragListener()
 	{
@@ -110,18 +112,18 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 			LoggingMessages.printOut(jbll.getName());
 			if(jbll.getName().contains("youtube.com"))
 			{
-				HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs = lcv.lookup(jbll.getText(), jbll.getName());
-				JMenu mi2 = buildViewMenu(jbll, ycvs);
+				this.ycvs = lcv.lookup(jbll.getText(), jbll.getName());
+				JMenu mi2 = buildViewMenu();
 				if(mi2 != null)
 				{
 					pm.add(mi2);
 				}
 				if(mi2 != null)
 				{
-					JMenuItem mi3 = buildOpenVideosView(component, ycvs);
+					JMenuItem mi3 = buildOpenVideosView();
 					pm.add(mi3);
 				}
-				JMenuItem mi4 = buildUpdateMenu(jbll);
+				JMenuItem mi4 = buildUpdateMenu();
 				pm.add(mi4);
 			}
 			picLabel.add(pm);
@@ -134,7 +136,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		}
 	}
 
-	private JMenu buildViewMenu(JButtonLengthLimited jbll, HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
+	private JMenu buildViewMenu()
 	{
 		JMenu mi2 = null;
 		if(ycvs != null)//load in menu;
@@ -146,7 +148,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 				for(YoutubeChannelVideo ycv : ycvs.get(key))
 				{
 					LoggingMessages.printOut("video found! " + ycv.getTitle());
-					JMenuItemLaunchUrl jmi = buildJMenuItem(ycv, jbll);
+					JMenuItemLaunchUrl jmi = buildJMenuItem(ycv);
 					mi2.add(jmi);
 					count++;
 				}
@@ -170,7 +172,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		return mi2;
 	}
 	
-	private JMenuItemLaunchUrl buildJMenuItem(YoutubeChannelVideo ycv, JButtonLengthLimited jbll)
+	private JMenuItemLaunchUrl buildJMenuItem(YoutubeChannelVideo ycv)
 	{
 		JMenuItemLaunchUrl jmi = new JMenuItemLaunchUrl(ycv.getTitle());
 		jmi.setHighlightButton(component);
@@ -180,7 +182,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		return jmi;
 	}
 	
-	private JMenu buildUpdateMenu(JButtonLengthLimited jbll)
+	private JMenu buildUpdateMenu()
 	{
 		JMenu miP = new JMenu(UPDATE_VIDEOS);
 		
@@ -189,7 +191,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		mi1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				lcv.update(jbll.getText(), jbll.getName());
+				update();
 			}
 		});
 		
@@ -204,7 +206,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 				{
 					vutd.dispose();
 				}
-				vutd = new VideoUpdateTimespanDialog(f, jbll, lcv, cal.getTime());
+				vutd = new VideoUpdateTimespanDialog(f, component, lcv, cal.getTime());
 			}
 		});
 		
@@ -214,22 +216,38 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		return miP;
 	}
 	
-	private JMenuItem buildOpenVideosView(
-			AbstractButton parentButton, HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
+	private JMenuItem buildOpenVideosView()
 	{
 		JMenuItem mi4 = new JMenuItem(VIEW_LIST_VIDEOS);
 		mi4.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				if(vqp != null)
-				{
-					vqp.dispose();
-				}
-				vqp = new VideoChannelPlayer(getImage((JButtonLengthLimited)parentButton), ycvs, parentButton, f);
+				buildVideoChannelPlayer();
 			}
 		});
 		return mi4;
+	}
+	
+	public void update()
+	{
+		JButtonLengthLimited jbll = (JButtonLengthLimited) component;
+		lcv.update(jbll.getText(), jbll.getName());
+		this.ycvs = lcv.lookup(jbll.getText(), jbll.getName());
+	}
+	
+	public void buildVideoChannelPlayer()
+	{
+		if(vqp != null)
+		{
+			vqp.dispose();
+		}
+		vqp = new VideoChannelPlayer(getImage((JButtonLengthLimited)component), this, component, f);
+	}
+	
+	public HashMap <Integer, ArrayList <YoutubeChannelVideo>> getYoutubeVideos()
+	{
+		return this.ycvs;
 	}
 	
 	@Override

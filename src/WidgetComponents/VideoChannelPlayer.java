@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -19,6 +21,7 @@ import javax.swing.JScrollPane;
 
 import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
+import MouseListenersImpl.FrameMouseDragListener;
 import MouseListenersImpl.YoutubeChannelVideo;
 import WidgetComponentInterfaces.DurationLimitSubscriber;
 import WidgetComponentInterfaces.SearchSubscriber;
@@ -30,10 +33,11 @@ public class VideoChannelPlayer extends JFrame
 	private static final long serialVersionUID = 1L;
 	
 	private static String
+		UPDATE_BUTTON_TEXT = "Update",
 		HOME_PAGE_TOOLTIP_TEXT = "[ <arg0> ] - Homepage",
 		TITLE_PREFIX = "Channel | ";
 	private static Dimension 
-		MIN_SIZE = new Dimension(750, 450);
+		MIN_SIZE = new Dimension(775, 425);
 	private static int 
 		DEFAULT_MINUTE_SETTING = 10,
 		SEARCH_COLUMN_LENGTH = 15,
@@ -47,14 +51,17 @@ public class VideoChannelPlayer extends JFrame
 		scrollPane;
 	private ImageIcon 
 		videoImage;
+	private FrameMouseDragListener 
+		fmdl;
 
 	public VideoChannelPlayer(
-			ImageIcon videoImage, HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs, AbstractButton parentButton, Container parent)
+			ImageIcon videoImage, FrameMouseDragListener fmdl, AbstractButton parentButton, Container parent)
 	{
 		this.parentButton = parentButton;
 		this.videoImage = videoImage;
+		this.fmdl = fmdl;
 		this.setTitle(TITLE_PREFIX + parentButton.getText());
-		buildWidgets(ycvs);
+		buildWidgets(fmdl.getYoutubeVideos());
 		GraphicsUtil.rightEdgeCenterWindow(parent, this);
 	}
 	
@@ -116,9 +123,20 @@ public class VideoChannelPlayer extends JFrame
 				}
 			}
 		});
+		JButton updateButton = new JButton(UPDATE_BUTTON_TEXT);
+		updateButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				fmdl.update();
+				fmdl.buildVideoChannelPlayer();
+				
+			}
+		});		
+		
 		searchPanel.add(imageLabel);
 		searchPanel.add(sb);
 		searchPanel.add(dl);
+		searchPanel.add(updateButton);
 		
 		listView = new VideoChannelListView(parentButton, ycvs);
 		scrollPane = new JScrollPane(listView);
