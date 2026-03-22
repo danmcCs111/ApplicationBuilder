@@ -134,9 +134,9 @@ public class VideoChannelPlayer extends JFrame
 		});		
 		
 		searchPanel.add(imageLabel);
+		searchPanel.add(updateButton);
 		searchPanel.add(sb);
 		searchPanel.add(dl);
-		searchPanel.add(updateButton);
 		
 		listView = new VideoChannelListView(parentButton, ycvs);
 		scrollPane = new JScrollPane(listView);
