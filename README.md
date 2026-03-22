@@ -43,9 +43,9 @@ Launch video selector with:
 
 <img width="45%" src="https://github.com/user-attachments/assets/a5dc474a-e387-48ec-9ecb-7680b0b8e732" />
 
-*updated listview to include duration. added duration limit filter
+*updated listview to include homepage button, update button & duration. added duration limit filter
 
-<img width="45%" width="897" height="436" alt="image" src="https://github.com/user-attachments/assets/96e2c035-ece8-40a7-ae5a-c5b0d911d079" />
+<img width="45%" width="757" height="410" alt="image" src="https://github.com/user-attachments/assets/eac0375f-5865-4f6e-bcd1-b43967a34df8" />
 
 *added all open videos list view
 
