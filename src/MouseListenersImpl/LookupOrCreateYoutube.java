@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 
 import Actions.CommandExecutor;
 import ApplicationBuilder.QueryUpdateTool;
+import ApplicationBuilder.ShellExecutorAlt;
 import Graphics2D.GraphicsUtil;
 import HttpDatabaseResponse.DatabaseResponseNode;
 import HttpDatabaseResponse.HttpDatabaseResponse;
@@ -334,8 +335,8 @@ public class LookupOrCreateYoutube
 		
 		
 		String [] args = new String [] {
-				new FileSelection(APPLICATION_BUILDER_JAR_LOC).getFullPath(),
-				APPLICATION_BUILDER_CLASS,
+//				new FileSelection(APPLICATION_BUILDER_JAR_LOC).getFullPath(),
+//				APPLICATION_BUILDER_CLASS,
 				PLUGIN_JAR_LOCATION + " " +
 				OPERATION + " " + 
 				youtubeSql.getSqlType() + " " + 
@@ -346,13 +347,15 @@ public class LookupOrCreateYoutube
 				saveFile
 			};
 		//run plugin.
-		CommandBuild cb = new CommandBuild();
-		cb.setCommand("java", APPLICATION_BUILDER_CLI_OPTIONS, args);
-		try {
-			CommandExecutor.executeProcess(cb, true);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		CommandBuild cb = new CommandBuild();
+//		cb.setCommand("java", APPLICATION_BUILDER_CLI_OPTIONS, args);
+//		try {
+//			CommandExecutor.executeProcess(cb, true);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+		
+		ShellExecutorAlt.run(args, true);
 		
 		//run insert & image grab jobs. use loading screen.
 		String contents = PathUtility.readFileToString(new File(saveFile));
