@@ -51,7 +51,7 @@ public class ShiftDialog extends JDialog
 	private static Dimension 
 		MIN_DIMENSION_DIALOG = new Dimension(800, 350);
 	private static Dimension
-		MAX_DIMENSION_DIALOG = new Dimension(800, 850);
+		MAX_DIMENSION_DIALOG = new Dimension(800, 550);
 	private static int 
 		SLIDER_PIXEL_SIZE = 150,
 		SLIDER_MAX_SETTING_X = 1500,
@@ -170,7 +170,7 @@ public class ShiftDialog extends JDialog
 				ColorTemplate.getPanelBackgroundColor(), ColorTemplate.getButtonBackgroundColor(), scrollPane);
 		
 		this.setVisible(true);
-		this.pack();
+//		this.pack();
 	}
 	
 	protected void buildSliders(ChangeListener cl)
