@@ -169,11 +169,21 @@ public class OpenVideoChannelsUpdater extends JFrame
 		{
 			if(cb.isSelected())
 			{
-				String [] args = cb.getName().split(NAME_DELIMITER);
-				LoggingMessages.printOut("args: " + args[0] + args[1]);
-				lcv.update(args[0], args[1], checkBoxLatestDate.get(cb));
-				cb = updateCheckBox(args[0], args[1], cb);
-				cb.setSelected(false);
+				Runnable r = new Runnable()
+				{
+					@Override
+					public void run() 
+					{
+						JCheckBox cbL = cb;
+						String [] args = cbL.getName().split(NAME_DELIMITER);
+						LoggingMessages.printOut("args: " + args[0] + args[1]);
+						lcv.update(args[0], args[1], checkBoxLatestDate.get(cbL));
+						cbL = updateCheckBox(args[0], args[1], cbL);
+						cbL.setSelected(false);
+					}
+				};
+				Thread t = new Thread(r);
+				t.start();
 			}
 		}
 	}
