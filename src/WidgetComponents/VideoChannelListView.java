@@ -467,13 +467,14 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 	
 	public void performSelect(Highlighter hl)
 	{
-		if(hl == null)
-			return;
 		
 		unselect();
-		hlPanel.setHighlightForegroundAndBackground(true);
-		hl.setHighlightForegroundAndBackground(true);
-		selectedBtn = hl;
+		if(hl != null)
+		{
+			hlPanel.setHighlightForegroundAndBackground(true);
+			hl.setHighlightForegroundAndBackground(true);
+			selectedBtn = hl;
+		}
 	}
 
 	@Override
