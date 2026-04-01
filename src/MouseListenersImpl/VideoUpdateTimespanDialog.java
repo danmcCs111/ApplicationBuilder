@@ -35,6 +35,8 @@ public class VideoUpdateTimespanDialog extends JDialog
 		ab;
 	private LookupOrCreateYoutube
 		lcy;
+	private boolean 
+		updated = false;
 	
 	public VideoUpdateTimespanDialog(Container refContainer, AbstractButton ab, LookupOrCreateYoutube lcy, Date d)
 	{
@@ -80,6 +82,7 @@ public class VideoUpdateTimespanDialog extends JDialog
 				Timestamp ts = (Timestamp) de.getComponentValueObj();
 				Date d = new Date(ts.getTime());
 				lcy.update(ab.getText(), ab.getName(), d);
+				updated = true;
 				dispose();
 			}
 		});
@@ -96,6 +99,11 @@ public class VideoUpdateTimespanDialog extends JDialog
 		
 		this.add(controlPanel, BorderLayout.NORTH);
 		this.add(runCancelPanel, BorderLayout.SOUTH);
+	}
+	
+	public boolean updated()
+	{
+		return updated;
 	}
 
 }

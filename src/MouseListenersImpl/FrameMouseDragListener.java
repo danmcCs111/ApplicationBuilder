@@ -8,6 +8,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -218,6 +220,15 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 					vutd.dispose();
 				}
 				vutd = new VideoUpdateTimespanDialog(f, component, lcv, cal.getTime());
+				vutd.addWindowListener(new WindowAdapter() {
+					@Override
+					public void windowClosed(WindowEvent e) {
+						if(vqp != null && vqp.isVisible() && vutd.updated())
+						{
+							buildVideoChannelPlayer();
+						}
+					}
+				});
 			}
 		});
 		

@@ -467,7 +467,6 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 	
 	public void performSelect(Highlighter hl)
 	{
-		
 		unselect();
 		if(hl != null)
 		{
