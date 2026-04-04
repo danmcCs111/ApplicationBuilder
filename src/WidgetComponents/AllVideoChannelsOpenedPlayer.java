@@ -54,25 +54,33 @@ public class AllVideoChannelsOpenedPlayer extends JFrame
 		ArrayList<Thread> threads = new ArrayList<Thread>();
 		ArrayList<ChannelLoadingRunnable> clrs = new ArrayList<ChannelLoadingRunnable>();
 		
-		for(JButtonLengthLimited jbll : jblls)
+		Runnable r = new Runnable()
 		{
-			ChannelLoadingRunnable clr = new ChannelLoadingRunnable(jbll);
-			clrs.add(clr);
-			Thread t = new Thread(clr);
-			t.start();
-			threads.add(t);
-		}
-		
-		buildLoadingFrame(threads, clrs);
+			@Override
+			public void run() {
+				for(JButtonLengthLimited jbll : jblls)
+				{
+					ChannelLoadingRunnable clr = new ChannelLoadingRunnable(jbll);
+					clrs.add(clr);
+					Thread t = new Thread(clr);
+					t.start();
+					threads.add(t);
+				}
+				
+				buildLoadingFrame(threads, clrs);
+			}
+		};
+		Thread t = new Thread(r);
+		t.start();
 	}
 	
 	public void buildLoadingFrame(ArrayList<Thread> threads, ArrayList<ChannelLoadingRunnable> clrs) 
 	{
 		JFrame loadingFrame = new JFrame();
 		loadingFrame.setResizable(false);
-		GraphicsUtil.rightEdgeTopWindow(parentContainer, loadingFrame);
 		loadingFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		loadingFrame.setVisible(true);
+		GraphicsUtil.rightEdgeTopWindow(parentContainer, loadingFrame);
 		
 		loadingFrame.setMinimumSize(new Dimension(180,70));//TODO
 		LoadingLabel label = new LoadingLabel();
@@ -193,8 +201,8 @@ public class AllVideoChannelsOpenedPlayer extends JFrame
 		this.setTitle(TITLE);
 		this.setMinimumSize(MIN_SIZE);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		GraphicsUtil.rightEdgeTopWindow(parentContainer, this);
 		this.setVisible(true);
+		GraphicsUtil.rightEdgeTopWindow(parentContainer, this);
 		
 		listView.postFrameBuild();
 	}

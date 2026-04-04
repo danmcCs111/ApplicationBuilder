@@ -56,8 +56,16 @@ public class OpenVideoChannelsUpdater extends JFrame
 	public OpenVideoChannelsUpdater(ArrayList<JButtonLengthLimited> jblls, Container parentContainer)
 	{
 		this.jblls = jblls;
-		GraphicsUtil.rightEdgeTopWindow(parentContainer, this);
-		buildWidgets();
+		Runnable r = new Runnable()
+		{
+			@Override
+			public void run() {
+				buildWidgets();
+				GraphicsUtil.rightEdgeTopWindow(parentContainer, OpenVideoChannelsUpdater.this);
+			}
+		};
+		Thread t = new Thread(r);
+		t.start();
 	}
 	
 	private void buildWidgets()

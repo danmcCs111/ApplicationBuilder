@@ -64,7 +64,12 @@ public interface GraphicsUtil
 		int rw = referenceComponent.getWidth();
 		int h = comp.getHeight();
 		
-		comp.setLocation(new Point(loc.x + (rw), loc.y + (h * (numberOfMatchedVisible) )));
+		Point locPoint = new Point( 
+			loc.x + (rw), 
+			loc.y + (h * (numberOfMatchedVisible))
+		);
+		
+		comp.setLocation(locPoint);
 	}
 	
 	public static void rightEdgeCenterWindow(Container referenceComponent, Container comp)
