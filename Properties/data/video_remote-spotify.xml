@@ -12,7 +12,7 @@
 				</JMenuItem>
 			</JMenu>
 		</JMenuBar>
-		<JPanel addMouseListener="MouseListenersImpl.MouseDragMoveWindowListener" addMouseMotionListener="MouseListenersImpl.MouseDragMoveWindowListener" extendedLayoutApplyParent="Center" setBackground="0, 0, 0" setLayout="java.awt.BorderLayout" >
+		<JPanel extendedLayoutApplyParent="Center" setBackground="0, 0, 0" setLayout="java.awt.BorderLayout" >
 			<JPanel extendedLayoutApplyParent="Center" setBackground="0, 0, 0" setLayout="java.awt.FlowLayout" >
 				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/send-pid-key.ahk%Tn read-spotify-pid.txt" extendedLayoutApplyParent="" setBackground="0, 102, 0" setForeground="204, 204, 204" setText="^" setToolTipText="Activate Window / Show" >
 				</JButton>
