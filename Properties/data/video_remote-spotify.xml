@@ -1,0 +1,40 @@
+<Build>
+	<JFrame extendedSetupTaskbar="./src/ApplicationBuilder/video-icon.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="450, 550" setMinimumSize="300, 165" setResizable="False" setTitle="Spotify" >
+		<JPanel extendedLayoutApplyParent="West" setLayout="java.awt.GridLayout" >
+			<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/send-pid-key.ahk%Tn read-spotify-pid.txt%Tn ^{Up}" extendedLayoutApplyParent="" setBackground="0, 102, 0" setForeground="204, 204, 204" setText="[+]" setToolTipText="Volume Up" >
+			</JButton>
+			<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/send-pid-key.ahk%Tn read-spotify-pid.txt%Tn ^{Down}" extendedLayoutApplyParent="" setBackground="0, 102, 0" setForeground="204, 204, 204" setText="[-]" setToolTipText="Volume Down" >
+			</JButton>
+		</JPanel>
+		<JMenuBar extendedSetJMenuBarParent="" >
+			<JMenu extendedLayoutApplyParent="" setText="Open" >
+				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="C:\Users\danie\AppData\Local\Microsoft\WindowsApps\Spotify.exe" extendedLayoutApplyParent="" setText="Spotify" >
+				</JMenuItem>
+			</JMenu>
+		</JMenuBar>
+		<JPanel addMouseListener="MouseListenersImpl.MouseDragMoveWindowListener" addMouseMotionListener="MouseListenersImpl.MouseDragMoveWindowListener" extendedLayoutApplyParent="Center" setBackground="0, 0, 0" setLayout="java.awt.BorderLayout" >
+			<JPanel extendedLayoutApplyParent="Center" setBackground="0, 0, 0" setLayout="java.awt.FlowLayout" >
+				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/send-pid-key.ahk%Tn read-spotify-pid.txt" extendedLayoutApplyParent="" setBackground="0, 102, 0" setForeground="204, 204, 204" setText="^" setToolTipText="Activate Window / Show" >
+				</JButton>
+			</JPanel>
+			<JPanel extendedLayoutApplyParent="North" setBackground="0, 0, 0" setLayout="java.awt.FlowLayout" >
+				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Fn./plugin-projects/AutoHotKey-Utils/store-pid-by-process-name.sh%Tn Spotify.exe%Tn read-spotify-pid.txt" extendedLayoutApplyParent="" setBackground="0, 102, 0" setForeground="204, 204, 204" setText="| [Con] |" setToolTipText="Connect To PowerDVD" >
+				</JButton>
+				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/send-pid-key.ahk%Tn read-spotify-pid.txt%Tn {space}" extendedLayoutApplyParent="" setBackground="0, 102, 0" setForeground="204, 204, 204" setText="| [ &gt; ] |" setToolTipText="Play/Pause" >
+				</JButton>
+				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/send-pid-key.ahk%Tn read-spotify-pid.txt%Tn z" extendedLayoutApplyParent="" setBackground="0, 102, 0" setForeground="204, 204, 204" setText="| [Full] |" setToolTipText="Go Fullscreen" >
+				</JButton>
+			</JPanel>
+			<JPanel extendedLayoutApplyParent="South" setBackground="0, 0, 0" setLayout="java.awt.FlowLayout" >
+				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/send-pid-key.ahk%Tn read-spotify-pid.txt%Tn ^{Left}" extendedLayoutApplyParent="" setBackground="0, 102, 0" setForeground="204, 204, 204" setText="&lt;" setToolTipText="Previous track" >
+				</JButton>
+				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/send-pid-key.ahk%Tn read-spotify-pid.txt%Tn +{Left}" extendedLayoutApplyParent="" setBackground="0, 102, 0" setForeground="204, 204, 204" setText="| &lt;&lt; |" setToolTipText="Rewind" >
+				</JButton>
+				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/send-pid-key.ahk%Tn read-spotify-pid.txt%Tn +{Right}" extendedLayoutApplyParent="" setBackground="0, 102, 0" setForeground="204, 204, 204" setText="| &gt;&gt; |" setToolTipText="Fast Forward" >
+				</JButton>
+				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/send-pid-key.ahk%Tn read-spotify-pid.txt%Tn ^{Right}" extendedLayoutApplyParent="" setBackground="0, 102, 0" setForeground="204, 204, 204" setText="&gt;" setToolTipText="Next Track" >
+				</JButton>
+			</JPanel>
+		</JPanel>
+	</JFrame>
+</Build>
