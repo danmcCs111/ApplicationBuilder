@@ -51,9 +51,12 @@ Launch video selector with:
 
 <img width="45%" width="924" height="434" alt="image" src="https://github.com/user-attachments/assets/d408c355-8dec-449d-af03-f27bc31326a5" />
 
-*added powerdvd remote
+*added powerdvd, spotify, hauppauge wintv remotes
 
-<img width="279" height="154" alt="image" src="https://github.com/user-attachments/assets/3cac88c4-18dc-4824-9448-c711a9eb8c71" />
+<img width="30%" width="279" height="154" alt="image" src="https://github.com/user-attachments/assets/3cac88c4-18dc-4824-9448-c711a9eb8c71" />
+<img width="30%" width="281" height="156" alt="image" src="https://github.com/user-attachments/assets/1927d2cb-4287-4eeb-ab48-dbd1c226540b" />
+<img width="30%" width="279" height="153" alt="image" src="https://github.com/user-attachments/assets/4d2270d5-7c39-45c2-b04b-e6c8c0ccb2d1" />
+
 
 
 *added middle click to launch in alternate window
