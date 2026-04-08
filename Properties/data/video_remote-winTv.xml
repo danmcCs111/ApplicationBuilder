@@ -1,0 +1,44 @@
+<Build>
+	<JFrame extendedSetupTaskbar="./src/ApplicationBuilder/video-icon.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="450, 550" setMinimumSize="300, 165" setResizable="False" setTitle="WinTV" >
+		<JPanel extendedLayoutApplyParent="West" setLayout="java.awt.GridLayout" >
+			<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/send-pid-key.ahk%Tn read-wintv-pid.txt%Tn {+}" extendedLayoutApplyParent="" setBackground="102, 0, 0" setForeground="204, 204, 204" setText="[+]" setToolTipText="Channel Up" >
+			</JButton>
+			<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/send-pid-key.ahk%Tn read-wintv-pid.txt%Tn -" extendedLayoutApplyParent="" setBackground="102, 0, 0" setForeground="204, 204, 204" setText="[-]" setToolTipText="Channel Down" >
+			</JButton>
+		</JPanel>
+		<JMenuBar extendedSetJMenuBarParent="" >
+			<JMenu extendedLayoutApplyParent="" setText="Open" >
+				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="C:\Program Files (x86)\WinTV\WinTV10\WinTV10.exe" extendedLayoutApplyParent="" setText="WinTv" >
+				</JMenuItem>
+			</JMenu>
+		</JMenuBar>
+		<JPanel addMouseListener="MouseListenersImpl.MouseDragMoveWindowListener" addMouseMotionListener="MouseListenersImpl.MouseDragMoveWindowListener" extendedLayoutApplyParent="Center" setBackground="0, 0, 0" setLayout="java.awt.BorderLayout" >
+			<JPanel extendedLayoutApplyParent="Center" setBackground="0, 0, 0" setLayout="java.awt.FlowLayout" >
+				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/send-pid-key.ahk%Tn read-wintv-pid.txt%Tn ^l" extendedLayoutApplyParent="" setBackground="102, 0, 0" setForeground="204, 204, 204" setText="| [Chan] |" setToolTipText="Open Channels" >
+				</JButton>
+				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/send-pid-key.ahk%Tn read-wintv-pid.txt" extendedLayoutApplyParent="" setBackground="102, 0, 0" setForeground="204, 204, 204" setText="^" setToolTipText="Activate Window / Show" >
+				</JButton>
+				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/send-pid-key.ahk%Tn read-wintv-pid.txt%Tn ^w" extendedLayoutApplyParent="" setBackground="102, 0, 0" setForeground="204, 204, 204" setText="| [Full] |" setToolTipText="View Channels" >
+				</JButton>
+			</JPanel>
+			<JPanel extendedLayoutApplyParent="North" setBackground="0, 0, 0" setLayout="java.awt.FlowLayout" >
+				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Fn./plugin-projects/AutoHotKey-Utils/store-pid-by-process-name.sh%Tn WinTV10.exe%Tn read-wintv-pid.txt" extendedLayoutApplyParent="" setBackground="102, 0, 0" setForeground="204, 204, 204" setText="| [Con] |" setToolTipText="Connect To WinTV" >
+				</JButton>
+				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/send-pid-key.ahk%Tn read-wintv-pid.txt%Tn ^q" extendedLayoutApplyParent="" setBackground="102, 0, 0" setForeground="204, 204, 204" setText="[ || ]" setToolTipText="Pause" >
+				</JButton>
+				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/send-pid-key.ahk%Tn read-wintv-pid.txt%Tn ^p" extendedLayoutApplyParent="" setBackground="102, 0, 0" setForeground="255, 255, 255" setText="| [ &gt; ] |" setToolTipText="Play" >
+				</JButton>
+			</JPanel>
+			<JPanel extendedLayoutApplyParent="South" setBackground="0, 0, 0" setLayout="java.awt.FlowLayout" >
+				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/send-pid-key.ahk%Tn read-wintv-pid.txt%Tn ^{Left}" extendedLayoutApplyParent="" setBackground="102, 0, 0" setForeground="204, 204, 204" setText="&lt;" setToolTipText="Previous track" >
+				</JButton>
+				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/send-pid-key.ahk%Tn read-wintv-pid.txt%Tn !r" extendedLayoutApplyParent="" setBackground="102, 0, 0" setForeground="204, 204, 204" setText="| O |" setToolTipText="Record" >
+				</JButton>
+				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/send-pid-key.ahk%Tn read-wintv-pid.txt%Tn !s" extendedLayoutApplyParent="" setBackground="102, 0, 0" setForeground="204, 204, 204" setText="| [  ] |" setToolTipText="Stop Record/Play" >
+				</JButton>
+				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/send-pid-key.ahk%Tn read-wintv-pid.txt%Tn ^{Right}" extendedLayoutApplyParent="" setBackground="102, 0, 0" setForeground="204, 204, 204" setText="&gt;" setToolTipText="Next Track" >
+				</JButton>
+			</JPanel>
+		</JPanel>
+	</JFrame>
+</Build>
