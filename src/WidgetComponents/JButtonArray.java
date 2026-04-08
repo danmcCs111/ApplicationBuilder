@@ -972,5 +972,24 @@ PostWidgetBuildProcessing, ButtonArray
 		
 		GraphicsUtil.rightEdgeTopWindow(WidgetBuildController.getInstance().getFrame(), abce);
 	}
+	
+	public ArrayList<?> resourceCollect(Class<?> clazz)//TODO.
+	{
+		if(clazz == JButtonLengthLimited.class)
+		{
+			ArrayList<KeepSelection> kss = getKeepSelection();
+			ArrayList<JButtonLengthLimited> jblls = new ArrayList<JButtonLengthLimited>();
+			for(KeepSelection ks : kss)
+			{
+				JButtonLengthLimited jbll = ks.getJButtonLengthLimited();
+				jblls.add(jbll);
+			}
+			return jblls;
+		}
+		else
+		{
+			return null;
+		}
+	}
 
 }

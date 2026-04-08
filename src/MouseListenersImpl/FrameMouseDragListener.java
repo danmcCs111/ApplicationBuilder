@@ -11,6 +11,7 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -34,6 +35,7 @@ import WidgetComponentInterfaces.ImageReader;
 import WidgetComponents.JButtonLengthLimited;
 import WidgetComponents.JMenuItemLaunchUrl;
 import WidgetComponents.SwappableCollection;
+import WidgetComponents.VideoChannelListView;
 import WidgetComponents.VideoChannelPlayer;
 import WidgetComponentsTips4Java.MenuScroller;
 
@@ -49,6 +51,9 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		UPDATE_BACKFILL_TOOLTIP = "Bulk update to backfill from a selected begin date.",
 		UPDATE_VIDEOS = "UPDATE",
 		UPDATE_VIDEOS_TOOLTIP = "Update after last timestamp stored.";
+	
+	private static final SimpleDateFormat
+		SDF_DATE_SHORT = new SimpleDateFormat("MMM-dd-yyyy");
 	
 	public static int
 		SCALED_WIDTH_ICON = 35;
@@ -179,7 +184,12 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		JMenuItemLaunchUrl jmi = new JMenuItemLaunchUrl(ycv.getTitle());
 		jmi.setHighlightButton(component);
 		jmi.setName(ycv.getUrl());
-		jmi.setToolTipText("Upload Date: " + ycv.getUploadDate().toString());
+		
+		String tooltipText = "<html> Upload Date: " + SDF_DATE_SHORT.format(ycv.getUploadDate()) + 
+				"<br/> Duration: " + VideoChannelListView.formatDuration(ycv.getDuration()) +
+				"</html>";
+		
+		jmi.setToolTipText(tooltipText);
 		jmi.addActionListener(new VideoSubSelectionLauncher(component, jmi, this));
 		return jmi;
 	}

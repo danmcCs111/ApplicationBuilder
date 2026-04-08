@@ -417,7 +417,7 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 		return jbll;
 	}
 	
-	private static String formatDuration(String duration)
+	public static String formatDuration(String duration)
 	{
 		if(duration == null || duration.equals("null"))
 		{
