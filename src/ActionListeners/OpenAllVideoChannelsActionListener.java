@@ -12,6 +12,7 @@ import WidgetComponents.JButtonLengthLimited;
 public class OpenAllVideoChannelsActionListener implements ActionListener
 {
 	private JButtonArray ba;
+	private AllVideoChannelsOpenedPlayer avop;
 	
 	public OpenAllVideoChannelsActionListener(JButtonArray ba)
 	{
@@ -28,6 +29,17 @@ public class OpenAllVideoChannelsActionListener implements ActionListener
 			JButtonLengthLimited jbll = ks.getJButtonLengthLimited();
 			jblls.add(jbll);
 		}
-		AllVideoChannelsOpenedPlayer avop = new AllVideoChannelsOpenedPlayer(jblls, ba);
+		if(avop != null)
+		{
+			avop.dispose();
+		}
+		Runnable r = new Runnable() {
+			@Override
+			public void run() {
+				avop = new AllVideoChannelsOpenedPlayer(jblls, ba);
+			}
+		};
+		Thread t = new Thread(r);
+		t.start();
 	}
 }

@@ -13,7 +13,9 @@ public class OpenVideoChannelsUpdaterActionListener implements ActionListener
 {
 	private JButtonArray
 		ba;
-
+	private OpenVideoChannelsUpdater 
+		ovcu;
+	
 	public OpenVideoChannelsUpdaterActionListener(JButtonArray ba)
 	{
 		this.ba = ba;
@@ -29,7 +31,18 @@ public class OpenVideoChannelsUpdaterActionListener implements ActionListener
 			JButtonLengthLimited jbll = ks.getJButtonLengthLimited();
 			jblls.add(jbll);
 		}
-		OpenVideoChannelsUpdater ovcu = new OpenVideoChannelsUpdater(jblls, ba);
+		if(ovcu != null)
+		{
+			ovcu.dispose();
+		}
+		Runnable r = new Runnable() {
+			@Override
+			public void run() {
+				ovcu = new OpenVideoChannelsUpdater(jblls, ba);
+			}
+		};
+		Thread t = new Thread(r);
+		t.start();
 	}
 
 }
