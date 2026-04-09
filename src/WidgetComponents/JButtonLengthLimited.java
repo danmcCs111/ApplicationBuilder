@@ -9,11 +9,18 @@ import WidgetComponentInterfaces.LaunchUrlButton;
 
 public class JButtonLengthLimited extends JButton implements Comparator<JButtonLengthLimited>, LaunchUrlButton
 {
-	private static final String CHARACTER_LIMIT_TEXT = "..";
 	private static final long serialVersionUID = 1L;
-	private int characterLimit = 0;
-	private String fullLengthText;
-	private AbstractButton highlightButton = this;
+	
+	private static final String 
+		CHARACTER_LIMIT_TEXT = "..";
+	
+	private int 
+		characterLimit = 0;
+	private String 
+		fullLengthText,
+		path;
+	private AbstractButton 
+		highlightButton = this;
 	
 	public void setCharacterLimit(int charLimit)
 	{
@@ -29,6 +36,16 @@ public class JButtonLengthLimited extends JButton implements Comparator<JButtonL
 	public void setFullText(String text)
 	{
 		this.fullLengthText = text;
+	}
+	
+	public void setPath(String path)
+	{
+		this.path = path;
+	}
+	
+	public String getPath()
+	{
+		return this.path;
 	}
 	
 	@Override

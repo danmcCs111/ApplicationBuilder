@@ -59,6 +59,7 @@ public class FileListOptionGenerator
 		{
 			JButtonLengthLimited button = new JButtonLengthLimited();
 //			button.setHorizontalAlignment(JButton.LEFT);
+			button.setPath(path);
 			button.setText(fileName);
 			button.setFullText(PathUtility.getFilenameNoExtension(fileName));
 			button.setName(url == null

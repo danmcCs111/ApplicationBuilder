@@ -25,7 +25,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
-import ActionListenersImpl.NavigationButtonActionListener;
 import Graphics2D.ColorTemplate;
 import ObjectTypeConversion.DirectorySelection;
 import ObjectTypeConversion.FileSelection;
@@ -36,7 +35,6 @@ import WidgetComponentInterfaces.ImageReader;
 import WidgetComponents.JButtonLengthLimited;
 import WidgetComponents.JMenuItemLaunchUrl;
 import WidgetComponents.JMenuLaunchUrl;
-import WidgetComponents.SwappableCollection;
 import WidgetComponents.VideoChannelListView;
 import WidgetComponents.VideoChannelPlayer;
 import WidgetComponentsTips4Java.MenuScroller;
@@ -353,12 +351,12 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		if(icon != null)
 			return icon;
 		
-		int indexPos = NavigationButtonActionListener.getCurPosition();
-		String path = SwappableCollection.indexPaths.get(indexPos);
+		String path = jbll.getPath();
 		ImageReader buttonImageReader = new ImageReader(this, true);
 		DirectorySelection ds = new DirectorySelection(path);
 		File f = new File(ds.getFullPath() + "/images/" + jbll.getFullLengthText() + ".png");
 		LoggingMessages.printOut(f.toString());
+		
 		icon = buttonImageReader.getImageIcon(f);
 		
 		return icon;
