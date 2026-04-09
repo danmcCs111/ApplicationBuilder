@@ -1,5 +1,6 @@
 package MouseListenersImpl;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -11,39 +12,48 @@ import WidgetComponentInterfaces.HighlightListener;
 public class VideoSubSelectionLauncher implements ActionListener
 {
 	private AbstractButton 
-		component,
-		childButton;
+		parentComponent;
+	private Component
+		childComponent;
 	private HighlightListener 
 		hlListener;
+	private int
+		id = -1;
 	
 	public VideoSubSelectionLauncher(AbstractButton component)
 	{
-		this.component = component;
+		this.parentComponent = component;
 	}
 	
 	public VideoSubSelectionLauncher(AbstractButton component, AbstractButton childButton, HighlightListener hlListener)
 	{
-		this.component = component;
-		this.childButton = childButton;
-		this.hlListener = hlListener;
+		this(component, childButton, hlListener, -1);
 	}
 	
-	public void performLaunch(AbstractButton childButton, int id)
+	public VideoSubSelectionLauncher(AbstractButton component, AbstractButton childButton, HighlightListener hlListener, int id)
+	{
+		this.parentComponent = component;
+		this.childComponent = childButton;
+		this.hlListener = hlListener;
+		this.id = id;
+	}
+	
+	public void performLaunch(Component childButton, int id)
 	{
 		String [] args = LaunchUrlActionListener.buildCommand(childButton, id);
 		LaunchUrlActionListener.executeProcess(id, args);
 	}
 	
-	public void performLaunch(AbstractButton childButton) //double loop b/c of order.
+	public void performLaunch(Component childComponent) //double loop b/c of order.
 	{
-		for(ActionListener al : component.getActionListeners())
+		for(ActionListener al : parentComponent.getActionListeners())
 		{
 			if(al instanceof LaunchUrlActionListener)
 			{
-				Object source = childButton;
+				Object source = childComponent;
 				if(hlListener != null)
 				{
-					AbstractButton ab = hlListener.getMatchingButton(childButton.getName());
+					Component ab = hlListener.getMatchingComponent(childComponent.getName());
 					if(ab != null)
 					{
 						source = ab;
@@ -52,12 +62,12 @@ public class VideoSubSelectionLauncher implements ActionListener
 				al.actionPerformed(new ActionEvent(source, 1, "Open From Image"));
 			}
 		}
-		for(ActionListener al : component.getActionListeners())
+		for(ActionListener al : parentComponent.getActionListeners())
 		{
 			if(!(al instanceof LaunchUrlActionListener))
 			{
-				al.actionPerformed(new ActionEvent(component, 1, "Open From Image"));
-				PicLabelMouseListener.highLightLabel(component, true);//TODO
+				al.actionPerformed(new ActionEvent(parentComponent, 1, "Open From Image"));
+				PicLabelMouseListener.highLightLabel(parentComponent, true);//TODO
 			}
 		}
 		if(hlListener != null)
@@ -69,6 +79,13 @@ public class VideoSubSelectionLauncher implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		performLaunch(this.childButton);
+		if(id == -1)
+		{
+			performLaunch(this.childComponent);
+		}
+		else
+		{
+			performLaunch(childComponent, id);
+		}
 	}
 }

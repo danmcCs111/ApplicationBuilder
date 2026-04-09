@@ -1,5 +1,6 @@
 package MouseListenersImpl;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -34,6 +35,7 @@ import WidgetComponentInterfaces.HighlightListener;
 import WidgetComponentInterfaces.ImageReader;
 import WidgetComponents.JButtonLengthLimited;
 import WidgetComponents.JMenuItemLaunchUrl;
+import WidgetComponents.JMenuLaunchUrl;
 import WidgetComponents.SwappableCollection;
 import WidgetComponents.VideoChannelListView;
 import WidgetComponents.VideoChannelPlayer;
@@ -155,8 +157,8 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 				for(YoutubeChannelVideo ycv : ycvs.get(key))
 				{
 					LoggingMessages.printOut("video found! " + ycv.getTitle());
-					JMenuItemLaunchUrl jmi = buildJMenuItem(ycv);
-					mi2.add(jmi);
+					JMenu jm = buildJMenuItem(ycv);
+					mi2.add(jm);
 					count++;
 				}
 			}
@@ -179,19 +181,29 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		return mi2;
 	}
 	
-	private JMenuItemLaunchUrl buildJMenuItem(YoutubeChannelVideo ycv)
+	private JMenu buildJMenuItem(YoutubeChannelVideo ycv)
 	{
-		JMenuItemLaunchUrl jmi = new JMenuItemLaunchUrl(ycv.getTitle());
-		jmi.setHighlightButton(component);
-		jmi.setName(ycv.getUrl());
-		
+		JMenuLaunchUrl jm = new JMenuLaunchUrl(ycv.getTitle());
 		String tooltipText = "<html> Upload Date: " + SDF_DATE_SHORT.format(ycv.getUploadDate()) + 
 				"<br/> Duration: " + VideoChannelListView.formatDuration(ycv.getDuration()) +
 				"</html>";
+		jm.setName(ycv.getUrl());
+		jm.setHighlightButton(component);
+		jm.setToolTipText(tooltipText);
 		
-		jmi.setToolTipText(tooltipText);
-		jmi.addActionListener(new VideoSubSelectionLauncher(component, jmi, this));
-		return jmi;
+		JMenuItemLaunchUrl jmi = new JMenuItemLaunchUrl(OPEN_MENU_TEXT);
+		jmi.setHighlightButton(component);
+		jmi.setName(ycv.getUrl());
+		jmi.addActionListener(new VideoSubSelectionLauncher(component, jm, this));
+		
+		JMenuItemLaunchUrl jmi2 = new JMenuItemLaunchUrl(OPEN_MENU_TEXT + " NEW");
+		jmi2.setName(ycv.getUrl());
+		jmi2.addActionListener(new VideoSubSelectionLauncher(component, jm, this, 1));
+		
+		jm.add(jmi);
+		jm.add(jmi2);
+		
+		return jm;
 	}
 	
 	private JMenu buildUpdateMenu()
@@ -329,7 +341,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	}
 
 	@Override
-	public AbstractButton getMatchingButton(String name) 
+	public Component getMatchingComponent(String name) 
 	{
 		if(vqp == null)
 			return null;

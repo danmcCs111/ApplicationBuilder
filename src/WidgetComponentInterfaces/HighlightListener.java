@@ -1,9 +1,9 @@
 package WidgetComponentInterfaces;
 
-import javax.swing.AbstractButton;
+import java.awt.Component;
 
 public interface HighlightListener 
 {
 	public void highlight();
-	public AbstractButton getMatchingButton(String name);
+	public Component getMatchingComponent(String name);
 }

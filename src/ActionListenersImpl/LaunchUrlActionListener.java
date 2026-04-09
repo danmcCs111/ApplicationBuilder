@@ -1,5 +1,6 @@
 package ActionListenersImpl;
 
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -161,7 +162,7 @@ public class LaunchUrlActionListener implements ActionListener
 		return buildCommand(button, defaultId);
 	}
 	
-	public static String [] buildCommand(AbstractButton button, int id)
+	public static String [] buildCommand(Component comp, int id)
 	{
 		String chromeProfile = (id == -1)
 				?CHROME_PROFILE_OPTION
@@ -172,7 +173,7 @@ public class LaunchUrlActionListener implements ActionListener
 			args = new String [] {
 				PathUtility.isWindows()?getProcessWindowsOS():getProcessLinuxOS(), 
 				CHROME_HIDE_OPTION, chromeProfile, CHROME_NO_DEFAULT_CHECK, CHROME_KIOSK, 
-				button.getName()	
+				comp.getName()	
 			};
 		}
 		else
@@ -180,7 +181,7 @@ public class LaunchUrlActionListener implements ActionListener
 			args = new String [] {
 				PathUtility.isWindows()?getProcessWindowsOS():getProcessLinuxOS(), 
 				CHROME_HIDE_OPTION, chromeProfile, CHROME_NO_DEFAULT_CHECK, 
-				button.getName()
+				comp.getName()
 			};
 		}
 		
