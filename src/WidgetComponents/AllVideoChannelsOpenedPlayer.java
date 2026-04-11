@@ -23,6 +23,7 @@ import javax.swing.JScrollPane;
 
 import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
+import MouseListenersImpl.LookupOrCreateYoutube;
 import MouseListenersImpl.YoutubeChannelVideo;
 import ObjectTypeConversion.DirectorySelection;
 import ObjectTypeConversion.FileSelection;
@@ -43,6 +44,7 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 	private static String
 		TITLE = "All Open Video Channels",
 		HOME_PAGE_TOOLTIP_TEXT = "[ <arg0> ] - Homepage",
+		UPDATE_BUTTON_TEXT = "Update",
 		ALL_SELECT_TEXT = "All Channels";
 	private static int 
 		DEFAULT_MINUTE_SETTING = 10,
@@ -55,7 +57,11 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 	private HashMap<Integer, JButtonLengthLimited> 
 		parentButtons;
 	private JButton 
+		updateButton = new JButton(UPDATE_BUTTON_TEXT),
 		imageLabel = new JButton();
+	private JButtonLengthLimited
+		selectedButton = null,
+		selectedButtonParent = null;
 	private Container 
 		parentContainer;
 	private VideoChannelListView 
@@ -67,8 +73,8 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 		parentScaler;
 	private HashMap<JButtonLengthLimited, ImageIcon>
 		icon = new HashMap<JButtonLengthLimited, ImageIcon>();
-//	private LookupOrCreateYoutube 
-//		lcv = new LookupOrCreateYoutube();
+	private LookupOrCreateYoutube 
+		lcv = new LookupOrCreateYoutube();
 	
 	public AllVideoChannelsOpenedPlayer(DefaultAndScaledImage parentScaler, ArrayList<JButtonLengthLimited> jblls, Container parentContainer)
 	{
@@ -189,19 +195,32 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 		channelScroll = new JScrollPane(listPanel);
 		channelScroll.getVerticalScrollBar().setUnitIncrement(SCROLL_UNIT_INC);
 		
-		AbstractButton allSelectBtn = buildAllSelectionButton();
-		listPanel.add(allSelectBtn);
-		for(int i : parentButtons.keySet())
-		{
-			AbstractButton ab = buildSelectionButton(parentButtons.get(i), ycvs.get(i));
-			listPanel.add(ab);
-		}
-		
 		listView = new VideoChannelListView(parentButtons, ycvs);
 		
 		JPanel searchPanel = new JPanel();
-		searchPanel.setLayout(new FlowLayout());
-		setImageButton(null);
+		FlowLayout fl = new FlowLayout();
+		fl.setAlignment(FlowLayout.LEFT);
+		searchPanel.setLayout(fl);
+		
+		updateButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(selectedButton == null)
+					return;
+				
+				lcv.update(selectedButtonParent.getText(), selectedButtonParent.getName());
+				HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs = lcv.lookup(
+						selectedButtonParent.getText(), selectedButtonParent.getName());
+				listView = new VideoChannelListView(selectedButton, ycvs);
+				removeListView();
+				addListView();
+				setImageButton(selectedButtonParent);//TODO
+				refreshListView(selectedButton);
+				
+				selectedButton.doClick();
+			}
+		});
+		
 		SearchBar sb = new SearchBar();
 		sb.setColumnCharacterLength(SEARCH_COLUMN_LENGTH);
 		sb.addSearchSubscriber(new SearchSubscriber() {
@@ -222,31 +241,34 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 		dl.setMinuteDefault(DEFAULT_MINUTE_SETTING);
 		
 		searchPanel.add(imageLabel);
+		searchPanel.add(updateButton);
 		searchPanel.add(sb);
 		searchPanel.add(dl);
+		
+		AbstractButton allSelectBtn = buildAllSelectionButton();
+		listPanel.add(allSelectBtn);
+		for(int i : parentButtons.keySet())
+		{
+			AbstractButton ab = buildSelectionButton(parentButtons.get(i), ycvs.get(i));
+			listPanel.add(ab);
+		}
+		setImageButton(null);
 		
 		this.setLayout(new BorderLayout());
 		this.add(channelScroll, BorderLayout.WEST);
 		addListView();
 		this.add(searchPanel, BorderLayout.NORTH);
 		
-		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
-		ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
-		ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
-		ExtendedSetScrollBackgroundForegroundColor.applyBackgroundForeground(
-				ColorTemplate.getPanelBackgroundColor(), ColorTemplate.getButtonBackgroundColor(), contentScrollPane);
+		refreshListView(allSelectBtn);
 		ExtendedSetScrollBackgroundForegroundColor.applyBackgroundForeground(
 				ColorTemplate.getPanelBackgroundColor(), ColorTemplate.getButtonBackgroundColor(), channelScroll);
-		
-		allSelectBtn.setBackground(ColorTemplate.getButtonForegroundColor());
-		allSelectBtn.setForeground(ColorTemplate.getButtonBackgroundColor());
 		
 		this.setTitle(TITLE);
 		this.setMinimumSize(MIN_SIZE);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setVisible(true);
 		GraphicsUtil.rightEdgeTopWindow(parentContainer, this);
-		listView.postFrameBuild();
+		
 	}
 	
 	public void addListView()
@@ -271,10 +293,12 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 		if(jbll == null)
 		{
 			imageLabel.setVisible(false);
+			updateButton.setVisible(false);
 			return;
 		}
 		
 		imageLabel.setVisible(true);
+		updateButton.setVisible(true);
 		
 		ImageIcon ii = getImage(jbll);
 		imageLabel.setIcon(ii);
@@ -334,17 +358,7 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 				
 				setImageButton(null);
 				
-				AllVideoChannelsOpenedPlayer.this.validate();
-				ColorTemplate.setBackgroundColorPanel(AllVideoChannelsOpenedPlayer.this, ColorTemplate.getPanelBackgroundColor());
-				ColorTemplate.setBackgroundColorButtons(AllVideoChannelsOpenedPlayer.this, ColorTemplate.getButtonBackgroundColor());
-				ColorTemplate.setForegroundColorButtons(AllVideoChannelsOpenedPlayer.this, ColorTemplate.getButtonForegroundColor());
-				ExtendedSetScrollBackgroundForegroundColor.applyBackgroundForeground(
-						ColorTemplate.getPanelBackgroundColor(), ColorTemplate.getButtonBackgroundColor(), contentScrollPane);
-				ExtendedSetScrollBackgroundForegroundColor.applyBackgroundForeground(
-						ColorTemplate.getPanelBackgroundColor(), ColorTemplate.getButtonBackgroundColor(), channelScroll);
-				jbll.setBackground(ColorTemplate.getButtonForegroundColor());
-				jbll.setForeground(ColorTemplate.getButtonBackgroundColor());
-				listView.postFrameBuild();
+				refreshListView(jbll);
 			}
 		});
 		
@@ -364,22 +378,28 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 				removeListView();
 				addListView();
 				
-				setImageButton(parentButton);//TODO
+				setImageButton(parentButton);
+				selectedButton = jbll;
+				selectedButtonParent = parentButton;
 				
-				AllVideoChannelsOpenedPlayer.this.validate();
-				ColorTemplate.setBackgroundColorPanel(AllVideoChannelsOpenedPlayer.this, ColorTemplate.getPanelBackgroundColor());
-				ColorTemplate.setBackgroundColorButtons(AllVideoChannelsOpenedPlayer.this, ColorTemplate.getButtonBackgroundColor());
-				ColorTemplate.setForegroundColorButtons(AllVideoChannelsOpenedPlayer.this, ColorTemplate.getButtonForegroundColor());
-				ExtendedSetScrollBackgroundForegroundColor.applyBackgroundForeground(
-						ColorTemplate.getPanelBackgroundColor(), ColorTemplate.getButtonBackgroundColor(), contentScrollPane);
-				ExtendedSetScrollBackgroundForegroundColor.applyBackgroundForeground(
-						ColorTemplate.getPanelBackgroundColor(), ColorTemplate.getButtonBackgroundColor(), channelScroll);
-				jbll.setBackground(ColorTemplate.getButtonForegroundColor());
-				jbll.setForeground(ColorTemplate.getButtonBackgroundColor());
-				listView.postFrameBuild();
+				refreshListView(jbll);
 			}
 		});
 		return jbll;
+	}
+	
+	public void refreshListView(AbstractButton selectedButton)
+	{
+		ColorTemplate.setBackgroundColorPanel(AllVideoChannelsOpenedPlayer.this, ColorTemplate.getPanelBackgroundColor());
+		ColorTemplate.setBackgroundColorButtons(AllVideoChannelsOpenedPlayer.this, ColorTemplate.getButtonBackgroundColor());
+		ColorTemplate.setForegroundColorButtons(AllVideoChannelsOpenedPlayer.this, ColorTemplate.getButtonForegroundColor());
+		ExtendedSetScrollBackgroundForegroundColor.applyBackgroundForeground(
+				ColorTemplate.getPanelBackgroundColor(), ColorTemplate.getButtonBackgroundColor(), contentScrollPane);
+		
+		selectedButton.setBackground(ColorTemplate.getButtonForegroundColor());
+		selectedButton.setForeground(ColorTemplate.getButtonBackgroundColor());
+		listView.postFrameBuild();
+		AllVideoChannelsOpenedPlayer.this.validate();
 	}
 
 	@Override

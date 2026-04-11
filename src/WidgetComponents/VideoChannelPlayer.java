@@ -80,24 +80,6 @@ public class VideoChannelPlayer extends JFrame
 		FlowLayout fl = new FlowLayout();
 		fl.setAlignment(FlowLayout.LEFT);
 		searchPanel.setLayout(fl);
-		SearchBar sb = new SearchBar();
-		sb.setColumnCharacterLength(SEARCH_COLUMN_LENGTH);
-		sb.addSearchSubscriber(new SearchSubscriber() {
-			@Override
-			public void notifySearchText(String searchPattern) {
-				listView.setVisible(searchPattern);
-				VideoChannelPlayer.this.validate();
-			}
-		});
-		DurationLimitSubscriber dls = new DurationLimitSubscriber() {
-			@Override
-			public void notifyDurationLimit(int hour, int minute, Mode m) {
-				listView.setVisible(hour, minute, m);
-				VideoChannelPlayer.this.validate();
-			}
-		};
-		DurationLimiter dl = new DurationLimiter(dls);
-		dl.setMinuteDefault(DEFAULT_MINUTE_SETTING);
 		
 		JButton imageLabel = new JButton(videoImage);
 		imageLabel.setToolTipText(HOME_PAGE_TOOLTIP_TEXT.replaceAll("<arg0>", parentButton.getText()));
@@ -122,6 +104,7 @@ public class VideoChannelPlayer extends JFrame
 				}
 			}
 		});
+		
 		JButton updateButton = new JButton(UPDATE_BUTTON_TEXT);
 		updateButton.addActionListener(new ActionListener() {
 			@Override
@@ -136,7 +119,27 @@ public class VideoChannelPlayer extends JFrame
 				Thread t = new Thread(r);
 				t.start();
 			}
-		});		
+		});
+		
+		SearchBar sb = new SearchBar();
+		sb.setColumnCharacterLength(SEARCH_COLUMN_LENGTH);
+		sb.addSearchSubscriber(new SearchSubscriber() {
+			@Override
+			public void notifySearchText(String searchPattern) {
+				listView.setVisible(searchPattern);
+				VideoChannelPlayer.this.validate();
+			}
+		});
+		
+		DurationLimitSubscriber dls = new DurationLimitSubscriber() {
+			@Override
+			public void notifyDurationLimit(int hour, int minute, Mode m) {
+				listView.setVisible(hour, minute, m);
+				VideoChannelPlayer.this.validate();
+			}
+		};
+		DurationLimiter dl = new DurationLimiter(dls);
+		dl.setMinuteDefault(DEFAULT_MINUTE_SETTING);
 		
 		searchPanel.add(imageLabel);
 		searchPanel.add(updateButton);
