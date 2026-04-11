@@ -36,7 +36,7 @@ public class OpenAllVideoChannelsActionListener implements ActionListener
 		Runnable r = new Runnable() {
 			@Override
 			public void run() {
-				avop = new AllVideoChannelsOpenedPlayer(jblls, ba);
+				avop = new AllVideoChannelsOpenedPlayer(jblls, ba.getRootPane().getParent());
 			}
 		};
 		Thread t = new Thread(r);

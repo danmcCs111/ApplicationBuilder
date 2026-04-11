@@ -38,7 +38,7 @@ public class OpenVideoChannelsUpdaterActionListener implements ActionListener
 		Runnable r = new Runnable() {
 			@Override
 			public void run() {
-				ovcu = new OpenVideoChannelsUpdater(jblls, ba);
+				ovcu = new OpenVideoChannelsUpdater(jblls, ba.getRootPane().getParent());
 			}
 		};
 		Thread t = new Thread(r);
