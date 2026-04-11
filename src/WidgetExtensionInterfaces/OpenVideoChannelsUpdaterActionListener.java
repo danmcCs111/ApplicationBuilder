@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import Graphics2D.GraphicsUtil;
 import Params.KeepSelection;
 import WidgetComponents.JButtonArray;
 import WidgetComponents.JButtonLengthLimited;
@@ -38,7 +39,8 @@ public class OpenVideoChannelsUpdaterActionListener implements ActionListener
 		Runnable r = new Runnable() {
 			@Override
 			public void run() {
-				ovcu = new OpenVideoChannelsUpdater(jblls, ba.getRootPane().getParent());
+				ovcu = new OpenVideoChannelsUpdater(jblls);
+				GraphicsUtil.rightEdgeTopWindow(ba.getRootPane().getParent(), ovcu);
 			}
 		};
 		Thread t = new Thread(r);

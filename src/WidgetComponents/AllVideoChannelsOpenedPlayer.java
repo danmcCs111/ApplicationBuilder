@@ -12,7 +12,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
@@ -75,6 +77,8 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 		icon = new HashMap<JButtonLengthLimited, ImageIcon>();
 	private LookupOrCreateYoutube 
 		lcv = new LookupOrCreateYoutube();
+	private OpenVideoChannelsUpdater
+		ovcu;
 	
 	public AllVideoChannelsOpenedPlayer(DefaultAndScaledImage parentScaler, ArrayList<JButtonLengthLimited> jblls, Container parentContainer)
 	{
@@ -202,24 +206,7 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 		fl.setAlignment(FlowLayout.LEFT);
 		searchPanel.setLayout(fl);
 		
-		updateButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(selectedButton == null)
-					return;
-				
-				lcv.update(selectedButtonParent.getText(), selectedButtonParent.getName());
-				HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs = lcv.lookup(
-						selectedButtonParent.getText(), selectedButtonParent.getName());
-				listView = new VideoChannelListView(selectedButton, ycvs);
-				removeListView();
-				addListView();
-				setImageButton(selectedButtonParent);//TODO
-				refreshListView(selectedButton);
-				
-				selectedButton.doClick();
-			}
-		});
+		updateButton.addActionListener(getUpdateChannelsActionListener());
 		
 		SearchBar sb = new SearchBar();
 		sb.setColumnCharacterLength(SEARCH_COLUMN_LENGTH);
@@ -289,16 +276,19 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 		{
 			imageLabel.removeMouseListener(ml);
 		}
+		for(ActionListener al : updateButton.getActionListeners())
+		{
+			updateButton.removeActionListener(al);
+		}
 		
 		if(jbll == null)
 		{
 			imageLabel.setVisible(false);
-			updateButton.setVisible(false);
+			updateButton.addActionListener(getUpdateChannelsActionListener());
 			return;
 		}
-		
 		imageLabel.setVisible(true);
-		updateButton.setVisible(true);
+		updateButton.addActionListener(getUpdateChannelActionListener());
 		
 		ImageIcon ii = getImage(jbll);
 		imageLabel.setIcon(ii);
@@ -400,6 +390,53 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 		selectedButton.setForeground(ColorTemplate.getButtonBackgroundColor());
 		listView.postFrameBuild();
 		AllVideoChannelsOpenedPlayer.this.validate();
+	}
+	
+	private ActionListener getUpdateChannelActionListener() 
+	{
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(selectedButton == null)
+					return;
+				
+				lcv.update(selectedButtonParent.getText(), selectedButtonParent.getName());
+				HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs = lcv.lookup(
+						selectedButtonParent.getText(), selectedButtonParent.getName());
+				listView = new VideoChannelListView(selectedButton, ycvs);
+				removeListView();
+				addListView();
+				setImageButton(selectedButtonParent);//TODO
+				refreshListView(selectedButton);
+				
+				selectedButton.doClick();
+			}
+		};
+	}
+	
+	private ActionListener getUpdateChannelsActionListener()
+	{
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				if(ovcu != null)
+				{
+					ovcu.dispose();
+				}
+				Runnable r = new Runnable() {
+					@Override
+					public void run() {
+						List<JButtonLengthLimited> jblls = Arrays.asList
+								(parentButtons.values().toArray(new JButtonLengthLimited [] {}));
+						ovcu = new OpenVideoChannelsUpdater(jblls);
+						GraphicsUtil.centerWindow(AllVideoChannelsOpenedPlayer.this, ovcu);
+					}
+				};
+				Thread t = new Thread(r);
+				t.start();
+			}
+		};
 	}
 
 	@Override

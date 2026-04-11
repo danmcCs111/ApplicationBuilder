@@ -1,7 +1,6 @@
 package WidgetComponents;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -11,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -19,7 +19,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import Graphics2D.ColorTemplate;
-import Graphics2D.GraphicsUtil;
 import MouseListenersImpl.LookupOrCreateYoutube;
 import Properties.LoggingMessages;
 import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
@@ -46,14 +45,14 @@ public class OpenVideoChannelsUpdater extends JFrame
 		updateButton;
 	private ArrayList<JCheckBox>
 		checkBoxes;
-	private ArrayList<JButtonLengthLimited> 
+	private List<JButtonLengthLimited> 
 		jblls;
 	private HashMap<JCheckBox, Date> 
 		checkBoxLatestDate;
 	private LookupOrCreateYoutube
 		lcv = new LookupOrCreateYoutube();
 	
-	public OpenVideoChannelsUpdater(ArrayList<JButtonLengthLimited> jblls, Container parentContainer)
+	public OpenVideoChannelsUpdater(List<JButtonLengthLimited> jblls)
 	{
 		this.jblls = jblls;
 		Runnable r = new Runnable()
@@ -61,7 +60,6 @@ public class OpenVideoChannelsUpdater extends JFrame
 			@Override
 			public void run() {
 				buildWidgets();
-				GraphicsUtil.rightEdgeTopWindow(parentContainer, OpenVideoChannelsUpdater.this);
 			}
 		};
 		Thread t = new Thread(r);
