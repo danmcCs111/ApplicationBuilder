@@ -12,7 +12,6 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -43,7 +42,7 @@ public class VideoChannelPlayer extends JFrame
 		SEARCH_COLUMN_LENGTH = 15,
 		SCROLL_UNIT_INC = 25;
 	
-	private AbstractButton 
+	private JButtonLengthLimited 
 		parentButton;
 	private VideoChannelListView 
 		listView; 
@@ -55,7 +54,7 @@ public class VideoChannelPlayer extends JFrame
 		fmdl;
 
 	public VideoChannelPlayer(
-			ImageIcon videoImage, FrameMouseDragListener fmdl, AbstractButton parentButton, Container parent)
+			ImageIcon videoImage, FrameMouseDragListener fmdl, JButtonLengthLimited parentButton, Container parent)
 	{
 		this.parentButton = parentButton;
 		this.videoImage = videoImage;

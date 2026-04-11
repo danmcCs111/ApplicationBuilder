@@ -11,6 +11,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -49,7 +50,7 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 	private static final int
 		VIDEO_TITLE_CHARACTER_LIMIT = 80;
 	
-	private HashMap<Integer, AbstractButton> 
+	private HashMap<Integer, JButtonLengthLimited> 
 		parentButtons;
 	private static Color [] 
 		foregroundAndBackgroundColor = new Color [] {
@@ -76,18 +77,23 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 	private HashMap<Integer, VideoSubSelectionLauncher> 
 		vssl = null;
 	
-	public VideoChannelListView(AbstractButton parentButton, HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
+	public VideoChannelListView(JButtonLengthLimited parentButton, ArrayList <YoutubeChannelVideo> ycv)
+	{
+		this(parentButton, (Map<Integer, ArrayList<YoutubeChannelVideo>>) Collections.singletonMap(-1, ycv));
+	}
+	
+	public VideoChannelListView(JButtonLengthLimited parentButton, Map <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
 	{
 		int key = ycvs.keySet().iterator().next();
-		this.parentButtons = new HashMap<Integer, AbstractButton>();
+		this.parentButtons = new HashMap<Integer, JButtonLengthLimited>();
 		this.parentButtons.put(key, parentButton);
 		vssl = new HashMap<Integer, VideoSubSelectionLauncher>();
 		vssl.put(key, new VideoSubSelectionLauncher(parentButton));
 		buildWidgets(null, ycvs);
 	}
 	
-	public VideoChannelListView(HashMap<Integer, AbstractButton> parentButtons, 
-			HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
+	public VideoChannelListView(HashMap<Integer, JButtonLengthLimited> parentButtons, 
+			Map <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
 	{
 		this.parentButtons = parentButtons;
 		vssl = new HashMap<Integer, VideoSubSelectionLauncher>();
@@ -113,8 +119,8 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 		foregroundAndBackgroundColor = new Color [] {cForeground, cBackground};
 	}
 
-	private void buildWidgets(HashMap<Integer, AbstractButton> parentButtons,
-			HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
+	private void buildWidgets(Map<Integer, JButtonLengthLimited> parentButtons,
+			Map <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
 	{
 		listPanel = new JPanel();
 		listPanel.setLayout(new GridBagLayout());

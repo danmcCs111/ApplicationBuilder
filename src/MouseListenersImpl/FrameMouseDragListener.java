@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
-import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -60,8 +59,8 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	
 	private JFrame 
 		f;
-	private AbstractButton 
-		component;
+	private JButtonLengthLimited 
+		parentButton;
 	private JLabel 
 		picLabel;
 	private LookupOrCreateYoutube 
@@ -86,12 +85,12 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		
 	}
 	
-	public FrameMouseDragListener(JFrame f, DefaultAndScaledImage parentScaler, AbstractButton component, JLabel picLabel)
+	public FrameMouseDragListener(JFrame f, DefaultAndScaledImage parentScaler, JButtonLengthLimited parentButton, JLabel picLabel)
 	{
 		super();
 		this.f = f;
 		this.parentScaler = parentScaler;
-		this.component = component;
+		this.parentButton = parentButton;
 		this.picLabel = picLabel;
 	}
 	
@@ -100,16 +99,16 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	{
 		if(e.getButton() == MouseEvent.BUTTON3)//Offer option to keep
 		{
-			JButtonLengthLimited jbll = (JButtonLengthLimited) component;//TODO
+			JButtonLengthLimited jbll = parentButton;//TODO
 			JPopupMenu pm = new JPopupMenu();
 			JMenuItem mi = new JMenuItem(OPEN_MENU_TEXT);
 			
 			mi.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					for(ActionListener al : component.getActionListeners())
+					for(ActionListener al : parentButton.getActionListeners())
 					{
-						al.actionPerformed(new ActionEvent(component, 1, "Open From Image"));
+						al.actionPerformed(new ActionEvent(parentButton, 1, "Open From Image"));
 						PicLabelMouseListener.highLightLabel(jbll, true);//TODO
 					}
 				}
@@ -186,17 +185,17 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 				"<br/> Duration: " + VideoChannelListView.formatDuration(ycv.getDuration()) +
 				"</html>";
 		jm.setName(ycv.getUrl());
-		jm.setHighlightButton(component);
+		jm.setHighlightButton(parentButton);
 		jm.setToolTipText(tooltipText);
 		
 		JMenuItemLaunchUrl jmi = new JMenuItemLaunchUrl(OPEN_MENU_TEXT);
-		jmi.setHighlightButton(component);
+		jmi.setHighlightButton(parentButton);
 		jmi.setName(ycv.getUrl());
-		jmi.addActionListener(new VideoSubSelectionLauncher(component, jm, this));
+		jmi.addActionListener(new VideoSubSelectionLauncher(parentButton, jm, this));
 		
 		JMenuItemLaunchUrl jmi2 = new JMenuItemLaunchUrl(OPEN_MENU_TEXT + " NEW");
 		jmi2.setName(ycv.getUrl());
-		jmi2.addActionListener(new VideoSubSelectionLauncher(component, jm, this, 1));
+		jmi2.addActionListener(new VideoSubSelectionLauncher(parentButton, jm, this, 1));
 		
 		jm.add(jmi);
 		jm.add(jmi2);
@@ -239,7 +238,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 				{
 					vutd.dispose();
 				}
-				vutd = new VideoUpdateTimespanDialog(f, component, lcv, cal.getTime());
+				vutd = new VideoUpdateTimespanDialog(f, parentButton, lcv, cal.getTime());
 				vutd.addWindowListener(new WindowAdapter() {
 					@Override
 					public void windowClosed(WindowEvent e) {
@@ -273,7 +272,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	
 	public void update()
 	{
-		JButtonLengthLimited jbll = (JButtonLengthLimited) component;
+		JButtonLengthLimited jbll = (JButtonLengthLimited) parentButton;
 		lcv.update(jbll.getText(), jbll.getName());
 		this.ycvs = lcv.lookup(jbll.getText(), jbll.getName());
 	}
@@ -286,7 +285,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 			p = vqp.getLocationOnScreen();
 			vqp.dispose();
 		}
-		vqp = new VideoChannelPlayer(getImage((JButtonLengthLimited)component), this, component, f);
+		vqp = new VideoChannelPlayer(getImage((JButtonLengthLimited)parentButton), this, (JButtonLengthLimited) parentButton, f);
 		if(p != null)
 		{
 			vqp.setLocation(p);
