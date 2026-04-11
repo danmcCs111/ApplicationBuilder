@@ -49,7 +49,7 @@ Launch video selector with:
 
 *added all open videos list view
 
-<img width="45%" width="924" height="434" alt="image" src="https://github.com/user-attachments/assets/d408c355-8dec-449d-af03-f27bc31326a5" />
+<img width="45%" width="1025" height="434" alt="image" src="https://github.com/user-attachments/assets/1c3cbd94-3a9b-46c8-bbe4-3fb32502f1e4" />
 
 *added powerdvd, spotify, hauppauge wintv remotes
 
