@@ -238,16 +238,23 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 				{
 					vutd.dispose();
 				}
-				vutd = new VideoUpdateTimespanDialog(f, parentButton, lcv, cal.getTime());
-				vutd.addWindowListener(new WindowAdapter() {
+				Runnable r = new Runnable() {
 					@Override
-					public void windowClosed(WindowEvent e) {
-						if(vqp != null && vqp.isVisible() && vutd.updated())
-						{
-							buildVideoChannelPlayer();
-						}
+					public void run() {
+						vutd = new VideoUpdateTimespanDialog(f, parentButton, lcv, cal.getTime());
+						vutd.addWindowListener(new WindowAdapter() {
+							@Override
+							public void windowClosed(WindowEvent e) {
+								if(vqp != null && vqp.isVisible() && vutd.updated())
+								{
+									buildVideoChannelPlayer();
+								}
+							}
+						});
 					}
-				});
+				};
+				Thread t = new Thread(r);
+				t.start();
 			}
 		});
 		

@@ -79,11 +79,18 @@ public class VideoUpdateTimespanDialog extends JDialog
 		applyButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Timestamp ts = (Timestamp) de.getComponentValueObj();
-				Date d = new Date(ts.getTime());
-				lcy.update(ab.getText(), ab.getName(), d);
-				updated = true;
-				dispose();
+				Runnable r = new Runnable() {
+					@Override
+					public void run() {
+						Timestamp ts = (Timestamp) de.getComponentValueObj();
+						Date d = new Date(ts.getTime());
+						lcy.update(ab.getText(), ab.getName(), d);
+						updated = true;
+						dispose();
+					}
+				};
+				Thread t = new Thread(r);
+				t.start();
 			}
 		});
 		cancelButton.addActionListener(new ActionListener() {

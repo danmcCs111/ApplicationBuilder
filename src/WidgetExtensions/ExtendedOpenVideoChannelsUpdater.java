@@ -2,10 +2,10 @@ package WidgetExtensions;
 
 import javax.swing.AbstractButton;
 
+import ActionListenersImpl.OpenVideoChannelsUpdaterActionListener;
 import ObjectTypeConversion.NameId;
 import WidgetComponents.JButtonArray;
 import WidgetExtensionDefs.ExtendedAttributeParam;
-import WidgetExtensionInterfaces.OpenVideoChannelsUpdaterActionListener;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 

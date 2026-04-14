@@ -26,6 +26,7 @@ import WidgetExtensionInterfaces.ComboListDialogSelectedListener;
 public class ComboSelectionDialog extends JDialog 
 {
 	private static final long serialVersionUID = 2001L;
+	
 	public static final String 
 		ADD_BUTTON_DEFAULT_TEXT = "Add",
 		ADD_ALL_BUTTON_DEFAULT_TEXT = "Add All",
@@ -33,7 +34,8 @@ public class ComboSelectionDialog extends JDialog
 	private static final Dimension 
 		MIN_DIMENSION_DIALOG = new Dimension(300,150);
 	
-	private JList<String> componentMethods = new JList<String>();
+	private JList<String> 
+		componentMethods = new JList<String>();
 	
 	public ComboSelectionDialog()
 	{

@@ -1,4 +1,4 @@
-package ActionListeners;
+package ActionListenersImpl;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,8 +11,10 @@ import WidgetComponents.JButtonLengthLimited;
 
 public class OpenAllVideoChannelsActionListener implements ActionListener
 {
-	private JButtonArray ba;
-	private AllVideoChannelsOpenedPlayer avop;
+	private JButtonArray 
+		ba;
+	private AllVideoChannelsOpenedPlayer 
+		avop;
 	
 	public OpenAllVideoChannelsActionListener(JButtonArray ba)
 	{
