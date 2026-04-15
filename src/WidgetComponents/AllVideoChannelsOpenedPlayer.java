@@ -237,6 +237,9 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 		for(int i : parentButtons.keySet())
 		{
 			AbstractButton ab = buildSelectionButton(parentButtons.get(i), ycvs.get(i));
+			ImageIcon ii = getImage(parentButtons.get(i));
+			ab.setIcon(ii);
+			ab.setHorizontalAlignment(AbstractButton.LEFT);
 			listPanel.add(ab);
 		}
 		setImageButton(null);
