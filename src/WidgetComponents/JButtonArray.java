@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Frame;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.dnd.DropTarget;
 import java.awt.event.ActionEvent;
@@ -96,8 +97,10 @@ PostWidgetBuildProcessing, ButtonArray
 		BUTTON_ICON_HEIGHT = 20,
 		SCALED_WIDTH = 279,
 		SCALED_WIDTH_PREVIEW = SCALED_WIDTH;
-	public static File 
+	private static File 
 		MOVIE_IMAGE_FILE_LOCATION = new File(PathUtility.getCurrentDirectory() + "/src/ApplicationBuilder/film-movies-icon.png");
+	private static Image
+		moviesImageIcon = null;
 	private static boolean
 		SHOW_JAVA_SWING_FILE_CHOOSER = false,
 		SHOW_TITLE_ON_POSTER = true,
@@ -234,6 +237,14 @@ PostWidgetBuildProcessing, ButtonArray
 	public void setMoviesIcon(FileSelection f)
 	{
 		MOVIE_IMAGE_FILE_LOCATION = new File(f.getFullPath());
+	}
+	public static Image getMoviesIcon()
+	{
+		if(moviesImageIcon == null)
+		{
+			moviesImageIcon = GraphicsUtil.getImageFromFile(MOVIE_IMAGE_FILE_LOCATION);
+		}
+		return moviesImageIcon;
 	}
 	
 	public void setSingleClick(boolean singleClick)

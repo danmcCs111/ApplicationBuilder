@@ -256,6 +256,7 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 		this.setTitle(TITLE);
 		this.setMinimumSize(MIN_SIZE);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setIconImage(JButtonArray.getMoviesIcon());
 		this.setVisible(true);
 		GraphicsUtil.rightEdgeTopWindow(parentContainer, this);
 		

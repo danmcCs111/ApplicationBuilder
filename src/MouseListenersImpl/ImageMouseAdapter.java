@@ -221,7 +221,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 					}
 					
 				});
-				f.setIconImage(GraphicsUtil.getImageFromFile(JButtonArray.MOVIE_IMAGE_FILE_LOCATION));//TODO
+				f.setIconImage(JButtonArray.getMoviesIcon());//TODO
 				f.removeMouseListener(ImageMouseAdapter.this);
 //				f.setTitle(KEEP_TITLE);
 				
