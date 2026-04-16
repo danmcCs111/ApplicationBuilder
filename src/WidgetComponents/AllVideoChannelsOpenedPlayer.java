@@ -362,9 +362,7 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 				listView = new VideoChannelListView(parentButtons, ycvs);
 				removeListView();
 				addListView();
-				
 				setImageButton(null);
-				
 				refreshListView(jbll);
 			}
 		});
@@ -381,16 +379,20 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 		jbll.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<YoutubeChannelVideo> ycv = parentButtonAndYoutubeVideos.get(parentButton);
-				listView = new VideoChannelListView(parentButton, ycv);
-				removeListView();
-				addListView();
-				
-				setImageButton(parentButton);
 				selectedButton = jbll;
 				selectedButtonParent = parentButton;
 				
-				refreshListView(jbll);
+				ArrayList<YoutubeChannelVideo> ycv = parentButtonAndYoutubeVideos.get(parentButton);
+				int count = lcv.lookupCount(parentButton.getText(), parentButton.getName());
+				
+				if(count > ycv.size())
+				{
+					refreshSelectionFromDB(selectedButtonParent, selectedButton);
+				}
+				else
+				{
+					refreshSelection(selectedButtonParent, selectedButton);
+				}
 			}
 		});
 		return jbll;
@@ -418,18 +420,7 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 				if(selectedButton == null)
 					return;
 				
-				lcv.update(selectedButtonParent.getText(), selectedButtonParent.getName());
-				HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs = lcv.lookup(
-						selectedButtonParent.getText(), selectedButtonParent.getName());
-				int key = ycvs.keySet().iterator().next();
-				parentButtonAndYoutubeVideos.put(selectedButtonParent, ycvs.get(key));
-				removeListView();
-				listView = new VideoChannelListView(selectedButton, ycvs);
-				addListView();
-				setImageButton(selectedButtonParent);//TODO
-				refreshListView(selectedButton);
-				
-//				selectedButton.doClick();
+				refreshSelectionFromDB(selectedButtonParent, selectedButton);
 			}
 		};
 	}
@@ -457,6 +448,30 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 				t.start();
 			}
 		};
+	}
+	
+	private void refreshSelection(JButtonLengthLimited buttonParent, JButtonLengthLimited selectedButton)
+	{
+		ArrayList<YoutubeChannelVideo> ycv = parentButtonAndYoutubeVideos.get(buttonParent);
+		listView = new VideoChannelListView(buttonParent, ycv);
+		removeListView();
+		addListView();
+		refreshListView(selectedButton);
+		setImageButton(buttonParent);
+	}
+	
+	private void refreshSelectionFromDB(JButtonLengthLimited selectedButtonParent, JButtonLengthLimited selectedButton)
+	{
+		lcv.update(selectedButtonParent.getText(), selectedButtonParent.getName());
+		HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs = lcv.lookup(
+				selectedButtonParent.getText(), selectedButtonParent.getName());
+		int key = ycvs.keySet().iterator().next();
+		parentButtonAndYoutubeVideos.put(selectedButtonParent, ycvs.get(key));
+		removeListView();
+		listView = new VideoChannelListView(selectedButton, ycvs);
+		addListView();
+		setImageButton(selectedButtonParent);//TODO
+		refreshListView(selectedButton);
 	}
 	
 	@Override

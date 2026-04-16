@@ -162,6 +162,38 @@ public class LookupOrCreateYoutube
 		return parentIdAndDate;
 	}
 	
+	public int lookupCount(String videoChannelName, String videoChannelLink)
+	{
+		int count = 0;
+		
+		String query = youtubeSql.getYoutubeQuery(videoChannelName);
+		String response = QueryUpdateTool.executeQuery(query);
+		if(response == null)
+			return -1;
+		
+		HttpDatabaseResponse hdr = new HttpDatabaseResponse();
+		ArrayList <ArrayList <DatabaseResponseNode>> drns = hdr.parseResponse(response);
+		if(drns.isEmpty())
+		{
+			createIfEmpty(videoChannelName, videoChannelLink);
+		}
+		else
+		{
+			for(DatabaseResponseNode drn : drns.get(1))
+			{
+				if(drn.getNodeName().equals("VideoId_Video_VideoDatabase"))
+				{
+					int parentId = Integer.parseInt(drn.getNodeAttributes().get("content"));
+					LoggingMessages.printOut("parentID is: " + parentId);
+					LoggingMessages.printOut("channelLink is: " + videoChannelLink);
+					count = getCount(parentId, videoChannelLink);
+					break;
+				}
+			}
+		}
+		return count;
+	}
+	
 	public HashMap<Integer, ArrayList<YoutubeChannelVideo>> lookup(String videoChannelName, String videoChannelLink)
 	{
 		HashMap<Integer, ArrayList<YoutubeChannelVideo>> parentIdAndYoutubeChannelVideos = null;
@@ -263,6 +295,33 @@ public class LookupOrCreateYoutube
 			}
 		}
 		return lastDate;
+	}
+	
+	private int getCount(int parentId, String videoChannelLink)
+	{
+		String query = youtubeSql.getYoutubeVideoCount(parentId);
+		String response = QueryUpdateTool.executeQuery(query);
+		
+		HttpDatabaseResponse hdr = new HttpDatabaseResponse();
+		ArrayList <ArrayList <DatabaseResponseNode>> drns = hdr.parseResponse(response);
+		int count = 0;
+		if(drns.isEmpty())
+		{
+			LoggingMessages.printOut("Empty");
+		}
+		else
+		{
+			for(DatabaseResponseNode drn : drns.get(1))
+			{
+				if(drn.getNodeName().equals("Count"))
+				{
+					count = Integer.parseInt(drn.getNodeAttributes().get("content"));
+					LoggingMessages.printOut("count: " + count);
+					break;
+				}
+			}
+		}
+		return count;
 	}
 	
 	private HashMap<Integer, ArrayList<YoutubeChannelVideo>> getYoutubeVideos(
@@ -383,14 +442,17 @@ public class LookupOrCreateYoutube
 	
 	public static void main(String [] args)
 	{
-		LookupOrCreateYoutube lcy = new LookupOrCreateYoutube();
-		HashMap<Integer, ArrayList<YoutubeChannelVideo>> ycvs = null;
-		ycvs = lcy.lookup("test abc", "https://www.youtube.com/@ABCNews");
-		printYoutubeChannelVideos(ycvs);
-		ycvs = lcy.lookup("test nbc", "https://www.youtube.com/@NBCNews");
-		printYoutubeChannelVideos(ycvs);
-		ycvs = lcy.lookup("microcentertech", "https://www.youtube.com/@microcentertech");
-		printYoutubeChannelVideos(ycvs);
+//		LookupOrCreateYoutube lcy = new LookupOrCreateYoutube();
+//		HashMap<Integer, ArrayList<YoutubeChannelVideo>> ycvs = null;
+//		ycvs = lcy.lookup("test abc", "https://www.youtube.com/@ABCNews");
+//		printYoutubeChannelVideos(ycvs);
+//		ycvs = lcy.lookup("test nbc", "https://www.youtube.com/@NBCNews");
+//		printYoutubeChannelVideos(ycvs);
+//		ycvs = lcy.lookup("microcentertech", "https://www.youtube.com/@microcentertech");
+//		printYoutubeChannelVideos(ycvs);
+		LookupOrCreateYoutube lcv = new LookupOrCreateYoutube();
+		int count = lcv.lookupCount("Underworld", "https://www.youtube.com/@Underworld5s/videos");
+		LoggingMessages.printOut(count + "");
 	}
 	
 	private static void printYoutubeChannelVideos(HashMap<Integer, ArrayList<YoutubeChannelVideo>> ycvs)
@@ -403,4 +465,5 @@ public class LookupOrCreateYoutube
 			}
 		}
 	}
+	
 }

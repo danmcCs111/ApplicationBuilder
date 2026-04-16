@@ -17,6 +17,9 @@ public class YoutubeSql implements YoutubeQuery
 		YOUTUBE_VIDEO_FIRST_QUERY = 
 			"SELECT * FROM videoYoutube WHERE ParentID_VideoYoutube_VideoYoutubeDatabase = <arg0> "+
 			" ORDER BY UploadDate_VideoYoutube_VideoYoutubeDatabase ASC LIMIT 1;",
+		YOUTUBE_VIDEO_COUNT_QUERY = 
+			"SELECT count(*) as Count FROM videoYoutube WHERE ParentID_VideoYoutube_VideoYoutubeDatabase = <arg0> "+
+			" ORDER BY UploadDate_VideoYoutube_VideoYoutubeDatabase;",
 		YOUTUBE_INSERT_PREFIX = 
 			"INSERT INTO videodatabase.video (VideoName_Video_VideoDatabase, VideoUrl_Video_VideoDatabase, InsertDate_Video_VideoDatabase) values( ",
 		YOUTUBE_INSERT_SUFFIX = 
@@ -52,6 +55,12 @@ public class YoutubeSql implements YoutubeQuery
 	public String getYoutubeVideoFirstQuery(int parentId) 
 	{
 		return YOUTUBE_VIDEO_FIRST_QUERY.replaceFirst("<arg0>", parentId +"");
+	}
+	
+	@Override
+	public String getYoutubeVideoCount(int parentId) 
+	{
+		return YOUTUBE_VIDEO_COUNT_QUERY.replaceFirst("<arg0>", parentId +"");
 	}
 
 	@Override
