@@ -27,6 +27,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import ActionListeners.AddActionSend;
 import ActionListeners.ArrayActionListener;
 import ActionListenersImpl.AddActionReceive;
+import ActionListenersImpl.LaunchUrlActionListener;
 import ActionListenersImpl.NavigationButtonActionListener;
 import Graphics2D.ColorTemplate;
 import ObjectTypeConversion.DirectorySelection;
@@ -428,7 +429,7 @@ PostWidgetBuildProcessing
 	}
 
 	@Override
-	public void unselect() {
+	public void unselect(AbstractButton newButton) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -806,6 +807,18 @@ PostWidgetBuildProcessing
 	public int getScaledWidthPreview() 
 	{
 		return getScaledWidth();
+	}
+	
+	@Override
+	public void addArrayActionListener() 
+	{
+		LaunchUrlActionListener.addArrayActionListener(this);
+	}
+
+	@Override
+	public void removeArrayActionListener() 
+	{
+		LaunchUrlActionListener.removeArrayActionListener(this);
 	}
 
 }

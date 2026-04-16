@@ -313,7 +313,7 @@ public class LookupOrCreateYoutube
 		{
 			for(DatabaseResponseNode drn : drns.get(1))
 			{
-				if(drn.getNodeName().equals("Count"))
+				if(drn.getNodeName().equals("Count"))//TODO.
 				{
 					count = Integer.parseInt(drn.getNodeAttributes().get("content"));
 					LoggingMessages.printOut("count: " + count);

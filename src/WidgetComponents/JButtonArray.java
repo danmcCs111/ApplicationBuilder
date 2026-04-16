@@ -483,6 +483,9 @@ PostWidgetBuildProcessing, ButtonArray
 	
 	private void setHighlightForegroundAndBackground(boolean highlight)
 	{
+		if(highlightButton == null)
+			return;
+		
 		Color [] color = highlight ? highlightForegroundAndBackgroundColor : foregroundAndBackgroundColor;
 		highlightButton.setForeground(color[0]);
 		highlightButton.setBackground(color[1]);
@@ -592,7 +595,7 @@ PostWidgetBuildProcessing, ButtonArray
 	}
 
 	@Override
-	public void unselect() 
+	public void unselect(AbstractButton newButton) 
 	{
 		setHighlightForegroundAndBackground(false);
 		highlightButton = null;
@@ -779,6 +782,7 @@ PostWidgetBuildProcessing, ButtonArray
 			}
 		});
 		addDragAndDropListener(this);
+//		RegisterArrayActionListener.addListener(this);
 	}
 
 	private void addDragAndDropListener(Component target)
@@ -1001,6 +1005,18 @@ PostWidgetBuildProcessing, ButtonArray
 		{
 			return null;
 		}
+	}
+
+	@Override
+	public void addArrayActionListener() 
+	{
+		LaunchUrlActionListener.addArrayActionListener(this);
+	}
+
+	@Override
+	public void removeArrayActionListener() 
+	{
+		LaunchUrlActionListener.removeArrayActionListener(this);
 	}
 
 }

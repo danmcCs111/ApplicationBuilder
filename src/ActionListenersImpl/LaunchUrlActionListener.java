@@ -44,6 +44,17 @@ public class LaunchUrlActionListener implements ActionListener
 		isKiosk = false;
 	private static int 
 		defaultId = -1;
+	private static ArrayList<ArrayActionListener> 
+		aals = new ArrayList<ArrayActionListener>();
+	
+	public static void addArrayActionListener(ArrayActionListener aal)
+	{
+		aals.add(aal);
+	}
+	public static void removeArrayActionListener(ArrayActionListener aal)
+	{
+		aals.remove(aal);
+	}
 	
 	public static String getProcessWindowsOS()
 	{
@@ -112,8 +123,12 @@ public class LaunchUrlActionListener implements ActionListener
 					ArrayActionListener lastButtonParent = findParentArrayActionListener(lastButton);
 					if(lastButtonParent != null && lastButtonParent != findParentArrayActionListener(button))
 					{
-						ArrayActionListener aal = (ArrayActionListener)lastButtonParent;
-						aal.unselect();
+//						ArrayActionListener aal = (ArrayActionListener)lastButtonParent;
+//						aal.unselect(button);
+						for(ArrayActionListener aal : aals)
+						{
+							aal.unselect(button);
+						}
 					}
 					if(lastButton instanceof JButtonLengthLimited)
 					{
@@ -133,8 +148,12 @@ public class LaunchUrlActionListener implements ActionListener
 						ArrayActionListener lastButtonParent = findParentArrayActionListener(lastButton);
 						if(lastButtonParent != null && lastButtonParent != findParentArrayActionListener(button))
 						{
-							ArrayActionListener aal = (ArrayActionListener)lastButtonParent;
-							aal.unselect();
+//							ArrayActionListener aal = (ArrayActionListener)lastButtonParent;
+//							aal.unselect(button);
+							for(ArrayActionListener aal : aals)
+							{
+								aal.unselect(button);
+							}
 						}
 					}
 				}

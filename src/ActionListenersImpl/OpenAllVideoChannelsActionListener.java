@@ -13,12 +13,17 @@ public class OpenAllVideoChannelsActionListener implements ActionListener
 {
 	private JButtonArray 
 		ba;
-	private AllVideoChannelsOpenedPlayer 
+	private static AllVideoChannelsOpenedPlayer 
 		avop;
 	
 	public OpenAllVideoChannelsActionListener(JButtonArray ba)
 	{
 		this.ba = ba;
+	}
+	
+	public static AllVideoChannelsOpenedPlayer getAllVideoChannelsOpenedPlayer()
+	{
+		return avop;
 	}
 	
 	@Override

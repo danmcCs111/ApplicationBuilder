@@ -340,7 +340,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	{
 		if(vqp != null)
 		{
-			vqp.getVideoChannelListView().findHighlight();
+			vqp.getVideoChannelListView().findHighlight(null);
 		}
 	}
 

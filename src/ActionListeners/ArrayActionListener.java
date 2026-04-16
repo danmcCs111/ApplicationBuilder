@@ -2,6 +2,8 @@ package ActionListeners;
 
 import java.awt.event.ActionListener;
 
+import javax.swing.AbstractButton;
+
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
@@ -21,7 +23,9 @@ public interface ArrayActionListener
 		return null;
 	}
 	
-	public abstract void unselect();
+	public abstract void unselect(AbstractButton newButton);
+	public void addArrayActionListener();
+	public abstract void removeArrayActionListener();
 	
 	public abstract void addStripFilter(String filter);
 }

@@ -5,10 +5,14 @@ import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,19 +24,23 @@ import java.util.Map.Entry;
 
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.SwingUtilities;
 import javax.swing.border.BevelBorder;
 
 import ActionListeners.ArrayActionListener;
 import ActionListenersImpl.LaunchUrlActionListener;
+import ActionListenersImpl.OpenAllVideoChannelsActionListener;
 import Graphics2D.ColorTemplate;
 import MouseListenersImpl.VideoSubSelectionLauncher;
 import MouseListenersImpl.YoutubeChannelVideo;
 import Properties.LoggingMessages;
 import Properties.StringUtility;
+import WidgetComponentInterfaces.RegisterArrayActionListener;
 import WidgetComponents.DurationLimiter.Mode;
 import WidgetUtility.FileListOptionGenerator;
 
@@ -181,7 +189,8 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 			{
 				if(parentButtons != null)
 				{
-					JLabel lbl = buildChannelLabel(parentButtons.get(key));
+					AbstractButton parentButton = parentButtons.get(key);
+					JLabel lbl = buildChannelLabel(parentButton);
 					channelListPanel.add(lbl);
 				}
 				JButtonLengthLimited jbll = buildVideoButton(key, ycv);
@@ -206,6 +215,7 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 		
 		this.setLayout(new BorderLayout());
 		this.add(listPanel, BorderLayout.NORTH);
+		RegisterArrayActionListener.addListener(this);
 	}
 	
 	public void setVisible(String searchText)
@@ -323,7 +333,7 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 	
 	public void postFrameBuild()
 	{
-		findHighlight();
+		findHighlight(null);
 	}
 	
 	private JLabel buildChannelLabel(AbstractButton ab)
@@ -442,9 +452,11 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 		return durText;
 	}
 	
-	public void findHighlight()
+	public void findHighlight(AbstractButton newButton)
 	{
-		AbstractButton last = LaunchUrlActionListener.getLastButtonOrigin();
+		AbstractButton last = newButton == null
+				? LaunchUrlActionListener.getLastButtonOrigin()
+				: newButton;
 		String name = (last == null)
 				? null
 				: last.getName();
@@ -454,9 +466,9 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 		if(ab == null)
 			return;
 		
-		LaunchUrlActionListener.setLastButtonOrigin(ab);
 		performSelect(videoButtons.get(ab));
 		ab.requestFocusInWindow();
+		this.validate();
 	}
 	
 	public AbstractButton getAbstractButton(String name)
@@ -473,7 +485,7 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 	
 	public void performSelect(Highlighter hl)
 	{
-		unselect();
+		clearSelect();
 		if(hl != null)
 		{
 			hlPanel.setHighlightForegroundAndBackground(true);
@@ -489,7 +501,13 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 	}
 
 	@Override
-	public void unselect() 
+	public void unselect(AbstractButton newButton) 
+	{
+		clearSelect();
+		findHighlight(newButton);
+	}
+	
+	private void clearSelect()
 	{
 		hlPanel.setHighlightForegroundAndBackground(false);
 		if(selectedBtn != null)
@@ -502,5 +520,17 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 	public void addStripFilter(String filter) 
 	{
 		
+	}
+
+	@Override
+	public void addArrayActionListener() 
+	{
+		LaunchUrlActionListener.addArrayActionListener(this);
+	}
+
+	@Override
+	public void removeArrayActionListener() 
+	{
+		LaunchUrlActionListener.removeArrayActionListener(this);
 	}
 }
