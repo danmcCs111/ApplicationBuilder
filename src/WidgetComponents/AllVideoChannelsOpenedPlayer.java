@@ -75,12 +75,18 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 		parentScaler;
 	private HashMap<JButtonLengthLimited, ImageIcon>
 		icon = new HashMap<JButtonLengthLimited, ImageIcon>();
+	private HashMap<JButtonLengthLimited, ArrayList<YoutubeChannelVideo>>
+		parentButtonAndYoutubeVideos = new HashMap<JButtonLengthLimited, ArrayList<YoutubeChannelVideo>>();
+	private HashMap<AbstractButton, JButtonLengthLimited>
+		selectionButtonAndParentButton = new HashMap<AbstractButton, JButtonLengthLimited>();
 	private LookupOrCreateYoutube 
 		lcv = new LookupOrCreateYoutube();
 	private OpenVideoChannelsUpdater
 		ovcu;
 	
-	public AllVideoChannelsOpenedPlayer(DefaultAndScaledImage parentScaler, ArrayList<JButtonLengthLimited> jblls, Container parentContainer)
+	public AllVideoChannelsOpenedPlayer(DefaultAndScaledImage parentScaler, 
+			ArrayList<JButtonLengthLimited> jblls, 
+			Container parentContainer)
 	{
 		this.parentScaler = parentScaler;
 		this.parentButtons = new HashMap<Integer, JButtonLengthLimited>();
@@ -236,7 +242,9 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 		listPanel.add(allSelectBtn);
 		for(int i : parentButtons.keySet())
 		{
-			AbstractButton ab = buildSelectionButton(parentButtons.get(i), ycvs.get(i));
+			parentButtonAndYoutubeVideos.put(parentButtons.get(i), ycvs.get(i));
+			AbstractButton ab = buildSelectionButton(parentButtons.get(i));
+			selectionButtonAndParentButton.put(ab, parentButtons.get(i));
 			ImageIcon ii = getImage(parentButtons.get(i));
 			ab.setIcon(ii);
 			ab.setHorizontalAlignment(AbstractButton.LEFT);
@@ -264,13 +272,18 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 	
 	public void addListView()
 	{
-		contentScrollPane = new JScrollPane(listView);
-		contentScrollPane.getVerticalScrollBar().setUnitIncrement(SCROLL_UNIT_INC);
+		if(contentScrollPane == null)
+		{
+			contentScrollPane = new JScrollPane();
+			contentScrollPane.getVerticalScrollBar().setUnitIncrement(SCROLL_UNIT_INC);
+		}
+		contentScrollPane.setViewportView(listView);
 		this.add(contentScrollPane, BorderLayout.CENTER);
 	}
 	
 	public void removeListView()
 	{
+		contentScrollPane.remove(listView);
 		this.remove(contentScrollPane);
 	}
 	
@@ -359,7 +372,7 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 		return jbll;
 	}
 	
-	public AbstractButton buildSelectionButton(JButtonLengthLimited parentButton, ArrayList<YoutubeChannelVideo> ycv)
+	public AbstractButton buildSelectionButton(JButtonLengthLimited parentButton)
 	{
 		JButtonLengthLimited jbll = new JButtonLengthLimited();
 		jbll.setCharacterLimit(35);
@@ -368,6 +381,7 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 		jbll.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				ArrayList<YoutubeChannelVideo> ycv = parentButtonAndYoutubeVideos.get(parentButton);
 				listView = new VideoChannelListView(parentButton, ycv);
 				removeListView();
 				addListView();
@@ -407,13 +421,15 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 				lcv.update(selectedButtonParent.getText(), selectedButtonParent.getName());
 				HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs = lcv.lookup(
 						selectedButtonParent.getText(), selectedButtonParent.getName());
-				listView = new VideoChannelListView(selectedButton, ycvs);
+				int key = ycvs.keySet().iterator().next();
+				parentButtonAndYoutubeVideos.put(selectedButtonParent, ycvs.get(key));
 				removeListView();
+				listView = new VideoChannelListView(selectedButton, ycvs);
 				addListView();
 				setImageButton(selectedButtonParent);//TODO
 				refreshListView(selectedButton);
 				
-				selectedButton.doClick();
+//				selectedButton.doClick();
 			}
 		};
 	}
@@ -442,7 +458,7 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 			}
 		};
 	}
-
+	
 	@Override
 	public String getDefaultImagePath() 
 	{

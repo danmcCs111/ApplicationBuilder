@@ -33,6 +33,7 @@ public class OpenAllVideoChannelsActionListener implements ActionListener
 		}
 		if(avop != null)
 		{
+			avop.removeAll();
 			avop.dispose();
 		}
 		Runnable r = new Runnable() {
