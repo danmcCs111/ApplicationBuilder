@@ -126,6 +126,11 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 	{
 		foregroundAndBackgroundColor = new Color [] {cForeground, cBackground};
 	}
+	
+	public static Color [] getForegroundBackgroundColor()
+	{
+		return foregroundAndBackgroundColor;
+	}
 
 	private void buildWidgets(Map<Integer, JButtonLengthLimited> parentButtons,
 			Map <Integer, ArrayList <YoutubeChannelVideo>> ycvs)

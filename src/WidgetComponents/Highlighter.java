@@ -17,9 +17,11 @@ public class Highlighter
 	private Color [] 
 			foregroundAndBackgroundColor = new Color [] {new JButton().getForeground(), new JButton().getBackground()},
 			highlightForegroundAndBackgroundColor = new Color [] {foregroundAndBackgroundColor[0], foregroundAndBackgroundColor[1]};
-	private Color borderColor = Color.orange;
-	private static final Border 
-		EMPTY_BORDER = BorderFactory.createEmptyBorder();
+	private static Color 
+		borderColor = Color.orange;
+	private static Border 
+		EMPTY_BORDER = BorderFactory.createEmptyBorder(),
+		BORDER_HIGHLIGHT = new BevelBorder(BevelBorder.RAISED, borderColor, borderColor);
 	
 	public Highlighter(
 			JComponent comp, Color [] highlightForegroundAndBackgroundColor, Color [] foregroundAndBackgroundColor)
@@ -40,7 +42,18 @@ public class Highlighter
 			JComponent comp, Color borderColor)
 	{
 		this.comp = comp;
-		this.borderColor = borderColor;
+		Highlighter.borderColor = borderColor;
+	}
+	
+	public static void setBorderColor(Color color)
+	{
+		Highlighter.borderColor = color;
+		BORDER_HIGHLIGHT = new BevelBorder(BevelBorder.RAISED, borderColor, borderColor);
+	}
+	
+	public static Border getBorderHighlight()
+	{
+		return BORDER_HIGHLIGHT;
 	}
 	
 	public void setHighlightForegroundAndBackground(boolean highlight)
@@ -58,7 +71,7 @@ public class Highlighter
 			JPanel panel = (JPanel) comp;
 			panel.setBorder(
 					(highlight)
-					? new BevelBorder(BevelBorder.RAISED, borderColor, borderColor)
+					? getBorderHighlight()
 					: EMPTY_BORDER
 			);
 		}

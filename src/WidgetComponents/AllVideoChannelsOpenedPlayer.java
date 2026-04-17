@@ -17,12 +17,16 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.AbstractButton;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.border.Border;
 
+import ActionListeners.ArrayActionListener;
+import ActionListenersImpl.LaunchUrlActionListener;
 import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
 import MouseListenersImpl.LookupOrCreateYoutube;
@@ -33,11 +37,12 @@ import Properties.LoggingMessages;
 import WidgetComponentInterfaces.DefaultAndScaledImage;
 import WidgetComponentInterfaces.DurationLimitSubscriber;
 import WidgetComponentInterfaces.ImageReader;
+import WidgetComponentInterfaces.RegisterArrayActionListener;
 import WidgetComponentInterfaces.SearchSubscriber;
 import WidgetComponents.DurationLimiter.Mode;
 import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
 
-public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndScaledImage
+public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndScaledImage, ArrayActionListener
 {
 	private static final long serialVersionUID = 1L;
 
@@ -83,6 +88,10 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 		lcv = new LookupOrCreateYoutube();
 	private OpenVideoChannelsUpdater
 		ovcu;
+	private AbstractButton
+		highlightButton;
+	private Border
+		defaultBorder = new JButton().getBorder();
 	
 	public AllVideoChannelsOpenedPlayer(DefaultAndScaledImage parentScaler, 
 			ArrayList<JButtonLengthLimited> jblls, 
@@ -265,7 +274,9 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 		this.setMinimumSize(MIN_SIZE);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setIconImage(JButtonArray.getMoviesIcon());
+		RegisterArrayActionListener.addListener(this);
 		this.setVisible(true);
+		unselect(LaunchUrlActionListener.getLastButtonOrigin());
 		GraphicsUtil.rightEdgeTopWindow(parentContainer, this);
 		
 	}
@@ -520,6 +531,63 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 	public void setScaledWidth(int scaledWidth) 
 	{
 		SCALED_WIDTH_ICON = scaledWidth;
+	}
+
+	@Override
+	public void addActionListener(ActionListener actionListener) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void unselect(AbstractButton newButton) 
+	{
+		if(highlightButton != null)
+		{
+			highlightButton.setBorder(defaultBorder);
+		}
+		if(newButton == null)
+		{
+			return;
+		}
+		
+		AbstractButton altButton = null;
+		if(newButton instanceof JButtonLengthLimited)
+		{
+			altButton = ((JButtonLengthLimited) newButton).getHighlightButton();
+		}
+		for(AbstractButton ab : selectionButtonAndParentButton.keySet())
+		{
+			if(ab.getText().equals(newButton.getText()) || 
+					(altButton != null && altButton.getText().equals(ab.getText()))
+			)
+			{
+				//highlight.
+				highlightButton = ab;
+				highlightButton.setBorder(Highlighter.getBorderHighlight());
+				break;
+			}
+		}
+		
+		channelScroll.repaint();
+		channelScroll.validate();
+	}
+
+	@Override
+	public void addArrayActionListener() 
+	{
+		LaunchUrlActionListener.addArrayActionListener(this);
+	}
+
+	@Override
+	public void removeArrayActionListener() 
+	{
+		LaunchUrlActionListener.removeArrayActionListener(this);
+	}
+
+	@Override
+	public void addStripFilter(String filter) {
+		// TODO Auto-generated method stub
 	}
 	
 }

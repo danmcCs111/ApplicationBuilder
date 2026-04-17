@@ -118,45 +118,18 @@ public class LaunchUrlActionListener implements ActionListener
 			for(AbstractButton lastButton : lastButtons)
 			{
 				LoggingMessages.printOut(lastButton.getText());
-				if(lastButton != null && lastButton != button)
+				PicLabelMouseListener.highLightLabel((JButtonLengthLimited) lastButton, false);//TODO interface?
+				for(ArrayActionListener aal : aals)
 				{
-					ArrayActionListener lastButtonParent = findParentArrayActionListener(lastButton);
-					if(lastButtonParent != null && lastButtonParent != findParentArrayActionListener(button))
-					{
-//						ArrayActionListener aal = (ArrayActionListener)lastButtonParent;
-//						aal.unselect(button);
-						for(ArrayActionListener aal : aals)
-						{
-							aal.unselect(button);
-						}
-					}
-					if(lastButton instanceof JButtonLengthLimited)
-					{
-						PicLabelMouseListener.highLightLabel((JButtonLengthLimited) lastButton, false);//TODO interface?
-					}
+					aal.unselect(null);
 				}
 			}
 		}
 		else
 		{
-			if(lastButtonOrigin != null && lastButtonOrigin != null)
+			for(ArrayActionListener aal : aals)
 			{
-				for(AbstractButton lastButton : lastButtons)
-				{
-					if(lastButton != null && lastButton != button)
-					{
-						ArrayActionListener lastButtonParent = findParentArrayActionListener(lastButton);
-						if(lastButtonParent != null && lastButtonParent != findParentArrayActionListener(button))
-						{
-//							ArrayActionListener aal = (ArrayActionListener)lastButtonParent;
-//							aal.unselect(button);
-							for(ArrayActionListener aal : aals)
-							{
-								aal.unselect(button);
-							}
-						}
-					}
-				}
+				aal.unselect(button);
 			}
 		}
 	}
