@@ -119,10 +119,10 @@ public class LaunchUrlActionListener implements ActionListener
 			{
 				LoggingMessages.printOut(lastButton.getText());
 				PicLabelMouseListener.highLightLabel((JButtonLengthLimited) lastButton, false);//TODO interface?
-				for(ArrayActionListener aal : aals)
-				{
-					aal.unselect(null);
-				}
+			}
+			for(ArrayActionListener aal : aals)
+			{
+				aal.unselect(null);
 			}
 		}
 		else
