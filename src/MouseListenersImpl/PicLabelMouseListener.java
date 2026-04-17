@@ -25,7 +25,7 @@ public class PicLabelMouseListener extends MouseAdapter
 	private static Color
 		HIGHLIGHT_COLOR = Color.blue;
 	
-	private static Border 
+	public static Border 
 		EMPTY_BORDER = BorderFactory.createEmptyBorder(),
 		HIGHLIGHT_BORDER = new BevelBorder(BevelBorder.RAISED, HIGHLIGHT_COLOR, HIGHLIGHT_COLOR);
 	private AbstractButton 

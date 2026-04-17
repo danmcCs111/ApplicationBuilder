@@ -18,10 +18,10 @@ public class Highlighter
 			foregroundAndBackgroundColor = new Color [] {new JButton().getForeground(), new JButton().getBackground()},
 			highlightForegroundAndBackgroundColor = new Color [] {foregroundAndBackgroundColor[0], foregroundAndBackgroundColor[1]};
 	private static Color 
-		borderColor = Color.orange;
+		borderColor = Color.ORANGE;
 	private static Border 
 		EMPTY_BORDER = BorderFactory.createEmptyBorder(),
-		BORDER_HIGHLIGHT = new BevelBorder(BevelBorder.RAISED, borderColor, borderColor);
+		BORDER_HIGHLIGHT;
 	
 	public Highlighter(
 			JComponent comp, Color [] highlightForegroundAndBackgroundColor, Color [] foregroundAndBackgroundColor)
@@ -53,6 +53,10 @@ public class Highlighter
 	
 	public static Border getBorderHighlight()
 	{
+		if(BORDER_HIGHLIGHT == null)
+		{
+			BORDER_HIGHLIGHT = new BevelBorder(BevelBorder.RAISED, borderColor, borderColor);
+		}
 		return BORDER_HIGHLIGHT;
 	}
 	
