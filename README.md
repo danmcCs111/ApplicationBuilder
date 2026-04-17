@@ -43,6 +43,10 @@ Launch video selector with:
 
 <img width="45%" src="https://github.com/user-attachments/assets/a5dc474a-e387-48ec-9ecb-7680b0b8e732" />
 
+(with pc remote)
+
+<img width="45%" width="1536" height="1536" alt="IMG20260416211346" src="https://github.com/user-attachments/assets/9acd6b01-7455-4d36-ab0d-f4196fe56bfb" />
+
 *updated listview to include homepage button, update button & duration. added duration limit filter
 
 <img width="45%" width="757" height="410" alt="image" src="https://github.com/user-attachments/assets/eac0375f-5865-4f6e-bcd1-b43967a34df8" />
