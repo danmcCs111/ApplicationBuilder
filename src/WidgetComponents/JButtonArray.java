@@ -647,6 +647,7 @@ PostWidgetBuildProcessing, ButtonArray
 			setHighlightForegroundAndBackground(false);
 			highlightButton = null;
 		}
+		this.repaint();
 		this.validate();
 	}
 
