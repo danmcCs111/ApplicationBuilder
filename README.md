@@ -39,6 +39,11 @@ Launch video selector with:
 
         video_launcher.sh OR video_launcher-linux.sh
 
+
+**FYI When copying/adding youtube Urls through  **drag and drop** or through the **Edit collection** utility
+
+if it isn't copying, highlight the url in browser and hit enter again. the actual url may be different.
+
 (using in a dual monitor setup.)
 
 <img width="45%" src="https://github.com/user-attachments/assets/a5dc474a-e387-48ec-9ecb-7680b0b8e732" />
