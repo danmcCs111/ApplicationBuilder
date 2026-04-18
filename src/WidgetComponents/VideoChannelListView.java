@@ -453,6 +453,9 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 	
 	public void findHighlight(AbstractButton newButton)
 	{
+		if(newButton == null)
+			return;
+		
 		AbstractButton last = newButton == null
 				? LaunchUrlActionListener.getLastButtonOrigin()
 				: newButton;
