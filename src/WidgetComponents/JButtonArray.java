@@ -583,6 +583,7 @@ PostWidgetBuildProcessing, ButtonArray
 		addJButtons(path, listOf, index, indexPl);
 		rebuildButtons();
 		refreshAllMouseListeners();
+		unselect(LaunchUrlActionListener.getLastButtonOrigin());
 	}
 	
 	public void filterText(JButtonLengthLimited jbl)
@@ -626,8 +627,11 @@ PostWidgetBuildProcessing, ButtonArray
 				hlButton = ((JButtonLengthLimited) newButton).getHighlightButton();
 			}
 			
+			LoggingMessages.printOut("JButton match highlight: " + hlButton.getText());
+			LoggingMessages.printOut("JButton match highlight: " + newButton.getText());
+			
 			ArrayList<JButtonLengthLimited> matches = findButtonFromText(hlButton.getText());//TODO
-			if(matches != null)
+			if(matches != null && !matches.isEmpty())
 			{
 				setHighlightForegroundAndBackground(false);
 				highlightButton = matches.get(0);//TODO.
