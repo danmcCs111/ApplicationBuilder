@@ -332,7 +332,7 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 	
 	public void postFrameBuild()
 	{
-		findHighlight(null);
+		findHighlight(LaunchUrlActionListener.getLastButtonOrigin());
 	}
 	
 	private JLabel buildChannelLabel(AbstractButton ab)
