@@ -503,7 +503,7 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 	}
 
 	@Override
-	public void unselect(AbstractButton newButton) 
+	public void urlSelect(AbstractButton newButton) 
 	{
 		clearSelect();
 		findHighlight(newButton);

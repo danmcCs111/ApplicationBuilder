@@ -125,14 +125,14 @@ public class LaunchUrlActionListener implements ActionListener
 			}
 			for(ArrayActionListener aal : aals)
 			{
-				aal.unselect(null);
+				aal.urlSelect(null);
 			}
 		}
 		else
 		{
 			for(ArrayActionListener aal : aals)
 			{
-				aal.unselect(button);
+				aal.urlSelect(button);
 			}
 		}
 	}

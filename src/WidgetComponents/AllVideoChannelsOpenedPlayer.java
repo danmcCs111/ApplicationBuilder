@@ -276,7 +276,7 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 		this.setIconImage(JButtonArray.getMoviesIcon());
 		RegisterArrayActionListener.addListener(this);
 		this.setVisible(true);
-		unselect(LaunchUrlActionListener.getLastButtonOrigin());
+		urlSelect(LaunchUrlActionListener.getLastButtonOrigin());
 		GraphicsUtil.rightEdgeTopWindow(parentContainer, this);
 		
 	}
@@ -540,7 +540,7 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 	}
 	
 	@Override
-	public void unselect(AbstractButton newButton) 
+	public void urlSelect(AbstractButton newButton) 
 	{
 		if(highlightButton != null)
 		{

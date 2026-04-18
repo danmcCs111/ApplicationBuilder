@@ -429,7 +429,7 @@ PostWidgetBuildProcessing
 	}
 
 	@Override
-	public void unselect(AbstractButton newButton) {
+	public void urlSelect(AbstractButton newButton) {
 		// TODO Auto-generated method stub
 		
 	}

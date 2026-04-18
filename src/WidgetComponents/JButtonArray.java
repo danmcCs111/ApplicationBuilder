@@ -583,7 +583,7 @@ PostWidgetBuildProcessing, ButtonArray
 		addJButtons(path, listOf, index, indexPl);
 		rebuildButtons();
 		refreshAllMouseListeners();
-		unselect(LaunchUrlActionListener.getLastButtonOrigin());
+		urlSelect(LaunchUrlActionListener.getLastButtonOrigin());
 	}
 	
 	public void filterText(JButtonLengthLimited jbl)
@@ -617,7 +617,7 @@ PostWidgetBuildProcessing, ButtonArray
 	}
 
 	@Override
-	public void unselect(AbstractButton newButton) 
+	public void urlSelect(AbstractButton newButton) 
 	{
 		if(newButton != null)
 		{
@@ -627,14 +627,13 @@ PostWidgetBuildProcessing, ButtonArray
 				hlButton = ((JButtonLengthLimited) newButton).getHighlightButton();
 			}
 			
-			LoggingMessages.printOut("JButton match highlight: " + hlButton.getText());
-			LoggingMessages.printOut("JButton match highlight: " + newButton.getText());
 			
 			ArrayList<JButtonLengthLimited> matches = findButtonFromText(hlButton.getText());//TODO
+			
 			if(matches != null && !matches.isEmpty())
 			{
 				setHighlightForegroundAndBackground(false);
-				highlightButton = matches.get(0);//TODO.
+				highlightButton = matches.get(0);//TODO. multi match
 				setHighlightForegroundAndBackground(true);
 			}
 			else
@@ -648,6 +647,7 @@ PostWidgetBuildProcessing, ButtonArray
 			setHighlightForegroundAndBackground(false);
 			highlightButton = null;
 		}
+		this.validate();
 	}
 
 	@Override

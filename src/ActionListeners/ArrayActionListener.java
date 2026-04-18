@@ -23,7 +23,7 @@ public interface ArrayActionListener
 		return null;
 	}
 	
-	public abstract void unselect(AbstractButton newButton);
+	public abstract void urlSelect(AbstractButton newButton);
 	public void addArrayActionListener();
 	public abstract void removeArrayActionListener();
 	
