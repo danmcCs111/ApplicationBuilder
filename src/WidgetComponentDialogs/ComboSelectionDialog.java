@@ -16,11 +16,13 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
 import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
 import WidgetExtensionInterfaces.ComboListDialogSelectedListener;
+import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
 
 
 public class ComboSelectionDialog extends JDialog 
@@ -36,6 +38,8 @@ public class ComboSelectionDialog extends JDialog
 	
 	private JList<String> 
 		componentMethods = new JList<String>();
+	private JScrollPane
+		scrollPane;
 	
 	public ComboSelectionDialog()
 	{
@@ -66,7 +70,8 @@ public class ComboSelectionDialog extends JDialog
 			ComboListDialogSelectedListener cdsl,
 			Container refLocContainer)
 	{
-	
+		scrollPane = new JScrollPane();
+		
 		JLabel messageLabel = new JLabel();
 		componentMethods.setListData(selectables.toArray(new String[selectables.size()]));
 		
@@ -84,10 +89,12 @@ public class ComboSelectionDialog extends JDialog
 				ComboSelectionDialog.this.dispose();
 			}
 		};
+		scrollPane.setViewportView(componentMethods);
+		
 		this.addWindowListener(wl);
 		this.setLayout(new BorderLayout());
 		this.add(messageLabel, BorderLayout.NORTH);
-		this.add(componentMethods, BorderLayout.CENTER);
+		this.add(scrollPane, BorderLayout.CENTER);
 		
 		JPanel southPane = new JPanel(new BorderLayout());
 		JPanel eastPane = new JPanel(new GridLayout(1,2));
@@ -148,6 +155,8 @@ public class ComboSelectionDialog extends JDialog
 		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
 		ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
 		ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
+		ExtendedSetScrollBackgroundForegroundColor.applyBackgroundForeground(
+				ColorTemplate.getPanelBackgroundColor(), ColorTemplate.getButtonBackgroundColor(), scrollPane);
 		
 		this.setVisible(true);
 		this.pack();
