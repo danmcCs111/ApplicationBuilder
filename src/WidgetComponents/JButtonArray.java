@@ -47,6 +47,7 @@ import WidgetComponentInterfaces.CharacterLimited;
 import WidgetComponentInterfaces.EditButtonArrayUrls;
 import WidgetComponentInterfaces.LinkDragAndDropSubscriber;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
+import WidgetComponentInterfaces.RegisterArrayActionListener;
 import WidgetExtensionDefs.ExtendedStringCollection;
 import WidgetExtensionInterfaces.CloseActionExtension;
 import WidgetExtensionInterfaces.CloseAllActionExtension;
@@ -593,12 +594,56 @@ PostWidgetBuildProcessing, ButtonArray
 		}
 		jbl.setText(txt);
 	}
+	
+	private ArrayList<JButtonLengthLimited> findButtonFromText(String text)
+	{
+		if(text == null)
+			return null;
+		
+		ArrayList<JButtonLengthLimited> matches = new ArrayList<JButtonLengthLimited>();
+		
+		for(String key : collectionJButtons.keySet())
+		{
+			for(JButtonLengthLimited jbll : collectionJButtons.get(key))
+			{
+				if(jbll.getText().equals(text))
+				{
+					matches.add(jbll);
+				}
+			}
+		}
+		return matches;
+	}
 
 	@Override
 	public void unselect(AbstractButton newButton) 
 	{
-		setHighlightForegroundAndBackground(false);
-		highlightButton = null;
+		if(newButton != null)
+		{
+			AbstractButton hlButton = newButton; 
+			if(newButton instanceof JButtonLengthLimited)
+			{
+				hlButton = ((JButtonLengthLimited) newButton).getHighlightButton();
+			}
+			
+			ArrayList<JButtonLengthLimited> matches = findButtonFromText(hlButton.getText());//TODO
+			if(matches != null)
+			{
+				setHighlightForegroundAndBackground(false);
+				highlightButton = matches.get(0);//TODO.
+				setHighlightForegroundAndBackground(true);
+			}
+			else
+			{
+				setHighlightForegroundAndBackground(false);
+				highlightButton = null;
+			}
+		}
+		else
+		{
+			setHighlightForegroundAndBackground(false);
+			highlightButton = null;
+		}
 	}
 
 	@Override
@@ -782,7 +827,7 @@ PostWidgetBuildProcessing, ButtonArray
 			}
 		});
 		addDragAndDropListener(this);
-//		RegisterArrayActionListener.addListener(this);
+		RegisterArrayActionListener.addListener(this);
 	}
 
 	private void addDragAndDropListener(Component target)

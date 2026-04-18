@@ -118,7 +118,10 @@ public class LaunchUrlActionListener implements ActionListener
 			for(AbstractButton lastButton : lastButtons)
 			{
 				LoggingMessages.printOut(lastButton.getText());
-				PicLabelMouseListener.highLightLabel((JButtonLengthLimited) lastButton, false);//TODO interface?
+				if(lastButton instanceof JButtonLengthLimited)
+				{
+					PicLabelMouseListener.highLightLabel((JButtonLengthLimited) lastButton, false);//TODO interface?
+				}
 			}
 			for(ArrayActionListener aal : aals)
 			{
