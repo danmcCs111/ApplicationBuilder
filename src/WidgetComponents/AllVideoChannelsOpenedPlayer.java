@@ -1,6 +1,7 @@
 package WidgetComponents;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -10,6 +11,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,7 +20,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.AbstractButton;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -78,20 +80,22 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 		contentScrollPane;
 	private DefaultAndScaledImage 
 		parentScaler;
-	private HashMap<JButtonLengthLimited, ImageIcon>
-		icon = new HashMap<JButtonLengthLimited, ImageIcon>();
-	private HashMap<JButtonLengthLimited, ArrayList<YoutubeChannelVideo>>
-		parentButtonAndYoutubeVideos = new HashMap<JButtonLengthLimited, ArrayList<YoutubeChannelVideo>>();
-	private HashMap<AbstractButton, JButtonLengthLimited>
-		selectionButtonAndParentButton = new HashMap<AbstractButton, JButtonLengthLimited>();
-	private LookupOrCreateYoutube 
-		lcv = new LookupOrCreateYoutube();
-	private OpenVideoChannelsUpdater
-		ovcu;
 	private AbstractButton
 		highlightButton;
 	private Border
 		defaultBorder = new JButton().getBorder();
+	
+	private HashMap<String, ImageIcon>
+		channelAndIcon = new HashMap<String, ImageIcon>();
+	private HashMap<JButtonLengthLimited, ArrayList<YoutubeChannelVideo>>
+		parentButtonAndYoutubeVideos = new HashMap<JButtonLengthLimited, ArrayList<YoutubeChannelVideo>>();
+	private HashMap<AbstractButton, JButtonLengthLimited>
+		selectionButtonAndParentButton = new HashMap<AbstractButton, JButtonLengthLimited>();
+	
+	private LookupOrCreateYoutube 
+		lcv = new LookupOrCreateYoutube();
+	private OpenVideoChannelsUpdater
+		ovcu;
 	
 	public AllVideoChannelsOpenedPlayer(DefaultAndScaledImage parentScaler, 
 			ArrayList<JButtonLengthLimited> jblls, 
@@ -270,6 +274,27 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 		ExtendedSetScrollBackgroundForegroundColor.applyBackgroundForeground(
 				ColorTemplate.getPanelBackgroundColor(), ColorTemplate.getButtonBackgroundColor(), channelScroll);
 		
+		
+		this.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent e) {
+				for(String key : channelAndIcon.keySet())
+				{
+					channelAndIcon.get(key).getImage().flush();
+				}
+				channelAndIcon.clear();
+				parentButtonAndYoutubeVideos.clear();
+				selectionButtonAndParentButton.clear();
+				for(int i = 0; i < listPanel.getComponentCount(); i++)
+				{
+					Component c = listPanel.getComponent(i);
+					if(c instanceof AbstractButton)
+					{
+						((AbstractButton) c).setIcon(null);
+					}
+				}
+			}
+		});
 		this.setTitle(TITLE);
 		this.setMinimumSize(MIN_SIZE);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -347,8 +372,8 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 	
 	private ImageIcon getImage(JButtonLengthLimited jbll)
 	{
-		if(icon.containsKey(jbll))
-			return icon.get(jbll);
+		if(channelAndIcon.containsKey(jbll.getText()))
+			return channelAndIcon.get(jbll.getText());
 		
 		String path = jbll.getPath();
 		ImageReader buttonImageReader = new ImageReader(this, true);
@@ -356,9 +381,9 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 		File f = new File(ds.getFullPath() + "/images/" + jbll.getFullLengthText() + ".png");
 		LoggingMessages.printOut(f.toString());
 		
-		icon.put(jbll, buttonImageReader.getImageIcon(f));
+		channelAndIcon.put(jbll.getText(), buttonImageReader.getImageIcon(f));
 		
-		return icon.get(jbll);
+		return channelAndIcon.get(jbll.getText());
 	}
 	
 	public AbstractButton buildAllSelectionButton()
