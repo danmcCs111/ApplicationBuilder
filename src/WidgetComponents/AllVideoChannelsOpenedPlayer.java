@@ -283,6 +283,19 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 					channelAndIcon.get(key).getImage().flush();
 				}
 				channelAndIcon.clear();
+				for(JButtonLengthLimited jbll : parentButtonAndYoutubeVideos.keySet())
+				{
+					ArrayList <YoutubeChannelVideo> ycys = parentButtonAndYoutubeVideos.get(jbll);
+					for(YoutubeChannelVideo ycy : ycys)
+					{
+						if(ycy.getImagePng() != null)
+						{
+							ycy.getImagePng().flush();
+						}
+						ycy.setImagePng(null);
+					}
+					ycys.clear();
+				}
 				parentButtonAndYoutubeVideos.clear();
 				selectionButtonAndParentButton.clear();
 				for(int i = 0; i < listPanel.getComponentCount(); i++)
