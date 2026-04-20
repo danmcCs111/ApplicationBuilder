@@ -234,6 +234,7 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements ArrayActionL
 				parentButtonAndYoutubeVideos.clear();
 				selectionButtonAndParentButton.clear();
 				parentButtons.clear();
+				buttonAndIcon.clear();
 				
 				//remove components
 				for(int i = 0; i < listPanel.getComponentCount(); i++)
