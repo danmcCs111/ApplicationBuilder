@@ -113,6 +113,33 @@ public class ImageReader
 		return retImage;
 	}
 	
+	public ImageIcon getScaledImageIcon(Image image)
+	{
+		Image retImage = null;
+		if(image == null)
+		{
+			retImage = getDefaultImage();
+		}
+		else
+		{
+			Dimension scaled;
+			if(buttonArrayImage)
+			{
+				scaled = getScaledDimensionFromHeight(image, JButtonArray.getButtonIconHeight());//TODO.
+			}
+			else
+			{
+				scaled = getScaledDimension(image, imageScalingOptions.getScaledWidth());
+			}
+			
+			retImage = image.getScaledInstance(
+					scaled.width, 
+					scaled.height, 0);
+		}
+		
+		return new ImageIcon(retImage);
+	}
+	
 	public static Dimension getScaledDimension(Image tmpImage, int scaledWidth)
 	{
 		ImageReaderDimensionObserver imgO = new ImageReaderDimensionObserver();

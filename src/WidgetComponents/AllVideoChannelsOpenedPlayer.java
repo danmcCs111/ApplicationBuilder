@@ -13,10 +13,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import javax.swing.AbstractButton;
@@ -33,9 +33,7 @@ import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
 import MouseListenersImpl.LookupOrCreateYoutube;
 import MouseListenersImpl.YoutubeChannelVideo;
-import ObjectTypeConversion.DirectorySelection;
 import ObjectTypeConversion.FileSelection;
-import Properties.LoggingMessages;
 import WidgetComponentInterfaces.DefaultAndScaledImage;
 import WidgetComponentInterfaces.DurationLimitSubscriber;
 import WidgetComponentInterfaces.ImageReader;
@@ -85,39 +83,43 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 		ycvs; 
 	private HashMap<Integer, JButtonLengthLimited> 
 		parentButtons;
-	private HashMap<String, ImageIcon>
-		channelAndIcon = new HashMap<String, ImageIcon>();
 	private HashMap<JButtonLengthLimited, ArrayList<YoutubeChannelVideo>>
 		parentButtonAndYoutubeVideos = new HashMap<JButtonLengthLimited, ArrayList<YoutubeChannelVideo>>();
 	private HashMap<AbstractButton, JButtonLengthLimited>
 		selectionButtonAndParentButton = new HashMap<AbstractButton, JButtonLengthLimited>();
+	private LinkedHashMap<JButtonLengthLimited, ImageIcon> 
+		buttonAndIcon;
 	
 	private LookupOrCreateYoutube 
 		lcv = new LookupOrCreateYoutube();
 	private OpenVideoChannelsUpdater
 		ovcu;
+	private ImageReader //TODO keep scaled image icons.
+		ir;
 	
 	public AllVideoChannelsOpenedPlayer(DefaultAndScaledImage parentScaler, 
-			ArrayList<JButtonLengthLimited> jblls, 
+			LinkedHashMap<JButtonLengthLimited, ImageIcon> buttonAndIcon, 
 			Container parentContainer)
 	{
 		this.parentScaler = parentScaler;
 		this.parentButtons = new HashMap<Integer, JButtonLengthLimited>();
 		this.parentContainer = parentContainer;
 		this.ycvs = new HashMap<Integer, ArrayList<YoutubeChannelVideo>>();
+		this.buttonAndIcon = buttonAndIcon;
+		ir = new ImageReader(this, true);
 		
 		Runnable r = new Runnable()
 		{
 			@Override
 			public void run() {
-				buildLoadingFrame(jblls);
+				buildLoadingFrame(buttonAndIcon);
 			}
 		};
 		Thread t = new Thread(r);
 		t.start();
 	}
 	
-	public void buildLoadingFrame(ArrayList<JButtonLengthLimited> jblls) 
+	public void buildLoadingFrame(LinkedHashMap<JButtonLengthLimited, ImageIcon> buttonAndIcon) 
 	{
 		JFrame loadingFrame = new JFrame();
 		loadingFrame.setResizable(false);
@@ -134,17 +136,20 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 		ColorTemplate.setBackgroundColorButtons(loadingFrame, ColorTemplate.getButtonBackgroundColor());
 		ColorTemplate.setForegroundColorButtons(loadingFrame, ColorTemplate.getButtonForegroundColor());
 		
-		for(int count = 0; count < jblls.size(); count++)
+		int count = 0;
+		for(JButtonLengthLimited jbll : buttonAndIcon.keySet())
 		{
+			label.updateCount(count, buttonAndIcon.keySet().size());
 			HashMap<Integer, ArrayList<YoutubeChannelVideo>> vids = lcv.lookup(
-					jblls.get(count).getText(), jblls.get(count).getName());
-			if(vids == null || vids.isEmpty())
-				continue;
+					jbll.getText(), jbll.getName());
 			
-			int key = vids.keySet().iterator().next();
-			this.ycvs.put(key, vids.get(key));
-			this.parentButtons.put(key, jblls.get(count));
-			label.updateCount(count, jblls.size());
+			if(vids != null && !vids.isEmpty())
+			{
+				int key = vids.keySet().iterator().next();
+				this.ycvs.put(key, vids.get(key));
+				this.parentButtons.put(key, jbll);
+			}
+			count++;
 		}
 		loadingFrame.dispose();
 		
@@ -207,8 +212,7 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 			parentButtonAndYoutubeVideos.put(parentButtons.get(i), ycvs.get(i));
 			AbstractButton ab = buildSelectionButton(parentButtons.get(i));
 			selectionButtonAndParentButton.put(ab, parentButtons.get(i));
-			ImageIcon ii = getImage(parentButtons.get(i));
-			ab.setIcon(ii);
+			ab.setIcon(ir.getScaledImageIcon(buttonAndIcon.get(parentButtons.get(i)).getImage()));
 			ab.setHorizontalAlignment(AbstractButton.LEFT);
 			listPanel.add(ab);
 		}
@@ -226,17 +230,7 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 		
 		this.addWindowListener(new WindowAdapter() {
 			@Override
-			public void windowClosed(WindowEvent e) {
-				//remove images
-				for(String key : channelAndIcon.keySet())
-				{
-					ImageIcon ii = channelAndIcon.get(key);
-					ii.getImage().flush();
- 					ii = null;
-				}
-				
-				//clear
-				channelAndIcon.clear();
+			public void windowClosing(WindowEvent e) {
 				for(JButtonLengthLimited jbll : parentButtonAndYoutubeVideos.keySet())
 				{
 					ArrayList <YoutubeChannelVideo> ycvs = parentButtonAndYoutubeVideos.get(jbll);
@@ -293,7 +287,7 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 		this.remove(contentScrollPane);
 	}
 	
-	public void setImageButton(JButtonLengthLimited jbll)
+	public void setImageButton(JButtonLengthLimited jbllParent)
 	{
 		for(MouseListener ml : imageLabel.getMouseListeners())
 		{
@@ -304,7 +298,7 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 			updateButton.removeActionListener(al);
 		}
 		
-		if(jbll == null)
+		if(jbllParent == null)
 		{
 			imageLabel.setVisible(false);
 			updateButton.addActionListener(getUpdateChannelsActionListener());
@@ -313,9 +307,8 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 		imageLabel.setVisible(true);
 		updateButton.addActionListener(getUpdateChannelActionListener());
 		
-		ImageIcon ii = getImage(jbll);
-		imageLabel.setIcon(ii);
-		imageLabel.setToolTipText(HOME_PAGE_TOOLTIP_TEXT.replaceAll("<arg0>", jbll.getText()));
+		imageLabel.setIcon(ir.getScaledImageIcon(buttonAndIcon.get(jbllParent).getImage()));//TODO
+		imageLabel.setToolTipText(HOME_PAGE_TOOLTIP_TEXT.replaceAll("<arg0>", jbllParent.getText()));
 		
 		imageLabel.addMouseListener(new MouseAdapter() {
 			@Override
@@ -324,12 +317,12 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 				switch(button)
 				{
 				case MouseEvent.BUTTON1:
-					jbll.doClick();
+					jbllParent.doClick();
 					break;
 				case MouseEvent.BUTTON2:
-					for(MouseListener ml : jbll.getMouseListeners())
+					for(MouseListener ml : jbllParent.getMouseListeners())
 					{
-						e.setSource(jbll);
+						e.setSource(jbllParent);
 						ml.mouseClicked(e);
 					}
 					break;
@@ -338,22 +331,6 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 				}
 			}
 		});
-	}
-	
-	private ImageIcon getImage(JButtonLengthLimited jbll)
-	{
-		if(channelAndIcon.containsKey(jbll.getText()))
-			return channelAndIcon.get(jbll.getText());
-		
-		String path = jbll.getPath();
-		ImageReader buttonImageReader = new ImageReader(this, true);
-		DirectorySelection ds = new DirectorySelection(path);
-		File f = new File(ds.getFullPath() + "/images/" + jbll.getFullLengthText() + ".png");
-		LoggingMessages.printOut(f.toString());
-		
-		channelAndIcon.put(jbll.getText(), buttonImageReader.getImageIcon(f));
-		
-		return channelAndIcon.get(jbll.getText());
 	}
 	
 	public AbstractButton buildAllSelectionButton()
