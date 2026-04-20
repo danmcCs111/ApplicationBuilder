@@ -56,10 +56,12 @@
 			<JMenu extendedLayoutApplyParent="" setText="Launch" >
 				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellExecutorAlt|%Fn./plugin-projects/DatabaseAdapterService/runDatabase.sh" extendedLayoutApplyParent="" setText="Database Service" setToolTipText="Manages and retrieves stored database content" >
 				</JMenuItem>
-				<JMenuItem extendedLayoutApplyParent="" extendedOpenVideoChannelsUpdater="channels" setText="Update Open Channels" >
-				</JMenuItem>
-				<JMenuItem extendedAllVideoChannelsOpenedList="channels" extendedLayoutApplyParent="" setText="All Open Channels List" >
-				</JMenuItem>
+				<JMenu extendedLayoutApplyParent="" setText="Channels" >
+					<JMenuItem extendedLayoutApplyParent="" extendedOpenVideoChannelsUpdater="channels" setText="Update Open Channels" >
+					</JMenuItem>
+					<JMenuItem extendedAllVideoChannelsOpenedList="channels" extendedLayoutApplyParent="" setText="All Open Channels List" >
+					</JMenuItem>
+				</JMenu>
 				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ApplicationBuilder|%Fn./Properties/data/Video Tile-mini.xml" extendedLayoutApplyParent="" setText="List Creator" setToolTipText="Select available content and store under a bookmark file" >
 				</JMenuItem>
 				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ApplicationBuilder|%Fn./Properties/data/ScheduledCommandListEditor.xml" extendedLayoutApplyParent="" setText="Reload Tool" setToolTipText="Launch a process to recycle and retrieve new content" >
