@@ -36,7 +36,7 @@ public class VideoChannelPlayer extends JFrame
 		HOME_PAGE_TOOLTIP_TEXT = "[ <arg0> ] - Homepage",
 		TITLE_PREFIX = "Channel | ";
 	private static Dimension 
-		MIN_SIZE = new Dimension(775, 425);
+		MIN_SIZE = new Dimension(800, 425);
 	private static int 
 		DEFAULT_MINUTE_SETTING = 10,
 		SEARCH_COLUMN_LENGTH = 15,

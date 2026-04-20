@@ -148,6 +148,11 @@ PostWidgetBuildProcessing, ButtonArray
 		
 	}
 	
+	public static void setImageIconHeight(int height)
+	{
+		KeepSelection.setImageIconHeight(height);
+	}
+	
 	public static void setDefaultVideoListViewMinute(int minute)//TODO.
 	{
 		VideoChannelPlayer.setDefaultMinuteSetting(minute);

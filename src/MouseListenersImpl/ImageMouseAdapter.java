@@ -343,7 +343,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 	{
 		JLabel picLabel = new JLabel(ii);
 		JButtonLengthLimited ab = ks.getJButtonLengthLimited();
-		FrameMouseDragListener mouseDragListener = new FrameMouseDragListener(f, ba, ab, picLabel);
+		FrameMouseDragListener mouseDragListener = new FrameMouseDragListener(f, ks.getImageIcon(), ab, picLabel);
 		picLabel.addMouseMotionListener(mouseDragListener);
 		picLabel.addMouseListener(mouseDragListener);
 		picLabel.setName(ks.getText());

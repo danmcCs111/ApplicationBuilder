@@ -1,7 +1,6 @@
 package MouseListenersImpl;
 
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,7 +10,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -25,12 +23,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
 import Graphics2D.ColorTemplate;
-import ObjectTypeConversion.DirectorySelection;
-import ObjectTypeConversion.FileSelection;
 import Properties.LoggingMessages;
-import WidgetComponentInterfaces.DefaultAndScaledImage;
 import WidgetComponentInterfaces.HighlightListener;
-import WidgetComponentInterfaces.ImageReader;
 import WidgetComponents.JButtonLengthLimited;
 import WidgetComponents.JMenuItemLaunchUrl;
 import WidgetComponents.JMenuLaunchUrl;
@@ -38,7 +32,7 @@ import WidgetComponents.VideoChannelListView;
 import WidgetComponents.VideoChannelPlayer;
 import WidgetComponentsTips4Java.MenuScroller;
 
-public class FrameMouseDragListener extends MouseAdapter implements MouseListener, MouseMotionListener, HighlightListener, DefaultAndScaledImage
+public class FrameMouseDragListener extends MouseAdapter implements MouseListener, MouseMotionListener, HighlightListener
 {
 	private static final int 
 		FRAME_AND_TITLE_HEIGHT = 45; 
@@ -59,6 +53,8 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	
 	private JFrame 
 		f;
+	private ImageIcon
+		imgIcon;
 	private JButtonLengthLimited 
 		parentButton;
 	private JLabel 
@@ -73,10 +69,6 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		mouse1Pressed = false;
 	private VideoUpdateTimespanDialog 
 		vutd = null;
-	private ImageIcon
-		icon = null;
-	private DefaultAndScaledImage 
-		parentScaler;
 	private HashMap <Integer, ArrayList <YoutubeChannelVideo>> 
 		ycvs;
 	
@@ -85,11 +77,11 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		
 	}
 	
-	public FrameMouseDragListener(JFrame f, DefaultAndScaledImage parentScaler, JButtonLengthLimited parentButton, JLabel picLabel)
+	public FrameMouseDragListener(JFrame f, ImageIcon imgIcon, JButtonLengthLimited parentButton, JLabel picLabel)
 	{
 		super();
 		this.f = f;
-		this.parentScaler = parentScaler;
+		this.imgIcon = imgIcon;
 		this.parentButton = parentButton;
 		this.picLabel = picLabel;
 	}
@@ -292,7 +284,8 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 			p = vqp.getLocationOnScreen();
 			vqp.dispose();
 		}
-		vqp = new VideoChannelPlayer(getImage((JButtonLengthLimited)parentButton), this, (JButtonLengthLimited) parentButton, f);
+		
+		vqp = new VideoChannelPlayer(imgIcon, this, (JButtonLengthLimited) parentButton, f);
 		if(p != null)
 		{
 			vqp.setLocation(p);
@@ -352,68 +345,4 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		return vqp.getVideoChannelListView().getAbstractButton(name);
 	}
 	
-	private ImageIcon getImage(JButtonLengthLimited jbll)
-	{
-		if(icon != null)
-			return icon;
-		
-		String path = jbll.getPath();
-		ImageReader buttonImageReader = new ImageReader(this, true);
-		DirectorySelection ds = new DirectorySelection(path);
-		File f = new File(ds.getFullPath() + "/images/" + jbll.getFullLengthText() + ".png");
-		LoggingMessages.printOut(f.toString());
-		
-		icon = buttonImageReader.getImageIcon(f);
-		
-		return icon;
-	}
-
-	@Override
-	public String getDefaultImagePath() 
-	{
-		return parentScaler.getDefaultImagePath();
-	}
-
-	@Override
-	public Dimension getScaledDefaultPic() 
-	{
-		return parentScaler.getScaledDefaultPic();
-	}
-
-	@Override
-	public Dimension getDefaultPicSize() 
-	{
-		return parentScaler.getDefaultPicSize();
-	}
-
-	@Override
-	public int getScaledWidth() 
-	{
-		return SCALED_WIDTH_ICON;
-	}
-
-	@Override
-	public void setDefaultImageXmlPath(FileSelection fs) 
-	{
-		return;
-	}
-
-	@Override
-	public void setScaledDefaultPic(Dimension scaledDefaultPicDimension) 
-	{
-		return;
-	}
-
-	@Override
-	public void setDefaultPicSize(Dimension defaultPicDimension) 
-	{
-		return;
-	}
-
-	@Override
-	public void setScaledWidth(int scaledWidth) 
-	{
-		SCALED_WIDTH_ICON = scaledWidth;
-	}
-
 }

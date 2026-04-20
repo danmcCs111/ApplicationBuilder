@@ -11,6 +11,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -30,6 +31,8 @@ public class KeepSelection implements ShapeDrawingCollectionLoad, Comparator<Kee
 	private static final String 
 		IMAGES_RELATIVE_PATH = "/images/";
 	
+	private static int
+		IMAGE_ICON_HEIGHT = 30;
 	private static Image
 		defaultImg;
 	public static boolean 
@@ -42,6 +45,8 @@ public class KeepSelection implements ShapeDrawingCollectionLoad, Comparator<Kee
 	private Image 
 		img,
 		previewImage;
+	private ImageIcon
+		imgIcon;
 	private String 
 		path,
 		fullText,
@@ -80,6 +85,10 @@ public class KeepSelection implements ShapeDrawingCollectionLoad, Comparator<Kee
 		setupImage(skip, file, fileDefault);
 	}
 	
+	public static void setImageIconHeight(int height)
+	{
+		IMAGE_ICON_HEIGHT = height;
+	}
 	
 	private Image getDefaultImage(File defaultImageLocation)
 	{
@@ -143,6 +152,16 @@ public class KeepSelection implements ShapeDrawingCollectionLoad, Comparator<Kee
 	public String getPath()
 	{
 		return this.path;
+	}
+	
+	public ImageIcon getImageIcon()
+	{
+		if(imgIcon == null)
+		{
+			Image im = getImg();
+			imgIcon = ImageReader.getScaledImageIcon(im, IMAGE_ICON_HEIGHT);
+		}
+		return imgIcon;
 	}
 	
 	public Image getImg()
@@ -281,7 +300,7 @@ public class KeepSelection implements ShapeDrawingCollectionLoad, Comparator<Kee
 	{
 		//
 	}
-
+	
 	@Override
 	public int compare(KeepSelection o1, KeepSelection o2) 
 	{

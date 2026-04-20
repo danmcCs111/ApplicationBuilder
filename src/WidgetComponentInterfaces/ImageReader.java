@@ -113,24 +113,17 @@ public class ImageReader
 		return retImage;
 	}
 	
-	public ImageIcon getScaledImageIcon(Image image)
+	public static ImageIcon getScaledImageIcon(Image image, int heightScale)
 	{
 		Image retImage = null;
 		if(image == null)
 		{
-			retImage = getDefaultImage();
+			return null;
 		}
 		else
 		{
 			Dimension scaled;
-			if(buttonArrayImage)
-			{
-				scaled = getScaledDimensionFromHeight(image, JButtonArray.getButtonIconHeight());//TODO.
-			}
-			else
-			{
-				scaled = getScaledDimension(image, imageScalingOptions.getScaledWidth());
-			}
+			scaled = getScaledDimensionFromHeight(image, heightScale);
 			
 			retImage = image.getScaledInstance(
 					scaled.width, 

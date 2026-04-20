@@ -31,8 +31,7 @@ public class OpenAllVideoChannelsActionListener implements ActionListener
 		LinkedHashMap<JButtonLengthLimited, ImageIcon> buttonAndIcon = new LinkedHashMap<JButtonLengthLimited, ImageIcon>();
 		for(KeepSelection ks : kss)
 		{
-			ks.getImg();
-			buttonAndIcon.put(ks.getJButtonLengthLimited(), new ImageIcon(ks.getImg()));
+			buttonAndIcon.put(ks.getJButtonLengthLimited(), ks.getImageIcon());
 		}
 		if(avop != null)
 		{
@@ -42,7 +41,7 @@ public class OpenAllVideoChannelsActionListener implements ActionListener
 		Runnable r = new Runnable() {
 			@Override
 			public void run() {
-				avop = new AllVideoChannelsOpenedPlayer(ba, buttonAndIcon, ba.getRootPane().getParent());
+				avop = new AllVideoChannelsOpenedPlayer(buttonAndIcon, ba.getRootPane().getParent());
 			}
 		};
 		Thread t = new Thread(r);

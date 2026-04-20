@@ -33,16 +33,13 @@ import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
 import MouseListenersImpl.LookupOrCreateYoutube;
 import MouseListenersImpl.YoutubeChannelVideo;
-import ObjectTypeConversion.FileSelection;
-import WidgetComponentInterfaces.DefaultAndScaledImage;
 import WidgetComponentInterfaces.DurationLimitSubscriber;
-import WidgetComponentInterfaces.ImageReader;
 import WidgetComponentInterfaces.RegisterArrayActionListener;
 import WidgetComponentInterfaces.SearchSubscriber;
 import WidgetComponents.DurationLimiter.Mode;
 import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
 
-public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndScaledImage, ArrayActionListener
+public class AllVideoChannelsOpenedPlayer extends JFrame implements ArrayActionListener
 {
 	private static final long serialVersionUID = 1L;
 
@@ -56,8 +53,7 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 	private static int 
 		DEFAULT_MINUTE_SETTING = 10,
 		SEARCH_COLUMN_LENGTH = 15,
-		SCROLL_UNIT_INC = 25,
-		SCALED_WIDTH_ICON = 35;
+		SCROLL_UNIT_INC = 25;
 	
 	private JButton 
 		updateButton = new JButton(UPDATE_BUTTON_TEXT),
@@ -72,8 +68,6 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 	private JScrollPane 
 		channelScroll,
 		contentScrollPane;
-	private DefaultAndScaledImage 
-		parentScaler;
 	private AbstractButton
 		highlightButton;
 	private Border
@@ -94,19 +88,15 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 		lcv = new LookupOrCreateYoutube();
 	private OpenVideoChannelsUpdater
 		ovcu;
-	private ImageReader //TODO keep scaled image icons.
-		ir;
 	
-	public AllVideoChannelsOpenedPlayer(DefaultAndScaledImage parentScaler, 
+	public AllVideoChannelsOpenedPlayer(
 			LinkedHashMap<JButtonLengthLimited, ImageIcon> buttonAndIcon, 
 			Container parentContainer)
 	{
-		this.parentScaler = parentScaler;
 		this.parentButtons = new HashMap<Integer, JButtonLengthLimited>();
 		this.parentContainer = parentContainer;
 		this.ycvs = new HashMap<Integer, ArrayList<YoutubeChannelVideo>>();
 		this.buttonAndIcon = buttonAndIcon;
-		ir = new ImageReader(this, true);
 		
 		Runnable r = new Runnable()
 		{
@@ -212,7 +202,7 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 			parentButtonAndYoutubeVideos.put(parentButtons.get(i), ycvs.get(i));
 			AbstractButton ab = buildSelectionButton(parentButtons.get(i));
 			selectionButtonAndParentButton.put(ab, parentButtons.get(i));
-			ab.setIcon(ir.getScaledImageIcon(buttonAndIcon.get(parentButtons.get(i)).getImage()));
+			ab.setIcon(buttonAndIcon.get(parentButtons.get(i)));
 			ab.setHorizontalAlignment(AbstractButton.LEFT);
 			listPanel.add(ab);
 		}
@@ -307,7 +297,7 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 		imageLabel.setVisible(true);
 		updateButton.addActionListener(getUpdateChannelActionListener());
 		
-		imageLabel.setIcon(ir.getScaledImageIcon(buttonAndIcon.get(jbllParent).getImage()));//TODO
+		imageLabel.setIcon(buttonAndIcon.get(jbllParent));
 		imageLabel.setToolTipText(HOME_PAGE_TOOLTIP_TEXT.replaceAll("<arg0>", jbllParent.getText()));
 		
 		imageLabel.addMouseListener(new MouseAdapter() {
@@ -457,54 +447,6 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 		refreshListView(selectedButton);
 	}
 	
-	@Override
-	public String getDefaultImagePath() 
-	{
-		return parentScaler.getDefaultImagePath();
-	}
-
-	@Override
-	public Dimension getScaledDefaultPic() 
-	{
-		return parentScaler.getScaledDefaultPic();
-	}
-
-	@Override
-	public Dimension getDefaultPicSize() 
-	{
-		return parentScaler.getDefaultPicSize();
-	}
-
-	@Override
-	public int getScaledWidth() 
-	{
-		return SCALED_WIDTH_ICON;
-	}
-
-	@Override
-	public void setDefaultImageXmlPath(FileSelection fs) 
-	{
-		return;
-	}
-
-	@Override
-	public void setScaledDefaultPic(Dimension scaledDefaultPicDimension) 
-	{
-		return;
-	}
-
-	@Override
-	public void setDefaultPicSize(Dimension defaultPicDimension) 
-	{
-		return;
-	}
-
-	@Override
-	public void setScaledWidth(int scaledWidth) 
-	{
-		SCALED_WIDTH_ICON = scaledWidth;
-	}
-
 	@Override
 	public void addActionListener(ActionListener actionListener) {
 		// TODO Auto-generated method stub
