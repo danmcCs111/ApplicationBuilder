@@ -80,19 +80,6 @@ if it isn't copying, highlight the url in browser and hit enter again. the actua
 
 <img width="45%" width="492" height="149" alt="image" src="https://github.com/user-attachments/assets/89a3c7e1-1a89-4bbc-9c6f-09afa4a7e636" />
 
-
-*seperated view and update
-
-*switched to a tree structure in layout editor
-
-*switched to a local sqlite install keeping database contents within project directory
-
-*Added launching of database service in launch menu for video launching app
-
-*Added youtube api lookup (requiring key), database table and lookup for popup. adds based on time lapsed since last viewed.
-
-projects required are contained in plugin-projects folder now. 
-
 *improved linux install and support
 
 <img width="1802" height="828" alt="image" src="https://github.com/user-attachments/assets/07c2c831-cb19-4c59-95ab-8990f40db9c9" />
