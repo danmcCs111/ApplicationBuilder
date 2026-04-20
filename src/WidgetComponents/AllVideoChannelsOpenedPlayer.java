@@ -105,30 +105,19 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 		this.parentButtons = new HashMap<Integer, JButtonLengthLimited>();
 		this.parentContainer = parentContainer;
 		this.ycvs = new HashMap<Integer, ArrayList<YoutubeChannelVideo>>();
-		ArrayList<Thread> threads = new ArrayList<Thread>();
-		ArrayList<ChannelLoadingRunnable> clrs = new ArrayList<ChannelLoadingRunnable>();
 		
 		Runnable r = new Runnable()
 		{
 			@Override
 			public void run() {
-				for(JButtonLengthLimited jbll : jblls)
-				{
-					ChannelLoadingRunnable clr = new ChannelLoadingRunnable(jbll);
-					clrs.add(clr);
-					Thread t = new Thread(clr);
-					t.start();
-					threads.add(t);
-				}
-				
-				buildLoadingFrame(threads, clrs);
+				buildLoadingFrame(jblls);
 			}
 		};
 		Thread t = new Thread(r);
 		t.start();
 	}
 	
-	public void buildLoadingFrame(ArrayList<Thread> threads, ArrayList<ChannelLoadingRunnable> clrs) 
+	public void buildLoadingFrame(ArrayList<JButtonLengthLimited> jblls) 
 	{
 		JFrame loadingFrame = new JFrame();
 		loadingFrame.setResizable(false);
@@ -145,60 +134,21 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 		ColorTemplate.setBackgroundColorButtons(loadingFrame, ColorTemplate.getButtonBackgroundColor());
 		ColorTemplate.setForegroundColorButtons(loadingFrame, ColorTemplate.getButtonForegroundColor());
 		
-		Runnable r = new Runnable() 
+		for(int count = 0; count < jblls.size(); count++)
 		{
-			@Override
-			public void run() {
-				while(true)
-				{
-					int count = getTotalLoaded(threads);
-					label.updateCount(count, threads.size());
-					if(count == threads.size())
-					{
-						break;
-					}
-					try {
-						Thread.sleep(100);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-				loadingFrame.dispose();
-				collectYoutubeChannelsFromThreads(clrs);
-				buildWidgets();
-			}
-		};
-		Thread t = new Thread(r);
-		t.start();
-	}
-	
-	private int getTotalLoaded(ArrayList<Thread> threads)
-	{
-		int totalLoaded = 0;
-		for(int i = 0; i < threads.size(); i++)
-		{
-			Thread t = threads.get(i);
-			if(!t.isAlive())
-			{
-				totalLoaded++;
-			}
+			HashMap<Integer, ArrayList<YoutubeChannelVideo>> vids = lcv.lookup(
+					jblls.get(count).getText(), jblls.get(count).getName());
+			if(vids == null || vids.isEmpty())
+				continue;
+			
+			int key = vids.keySet().iterator().next();
+			this.ycvs.put(key, vids.get(key));
+			this.parentButtons.put(key, jblls.get(count));
+			label.updateCount(count, jblls.size());
 		}
-		return totalLoaded;
-	}
-	
-	private void collectYoutubeChannelsFromThreads(
-			ArrayList<ChannelLoadingRunnable> clrs)
-	{
-		for(ChannelLoadingRunnable clr : clrs)
-		{
-			HashMap <Integer, ArrayList <YoutubeChannelVideo>> vids = clr.getYoutubeChannels();
-			if(vids != null && !vids.isEmpty())
-			{
-				int key = vids.keySet().iterator().next();
-				this.ycvs.put(key, vids.get(key));
-				this.parentButtons.put(key, clr.getButton());
-			}
-		}
+		loadingFrame.dispose();
+		
+		buildWidgets();
 	}
 	
 	public static void setDefaultMinuteSetting(int minute)
