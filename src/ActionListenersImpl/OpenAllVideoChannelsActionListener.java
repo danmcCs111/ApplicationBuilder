@@ -13,7 +13,7 @@ public class OpenAllVideoChannelsActionListener implements ActionListener
 {
 	private JButtonArray 
 		ba;
-	private static AllVideoChannelsOpenedPlayer 
+	private AllVideoChannelsOpenedPlayer 
 		avop;
 	
 	public OpenAllVideoChannelsActionListener(JButtonArray ba)
@@ -21,18 +21,16 @@ public class OpenAllVideoChannelsActionListener implements ActionListener
 		this.ba = ba;
 	}
 	
-	public static AllVideoChannelsOpenedPlayer getAllVideoChannelsOpenedPlayer()
-	{
-		return avop;
-	}
-	
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
 		ArrayList<KeepSelection> kss = ba.getKeepSelection();
+//		LinkedHashMap<JButtonLengthLimited, ImageIcon> buttonAndIcon = new LinkedHashMap<JButtonLengthLimited, ImageIcon>();
 		ArrayList<JButtonLengthLimited> jblls = new ArrayList<JButtonLengthLimited>();
 		for(KeepSelection ks : kss)
 		{
+//			ks.getImg();
+//			buttonAndIcon.put(jbll, new ImageIcon(ks.getImg()));
 			JButtonLengthLimited jbll = ks.getJButtonLengthLimited();
 			jblls.add(jbll);
 		}

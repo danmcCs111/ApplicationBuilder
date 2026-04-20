@@ -495,7 +495,7 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 			selectedBtn = hl;
 		}
 	}
-
+	
 	@Override
 	public void addActionListener(ActionListener actionListener) 
 	{

@@ -61,10 +61,6 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 		SCROLL_UNIT_INC = 25,
 		SCALED_WIDTH_ICON = 35;
 	
-	private HashMap <Integer, ArrayList <YoutubeChannelVideo>> 
-		ycvs; 
-	private HashMap<Integer, JButtonLengthLimited> 
-		parentButtons;
 	private JButton 
 		updateButton = new JButton(UPDATE_BUTTON_TEXT),
 		imageLabel = new JButton();
@@ -85,6 +81,10 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 	private Border
 		defaultBorder = new JButton().getBorder();
 	
+	private HashMap <Integer, ArrayList <YoutubeChannelVideo>> 
+		ycvs; 
+	private HashMap<Integer, JButtonLengthLimited> 
+		parentButtons;
 	private HashMap<String, ImageIcon>
 		channelAndIcon = new HashMap<String, ImageIcon>();
 	private HashMap<JButtonLengthLimited, ArrayList<YoutubeChannelVideo>>
@@ -217,7 +217,6 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 		listPanel.setLayout(new GridLayout(0,1));
 		channelScroll = new JScrollPane(listPanel);
 		channelScroll.getVerticalScrollBar().setUnitIncrement(SCROLL_UNIT_INC);
-		
 		listView = new VideoChannelListView(parentButtons, ycvs);
 		
 		JPanel searchPanel = new JPanel();
@@ -278,26 +277,31 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 		this.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosed(WindowEvent e) {
+				//remove images
 				for(String key : channelAndIcon.keySet())
 				{
-					channelAndIcon.get(key).getImage().flush();
+					ImageIcon ii = channelAndIcon.get(key);
+					ii.getImage().flush();
+ 					ii = null;
 				}
+				
+				//clear
 				channelAndIcon.clear();
 				for(JButtonLengthLimited jbll : parentButtonAndYoutubeVideos.keySet())
 				{
-					ArrayList <YoutubeChannelVideo> ycys = parentButtonAndYoutubeVideos.get(jbll);
-					for(YoutubeChannelVideo ycy : ycys)
-					{
-						if(ycy.getImagePng() != null)
-						{
-							ycy.getImagePng().flush();
-						}
-						ycy.setImagePng(null);
-					}
-					ycys.clear();
+					ArrayList <YoutubeChannelVideo> ycvs = parentButtonAndYoutubeVideos.get(jbll);
+					ycvs.clear();
 				}
+				for(int key : ycvs.keySet())
+				{
+					ycvs.get(key).clear();
+				}
+				ycvs.clear();
 				parentButtonAndYoutubeVideos.clear();
 				selectionButtonAndParentButton.clear();
+				parentButtons.clear();
+				
+				//remove components
 				for(int i = 0; i < listPanel.getComponentCount(); i++)
 				{
 					Component c = listPanel.getComponent(i);
@@ -306,6 +310,9 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements DefaultAndSc
 						((AbstractButton) c).setIcon(null);
 					}
 				}
+				listPanel.removeAll();
+				listView.removeAll();
+				AllVideoChannelsOpenedPlayer.this.removeAll();
 			}
 		});
 		this.setTitle(TITLE);

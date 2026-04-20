@@ -1,6 +1,5 @@
 package MouseListenersImpl;
 
-import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -29,8 +28,8 @@ public class YoutubeChannelVideo
 	private long
 		uploadDate = -1,
 		insertDate = -1;
-	private Image 
-		imgPng;
+//	private Image 
+//		imgPng;
 	
 	public YoutubeChannelVideo(ArrayList<DatabaseResponseNode> drns)
 	{
@@ -71,15 +70,15 @@ public class YoutubeChannelVideo
 		}
 	}
 	
-	public void setImagePng(Image img)
-	{
-		this.imgPng = img;
-	}
-	
-	public Image getImagePng()
-	{
-		return this.imgPng;
-	}
+//	public void setImagePng(Image img)
+//	{
+//		this.imgPng = img;
+//	}
+//	
+//	public Image getImagePng()
+//	{
+//		return this.imgPng;
+//	}
 	
 	public String getIdVideo()
 	{
@@ -139,8 +138,9 @@ public class YoutubeChannelVideo
 			this.getUrl() + " " + 
 			this.getImageUrl() + " " + 
 			this.getUploadDate() + " " + 
-			this.getInsertDate() + " " + 
-			"[" + this.getImagePng().toString() + "]";
+			this.getInsertDate() + " " //+ 
+//			"[" + this.getImagePng().toString() + "]"
+			;
 	}
 	
 }
