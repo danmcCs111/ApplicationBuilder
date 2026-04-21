@@ -28,6 +28,11 @@ public class JButtonLengthLimited extends JButton implements Comparator<JButtonL
 		this.setText(this.getText());
 	}
 	
+	public int getCharacterLimit()
+	{
+		return this.characterLimit;
+	}
+	
 	public String getFullLengthText()
 	{
 		return this.fullLengthText;

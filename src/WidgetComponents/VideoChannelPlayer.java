@@ -15,8 +15,11 @@ import java.util.HashMap;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 
 import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
@@ -32,6 +35,7 @@ public class VideoChannelPlayer extends JFrame
 	private static final long serialVersionUID = 1L;
 	
 	private static String
+		COUNT_PREFIX = "Video Count: ",
 		UPDATE_BUTTON_TEXT = "Update",
 		HOME_PAGE_TOOLTIP_TEXT = "[ <arg0> ] - Homepage",
 		TITLE_PREFIX = "Channel | ";
@@ -41,6 +45,8 @@ public class VideoChannelPlayer extends JFrame
 		DEFAULT_MINUTE_SETTING = 10,
 		SEARCH_COLUMN_LENGTH = 15,
 		SCROLL_UNIT_INC = 25;
+	private static Border
+		COUNT_BORDER = new EmptyBorder(5, 0, 5, 15);//EmptyBorder(top, left, bottom, right)
 	
 	private JButtonLengthLimited 
 		parentButton;
@@ -76,6 +82,29 @@ public class VideoChannelPlayer extends JFrame
 	
 	private void buildWidgets(HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
 	{
+		buildCenterPanel(ycvs);
+		
+		this.setIconImage(videoImage.getImage());
+		this.setLayout(new BorderLayout());
+		this.add(buildNorthPanel(), BorderLayout.NORTH);
+		this.add(scrollPane, BorderLayout.CENTER);
+		this.add(buildSouthPanel(parentButton), BorderLayout.SOUTH);
+		
+		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
+		ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
+		ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
+		ExtendedSetScrollBackgroundForegroundColor.applyBackgroundForeground(
+				ColorTemplate.getPanelBackgroundColor(), ColorTemplate.getButtonBackgroundColor(), scrollPane);
+		
+		this.setMinimumSize(MIN_SIZE);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setVisible(true);
+		
+		listView.postFrameBuild();
+	}
+	
+	public JPanel buildNorthPanel()
+	{
 		JPanel searchPanel = new JPanel();
 		FlowLayout fl = new FlowLayout();
 		fl.setAlignment(FlowLayout.LEFT);
@@ -90,7 +119,7 @@ public class VideoChannelPlayer extends JFrame
 				switch(button)
 				{
 				case MouseEvent.BUTTON1:
-					parentButton.doClick();
+					parentButton.doClick(); 
 					break;
 				case MouseEvent.BUTTON2:
 					for(MouseListener ml : parentButton.getMouseListeners())
@@ -146,26 +175,36 @@ public class VideoChannelPlayer extends JFrame
 		searchPanel.add(sb);
 		searchPanel.add(dl);
 		
+		return searchPanel;
+	}
+	
+	public void buildCenterPanel(HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
+	{
 		listView = new VideoChannelListView(parentButton, ycvs);
 		scrollPane = new JScrollPane(listView);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(SCROLL_UNIT_INC);
 		
-		this.setIconImage(videoImage.getImage());
-		this.setLayout(new BorderLayout());
-		this.add(searchPanel, BorderLayout.NORTH);
-		this.add(scrollPane, BorderLayout.CENTER);
+		listView = new VideoChannelListView(parentButton, ycvs);
+		scrollPane = new JScrollPane(listView);
+		scrollPane.getVerticalScrollBar().setUnitIncrement(SCROLL_UNIT_INC);
+	}
+	
+	public JPanel buildSouthPanel(JButtonLengthLimited parentButton)
+	{
+		JPanel 
+			southPane = new JPanel();
+		JLabel 
+			countLabel = new JLabel();
+		int 
+			count = FrameMouseDragListener.getLookupOrCreate().lookupCount(parentButton.getText(), parentButton.getName());
 		
-		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
-		ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
-		ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
-		ExtendedSetScrollBackgroundForegroundColor.applyBackgroundForeground(
-				ColorTemplate.getPanelBackgroundColor(), ColorTemplate.getButtonBackgroundColor(), scrollPane);
+		southPane.setLayout(new BorderLayout());
 		
-		this.setMinimumSize(MIN_SIZE);
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		this.setVisible(true);
+		countLabel.setText(COUNT_PREFIX + count);
+		countLabel.setBorder(COUNT_BORDER);
+		southPane.add(countLabel, BorderLayout.EAST);
 		
-		listView.postFrameBuild();
+		return southPane;
 	}
 	
 }

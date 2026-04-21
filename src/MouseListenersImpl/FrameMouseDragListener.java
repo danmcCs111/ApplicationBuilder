@@ -59,7 +59,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		parentButton;
 	private JLabel 
 		picLabel;
-	private LookupOrCreateYoutube 
+	private static LookupOrCreateYoutube 
 		lcv = new LookupOrCreateYoutube();
 	private VideoChannelPlayer 
 		vqp = null;
@@ -84,6 +84,11 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		this.imgIcon = imgIcon;
 		this.parentButton = parentButton;
 		this.picLabel = picLabel;
+	}
+	
+	public static LookupOrCreateYoutube getLookupOrCreate()
+	{
+		return lcv;
 	}
 	
 	@Override

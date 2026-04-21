@@ -1,7 +1,6 @@
 package WidgetComponents;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -11,8 +10,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -23,14 +20,17 @@ import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 
 import ActionListeners.ArrayActionListener;
 import ActionListenersImpl.LaunchUrlActionListener;
 import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
+import MouseListenersImpl.FrameMouseDragListener;
 import MouseListenersImpl.LookupOrCreateYoutube;
 import MouseListenersImpl.YoutubeChannelVideo;
 import WidgetComponentInterfaces.DurationLimitSubscriber;
@@ -48,12 +48,15 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements ArrayActionL
 	private static String
 		TITLE = "All Open Video Channels",
 		HOME_PAGE_TOOLTIP_TEXT = "[ <arg0> ] - Homepage",
+		COUNT_PREFIX = "Video Count: ",
 		UPDATE_BUTTON_TEXT = "Update",
 		ALL_SELECT_TEXT = "All Channels";
 	private static int 
 		DEFAULT_MINUTE_SETTING = 10,
 		SEARCH_COLUMN_LENGTH = 15,
 		SCROLL_UNIT_INC = 25;
+	private static Border
+		COUNT_BORDER = new EmptyBorder(5, 0, 5, 15);//EmptyBorder(top, left, bottom, right)
 	
 	private JButton 
 		updateButton = new JButton(UPDATE_BUTTON_TEXT),
@@ -72,6 +75,8 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements ArrayActionL
 		highlightButton;
 	private Border
 		defaultBorder = new JButton().getBorder();
+	private AbstractButton 
+		allSelectBtn;
 	
 	private HashMap <Integer, ArrayList <YoutubeChannelVideo>> 
 		ycvs; 
@@ -83,6 +88,8 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements ArrayActionL
 		selectionButtonAndParentButton = new HashMap<AbstractButton, JButtonLengthLimited>();
 	private LinkedHashMap<JButtonLengthLimited, ImageIcon> 
 		buttonAndIcon;
+	private JLabel 
+		countLabel = new JLabel();
 	
 	private LookupOrCreateYoutube 
 		lcv = new LookupOrCreateYoutube();
@@ -158,12 +165,53 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements ArrayActionL
 	
 	public void buildWidgets()
 	{
+		listView = new VideoChannelListView(parentButtons, ycvs);
+		addListView();
+		JPanel searchPanel = buildNorthPanel();
+		buildEastPanel();
+		JPanel southPanel = buildSouthPanel(allSelectBtn);
+		
+		this.setLayout(new BorderLayout());
+		this.add(channelScroll, BorderLayout.WEST);
+		this.add(searchPanel, BorderLayout.NORTH);
+		this.add(southPanel, BorderLayout.SOUTH);
+		
+		refreshListView(null);
+		ExtendedSetScrollBackgroundForegroundColor.applyBackgroundForeground(
+				ColorTemplate.getPanelBackgroundColor(), ColorTemplate.getButtonBackgroundColor(), channelScroll);
+		
+		this.setTitle(TITLE);
+		this.setMinimumSize(MIN_SIZE);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setIconImage(JButtonArray.getMoviesIcon());
+		RegisterArrayActionListener.addListener(this);
+		this.setVisible(true);
+		urlSelect(LaunchUrlActionListener.getLastButtonOrigin());
+		GraphicsUtil.rightEdgeTopWindow(parentContainer, this);
+	}
+	
+	public void buildEastPanel()
+	{
 		JPanel listPanel = new JPanel();
 		listPanel.setLayout(new GridLayout(0,1));
 		channelScroll = new JScrollPane(listPanel);
 		channelScroll.getVerticalScrollBar().setUnitIncrement(SCROLL_UNIT_INC);
-		listView = new VideoChannelListView(parentButtons, ycvs);
 		
+		allSelectBtn = buildAllSelectionButton();
+		listPanel.add(allSelectBtn);
+		for(int i : parentButtons.keySet())
+		{
+			parentButtonAndYoutubeVideos.put(parentButtons.get(i), ycvs.get(i));
+			AbstractButton ab = buildSelectionButton(parentButtons.get(i));
+			selectionButtonAndParentButton.put(ab, parentButtons.get(i));
+			ab.setIcon(buttonAndIcon.get(parentButtons.get(i)));
+			ab.setHorizontalAlignment(AbstractButton.LEFT);
+			listPanel.add(ab);
+		}
+	}
+	
+	public JPanel buildNorthPanel()
+	{
 		JPanel searchPanel = new JPanel();
 		FlowLayout fl = new FlowLayout();
 		fl.setAlignment(FlowLayout.LEFT);
@@ -195,70 +243,9 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements ArrayActionL
 		searchPanel.add(sb);
 		searchPanel.add(dl);
 		
-		AbstractButton allSelectBtn = buildAllSelectionButton();
-		listPanel.add(allSelectBtn);
-		for(int i : parentButtons.keySet())
-		{
-			parentButtonAndYoutubeVideos.put(parentButtons.get(i), ycvs.get(i));
-			AbstractButton ab = buildSelectionButton(parentButtons.get(i));
-			selectionButtonAndParentButton.put(ab, parentButtons.get(i));
-			ab.setIcon(buttonAndIcon.get(parentButtons.get(i)));
-			ab.setHorizontalAlignment(AbstractButton.LEFT);
-			listPanel.add(ab);
-		}
 		setImageButton(null);
 		
-		this.setLayout(new BorderLayout());
-		this.add(channelScroll, BorderLayout.WEST);
-		addListView();
-		this.add(searchPanel, BorderLayout.NORTH);
-		
-		refreshListView(allSelectBtn);
-		ExtendedSetScrollBackgroundForegroundColor.applyBackgroundForeground(
-				ColorTemplate.getPanelBackgroundColor(), ColorTemplate.getButtonBackgroundColor(), channelScroll);
-		
-		
-		this.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				for(JButtonLengthLimited jbll : parentButtonAndYoutubeVideos.keySet())
-				{
-					ArrayList <YoutubeChannelVideo> ycvs = parentButtonAndYoutubeVideos.get(jbll);
-					ycvs.clear();
-				}
-				for(int key : ycvs.keySet())
-				{
-					ycvs.get(key).clear();
-				}
-				ycvs.clear();
-				parentButtonAndYoutubeVideos.clear();
-				selectionButtonAndParentButton.clear();
-				parentButtons.clear();
-				buttonAndIcon.clear();
-				
-				//remove components
-				for(int i = 0; i < listPanel.getComponentCount(); i++)
-				{
-					Component c = listPanel.getComponent(i);
-					if(c instanceof AbstractButton)
-					{
-						((AbstractButton) c).setIcon(null);
-					}
-				}
-				listPanel.removeAll();
-				listView.removeAll();
-				AllVideoChannelsOpenedPlayer.this.removeAll();
-			}
-		});
-		this.setTitle(TITLE);
-		this.setMinimumSize(MIN_SIZE);
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		this.setIconImage(JButtonArray.getMoviesIcon());
-		RegisterArrayActionListener.addListener(this);
-		this.setVisible(true);
-		urlSelect(LaunchUrlActionListener.getLastButtonOrigin());
-		GraphicsUtil.rightEdgeTopWindow(parentContainer, this);
-		
+		return searchPanel;
 	}
 	
 	public void addListView()
@@ -270,6 +257,40 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements ArrayActionL
 		}
 		contentScrollPane.setViewportView(listView);
 		this.add(contentScrollPane, BorderLayout.CENTER);
+	}
+	
+	public JPanel buildSouthPanel(AbstractButton parentButton)
+	{
+		JPanel 
+			southPane = new JPanel();
+		int 
+			count = 0;
+		
+		if(parentButton instanceof JButtonLengthLimited)
+		{
+			count = FrameMouseDragListener.getLookupOrCreate().lookupCount(
+					parentButton.getText(), parentButton.getName());
+		}
+		else//all select
+		{
+			for(JButtonLengthLimited jbll : parentButtons.values())
+			{
+				count += FrameMouseDragListener.getLookupOrCreate().lookupCount(
+						jbll.getText(), jbll.getName());
+			}
+		}
+		
+		southPane.setLayout(new BorderLayout());
+		countLabel.setBorder(COUNT_BORDER);
+		countLabel.setText(COUNT_PREFIX + count);
+		southPane.add(countLabel, BorderLayout.EAST);
+		
+		return southPane;
+	}
+	
+	public void refreshSouthPanel(int count)
+	{
+		countLabel.setText(COUNT_PREFIX + count);
 	}
 	
 	public void removeListView()
@@ -326,38 +347,51 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements ArrayActionL
 	
 	public AbstractButton buildAllSelectionButton()
 	{
-		JButtonLengthLimited jbll = new JButtonLengthLimited();
-		jbll.setCharacterLimit(35);
-		jbll.setText(ALL_SELECT_TEXT);
+		JButton btn = new JButton();
+		btn.setText(ALL_SELECT_TEXT);
 		
-		jbll.addActionListener(new ActionListener() {
+		btn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				listView = new VideoChannelListView(parentButtons, ycvs);
+				int count = 0;
+				for(JButtonLengthLimited jbll : parentButtons.values())
+				{
+					count += FrameMouseDragListener.getLookupOrCreate().lookupCount(
+							jbll.getText(), jbll.getName());
+				}
+				refreshSouthPanel(count);
+				
 				removeListView();
+				listView.removeAll();
+				listView = new VideoChannelListView(parentButtons, ycvs);
 				addListView();
 				setImageButton(null);
-				refreshListView(jbll);
+				refreshListView(btn);
 			}
 		});
 		
-		return jbll;
+		return btn;
 	}
 	
 	public AbstractButton buildSelectionButton(JButtonLengthLimited parentButton)
 	{
 		JButtonLengthLimited jbll = new JButtonLengthLimited();
-		jbll.setCharacterLimit(35);
+		jbll.setCharacterLimit(parentButton.getCharacterLimit());
 		jbll.setText(parentButton.getText());
 		
 		jbll.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				int count = lcv.lookupCount(parentButton.getText(), parentButton.getName());
+				
+				if(!jbll.equals(selectedButton))//changed. update count.
+				{
+					refreshSouthPanel(count);
+				}
 				selectedButton = jbll;
 				selectedButtonParent = parentButton;
 				
 				ArrayList<YoutubeChannelVideo> ycv = parentButtonAndYoutubeVideos.get(parentButton);
-				int count = lcv.lookupCount(parentButton.getText(), parentButton.getName());
 				
 				if(count > ycv.size())
 				{
@@ -380,8 +414,12 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements ArrayActionL
 		ExtendedSetScrollBackgroundForegroundColor.applyBackgroundForeground(
 				ColorTemplate.getPanelBackgroundColor(), ColorTemplate.getButtonBackgroundColor(), contentScrollPane);
 		
-		selectedButton.setBackground(ColorTemplate.getButtonForegroundColor());
-		selectedButton.setForeground(ColorTemplate.getButtonBackgroundColor());
+		if(selectedButton != null)
+		{
+			selectedButton.setBackground(ColorTemplate.getButtonForegroundColor());
+			selectedButton.setForeground(ColorTemplate.getButtonBackgroundColor());
+		}
+		
 		listView.postFrameBuild();
 		AllVideoChannelsOpenedPlayer.this.validate();
 	}
@@ -427,8 +465,8 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements ArrayActionL
 	private void refreshSelection(JButtonLengthLimited buttonParent, JButtonLengthLimited selectedButton)
 	{
 		ArrayList<YoutubeChannelVideo> ycv = parentButtonAndYoutubeVideos.get(buttonParent);
-		listView = new VideoChannelListView(buttonParent, ycv);
 		removeListView();
+		listView = new VideoChannelListView(buttonParent, ycv);
 		addListView();
 		refreshListView(selectedButton);
 		setImageButton(buttonParent);
