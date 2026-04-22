@@ -24,12 +24,13 @@ public class LaunchUrlActionListener implements ActionListener
 	private static final String
 		PROCESS_WINDOWS = "chrome.exe",
 		PROCESS_LINUX = "google-chrome",
-		CLOSE_LAUNCH_ACTION_EVENT="closeLaunchAction",
 		CHROME_HIDE_OPTION = "--hide-crash-restore-bubble",
 		CHROME_PROFILE_OPTION = "--user-data-dir=" + PathUtility.getCurrentDirectory() + "-ChromeProfile",
 		CHROME_NO_DEFAULT_CHECK = "--no-default-browser-check",
 		CHROME_KIOSK = "--kiosk",
 		AHK_RELATIVE_PATH = "./plugin-projects/AutoHotKey-Utils/pid.txt";
+	public static final String
+		CLOSE_LAUNCH_ACTION_EVENT="closeLaunchAction";
 	private static String
 		processWindows = PROCESS_WINDOWS,
 		processLinux = PROCESS_LINUX;

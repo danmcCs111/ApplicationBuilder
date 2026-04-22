@@ -9,12 +9,14 @@ import java.io.OutputStream;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.swing.AbstractButton;
 import javax.swing.JFrame;
 
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
+import ActionListenersImpl.LaunchUrlActionListener;
 import WidgetComponents.JButtonArray;
 import WidgetUtility.WidgetBuildController;
 
@@ -66,7 +68,7 @@ public class HttpRequestHandler implements HttpHandler
 				System.out.println(responseXml);
 				//TODO. map input to actions.
 				JButtonArray ba = (JButtonArray) WidgetBuildController.getInstance().findRefByName(
-						"channels").getInstance(); //TODO.
+						"channels").getInstance(); //TODO. Mapping file. handle navigation
 				
 				if(responseXml.equals("LEFTBUMPER"))
 				{
@@ -76,6 +78,24 @@ public class HttpRequestHandler implements HttpHandler
 				{
 					((JFrame) ba.getTopLevelAncestor()).setExtendedState(Frame.ICONIFIED);
 					ba.performMinimize();
+				}
+				if(responseXml.equals("BACK"))
+				{
+					AbstractButton ab = (AbstractButton) WidgetBuildController.getInstance().findRefByName(
+							LaunchUrlActionListener.CLOSE_LAUNCH_ACTION_EVENT).getInstance(); //TODO.
+					ab.doClick();
+				}
+				if(responseXml.equals("A"))
+				{
+					//select highlighed
+				}
+				if(responseXml.equals("X"))
+				{
+					//select menu
+				}
+				if(responseXml.equals("Y"))
+				{
+					//open video list
 				}
 			}
 		}
