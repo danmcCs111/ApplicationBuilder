@@ -110,7 +110,7 @@ public class HttpRequestHandler implements HttpHandler
 						{
 							if(ks.getFrame().getExtendedState() == Frame.NORMAL)
 							{
-								ShiftDialog.updateKeep(ks, true, false, positive?SHIFT_AMOUNT:-SHIFT_AMOUNT);
+								ShiftDialog.updateKeep(ks, false, true, positive?SHIFT_AMOUNT:-SHIFT_AMOUNT);
 							}
 						}
 					}
