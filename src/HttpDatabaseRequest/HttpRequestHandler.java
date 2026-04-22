@@ -74,75 +74,86 @@ public class HttpRequestHandler implements HttpHandler
 				JButtonArray ba = (JButtonArray) WidgetBuildController.getInstance().findRefByName(
 						"channels").getInstance(); //TODO. Mapping file. handle navigation
 				
-				if(ba.getKeepSelection().size() == 0)
-				{
-					return responseXml;
-				}
 				
-				if(responseXml.equals("LEFTBUMPER"))
+				if(ba.getKeepSelection().size() > 0)
 				{
-					((JFrame) ba.getTopLevelAncestor()).setExtendedState(Frame.ICONIFIED);
-					ba.performMinimize();
-					ba.performRestore();
-				}
-				if(responseXml.equals("RIGHTBUMPER"))
+					if(responseXml.equals("LEFTBUMPER"))
+					{
+						((JFrame) ba.getTopLevelAncestor()).setExtendedState(Frame.ICONIFIED);
+						ba.performMinimize();
+						ba.performRestore();
+					}
+					else if(responseXml.equals("RIGHTBUMPER"))
+					{
+						((JFrame) ba.getTopLevelAncestor()).setExtendedState(Frame.ICONIFIED);
+						ba.performMinimize();
+					}
+					
+					else if(responseXml.startsWith("RIGHTX"))
+					{
+						//shift
+						if(responseXml.endsWith("false"))
+						{
+							for(KeepSelection ks : ba.getKeepSelection())
+							{
+								ShiftDialog.updateKeep(ks, true, false, -SHIFT_AMOUNT);
+							}
+						}
+						else if(responseXml.endsWith("true"))
+						{
+							for(KeepSelection ks : ba.getKeepSelection())
+							{
+								ShiftDialog.updateKeep(ks, true, false, SHIFT_AMOUNT);
+							}
+						}
+					}
+					else if(responseXml.startsWith("RIGHTY"))
+					{
+						//shift
+						if(responseXml.endsWith("false"))
+						{
+							for(KeepSelection ks : ba.getKeepSelection())
+							{
+								ShiftDialog.updateKeep(ks, false, true, SHIFT_AMOUNT);
+							}
+						}
+						else if(responseXml.endsWith("true"))
+						{
+							for(KeepSelection ks : ba.getKeepSelection())
+							{
+								ShiftDialog.updateKeep(ks, false, true, -SHIFT_AMOUNT);
+							}
+						}
+					}
+				}//End open bookmarks req.
+				if(responseXml.equals("START"))
 				{
-					((JFrame) ba.getTopLevelAncestor()).setExtendedState(Frame.ICONIFIED);
-					ba.performMinimize();
+					JFrame f = ((JFrame) ba.getTopLevelAncestor());
+					int 
+						state = f.getExtendedState();
+					f.setExtendedState( (state == Frame.NORMAL)
+							?Frame.ICONIFIED
+							:Frame.NORMAL
+					);
 				}
-				if(responseXml.equals("BACK"))
+				else if(responseXml.equals("BACK"))
 				{
 					AbstractButton ab = (AbstractButton) WidgetBuildController.getInstance().findRefByName(
 							LaunchUrlActionListener.CLOSE_LAUNCH_ACTION_EVENT).getInstance(); //TODO.
 					ab.doClick();
 				}
-				if(responseXml.equals("A"))
+				
+				else if(responseXml.equals("A"))
 				{
 					//select highlighed
 				}
-				if(responseXml.equals("X"))
+				else if(responseXml.equals("X"))
 				{
 					//select menu
 				}
-				if(responseXml.equals("Y"))
+				else if(responseXml.equals("Y"))
 				{
 					//open video list
-				}
-				if(responseXml.startsWith("RIGHTX"))
-				{
-					//shift
-					if(responseXml.endsWith("false"))
-					{
-						for(KeepSelection ks : ba.getKeepSelection())
-						{
-							ShiftDialog.updateKeep(ks, true, false, -SHIFT_AMOUNT);
-						}
-					}
-					if(responseXml.endsWith("true"))
-					{
-						for(KeepSelection ks : ba.getKeepSelection())
-						{
-							ShiftDialog.updateKeep(ks, true, false, SHIFT_AMOUNT);
-						}
-					}
-				}
-				if(responseXml.startsWith("RIGHTY"))
-				{
-					//shift
-					if(responseXml.endsWith("false"))
-					{
-						for(KeepSelection ks : ba.getKeepSelection())
-						{
-							ShiftDialog.updateKeep(ks, false, true, SHIFT_AMOUNT);
-						}
-					}
-					if(responseXml.endsWith("true"))
-					{
-						for(KeepSelection ks : ba.getKeepSelection())
-						{
-							ShiftDialog.updateKeep(ks, false, true, -SHIFT_AMOUNT);
-						}
-					}
 				}
 			}
 		}
