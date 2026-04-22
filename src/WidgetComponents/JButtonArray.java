@@ -30,6 +30,7 @@ import ActionListenersImpl.LaunchUrlActionListener;
 import ActionListenersImpl.NavigationButtonActionListener;
 import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
+import HttpDatabaseRequest.HttpRequestProcessor;
 import MouseListenersImpl.ImageMouseAdapter;
 import MouseListenersImpl.LookupOrCreateYoutube;
 import MouseListenersImpl.MiddleClickLaunchUrlActionListener;
@@ -838,6 +839,8 @@ PostWidgetBuildProcessing, ButtonArray
 		});
 		addDragAndDropListener(this);
 		RegisterArrayActionListener.addListener(this);
+		HttpRequestProcessor hrp = new HttpRequestProcessor();
+		hrp.listenHttp();
 	}
 
 	private void addDragAndDropListener(Component target)
