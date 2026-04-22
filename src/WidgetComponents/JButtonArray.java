@@ -910,8 +910,20 @@ PostWidgetBuildProcessing, ButtonArray
 	@Override
 	public void performRestore() 
 	{
-		for(KeepSelection ks : getKeepSelection().toArray(new KeepSelection[] {}))
+		if(getKeepSelection().size() <= 0)
+			return;
+		
+		AbstractButton ab = LaunchUrlActionListener.getLastButtonOrigin();
+		if(ab instanceof JButtonLengthLimited)
 		{
+			ab = ((JButtonLengthLimited) ab).getHighlightButton();
+		}
+		for(KeepSelection ks : getKeepSelection())
+		{
+			if(ab != null && ks.getJButtonLengthLimited().getText().equals(ab.getText()))
+			{
+				//TODO.
+			}
 			ks.getFrame().setExtendedState(JFrame.NORMAL);
 			ks.getFrame().toFront();
 		}

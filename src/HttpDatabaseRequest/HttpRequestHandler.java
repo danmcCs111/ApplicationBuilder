@@ -1,5 +1,6 @@
 package HttpDatabaseRequest;
 
+import java.awt.Frame;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,6 +8,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.swing.JFrame;
 
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
@@ -64,13 +67,15 @@ public class HttpRequestHandler implements HttpHandler
 				//TODO. map input to actions.
 				JButtonArray ba = (JButtonArray) WidgetBuildController.getInstance().findRefByName(
 						"channels").getInstance(); //TODO.
+				
 				if(responseXml.equals("LEFTBUMPER"))
 				{
-					ba.performMinimize();
+					ba.performRestore();
 				}
 				if(responseXml.equals("RIGHTBUMPER"))
 				{
-					ba.performRestore();
+					((JFrame) ba.getTopLevelAncestor()).setExtendedState(Frame.ICONIFIED);
+					ba.performMinimize();
 				}
 			}
 		}
