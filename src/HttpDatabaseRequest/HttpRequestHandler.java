@@ -30,6 +30,7 @@ public class HttpRequestHandler implements HttpHandler
 	private static final int
 		SHIFT_AMOUNT = 30;
 	
+	
 	@Override
 	public void handle(HttpExchange exchange) throws IOException 
 	{
@@ -77,6 +78,8 @@ public class HttpRequestHandler implements HttpHandler
 				
 				if(ba.getKeepSelection().size() > 0)
 				{
+					boolean positive = responseXml.endsWith("true");
+					
 					if(responseXml.equals("LEFTBUMPER"))
 					{
 						((JFrame) ba.getTopLevelAncestor()).setExtendedState(Frame.ICONIFIED);
@@ -92,36 +95,22 @@ public class HttpRequestHandler implements HttpHandler
 					else if(responseXml.startsWith("RIGHTX"))
 					{
 						//shift
-						if(responseXml.endsWith("false"))
+						for(KeepSelection ks : ba.getKeepSelection())
 						{
-							for(KeepSelection ks : ba.getKeepSelection())
+							if(ks.getFrame().getExtendedState() == Frame.NORMAL)
 							{
-								ShiftDialog.updateKeep(ks, true, false, -SHIFT_AMOUNT);
-							}
-						}
-						else if(responseXml.endsWith("true"))
-						{
-							for(KeepSelection ks : ba.getKeepSelection())
-							{
-								ShiftDialog.updateKeep(ks, true, false, SHIFT_AMOUNT);
+								ShiftDialog.updateKeep(ks, true, false, positive?SHIFT_AMOUNT:-SHIFT_AMOUNT);
 							}
 						}
 					}
 					else if(responseXml.startsWith("RIGHTY"))
 					{
 						//shift
-						if(responseXml.endsWith("false"))
+						for(KeepSelection ks : ba.getKeepSelection())
 						{
-							for(KeepSelection ks : ba.getKeepSelection())
+							if(ks.getFrame().getExtendedState() == Frame.NORMAL)
 							{
-								ShiftDialog.updateKeep(ks, false, true, SHIFT_AMOUNT);
-							}
-						}
-						else if(responseXml.endsWith("true"))
-						{
-							for(KeepSelection ks : ba.getKeepSelection())
-							{
-								ShiftDialog.updateKeep(ks, false, true, -SHIFT_AMOUNT);
+								ShiftDialog.updateKeep(ks, true, false, positive?SHIFT_AMOUNT:-SHIFT_AMOUNT);
 							}
 						}
 					}
