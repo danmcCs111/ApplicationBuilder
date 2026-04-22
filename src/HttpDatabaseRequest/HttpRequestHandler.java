@@ -17,6 +17,8 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import ActionListenersImpl.LaunchUrlActionListener;
+import Params.KeepSelection;
+import WidgetComponentDialogs.ShiftDialog;
 import WidgetComponents.JButtonArray;
 import WidgetUtility.WidgetBuildController;
 
@@ -25,6 +27,8 @@ public class HttpRequestHandler implements HttpHandler
 	private static final String 
 		REQUEST_TYPE_HEADER_KEY = "Get-request-type",
 		FUNCTION_TYPE = "Joystick_Button";
+	private static final int
+		SHIFT_AMOUNT = 30;
 	
 	@Override
 	public void handle(HttpExchange exchange) throws IOException 
@@ -70,8 +74,15 @@ public class HttpRequestHandler implements HttpHandler
 				JButtonArray ba = (JButtonArray) WidgetBuildController.getInstance().findRefByName(
 						"channels").getInstance(); //TODO. Mapping file. handle navigation
 				
+				if(ba.getKeepSelection().size() == 0)
+				{
+					return responseXml;
+				}
+				
 				if(responseXml.equals("LEFTBUMPER"))
 				{
+					((JFrame) ba.getTopLevelAncestor()).setExtendedState(Frame.ICONIFIED);
+					ba.performMinimize();
 					ba.performRestore();
 				}
 				if(responseXml.equals("RIGHTBUMPER"))
@@ -96,6 +107,42 @@ public class HttpRequestHandler implements HttpHandler
 				if(responseXml.equals("Y"))
 				{
 					//open video list
+				}
+				if(responseXml.startsWith("RIGHTX"))
+				{
+					//shift
+					if(responseXml.endsWith("false"))
+					{
+						for(KeepSelection ks : ba.getKeepSelection())
+						{
+							ShiftDialog.updateKeep(ks, true, false, -SHIFT_AMOUNT);
+						}
+					}
+					if(responseXml.endsWith("true"))
+					{
+						for(KeepSelection ks : ba.getKeepSelection())
+						{
+							ShiftDialog.updateKeep(ks, true, false, SHIFT_AMOUNT);
+						}
+					}
+				}
+				if(responseXml.startsWith("RIGHTY"))
+				{
+					//shift
+					if(responseXml.endsWith("false"))
+					{
+						for(KeepSelection ks : ba.getKeepSelection())
+						{
+							ShiftDialog.updateKeep(ks, false, true, SHIFT_AMOUNT);
+						}
+					}
+					if(responseXml.endsWith("true"))
+					{
+						for(KeepSelection ks : ba.getKeepSelection())
+						{
+							ShiftDialog.updateKeep(ks, false, true, -SHIFT_AMOUNT);
+						}
+					}
 				}
 			}
 		}

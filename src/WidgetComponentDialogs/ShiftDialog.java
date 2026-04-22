@@ -412,4 +412,17 @@ public class ShiftDialog extends JDialog
 		clearAllKeeps();
 		this.dispose();
 	}
+	
+	public static void updateKeep(KeepSelection ks, boolean shiftX, boolean shiftY, int amount)
+	{
+		Point p = ks.getFrame().getLocationOnScreen();
+		int 
+			newX = (shiftX)
+					?p.x + amount
+					:p.x,
+			newY =  (shiftY)
+					?p.y + amount
+					:p.y;
+		ks.getFrame().setLocation(newX, newY);
+	}
 }
