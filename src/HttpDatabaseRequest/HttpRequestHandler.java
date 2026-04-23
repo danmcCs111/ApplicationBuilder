@@ -17,7 +17,11 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import ActionListenersImpl.LaunchUrlActionListener;
+import Actions.CommandExecutor;
+import ObjectTypeConversion.CommandBuild;
+import ObjectTypeConversion.FileSelection;
 import Params.KeepSelection;
+import Properties.PathUtility;
 import WidgetComponentDialogs.ShiftDialog;
 import WidgetComponents.JButtonArray;
 import WidgetUtility.WidgetBuildController;
@@ -127,22 +131,73 @@ public class HttpRequestHandler implements HttpHandler
 				
 				else if(responseXml.equals("A"))
 				{
-					//select highlighed
 				}
 				else if(responseXml.equals("B"))
 				{
-					//cancel
 				}
 				else if(responseXml.equals("X"))
 				{
-					//close all
 					ba.closeAll();
 				}
 				else if(responseXml.equals("Y"))
 				{
-					//open bookmarks
 					ba.focusButtonArray();
 					ba.performOpen();
+				}
+				//TODO. place in config.
+				else if(responseXml.equals("RIGHTSTICK"))
+				{
+					FileSelection fs = new FileSelection("./Application Builder.jar");
+					Runnable r = new Runnable() 
+					{
+						String fullscreen = (PathUtility.isWindows())
+								?"plugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe  plugin-projects/AutoHotKey-Utils/send-pid-key.ahk  pid.txt  f"
+								:"./plugin-projects/AutoHotKey-Utils/ahk_x11.AppImage  `pwd`/plugin-projects/AutoHotKey-Utils/send-chrome-key-fullscreen-linux.ahk";
+						@Override
+						public void run() 
+						{
+							CommandBuild cb = new CommandBuild();
+							cb.setCommand("java", new String[] {"-cp"}, new String [] {
+								fs.getFullPath(), 
+								"ApplicationBuilder.ShellHeadlessExecutor", 
+								fullscreen
+							});
+							try {
+								CommandExecutor.executeProcess(cb);
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+						}
+					};
+					Thread t = new Thread(r);
+					t.start();
+				}
+				else if(responseXml.equals("LEFTSTICK"))
+				{
+					FileSelection fs = new FileSelection("./Application Builder.jar");
+					Runnable r = new Runnable() 
+					{
+						String play = (PathUtility.isWindows())
+								?"plugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe  plugin-projects/AutoHotKey-Utils/send-pid-key.ahk  pid.txt  {space}"
+								:"./plugin-projects/AutoHotKey-Utils/ahk_x11.AppImage  `pwd`/plugin-projects/AutoHotKey-Utils/send-chrome-key-play-linux.ahk";
+						@Override
+						public void run() 
+						{
+							CommandBuild cb = new CommandBuild();
+							cb.setCommand("java", new String[] {"-cp"}, new String [] {
+								fs.getFullPath(), 
+								"ApplicationBuilder.ShellHeadlessExecutor", 
+								play
+							});
+							try {
+								CommandExecutor.executeProcess(cb);
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+						}
+					};
+					Thread t = new Thread(r);
+					t.start();
 				}
 			}
 		}
