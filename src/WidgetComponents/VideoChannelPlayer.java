@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -96,9 +98,21 @@ public class VideoChannelPlayer extends JFrame
 		ExtendedSetScrollBackgroundForegroundColor.applyBackgroundForeground(
 				ColorTemplate.getPanelBackgroundColor(), ColorTemplate.getButtonBackgroundColor(), scrollPane);
 		
+		this.addWindowFocusListener(new WindowFocusListener() {
+			@Override
+			public void windowLostFocus(WindowEvent e) {
+				// TODO Auto-generated method stub
+			}
+			@Override
+			public void windowGainedFocus(WindowEvent e) {
+				listView.setFocus();
+			}
+		});
+		
 		this.setMinimumSize(MIN_SIZE);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setVisible(true);
+		
 		
 		listView.postFrameBuild();
 	}

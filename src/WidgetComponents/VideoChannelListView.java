@@ -125,6 +125,15 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 	{
 		return foregroundAndBackgroundColor;
 	}
+	
+	public void setFocus()
+	{
+		videoListPanel.requestFocus();
+		if(videoListPanel.getComponentCount() > 0)
+		{
+			videoListPanel.getComponent(0).requestFocus();
+		}
+	}
 
 	private void buildWidgets(Map<Integer, JButtonLengthLimited> parentButtons,
 			Map <Integer, ArrayList <YoutubeChannelVideo>> ycvs)

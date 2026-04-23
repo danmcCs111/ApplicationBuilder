@@ -4,8 +4,8 @@
     <sdlname>Xbox One Controller</sdlname>
     <!--The Unique ID for a joystick is included for informational purposes only.-->
     <uniqueID>0300938d5e040000ff020000000072001118767</uniqueID>
-    <stickAxisAssociation index="1" xAxis="1" yAxis="2"/>
     <stickAxisAssociation index="2" xAxis="3" yAxis="4"/>
+    <stickAxisAssociation index="1" xAxis="1" yAxis="2"/>
     <vdpadButtonAssociations index="1">
         <vdpadButtonAssociation axis="0" button="12" direction="1"/>
         <vdpadButtonAssociation axis="0" button="13" direction="4"/>
@@ -13,20 +13,12 @@
         <vdpadButtonAssociation axis="0" button="15" direction="2"/>
     </vdpadButtonAssociations>
     <names>
-        <controlstickname index="1">Stick 1</controlstickname>
         <controlstickname index="2">Stick 2</controlstickname>
+        <controlstickname index="1">Stick 1</controlstickname>
     </names>
     <sets>
         <set index="1">
             <stick index="1">
-                <stickbutton index="5">
-                    <slots>
-                        <slot>
-                            <code>2</code>
-                            <mode>mousemovement</mode>
-                        </slot>
-                    </slots>
-                </stickbutton>
                 <stickbutton index="7">
                     <slots>
                         <slot>
@@ -35,10 +27,10 @@
                         </slot>
                     </slots>
                 </stickbutton>
-                <stickbutton index="1">
+                <stickbutton index="5">
                     <slots>
                         <slot>
-                            <code>1</code>
+                            <code>2</code>
                             <mode>mousemovement</mode>
                         </slot>
                     </slots>
@@ -51,14 +43,22 @@
                         </slot>
                     </slots>
                 </stickbutton>
+                <stickbutton index="1">
+                    <slots>
+                        <slot>
+                            <code>1</code>
+                            <mode>mousemovement</mode>
+                        </slot>
+                    </slots>
+                </stickbutton>
             </stick>
             <dpad index="1">
                 <dpadbutton index="8">
-                    <turbointerval>100</turbointerval>
+                    <turbointerval>150</turbointerval>
                     <useturbo>true</useturbo>
                     <slots>
                         <slot>
-                            <code>0x1000012</code>
+                            <code>0x1000016</code>
                             <mode>keyboard</mode>
                         </slot>
                     </slots>
@@ -73,6 +73,16 @@
                         </slot>
                     </slots>
                 </dpadbutton>
+                <dpadbutton index="2">
+                    <turbointerval>150</turbointerval>
+                    <useturbo>true</useturbo>
+                    <slots>
+                        <slot>
+                            <code>0x1000017</code>
+                            <mode>keyboard</mode>
+                        </slot>
+                    </slots>
+                </dpadbutton>
                 <dpadbutton index="1">
                     <turbointerval>100</turbointerval>
                     <useturbo>true</useturbo>
@@ -83,29 +93,7 @@
                         </slot>
                     </slots>
                 </dpadbutton>
-                <dpadbutton index="2">
-                    <turbointerval>100</turbointerval>
-                    <useturbo>true</useturbo>
-                    <slots>
-                        <slot>
-                            <code>0x1000014</code>
-                            <mode>keyboard</mode>
-                        </slot>
-                    </slots>
-                </dpadbutton>
             </dpad>
-            <trigger index="5">
-                <deadZone>2000</deadZone>
-                <throttle>positivehalf</throttle>
-                <triggerbutton index="2">
-                    <slots>
-                        <slot>
-                            <code>1</code>
-                            <mode>mousebutton</mode>
-                        </slot>
-                    </slots>
-                </triggerbutton>
-            </trigger>
             <trigger index="6">
                 <deadZone>2000</deadZone>
                 <throttle>positivehalf</throttle>
@@ -118,18 +106,30 @@
                     </slots>
                 </triggerbutton>
             </trigger>
-            <button index="1">
-                <slots>
-                    <slot>
-                        <code>0x1000004</code>
-                        <mode>keyboard</mode>
-                    </slot>
-                </slots>
-            </button>
+            <trigger index="5">
+                <deadZone>2000</deadZone>
+                <throttle>positivehalf</throttle>
+                <triggerbutton index="2">
+                    <slots>
+                        <slot>
+                            <code>1</code>
+                            <mode>mousebutton</mode>
+                        </slot>
+                    </slots>
+                </triggerbutton>
+            </trigger>
             <button index="2">
                 <slots>
                     <slot>
                         <code>0x1000000</code>
+                        <mode>keyboard</mode>
+                    </slot>
+                </slots>
+            </button>
+            <button index="1">
+                <slots>
+                    <slot>
+                        <code>0x1000004</code>
                         <mode>keyboard</mode>
                     </slot>
                 </slots>
