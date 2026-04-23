@@ -55,7 +55,8 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		SHOW_JAVA_SWING_FILE_CHOOSER = false,
 		SHOW_TITLE_ON_POSTER = true,
 		SHOW_PREVIEW = true;
-	private static String saveFilePathChosen = null;
+	private static String 
+		saveFilePathChosen = null;
 	private static final ArrayList<KeepSelection> 
 		keeps = new ArrayList<KeepSelection>();//The whole app
 	

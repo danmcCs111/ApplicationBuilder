@@ -140,7 +140,10 @@ PostWidgetBuildProcessing, ButtonArray
 		vbmd = null;
 //	private ImageReader 
 //		buttonImageReader;
-	private ActionListener actionListener = null;
+	private ActionListener 
+		actionListener = null;
+	private KeepSelectionSelector
+		kss = new KeepSelectionSelector();
 	
 	private int characterLimit=0;
 	
@@ -729,6 +732,34 @@ PostWidgetBuildProcessing, ButtonArray
 		}
 	}
 	
+	public void focusButtonArray()
+	{
+		JFrame f = ((JFrame) this.getTopLevelAncestor());
+		f.setExtendedState(Frame.NORMAL);
+		if(vbmd != null && vbmd.isVisible())
+		{
+			vbmd.toFront();
+			vbmd.requestFocus();
+			vbmd.fileListFocus();
+		}
+	}
+	public void toggleFocusButtonArray()
+	{
+		JFrame f = ((JFrame) this.getTopLevelAncestor());
+		int state = f.getExtendedState();
+		f.setExtendedState( (state == Frame.NORMAL)
+				?Frame.ICONIFIED
+				:Frame.NORMAL
+		);
+		
+		if(vbmd != null && vbmd.isVisible())
+		{
+			vbmd.toFront();
+			vbmd.requestFocus();
+			vbmd.fileListFocus();
+		}
+	}
+	
 	@Override
 	public void openKeeps(HashMap<String, String> props)
 	{
@@ -765,6 +796,8 @@ PostWidgetBuildProcessing, ButtonArray
 				}
 			}
 		}
+		kss.setKeeps(getKeepSelection());
+		kss.getSelectedKeep();
 	}
 	
 	public ArrayList<KeepSelection> getKeepSelection()

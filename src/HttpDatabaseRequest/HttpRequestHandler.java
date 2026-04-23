@@ -117,13 +117,7 @@ public class HttpRequestHandler implements HttpHandler
 				}//End open bookmarks req.
 				if(responseXml.equals("START"))
 				{
-					JFrame f = ((JFrame) ba.getTopLevelAncestor());
-					int 
-						state = f.getExtendedState();
-					f.setExtendedState( (state == Frame.NORMAL)
-							?Frame.ICONIFIED
-							:Frame.NORMAL
-					);
+					ba.toggleFocusButtonArray();
 				}
 				else if(responseXml.equals("BACK"))
 				{
@@ -136,13 +130,20 @@ public class HttpRequestHandler implements HttpHandler
 				{
 					//select highlighed
 				}
+				else if(responseXml.equals("B"))
+				{
+					//cancel
+				}
 				else if(responseXml.equals("X"))
 				{
-					//select menu
+					//close all
+					ba.closeAll();
 				}
 				else if(responseXml.equals("Y"))
 				{
-					//open video list
+					//open bookmarks
+					ba.focusButtonArray();
+					ba.performOpen();
 				}
 			}
 		}

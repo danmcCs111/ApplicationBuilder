@@ -113,6 +113,11 @@ public class VideoBookMarksDialog extends JDialog
 		buildWidgets();
 	}
 	
+	public void fileListFocus()
+	{
+		fileList.requestFocus();
+	}
+	
 	public File getFileSelection()
 	{
 		return new File(chosenFileDirectory.getFullPath().strip() + fileList.getSelectedValue());
@@ -210,7 +215,6 @@ public class VideoBookMarksDialog extends JDialog
 		
 		this.add(innerPanel, BorderLayout.CENTER);
 		
-		
 		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
 		ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
 		ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
@@ -218,6 +222,16 @@ public class VideoBookMarksDialog extends JDialog
 				ColorTemplate.getPanelBackgroundColor(), ColorTemplate.getButtonBackgroundColor(), scrollPaneTitles);
 		ExtendedSetScrollBackgroundForegroundColor.applyBackgroundForeground(
 				ColorTemplate.getPanelBackgroundColor(), ColorTemplate.getButtonBackgroundColor(), scrollPane);
+		
+		fileList.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
+				{
+					performSelect(false);
+				}
+			}
+		});
 		
 		this.setVisible(true);
 		GraphicsUtil.centerWindow(refContainer, this);
