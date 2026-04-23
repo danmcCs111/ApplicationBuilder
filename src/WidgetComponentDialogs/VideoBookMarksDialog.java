@@ -116,6 +116,7 @@ public class VideoBookMarksDialog extends JDialog
 	public void fileListFocus()
 	{
 		fileList.requestFocus();
+		LoggingMessages.printOut("Focus: " + this.toString());
 	}
 	
 	public File getFileSelection()

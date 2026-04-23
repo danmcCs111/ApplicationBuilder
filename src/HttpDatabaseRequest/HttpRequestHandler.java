@@ -75,7 +75,6 @@ public class HttpRequestHandler implements HttpHandler
 				JButtonArray ba = (JButtonArray) WidgetBuildController.getInstance().findRefByName(
 						"channels").getInstance(); //TODO. Mapping file. handle navigation
 				
-				
 				if(ba.getKeepSelection().size() > 0)
 				{
 					boolean positive = responseXml.endsWith("true");
