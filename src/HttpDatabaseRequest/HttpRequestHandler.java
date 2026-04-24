@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.swing.AbstractButton;
-import javax.swing.JFrame;
 
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
@@ -85,14 +84,13 @@ public class HttpRequestHandler implements HttpHandler
 					
 					if(responseXml.equals("LEFTBUMPER"))
 					{
-						((JFrame) ba.getTopLevelAncestor()).setExtendedState(Frame.ICONIFIED);
-						ba.performMinimize();
-						ba.performRestore();
+						AbstractButton ab = (AbstractButton) WidgetBuildController.getInstance().findRefByName("restore-win").getInstance();
+						ab.doClick();
 					}
 					else if(responseXml.equals("RIGHTBUMPER"))
 					{
-						((JFrame) ba.getTopLevelAncestor()).setExtendedState(Frame.ICONIFIED);
-						ba.performMinimize();
+						AbstractButton ab = (AbstractButton) WidgetBuildController.getInstance().findRefByName("minimize-win").getInstance();
+						ab.doClick();
 					}
 					
 					else if(responseXml.startsWith("RIGHTX"))

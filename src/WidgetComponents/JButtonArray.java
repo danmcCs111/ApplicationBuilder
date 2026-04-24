@@ -735,6 +735,7 @@ PostWidgetBuildProcessing, ButtonArray
 	public void focusButtonArray()
 	{
 		JFrame f = ((JFrame) this.getTopLevelAncestor());
+		f.setFocusableWindowState(true);
 		f.setExtendedState(Frame.NORMAL);
 		if(vbmd != null && vbmd.isVisible())
 		{
