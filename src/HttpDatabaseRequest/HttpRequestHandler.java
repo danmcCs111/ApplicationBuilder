@@ -230,7 +230,7 @@ public class HttpRequestHandler implements HttpHandler, YoutubeVideosContainer
 					Runnable r = new Runnable() 
 					{
 						String fullscreen = (PathUtility.isWindows())
-								?"plugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe  plugin-projects/AutoHotKey-Utils/send-pid-key.ahk  pid.txt  f"
+								?"plugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe  plugin-projects/AutoHotKey-Utils/send-pid-key-video-launcher.ahk  pid.txt  f"
 								:"./plugin-projects/AutoHotKey-Utils/ahk_x11.AppImage  `pwd`/plugin-projects/AutoHotKey-Utils/send-chrome-key-fullscreen-linux.ahk";
 						@Override
 						public void run() 
@@ -257,7 +257,7 @@ public class HttpRequestHandler implements HttpHandler, YoutubeVideosContainer
 					Runnable r = new Runnable() 
 					{
 						String play = (PathUtility.isWindows())
-								?"plugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe  plugin-projects/AutoHotKey-Utils/send-pid-key.ahk  pid.txt  {space}"
+								?"plugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe  plugin-projects/AutoHotKey-Utils/send-pid-key-video-launcher.ahk  pid.txt  {space}"
 								:"./plugin-projects/AutoHotKey-Utils/ahk_x11.AppImage  `pwd`/plugin-projects/AutoHotKey-Utils/send-chrome-key-play-linux.ahk";
 						@Override
 						public void run() 
@@ -282,6 +282,12 @@ public class HttpRequestHandler implements HttpHandler, YoutubeVideosContainer
 		}
 		
 		return responseXml;
+	}
+	
+	private long getProcessID()
+	{
+		
+		return ProcessHandle.current().pid();
 	}
 	
 	private static String getRequestHeaderAsString(Headers h)
