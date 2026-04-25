@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gamecontroller configversion="19" appversion="3.5.1">
     <!--The SDL name for a joystick is included for informational purposes only.-->
-    <sdlname>Xbox One Controller</sdlname>
+    <sdlname>(XBOX 360 For Windows (Controller))</sdlname>
     <!--The Unique ID for a joystick is included for informational purposes only.-->
-    <uniqueID>0300938d5e040000ff020000000072001118767</uniqueID>
+    <uniqueID>03004825120c0000120f00000000720030903858</uniqueID>
     <stickAxisAssociation index="2" xAxis="3" yAxis="4"/>
     <stickAxisAssociation index="1" xAxis="1" yAxis="2"/>
     <vdpadButtonAssociations index="1">
@@ -18,40 +18,6 @@
     </names>
     <sets>
         <set index="1">
-            <stick index="1">
-                <stickbutton index="7">
-                    <slots>
-                        <slot>
-                            <code>3</code>
-                            <mode>mousemovement</mode>
-                        </slot>
-                    </slots>
-                </stickbutton>
-                <stickbutton index="5">
-                    <slots>
-                        <slot>
-                            <code>2</code>
-                            <mode>mousemovement</mode>
-                        </slot>
-                    </slots>
-                </stickbutton>
-                <stickbutton index="3">
-                    <slots>
-                        <slot>
-                            <code>4</code>
-                            <mode>mousemovement</mode>
-                        </slot>
-                    </slots>
-                </stickbutton>
-                <stickbutton index="1">
-                    <slots>
-                        <slot>
-                            <code>1</code>
-                            <mode>mousemovement</mode>
-                        </slot>
-                    </slots>
-                </stickbutton>
-            </stick>
             <dpad index="1">
                 <dpadbutton index="8">
                     <turbointerval>150</turbointerval>
