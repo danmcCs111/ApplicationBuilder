@@ -1,10 +1,13 @@
 package Graphics2D;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -51,6 +54,19 @@ public interface GraphicsUtil
 			rh = referenceComponent.getHeight();
 		
 		comp.setLocation((int)(loc.x + (rw / 2.0)), (int)(loc.y + (rh/2.0)));
+	}
+	public static void centerOnScreen(Component comp)
+	{
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		Point loc = new Point(0, 0);
+		
+		double 
+			rw = screenSize.getWidth(),
+			rh = screenSize.getHeight(),
+			w = comp.getWidth(),
+			h = comp.getHeight();
+		
+		comp.setLocation(loc.x + (int)((rw/2.0) - (w / 2.0)), loc.y + (int)((rh/2.0) - (h/2.0)) );
 	}
 	
 	public static void rightEdgeTopWindow(Container referenceComponent, Container comp)

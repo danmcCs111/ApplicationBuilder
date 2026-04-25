@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -27,9 +28,7 @@ import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
 import MouseListenersImpl.FrameMouseDragListener;
 import MouseListenersImpl.YoutubeChannelVideo;
-import WidgetComponentInterfaces.DurationLimitSubscriber;
-import WidgetComponentInterfaces.SearchSubscriber;
-import WidgetComponents.DurationLimiter.Mode;
+import MouseListenersImpl.YoutubeVideosContainer;
 import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
 
 public class VideoChannelPlayerJoy extends JFrame
@@ -42,13 +41,13 @@ public class VideoChannelPlayerJoy extends JFrame
 		HOME_PAGE_TOOLTIP_TEXT = "[ <arg0> ] - Homepage",
 		TITLE_PREFIX = "Channel | ";
 	private static Dimension 
-		MIN_SIZE = new Dimension(800, 425);
+		MIN_SIZE = new Dimension(1600, 425);
 	private static int 
-		DEFAULT_MINUTE_SETTING = 10,
-		SEARCH_COLUMN_LENGTH = 15,
 		SCROLL_UNIT_INC = 25;
 	private static Border
 		COUNT_BORDER = new EmptyBorder(5, 0, 5, 15);//EmptyBorder(top, left, bottom, right)
+	private static final Font 
+		SELECT_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 24);
 	
 	private JButtonLengthLimited 
 		parentButton;
@@ -58,23 +57,18 @@ public class VideoChannelPlayerJoy extends JFrame
 		scrollPane;
 	private ImageIcon 
 		videoImage;
-	private FrameMouseDragListener 
+	private YoutubeVideosContainer 
 		fmdl;
 
 	public VideoChannelPlayerJoy(
-			ImageIcon videoImage, FrameMouseDragListener fmdl, JButtonLengthLimited parentButton, Container parent)
+			ImageIcon videoImage, YoutubeVideosContainer fmdl, JButtonLengthLimited parentButton, Container parent)
 	{
 		this.parentButton = parentButton;
 		this.videoImage = videoImage;
 		this.fmdl = fmdl;
 		this.setTitle(TITLE_PREFIX + parentButton.getText());
 		buildWidgets(fmdl.getYoutubeVideos());
-		GraphicsUtil.rightEdgeCenterWindow(parent, this);
-	}
-	
-	public static void setDefaultMinuteSetting(int minute)
-	{
-		DEFAULT_MINUTE_SETTING = minute;
+		GraphicsUtil.centerOnScreen(this);
 	}
 	
 	public VideoChannelListViewJoy getVideoChannelListView()
@@ -101,7 +95,7 @@ public class VideoChannelPlayerJoy extends JFrame
 		this.addWindowFocusListener(new WindowFocusListener() {
 			@Override
 			public void windowLostFocus(WindowEvent e) {
-				// TODO Auto-generated method stub
+				dispose();
 			}
 			@Override
 			public void windowGainedFocus(WindowEvent e) {
@@ -149,6 +143,7 @@ public class VideoChannelPlayerJoy extends JFrame
 		});
 		
 		JButton updateButton = new JButton(UPDATE_BUTTON_TEXT);
+		updateButton.setFont(SELECT_FONT);
 		updateButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -163,31 +158,6 @@ public class VideoChannelPlayerJoy extends JFrame
 				t.start();
 			}
 		});
-		
-		SearchBar sb = new SearchBar();
-		sb.setColumnCharacterLength(SEARCH_COLUMN_LENGTH);
-		sb.addSearchSubscriber(new SearchSubscriber() {
-			@Override
-			public void notifySearchText(String searchPattern) {
-				listView.setVisible(searchPattern);
-				VideoChannelPlayerJoy.this.validate();
-			}
-		});
-		
-		DurationLimitSubscriber dls = new DurationLimitSubscriber() {
-			@Override
-			public void notifyDurationLimit(int hour, int minute, Mode m) {
-				listView.setVisible(hour, minute, m);
-				VideoChannelPlayerJoy.this.validate();
-			}
-		};
-		DurationLimiter dl = new DurationLimiter(dls);
-		dl.setMinuteDefault(DEFAULT_MINUTE_SETTING);
-		
-		searchPanel.add(imageLabel);
-		searchPanel.add(updateButton);
-		searchPanel.add(sb);
-		searchPanel.add(dl);
 		
 		return searchPanel;
 	}

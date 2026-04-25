@@ -1,6 +1,7 @@
 package WidgetComponents;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -73,6 +74,16 @@ public class DurationLimiter extends JPanel
 	{
 		this.dls = dls;
 		buildWidgets();
+	}
+	
+	public void setFontChildren(Font f) 
+	{
+		durationLabel.setFont(f);
+		filterButton.setFont(f);
+		greaterLessThan.setFont(f);
+		minuteLabel.setFont(f);
+		hourSpinner.setFont(f);
+		minuteSpinner.setFont(f);
 	}
 	
 	public void setMinuteDefault(int minute)

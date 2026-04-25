@@ -142,8 +142,6 @@ PostWidgetBuildProcessing, ButtonArray
 //		buttonImageReader;
 	private ActionListener 
 		actionListener = null;
-	private KeepSelectionSelector
-		kss = new KeepSelectionSelector();
 	
 	private int characterLimit=0;
 	
@@ -797,8 +795,6 @@ PostWidgetBuildProcessing, ButtonArray
 				}
 			}
 		}
-		kss.setKeeps(getKeepSelection());
-		kss.getSelectedKeep();
 	}
 	
 	public ArrayList<KeepSelection> getKeepSelection()
@@ -873,7 +869,7 @@ PostWidgetBuildProcessing, ButtonArray
 		});
 		addDragAndDropListener(this);
 		RegisterArrayActionListener.addListener(this);
-		HttpRequestProcessor hrp = new HttpRequestProcessor();
+		HttpRequestProcessor hrp = new HttpRequestProcessor(this);
 		hrp.listenHttp();
 	}
 

@@ -32,7 +32,7 @@ import WidgetComponents.VideoChannelListView;
 import WidgetComponents.VideoChannelPlayer;
 import WidgetComponentsTips4Java.MenuScroller;
 
-public class FrameMouseDragListener extends MouseAdapter implements MouseListener, MouseMotionListener, HighlightListener
+public class FrameMouseDragListener extends MouseAdapter implements MouseListener, MouseMotionListener, HighlightListener, YoutubeVideosContainer
 {
 	private static final int 
 		FRAME_AND_TITLE_HEIGHT = 45; 
@@ -274,6 +274,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		return mi4;
 	}
 	
+	@Override
 	public void update()
 	{
 		JButtonLengthLimited jbll = (JButtonLengthLimited) parentButton;
@@ -281,6 +282,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		this.ycvs = lcv.lookup(jbll.getText(), jbll.getName());
 	}
 	
+	@Override
 	public void buildVideoChannelPlayer()
 	{
 		Point p = null;
@@ -297,6 +299,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		}
 	}
 	
+	@Override
 	public HashMap <Integer, ArrayList <YoutubeChannelVideo>> getYoutubeVideos()
 	{
 		return this.ycvs;

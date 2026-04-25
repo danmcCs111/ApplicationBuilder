@@ -27,6 +27,7 @@ import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
 import MouseListenersImpl.FrameMouseDragListener;
 import MouseListenersImpl.YoutubeChannelVideo;
+import MouseListenersImpl.YoutubeVideosContainer;
 import WidgetComponentInterfaces.DurationLimitSubscriber;
 import WidgetComponentInterfaces.SearchSubscriber;
 import WidgetComponents.DurationLimiter.Mode;
@@ -58,11 +59,11 @@ public class VideoChannelPlayer extends JFrame
 		scrollPane;
 	private ImageIcon 
 		videoImage;
-	private FrameMouseDragListener 
+	private YoutubeVideosContainer 
 		fmdl;
 
 	public VideoChannelPlayer(
-			ImageIcon videoImage, FrameMouseDragListener fmdl, JButtonLengthLimited parentButton, Container parent)
+			ImageIcon videoImage, YoutubeVideosContainer fmdl, JButtonLengthLimited parentButton, Container parent)
 	{
 		this.parentButton = parentButton;
 		this.videoImage = videoImage;

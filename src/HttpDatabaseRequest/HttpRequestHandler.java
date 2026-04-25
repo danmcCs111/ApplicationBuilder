@@ -1,15 +1,19 @@
 package HttpDatabaseRequest;
 
+import java.awt.Color;
 import java.awt.Frame;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.swing.AbstractButton;
+import javax.swing.JLabel;
 
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
@@ -17,22 +21,48 @@ import com.sun.net.httpserver.HttpHandler;
 
 import ActionListenersImpl.LaunchUrlActionListener;
 import Actions.CommandExecutor;
+import MouseListenersImpl.LookupOrCreateYoutube;
+import MouseListenersImpl.PicLabelMouseListener;
+import MouseListenersImpl.YoutubeChannelVideo;
+import MouseListenersImpl.YoutubeVideosContainer;
 import ObjectTypeConversion.CommandBuild;
 import ObjectTypeConversion.FileSelection;
 import Params.KeepSelection;
 import Properties.PathUtility;
 import WidgetComponentDialogs.ShiftDialog;
 import WidgetComponents.JButtonArray;
+import WidgetComponents.JButtonLengthLimited;
+import WidgetComponents.KeepSelectionSelector;
+import WidgetComponents.VideoChannelPlayerJoy;
 import WidgetUtility.WidgetBuildController;
 
-public class HttpRequestHandler implements HttpHandler 
+public class HttpRequestHandler implements HttpHandler, YoutubeVideosContainer
 {
 	private static final String 
 		REQUEST_TYPE_HEADER_KEY = "Get-request-type",
 		FUNCTION_TYPE = "Joystick_Button";
 	private static final int
 		SHIFT_AMOUNT = 30;
+	private static Color 
+		NO_HIGHLIGHT = null,
+		SELECTION_HIGHLIGHT = new Color(255, 0, 0, 204);
+	private static LookupOrCreateYoutube 
+		lcv = new LookupOrCreateYoutube();
 	
+	private KeepSelectionSelector
+		kss;
+	private VideoChannelPlayerJoy
+		vcp;
+	private HashMap <Integer, ArrayList <YoutubeChannelVideo>> 
+		ycvs;
+	private JButtonArray 
+		ba;
+	
+	public HttpRequestHandler(JButtonArray ba)
+	{
+		this.ba = ba;
+		kss = new KeepSelectionSelector(ba);
+	}
 	
 	@Override
 	public void handle(HttpExchange exchange) throws IOException 
@@ -66,7 +96,7 @@ public class HttpRequestHandler implements HttpHandler
 		return result;
 	}
 	
-	private static String execute(Headers h, String result)
+	private String execute(Headers h, String result)
 	{
 		String responseXml = result;
 		if(h.containsKey(REQUEST_TYPE_HEADER_KEY))
@@ -75,9 +105,6 @@ public class HttpRequestHandler implements HttpHandler
 			{
 				System.out.println(responseXml);
 				//TODO. map input to actions.
-				JButtonArray ba = (JButtonArray) WidgetBuildController.getInstance().findRefByName(
-						"channels").getInstance(); //TODO. Mapping file. handle navigation
-				
 				if(ba.getKeepSelection().size() > 0)
 				{
 					boolean positive = responseXml.endsWith("true");
@@ -115,10 +142,44 @@ public class HttpRequestHandler implements HttpHandler
 							}
 						}
 					}
+					
+					else if(responseXml.startsWith("LEFTX"))
+					{
+						//select move left/right
+						if(positive)
+						{
+							kss.getSelectedKeep().getFrame().setForeground(NO_HIGHLIGHT);
+							kss.advanceIndex();
+							KeepSelection ks = kss.getSelectedKeep();
+							JButtonLengthLimited jbll = ks.getJButtonLengthLimited();
+							PicLabelMouseListener.selectionLabel(jbll, true);//TODO
+						}
+						else 
+						{
+							kss.getSelectedKeep().getFrame().setForeground(NO_HIGHLIGHT);
+							kss.decrementIndex();
+							KeepSelection ks = kss.getSelectedKeep();
+							JButtonLengthLimited jbll = ks.getJButtonLengthLimited();
+							PicLabelMouseListener.selectionLabel(jbll, true);//TODO
+						}
+						
+					}
+					else if(responseXml.startsWith("LEFTY"))
+					{
+						//select move up/down
+					}
+					
 				}//End open bookmarks req.
 				if(responseXml.equals("START"))
 				{
 					ba.toggleFocusButtonArray();
+					
+					kss.getSelectedKeep().getFrame().setForeground(NO_HIGHLIGHT);
+					kss.advanceIndex();
+					KeepSelection ks = kss.getSelectedKeep();
+					ks.getFrame().getComponent(0).setForeground(SELECTION_HIGHLIGHT);
+					((JLabel) ks.getFrame().getComponent(0)).setText(ks.getDisplayText());
+					
 				}
 				else if(responseXml.equals("BACK"))
 				{
@@ -129,6 +190,9 @@ public class HttpRequestHandler implements HttpHandler
 				
 				else if(responseXml.equals("A"))
 				{
+					//TODO launch video channels.
+					buildVideoChannelPlayer();
+					
 				}
 				else if(responseXml.equals("B"))
 				{
@@ -214,6 +278,32 @@ public class HttpRequestHandler implements HttpHandler
 				retResponse += "[VALUE] " + s + "\n";
 		}
 		return retResponse;
+	}
+
+	@Override
+	public void update() 
+	{
+		JButtonLengthLimited jbll = (JButtonLengthLimited) kss.getSelectedKeep().getJButtonLengthLimited();
+		lcv.update(jbll.getText(), jbll.getName());
+		this.ycvs = lcv.lookup(jbll.getText(), jbll.getName());
+	}
+
+	@Override
+	public void buildVideoChannelPlayer() 
+	{
+		if(vcp == null || !vcp.isVisible())
+		{
+			KeepSelection ks = kss.getSelectedKeep();
+			vcp = new VideoChannelPlayerJoy(ks.getImageIcon(), this, ks.getJButtonLengthLimited(), ba);
+		}
+	}
+
+	@Override
+	public HashMap<Integer, ArrayList<YoutubeChannelVideo>> getYoutubeVideos() 
+	{
+		JButtonLengthLimited jbll = (JButtonLengthLimited) kss.getSelectedKeep().getJButtonLengthLimited();
+		this.ycvs = lcv.lookup(jbll.getText(), jbll.getName());
+		return this.ycvs;
 	}
 	
 

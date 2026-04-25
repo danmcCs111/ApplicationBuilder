@@ -2,6 +2,7 @@ package WidgetComponents;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -31,6 +32,12 @@ public class SearchBar extends JPanel
 	public SearchBar()
 	{
 		buildWidgets();
+	}
+	
+	public void setFontChildren(Font f)
+	{
+		searchButton.setFont(f);
+		searchField.setFont(f);
 	}
 	
 	public void setSearchFieldBackground(Color c)

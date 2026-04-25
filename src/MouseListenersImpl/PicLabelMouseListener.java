@@ -23,10 +23,12 @@ public class PicLabelMouseListener extends MouseAdapter
 	private static ArrayList<JLabel> connectedLabels = new ArrayList<JLabel>();
 	
 	private static Color
+		SELECTION_COLOR = Color.MAGENTA,
 		HIGHLIGHT_COLOR = Color.blue;
 	
 	public static Border 
 		EMPTY_BORDER = BorderFactory.createEmptyBorder(),
+		SELECTION_BORDER = new BevelBorder(BevelBorder.RAISED, SELECTION_COLOR, SELECTION_COLOR),
 		HIGHLIGHT_BORDER = new BevelBorder(BevelBorder.RAISED, HIGHLIGHT_COLOR, HIGHLIGHT_COLOR);
 	private AbstractButton 
 		connectedButton;
@@ -57,12 +59,44 @@ public class PicLabelMouseListener extends MouseAdapter
 			if(ab instanceof JButtonLengthLimited && 
 					l.getName().equals(((JButtonLengthLimited) ab).getFullLengthText()))
 			{
+				
 				l.setBorder(on
 					? HIGHLIGHT_BORDER
 					: EMPTY_BORDER);
 			}
 			else
 			{
+				if(l.getBorder() != null && l.getBorder().equals(SELECTION_BORDER))
+					continue;
+				
+				l.setBorder(EMPTY_BORDER);
+			}
+		}
+	}
+	
+	public static void selectionLabel(AbstractButton ab, boolean on)
+	{
+		LoggingMessages.printOut("highlight label.");
+		if(ab == null)
+			return;
+		
+		for(JLabel l : PicLabelMouseListener.connectedLabels)
+		{
+			if(ab instanceof JButtonLengthLimited && 
+					l.getName().equals(((JButtonLengthLimited) ab).getFullLengthText()))
+			{
+				if(l.getBorder().equals(HIGHLIGHT_BORDER))
+					continue;
+				
+				l.setBorder(on
+					? SELECTION_BORDER
+					: EMPTY_BORDER);
+			}
+			else
+			{
+				if(l.getBorder() != null && l.getBorder().equals(HIGHLIGHT_BORDER))
+					continue;
+				
 				l.setBorder(EMPTY_BORDER);
 			}
 		}
