@@ -1,6 +1,5 @@
 package HttpDatabaseRequest;
 
-import java.awt.Color;
 import java.awt.Frame;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,7 +13,6 @@ import java.util.stream.Collectors;
 
 import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
@@ -44,9 +42,6 @@ public class HttpRequestHandler implements HttpHandler, YoutubeVideosContainer
 		FUNCTION_TYPE = "Joystick_Button";
 	private static final int
 		SHIFT_AMOUNT = 30;
-	private static Color 
-		NO_HIGHLIGHT = null,
-		SELECTION_HIGHLIGHT = new Color(255, 0, 0, 204);
 	private static LookupOrCreateYoutube 
 		lcv = new LookupOrCreateYoutube();
 	
@@ -200,10 +195,6 @@ public class HttpRequestHandler implements HttpHandler, YoutubeVideosContainer
 				{
 					ba.toggleFocusButtonArray();
 					
-					kss.advanceIndex();
-					KeepSelection ks = kss.getSelectedKeep();
-					((JLabel) ks.getFrame().getComponent(0)).setText(ks.getDisplayText());
-					
 				}
 				else if(responseXml.equals("BACK"))
 				{
@@ -291,12 +282,6 @@ public class HttpRequestHandler implements HttpHandler, YoutubeVideosContainer
 		}
 		
 		return responseXml;
-	}
-	
-	private long getProcessID()
-	{
-		
-		return ProcessHandle.current().pid();
 	}
 	
 	private static String getRequestHeaderAsString(Headers h)
