@@ -52,6 +52,11 @@ if it isn't copying, highlight the url in browser and hit enter again. the actua
 
 <img width="45%" width="1536" height="1536" alt="IMG20260416211346" src="https://github.com/user-attachments/assets/9acd6b01-7455-4d36-ab0d-f4196fe56bfb" />
 
+(with gamecontroller: seperate input processing & windows)
+
+<img width="45%" width="1013" height="1013" alt="IMG20260425145002" src="https://github.com/user-attachments/assets/77f100e9-4db0-48f1-bb3c-5119b3c18bd9" />
+
+
 *updated listview to include homepage button, update button & duration. added duration limit filter
 
 <img width="45%" width="757" height="410" alt="image" src="https://github.com/user-attachments/assets/eac0375f-5865-4f6e-bcd1-b43967a34df8" />
