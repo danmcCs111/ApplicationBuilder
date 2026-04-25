@@ -82,7 +82,7 @@ public class VideoChannelPlayerJoy extends JFrame
 		
 		this.setIconImage(videoImage.getImage());
 		this.setLayout(new BorderLayout());
-		this.add(buildNorthPanel(), BorderLayout.NORTH);
+		this.add(buildWestPanel(), BorderLayout.WEST);
 		this.add(scrollPane, BorderLayout.CENTER);
 		this.add(buildSouthPanel(parentButton), BorderLayout.SOUTH);
 		
@@ -111,7 +111,7 @@ public class VideoChannelPlayerJoy extends JFrame
 		listView.postFrameBuild();
 	}
 	
-	public JPanel buildNorthPanel()
+	public JPanel buildWestPanel()
 	{
 		JPanel searchPanel = new JPanel();
 		FlowLayout fl = new FlowLayout();
@@ -158,6 +158,9 @@ public class VideoChannelPlayerJoy extends JFrame
 				t.start();
 			}
 		});
+		
+		searchPanel.add(imageLabel);
+//		searchPanel.add(updateButton);
 		
 		return searchPanel;
 	}

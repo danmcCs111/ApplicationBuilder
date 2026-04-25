@@ -51,7 +51,7 @@ public class VideoChannelListViewJoy extends JPanel implements ArrayActionListen
 	private static final SimpleDateFormat 
 		SDF_UPLOAD_SHORT = new SimpleDateFormat("MM/dd/yyyy");
 	private static final int
-		VIDEO_TITLE_CHARACTER_LIMIT = 110;
+		VIDEO_TITLE_CHARACTER_LIMIT = 90;
 	private static final Font 
 		SELECT_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 24);
 	

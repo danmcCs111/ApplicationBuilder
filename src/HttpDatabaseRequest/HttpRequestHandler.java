@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.swing.AbstractButton;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import com.sun.net.httpserver.Headers;
@@ -329,7 +330,7 @@ public class HttpRequestHandler implements HttpHandler, YoutubeVideosContainer
 		if(vcp == null || !vcp.isVisible())
 		{
 			KeepSelection ks = kss.getSelectedKeep();
-			vcp = new VideoChannelPlayerJoy(ks.getImageIcon(), this, ks.getJButtonLengthLimited(), ba);
+			vcp = new VideoChannelPlayerJoy(new ImageIcon(ks.getImg()), this, ks.getJButtonLengthLimited(), ba);
 		}
 	}
 
