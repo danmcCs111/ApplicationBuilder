@@ -148,19 +148,25 @@ public class HttpRequestHandler implements HttpHandler, YoutubeVideosContainer
 						//select move left/right
 						if(positive)
 						{
-							kss.getSelectedKeep().getFrame().setForeground(NO_HIGHLIGHT);
-							kss.advanceIndex();
-							KeepSelection ks = kss.getSelectedKeep();
-							JButtonLengthLimited jbll = ks.getJButtonLengthLimited();
-							PicLabelMouseListener.selectionLabel(jbll, true);//TODO
+							if(vcp == null || !vcp.isVisible())
+							{
+								kss.getSelectedKeep().getFrame().setForeground(NO_HIGHLIGHT);
+								kss.advanceIndex();
+								KeepSelection ks = kss.getSelectedKeep();
+								JButtonLengthLimited jbll = ks.getJButtonLengthLimited();
+								PicLabelMouseListener.selectionLabel(jbll, true);//TODO
+							}
 						}
 						else 
 						{
-							kss.getSelectedKeep().getFrame().setForeground(NO_HIGHLIGHT);
-							kss.decrementIndex();
-							KeepSelection ks = kss.getSelectedKeep();
-							JButtonLengthLimited jbll = ks.getJButtonLengthLimited();
-							PicLabelMouseListener.selectionLabel(jbll, true);//TODO
+							if(vcp == null || !vcp.isVisible())
+							{
+								kss.getSelectedKeep().getFrame().setForeground(NO_HIGHLIGHT);
+								kss.decrementIndex();
+								KeepSelection ks = kss.getSelectedKeep();
+								JButtonLengthLimited jbll = ks.getJButtonLengthLimited();
+								PicLabelMouseListener.selectionLabel(jbll, true);//TODO
+							}
 						}
 						
 					}
@@ -171,19 +177,25 @@ public class HttpRequestHandler implements HttpHandler, YoutubeVideosContainer
 					
 					else if(responseXml.startsWith("DPAD_LEFT"))
 					{
-						kss.getSelectedKeep().getFrame().setForeground(NO_HIGHLIGHT);
-						kss.decrementIndex();
-						KeepSelection ks = kss.getSelectedKeep();
-						JButtonLengthLimited jbll = ks.getJButtonLengthLimited();
-						PicLabelMouseListener.selectionLabel(jbll, true);//TODO
+						if(vcp == null || !vcp.isVisible())
+						{
+							kss.getSelectedKeep().getFrame().setForeground(NO_HIGHLIGHT);
+							kss.decrementIndex();
+							KeepSelection ks = kss.getSelectedKeep();
+							JButtonLengthLimited jbll = ks.getJButtonLengthLimited();
+							PicLabelMouseListener.selectionLabel(jbll, true);//TODO
+						}
 					}
 					else if(responseXml.startsWith("DPAD_RIGHT"))
 					{
-						kss.getSelectedKeep().getFrame().setForeground(NO_HIGHLIGHT);
-						kss.advanceIndex();
-						KeepSelection ks = kss.getSelectedKeep();
-						JButtonLengthLimited jbll = ks.getJButtonLengthLimited();
-						PicLabelMouseListener.selectionLabel(jbll, true);//TODO
+						if(vcp == null || !vcp.isVisible())
+						{
+							kss.getSelectedKeep().getFrame().setForeground(NO_HIGHLIGHT);
+							kss.advanceIndex();
+							KeepSelection ks = kss.getSelectedKeep();
+							JButtonLengthLimited jbll = ks.getJButtonLengthLimited();
+							PicLabelMouseListener.selectionLabel(jbll, true);//TODO
+						}
 					}
 					
 				}//End open bookmarks req.
