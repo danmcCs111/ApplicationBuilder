@@ -200,10 +200,8 @@ public class HttpRequestHandler implements HttpHandler, YoutubeVideosContainer
 				{
 					ba.toggleFocusButtonArray();
 					
-					kss.getSelectedKeep().getFrame().setForeground(NO_HIGHLIGHT);
 					kss.advanceIndex();
 					KeepSelection ks = kss.getSelectedKeep();
-					ks.getFrame().getComponent(0).setForeground(SELECTION_HIGHLIGHT);
 					((JLabel) ks.getFrame().getComponent(0)).setText(ks.getDisplayText());
 					
 				}
