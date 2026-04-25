@@ -149,9 +149,8 @@ public class HttpRequestHandler implements HttpHandler, YoutubeVideosContainer
 						//select move left/right
 						if(positive)
 						{
-							if(vcp == null || !vcp.isVisible())
+							if((vcp == null || !vcp.isVisible()) && !ba.isVideoBookmarksOpen())
 							{
-								kss.getSelectedKeep().getFrame().setForeground(NO_HIGHLIGHT);
 								kss.advanceIndex();
 								KeepSelection ks = kss.getSelectedKeep();
 								JButtonLengthLimited jbll = ks.getJButtonLengthLimited();
@@ -160,9 +159,8 @@ public class HttpRequestHandler implements HttpHandler, YoutubeVideosContainer
 						}
 						else 
 						{
-							if(vcp == null || !vcp.isVisible())
+							if((vcp == null || !vcp.isVisible()) && !ba.isVideoBookmarksOpen())
 							{
-								kss.getSelectedKeep().getFrame().setForeground(NO_HIGHLIGHT);
 								kss.decrementIndex();
 								KeepSelection ks = kss.getSelectedKeep();
 								JButtonLengthLimited jbll = ks.getJButtonLengthLimited();
@@ -178,9 +176,8 @@ public class HttpRequestHandler implements HttpHandler, YoutubeVideosContainer
 					
 					else if(responseXml.startsWith("DPAD_LEFT"))
 					{
-						if(vcp == null || !vcp.isVisible())
+						if((vcp == null || !vcp.isVisible()) && !ba.isVideoBookmarksOpen())
 						{
-							kss.getSelectedKeep().getFrame().setForeground(NO_HIGHLIGHT);
 							kss.decrementIndex();
 							KeepSelection ks = kss.getSelectedKeep();
 							JButtonLengthLimited jbll = ks.getJButtonLengthLimited();
@@ -189,9 +186,8 @@ public class HttpRequestHandler implements HttpHandler, YoutubeVideosContainer
 					}
 					else if(responseXml.startsWith("DPAD_RIGHT"))
 					{
-						if(vcp == null || !vcp.isVisible())
+						if((vcp == null || !vcp.isVisible()) && !ba.isVideoBookmarksOpen())
 						{
-							kss.getSelectedKeep().getFrame().setForeground(NO_HIGHLIGHT);
 							kss.advanceIndex();
 							KeepSelection ks = kss.getSelectedKeep();
 							JButtonLengthLimited jbll = ks.getJButtonLengthLimited();
@@ -220,8 +216,10 @@ public class HttpRequestHandler implements HttpHandler, YoutubeVideosContainer
 				
 				else if(responseXml.equals("A"))
 				{
-					//TODO launch video channels.
-					buildVideoChannelPlayer();
+					if(!ba.isVideoBookmarksOpen())
+					{
+						buildVideoChannelPlayer();
+					}
 					
 				}
 				else if(responseXml.equals("B"))

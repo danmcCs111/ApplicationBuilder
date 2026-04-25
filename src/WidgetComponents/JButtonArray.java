@@ -735,6 +735,11 @@ PostWidgetBuildProcessing, ButtonArray
 		}
 	}
 	
+	public boolean isVideoBookmarksOpen()
+	{
+		return (vbmd != null && vbmd.isVisible());
+	}
+	
 	public void focusButtonArray()
 	{
 		JFrame f = ((JFrame) this.getTopLevelAncestor());

@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
 import ActionListenersImpl.LaunchUrlActionListener;
@@ -30,6 +29,9 @@ public class PicLabelMouseListener extends MouseAdapter
 		EMPTY_BORDER = BorderFactory.createEmptyBorder(),
 		SELECTION_BORDER = BorderFactory.createLineBorder(SELECTION_COLOR, 5),
 		HIGHLIGHT_BORDER = BorderFactory.createLineBorder(HIGHLIGHT_COLOR, 5);
+	private static AbstractButton 
+		selected;
+	
 	private AbstractButton 
 		connectedButton;
 	public boolean 
@@ -78,6 +80,10 @@ public class PicLabelMouseListener extends MouseAdapter
 				l.setBorder(EMPTY_BORDER);
 			}
 		}
+		if(!on)
+		{
+			selectionLabel(selected, true);
+		}
 	}
 	
 	public static void selectionLabel(AbstractButton ab, boolean on)
@@ -105,6 +111,10 @@ public class PicLabelMouseListener extends MouseAdapter
 				
 				l.setBorder(EMPTY_BORDER);
 			}
+		}
+		if(on)
+		{
+			selected = ab;
 		}
 	}
 	

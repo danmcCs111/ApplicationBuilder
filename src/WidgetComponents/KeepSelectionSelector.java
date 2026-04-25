@@ -19,7 +19,7 @@ public class KeepSelectionSelector
 	
 	public void decrementIndex()
 	{
-		if(keepIndex - 1 >=  0)
+		if((keepIndex - 1 >=  0) && keepIndex -1 <= getKeeps().size()-1)
 		{
 			keepIndex--;
 		}
