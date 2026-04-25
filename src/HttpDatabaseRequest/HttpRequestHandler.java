@@ -169,6 +169,23 @@ public class HttpRequestHandler implements HttpHandler, YoutubeVideosContainer
 						//select move up/down
 					}
 					
+					else if(responseXml.startsWith("DPAD_LEFT"))
+					{
+						kss.getSelectedKeep().getFrame().setForeground(NO_HIGHLIGHT);
+						kss.decrementIndex();
+						KeepSelection ks = kss.getSelectedKeep();
+						JButtonLengthLimited jbll = ks.getJButtonLengthLimited();
+						PicLabelMouseListener.selectionLabel(jbll, true);//TODO
+					}
+					else if(responseXml.startsWith("DPAD_RIGHT"))
+					{
+						kss.getSelectedKeep().getFrame().setForeground(NO_HIGHLIGHT);
+						kss.advanceIndex();
+						KeepSelection ks = kss.getSelectedKeep();
+						JButtonLengthLimited jbll = ks.getJButtonLengthLimited();
+						PicLabelMouseListener.selectionLabel(jbll, true);//TODO
+					}
+					
 				}//End open bookmarks req.
 				if(responseXml.equals("START"))
 				{
