@@ -331,6 +331,10 @@ public class HttpRequestHandler implements HttpHandler, YoutubeVideosContainer
 		{
 			KeepSelection ks = kss.getSelectedKeep();
 			vcp = new VideoChannelPlayerJoy(new ImageIcon(ks.getImg()), this, ks.getJButtonLengthLimited(), ba);
+			if(!vcp.isVisible())
+			{
+				ks.getJButtonLengthLimited().doClick();
+			}
 		}
 	}
 

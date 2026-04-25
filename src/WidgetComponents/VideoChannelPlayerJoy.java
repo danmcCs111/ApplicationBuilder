@@ -41,7 +41,7 @@ public class VideoChannelPlayerJoy extends JFrame
 		HOME_PAGE_TOOLTIP_TEXT = "[ <arg0> ] - Homepage",
 		TITLE_PREFIX = "Channel | ";
 	private static Dimension 
-		MIN_SIZE = new Dimension(1600, 425);
+		MIN_SIZE = new Dimension(1600, 600);
 	private static int 
 		SCROLL_UNIT_INC = 25;
 	private static Border
@@ -78,6 +78,9 @@ public class VideoChannelPlayerJoy extends JFrame
 	
 	private void buildWidgets(HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
 	{
+		if(ycvs == null || ycvs.isEmpty())
+			return;
+		
 		buildCenterPanel(ycvs);
 		
 		this.setIconImage(videoImage.getImage());
