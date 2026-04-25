@@ -154,7 +154,8 @@ public class VideoChannelPlayerJoy extends JFrame
 						fmdl.buildVideoChannelPlayer();
 					}
 				};
-				Thread t = new Thread(r);
+				Thread t = new Thread(r
+						);
 				t.start();
 			}
 		});

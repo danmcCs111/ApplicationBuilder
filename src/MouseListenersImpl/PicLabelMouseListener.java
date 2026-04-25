@@ -23,13 +23,13 @@ public class PicLabelMouseListener extends MouseAdapter
 	private static ArrayList<JLabel> connectedLabels = new ArrayList<JLabel>();
 	
 	private static Color
-		SELECTION_COLOR = Color.MAGENTA,
-		HIGHLIGHT_COLOR = Color.blue;
+		SELECTION_COLOR = Color.BLUE,
+		HIGHLIGHT_COLOR = Color.RED;
 	
 	public static Border 
 		EMPTY_BORDER = BorderFactory.createEmptyBorder(),
-		SELECTION_BORDER = new BevelBorder(BevelBorder.RAISED, SELECTION_COLOR, SELECTION_COLOR),
-		HIGHLIGHT_BORDER = new BevelBorder(BevelBorder.RAISED, HIGHLIGHT_COLOR, HIGHLIGHT_COLOR);
+		SELECTION_BORDER = BorderFactory.createLineBorder(SELECTION_COLOR, 5),
+		HIGHLIGHT_BORDER = BorderFactory.createLineBorder(HIGHLIGHT_COLOR, 5);
 	private AbstractButton 
 		connectedButton;
 	public boolean 
@@ -45,7 +45,13 @@ public class PicLabelMouseListener extends MouseAdapter
 	public static void setFrameHighlightColor(Color c)
 	{
 		HIGHLIGHT_COLOR = c;
-		HIGHLIGHT_BORDER = new BevelBorder(BevelBorder.RAISED, HIGHLIGHT_COLOR, HIGHLIGHT_COLOR);
+		HIGHLIGHT_BORDER = BorderFactory.createLineBorder(HIGHLIGHT_COLOR, 5);
+	}
+	
+	public static void setFrameSelectionColor(Color c)
+	{
+		SELECTION_COLOR = c;
+		SELECTION_BORDER = BorderFactory.createLineBorder(SELECTION_COLOR, 5);
 	}
 	
 	public static void highLightLabel(AbstractButton ab, boolean on)
