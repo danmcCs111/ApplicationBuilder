@@ -61,7 +61,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		picLabel;
 	private static LookupOrCreateYoutube 
 		lcv = new LookupOrCreateYoutube();
-	private VideoChannelPlayer 
+	private VideoChannelPlayer
 		vqp = null;
 	private Point 
 		mouseDownCompCoords = null;

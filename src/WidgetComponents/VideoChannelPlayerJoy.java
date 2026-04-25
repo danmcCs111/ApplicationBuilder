@@ -32,7 +32,7 @@ import WidgetComponentInterfaces.SearchSubscriber;
 import WidgetComponents.DurationLimiter.Mode;
 import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
 
-public class VideoChannelPlayer extends JFrame
+public class VideoChannelPlayerJoy extends JFrame
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -52,7 +52,7 @@ public class VideoChannelPlayer extends JFrame
 	
 	private JButtonLengthLimited 
 		parentButton;
-	private VideoChannelListView 
+	private VideoChannelListViewJoy
 		listView; 
 	private JScrollPane 
 		scrollPane;
@@ -61,7 +61,7 @@ public class VideoChannelPlayer extends JFrame
 	private FrameMouseDragListener 
 		fmdl;
 
-	public VideoChannelPlayer(
+	public VideoChannelPlayerJoy(
 			ImageIcon videoImage, FrameMouseDragListener fmdl, JButtonLengthLimited parentButton, Container parent)
 	{
 		this.parentButton = parentButton;
@@ -77,7 +77,7 @@ public class VideoChannelPlayer extends JFrame
 		DEFAULT_MINUTE_SETTING = minute;
 	}
 	
-	public VideoChannelListView getVideoChannelListView()
+	public VideoChannelListViewJoy getVideoChannelListView()
 	{
 		return this.listView;
 	}
@@ -170,7 +170,7 @@ public class VideoChannelPlayer extends JFrame
 			@Override
 			public void notifySearchText(String searchPattern) {
 				listView.setVisible(searchPattern);
-				VideoChannelPlayer.this.validate();
+				VideoChannelPlayerJoy.this.validate();
 			}
 		});
 		
@@ -178,7 +178,7 @@ public class VideoChannelPlayer extends JFrame
 			@Override
 			public void notifyDurationLimit(int hour, int minute, Mode m) {
 				listView.setVisible(hour, minute, m);
-				VideoChannelPlayer.this.validate();
+				VideoChannelPlayerJoy.this.validate();
 			}
 		};
 		DurationLimiter dl = new DurationLimiter(dls);
@@ -194,7 +194,7 @@ public class VideoChannelPlayer extends JFrame
 	
 	public void buildCenterPanel(HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
 	{
-		listView = new VideoChannelListView(parentButton, ycvs);
+		listView = new VideoChannelListViewJoy(parentButton, ycvs);
 		scrollPane = new JScrollPane(listView);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(SCROLL_UNIT_INC);
 	}

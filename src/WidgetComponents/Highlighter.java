@@ -45,6 +45,11 @@ public class Highlighter
 		Highlighter.borderColor = borderColor;
 	}
 	
+	public JComponent getComponent()
+	{
+		return this.comp;
+	}
+	
 	public static void setBorderColor(Color color)
 	{
 		Highlighter.borderColor = color;

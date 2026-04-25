@@ -7,7 +7,7 @@ import javax.swing.JButton;
 
 import WidgetComponentInterfaces.LaunchUrlButton;
 
-public class JButtonLengthLimited extends JButton implements Comparator<JButtonLengthLimited>, LaunchUrlButton
+public class JToggleButtonLengthLimited extends JButton implements Comparator<JToggleButtonLengthLimited>, LaunchUrlButton
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -17,7 +17,6 @@ public class JButtonLengthLimited extends JButton implements Comparator<JButtonL
 	private int 
 		characterLimit = 0;
 	private String 
-		toStringPrefix = "",
 		fullLengthText,
 		path;
 	private AbstractButton 
@@ -64,7 +63,7 @@ public class JButtonLengthLimited extends JButton implements Comparator<JButtonL
 	}
 	
 	@Override
-	public int compare(JButtonLengthLimited o1, JButtonLengthLimited o2) 
+	public int compare(JToggleButtonLengthLimited o1, JToggleButtonLengthLimited o2) 
 	{
 		return o1.getText().compareTo(o2.getText());
 	}
@@ -72,19 +71,14 @@ public class JButtonLengthLimited extends JButton implements Comparator<JButtonL
 	@Override
 	public boolean equals(Object o)
 	{
-		if(o instanceof JButtonLengthLimited)
+		if(o instanceof JToggleButtonLengthLimited)
 		{
-			return ((JButtonLengthLimited) o).getText().equals(this.getText());
+			return ((JToggleButtonLengthLimited) o).getText().equals(this.getText());
 		}
 		else
 		{
 			return false;
 		}
-	}
-	
-	public void setToStringPrefix(String prefix)
-	{
-		this.toStringPrefix = prefix;
 	}
 	
 	public void setHighlightButton(AbstractButton ab)
@@ -97,10 +91,11 @@ public class JButtonLengthLimited extends JButton implements Comparator<JButtonL
 	{
 		return highlightButton;
 	}
-
+	
 	@Override
 	public String toString()
 	{
-		return toStringPrefix + getText();
+		return this.getText();
 	}
+
 }

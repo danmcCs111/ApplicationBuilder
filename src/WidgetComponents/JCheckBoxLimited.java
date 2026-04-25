@@ -2,6 +2,7 @@ package WidgetComponents;
 
 import java.util.Comparator;
 
+import javax.swing.AbstractButton;
 import javax.swing.JCheckBox;
 
 public class JCheckBoxLimited extends JCheckBox implements Comparator<JCheckBoxLimited>
@@ -9,11 +10,35 @@ public class JCheckBoxLimited extends JCheckBox implements Comparator<JCheckBoxL
 	private static final long serialVersionUID = 1L;
 	private static final String CHARACTER_LIMIT_TEXT = "..";
 	
-	private int characterLimit = 0;
+	private int 
+		characterLimit = 0;
 	private String 
+		path,
 		fullLengthText,
 		strippedText,
 		pathKey;
+	private AbstractButton 
+		highlightButton;
+	
+	public void setHighlightButton(AbstractButton ab)
+	{
+		this.highlightButton = ab;
+	}
+	
+	public AbstractButton getHighlightButton()
+	{
+		return this.highlightButton;
+	}
+	
+	public void setPath(String path)
+	{
+		this.path = path;
+	}
+	
+	public String getPath()
+	{
+		return this.path;
+	}
 	
 	public void setCharacterLimit(int charLimit)
 	{
@@ -23,6 +48,11 @@ public class JCheckBoxLimited extends JCheckBox implements Comparator<JCheckBoxL
 	public String getFullLengthText()
 	{
 		return this.fullLengthText;
+	}
+	
+	public void setFullText(String text)
+	{
+		this.fullLengthText = text;
 	}
 	
 	public String getStrippedText()
