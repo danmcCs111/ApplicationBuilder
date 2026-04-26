@@ -216,12 +216,26 @@ public class HttpRequestHandler implements HttpHandler, YoutubeVideosContainer
 				}
 				else if(responseXml.equals("X"))
 				{
-					ba.closeAll();
+					if(vcp != null && vcp.isVisible())
+					{
+						vcp.doHomeButtonClick();
+					}
+					else
+					{
+						ba.closeAll();
+					}
 				}
 				else if(responseXml.equals("Y"))
 				{
-					ba.focusButtonArray();
-					ba.performOpen();
+					if(vcp != null && vcp.isVisible())
+					{
+						vcp.doUpdate();
+					}
+					else
+					{
+						ba.focusButtonArray();
+						ba.performOpen();
+					}
 				}
 				//TODO. place in config.
 				else if(responseXml.equals("RIGHTSTICK"))

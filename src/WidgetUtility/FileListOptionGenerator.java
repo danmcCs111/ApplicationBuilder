@@ -10,13 +10,10 @@ import javax.swing.JComponent;
 import Properties.PathUtility;
 import Properties.UrlToValueReader;
 import WidgetComponents.JButtonLengthLimited;
-import WidgetComponents.JCheckBoxLimited;
 import WidgetComponents.JToggleButtonLengthLimited;
 
 public class FileListOptionGenerator 
 {
-	private static final String IMAGES_RELATIVE_FILE_LOCATION= "/images/";
-	
 	/**
 	 * @param path (the directory to collect)
 	 * @param filter (the filename extension filter)

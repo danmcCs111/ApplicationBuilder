@@ -1,6 +1,7 @@
 package WidgetComponents;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -17,6 +18,7 @@ import java.util.HashMap;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -38,6 +40,7 @@ public class VideoChannelPlayerJoy extends JFrame
 	private static String
 		COUNT_PREFIX = "Video Count: ",
 		UPDATE_BUTTON_TEXT = "Update",
+		HOME_BUTTON_TEXT = "",
 		HOME_PAGE_TOOLTIP_TEXT = "[ <arg0> ] - Homepage",
 		TITLE_PREFIX = "Channel | ";
 	private static Dimension 
@@ -59,6 +62,10 @@ public class VideoChannelPlayerJoy extends JFrame
 		videoImage;
 	private YoutubeVideosContainer 
 		fmdl;
+	private JButton 
+		imageHomeButton;
+	private JButton 
+		updateButton;
 
 	public VideoChannelPlayerJoy(
 			ImageIcon videoImage, YoutubeVideosContainer fmdl, JButtonLengthLimited parentButton, Container parent)
@@ -86,6 +93,7 @@ public class VideoChannelPlayerJoy extends JFrame
 		this.setIconImage(videoImage.getImage());
 		this.setLayout(new BorderLayout());
 		this.add(buildWestPanel(), BorderLayout.WEST);
+		this.add(buildNorthPanel(), BorderLayout.NORTH);
 		this.add(scrollPane, BorderLayout.CENTER);
 		this.add(buildSouthPanel(parentButton), BorderLayout.SOUTH);
 		
@@ -114,16 +122,46 @@ public class VideoChannelPlayerJoy extends JFrame
 		listView.postFrameBuild();
 	}
 	
-	public JPanel buildWestPanel()
+	public JPanel buildNorthPanel()
 	{
-		JPanel searchPanel = new JPanel();
+		JPanel northPanel = new JPanel();
 		FlowLayout fl = new FlowLayout();
 		fl.setAlignment(FlowLayout.LEFT);
-		searchPanel.setLayout(fl);
+		northPanel.setLayout(fl);
 		
-		JButton imageLabel = new JButton(videoImage);
-		imageLabel.setToolTipText(HOME_PAGE_TOOLTIP_TEXT.replaceAll("<arg0>", parentButton.getText()));
-		imageLabel.addMouseListener(new MouseAdapter() {
+		updateButton = new JButton(UPDATE_BUTTON_TEXT);
+		updateButton.setFont(SELECT_FONT);
+		updateButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Runnable r = new Runnable() {
+					@Override
+					public void run() {
+						fmdl.update();
+						fmdl.buildVideoChannelPlayer();
+					}
+				};
+				Thread t = new Thread(r);
+				t.start();
+			}
+		});
+		northPanel.add(updateButton);
+		
+		return northPanel;
+	}
+	
+	public JPanel buildWestPanel()
+	{
+		JPanel westPanel = new JPanel();
+		FlowLayout fl = new FlowLayout();
+		fl.setAlignment(FlowLayout.LEFT);
+		westPanel.setLayout(fl);
+		
+		imageHomeButton = new JButton(videoImage);
+		imageHomeButton.setFont(SELECT_FONT);
+		imageHomeButton.setText(HOME_BUTTON_TEXT);
+		imageHomeButton.setToolTipText(HOME_PAGE_TOOLTIP_TEXT.replaceAll("<arg0>", parentButton.getText()));
+		imageHomeButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int button = e.getButton();
@@ -145,28 +183,9 @@ public class VideoChannelPlayerJoy extends JFrame
 			}
 		});
 		
-		JButton updateButton = new JButton(UPDATE_BUTTON_TEXT);
-		updateButton.setFont(SELECT_FONT);
-		updateButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Runnable r = new Runnable() {
-					@Override
-					public void run() {
-						fmdl.update();
-						fmdl.buildVideoChannelPlayer();
-					}
-				};
-				Thread t = new Thread(r
-						);
-				t.start();
-			}
-		});
+		westPanel.add(imageHomeButton);
 		
-		searchPanel.add(imageLabel);
-//		searchPanel.add(updateButton);
-		
-		return searchPanel;
+		return westPanel;
 	}
 	
 	public void buildCenterPanel(HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
@@ -192,6 +211,25 @@ public class VideoChannelPlayerJoy extends JFrame
 		southPane.add(countLabel, BorderLayout.EAST);
 		
 		return southPane;
+	}
+	
+	public void doUpdate()
+	{
+		updateButton.doClick();
+	}
+	
+	public void doHomeButtonClick()
+	{
+		sendMouseClick(imageHomeButton);
+	}
+	
+	public void sendMouseClick(Component source)
+	{
+		MouseEvent me = new MouseEvent(source, -1, JComponent.WHEN_FOCUSED, JComponent.WHEN_FOCUSED, 0, 0, 0, 0, 1, false, 1);
+		for(MouseListener ml : source.getMouseListeners())
+		{
+			ml.mouseClicked(me);
+		}
 	}
 	
 }
