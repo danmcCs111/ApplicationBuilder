@@ -39,6 +39,7 @@ import MouseListenersImpl.YoutubeChannelVideo;
 import Properties.LoggingMessages;
 import Properties.StringUtility;
 import WidgetComponentInterfaces.RegisterArrayActionListener;
+import WidgetComponents.DurationLimiter.Mode;
 import WidgetUtility.FileListOptionGenerator;
 
 public class VideoChannelListViewJoy extends JPanel implements ArrayActionListener
@@ -50,7 +51,8 @@ public class VideoChannelListViewJoy extends JPanel implements ArrayActionListen
 		POPUP_OPEN_NEW = "OPEN NEW";
 	private static final SimpleDateFormat 
 		SDF_UPLOAD_SHORT = new SimpleDateFormat("MM/dd/yyyy");
-	private static final int
+	private static int
+		MINIMUM_MINUTE = -1,
 		VIDEO_TITLE_CHARACTER_LIMIT = 90;
 	private static final Font 
 		SELECT_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 24);
@@ -66,9 +68,7 @@ public class VideoChannelListViewJoy extends JPanel implements ArrayActionListen
 		borderColor = Color.ORANGE;
 	private JPanel 
 		listPanel,
-		channelListPanel,
-		uploadDatePanel,
-		durationPanel;
+		channelListPanel;
 	JList<JButtonLengthLimited> 
 		listItems;
 	private Highlighter 
@@ -77,9 +77,7 @@ public class VideoChannelListViewJoy extends JPanel implements ArrayActionListen
 	private LinkedHashMap<JButtonLengthLimited, Highlighter> 
 		videoButtons = new LinkedHashMap<JButtonLengthLimited, Highlighter>();
 	private LinkedHashMap<JLabel, Highlighter>
-		videoLabelChannel = new LinkedHashMap<JLabel, Highlighter>(),
-		videoLabelDuration = new LinkedHashMap<JLabel, Highlighter>(),
-		videoLabelDate = new LinkedHashMap<JLabel, Highlighter>();
+		videoLabelChannel = new LinkedHashMap<JLabel, Highlighter>();
 	private HashMap<Integer, VideoSubSelectionLauncher> 
 		vssl = null;
 	private ArrayList<JButtonLengthLimited> 
@@ -110,6 +108,11 @@ public class VideoChannelListViewJoy extends JPanel implements ArrayActionListen
 			vssl.put(key, new VideoSubSelectionLauncher(parentButtons.get(key)));
 		}
 		buildWidgets(this.parentButtons, ycvs);
+	}
+	
+	public static void setMinimumMinute(int minMinute) 
+	{
+		MINIMUM_MINUTE = minMinute;
 	}
 	
 	public static void setBorderColor(Color color)
@@ -194,11 +197,12 @@ public class VideoChannelListViewJoy extends JPanel implements ArrayActionListen
 		gbc3.weighty = 1;
 		
 		channelListPanel = new JPanel(new GridLayout(0,1));
-		durationPanel = new JPanel(new GridLayout(0,1));
-		uploadDatePanel = new JPanel(new GridLayout(0,1));
 		
 		hlPanel = new Highlighter(this, borderColor);
 		btns = new ArrayList<JButtonLengthLimited>();
+		LinkedHashMap<JButtonLengthLimited, String> 
+			btnAndDuration = new LinkedHashMap<JButtonLengthLimited, String>();
+		
 		for(int key : ycvs.keySet())
 		{
 			for(YoutubeChannelVideo ycv : ycvs.get(key))
@@ -213,20 +217,17 @@ public class VideoChannelListViewJoy extends JPanel implements ArrayActionListen
 				jbll.setCharacterLimit(VIDEO_TITLE_CHARACTER_LIMIT);
 				String duration = formatDuration(ycv.getDuration());
 				String uploadDate = SDF_UPLOAD_SHORT.format(ycv.getUploadDate());
-				
-				JLabel labDuration = buildDurationLabel(ycv, jbll);
-				durationPanel.add(labDuration);
-				
-				JLabel labDate = buildUploadLabel(ycv, jbll);
-				uploadDatePanel.add(labDate);
+				btnAndDuration.put(jbll, duration);
 				
 				jbll.setToStringPrefix(uploadDate + " | " + duration + " | ");
 				btns.add(jbll);
 			}
 		}
 		
-		
-		listItems = new JList<JButtonLengthLimited>(btns.toArray(new JButtonLengthLimited [] {}));
+		ArrayList<JButtonLengthLimited> jblls = (MINIMUM_MINUTE > 0)
+				? getVisible(0, MINIMUM_MINUTE, Mode.GreaterThan, btnAndDuration)
+				: btns;
+		listItems = new JList<JButtonLengthLimited>(jblls.toArray(new JButtonLengthLimited[] {}));
 		
 		listItems.setFont(SELECT_FONT);
 		listItems.addMouseListener(new MouseAdapter() {
@@ -284,30 +285,6 @@ public class VideoChannelListViewJoy extends JPanel implements ArrayActionListen
 	public void postFrameBuild()
 	{
 		findHighlight(LaunchUrlActionListener.getLastButtonOrigin());
-	}
-	
-	private JLabel buildUploadLabel(YoutubeChannelVideo ycv, JButtonLengthLimited jbll)
-	{
-		BevelBorder bb = new BevelBorder(BevelBorder.RAISED);
-		String uploadDate = SDF_UPLOAD_SHORT.format(ycv.getUploadDate());
-		JLabel lab = new JLabel(uploadDate);
-		lab.setBorder(bb);
-		
-		Highlighter hl = videoButtons.get(jbll);
-		videoLabelDate.put(lab, hl);
-		return lab;
-	}
-	
-	private JLabel buildDurationLabel(YoutubeChannelVideo ycv, JButtonLengthLimited jbll)
-	{
-		BevelBorder bb = new BevelBorder(BevelBorder.RAISED);
-		String dur = formatDuration(ycv.getDuration());
-		JLabel lab = new JLabel(dur);
-		lab.setBorder(bb);
-		
-		Highlighter hl = videoButtons.get(jbll);
-		videoLabelDuration.put(lab, hl);
-		return lab;
 	}
 	
 	private JLabel buildChannelLabel(AbstractButton ab)
@@ -440,6 +417,47 @@ public class VideoChannelListViewJoy extends JPanel implements ArrayActionListen
 			selectedBtn = hl;
 		}
 		listItems.setSelectedIndex(index);
+	}
+	
+	
+	
+	public ArrayList<JButtonLengthLimited> getVisible(int hour, int minute, Mode m, LinkedHashMap<JButtonLengthLimited, String> buttonAndDuration)
+	{
+		
+		ArrayList<JButtonLengthLimited> jblls = new ArrayList<JButtonLengthLimited>();
+		
+		int totalValue = Integer.parseInt(StringUtility.padTimeValue2(hour) + StringUtility.padTimeValue2(minute));
+		LoggingMessages.printOut(totalValue + "");
+		
+		for(JButtonLengthLimited btn : buttonAndDuration.keySet())
+		{
+			String text = buttonAndDuration.get(btn);
+			int totalValueVideo = -1;
+			if(!text.isBlank())
+			{
+				text = text.substring(0, text.length()-2);//remove seconds.
+				text = text.replace(":", "");
+				totalValueVideo = Integer.parseInt(text);
+				LoggingMessages.printOut(totalValueVideo + "");
+			}
+			switch(m)
+			{
+			case GreaterThan:
+				if(totalValueVideo >= totalValue)
+				{
+					jblls.add(btn);
+				}
+				break;
+				
+			case LessThan:
+				if(totalValueVideo < totalValue)
+				{
+					jblls.add(btn);
+				}
+				break;
+			}
+		}
+		return jblls;
 	}
 	
 	@Override

@@ -150,6 +150,11 @@ PostWidgetBuildProcessing, ButtonArray
 		
 	}
 	
+	public static void setMinimumMinuteChannelViewJoystick(int minMinute)
+	{
+		VideoChannelListViewJoy.setMinimumMinute(minMinute);
+	}
+	
 	public static void setImageIconHeight(int height)
 	{
 		KeepSelection.setImageIconHeight(height);
