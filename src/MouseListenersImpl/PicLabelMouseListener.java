@@ -88,7 +88,7 @@ public class PicLabelMouseListener extends MouseAdapter
 	
 	public static void selectionLabel(AbstractButton ab, boolean on)
 	{
-		LoggingMessages.printOut("highlight label.");
+		LoggingMessages.printOut("select label.");
 		if(ab == null)
 			return;
 		

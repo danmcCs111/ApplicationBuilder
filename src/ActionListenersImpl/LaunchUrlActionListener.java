@@ -1,7 +1,6 @@
 package ActionListenersImpl;
 
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -135,21 +134,6 @@ public class LaunchUrlActionListener implements ActionListener
 			{
 				aal.urlSelect(button);
 			}
-		}
-	}
-	
-	private static ArrayActionListener findParentArrayActionListener(Container ab)
-	{
-		if(ab.getParent() == null)
-			return null;
-		
-		if(ab.getParent() instanceof ArrayActionListener)
-		{
-			return (ArrayActionListener) ab.getParent();
-		}
-		else
-		{
-			return findParentArrayActionListener(ab.getParent());
 		}
 	}
 	

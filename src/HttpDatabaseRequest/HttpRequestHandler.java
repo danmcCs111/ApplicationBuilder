@@ -174,9 +174,7 @@ public class HttpRequestHandler implements HttpHandler, YoutubeVideosContainer
 						if((vcp == null || !vcp.isVisible()) && !ba.isVideoBookmarksOpen())
 						{
 							kss.decrementIndex();
-							KeepSelection ks = kss.getSelectedKeep();
-							JButtonLengthLimited jbll = ks.getJButtonLengthLimited();
-							PicLabelMouseListener.selectionLabel(jbll, true);//TODO
+							selectCurrent();
 						}
 					}
 					else if(responseXml.startsWith("DPAD_RIGHT"))
@@ -184,9 +182,7 @@ public class HttpRequestHandler implements HttpHandler, YoutubeVideosContainer
 						if((vcp == null || !vcp.isVisible()) && !ba.isVideoBookmarksOpen())
 						{
 							kss.advanceIndex();
-							KeepSelection ks = kss.getSelectedKeep();
-							JButtonLengthLimited jbll = ks.getJButtonLengthLimited();
-							PicLabelMouseListener.selectionLabel(jbll, true);//TODO
+							selectCurrent();
 						}
 					}
 					
@@ -235,6 +231,7 @@ public class HttpRequestHandler implements HttpHandler, YoutubeVideosContainer
 					{
 						ba.focusButtonArray();
 						ba.performOpen();
+						selectCurrent();
 					}
 				}
 				//TODO. place in config.
@@ -296,6 +293,13 @@ public class HttpRequestHandler implements HttpHandler, YoutubeVideosContainer
 		}
 		
 		return responseXml;
+	}
+	
+	private void selectCurrent()
+	{
+		KeepSelection ks = kss.getSelectedKeep();
+		JButtonLengthLimited jbll = ks.getJButtonLengthLimited();
+		PicLabelMouseListener.selectionLabel(jbll, true);//TODO
 	}
 	
 	private static String getRequestHeaderAsString(Headers h)

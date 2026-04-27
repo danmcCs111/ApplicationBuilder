@@ -165,9 +165,9 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements ArrayActionL
 	
 	public void buildWidgets()
 	{
-		listView = new VideoChannelListView(parentButtons, ycvs);
-		addListView();
+//		listView = new VideoChannelListView(parentButtons, ycvs);
 		JPanel searchPanel = buildNorthPanel();
+		addListView();
 		buildEastPanel();
 		JPanel southPanel = buildSouthPanel(allSelectBtn);
 		
@@ -295,7 +295,10 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements ArrayActionL
 	
 	public void removeListView()
 	{
-		contentScrollPane.remove(listView);
+		if(listView != null)
+		{
+			contentScrollPane.remove(listView);
+		}
 		this.remove(contentScrollPane);
 	}
 	
@@ -419,8 +422,10 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements ArrayActionL
 			selectedButton.setBackground(ColorTemplate.getButtonForegroundColor());
 			selectedButton.setForeground(ColorTemplate.getButtonBackgroundColor());
 		}
-		
-		listView.postFrameBuild();
+		if(listView != null)
+		{
+			listView.postFrameBuild();
+		}
 		AllVideoChannelsOpenedPlayer.this.validate();
 	}
 	
