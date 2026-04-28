@@ -81,7 +81,7 @@ public class VideoChannelListViewJoy extends JPanel implements ArrayActionListen
 	private HashMap<Integer, VideoSubSelectionLauncher> 
 		vssl = null;
 	private ArrayList<JButtonLengthLimited> 
-		btns;
+		videoButtonsFiltered;
 	
 	public VideoChannelListViewJoy(JButtonLengthLimited parentButton, ArrayList <YoutubeChannelVideo> ycv)
 	{
@@ -199,7 +199,7 @@ public class VideoChannelListViewJoy extends JPanel implements ArrayActionListen
 		channelListPanel = new JPanel(new GridLayout(0,1));
 		
 		hlPanel = new Highlighter(this, borderColor);
-		btns = new ArrayList<JButtonLengthLimited>();
+		ArrayList<JButtonLengthLimited> btns = new ArrayList<JButtonLengthLimited>();
 		LinkedHashMap<JButtonLengthLimited, String> 
 			btnAndDuration = new LinkedHashMap<JButtonLengthLimited, String>();
 		
@@ -224,10 +224,10 @@ public class VideoChannelListViewJoy extends JPanel implements ArrayActionListen
 			}
 		}
 		
-		ArrayList<JButtonLengthLimited> jblls = (MINIMUM_MINUTE > 0)
+		videoButtonsFiltered = (MINIMUM_MINUTE > 0)
 				? getVisible(0, MINIMUM_MINUTE, Mode.GreaterThan, btnAndDuration)
 				: btns;
-		listItems = new JList<JButtonLengthLimited>(jblls.toArray(new JButtonLengthLimited[] {}));
+		listItems = new JList<JButtonLengthLimited>(videoButtonsFiltered.toArray(new JButtonLengthLimited[] {}));
 		
 		listItems.setFont(SELECT_FONT);
 		listItems.addMouseListener(new MouseAdapter() {
@@ -376,7 +376,7 @@ public class VideoChannelListViewJoy extends JPanel implements ArrayActionListen
 		if(newButton == null)
 			return;
 		
-		AbstractButton last = newButton == null
+		AbstractButton last = (newButton == null)
 				? LaunchUrlActionListener.getLastButtonOrigin()
 				: newButton;
 		String name = (last == null)
@@ -388,8 +388,7 @@ public class VideoChannelListViewJoy extends JPanel implements ArrayActionListen
 		if(ab == null)
 			return;
 		
-		List<AbstractButton> abs = Arrays.asList(videoButtons.keySet().toArray(new AbstractButton[] {}));
-		int index = abs.indexOf(ab);
+		int index = videoButtonsFiltered.indexOf(ab);
 		performSelect(videoButtons.get(ab), index);
 		ab.requestFocusInWindow();
 		this.validate();
