@@ -231,7 +231,6 @@ public class HttpRequestHandler implements HttpHandler, YoutubeVideosContainer
 					{
 						ba.focusButtonArray();
 						ba.performOpen();
-						selectCurrent();
 					}
 				}
 				//TODO. place in config.

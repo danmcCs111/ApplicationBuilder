@@ -138,7 +138,6 @@ public class VideoChannelPlayerJoy extends JFrame
 					@Override
 					public void run() {
 						fmdl.update();
-						fmdl.buildVideoChannelPlayer();
 					}
 				};
 				Thread t = new Thread(r);
