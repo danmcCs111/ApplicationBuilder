@@ -24,7 +24,7 @@ public interface GraphicsUtil
 {
 	public static void centerWindow(Container referenceComponent, Container comp)
 	{
-		Point loc = referenceComponent.getLocationOnScreen();
+		Point loc = referenceComponent.getLocation();
 		
 		double 
 			rw = referenceComponent.getWidth(),
@@ -36,7 +36,7 @@ public interface GraphicsUtil
 	}
 	public static void centerHeightOnlyWindow(Container referenceComponent, Container comp)
 	{
-		Point loc = referenceComponent.getLocationOnScreen();
+		Point loc = referenceComponent.getLocation();
 		
 		double 
 			rw = referenceComponent.getWidth(),
@@ -47,7 +47,7 @@ public interface GraphicsUtil
 	}
 	public static void centerReferenceOnlyWindow(Container referenceComponent, Container comp)
 	{
-		Point loc = referenceComponent.getLocationOnScreen();
+		Point loc = referenceComponent.getLocation();
 		
 		double 
 			rw = referenceComponent.getWidth(),
@@ -76,7 +76,7 @@ public interface GraphicsUtil
 	
 	public static void rightEdgeTopWindow(Container referenceComponent, Container comp, int numberOfMatchedVisible)
 	{
-		Point loc = referenceComponent.getLocationOnScreen();
+		Point loc = referenceComponent.getLocation();
 		int rw = referenceComponent.getWidth();
 		int h = comp.getHeight();
 		
@@ -90,7 +90,7 @@ public interface GraphicsUtil
 	
 	public static void rightEdgeCenterWindow(Container referenceComponent, Container comp)
 	{
-		Point loc = referenceComponent.getLocationOnScreen();
+		Point loc = referenceComponent.getLocation();
 		
 		int 
 			rw = referenceComponent.getWidth(),
