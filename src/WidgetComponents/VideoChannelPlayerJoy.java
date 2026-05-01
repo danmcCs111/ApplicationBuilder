@@ -28,9 +28,9 @@ import javax.swing.border.EmptyBorder;
 
 import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
+import HttpDatabaseRequest.HttpJoystickFuctionRequest;
 import MouseListenersImpl.FrameMouseDragListener;
 import MouseListenersImpl.YoutubeChannelVideo;
-import MouseListenersImpl.YoutubeVideosContainer;
 import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
 
 public class VideoChannelPlayerJoy extends JFrame
@@ -60,21 +60,17 @@ public class VideoChannelPlayerJoy extends JFrame
 		scrollPane;
 	private ImageIcon 
 		videoImage;
-	private YoutubeVideosContainer 
-		fmdl;
 	private JButton 
-		imageHomeButton;
-	private JButton 
+		imageHomeButton,
 		updateButton;
 
 	public VideoChannelPlayerJoy(
-			ImageIcon videoImage, YoutubeVideosContainer fmdl, JButtonLengthLimited parentButton, Container parent)
+			ImageIcon videoImage, JButtonLengthLimited parentButton, Container parent)
 	{
 		this.parentButton = parentButton;
 		this.videoImage = videoImage;
-		this.fmdl = fmdl;
 		this.setTitle(TITLE_PREFIX + parentButton.getText());
-		buildWidgets(fmdl.getYoutubeVideos());
+		buildWidgets(HttpJoystickFuctionRequest.getYoutubeVideos());
 		GraphicsUtil.centerOnScreen(this);
 	}
 	
@@ -137,7 +133,7 @@ public class VideoChannelPlayerJoy extends JFrame
 				Runnable r = new Runnable() {
 					@Override
 					public void run() {
-						fmdl.update();
+						HttpJoystickFuctionRequest.update();
 					}
 				};
 				Thread t = new Thread(r);
