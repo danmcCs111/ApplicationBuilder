@@ -16,6 +16,7 @@ import java.awt.event.WindowFocusListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -52,25 +53,19 @@ public class VideoChannelPlayerJoy extends JFrame
 	private static final Font 
 		SELECT_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 24);
 	
-	private JButtonLengthLimited 
-		parentButton;
 	private VideoChannelListViewJoy
 		listView; 
 	private JScrollPane 
-		scrollPane;
-	private ImageIcon 
-		videoImage;
+		scrollPane = new JScrollPane();
+	private JLabel
+		countLabel;
 	private JButton 
 		imageHomeButton,
 		updateButton;
 
-	public VideoChannelPlayerJoy(
-			ImageIcon videoImage, JButtonLengthLimited parentButton, Container parent)
+	public VideoChannelPlayerJoy(Container parent)
 	{
-		this.parentButton = parentButton;
-		this.videoImage = videoImage;
-		this.setTitle(TITLE_PREFIX + parentButton.getText());
-		buildWidgets(HttpJoystickFuctionRequest.getYoutubeVideos());
+		buildWidgets();
 		GraphicsUtil.centerOnScreen(this);
 	}
 	
@@ -79,19 +74,18 @@ public class VideoChannelPlayerJoy extends JFrame
 		return this.listView;
 	}
 	
-	private void buildWidgets(HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
+	public void setVideos(ImageIcon videoImage, JButtonLengthLimited parentButton)
 	{
+		HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs = HttpJoystickFuctionRequest.getYoutubeVideos();
 		if(ycvs == null || ycvs.isEmpty())
 			return;
 		
-		buildCenterPanel(ycvs);
-		
+		this.setTitle(TITLE_PREFIX + parentButton.getText());
 		this.setIconImage(videoImage.getImage());
-		this.setLayout(new BorderLayout());
-		this.add(buildWestPanel(), BorderLayout.WEST);
-		this.add(buildNorthPanel(), BorderLayout.NORTH);
-		this.add(scrollPane, BorderLayout.CENTER);
-		this.add(buildSouthPanel(parentButton), BorderLayout.SOUTH);
+		buildCenterPanel(ycvs, parentButton);
+		imageHomeButton.setIcon(videoImage);
+		setHomeButton(parentButton);
+		setCount(parentButton);
 		
 		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
 		ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
@@ -99,10 +93,22 @@ public class VideoChannelPlayerJoy extends JFrame
 		ExtendedSetScrollBackgroundForegroundColor.applyBackgroundForeground(
 				ColorTemplate.getPanelBackgroundColor(), ColorTemplate.getButtonBackgroundColor(), scrollPane);
 		
+		this.setVisible(true);
+		listView.postFrameBuild();
+	}
+	
+	private void buildWidgets()
+	{
+		this.setLayout(new BorderLayout());
+		this.add(buildWestPanel(), BorderLayout.WEST);
+		this.add(buildNorthPanel(), BorderLayout.NORTH);
+		this.add(scrollPane, BorderLayout.CENTER);
+		this.add(buildSouthPanel(), BorderLayout.SOUTH);
+		
 		this.addWindowFocusListener(new WindowFocusListener() {
 			@Override
 			public void windowLostFocus(WindowEvent e) {
-				dispose();
+				setVisible(false);
 			}
 			@Override
 			public void windowGainedFocus(WindowEvent e) {
@@ -112,10 +118,7 @@ public class VideoChannelPlayerJoy extends JFrame
 		
 		this.setMinimumSize(MIN_SIZE);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		this.setVisible(true);
 		
-		
-		listView.postFrameBuild();
 	}
 	
 	public JPanel buildNorthPanel()
@@ -152,9 +155,51 @@ public class VideoChannelPlayerJoy extends JFrame
 		fl.setAlignment(FlowLayout.LEFT);
 		westPanel.setLayout(fl);
 		
-		imageHomeButton = new JButton(videoImage);
+		imageHomeButton = new JButton();
 		imageHomeButton.setFont(SELECT_FONT);
 		imageHomeButton.setText(HOME_BUTTON_TEXT);
+		westPanel.add(imageHomeButton);
+		
+		return westPanel;
+	}
+	
+	public void buildCenterPanel(HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs, JButtonLengthLimited parentButton)
+	{
+		listView = new VideoChannelListViewJoy(parentButton, ycvs);
+		scrollPane.setViewportView(listView);
+		scrollPane.getVerticalScrollBar().setUnitIncrement(SCROLL_UNIT_INC);
+	}
+	
+	public JPanel buildSouthPanel()
+	{
+		JPanel 
+			southPane = new JPanel();
+		
+		countLabel = new JLabel();
+		southPane.setLayout(new BorderLayout());
+		
+		countLabel.setBorder(COUNT_BORDER);
+		southPane.add(countLabel, BorderLayout.EAST);
+		
+		return southPane;
+	}
+	
+	private void setCount(AbstractButton parentButton)
+	{
+		int 
+			count = FrameMouseDragListener.getLookupOrCreate().lookupCount(
+					parentButton.getText(), 
+					parentButton.getName()
+			);
+		countLabel.setText(COUNT_PREFIX + count);
+	}
+	
+	private void setHomeButton(AbstractButton parentButton)
+	{
+		for(MouseListener ml : imageHomeButton.getMouseListeners())
+		{
+			imageHomeButton.removeMouseListener(ml);
+		}
 		imageHomeButton.setToolTipText(HOME_PAGE_TOOLTIP_TEXT.replaceAll("<arg0>", parentButton.getText()));
 		imageHomeButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -177,35 +222,6 @@ public class VideoChannelPlayerJoy extends JFrame
 				}
 			}
 		});
-		
-		westPanel.add(imageHomeButton);
-		
-		return westPanel;
-	}
-	
-	public void buildCenterPanel(HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
-	{
-		listView = new VideoChannelListViewJoy(parentButton, ycvs);
-		scrollPane = new JScrollPane(listView);
-		scrollPane.getVerticalScrollBar().setUnitIncrement(SCROLL_UNIT_INC);
-	}
-	
-	public JPanel buildSouthPanel(JButtonLengthLimited parentButton)
-	{
-		JPanel 
-			southPane = new JPanel();
-		JLabel 
-			countLabel = new JLabel();
-		int 
-			count = FrameMouseDragListener.getLookupOrCreate().lookupCount(parentButton.getText(), parentButton.getName());
-		
-		southPane.setLayout(new BorderLayout());
-		
-		countLabel.setText(COUNT_PREFIX + count);
-		countLabel.setBorder(COUNT_BORDER);
-		southPane.add(countLabel, BorderLayout.EAST);
-		
-		return southPane;
 	}
 	
 	public void doUpdate()
