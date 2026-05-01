@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -33,17 +34,28 @@ import Graphics2D.GraphicsUtil;
 import MouseListenersImpl.FrameMouseDragListener;
 import MouseListenersImpl.LookupOrCreateYoutube;
 import MouseListenersImpl.YoutubeChannelVideo;
+import ObjectTypeConversion.DirectorySelection;
+import ObjectTypeConversion.FileSelection;
+import Properties.LoggingMessages;
+import WidgetComponentDialogs.VideoBookMarksDialog;
+import WidgetComponentInterfaces.DefaultAndScaledImage;
 import WidgetComponentInterfaces.DurationLimitSubscriber;
+import WidgetComponentInterfaces.ImageReader;
+import WidgetComponentInterfaces.OpenAndSaveKeepsSubscriber;
+import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetComponentInterfaces.RegisterArrayActionListener;
 import WidgetComponentInterfaces.SearchSubscriber;
 import WidgetComponents.DurationLimiter.Mode;
 import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
+import WidgetUtility.FileListOptionGenerator;
 
-public class AllVideoChannelsOpenedPlayer extends JFrame implements ArrayActionListener
+public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, DefaultAndScaledImage, PostWidgetBuildProcessing
 {
 	private static final long serialVersionUID = 1L;
 
 	private static Dimension 
+		DEFAULT_PIC_SIZE = new Dimension(279, 150),
+		DEFAULT_SCALED_PIC_SIZE = new Dimension(279, 150),
 		MIN_SIZE = new Dimension(1050, 450);
 	private static String
 		TITLE = "All Open Video Channels",
@@ -52,11 +64,15 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements ArrayActionL
 		UPDATE_BUTTON_TEXT = "Update",
 		ALL_SELECT_TEXT = "All Channels";
 	private static int 
+		CHARACTER_LIMIT = 35,
+		SCALED_WIDTH = 50,
 		DEFAULT_MINUTE_SETTING = 10,
 		SEARCH_COLUMN_LENGTH = 15,
 		SCROLL_UNIT_INC = 25;
 	private static Border
 		COUNT_BORDER = new EmptyBorder(5, 0, 5, 15);//EmptyBorder(top, left, bottom, right)
+	private static FileSelection
+		defaultFileImage = new FileSelection("./Properties/shapes/Default-Play-Image.xml");
 	
 	private JButton 
 		updateButton = new JButton(UPDATE_BUTTON_TEXT),
@@ -96,8 +112,15 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements ArrayActionL
 	private OpenVideoChannelsUpdater
 		ovcu;
 	
-	public AllVideoChannelsOpenedPlayer(
-			LinkedHashMap<JButtonLengthLimited, ImageIcon> buttonAndIcon, 
+	private ArrayList <String> 
+		stripFilter = new ArrayList<String>(); 
+	
+	public VideoChannelsPlayer()
+	{
+		
+	}
+	
+	public void build(LinkedHashMap<JButtonLengthLimited, ImageIcon> buttonAndIcon, 
 			Container parentContainer)
 	{
 		this.parentButtons = new HashMap<Integer, JButtonLengthLimited>();
@@ -122,7 +145,11 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements ArrayActionL
 		loadingFrame.setResizable(false);
 		loadingFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		loadingFrame.setVisible(true);
-		GraphicsUtil.rightEdgeTopWindow(parentContainer, loadingFrame);
+		
+		if(parentContainer != null)
+		{
+			GraphicsUtil.rightEdgeTopWindow(parentContainer, loadingFrame);
+		}
 		
 		loadingFrame.setMinimumSize(new Dimension(180,70));//TODO
 		LoadingLabel label = new LoadingLabel();
@@ -186,7 +213,11 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements ArrayActionL
 		RegisterArrayActionListener.addListener(this);
 		this.setVisible(true);
 		urlSelect(LaunchUrlActionListener.getLastButtonOrigin());
-		GraphicsUtil.rightEdgeTopWindow(parentContainer, this);
+		
+		if(parentContainer != null)
+		{
+			GraphicsUtil.rightEdgeTopWindow(parentContainer, this);
+		}
 	}
 	
 	public void buildEastPanel()
@@ -224,14 +255,14 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements ArrayActionL
 			@Override
 			public void notifySearchText(String searchPattern) {
 				listView.setVisible(searchPattern);
-				AllVideoChannelsOpenedPlayer.this.validate();
+				VideoChannelsPlayer.this.validate();
 			}
 		});
 		DurationLimitSubscriber dls = new DurationLimitSubscriber() {
 			@Override
 			public void notifyDurationLimit(int hour, int minute, Mode m) {
 				listView.setVisible(hour, minute, m);
-				AllVideoChannelsOpenedPlayer.this.validate();
+				VideoChannelsPlayer.this.validate();
 			}
 		};
 		DurationLimiter dl = new DurationLimiter(dls);
@@ -410,9 +441,9 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements ArrayActionL
 	
 	public void refreshListView(AbstractButton selectedButton)
 	{
-		ColorTemplate.setBackgroundColorPanel(AllVideoChannelsOpenedPlayer.this, ColorTemplate.getPanelBackgroundColor());
-		ColorTemplate.setBackgroundColorButtons(AllVideoChannelsOpenedPlayer.this, ColorTemplate.getButtonBackgroundColor());
-		ColorTemplate.setForegroundColorButtons(AllVideoChannelsOpenedPlayer.this, ColorTemplate.getButtonForegroundColor());
+		ColorTemplate.setBackgroundColorPanel(VideoChannelsPlayer.this, ColorTemplate.getPanelBackgroundColor());
+		ColorTemplate.setBackgroundColorButtons(VideoChannelsPlayer.this, ColorTemplate.getButtonBackgroundColor());
+		ColorTemplate.setForegroundColorButtons(VideoChannelsPlayer.this, ColorTemplate.getButtonForegroundColor());
 		ExtendedSetScrollBackgroundForegroundColor.applyBackgroundForeground(
 				ColorTemplate.getPanelBackgroundColor(), ColorTemplate.getButtonBackgroundColor(), contentScrollPane);
 		
@@ -425,7 +456,7 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements ArrayActionL
 		{
 			listView.postFrameBuild();
 		}
-		AllVideoChannelsOpenedPlayer.this.validate();
+		VideoChannelsPlayer.this.validate();
 	}
 	
 	private ActionListener getUpdateChannelActionListener() 
@@ -457,7 +488,7 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements ArrayActionL
 						List<JButtonLengthLimited> jblls = Arrays.asList
 								(parentButtons.values().toArray(new JButtonLengthLimited [] {}));
 						ovcu = new OpenVideoChannelsUpdater(jblls);
-						GraphicsUtil.centerWindow(AllVideoChannelsOpenedPlayer.this, ovcu);
+						GraphicsUtil.centerWindow(VideoChannelsPlayer.this, ovcu);
 					}
 				};
 				Thread t = new Thread(r);
@@ -543,8 +574,117 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements ArrayActionL
 	}
 
 	@Override
-	public void addStripFilter(String filter) {
-		// TODO Auto-generated method stub
+	public void addStripFilter(String filter) 
+	{
+		stripFilter.add(filter);
+	}
+	
+	public void filterText(JButtonLengthLimited jbl)
+	{
+		String txt = jbl.getFullLengthText();
+		for(String s : stripFilter)
+		{
+			txt = txt.replace(s, "");
+		}
+		jbl.setText(txt);
+	}
+	
+
+	@Override
+	public String getDefaultImagePath() 
+	{
+		return defaultFileImage.getFullPath();
+	}
+
+	@Override
+	public Dimension getScaledDefaultPic() 
+	{
+		return DEFAULT_SCALED_PIC_SIZE;
+	}
+
+	@Override
+	public Dimension getDefaultPicSize() 
+	{
+		return DEFAULT_PIC_SIZE;
+	}
+
+	@Override
+	public int getScaledWidth() 
+	{
+		return SCALED_WIDTH;
+	}
+
+	@Override
+	public void setDefaultImageXmlPath(FileSelection fs) 
+	{
+		defaultFileImage = fs;
+	}
+
+	@Override
+	public void setScaledDefaultPic(Dimension scaledDefaultPicDimension) 
+	{
+		DEFAULT_SCALED_PIC_SIZE = scaledDefaultPicDimension;
+	}
+
+	@Override
+	public void setDefaultPicSize(Dimension defaultPicDimension) 
+	{
+		DEFAULT_PIC_SIZE = defaultPicDimension;
+	}
+
+	@Override
+	public void setScaledWidth(int scaledWidth) 
+	{
+		SCALED_WIDTH = scaledWidth;
+	}
+	
+	public void open()
+	{
+		OpenAndSaveKeepsSubscriber osks = new OpenAndSaveKeepsSubscriber() 
+		{
+			LinkedHashMap<JButtonLengthLimited, ImageIcon> jbllAndIcon = new LinkedHashMap<JButtonLengthLimited, ImageIcon>();
+			ImageReader ir = new ImageReader(VideoChannelsPlayer.this);
+			@Override
+			public void saveKeeps(File filename, String[][] props) 
+			{
+				// TODO Auto-generated method stub
+			}
+			
+			@Override
+			public void openKeeps(HashMap<String, String> props) 
+			{
+				if(props == null)
+					return;
+				
+				for(String s : props.keySet())
+				{
+					LoggingMessages.printOut("props: " + s.split("@")[0]+".url" + " " + props.get(s));
+					String path = props.get(s);
+					JButtonLengthLimited jbll = (JButtonLengthLimited) FileListOptionGenerator.buildComponent(
+							path, s.split("@")[0]+".url", JButtonLengthLimited.class);
+					
+					FileSelection fs = new FileSelection(path + "/images/" + s.split("@")[0] + ".png");
+					jbll.setCharacterLimit(CHARACTER_LIMIT);
+					VideoChannelsPlayer.this.filterText(jbll);
+					jbllAndIcon.put(jbll, ir.getImageIcon(new File(fs.getFullPath())));
+				}
+				
+				VideoChannelsPlayer.this.build(jbllAndIcon, null);
+			}
+		};
+		
+		VideoBookMarksDialog vbmd = new VideoBookMarksDialog(new DirectorySelection("./Properties/VideoLaunchBookmarks/"), osks, null);
+	}
+	
+	public static void main(String [] args)
+	{
+		VideoChannelsPlayer avcop = new VideoChannelsPlayer();
+	}
+
+	@Override
+	public void postExecute() 
+	{
+		open();
 	}
 	
 }

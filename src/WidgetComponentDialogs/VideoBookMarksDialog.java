@@ -235,7 +235,10 @@ public class VideoBookMarksDialog extends JDialog
 		});
 		
 		this.setVisible(true);
-		GraphicsUtil.centerWindow(refContainer, this);
+		if(refContainer != null)
+		{
+			GraphicsUtil.centerWindow(refContainer, this);
+		}
 	}
 	
 	private void updateTextArea()

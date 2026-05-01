@@ -29,6 +29,7 @@ import ShapeWidgetComponents.LoadingSpin;
 import ShapeWidgetComponents.ShapeCreator;
 import ShapeWidgetComponents.ShapeCreatorEditPanel;
 import ShapeWidgetComponents.ShapeCreatorToolBarPanel;
+import WidgetComponents.VideoChannelsPlayer;
 import WidgetComponents.ApplicationLayoutEditor;
 import WidgetComponents.DatabaseEditor;
 import WidgetComponents.DatabaseResponseNodeTextArea;
@@ -97,6 +98,13 @@ public class WidgetAttributes
 	private static final String [] 
 		METHODS_PREFIX = new String [] {"set", "add"};
 	private static final ArrayList<Class<?>> 
+		INITIAL_CLASSES = new ArrayList<Class<?>>();
+	static {
+		INITIAL_CLASSES.add(JFrame.class);
+		INITIAL_CLASSES.add(ApplicationLayoutEditor.class);
+		INITIAL_CLASSES.add(VideoChannelsPlayer.class);
+	}
+	private static final ArrayList<Class<?>> 
 		COMPONENT_CLASSES = new ArrayList<Class<?>>();
 	static {
 		COMPONENT_CLASSES.add(JFrame.class);
@@ -130,6 +138,7 @@ public class WidgetAttributes
 		COMPONENT_CLASSES.add(SwappableCollection.class);
 		COMPONENT_CLASSES.add(JButtonArray.class);
 		COMPONENT_CLASSES.add(JButtonArrayListPicture.class);
+		COMPONENT_CLASSES.add(VideoChannelsPlayer.class);
 		COMPONENT_CLASSES.add(MenuOption.class);
 	}
 	//TODO replace :(
@@ -295,12 +304,24 @@ public class WidgetAttributes
 		EXTENDED_METHODS.put(MenuOption.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
+		EXTENDED_METHODS.put(VideoChannelsPlayer.class, new String [] {
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetupTaskbar.class, ExtendedMethodArgDef.ExtendedFileSelection.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedTextStripper.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetLookAndFeel.class, ExtendedMethodArgDef.LookAndFeelClassNameSelection.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetBackgroundPanelColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetButtonBackgroundColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetButtonForegroundColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef())
+		});
 		
 	}
 	static {
 		initialLoad();
 	}
 	
+	public static ArrayList<Class<?>> getInitialComponents()
+	{
+		return INITIAL_CLASSES;
+	}
 
 	public static ArrayList<XmlToWidgetGenerator> setAttribute(ClassTypeHandler classTypeHandler, String method, String ... params)
 	{

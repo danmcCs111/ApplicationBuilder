@@ -3,10 +3,7 @@ package WidgetUtility;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JFrame;
-
 import ObjectTypeConvertersImpl.ClassAndSetters;
-import WidgetComponents.ApplicationLayoutEditor;
 
 public interface ComponentSelectorUtility 
 {
@@ -17,8 +14,10 @@ public interface ComponentSelectorUtility
 		
 		if(props == null || props.isEmpty())//TODO registered instanceof JFrame
 		{
-			comboSel.add(JFrame.class.getName());
-			comboSel.add(ApplicationLayoutEditor.class.getName());
+			for(Class<?> clazz : WidgetAttributes.getInitialComponents())
+			{
+				comboSel.add(clazz.getName());
+			}
 		}
 		else
 		{

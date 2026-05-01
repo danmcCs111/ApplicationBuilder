@@ -1,0 +1,4 @@
+<Build>
+	<VideoChannelsPlayer extendedSetBackgroundPanelColorTemplate="51, 51, 51" extendedSetButtonBackgroundColorTemplate="0, 0, 0" extendedSetButtonForegroundColorTemplate="255, 255, 255" setDefaultImageXmlPath="./Properties/shapes/Default-Play-Image.xml" setScaledWidth="40" extendedTextStripper="Watch @ Online for Free _ The Roku Channel _ Roku@ - YouTube@ - Prime Video@Prime Video- @1_@.url" >
+	</VideoChannelsPlayer>
+</Build>

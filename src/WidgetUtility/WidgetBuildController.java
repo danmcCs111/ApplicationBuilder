@@ -344,6 +344,9 @@ public class WidgetBuildController
 	
 	public JFrame getFrame()
 	{
+		if(getWidgetCreatorProperties() == null)
+			return null;
+		
 		return (JFrame) getWidgetCreatorProperties().get(0).getInstance();
 	}
 	

@@ -5,7 +5,11 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Shape;
+import java.awt.Window;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+
+import javax.swing.JFrame;
 
 import DrawModes.GeneralPathDrawMode;
 import DrawModes.GeneralPathDrawMode.DrawPaths;
@@ -66,7 +70,16 @@ public class ShapeElement
 	{
 		if(shape == null)
 		{
-			Graphics2D g2d = (Graphics2D) WidgetBuildController.getInstance().getFrame().getGraphics();
+			Graphics2D g2d;
+			if(WidgetBuildController.getInstance().getFrame() != null)
+			{
+				g2d = (Graphics2D) WidgetBuildController.getInstance().getFrame().getGraphics();
+			}
+			else
+			{
+				JFrame f = new JFrame();
+				g2d = (Graphics2D) f.getGraphics();
+			}
 			DrawMode dm = this.getDrawMode();
 			if(dm instanceof TextDrawMode)
 			{

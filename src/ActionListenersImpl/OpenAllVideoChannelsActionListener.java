@@ -8,7 +8,7 @@ import java.util.LinkedHashMap;
 import javax.swing.ImageIcon;
 
 import Params.KeepSelection;
-import WidgetComponents.AllVideoChannelsOpenedPlayer;
+import WidgetComponents.VideoChannelsPlayer;
 import WidgetComponents.JButtonArray;
 import WidgetComponents.JButtonLengthLimited;
 
@@ -16,7 +16,7 @@ public class OpenAllVideoChannelsActionListener implements ActionListener
 {
 	private JButtonArray 
 		ba;
-	private AllVideoChannelsOpenedPlayer 
+	private VideoChannelsPlayer 
 		avop;
 	
 	public OpenAllVideoChannelsActionListener(JButtonArray ba)
@@ -41,7 +41,8 @@ public class OpenAllVideoChannelsActionListener implements ActionListener
 		Runnable r = new Runnable() {
 			@Override
 			public void run() {
-				avop = new AllVideoChannelsOpenedPlayer(buttonAndIcon, ba.getRootPane().getParent());
+				avop = new VideoChannelsPlayer();
+				avop.build(buttonAndIcon, ba.getRootPane().getParent());
 			}
 		};
 		Thread t = new Thread(r);

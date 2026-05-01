@@ -35,7 +35,7 @@ public class LookupOrCreateYoutube
 	private static String
 		KEY_PATH = "./Properties/api-keys/youtube-api-key.txt";
 	private static YoutubeQuery 
-		youtubeSql = new YoutubeSql();
+		youtubeSql = new YoutubeSQLite();
 	
 	public LookupOrCreateYoutube()
 	{
