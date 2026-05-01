@@ -3,9 +3,6 @@ package WidgetComponents;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -16,7 +13,6 @@ import java.awt.event.MouseListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -24,12 +20,10 @@ import java.util.Map;
 
 import javax.swing.AbstractButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import javax.swing.border.BevelBorder;
 
 import ActionListeners.ArrayActionListener;
 import ActionListenersImpl.LaunchUrlActionListener;
@@ -66,9 +60,6 @@ public class VideoChannelListViewJoy extends JPanel implements ArrayActionListen
 				Color.blue, Color.white};
 	private static Color 
 		borderColor = Color.ORANGE;
-	private JPanel 
-		listPanel,
-		channelListPanel;
 	JList<JButtonLengthLimited> 
 		listItems;
 	private Highlighter 
@@ -76,38 +67,33 @@ public class VideoChannelListViewJoy extends JPanel implements ArrayActionListen
 		selectedBtn;
 	private LinkedHashMap<JButtonLengthLimited, Highlighter> 
 		videoButtons = new LinkedHashMap<JButtonLengthLimited, Highlighter>();
-	private LinkedHashMap<JLabel, Highlighter>
-		videoLabelChannel = new LinkedHashMap<JLabel, Highlighter>();
 	private HashMap<Integer, VideoSubSelectionLauncher> 
 		vssl = null;
+	
 	private ArrayList<JButtonLengthLimited> 
 		videoButtonsFiltered;
 	
-	public VideoChannelListViewJoy(JButtonLengthLimited parentButton, ArrayList <YoutubeChannelVideo> ycv)
+	
+	public VideoChannelListViewJoy()
 	{
-		this(parentButton, (Map<Integer, ArrayList<YoutubeChannelVideo>>) Collections.singletonMap(-1, ycv));
+		buildWidgets();
 	}
 	
-	public VideoChannelListViewJoy(JButtonLengthLimited parentButton, Map <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
+	public void setVideos(JButtonLengthLimited parentButton, Map <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
 	{
 		int key = ycvs.keySet().iterator().next();
 		this.parentButtons = new HashMap<Integer, JButtonLengthLimited>();
 		this.parentButtons.put(key, parentButton);
 		vssl = new HashMap<Integer, VideoSubSelectionLauncher>();
 		vssl.put(key, new VideoSubSelectionLauncher(parentButton));
-		buildWidgets(null, ycvs);
-	}
-	
-	public VideoChannelListViewJoy(HashMap<Integer, JButtonLengthLimited> parentButtons, 
-			Map <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
-	{
-		this.parentButtons = parentButtons;
-		vssl = new HashMap<Integer, VideoSubSelectionLauncher>();
-		for(int key : ycvs.keySet())
-		{
-			vssl.put(key, new VideoSubSelectionLauncher(parentButtons.get(key)));
-		}
-		buildWidgets(this.parentButtons, ycvs);
+		
+		videoButtonsFiltered = getFilteredJButtons(ycvs); 
+		listItems.setListData(videoButtonsFiltered.toArray(new JButtonLengthLimited[] {}));
+		listItems.ensureIndexIsVisible(0);
+		listItems.setSelectedIndex(0);
+		
+		clearSelect();
+		postFrameBuild();
 	}
 	
 	public static void setMinimumMinute(int minMinute) 
@@ -145,89 +131,11 @@ public class VideoChannelListViewJoy extends JPanel implements ArrayActionListen
 		}
 	}
 
-	private void buildWidgets(Map<Integer, JButtonLengthLimited> parentButtons,
-			Map <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
+	private void buildWidgets()
 	{
-		
-		listPanel = new JPanel();
-		listPanel.setLayout(new GridBagLayout());
-		
-		double
-			titleCon = .8,
-			titleCon2 = .0;
-		int 
-			gridXinc = 0;
-			
-		if(parentButtons != null)
-		{
-			titleCon = .5;
-			titleCon2 = .3;
-		}
-		
-		GridBagConstraints gbcT2 = new GridBagConstraints();
-		if(parentButtons != null)
-		{
-			gbcT2.fill = GridBagConstraints.BOTH;
-			gbcT2.gridx = gridXinc++;
-			gbcT2.gridy = 0;
-			gbcT2.weightx = titleCon2;
-			gbcT2.weighty = 1;
-		}
-		
-		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.fill = GridBagConstraints.BOTH;
-		gbc.gridx = gridXinc++;
-		gbc.gridy = 0;
-		gbc.weightx = titleCon;
-		gbc.weighty = 1;
-		
-		
-		GridBagConstraints gbc2 = new GridBagConstraints();
-		gbc2.fill = GridBagConstraints.BOTH;
-		gbc2.gridx = gridXinc++;
-		gbc2.gridy = 0;
-		gbc2.weightx = .1;
-		gbc2.weighty = 1;
-		
-		GridBagConstraints gbc3 = new GridBagConstraints();
-		gbc3.fill = GridBagConstraints.BOTH;
-		gbc3.gridx = gridXinc++;
-		gbc3.gridy = 0;
-		gbc3.weightx = .1;
-		gbc3.weighty = 1;
-		
-		channelListPanel = new JPanel(new GridLayout(0,1));
-		
 		hlPanel = new Highlighter(this, borderColor);
-		ArrayList<JButtonLengthLimited> btns = new ArrayList<JButtonLengthLimited>();
-		LinkedHashMap<JButtonLengthLimited, String> 
-			btnAndDuration = new LinkedHashMap<JButtonLengthLimited, String>();
 		
-		for(int key : ycvs.keySet())
-		{
-			for(YoutubeChannelVideo ycv : ycvs.get(key))
-			{
-				if(parentButtons != null)
-				{
-					AbstractButton parentButton = parentButtons.get(key);
-					JLabel lbl = buildChannelLabel(parentButton);
-					channelListPanel.add(lbl);
-				}
-				JButtonLengthLimited jbll = buildVideoButton(key, ycv);
-				jbll.setCharacterLimit(VIDEO_TITLE_CHARACTER_LIMIT);
-				String duration = formatDuration(ycv.getDuration());
-				String uploadDate = SDF_UPLOAD_SHORT.format(ycv.getUploadDate());
-				btnAndDuration.put(jbll, duration);
-				
-				jbll.setToStringPrefix(uploadDate + " | " + duration + " | ");
-				btns.add(jbll);
-			}
-		}
-		
-		videoButtonsFiltered = (MINIMUM_MINUTE > 0)
-				? getVisible(0, MINIMUM_MINUTE, Mode.GreaterThan, btnAndDuration)
-				: btns;
-		listItems = new JList<JButtonLengthLimited>(videoButtonsFiltered.toArray(new JButtonLengthLimited[] {}));
+		listItems = new JList<JButtonLengthLimited>();
 		
 		listItems.setFont(SELECT_FONT);
 		listItems.addMouseListener(new MouseAdapter() {
@@ -255,16 +163,43 @@ public class VideoChannelListViewJoy extends JPanel implements ArrayActionListen
 			}
 		});
 		
-		if(parentButtons != null)
-		{
-			listPanel.add(channelListPanel, gbcT2);
-		}
-		listPanel.add(listItems);
-		
 		this.setLayout(new BorderLayout());
-		this.add(listPanel, BorderLayout.NORTH);
+		this.add(listItems, BorderLayout.NORTH);
 		RegisterArrayActionListener.addListener(this);
+	}
+	
+	private ArrayList<JButtonLengthLimited> getFilteredJButtons(Map <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
+	{
+		videoButtons.clear();
+		ArrayList<JButtonLengthLimited> 
+			videoButtonsFiltered = new ArrayList<JButtonLengthLimited>(),
+			btns = new ArrayList<JButtonLengthLimited>();
+		LinkedHashMap<JButtonLengthLimited, String> 
+			btnAndDuration = new LinkedHashMap<JButtonLengthLimited, String>();
 		
+		for(int key : ycvs.keySet())
+		{
+			for(YoutubeChannelVideo ycv : ycvs.get(key))
+			{
+				String 
+					duration = formatDuration(ycv.getDuration()),
+					uploadDate = SDF_UPLOAD_SHORT.format(ycv.getUploadDate());
+				JButtonLengthLimited 
+					jbll = buildVideoButton(key, ycv);
+				
+				jbll.setCharacterLimit(VIDEO_TITLE_CHARACTER_LIMIT);
+				btnAndDuration.put(jbll, duration);
+				jbll.setToStringPrefix(uploadDate + " | " + duration + " | ");
+				
+				btns.add(jbll);
+			}
+		}
+		
+		videoButtonsFiltered = (MINIMUM_MINUTE > 0)
+				? getVisible(0, MINIMUM_MINUTE, Mode.GreaterThan, btnAndDuration)
+				: btns;
+		
+		return videoButtonsFiltered;
 	}
 	
 	public void close()
@@ -285,18 +220,6 @@ public class VideoChannelListViewJoy extends JPanel implements ArrayActionListen
 	public void postFrameBuild()
 	{
 		findHighlight(LaunchUrlActionListener.getLastButtonOrigin());
-	}
-	
-	private JLabel buildChannelLabel(AbstractButton ab)
-	{
-		BevelBorder bb = new BevelBorder(BevelBorder.RAISED);
-		JLabel lab = new JLabel(ab.getText());
-		lab.setBorder(bb);
-		lab.setHorizontalAlignment(JLabel.RIGHT);
-		
-		Highlighter hl = videoButtons.get(ab);
-		videoLabelChannel.put(lab, hl);
-		return lab;
 	}
 	
 	private JButtonLengthLimited buildVideoButton(int key, YoutubeChannelVideo ycv)
@@ -373,9 +296,6 @@ public class VideoChannelListViewJoy extends JPanel implements ArrayActionListen
 	
 	public void findHighlight(AbstractButton newButton)
 	{
-		if(newButton == null)
-			return;
-		
 		AbstractButton last = (newButton == null)
 				? LaunchUrlActionListener.getLastButtonOrigin()
 				: newButton;
@@ -385,12 +305,16 @@ public class VideoChannelListViewJoy extends JPanel implements ArrayActionListen
 		
 		LoggingMessages.printOut("Find highlight: " + name);
 		AbstractButton ab = getAbstractButton(name);
+		
 		if(ab == null)
+		{
 			return;
+		}
 		
 		int index = videoButtonsFiltered.indexOf(ab);
 		performSelect(videoButtons.get(ab), index);
 		ab.requestFocusInWindow();
+		
 		this.validate();
 	}
 	
@@ -415,12 +339,12 @@ public class VideoChannelListViewJoy extends JPanel implements ArrayActionListen
 			hl.setHighlightForegroundAndBackground(true);
 			selectedBtn = hl;
 		}
+		listItems.ensureIndexIsVisible(index);
 		listItems.setSelectedIndex(index);
 	}
 	
-	
-	
-	public ArrayList<JButtonLengthLimited> getVisible(int hour, int minute, Mode m, LinkedHashMap<JButtonLengthLimited, String> buttonAndDuration)
+	public ArrayList<JButtonLengthLimited> getVisible(
+			int hour, int minute, Mode m, LinkedHashMap<JButtonLengthLimited, String> buttonAndDuration)
 	{
 		
 		ArrayList<JButtonLengthLimited> jblls = new ArrayList<JButtonLengthLimited>();

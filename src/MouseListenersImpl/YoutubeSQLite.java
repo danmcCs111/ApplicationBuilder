@@ -9,7 +9,7 @@ public class YoutubeSQLite implements YoutubeQuery
 		
 	public static String
 		YOUTUBE_QUERY = 
-			"SELECT * FROM video WHERE VideoName_Video_VideoDatabase = <arg0>"+
+			"SELECT * FROM video WHERE VideoName_Video_VideoDatabase = <arg0>" +
 			";",
 		YOUTUBE_VIDEO_QUERY = 
 			"SELECT * FROM videoYoutube WHERE ParentID_VideoYoutube_VideoYoutubeDatabase = <arg0> "+

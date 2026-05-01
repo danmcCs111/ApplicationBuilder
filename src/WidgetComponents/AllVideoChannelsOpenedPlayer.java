@@ -165,7 +165,6 @@ public class AllVideoChannelsOpenedPlayer extends JFrame implements ArrayActionL
 	
 	public void buildWidgets()
 	{
-//		listView = new VideoChannelListView(parentButtons, ycvs);
 		JPanel searchPanel = buildNorthPanel();
 		addListView();
 		buildEastPanel();

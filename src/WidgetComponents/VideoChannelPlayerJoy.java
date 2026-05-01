@@ -65,6 +65,7 @@ public class VideoChannelPlayerJoy extends JFrame
 
 	public VideoChannelPlayerJoy(Container parent)
 	{
+		listView = new VideoChannelListViewJoy();
 		buildWidgets();
 		GraphicsUtil.centerOnScreen(this);
 	}
@@ -82,7 +83,7 @@ public class VideoChannelPlayerJoy extends JFrame
 		
 		this.setTitle(TITLE_PREFIX + parentButton.getText());
 		this.setIconImage(videoImage.getImage());
-		buildCenterPanel(ycvs, parentButton);
+		setListVideos(ycvs, parentButton);
 		imageHomeButton.setIcon(videoImage);
 		setHomeButton(parentButton);
 		setCount(parentButton);
@@ -102,7 +103,7 @@ public class VideoChannelPlayerJoy extends JFrame
 		this.setLayout(new BorderLayout());
 		this.add(buildWestPanel(), BorderLayout.WEST);
 		this.add(buildNorthPanel(), BorderLayout.NORTH);
-		this.add(scrollPane, BorderLayout.CENTER);
+		this.add(buildCenterPanel(), BorderLayout.CENTER);
 		this.add(buildSouthPanel(), BorderLayout.SOUTH);
 		
 		this.addWindowFocusListener(new WindowFocusListener() {
@@ -118,7 +119,6 @@ public class VideoChannelPlayerJoy extends JFrame
 		
 		this.setMinimumSize(MIN_SIZE);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
 	}
 	
 	public JPanel buildNorthPanel()
@@ -163,11 +163,17 @@ public class VideoChannelPlayerJoy extends JFrame
 		return westPanel;
 	}
 	
-	public void buildCenterPanel(HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs, JButtonLengthLimited parentButton)
+	public void setListVideos(HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs, JButtonLengthLimited parentButton)
 	{
-		listView = new VideoChannelListViewJoy(parentButton, ycvs);
+		listView.setVideos(parentButton, ycvs);
+	}
+	
+	public JScrollPane buildCenterPanel()
+	{
 		scrollPane.setViewportView(listView);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(SCROLL_UNIT_INC);
+		
+		return scrollPane;
 	}
 	
 	public JPanel buildSouthPanel()

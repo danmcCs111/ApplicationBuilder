@@ -196,15 +196,19 @@ public class LookupOrCreateYoutube
 	
 	public HashMap<Integer, ArrayList<YoutubeChannelVideo>> lookup(String videoChannelName, String videoChannelLink)
 	{
-		HashMap<Integer, ArrayList<YoutubeChannelVideo>> parentIdAndYoutubeChannelVideos = null;
-		
-		String query = youtubeSql.getYoutubeQuery(videoChannelName);
-		String response = QueryUpdateTool.executeQuery(query);
+		String 
+			query = youtubeSql.getYoutubeQuery(videoChannelName),
+			response = QueryUpdateTool.executeQuery(query);
 		if(response == null)
 			return null;
 		
-		HttpDatabaseResponse hdr = new HttpDatabaseResponse();
-		ArrayList <ArrayList <DatabaseResponseNode>> drns = hdr.parseResponse(response);
+		HashMap<Integer, ArrayList<YoutubeChannelVideo>> 
+			parentIdAndYoutubeChannelVideos = null;
+		HttpDatabaseResponse 
+			hdr = new HttpDatabaseResponse();
+		ArrayList <ArrayList <DatabaseResponseNode>> 
+			drns = hdr.parseResponse(response);
+		
 		if(drns.isEmpty())
 		{
 			createIfEmpty(videoChannelName, videoChannelLink);
