@@ -467,7 +467,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 				if(selectedButton == null)
 					return;
 				
-				refreshSelectionFromDB(selectedButtonParent, selectedButton);
+				updateSelection(selectedButtonParent, selectedButton);
 			}
 		};
 	}
@@ -518,6 +518,12 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		addListView();
 		setImageButton(selectedButtonParent);//TODO
 		refreshListView(selectedButton);
+	}
+	
+	private void updateSelection(JButtonLengthLimited selectedButtonParent, JButtonLengthLimited selectedButton)
+	{
+		lcv.update(selectedButtonParent.getText(), selectedButtonParent.getName());
+		refreshSelectionFromDB(selectedButtonParent, selectedButton);
 	}
 	
 	@Override
