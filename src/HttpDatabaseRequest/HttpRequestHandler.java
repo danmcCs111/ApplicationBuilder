@@ -16,9 +16,10 @@ import WidgetComponents.JButtonArray;
 
 public class HttpRequestHandler implements HttpHandler
 {
-	private static final String 
+	public static final String 
 		REQUEST_TYPE_HEADER_KEY = "Get-request-type",
 		FUNCTION_TYPE_LAUNCH_URL = "URL_Launch",
+		FUNCTION_TYPE_ADD_SUBSCRIBER_LAUNCH_URL = "URL_Launch_Add_Subscriber",
 		FUNCTION_TYPE_JOYSTICK = "Joystick_Button";
 	
 	public HttpRequestHandler(JButtonArray ba)
@@ -69,7 +70,11 @@ public class HttpRequestHandler implements HttpHandler
 			}
 			else if(h.get(REQUEST_TYPE_HEADER_KEY).contains(FUNCTION_TYPE_LAUNCH_URL))
 			{
-				
+				HttpLaunchUrlRequest.processLaunch(responseXml);
+			}
+			else if(h.get(REQUEST_TYPE_HEADER_KEY).contains(FUNCTION_TYPE_ADD_SUBSCRIBER_LAUNCH_URL))
+			{
+				//TODO.
 			}
 		}
 		

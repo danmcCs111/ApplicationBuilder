@@ -10,7 +10,7 @@ public class HttpRequestProcessor
 {
 	private JButtonArray
 		ba;
-	private int 
+	public static int 
 		portNumber = 9090;
 	
 	public HttpRequestProcessor(JButtonArray ba)
