@@ -7,6 +7,7 @@ import javax.swing.AbstractButton;
 import ActionListeners.ArrayActionListener;
 import ActionListenersImpl.LaunchUrlActionListener;
 import ApplicationBuilder.QueryUpdateTool;
+import MouseListenersImpl.PicLabelMouseListener;
 import Properties.LoggingMessages;
 import WidgetComponents.JButtonLengthLimited;
 
@@ -36,9 +37,11 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 		String [] args = responseXml.split(ARG_DELIMITER);
 		String
 			sourceButton = args[0],
-			highlightButton = args[1],
-			url = args[2],
-			idStr = args[3];
+			sourceButtonFull = args[1],
+			highlightButton = args[2],
+			highlightButtonFull = args[3],
+			url = args[4],
+			idStr = args[5];
 		
 		int id = Integer.parseInt(idStr);
 		LoggingMessages.printOut("perform launch: " + sourceButton);
@@ -47,10 +50,13 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 		{
 			//Referenced -> FileListOptionGenerator
 			virtualButton.setText(sourceButton);
+			virtualButton.setFullText(sourceButtonFull);
 			virtualButton.setName(url);
 			virtualButtonHighlight.setText(highlightButton);
+			virtualButtonHighlight.setFullText(highlightButtonFull);
 			
 			virtualButton.doClick();
+			PicLabelMouseListener.highLightLabel(virtualButtonHighlight, true);
 		}
 		else
 		{

@@ -109,7 +109,9 @@ public class VideoSubSelectionLauncher implements ActionListener
 	{
 		String req = 
 				jbll.getText() + HttpLaunchUrlRequest.ARG_DELIMITER + 
-				jbll.getHighlightButton().getText() + HttpLaunchUrlRequest.ARG_DELIMITER + 
+				jbll.getFullLengthText() + HttpLaunchUrlRequest.ARG_DELIMITER +
+				jbll.getHighlightButton().getText() + HttpLaunchUrlRequest.ARG_DELIMITER +
+				((JButtonLengthLimited) jbll.getHighlightButton()).getFullLengthText() + HttpLaunchUrlRequest.ARG_DELIMITER + 
 				jbll.getName() + HttpLaunchUrlRequest.ARG_DELIMITER +
 				id;
 		
