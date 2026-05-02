@@ -509,7 +509,6 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	
 	private void refreshSelectionFromDB(JButtonLengthLimited selectedButtonParent, JButtonLengthLimited selectedButton)
 	{
-		lcv.update(selectedButtonParent.getText(), selectedButtonParent.getName());
 		HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs = lcv.lookup(
 				selectedButtonParent.getText(), selectedButtonParent.getName());
 		int key = ycvs.keySet().iterator().next();

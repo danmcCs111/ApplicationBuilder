@@ -40,6 +40,10 @@ public class HttpJoystickFuctionRequest
 	private static HashMap <Integer, ArrayList <YoutubeChannelVideo>> 
 		ycvs;
 		
+	private HttpJoystickFuctionRequest()
+	{
+		
+	}
 	
 	private static void selectCurrent()
 	{

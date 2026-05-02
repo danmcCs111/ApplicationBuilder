@@ -18,6 +18,7 @@ public class HttpRequestHandler implements HttpHandler
 {
 	private static final String 
 		REQUEST_TYPE_HEADER_KEY = "Get-request-type",
+		FUNCTION_TYPE_LAUNCH_URL = "URL_Launch",
 		FUNCTION_TYPE_JOYSTICK = "Joystick_Button";
 	
 	public HttpRequestHandler(JButtonArray ba)
@@ -65,6 +66,10 @@ public class HttpRequestHandler implements HttpHandler
 			if(h.get(REQUEST_TYPE_HEADER_KEY).contains(FUNCTION_TYPE_JOYSTICK))
 			{
 				HttpJoystickFuctionRequest.process(responseXml);
+			}
+			else if(h.get(REQUEST_TYPE_HEADER_KEY).contains(FUNCTION_TYPE_LAUNCH_URL))
+			{
+				
 			}
 		}
 		
