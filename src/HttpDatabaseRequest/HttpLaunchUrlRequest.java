@@ -1,12 +1,6 @@
 package HttpDatabaseRequest;
 
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.net.http.HttpRequest.BodyPublisher;
 
 import javax.swing.AbstractButton;
 
@@ -18,7 +12,7 @@ import WidgetComponents.JButtonLengthLimited;
 
 public class HttpLaunchUrlRequest implements ArrayActionListener
 {
-	private static String
+	public static String
 		ARG_DELIMITER = "-@-";
 	private static HttpLaunchUrlRequest 
 		self;
@@ -43,16 +37,26 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 		String
 			sourceButton = args[0],
 			highlightButton = args[1],
-			url = args[2];
+			url = args[2],
+			idStr = args[3];
 		
+		int id = Integer.parseInt(idStr);
 		LoggingMessages.printOut("perform launch: " + sourceButton);
 		
-		//Referenced -> FileListOptionGenerator
-		virtualButton.setText(sourceButton);
-		virtualButton.setName(url);
-		virtualButtonHighlight.setText(highlightButton);
-		
-		virtualButton.doClick();
+		if(id == -1)
+		{
+			//Referenced -> FileListOptionGenerator
+			virtualButton.setText(sourceButton);
+			virtualButton.setName(url);
+			virtualButtonHighlight.setText(highlightButton);
+			
+			virtualButton.doClick();
+		}
+		else
+		{
+			String [] argsP = LaunchUrlActionListener.buildCommand(virtualButton, id);
+			LaunchUrlActionListener.executeProcess(id, argsP);
+		}
 	}
 	
 	public static void processAddSubscriber(String responseXml)

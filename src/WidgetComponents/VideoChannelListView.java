@@ -403,7 +403,7 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 			@Override
 			public void mouseClicked(MouseEvent e) 
 			{
-				int btn = e.getButton();
+				int btn = e.getButton();//TODO. add adaptive http also
 				switch(btn)
 				{
 				case MouseEvent.BUTTON1:

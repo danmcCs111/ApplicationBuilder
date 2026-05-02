@@ -7,7 +7,13 @@ import java.awt.event.ActionListener;
 import javax.swing.AbstractButton;
 
 import ActionListenersImpl.LaunchUrlActionListener;
+import ApplicationBuilder.QueryUpdateTool;
+import HttpDatabaseRequest.HttpDatabaseRequest;
+import HttpDatabaseRequest.HttpLaunchUrlRequest;
+import HttpDatabaseRequest.HttpRequestHandler;
+import HttpDatabaseRequest.HttpRequestProcessor;
 import WidgetComponentInterfaces.HighlightListener;
+import WidgetComponents.JButtonLengthLimited;
 
 public class VideoSubSelectionLauncher implements ActionListener
 {
@@ -42,6 +48,11 @@ public class VideoSubSelectionLauncher implements ActionListener
 	{
 		String [] args = LaunchUrlActionListener.buildCommand(childButton, id);
 		LaunchUrlActionListener.executeProcess(id, args);
+		
+		if(childButton instanceof JButtonLengthLimited)
+		{
+			launchRequest((JButtonLengthLimited) childButton, id);
+		}
 	}
 	
 	public void performLaunch(Component childComponent) //double loop b/c of order.
@@ -74,6 +85,11 @@ public class VideoSubSelectionLauncher implements ActionListener
 		{
 			hlListener.highlight();
 		}
+		
+		if(childComponent instanceof JButtonLengthLimited)
+		{
+			launchRequest((JButtonLengthLimited) childComponent, -1);
+		}
 	}
 
 	@Override
@@ -87,5 +103,22 @@ public class VideoSubSelectionLauncher implements ActionListener
 		{
 			performLaunch(childComponent, id);
 		}
+	}
+	
+	public void launchRequest(JButtonLengthLimited jbll, int id)
+	{
+		String req = 
+				jbll.getText() + HttpLaunchUrlRequest.ARG_DELIMITER + 
+				jbll.getHighlightButton().getText() + HttpLaunchUrlRequest.ARG_DELIMITER + 
+				jbll.getName() + HttpLaunchUrlRequest.ARG_DELIMITER +
+				id;
+		
+		HttpDatabaseRequest.executeGetRequest(
+				QueryUpdateTool.ENDPOINT,
+				HttpRequestProcessor.portNumber,
+				req,
+				HttpRequestHandler.REQUEST_TYPE_HEADER_KEY,
+				HttpRequestHandler.FUNCTION_TYPE_LAUNCH_URL
+		);
 	}
 }
