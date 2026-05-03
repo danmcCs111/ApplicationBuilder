@@ -23,6 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.SwingUtilities;
 import javax.swing.border.BevelBorder;
 
 import ActionListeners.ArrayActionListener;
@@ -480,8 +481,9 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 			return;
 		
 		performSelect(videoButtons.get(ab));
+		
 		ab.requestFocusInWindow();
-		this.validate();
+		VideoChannelListView.this.validate();
 	}
 	
 	public AbstractButton getAbstractButton(String name)

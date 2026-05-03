@@ -152,7 +152,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	{
 		JFrame loadingFrame = new JFrame();
 		loadingFrame.setResizable(false);
-		loadingFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		loadingFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		loadingFrame.setVisible(true);
 		
 		if(parentContainer != null)
@@ -217,7 +217,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		
 		this.setTitle(TITLE);
 		this.setMinimumSize(MIN_SIZE);
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setIconImage(JButtonArray.getMoviesIcon());
 		RegisterArrayActionListener.addListener(this);
 		this.setVisible(true);
@@ -227,6 +227,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		{
 			GraphicsUtil.rightEdgeTopWindow(parentContainer, this);
 		}
+		
 	}
 	
 	public void buildEastPanel()
@@ -667,6 +668,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	
 	public void open()
 	{
+		setupListener();
 		OpenAndSaveKeepsSubscriber osks = new OpenAndSaveKeepsSubscriber() 
 		{
 			LinkedHashMap<JButtonLengthLimited, ImageIcon> jbllAndIcon = new LinkedHashMap<JButtonLengthLimited, ImageIcon>();
@@ -714,11 +716,8 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 			);
 	}
 	
-	@Override
-	public void postExecute() 
+	private void setupListener()
 	{
-		open();
-		
 		hrp = new HttpRequestProcessor(ProcessType.child, new ArrayActionListener[] { this, listView});
 		int rootPort = HttpRequestProcessor.getPortNumber();
 		VideoSubSelectionLauncher.setPortNumber(rootPort);
@@ -727,9 +726,12 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		HttpRequestProcessor.setPortNumber(listenPort);
 		hrp.listenHttp();
 		provision(rootPort, listenPort);
-		
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
+	@Override
+	public void postExecute() 
+	{
+		open();
+	}
 	
 }

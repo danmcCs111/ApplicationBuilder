@@ -40,10 +40,6 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 			switch(proc)
 			{
 			case ProcessType.child:
-				for(ArrayActionListener aal : aals)
-				{
-					aal.urlSelect(null);
-				}
 				LaunchUrlActionListener.setLastButtonOrigin(null);
 				return;
 			}
@@ -79,10 +75,6 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 			switch(proc)
 			{
 			case ProcessType.child:
-				for(ArrayActionListener aal : aals)
-				{
-					aal.urlSelect(virtualButton);
-				}
 				LaunchUrlActionListener.setLastButtonOrigin(virtualButton);
 				return;
 			}
@@ -109,7 +101,8 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 				jbll.getHighlightButton().getText() + HttpLaunchUrlRequest.ARG_DELIMITER +
 				((JButtonLengthLimited) jbll.getHighlightButton()).getFullLengthText() + HttpLaunchUrlRequest.ARG_DELIMITER + 
 				jbll.getName() + HttpLaunchUrlRequest.ARG_DELIMITER +
-				-1+"";
+				-1+""+ HttpLaunchUrlRequest.ARG_DELIMITER + 
+				HttpRequestProcessor.getPortNumber()+"";
 		}
 		notifySubscribers(req, HttpRequestHandler.FUNCTION_TYPE_LAUNCH_REFRESH_RESPONSE);
 	}
@@ -220,7 +213,8 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 				jbll.getHighlightButton().getText() + HttpLaunchUrlRequest.ARG_DELIMITER +
 				((JButtonLengthLimited) jbll.getHighlightButton()).getFullLengthText() + HttpLaunchUrlRequest.ARG_DELIMITER + 
 				jbll.getName() + HttpLaunchUrlRequest.ARG_DELIMITER +
-				-1+"";
+				-1+"" + HttpLaunchUrlRequest.ARG_DELIMITER + 
+				HttpRequestProcessor.getPortNumber()+"";
 		}
 		notifySubscribers(req, HttpRequestHandler.FUNCTION_TYPE_LAUNCH_URL);
 	}
