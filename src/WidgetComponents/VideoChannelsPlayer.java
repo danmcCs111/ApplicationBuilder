@@ -68,7 +68,6 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	private static Point
 		LAUNCH_LOCATION = new Point(600, 50);
 	private static String
-		TITLE = "All Open Video Channels",
 		HOME_PAGE_TOOLTIP_TEXT = "[ <arg0> ] - Homepage",
 		COUNT_PREFIX = "Video Count: ",
 		UPDATE_BUTTON_TEXT = "Update",
@@ -233,7 +232,6 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		ExtendedSetScrollBackgroundForegroundColor.applyBackgroundForeground(
 				ColorTemplate.getPanelBackgroundColor(), ColorTemplate.getButtonBackgroundColor(), channelScroll);
 		
-		this.setTitle(TITLE);
 		this.setMinimumSize(MIN_SIZE);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setIconImage(JButtonArray.getMoviesIcon());
