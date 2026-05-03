@@ -714,13 +714,26 @@ PostWidgetBuildProcessing, ButtonArray
 		}
 	}
 	
+	public void performOpenAltFont()
+	{
+		if(!SHOW_JAVA_SWING_FILE_CHOOSER)
+		{
+			performCancelAll();
+			vbmd = new VideoBookMarksDialog(keepsFileLocation, this, WidgetBuildController.getInstance().getFrame(), true);
+		}
+		else 
+		{
+			performOpen();
+		}
+	}
+	
 	@Override
 	public void performOpen()
 	{
 		if(!SHOW_JAVA_SWING_FILE_CHOOSER)
 		{
 			performCancelAll();
-			vbmd = new VideoBookMarksDialog(keepsFileLocation, this, WidgetBuildController.getInstance().getFrame());
+			vbmd = new VideoBookMarksDialog(keepsFileLocation, this, WidgetBuildController.getInstance().getFrame(), false);
 		}
 		else
 		{

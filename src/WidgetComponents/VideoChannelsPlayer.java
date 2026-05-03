@@ -722,7 +722,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 			}
 		};
 		
-		VideoBookMarksDialog vbmd = new VideoBookMarksDialog(new DirectorySelection("./Properties/VideoLaunchBookmarks/"), osks, null);
+		VideoBookMarksDialog vbmd = new VideoBookMarksDialog(new DirectorySelection("./Properties/VideoLaunchBookmarks/"), osks, null, false);
 		vbmd.setLocation(LAUNCH_LOCATION);
 	}
 	

@@ -220,7 +220,7 @@ public class HttpJoystickFuctionRequest
 			else
 			{
 				ba.focusButtonArray();
-				ba.performOpen();
+				ba.performOpenAltFont();
 			}
 		}
 		//TODO. place in config.

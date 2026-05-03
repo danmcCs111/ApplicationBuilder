@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -56,8 +57,9 @@ public class VideoBookMarksDialog extends JDialog
 	private static Dimension 
 		MIN_DIMENSION_DIALOG = new Dimension(400, 325);
 	private static int
-		LIST_WIDTH = 100,
 		SAVE_FILE_COLUMN_LENGTH = 15;
+	private static Font
+		TEXT_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 24);
 	
 	private static final String
 		PROPERTIES_FILE_ARG_DELIMITER = "@",
@@ -74,13 +76,13 @@ public class VideoBookMarksDialog extends JDialog
 		saveField;
 	private JLabel 
 		saveLabel;
+	private JButton 
+		applyButton,
+		cancelButton;
 	private JPanel 
 		innerPanel,
 		openCancelPanel = new JPanel(),
 		openCancelPanelOuter = new JPanel();
-	private JButton 
-		applyButton,
-		cancelButton;
 	
 	private DirectorySelection 
 		chosenFileDirectory;
@@ -88,19 +90,21 @@ public class VideoBookMarksDialog extends JDialog
 		openKeepsSubscriber;
 	private Container 
 		refContainer;
-	private boolean 
+	private boolean
+		altFontSize = false,
 		save = false;
 	private String [] [] 
 		props = null;
 	
 	
-	public VideoBookMarksDialog(DirectorySelection chosenFileDirectory, OpenAndSaveKeepsSubscriber openKeepsSubscriber, Container refContainer)
+	public VideoBookMarksDialog(DirectorySelection chosenFileDirectory, OpenAndSaveKeepsSubscriber openKeepsSubscriber, Container refContainer, boolean altFontSize)
 	{
-		this(chosenFileDirectory, openKeepsSubscriber, refContainer, null);
+		this(chosenFileDirectory, openKeepsSubscriber, refContainer, null, altFontSize);
 	}
 	
-	public VideoBookMarksDialog(DirectorySelection chosenFileDirectory, OpenAndSaveKeepsSubscriber openKeepsSubscriber, Container refContainer, String [] [] props)
+	public VideoBookMarksDialog(DirectorySelection chosenFileDirectory, OpenAndSaveKeepsSubscriber openKeepsSubscriber, Container refContainer, String [] [] props, boolean altFontSize)
 	{
+		this.altFontSize = altFontSize;
 		this.chosenFileDirectory = chosenFileDirectory;
 		this.openKeepsSubscriber = openKeepsSubscriber;
 		this.refContainer = refContainer;
@@ -111,6 +115,32 @@ public class VideoBookMarksDialog extends JDialog
 		}
 		setupFileNameAndTitles(chosenFileDirectory);
 		buildWidgets();
+	}
+	
+	public static void setFontSize(int size)//TODO.
+	{
+		TEXT_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, size);
+	}
+	
+	public void setAltFontSize()
+	{
+		fileList.setFont(TEXT_FONT);
+		titlesList.setFont(TEXT_FONT);
+		
+		if(saveField != null)
+			saveField.setFont(TEXT_FONT);
+		if(saveLabel != null)
+			saveLabel.setFont(TEXT_FONT);
+		if(applyButton != null)
+			applyButton.setFont(TEXT_FONT);
+		if(cancelButton != null)
+			cancelButton.setFont(TEXT_FONT);
+		
+		Dimension newDim = new Dimension(
+				(int)(MIN_DIMENSION_DIALOG.width * 2), 
+				(int)(MIN_DIMENSION_DIALOG.height * 2)
+		);
+		this.setMinimumSize(newDim);
 	}
 	
 	public void fileListFocus()
@@ -141,7 +171,6 @@ public class VideoBookMarksDialog extends JDialog
 	{
 		this.setTitle(save ? SAVE_TITLE : OPEN_TITLE);
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		this.setMinimumSize(MIN_DIMENSION_DIALOG);
 		this.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosed(WindowEvent e) {
@@ -154,15 +183,10 @@ public class VideoBookMarksDialog extends JDialog
 		applyButton.setEnabled(false);
 		cancelButton = new JButton(CANCEL_BUTTON_LABEL);
 		
-		titlesList = new JTextArea();
-		titlesList.setEditable(false);
-		JScrollPane scrollPane = new JScrollPane(titlesList);
 		List<String> titles = Arrays.asList(filenameAndTitles.keySet().toArray(new String [] {}));
 		Collections.sort(titles);
+		
 		fileList = new JList<String>(titles.toArray(new String[titles.size()]));
-		Dimension d = fileList.getPreferredSize();
-		d.width = LIST_WIDTH;
-		fileList.setPreferredSize(d);
 		fileList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);//TODO.
 		fileList.addListSelectionListener(new ListSelectionListener() {
 			@Override
@@ -179,14 +203,21 @@ public class VideoBookMarksDialog extends JDialog
 				}
 			}
 		});
-		JScrollPane scrollPaneTitles = new JScrollPane(fileList);
 		
 		buildSaveCancel();
 		
+		fileList.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
+				{
+					performSelect(false);
+				}
+			}
+		});
+		
 		innerPanel = new JPanel();
 		innerPanel.setLayout(new BorderLayout());
-		innerPanel.add(scrollPaneTitles, BorderLayout.WEST);
-		innerPanel.add(scrollPane, BorderLayout.CENTER);
 		if(save)
 		{
 			saveLabel = new JLabel();
@@ -214,6 +245,25 @@ public class VideoBookMarksDialog extends JDialog
 			innerPanel.add(saveFilePanel, BorderLayout.SOUTH);
 		}
 		
+		titlesList = new JTextArea();
+		titlesList.setEditable(false);
+		if(altFontSize)
+		{
+			setAltFontSize();
+		}
+		else
+		{
+			this.setMinimumSize(MIN_DIMENSION_DIALOG);
+		}
+		
+		JScrollPane 
+			scrollPane = new JScrollPane(),
+			scrollPaneTitles = new JScrollPane();
+		scrollPane.setViewportView(titlesList);
+		scrollPaneTitles.setViewportView(fileList);
+		
+		innerPanel.add(scrollPaneTitles, BorderLayout.WEST);
+		innerPanel.add(scrollPane, BorderLayout.CENTER);
 		this.add(innerPanel, BorderLayout.CENTER);
 		
 		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
@@ -224,20 +274,17 @@ public class VideoBookMarksDialog extends JDialog
 		ExtendedSetScrollBackgroundForegroundColor.applyBackgroundForeground(
 				ColorTemplate.getPanelBackgroundColor(), ColorTemplate.getButtonBackgroundColor(), scrollPane);
 		
-		fileList.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
-				{
-					performSelect(false);
-				}
-			}
-		});
-		
 		this.setVisible(true);
 		if(refContainer != null)
 		{
-			GraphicsUtil.centerWindow(refContainer, this);
+			if(altFontSize)
+			{
+				GraphicsUtil.centerOnScreen(this);
+			}
+			else
+			{
+				GraphicsUtil.centerWindow(refContainer, this);
+			}
 		}
 	}
 	
