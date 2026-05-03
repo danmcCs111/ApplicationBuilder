@@ -53,9 +53,18 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 			highlightButton = args[2],
 			highlightButtonFull = args[3],
 			url = args[4],
-			idStr = args[5];
+			idStr = args[5],
+			portStr = args[6];
 		
-		int id = Integer.parseInt(idStr);
+		int 
+			id = Integer.parseInt(idStr),
+			port = Integer.parseInt(portStr);
+		if(!portNumbers.contains(port))
+		{
+			portNumbers.add(port);
+			VideoSubSelectionLauncher.setPortNumber(port);
+		}
+		
 		if(id == -1)
 		{
 			//Referenced -> FileListOptionGenerator
@@ -80,11 +89,7 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 		
 		int port = Integer.parseInt(responseXml);
 		LoggingMessages.printOut("add subscriber: " + port);
-		if(!portNumbers.contains(port))
-		{
-			portNumbers.add(port);
-			VideoSubSelectionLauncher.setPortNumber(port);
-		}
+		
 	}
 	
 	private static void notifySubscribers(String req)

@@ -76,10 +76,6 @@ public class HttpRequestHandler implements HttpHandler
 			{
 				HttpLaunchUrlRequest.processLaunch(responseXml);
 			}
-			else if(h.get(REQUEST_TYPE_HEADER_KEY).contains(FUNCTION_TYPE_ADD_SUBSCRIBER_LAUNCH_URL))
-			{
-				HttpLaunchUrlRequest.processAddSubscriber(responseXml);
-			}
 		}
 		
 		return responseXml;

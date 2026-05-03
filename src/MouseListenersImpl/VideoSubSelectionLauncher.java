@@ -11,6 +11,7 @@ import ApplicationBuilder.QueryUpdateTool;
 import HttpDatabaseRequest.HttpDatabaseRequest;
 import HttpDatabaseRequest.HttpLaunchUrlRequest;
 import HttpDatabaseRequest.HttpRequestHandler;
+import HttpDatabaseRequest.HttpRequestProcessor;
 import WidgetComponentInterfaces.HighlightListener;
 import WidgetComponents.JButtonLengthLimited;
 
@@ -116,7 +117,8 @@ public class VideoSubSelectionLauncher implements ActionListener
 				jbll.getHighlightButton().getText() + HttpLaunchUrlRequest.ARG_DELIMITER +
 				((JButtonLengthLimited) jbll.getHighlightButton()).getFullLengthText() + HttpLaunchUrlRequest.ARG_DELIMITER + 
 				jbll.getName() + HttpLaunchUrlRequest.ARG_DELIMITER +
-				id;
+				id + HttpLaunchUrlRequest.ARG_DELIMITER +
+				HttpRequestProcessor.getPortNumber() + "";
 		
 		HttpDatabaseRequest.executeGetRequest(
 				QueryUpdateTool.ENDPOINT,

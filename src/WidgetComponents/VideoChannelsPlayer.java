@@ -705,13 +705,6 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		HttpRequestProcessor.setPortNumber(listenPort);
 		hrp.listenHttp();
 		
-		HttpDatabaseRequest.executeGetRequest(
-				QueryUpdateTool.ENDPOINT,
-				rootPort,
-				listenPort+"",
-				HttpRequestHandler.REQUEST_TYPE_HEADER_KEY,
-				HttpRequestHandler.FUNCTION_TYPE_ADD_SUBSCRIBER_LAUNCH_URL
-		);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 	
