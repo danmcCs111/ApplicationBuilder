@@ -130,6 +130,8 @@ public class VideoSubSelectionLauncher implements ActionListener
 				HttpRequestHandler.REQUEST_TYPE_HEADER_KEY,
 				HttpRequestHandler.FUNCTION_TYPE_LAUNCH_URL
 		);
+		
+		LaunchUrlActionListener.setLastButtonOrigin(jbll);
 	}
 	
 }

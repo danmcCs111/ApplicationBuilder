@@ -40,11 +40,11 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 			switch(proc)
 			{
 			case ProcessType.child:
-				LaunchUrlActionListener.setLastButtonOrigin(null);
 				for(ArrayActionListener aal : aals)
 				{
 					aal.urlSelect(null);
 				}
+				LaunchUrlActionListener.setLastButtonOrigin(null);
 				return;
 			}
 		}
@@ -79,11 +79,11 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 			switch(proc)
 			{
 			case ProcessType.child:
-				LaunchUrlActionListener.setLastButtonOrigin(virtualButton);
 				for(ArrayActionListener aal : aals)
 				{
 					aal.urlSelect(virtualButton);
 				}
+				LaunchUrlActionListener.setLastButtonOrigin(virtualButton);
 				return;
 			}
 		}
@@ -127,11 +127,11 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 				PicLabelMouseListener.highLightLabel(virtualButtonHighlight, false);
 				return;
 			case ProcessType.child:
-				LaunchUrlActionListener.setLastButtonOrigin(null);
 				for(ArrayActionListener aal : aals)
 				{
 					aal.urlSelect(null);
 				}
+				LaunchUrlActionListener.setLastButtonOrigin(null);
 				return;
 			}
 		}
@@ -171,11 +171,11 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 				PicLabelMouseListener.highLightLabel(virtualButtonHighlight, true);
 				return;
 			case ProcessType.child:
-				LaunchUrlActionListener.setLastButtonOrigin(virtualButton);
 				for(ArrayActionListener aal : aals)
 				{
 					aal.urlSelect(virtualButton);
 				}
+				LaunchUrlActionListener.setLastButtonOrigin(virtualButton);
 				return;
 			}
 		}

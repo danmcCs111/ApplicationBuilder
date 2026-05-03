@@ -124,17 +124,19 @@ public class LaunchUrlActionListener implements ActionListener
 					PicLabelMouseListener.highLightLabel((JButtonLengthLimited) lastButton, false);//TODO interface?
 				}
 			}
-			for(ArrayActionListener aal : aals)
-			{
-				aal.urlSelect(null);
-			}
+			notifyActionListeners(null);
 		}
 		else
 		{
-			for(ArrayActionListener aal : aals)
-			{
-				aal.urlSelect(button);
-			}
+			notifyActionListeners(button);
+		}
+	}
+	
+	public static void notifyActionListeners(AbstractButton button)
+	{
+		for(ArrayActionListener aal : aals)
+		{
+			aal.urlSelect(button);
 		}
 	}
 	

@@ -399,16 +399,18 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 		jbll.setHighlightButton(parentButtons.get(key));
 		Highlighter hl = new Highlighter(jbll, highlightForegroundAndBackgroundColor, foregroundAndBackgroundColor);
 		videoButtons.put(jbll, hl);
+		
 		jbll.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) 
 			{
-				int btn = e.getButton();//TODO. add adaptive http also
+				int btn = e.getButton();
 				switch(btn)
 				{
 				case MouseEvent.BUTTON1:
 					vssl.get(key).performLaunch(jbll);
-					performSelect(hl);
+					urlSelect(jbll);//highlight manually
+					LaunchUrlActionListener.notifyActionListeners(jbll);
 					break;
 				case MouseEvent.BUTTON2:
 					vssl.get(key).performLaunch(jbll, 1);
@@ -420,7 +422,8 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 						@Override
 						public void actionPerformed(ActionEvent e) {
 							vssl.get(key).performLaunch(jbll);
-							performSelect(hl);
+							urlSelect(jbll);//highlight manually
+							LaunchUrlActionListener.notifyActionListeners(jbll);
 						}
 					});
 					JMenuItem openNewTab = new JMenuItem(POPUP_OPEN_NEW);
@@ -464,7 +467,7 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 		if(newButton == null)
 			return;
 		
-		AbstractButton last = newButton == null
+		AbstractButton last = (newButton == null)
 				? LaunchUrlActionListener.getLastButtonOrigin()
 				: newButton;
 		String name = (last == null)
@@ -493,7 +496,7 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 		return null;
 	}
 	
-	public void performSelect(Highlighter hl)
+	private void performSelect(Highlighter hl)
 	{
 		clearSelect();
 		if(hl != null)
