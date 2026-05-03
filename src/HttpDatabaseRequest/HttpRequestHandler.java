@@ -25,8 +25,8 @@ public class HttpRequestHandler implements HttpHandler
 
 	private ProcessType 
 		proc;
-	private ArrayActionListener 
-		aal;
+	private ArrayActionListener []
+		aals;
 	private HttpLaunchUrlRequest
 		hlur;
 	
@@ -35,19 +35,24 @@ public class HttpRequestHandler implements HttpHandler
 		child
 	}
 	
-	public HttpRequestHandler(ArrayActionListener aal, JButtonArray ba, ProcessType proc)
+	public HttpRequestHandler(JButtonArray ba, ProcessType proc, ArrayActionListener ... aals)
 	{
-		this.aal = aal;
+		this.aals = aals;
 		HttpJoystickFuctionRequest.setButtonArray(ba);
 		this.proc = proc;
 		hlur = new HttpLaunchUrlRequest();
 	}
 	
-	public HttpRequestHandler(ArrayActionListener aal, ProcessType proc)
+	public HttpRequestHandler(ProcessType proc, ArrayActionListener ... aals)
 	{
-		this.aal = aal;
+		this.aals = aals;
 		this.proc = proc;
 		hlur = new HttpLaunchUrlRequest();
+	}
+	
+	public void setArrayActionListener(ArrayActionListener aal, int index)
+	{
+		this.aals[index] = aal;
 	}
 	
 	@Override
@@ -93,7 +98,7 @@ public class HttpRequestHandler implements HttpHandler
 			}
 			else if(h.get(REQUEST_TYPE_HEADER_KEY).contains(FUNCTION_TYPE_LAUNCH_URL))
 			{
-				hlur.processLaunch(aal, responseXml, proc);
+				hlur.processLaunch(responseXml, proc, aals);
 			}
 		}
 		

@@ -15,22 +15,23 @@ public class HttpRequestProcessor
 	
 	private JButtonArray
 		ba;
-	private ProcessType 
-		procType;
-	private ArrayActionListener
-		aal;
-	
-	public HttpRequestProcessor(ArrayActionListener aal, JButtonArray ba, ProcessType procType)
+	private HttpRequestHandler
+		hrh;
+
+	public HttpRequestProcessor(JButtonArray ba, ProcessType procType, ArrayActionListener ... aals)
 	{
-		this.aal = aal;
 		this.ba = ba;
-		this.procType = procType;
+		hrh = new HttpRequestHandler(ba, procType, aals);
 	}
 	
-	public HttpRequestProcessor(ArrayActionListener aal, ProcessType procType)
+	public HttpRequestProcessor(ProcessType procType, ArrayActionListener ... aals)
 	{
-		this.aal = aal;
-		this.procType = procType;
+		hrh = new HttpRequestHandler(procType, aals);
+	}
+	
+	public void setArrayActionListener(ArrayActionListener aal, int index)
+	{
+		hrh.setArrayActionListener(aal, index);
 	}
 	
 	public static void setPortNumber(int portNumber)
@@ -49,11 +50,11 @@ public class HttpRequestProcessor
 			HttpServer server = HttpServer.create(new InetSocketAddress(portNumber), 1);
 			if(ba != null)
 			{
-				server.createContext("/", new HttpRequestHandler(aal, ba, procType));
+				server.createContext("/", hrh);
 			}
 			else
 			{
-				server.createContext("/", new HttpRequestHandler(aal, procType));
+				server.createContext("/", hrh);
 			}
 	        server.setExecutor(null); // Use the default executor
 	        server.start();

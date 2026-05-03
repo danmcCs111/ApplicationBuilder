@@ -10,8 +10,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -117,6 +115,8 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		lcv = new LookupOrCreateYoutube();
 	private OpenVideoChannelsUpdater
 		ovcu;
+	private HttpRequestProcessor 
+		hrp;
 	
 	private ArrayList <String> 
 		stripFilter = new ArrayList<String>(); 
@@ -403,6 +403,10 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 				removeListView();
 				listView.removeAll();
 				listView = new VideoChannelListView(parentButtons, ycvs);
+				if(hrp != null)
+				{
+					hrp.setArrayActionListener(listView, 1);//TODO. 2nd index.
+				}
 				addListView();
 				setImageButton(null);
 				refreshListView(btn);
@@ -508,6 +512,10 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		ArrayList<YoutubeChannelVideo> ycv = parentButtonAndYoutubeVideos.get(buttonParent);
 		removeListView();
 		listView = new VideoChannelListView(buttonParent, ycv);
+		if(hrp != null)
+		{
+			hrp.setArrayActionListener(listView, 1);//TODO. 2nd index.
+		}
 		addListView();
 		refreshListView(selectedButton);
 		setImageButton(buttonParent);
@@ -521,6 +529,10 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		parentButtonAndYoutubeVideos.put(selectedButtonParent, ycvs.get(key));
 		removeListView();
 		listView = new VideoChannelListView(selectedButton, ycvs);
+		if(hrp != null)
+		{
+			hrp.setArrayActionListener(listView, 1);//TODO. 2nd index.
+		}
 		addListView();
 		setImageButton(selectedButtonParent);//TODO
 		refreshListView(selectedButton);
@@ -697,7 +709,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	{
 		open();
 		
-		HttpRequestProcessor hrp = new HttpRequestProcessor(this, ProcessType.child);
+		hrp = new HttpRequestProcessor(ProcessType.child, new ArrayActionListener[] { this, listView});
 		int rootPort = HttpRequestProcessor.getPortNumber();
 		VideoSubSelectionLauncher.setPortNumber(rootPort);
 		

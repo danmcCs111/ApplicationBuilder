@@ -32,7 +32,7 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 		virtualButton.addActionListener(new LaunchUrlActionListener());
 	}
 	
-	public void processLaunch(ArrayActionListener aal, String responseXml, ProcessType proc)
+	public void processLaunch(String responseXml, ProcessType proc, ArrayActionListener ...aals)
 	{
 		String [] args = responseXml.split(ARG_DELIMITER);
 		if(args.length <= 1)//do close
@@ -45,7 +45,10 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 				PicLabelMouseListener.highLightLabel(virtualButtonHighlight, false);
 				return;
 			case ProcessType.child:
-				aal.urlSelect(null);
+				for(ArrayActionListener aal : aals)
+				{
+					aal.urlSelect(null);
+				}
 				return;
 			}
 		}
@@ -85,7 +88,10 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 				PicLabelMouseListener.highLightLabel(virtualButtonHighlight, true);
 				return;
 			case ProcessType.child:
-				aal.urlSelect(virtualButton);
+				for(ArrayActionListener aal : aals)
+				{
+					aal.urlSelect(virtualButton);
+				}
 				return;
 			}
 		}
