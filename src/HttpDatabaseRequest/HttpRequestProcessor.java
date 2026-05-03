@@ -4,23 +4,33 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import com.sun.net.httpserver.HttpServer;
 
+import ActionListeners.ArrayActionListener;
+import HttpDatabaseRequest.HttpRequestHandler.ProcessType;
 import WidgetComponents.JButtonArray;
 
 public class HttpRequestProcessor 
 {
-	private JButtonArray
-		ba;
 	private static int 
 		portNumber = 9090;//static, 1 per process.
 	
-	public HttpRequestProcessor(JButtonArray ba)
+	private JButtonArray
+		ba;
+	private ProcessType 
+		procType;
+	private ArrayActionListener
+		aal;
+	
+	public HttpRequestProcessor(ArrayActionListener aal, JButtonArray ba, ProcessType procType)
 	{
+		this.aal = aal;
 		this.ba = ba;
+		this.procType = procType;
 	}
 	
-	public HttpRequestProcessor()
+	public HttpRequestProcessor(ArrayActionListener aal, ProcessType procType)
 	{
-		
+		this.aal = aal;
+		this.procType = procType;
 	}
 	
 	public static void setPortNumber(int portNumber)
@@ -39,11 +49,11 @@ public class HttpRequestProcessor
 			HttpServer server = HttpServer.create(new InetSocketAddress(portNumber), 1);
 			if(ba != null)
 			{
-				server.createContext("/", new HttpRequestHandler(ba));
+				server.createContext("/", new HttpRequestHandler(aal, ba, procType));
 			}
 			else
 			{
-				server.createContext("/", new HttpRequestHandler());
+				server.createContext("/", new HttpRequestHandler(aal, procType));
 			}
 	        server.setExecutor(null); // Use the default executor
 	        server.start();

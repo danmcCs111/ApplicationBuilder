@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,11 +31,9 @@ import javax.swing.border.EmptyBorder;
 
 import ActionListeners.ArrayActionListener;
 import ActionListenersImpl.LaunchUrlActionListener;
-import ApplicationBuilder.QueryUpdateTool;
 import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
-import HttpDatabaseRequest.HttpDatabaseRequest;
-import HttpDatabaseRequest.HttpRequestHandler;
+import HttpDatabaseRequest.HttpRequestHandler.ProcessType;
 import HttpDatabaseRequest.HttpRequestProcessor;
 import MouseListenersImpl.FrameMouseDragListener;
 import MouseListenersImpl.LookupOrCreateYoutube;
@@ -697,7 +697,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	{
 		open();
 		
-		HttpRequestProcessor hrp = new HttpRequestProcessor();
+		HttpRequestProcessor hrp = new HttpRequestProcessor(this, ProcessType.child);
 		int rootPort = HttpRequestProcessor.getPortNumber();
 		VideoSubSelectionLauncher.setPortNumber(rootPort);
 		
@@ -705,7 +705,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		HttpRequestProcessor.setPortNumber(listenPort);
 		hrp.listenHttp();
 		
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 }

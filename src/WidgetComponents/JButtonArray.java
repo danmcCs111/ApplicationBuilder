@@ -30,6 +30,7 @@ import ActionListenersImpl.LaunchUrlActionListener;
 import ActionListenersImpl.NavigationButtonActionListener;
 import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
+import HttpDatabaseRequest.HttpRequestHandler.ProcessType;
 import HttpDatabaseRequest.HttpRequestProcessor;
 import MouseListenersImpl.ImageMouseAdapter;
 import MouseListenersImpl.LookupOrCreateYoutube;
@@ -884,7 +885,7 @@ PostWidgetBuildProcessing, ButtonArray
 		});
 		addDragAndDropListener(this);
 		RegisterArrayActionListener.addListener(this);
-		HttpRequestProcessor hrp = new HttpRequestProcessor(this);
+		HttpRequestProcessor hrp = new HttpRequestProcessor(this, ProcessType.parent);
 		hrp.listenHttp();
 	}
 

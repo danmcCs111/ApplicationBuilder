@@ -111,6 +111,9 @@ public class VideoSubSelectionLauncher implements ActionListener
 	
 	public static void launchRequest(JButtonLengthLimited jbll, int id)
 	{
+		if(portNumber == -1)
+			return;
+		
 		String req = 
 				jbll.getText() + HttpLaunchUrlRequest.ARG_DELIMITER + 
 				jbll.getFullLengthText() + HttpLaunchUrlRequest.ARG_DELIMITER +

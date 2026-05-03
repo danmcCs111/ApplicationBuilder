@@ -12,6 +12,7 @@ import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
+import ActionListeners.ArrayActionListener;
 import WidgetComponents.JButtonArray;
 
 public class HttpRequestHandler implements HttpHandler
@@ -21,14 +22,32 @@ public class HttpRequestHandler implements HttpHandler
 		FUNCTION_TYPE_LAUNCH_URL = "URL_Launch",
 		FUNCTION_TYPE_ADD_SUBSCRIBER_LAUNCH_URL = "URL_Launch_Add_Subscriber",
 		FUNCTION_TYPE_JOYSTICK = "Joystick_Button";
+
+	private ProcessType 
+		proc;
+	private ArrayActionListener 
+		aal;
+	private HttpLaunchUrlRequest
+		hlur;
 	
-	public HttpRequestHandler(JButtonArray ba)
-	{
-		HttpJoystickFuctionRequest.setButtonArray(ba);
+	public enum ProcessType{
+		parent,
+		child
 	}
 	
-	public HttpRequestHandler()
+	public HttpRequestHandler(ArrayActionListener aal, JButtonArray ba, ProcessType proc)
 	{
+		this.aal = aal;
+		HttpJoystickFuctionRequest.setButtonArray(ba);
+		this.proc = proc;
+		hlur = new HttpLaunchUrlRequest();
+	}
+	
+	public HttpRequestHandler(ArrayActionListener aal, ProcessType proc)
+	{
+		this.aal = aal;
+		this.proc = proc;
+		hlur = new HttpLaunchUrlRequest();
 	}
 	
 	@Override
@@ -74,7 +93,7 @@ public class HttpRequestHandler implements HttpHandler
 			}
 			else if(h.get(REQUEST_TYPE_HEADER_KEY).contains(FUNCTION_TYPE_LAUNCH_URL))
 			{
-				HttpLaunchUrlRequest.processLaunch(responseXml);
+				hlur.processLaunch(aal, responseXml, proc);
 			}
 		}
 		

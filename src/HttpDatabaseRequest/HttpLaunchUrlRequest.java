@@ -8,9 +8,9 @@ import javax.swing.AbstractButton;
 import ActionListeners.ArrayActionListener;
 import ActionListenersImpl.LaunchUrlActionListener;
 import ApplicationBuilder.QueryUpdateTool;
+import HttpDatabaseRequest.HttpRequestHandler.ProcessType;
 import MouseListenersImpl.PicLabelMouseListener;
 import MouseListenersImpl.VideoSubSelectionLauncher;
-import Properties.LoggingMessages;
 import WidgetComponents.JButtonLengthLimited;
 
 public class HttpLaunchUrlRequest implements ArrayActionListener
@@ -25,26 +25,29 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 	private static ArrayList<Integer> 
 		portNumbers = new ArrayList<Integer>();
 	
-	static {
-		self = new HttpLaunchUrlRequest();
-	}
-	
-	private HttpLaunchUrlRequest()
+	public HttpLaunchUrlRequest()
 	{
 		addArrayActionListener();
 		virtualButton.setHighlightButton(virtualButtonHighlight);
 		virtualButton.addActionListener(new LaunchUrlActionListener());
 	}
 	
-	public static void processLaunch(String responseXml)
+	public void processLaunch(ArrayActionListener aal, String responseXml, ProcessType proc)
 	{
 		String [] args = responseXml.split(ARG_DELIMITER);
 		if(args.length <= 1)//do close
 		{
-			virtualButton.setName(LaunchUrlActionListener.CLOSE_LAUNCH_ACTION_EVENT);
-			virtualButton.doClick();
-			PicLabelMouseListener.highLightLabel(virtualButtonHighlight, false);
-			return;
+			switch(proc)
+			{
+			case ProcessType.parent:
+				virtualButton.setName(LaunchUrlActionListener.CLOSE_LAUNCH_ACTION_EVENT);
+				virtualButton.doClick();
+				PicLabelMouseListener.highLightLabel(virtualButtonHighlight, false);
+				return;
+			case ProcessType.child:
+				aal.urlSelect(null);
+				return;
+			}
 		}
 		
 		String
@@ -55,41 +58,42 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 			url = args[4],
 			idStr = args[5],
 			portStr = args[6];
-		
+	
 		int 
 			id = Integer.parseInt(idStr),
 			port = Integer.parseInt(portStr);
+		
 		if(!portNumbers.contains(port))
 		{
 			portNumbers.add(port);
 			VideoSubSelectionLauncher.setPortNumber(port);
 		}
 		
+		//Referenced -> FileListOptionGenerator
+		virtualButton.setText(sourceButton);
+		virtualButton.setFullText(sourceButtonFull);
+		virtualButton.setName(url);
+		virtualButtonHighlight.setText(highlightButton);
+		virtualButtonHighlight.setFullText(highlightButtonFull);
+		
 		if(id == -1)
 		{
-			//Referenced -> FileListOptionGenerator
-			virtualButton.setText(sourceButton);
-			virtualButton.setFullText(sourceButtonFull);
-			virtualButton.setName(url);
-			virtualButtonHighlight.setText(highlightButton);
-			virtualButtonHighlight.setFullText(highlightButtonFull);
-			
-			virtualButton.doClick();
-			PicLabelMouseListener.highLightLabel(virtualButtonHighlight, true);
+			switch(proc)
+			{
+			case ProcessType.parent:
+				virtualButton.doClick();
+				PicLabelMouseListener.highLightLabel(virtualButtonHighlight, true);
+				return;
+			case ProcessType.child:
+				aal.urlSelect(virtualButton);
+				return;
+			}
 		}
-		else
+		else if(proc.equals(ProcessType.parent))
 		{
 			String [] argsP = LaunchUrlActionListener.buildCommand(virtualButton, id);
 			LaunchUrlActionListener.executeProcess(id, argsP);
 		}
-	}
-	
-	public static void processAddSubscriber(String responseXml)
-	{
-		
-		int port = Integer.parseInt(responseXml);
-		LoggingMessages.printOut("add subscriber: " + port);
-		
 	}
 	
 	private static void notifySubscribers(String req)
