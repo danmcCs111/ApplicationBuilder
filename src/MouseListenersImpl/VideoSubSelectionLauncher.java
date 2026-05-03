@@ -11,12 +11,14 @@ import ApplicationBuilder.QueryUpdateTool;
 import HttpDatabaseRequest.HttpDatabaseRequest;
 import HttpDatabaseRequest.HttpLaunchUrlRequest;
 import HttpDatabaseRequest.HttpRequestHandler;
-import HttpDatabaseRequest.HttpRequestProcessor;
 import WidgetComponentInterfaces.HighlightListener;
 import WidgetComponents.JButtonLengthLimited;
 
 public class VideoSubSelectionLauncher implements ActionListener
 {
+	private static int 
+		portNumber = -1;
+	
 	private AbstractButton 
 		parentComponent;
 	private Component
@@ -44,15 +46,17 @@ public class VideoSubSelectionLauncher implements ActionListener
 		this.id = id;
 	}
 	
+	public static void setPortNumber(int portNumber)
+	{
+		VideoSubSelectionLauncher.portNumber = portNumber;
+	}
+	
 	public void performLaunch(Component childButton, int id)
 	{
 		String [] args = LaunchUrlActionListener.buildCommand(childButton, id);
 		LaunchUrlActionListener.executeProcess(id, args);
 		
-		if(childButton instanceof JButtonLengthLimited)
-		{
-			launchRequest((JButtonLengthLimited) childButton, id);
-		}
+		VideoSubSelectionLauncher.launchRequest((JButtonLengthLimited) childComponent, id);
 	}
 	
 	public void performLaunch(Component childComponent) //double loop b/c of order.
@@ -86,10 +90,7 @@ public class VideoSubSelectionLauncher implements ActionListener
 			hlListener.highlight();
 		}
 		
-		if(childComponent instanceof JButtonLengthLimited)
-		{
-			launchRequest((JButtonLengthLimited) childComponent, -1);
-		}
+		VideoSubSelectionLauncher.launchRequest((JButtonLengthLimited) childComponent, -1);
 	}
 
 	@Override
@@ -105,7 +106,7 @@ public class VideoSubSelectionLauncher implements ActionListener
 		}
 	}
 	
-	public void launchRequest(JButtonLengthLimited jbll, int id)
+	public static void launchRequest(JButtonLengthLimited jbll, int id)
 	{
 		String req = 
 				jbll.getText() + HttpLaunchUrlRequest.ARG_DELIMITER + 
@@ -117,10 +118,11 @@ public class VideoSubSelectionLauncher implements ActionListener
 		
 		HttpDatabaseRequest.executeGetRequest(
 				QueryUpdateTool.ENDPOINT,
-				HttpRequestProcessor.portNumber,
+				portNumber,
 				req,
 				HttpRequestHandler.REQUEST_TYPE_HEADER_KEY,
 				HttpRequestHandler.FUNCTION_TYPE_LAUNCH_URL
 		);
 	}
+	
 }

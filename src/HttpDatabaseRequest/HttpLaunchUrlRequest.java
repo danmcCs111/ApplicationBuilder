@@ -1,6 +1,7 @@
 package HttpDatabaseRequest;
 
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.AbstractButton;
 
@@ -8,6 +9,7 @@ import ActionListeners.ArrayActionListener;
 import ActionListenersImpl.LaunchUrlActionListener;
 import ApplicationBuilder.QueryUpdateTool;
 import MouseListenersImpl.PicLabelMouseListener;
+import MouseListenersImpl.VideoSubSelectionLauncher;
 import Properties.LoggingMessages;
 import WidgetComponents.JButtonLengthLimited;
 
@@ -20,6 +22,8 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 	private static JButtonLengthLimited
 		virtualButton = new JButtonLengthLimited(),
 		virtualButtonHighlight = new JButtonLengthLimited();
+	private static ArrayList<Integer> 
+		portNumbers = new ArrayList<Integer>();
 	
 	static {
 		self = new HttpLaunchUrlRequest();
@@ -35,6 +39,14 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 	public static void processLaunch(String responseXml)
 	{
 		String [] args = responseXml.split(ARG_DELIMITER);
+		if(args.length <= 1)//do close
+		{
+			virtualButton.setName(LaunchUrlActionListener.CLOSE_LAUNCH_ACTION_EVENT);
+			virtualButton.doClick();
+			PicLabelMouseListener.highLightLabel(virtualButtonHighlight, false);
+			return;
+		}
+		
 		String
 			sourceButton = args[0],
 			sourceButtonFull = args[1],
@@ -44,8 +56,6 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 			idStr = args[5];
 		
 		int id = Integer.parseInt(idStr);
-		LoggingMessages.printOut("perform launch: " + sourceButton);
-		
 		if(id == -1)
 		{
 			//Referenced -> FileListOptionGenerator
@@ -67,16 +77,28 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 	
 	public static void processAddSubscriber(String responseXml)
 	{
-		String [] args = responseXml.split(ARG_DELIMITER);
-		String
-			sourceButton = args[0],
-			highlightButton = args[1],
-			url = args[2];
+		
+		LoggingMessages.printOut("add subscriber: " + responseXml);
+		int port = Integer.parseInt(responseXml);
+		if(!portNumbers.contains(port))
+		{
+			portNumbers.add(port);
+			VideoSubSelectionLauncher.setPortNumber(port);
+		}
 	}
 	
-	private static void notifySubscribers()
+	private static void notifySubscribers(String req)
 	{
-		
+		for(int port : portNumbers)
+		{
+			HttpDatabaseRequest.executeGetRequest(
+				QueryUpdateTool.ENDPOINT,
+				port,
+				req,
+				HttpRequestHandler.REQUEST_TYPE_HEADER_KEY,
+				HttpRequestHandler.FUNCTION_TYPE_LAUNCH_URL
+			);
+		}
 	}
 
 	@Override
@@ -88,7 +110,20 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 	@Override
 	public void urlSelect(AbstractButton newButton) 
 	{
+		JButtonLengthLimited jbll = (JButtonLengthLimited) newButton;
+		String req = "CloseEvent";
 		
+		if(jbll != null)
+		{
+			req = 
+				jbll.getText() + HttpLaunchUrlRequest.ARG_DELIMITER + 
+				jbll.getFullLengthText() + HttpLaunchUrlRequest.ARG_DELIMITER +
+				jbll.getHighlightButton().getText() + HttpLaunchUrlRequest.ARG_DELIMITER +
+				((JButtonLengthLimited) jbll.getHighlightButton()).getFullLengthText() + HttpLaunchUrlRequest.ARG_DELIMITER + 
+				jbll.getName() + HttpLaunchUrlRequest.ARG_DELIMITER +
+				-1+"";
+		}
+		notifySubscribers(req);
 	}
 
 	@Override
@@ -114,8 +149,11 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 	{
 		HttpDatabaseRequest.executeGetRequest(
 				QueryUpdateTool.ENDPOINT,
-				HttpRequestProcessor.portNumber,
-				"Free Documentary" + ARG_DELIMITER + "Free Documentary" + ARG_DELIMITER + "https://www.youtube.com/@FreeDocumentary",
+				HttpRequestProcessor.getPortNumber(),
+				"Free Documentary" + ARG_DELIMITER + "Free Documentary" + ARG_DELIMITER + 
+				"Free Documentary" + ARG_DELIMITER + "Free Documentary" + ARG_DELIMITER + 
+				"https://www.youtube.com/@FreeDocumentary" + ARG_DELIMITER + 
+				-1 + "",
 				HttpRequestHandler.REQUEST_TYPE_HEADER_KEY,
 				HttpRequestHandler.FUNCTION_TYPE_LAUNCH_URL
 		);

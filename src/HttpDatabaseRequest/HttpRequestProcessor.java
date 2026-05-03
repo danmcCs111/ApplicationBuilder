@@ -10,19 +10,41 @@ public class HttpRequestProcessor
 {
 	private JButtonArray
 		ba;
-	public static int 
-		portNumber = 9090;
+	private static int 
+		portNumber = 9090;//static, 1 per process.
 	
 	public HttpRequestProcessor(JButtonArray ba)
 	{
 		this.ba = ba;
+	}
+	
+	public HttpRequestProcessor()
+	{
+		
+	}
+	
+	public static void setPortNumber(int portNumber)
+	{
+		HttpRequestProcessor.portNumber = portNumber;
+	}
+	
+	public static int getPortNumber()
+	{
+		return HttpRequestProcessor.portNumber;
 	}
 
 	public void listenHttp()
 	{
 		try {
 			HttpServer server = HttpServer.create(new InetSocketAddress(portNumber), 1);
-	        server.createContext("/", new HttpRequestHandler(ba));
+			if(ba != null)
+			{
+				server.createContext("/", new HttpRequestHandler(ba));
+			}
+			else
+			{
+				server.createContext("/", new HttpRequestHandler());
+			}
 	        server.setExecutor(null); // Use the default executor
 	        server.start();
 	        System.out.println("Server is running on port " + portNumber);

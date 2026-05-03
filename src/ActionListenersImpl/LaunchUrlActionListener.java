@@ -11,6 +11,10 @@ import java.util.HashMap;
 import javax.swing.AbstractButton;
 
 import ActionListeners.ArrayActionListener;
+import ApplicationBuilder.QueryUpdateTool;
+import HttpDatabaseRequest.HttpDatabaseRequest;
+import HttpDatabaseRequest.HttpLaunchUrlRequest;
+import HttpDatabaseRequest.HttpRequestHandler;
 import MouseListenersImpl.PicLabelMouseListener;
 import ObjectTypeConversion.DirectorySelection;
 import Properties.LoggingMessages;
@@ -42,10 +46,11 @@ public class LaunchUrlActionListener implements ActionListener
 		lastButtonOrigin;
 	private static boolean 
 		isKiosk = false;
-	private static int 
+	private static int
 		defaultId = -1;
 	private static ArrayList<ArrayActionListener> 
 		aals = new ArrayList<ArrayActionListener>();
+		
 	
 	public static void addArrayActionListener(ArrayActionListener aal)
 	{
@@ -106,7 +111,7 @@ public class LaunchUrlActionListener implements ActionListener
 		if(!button.getName().equals(CLOSE_LAUNCH_ACTION_EVENT))
 		{
 			String [] args = buildCommand(button);
-			executePrimaryProcess(args);
+			executePrimaryProcess(args, button);
 		}
 		storeLast(button);
 	}
@@ -187,7 +192,7 @@ public class LaunchUrlActionListener implements ActionListener
 		lastButtonOrigin = button;
 	}
 	
-	private static void executePrimaryProcess(String [] args)
+	private static void executePrimaryProcess(String [] args, AbstractButton ab)
 	{
 		try {
 			destroyRunningProcess(defaultId);
@@ -198,6 +203,7 @@ public class LaunchUrlActionListener implements ActionListener
 			File f = new File(new DirectorySelection(AHK_RELATIVE_PATH).getFullPath());
 			PathUtility.writeStringToFile(f, pid + "");
 			runningProcesses.put(defaultId, runningProcess);
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

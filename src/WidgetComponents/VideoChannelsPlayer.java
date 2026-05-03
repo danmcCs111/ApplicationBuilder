@@ -29,10 +29,15 @@ import javax.swing.border.EmptyBorder;
 
 import ActionListeners.ArrayActionListener;
 import ActionListenersImpl.LaunchUrlActionListener;
+import ApplicationBuilder.QueryUpdateTool;
 import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
+import HttpDatabaseRequest.HttpDatabaseRequest;
+import HttpDatabaseRequest.HttpRequestHandler;
+import HttpDatabaseRequest.HttpRequestProcessor;
 import MouseListenersImpl.FrameMouseDragListener;
 import MouseListenersImpl.LookupOrCreateYoutube;
+import MouseListenersImpl.VideoSubSelectionLauncher;
 import MouseListenersImpl.YoutubeChannelVideo;
 import ObjectTypeConversion.DirectorySelection;
 import ObjectTypeConversion.FileSelection;
@@ -64,6 +69,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		UPDATE_BUTTON_TEXT = "Update",
 		ALL_SELECT_TEXT = "All Channels";
 	private static int 
+		PORT_NUMBER_MASK = 5,
 		CHARACTER_LIMIT = 35,
 		SCALED_WIDTH = 50,
 		DEFAULT_MINUTE_SETTING = 10,
@@ -690,6 +696,22 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	public void postExecute() 
 	{
 		open();
+		
+		HttpRequestProcessor hrp = new HttpRequestProcessor();
+		int rootPort = HttpRequestProcessor.getPortNumber();
+		VideoSubSelectionLauncher.setPortNumber(rootPort);
+		
+		int listenPort = HttpRequestProcessor.getPortNumber()+PORT_NUMBER_MASK;
+		HttpRequestProcessor.setPortNumber(listenPort);
+		hrp.listenHttp();
+		
+		HttpDatabaseRequest.executeGetRequest(
+				QueryUpdateTool.ENDPOINT,
+				rootPort,
+				listenPort+"",
+				HttpRequestHandler.REQUEST_TYPE_HEADER_KEY,
+				HttpRequestHandler.FUNCTION_TYPE_ADD_SUBSCRIBER_LAUNCH_URL
+		);
 	}
 	
 }

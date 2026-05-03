@@ -27,6 +27,10 @@ public class HttpRequestHandler implements HttpHandler
 		HttpJoystickFuctionRequest.setButtonArray(ba);
 	}
 	
+	public HttpRequestHandler()
+	{
+	}
+	
 	@Override
 	public void handle(HttpExchange exchange) throws IOException 
 	{
@@ -74,7 +78,7 @@ public class HttpRequestHandler implements HttpHandler
 			}
 			else if(h.get(REQUEST_TYPE_HEADER_KEY).contains(FUNCTION_TYPE_ADD_SUBSCRIBER_LAUNCH_URL))
 			{
-				//TODO.
+				HttpLaunchUrlRequest.processAddSubscriber(responseXml);
 			}
 		}
 		
