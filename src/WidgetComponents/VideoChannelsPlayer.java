@@ -29,9 +29,12 @@ import javax.swing.border.EmptyBorder;
 
 import ActionListeners.ArrayActionListener;
 import ActionListenersImpl.LaunchUrlActionListener;
+import ApplicationBuilder.QueryUpdateTool;
 import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
 import HttpDatabaseRequest.HttpRequestHandler.ProcessType;
+import HttpDatabaseRequest.HttpDatabaseRequest;
+import HttpDatabaseRequest.HttpRequestHandler;
 import HttpDatabaseRequest.HttpRequestProcessor;
 import MouseListenersImpl.FrameMouseDragListener;
 import MouseListenersImpl.LookupOrCreateYoutube;
@@ -700,11 +703,17 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		VideoBookMarksDialog vbmd = new VideoBookMarksDialog(new DirectorySelection("./Properties/VideoLaunchBookmarks/"), osks, null);
 	}
 	
-	public static void main(String [] args)
+	private void provision(int rootPort, int listenPort)
 	{
-		VideoChannelsPlayer avcop = new VideoChannelsPlayer();
+		HttpDatabaseRequest.executeGetRequest(
+			QueryUpdateTool.ENDPOINT,
+			rootPort,
+			listenPort+"",
+			HttpRequestHandler.REQUEST_TYPE_HEADER_KEY,
+			HttpRequestHandler.FUNCTION_TYPE_LAUNCH_REFRESH_REQUEST
+			);
 	}
-
+	
 	@Override
 	public void postExecute() 
 	{
@@ -717,8 +726,10 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		int listenPort = HttpRequestProcessor.getPortNumber()+PORT_NUMBER_MASK;
 		HttpRequestProcessor.setPortNumber(listenPort);
 		hrp.listenHttp();
+		provision(rootPort, listenPort);
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
+	
 	
 }
