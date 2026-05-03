@@ -1,10 +1,12 @@
 package WidgetComponents;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -63,6 +65,8 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		DEFAULT_PIC_SIZE = new Dimension(279, 150),
 		DEFAULT_SCALED_PIC_SIZE = new Dimension(279, 150),
 		MIN_SIZE = new Dimension(1050, 450);
+	private static Point
+		LAUNCH_LOCATION = new Point(600, 50);
 	private static String
 		TITLE = "All Open Video Channels",
 		HOME_PAGE_TOOLTIP_TEXT = "[ <arg0> ] - Homepage",
@@ -129,6 +133,16 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		
 	}
 	
+	public static void setLaunchLocation(Point p)
+	{
+		LAUNCH_LOCATION = p;
+	}
+	
+	public static void setHighlightColor(Color c)
+	{
+		Highlighter.setBorderColor(c);
+	}
+	
 	public void build(LinkedHashMap<JButtonLengthLimited, ImageIcon> buttonAndIcon, 
 			Container parentContainer)
 	{
@@ -158,6 +172,10 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		if(parentContainer != null)
 		{
 			GraphicsUtil.rightEdgeTopWindow(parentContainer, loadingFrame);
+		}
+		else
+		{
+			loadingFrame.setLocation(LAUNCH_LOCATION);
 		}
 		
 		loadingFrame.setMinimumSize(new Dimension(180,70));//TODO
@@ -220,14 +238,18 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setIconImage(JButtonArray.getMoviesIcon());
 		RegisterArrayActionListener.addListener(this);
-		this.setVisible(true);
+		
 		urlSelect(LaunchUrlActionListener.getLastButtonOrigin());
 		
 		if(parentContainer != null)
 		{
 			GraphicsUtil.rightEdgeTopWindow(parentContainer, this);
 		}
-		
+		else
+		{
+			this.setLocation(LAUNCH_LOCATION);
+		}
+		this.setVisible(true);
 	}
 	
 	public void buildEastPanel()
@@ -703,6 +725,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		};
 		
 		VideoBookMarksDialog vbmd = new VideoBookMarksDialog(new DirectorySelection("./Properties/VideoLaunchBookmarks/"), osks, null);
+		vbmd.setLocation(LAUNCH_LOCATION);
 	}
 	
 	private void provision(int rootPort, int listenPort)
