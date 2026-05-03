@@ -59,7 +59,7 @@
 				<JMenu extendedLayoutApplyParent="" setText="Channels" >
 					<JMenuItem extendedLayoutApplyParent="" extendedOpenVideoChannelsUpdater="channels" setText="Update Open Channels" >
 					</JMenuItem>
-					<JMenuItem extendedAllVideoChannelsOpenedList="channels" extendedLayoutApplyParent="" setText="All Open Channels List" >
+					<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-jar|%Fn./Application Builder.jar|%Fn./Properties/data/VideoChannelsPlayer.xml" extendedLayoutApplyParent="" setText="Video Channels Player" >
 					</JMenuItem>
 				</JMenu>
 				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ApplicationBuilder|%Fn./Properties/data/Video Tile-mini.xml" extendedLayoutApplyParent="" setText="List Creator" setToolTipText="Select available content and store under a bookmark file" >
