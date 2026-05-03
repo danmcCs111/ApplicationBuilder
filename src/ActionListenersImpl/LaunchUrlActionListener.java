@@ -11,10 +11,6 @@ import java.util.HashMap;
 import javax.swing.AbstractButton;
 
 import ActionListeners.ArrayActionListener;
-import ApplicationBuilder.QueryUpdateTool;
-import HttpDatabaseRequest.HttpDatabaseRequest;
-import HttpDatabaseRequest.HttpLaunchUrlRequest;
-import HttpDatabaseRequest.HttpRequestHandler;
 import MouseListenersImpl.PicLabelMouseListener;
 import ObjectTypeConversion.DirectorySelection;
 import Properties.LoggingMessages;

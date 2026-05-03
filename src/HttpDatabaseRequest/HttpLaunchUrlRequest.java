@@ -78,8 +78,8 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 	public static void processAddSubscriber(String responseXml)
 	{
 		
-		LoggingMessages.printOut("add subscriber: " + responseXml);
 		int port = Integer.parseInt(responseXml);
+		LoggingMessages.printOut("add subscriber: " + port);
 		if(!portNumbers.contains(port))
 		{
 			portNumbers.add(port);

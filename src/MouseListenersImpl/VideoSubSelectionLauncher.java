@@ -99,10 +99,12 @@ public class VideoSubSelectionLauncher implements ActionListener
 		if(id == -1)
 		{
 			performLaunch(this.childComponent);
+			launchRequest((JButtonLengthLimited) this.childComponent, -1);
 		}
 		else
 		{
 			performLaunch(childComponent, id);
+			launchRequest((JButtonLengthLimited) this.childComponent, 1);
 		}
 	}
 	
