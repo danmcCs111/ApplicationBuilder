@@ -182,6 +182,7 @@ public class VideoChannelPlayerJoy extends JFrame
 			southPane = new JPanel();
 		
 		countLabel = new JLabel();
+		countLabel.setFont(SELECT_FONT);
 		southPane.setLayout(new BorderLayout());
 		
 		countLabel.setBorder(COUNT_BORDER);
