@@ -20,7 +20,7 @@ public class HttpRequestHandler implements HttpHandler
 	public static final String 
 		REQUEST_TYPE_HEADER_KEY = "Get-request-type",
 		FUNCTION_TYPE_LAUNCH_URL = "URL_Launch",
-		FUNCTION_TYPE_ADD_SUBSCRIBER_LAUNCH_URL = "URL_Launch_Add_Subscriber",
+		FUNCTION_TYPE_LAUNCH_REFRESH = "URL_Launch_Refresh",
 		FUNCTION_TYPE_JOYSTICK = "Joystick_Button";
 
 	private ProcessType 
@@ -99,6 +99,10 @@ public class HttpRequestHandler implements HttpHandler
 			else if(h.get(REQUEST_TYPE_HEADER_KEY).contains(FUNCTION_TYPE_LAUNCH_URL))
 			{
 				hlur.processLaunch(responseXml, proc, aals);
+			}
+			else if(h.get(REQUEST_TYPE_HEADER_KEY).contains(FUNCTION_TYPE_LAUNCH_REFRESH))
+			{
+				hlur.processRefresh(responseXml, proc, aals);
 			}
 		}
 		

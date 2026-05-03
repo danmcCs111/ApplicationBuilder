@@ -32,6 +32,61 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 		virtualButton.addActionListener(new LaunchUrlActionListener());
 	}
 	
+	public void processRefresh(String responseXml, ProcessType proc, ArrayActionListener ...aals)
+	{
+		String [] args = responseXml.split(ARG_DELIMITER);
+		if(args.length <= 1)//do close
+		{
+			switch(proc)
+			{
+			case ProcessType.child:
+				for(ArrayActionListener aal : aals)
+				{
+					aal.urlSelect(null);
+				}
+				return;
+			}
+		}
+		String
+			sourceButton = args[0],
+			sourceButtonFull = args[1],
+			highlightButton = args[2],
+			highlightButtonFull = args[3],
+			url = args[4],
+			idStr = args[5],
+			portStr = args[6];
+
+		int 
+			id = Integer.parseInt(idStr),
+			port = Integer.parseInt(portStr);
+		
+		if(!portNumbers.contains(port))
+		{
+			portNumbers.add(port);
+			VideoSubSelectionLauncher.setPortNumber(port);
+		}
+		
+		//Referenced -> FileListOptionGenerator
+		virtualButton.setText(sourceButton);
+		virtualButton.setFullText(sourceButtonFull);
+		virtualButton.setName(url);
+		virtualButtonHighlight.setText(highlightButton);
+		virtualButtonHighlight.setFullText(highlightButtonFull);
+		
+		if(id == -1)
+		{
+			switch(proc)
+			{
+			case ProcessType.child:
+				for(ArrayActionListener aal : aals)
+				{
+					aal.urlSelect(virtualButton);
+				}
+				return;
+			}
+		}
+	}
+	
 	public void processLaunch(String responseXml, ProcessType proc, ArrayActionListener ...aals)
 	{
 		String [] args = responseXml.split(ARG_DELIMITER);
@@ -49,6 +104,7 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 				{
 					aal.urlSelect(null);
 				}
+				LaunchUrlActionListener.setLastButtonOrigin(null);
 				return;
 			}
 		}
@@ -92,6 +148,7 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 				{
 					aal.urlSelect(virtualButton);
 				}
+				LaunchUrlActionListener.setLastButtonOrigin(virtualButton);
 				return;
 			}
 		}

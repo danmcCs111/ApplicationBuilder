@@ -406,6 +406,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 				if(hrp != null)
 				{
 					hrp.setArrayActionListener(listView, 1);//TODO. 2nd index.
+					//update.
 				}
 				addListView();
 				setImageButton(null);
