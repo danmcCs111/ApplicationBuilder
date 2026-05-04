@@ -114,7 +114,6 @@ public class VideoChannelPlayer extends JFrame
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setVisible(true);
 		
-		
 		listView.postFrameBuild();
 	}
 	

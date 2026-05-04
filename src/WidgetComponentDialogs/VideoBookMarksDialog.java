@@ -288,7 +288,7 @@ public class VideoBookMarksDialog extends JDialog
 			}
 			else
 			{
-				GraphicsUtil.centerWindow(refContainer, this);
+				this.setLocation(refContainer.getLocation());
 			}
 		}
 	}
