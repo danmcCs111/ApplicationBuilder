@@ -14,6 +14,7 @@ import HttpDatabaseRequest.HttpRequestHandler;
 import HttpDatabaseRequest.HttpRequestProcessor;
 import WidgetComponentInterfaces.HighlightListener;
 import WidgetComponents.JButtonLengthLimited;
+import WidgetComponents.JMenuLaunchUrl;
 
 public class VideoSubSelectionLauncher implements ActionListener
 {
@@ -57,7 +58,7 @@ public class VideoSubSelectionLauncher implements ActionListener
 		String [] args = LaunchUrlActionListener.buildCommand(childButton, id);
 		LaunchUrlActionListener.executeProcess(id, args);
 		
-		VideoSubSelectionLauncher.launchRequest((JButtonLengthLimited) childComponent, id);
+		VideoSubSelectionLauncher.launchRequest(childButton, id);
 	}
 	
 	public void performLaunch(Component childComponent) //double loop b/c of order.
@@ -91,7 +92,7 @@ public class VideoSubSelectionLauncher implements ActionListener
 			hlListener.highlight();
 		}
 		
-		VideoSubSelectionLauncher.launchRequest((JButtonLengthLimited) childComponent, -1);
+		VideoSubSelectionLauncher.launchRequest(childComponent, -1);
 	}
 
 	@Override
@@ -100,28 +101,56 @@ public class VideoSubSelectionLauncher implements ActionListener
 		if(id == -1)
 		{
 			performLaunch(this.childComponent);
-			launchRequest((JButtonLengthLimited) this.childComponent, -1);
 		}
 		else
 		{
 			performLaunch(childComponent, id);
-			launchRequest((JButtonLengthLimited) this.childComponent, 1);
 		}
 	}
 	
-	public static void launchRequest(JButtonLengthLimited jbll, int id)
+	public static String getRequest(Component newButton, int id)
+	{
+		String req = "CloseEvent";
+		if(newButton instanceof JButtonLengthLimited)
+		{
+			JButtonLengthLimited jbll = (JButtonLengthLimited) newButton;
+			
+			if(jbll != null)
+			{
+				req = 
+					jbll.getText() + HttpLaunchUrlRequest.ARG_DELIMITER + 
+					jbll.getFullLengthText() + HttpLaunchUrlRequest.ARG_DELIMITER +
+					jbll.getHighlightButton().getText() + HttpLaunchUrlRequest.ARG_DELIMITER +
+					((JButtonLengthLimited) jbll.getHighlightButton()).getFullLengthText() + HttpLaunchUrlRequest.ARG_DELIMITER + 
+					jbll.getName() + HttpLaunchUrlRequest.ARG_DELIMITER +
+					id+"" + HttpLaunchUrlRequest.ARG_DELIMITER + 
+					HttpRequestProcessor.getPortNumber()+"";
+			}
+		}
+		else if(newButton instanceof JMenuLaunchUrl)
+		{
+			JMenuLaunchUrl jmlu = (JMenuLaunchUrl) newButton;
+			if(newButton != null)
+			{
+				req = 
+					jmlu.getText() + HttpLaunchUrlRequest.ARG_DELIMITER + 
+					jmlu.getText() + HttpLaunchUrlRequest.ARG_DELIMITER +
+					jmlu.getHighlightButton().getText() + HttpLaunchUrlRequest.ARG_DELIMITER +
+					((JButtonLengthLimited) jmlu.getHighlightButton()).getFullLengthText() + HttpLaunchUrlRequest.ARG_DELIMITER + 
+					jmlu.getName() + HttpLaunchUrlRequest.ARG_DELIMITER +
+					id+"" + HttpLaunchUrlRequest.ARG_DELIMITER + 
+					HttpRequestProcessor.getPortNumber()+"";
+			}
+		}
+		return req;
+	}
+	
+	public static void launchRequest(Component jbll, int id)
 	{
 		if(portNumber == -1)
 			return;
 		
-		String req = 
-				jbll.getText() + HttpLaunchUrlRequest.ARG_DELIMITER + 
-				jbll.getFullLengthText() + HttpLaunchUrlRequest.ARG_DELIMITER +
-				jbll.getHighlightButton().getText() + HttpLaunchUrlRequest.ARG_DELIMITER +
-				((JButtonLengthLimited) jbll.getHighlightButton()).getFullLengthText() + HttpLaunchUrlRequest.ARG_DELIMITER + 
-				jbll.getName() + HttpLaunchUrlRequest.ARG_DELIMITER +
-				id + HttpLaunchUrlRequest.ARG_DELIMITER +
-				HttpRequestProcessor.getPortNumber() + "";
+		String req = getRequest(jbll, id);
 		
 		HttpDatabaseRequest.executeGetRequest(
 				QueryUpdateTool.ENDPOINT,
@@ -131,7 +160,10 @@ public class VideoSubSelectionLauncher implements ActionListener
 				HttpRequestHandler.FUNCTION_TYPE_LAUNCH_URL
 		);
 		
-		LaunchUrlActionListener.setLastButtonOrigin(jbll);
+		if(id == -1)
+		{
+			LaunchUrlActionListener.setLastButtonOrigin((AbstractButton) jbll);
+		}
 	}
 	
 }

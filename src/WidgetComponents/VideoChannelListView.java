@@ -23,7 +23,6 @@ import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import javax.swing.SwingUtilities;
 import javax.swing.border.BevelBorder;
 
 import ActionListeners.ArrayActionListener;

@@ -91,19 +91,8 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 		}
 		
 		JButtonLengthLimited jbll = (JButtonLengthLimited) LaunchUrlActionListener.getLastButtonOrigin();
-		String req = "CloseEvent";
 		
-		if(jbll != null)
-		{
-			req = 
-				jbll.getText() + HttpLaunchUrlRequest.ARG_DELIMITER + 
-				jbll.getFullLengthText() + HttpLaunchUrlRequest.ARG_DELIMITER +
-				jbll.getHighlightButton().getText() + HttpLaunchUrlRequest.ARG_DELIMITER +
-				((JButtonLengthLimited) jbll.getHighlightButton()).getFullLengthText() + HttpLaunchUrlRequest.ARG_DELIMITER + 
-				jbll.getName() + HttpLaunchUrlRequest.ARG_DELIMITER +
-				-1+""+ HttpLaunchUrlRequest.ARG_DELIMITER + 
-				HttpRequestProcessor.getPortNumber()+"";
-		}
+		String req = VideoSubSelectionLauncher.getRequest(jbll, -1);
 		notifySubscribers(req, HttpRequestHandler.FUNCTION_TYPE_LAUNCH_REFRESH_RESPONSE);
 	}
 	
@@ -202,20 +191,7 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 	@Override
 	public void urlSelect(AbstractButton newButton) 
 	{
-		JButtonLengthLimited jbll = (JButtonLengthLimited) newButton;
-		String req = "CloseEvent";
-		
-		if(jbll != null)
-		{
-			req = 
-				jbll.getText() + HttpLaunchUrlRequest.ARG_DELIMITER + 
-				jbll.getFullLengthText() + HttpLaunchUrlRequest.ARG_DELIMITER +
-				jbll.getHighlightButton().getText() + HttpLaunchUrlRequest.ARG_DELIMITER +
-				((JButtonLengthLimited) jbll.getHighlightButton()).getFullLengthText() + HttpLaunchUrlRequest.ARG_DELIMITER + 
-				jbll.getName() + HttpLaunchUrlRequest.ARG_DELIMITER +
-				-1+"" + HttpLaunchUrlRequest.ARG_DELIMITER + 
-				HttpRequestProcessor.getPortNumber()+"";
-		}
+		String req = VideoSubSelectionLauncher.getRequest(newButton, -1);
 		notifySubscribers(req, HttpRequestHandler.FUNCTION_TYPE_LAUNCH_URL);
 	}
 
