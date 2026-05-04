@@ -79,20 +79,26 @@ public class LookupOrCreateYoutube
 		}
 		else
 		{
+			int parentId=-1;
+			String youtubeHandle="";//Insert handle alternate
 			for(DatabaseResponseNode drn : drns.get(1))
 			{
 				if(drn.getNodeName().equals("VideoId_Video_VideoDatabase"))
 				{
-					int parentId = Integer.parseInt(drn.getNodeAttributes().get("content"));
+					parentId = Integer.parseInt(drn.getNodeAttributes().get("content"));
 					LoggingMessages.printOut("parentID is: " + parentId);
 					LoggingMessages.printOut("channelLink is: " + videoChannelLink);
 					if(beginDate == null)
 					{
 						beginDate = getLastDate(parentId, videoChannelLink);
 					}
-					updateYoutubeChannel(parentId, videoChannelLink, (beginDate == null) ? -1 : beginDate.getTime());
+				}
+				if(drn.getNodeName().equals("Handle_Video_VideoDatabase"))
+				{
+					youtubeHandle = (drn.getNodeAttributes().get("content"));
 				}
 			}
+			updateYoutubeChannel(parentId, videoChannelLink, youtubeHandle, (beginDate == null) ? -1 : beginDate.getTime());
 		}
 	}
 	
@@ -382,17 +388,17 @@ public class LookupOrCreateYoutube
 		return youtubeHandle;
 	}
 	
-	private void updateYoutubeChannel(int parentId, String youtubeChannelLink, long lastDate)
+	private void updateYoutubeChannel(int parentId, String youtubeChannelLink, String youtubeHandle, long lastDate)
 	{
+		if(youtubeHandle == null || youtubeHandle.isEmpty())
+			youtubeHandle = getYoutubeHandle(youtubeChannelLink);
 		String
-			youtubeHandle = getYoutubeHandle(youtubeChannelLink),
 			youtubeHandleMinusAt = youtubeHandle.replace("@", ""),
 			saveLoc = SAVE_INSERT_PATH + youtubeHandleMinusAt,
 			key = PathUtility.readFileToString(new File(KEY_PATH)).replace("\n", "").replace(" ", ""),
 			saveFile = new FileSelection(SAVE_INSERT_PATH + youtubeHandleMinusAt).getFullPath() + ".sql";
 		
 		PathUtility.createDirectoryIfNotExist(saveLoc);
-		
 		
 		String [] args = new String [] {
 //				new FileSelection(APPLICATION_BUILDER_JAR_LOC).getFullPath(),
