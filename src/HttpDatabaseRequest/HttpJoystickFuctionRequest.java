@@ -45,7 +45,7 @@ public class HttpJoystickFuctionRequest
 		
 	}
 	
-	private static void selectCurrent()
+	public static void selectCurrent()
 	{
 		KeepSelection ks = kss.getSelectedKeep();
 		JButtonLengthLimited jbll = ks.getJButtonLengthLimited();

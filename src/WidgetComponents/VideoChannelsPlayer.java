@@ -392,14 +392,12 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 				switch(button)
 				{
 				case MouseEvent.BUTTON1:
-					jbllParent.doClick();
+					VideoSubSelectionLauncher.launchRequest((JButtonLengthLimited) jbllParent, -1);
+					urlSelect(jbllParent);//highlight manually
+					LaunchUrlActionListener.notifyActionListeners(jbllParent);
 					break;
 				case MouseEvent.BUTTON2:
-					for(MouseListener ml : jbllParent.getMouseListeners())
-					{
-						e.setSource(jbllParent);
-						ml.mouseClicked(e);
-					}
+					VideoSubSelectionLauncher.launchRequest((JButtonLengthLimited) jbllParent, 1);
 					break;
 				case MouseEvent.BUTTON3://ignore
 					break;

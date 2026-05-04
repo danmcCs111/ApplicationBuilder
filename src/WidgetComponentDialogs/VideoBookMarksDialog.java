@@ -122,6 +122,11 @@ public class VideoBookMarksDialog extends JDialog
 		TEXT_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, size);
 	}
 	
+	public boolean isAltFontSize()
+	{
+		return altFontSize;
+	}
+	
 	public void setAltFontSize()
 	{
 		fileList.setFont(TEXT_FONT);
