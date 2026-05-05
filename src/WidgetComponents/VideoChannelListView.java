@@ -28,6 +28,7 @@ import javax.swing.border.BevelBorder;
 import ActionListeners.ArrayActionListener;
 import ActionListenersImpl.LaunchUrlActionListener;
 import Graphics2D.ColorTemplate;
+import HttpDatabaseRequest.HttpRequestHandler.ProcessType;
 import MouseListenersImpl.VideoSubSelectionLauncher;
 import MouseListenersImpl.YoutubeChannelVideo;
 import Properties.LoggingMessages;
@@ -77,29 +78,32 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 	private HashMap<Integer, VideoSubSelectionLauncher> 
 		vssl = null;
 	
-	public VideoChannelListView(JButtonLengthLimited parentButton, ArrayList <YoutubeChannelVideo> ycv)
+	public VideoChannelListView(
+			JButtonLengthLimited parentButton, ArrayList <YoutubeChannelVideo> ycv, ProcessType procType)
 	{
-		this(parentButton, (Map<Integer, ArrayList<YoutubeChannelVideo>>) Collections.singletonMap(-1, ycv));
+		this(parentButton, (Map<Integer, ArrayList<YoutubeChannelVideo>>) Collections.singletonMap(-1, ycv), procType);
 	}
 	
-	public VideoChannelListView(JButtonLengthLimited parentButton, Map <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
+	public VideoChannelListView(
+			JButtonLengthLimited parentButton, Map <Integer, ArrayList <YoutubeChannelVideo>> ycvs,  ProcessType procType)
 	{
 		int key = ycvs.keySet().iterator().next();
 		this.parentButtons = new HashMap<Integer, JButtonLengthLimited>();
 		this.parentButtons.put(key, parentButton);
 		vssl = new HashMap<Integer, VideoSubSelectionLauncher>();
-		vssl.put(key, new VideoSubSelectionLauncher(parentButton));
+		vssl.put(key, new VideoSubSelectionLauncher(parentButton, procType));
 		buildWidgets(null, ycvs);
 	}
 	
-	public VideoChannelListView(HashMap<Integer, JButtonLengthLimited> parentButtons, 
-			Map <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
+	public VideoChannelListView(
+			HashMap<Integer, JButtonLengthLimited> parentButtons, 
+			Map <Integer, ArrayList <YoutubeChannelVideo>> ycvs, ProcessType procType)
 	{
 		this.parentButtons = parentButtons;
 		vssl = new HashMap<Integer, VideoSubSelectionLauncher>();
 		for(int key : ycvs.keySet())
 		{
-			vssl.put(key, new VideoSubSelectionLauncher(parentButtons.get(key)));
+			vssl.put(key, new VideoSubSelectionLauncher(parentButtons.get(key), procType));
 		}
 		buildWidgets(this.parentButtons, ycvs);
 	}

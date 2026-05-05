@@ -28,6 +28,7 @@ import javax.swing.JPopupMenu;
 import ActionListeners.ArrayActionListener;
 import ActionListenersImpl.LaunchUrlActionListener;
 import Graphics2D.ColorTemplate;
+import HttpDatabaseRequest.HttpRequestHandler.ProcessType;
 import MouseListenersImpl.VideoSubSelectionLauncher;
 import MouseListenersImpl.YoutubeChannelVideo;
 import Properties.LoggingMessages;
@@ -85,7 +86,7 @@ public class VideoChannelListViewJoy extends JPanel implements ArrayActionListen
 		this.parentButtons = new HashMap<Integer, JButtonLengthLimited>();
 		this.parentButtons.put(key, parentButton);
 		vssl = new HashMap<Integer, VideoSubSelectionLauncher>();
-		vssl.put(key, new VideoSubSelectionLauncher(parentButton));
+		vssl.put(key, new VideoSubSelectionLauncher(parentButton,  ProcessType.parent));
 		
 		videoButtonsFiltered = getFilteredJButtons(ycvs); 
 		listItems.setListData(videoButtonsFiltered.toArray(new JButtonLengthLimited[] {}));

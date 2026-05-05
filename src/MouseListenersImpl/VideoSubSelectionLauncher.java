@@ -11,6 +11,7 @@ import ApplicationBuilder.QueryUpdateTool;
 import HttpDatabaseRequest.HttpDatabaseRequest;
 import HttpDatabaseRequest.HttpLaunchUrlRequest;
 import HttpDatabaseRequest.HttpRequestHandler;
+import HttpDatabaseRequest.HttpRequestHandler.ProcessType;
 import HttpDatabaseRequest.HttpRequestProcessor;
 import WidgetComponentInterfaces.HighlightListener;
 import WidgetComponents.JButtonLengthLimited;
@@ -29,23 +30,27 @@ public class VideoSubSelectionLauncher implements ActionListener
 		hlListener;
 	private int
 		id = -1;
+	private ProcessType
+		procType;
 	
-	public VideoSubSelectionLauncher(AbstractButton component)
+	public VideoSubSelectionLauncher(AbstractButton component, ProcessType procType)
 	{
 		this.parentComponent = component;
+		this.procType = procType;
 	}
 	
-	public VideoSubSelectionLauncher(AbstractButton component, AbstractButton childButton, HighlightListener hlListener)
+	public VideoSubSelectionLauncher(AbstractButton component, AbstractButton childButton, HighlightListener hlListener, ProcessType procType)
 	{
-		this(component, childButton, hlListener, -1);
+		this(component, childButton, hlListener, procType, -1);
 	}
 	
-	public VideoSubSelectionLauncher(AbstractButton component, AbstractButton childButton, HighlightListener hlListener, int id)
+	public VideoSubSelectionLauncher(AbstractButton component, AbstractButton childButton, HighlightListener hlListener, ProcessType procType, int id)
 	{
 		this.parentComponent = component;
 		this.childComponent = childButton;
 		this.hlListener = hlListener;
 		this.id = id;
+		this.procType = procType;
 	}
 	
 	public static void setPortNumber(int portNumber)
@@ -55,8 +60,11 @@ public class VideoSubSelectionLauncher implements ActionListener
 	
 	public void performLaunch(Component childButton, int id)
 	{
-		String [] args = LaunchUrlActionListener.buildCommand(childButton, id);
-		LaunchUrlActionListener.executeProcess(id, args);
+		if(procType == ProcessType.parent) 
+		{
+			String [] args = LaunchUrlActionListener.buildCommand(childButton, id);
+			LaunchUrlActionListener.executeProcess(id, args);
+		}
 		
 		VideoSubSelectionLauncher.launchRequest(childButton, id);
 	}

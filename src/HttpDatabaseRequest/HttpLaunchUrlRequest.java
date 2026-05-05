@@ -1,7 +1,6 @@
 package HttpDatabaseRequest;
 
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.AbstractButton;
 
@@ -22,8 +21,8 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 	private static JButtonLengthLimited
 		virtualButton = new JButtonLengthLimited(),
 		virtualButtonHighlight = new JButtonLengthLimited();
-	private static ArrayList<Integer> 
-		portNumbers = new ArrayList<Integer>();
+	private static int
+		distributionPortNumber = -1;
 	
 	public HttpLaunchUrlRequest()
 	{
@@ -57,11 +56,7 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 			id = Integer.parseInt(idStr),
 			port = Integer.parseInt(portStr);
 		
-		if(!portNumbers.contains(port))
-		{
-			portNumbers.add(port);
-			VideoSubSelectionLauncher.setPortNumber(port);
-		}
+		setPortNumber(port);
 		
 		//Referenced -> FileListOptionGenerator
 		virtualButton.setText(sourceButton);
@@ -84,11 +79,7 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 	public void processLaunchRefresh(String responseXml)
 	{
 		int port = Integer.parseInt(responseXml);
-		if(!portNumbers.contains(port))
-		{
-			portNumbers.add(port);
-			VideoSubSelectionLauncher.setPortNumber(port);
-		}
+		setPortNumber(port);
 		
 		JButtonLengthLimited jbll = (JButtonLengthLimited) LaunchUrlActionListener.getLastButtonOrigin();
 		
@@ -131,11 +122,7 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 			id = Integer.parseInt(idStr),
 			port = Integer.parseInt(portStr);
 		
-		if(!portNumbers.contains(port))
-		{
-			portNumbers.add(port);
-			VideoSubSelectionLauncher.setPortNumber(port);
-		}
+		setPortNumber(port);
 		
 		//Referenced -> FileListOptionGenerator
 		virtualButton.setText(sourceButton);
@@ -170,16 +157,22 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 	
 	private static void notifySubscribers(String req, String reqType)
 	{
-		for(int port : portNumbers)
+		if(distributionPortNumber != -1)
 		{
 			HttpDatabaseRequest.executeGetRequest(
 				QueryUpdateTool.ENDPOINT,
-				port,
+				distributionPortNumber,
 				req,
 				HttpRequestHandler.REQUEST_TYPE_HEADER_KEY,
 				reqType
 			);
 		}
+	}
+	
+	private void setPortNumber(int port)
+	{
+		distributionPortNumber = port;
+		VideoSubSelectionLauncher.setPortNumber(port);
 	}
 
 	@Override

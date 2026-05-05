@@ -23,6 +23,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
 import Graphics2D.ColorTemplate;
+import HttpDatabaseRequest.HttpRequestHandler.ProcessType;
 import Properties.LoggingMessages;
 import WidgetComponentInterfaces.HighlightListener;
 import WidgetComponents.JButtonLengthLimited;
@@ -188,11 +189,11 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		JMenuItemLaunchUrl jmi = new JMenuItemLaunchUrl(OPEN_MENU_TEXT);
 		jmi.setHighlightButton(parentButton);
 		jmi.setName(ycv.getUrl());
-		jmi.addActionListener(new VideoSubSelectionLauncher(parentButton, jm, this));
+		jmi.addActionListener(new VideoSubSelectionLauncher(parentButton, jm, this, ProcessType.parent));
 		
 		JMenuItemLaunchUrl jmi2 = new JMenuItemLaunchUrl(OPEN_MENU_TEXT + " NEW");
 		jmi2.setName(ycv.getUrl());
-		jmi2.addActionListener(new VideoSubSelectionLauncher(parentButton, jm, this, 1));
+		jmi2.addActionListener(new VideoSubSelectionLauncher(parentButton, jm, this, ProcessType.parent, 1));
 		
 		jm.add(jmi);
 		jm.add(jmi2);

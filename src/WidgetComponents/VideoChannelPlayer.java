@@ -25,6 +25,7 @@ import javax.swing.border.EmptyBorder;
 
 import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
+import HttpDatabaseRequest.HttpRequestHandler.ProcessType;
 import MouseListenersImpl.FrameMouseDragListener;
 import MouseListenersImpl.YoutubeChannelVideo;
 import MouseListenersImpl.YoutubeVideosContainer;
@@ -194,7 +195,7 @@ public class VideoChannelPlayer extends JFrame
 	
 	public void buildCenterPanel(HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
 	{
-		listView = new VideoChannelListView(parentButton, ycvs);
+		listView = new VideoChannelListView(parentButton, ycvs, ProcessType.parent);
 		scrollPane = new JScrollPane(listView);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(SCROLL_UNIT_INC);
 	}

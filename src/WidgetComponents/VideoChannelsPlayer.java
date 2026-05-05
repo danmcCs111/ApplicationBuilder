@@ -424,7 +424,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 				
 				removeListView();
 				listView.removeAll();
-				listView = new VideoChannelListView(parentButtons, ycvs);
+				listView = new VideoChannelListView(parentButtons, ycvs, ProcessType.child);
 				if(hrp != null)
 				{
 					hrp.setArrayActionListener(listView, 1);//TODO. 2nd index.
@@ -534,7 +534,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	{
 		ArrayList<YoutubeChannelVideo> ycv = parentButtonAndYoutubeVideos.get(buttonParent);
 		removeListView();
-		listView = new VideoChannelListView(buttonParent, ycv);
+		listView = new VideoChannelListView(buttonParent, ycv, ProcessType.child);
 		if(hrp != null)
 		{
 			hrp.setArrayActionListener(listView, 1);//TODO. 2nd index.
@@ -551,7 +551,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		int key = ycvs.keySet().iterator().next();
 		parentButtonAndYoutubeVideos.put(selectedButtonParent, ycvs.get(key));
 		removeListView();
-		listView = new VideoChannelListView(selectedButton, ycvs);
+		listView = new VideoChannelListView(selectedButton, ycvs, ProcessType.child);
 		if(hrp != null)
 		{
 			hrp.setArrayActionListener(listView, 1);//TODO. 2nd index.
