@@ -44,33 +44,34 @@ Launch video selector with:
 
 if it isn't copying, highlight the url in browser and hit enter again. the actual url may be different.
 
+
+
+**Progress Log:**
+
 (using in a dual monitor setup.)
 
-<img width="45%" src="https://github.com/user-attachments/assets/a5dc474a-e387-48ec-9ecb-7680b0b8e732" />
+<img width="25%" src="https://github.com/user-attachments/assets/a5dc474a-e387-48ec-9ecb-7680b0b8e732" />
 
 (with pc remote)
 
-<img width="45%" width="1536" height="1536" alt="IMG20260416211346" src="https://github.com/user-attachments/assets/9acd6b01-7455-4d36-ab0d-f4196fe56bfb" />
+<img width="25%" width="1536" height="1536" alt="IMG20260416211346" src="https://github.com/user-attachments/assets/9acd6b01-7455-4d36-ab0d-f4196fe56bfb" />
 
 (with gamecontroller: seperate input processing & windows)
 
-<img width="45%" width="1013" height="1013" alt="IMG20260425145002" src="https://github.com/user-attachments/assets/77f100e9-4db0-48f1-bb3c-5119b3c18bd9" />
+<img width="25%" width="1013" height="1013" alt="IMG20260425145002" src="https://github.com/user-attachments/assets/77f100e9-4db0-48f1-bb3c-5119b3c18bd9" />
 
 
-*updated listview to include homepage button, update button & duration. added duration limit filter
+*added Video Channels Player as a seperate process connecting to the main window. updated main window layout
 
-<img width="45%" width="757" height="410" alt="image" src="https://github.com/user-attachments/assets/eac0375f-5865-4f6e-bcd1-b43967a34df8" />
+<img width="25%" width="1445" height="1389" alt="image" src="https://github.com/user-attachments/assets/eeebeb7c-bf84-431d-96e5-0717a8fe6889" />
 
-*added all open videos list view
-
-<img width ="45%" width="772" height="174" alt="image" src="https://github.com/user-attachments/assets/14720a19-9e19-4fe4-bdf9-1a8b43859136" />
 
 
 *added powerdvd, spotify, hauppauge wintv remotes
 
-<img width="30%" width="279" height="154" alt="image" src="https://github.com/user-attachments/assets/3cac88c4-18dc-4824-9448-c711a9eb8c71" />
-<img width="30%" width="281" height="156" alt="image" src="https://github.com/user-attachments/assets/1927d2cb-4287-4eeb-ab48-dbd1c226540b" />
-<img width="30%" width="279" height="153" alt="image" src="https://github.com/user-attachments/assets/4d2270d5-7c39-45c2-b04b-e6c8c0ccb2d1" />
+<img width="15%" width="279" height="154" alt="image" src="https://github.com/user-attachments/assets/3cac88c4-18dc-4824-9448-c711a9eb8c71" />
+<img width="15%" width="281" height="156" alt="image" src="https://github.com/user-attachments/assets/1927d2cb-4287-4eeb-ab48-dbd1c226540b" />
+<img width="15%" width="279" height="153" alt="image" src="https://github.com/user-attachments/assets/4d2270d5-7c39-45c2-b04b-e6c8c0ccb2d1" />
 
 
 
@@ -79,7 +80,6 @@ if it isn't copying, highlight the url in browser and hit enter again. the actua
 *added refresh
 
 *added search bar to video list view
-
 
 *added backfill update dialog
 
