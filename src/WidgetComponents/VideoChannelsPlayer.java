@@ -83,6 +83,8 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		COUNT_BORDER = new EmptyBorder(5, 0, 5, 15);//EmptyBorder(top, left, bottom, right)
 	private static FileSelection
 		defaultFileImage = new FileSelection("./Properties/shapes/Default-Play-Image.xml");
+	private static DirectorySelection
+		videoBookmarksDirectory = new DirectorySelection("./Properties/VideoLaunchBookmarks/");
 	
 	private JButton 
 		updateButton = new JButton(UPDATE_BUTTON_TEXT),
@@ -130,6 +132,11 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	public VideoChannelsPlayer()
 	{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
+	public static void setDirectorySelection(DirectorySelection ds)
+	{
+		videoBookmarksDirectory = ds;
 	}
 	
 	public static void setLaunchLocation(Point p)
@@ -721,7 +728,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 			}
 		};
 		
-		VideoBookMarksDialog vbmd = new VideoBookMarksDialog(new DirectorySelection("./Properties/VideoLaunchBookmarks/"), osks, null, false);
+		VideoBookMarksDialog vbmd = new VideoBookMarksDialog(videoBookmarksDirectory, osks, null, false);
 		vbmd.setLocation(LAUNCH_LOCATION);
 		vbmd.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}

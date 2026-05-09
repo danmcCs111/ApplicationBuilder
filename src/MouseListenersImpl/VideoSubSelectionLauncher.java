@@ -16,7 +16,6 @@ import HttpDatabaseRequest.HttpRequestProcessor;
 import WidgetComponentInterfaces.HighlightListener;
 import WidgetComponents.JButtonLengthLimited;
 import WidgetComponents.JMenuItemLaunchUrl;
-import WidgetComponents.JMenuLaunchUrl;
 
 public class VideoSubSelectionLauncher implements ActionListener
 {
