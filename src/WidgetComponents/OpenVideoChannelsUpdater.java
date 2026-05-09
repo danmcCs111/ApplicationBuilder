@@ -161,7 +161,7 @@ public class OpenVideoChannelsUpdater extends JFrame
 			dateLatestText = latestDate == null ? "" : SDF_DATE_LABEL.format(latestDate),
 			dateFirstText = firstDate == null ? "" : SDF_DATE_LABEL.format(firstDate);
 				
-		cb.setText(text + " " + dateLatestText + " - " + dateFirstText);
+		cb.setText(dateLatestText + " - " + dateFirstText + " [ " + text + " ] ");
 		cb.setName(text + NAME_DELIMITER + name);
 		
 		checkBoxLatestDate.put(cb, latestDate);
