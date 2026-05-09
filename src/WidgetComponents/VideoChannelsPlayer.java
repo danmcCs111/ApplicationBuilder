@@ -129,7 +129,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	
 	public VideoChannelsPlayer()
 	{
-		
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 	public static void setLaunchLocation(Point p)
@@ -235,7 +235,6 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 				ColorTemplate.getPanelBackgroundColor(), ColorTemplate.getButtonBackgroundColor(), channelScroll);
 		
 		this.setMinimumSize(MIN_SIZE);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setIconImage(JButtonArray.getMoviesIcon());
 		RegisterArrayActionListener.addListener(this);
 		
@@ -724,6 +723,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		
 		VideoBookMarksDialog vbmd = new VideoBookMarksDialog(new DirectorySelection("./Properties/VideoLaunchBookmarks/"), osks, null, false);
 		vbmd.setLocation(LAUNCH_LOCATION);
+		vbmd.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 	private void provision(int rootPort, int listenPort)
