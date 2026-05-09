@@ -51,7 +51,7 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 	private static final int
 		VIDEO_TITLE_CHARACTER_LIMIT = 100;
 	
-	private HashMap<Integer, JButtonLengthLimited> 
+	private Map<Integer, JButtonLengthLimited> 
 		parentButtons;
 	private static Color [] 
 		foregroundAndBackgroundColor = new Color [] {
@@ -96,7 +96,7 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 	}
 	
 	public VideoChannelListView(
-			HashMap<Integer, JButtonLengthLimited> parentButtons, 
+			Map<Integer, JButtonLengthLimited> parentButtons, 
 			Map <Integer, ArrayList <YoutubeChannelVideo>> ycvs, ProcessType procType)
 	{
 		this.parentButtons = parentButtons;
@@ -227,6 +227,11 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 		this.setLayout(new BorderLayout());
 		this.add(listPanel, BorderLayout.NORTH);
 		RegisterArrayActionListener.addListener(this);
+	}
+	
+	public int getVisibleCount()
+	{
+		return videoListPanel.getComponentCount();
 	}
 	
 	public void setVisible(String searchText)

@@ -46,6 +46,7 @@ public class VideoChannelPlayer extends JFrame
 	private static Dimension 
 		MIN_SIZE = new Dimension(800, 425);
 	private static int 
+		TOTAL_COUNT = 0,
 		DEFAULT_MINUTE_SETTING = 10,
 		SEARCH_COLUMN_LENGTH = 15,
 		SCROLL_UNIT_INC = 25;
@@ -58,6 +59,8 @@ public class VideoChannelPlayer extends JFrame
 		listView; 
 	private JScrollPane 
 		scrollPane;
+	private JLabel
+		countLabel;
 	private ImageIcon 
 		videoImage;
 	private YoutubeVideosContainer 
@@ -171,6 +174,7 @@ public class VideoChannelPlayer extends JFrame
 			@Override
 			public void notifySearchText(String searchPattern) {
 				listView.setVisible(searchPattern);
+				updateCount();
 				VideoChannelPlayer.this.validate();
 			}
 		});
@@ -179,6 +183,7 @@ public class VideoChannelPlayer extends JFrame
 			@Override
 			public void notifyDurationLimit(int hour, int minute, Mode m) {
 				listView.setVisible(hour, minute, m);
+				updateCount();
 				VideoChannelPlayer.this.validate();
 			}
 		};
@@ -204,18 +209,22 @@ public class VideoChannelPlayer extends JFrame
 	{
 		JPanel 
 			southPane = new JPanel();
-		JLabel 
-			countLabel = new JLabel();
-		int 
-			count = FrameMouseDragListener.getLookupOrCreate().lookupCount(parentButton.getText(), parentButton.getName());
+		
+		countLabel = new JLabel();
+		TOTAL_COUNT = FrameMouseDragListener.getLookupOrCreate().lookupCount(parentButton.getText(), parentButton.getName());
 		
 		southPane.setLayout(new BorderLayout());
 		
-		countLabel.setText(COUNT_PREFIX + count);
+		updateCount();
 		countLabel.setBorder(COUNT_BORDER);
 		southPane.add(countLabel, BorderLayout.EAST);
 		
 		return southPane;
+	}
+	
+	private void updateCount()
+	{
+		countLabel.setText(COUNT_PREFIX + listView.getVisibleCount()  + "/" + TOTAL_COUNT);
 	}
 	
 }

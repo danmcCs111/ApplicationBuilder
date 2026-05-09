@@ -12,16 +12,21 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -73,6 +78,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		UPDATE_BUTTON_TEXT = "Update",
 		ALL_SELECT_TEXT = "All Channels";
 	private static int 
+		TOTAL_COUNT = 0,
 		PORT_NUMBER_MASK = 5,
 		CHARACTER_LIMIT = 35,
 		SCALED_WIDTH = 50,
@@ -294,6 +300,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 			@Override
 			public void notifySearchText(String searchPattern) {
 				listView.setVisible(searchPattern);
+				updateCount();
 				VideoChannelsPlayer.this.validate();
 			}
 		});
@@ -301,6 +308,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 			@Override
 			public void notifyDurationLimit(int hour, int minute, Mode m) {
 				listView.setVisible(hour, minute, m);
+				updateCount();
 				VideoChannelsPlayer.this.validate();
 			}
 		};
@@ -357,9 +365,16 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		return southPane;
 	}
 	
-	public void refreshSouthPanel(int count)
+	private void updateCount()
 	{
-		countLabel.setText(COUNT_PREFIX + count);
+		if(listView != null)
+		{
+			countLabel.setText(COUNT_PREFIX + listView.getVisibleCount()  + "/" + TOTAL_COUNT);
+		}
+		else
+		{
+			countLabel.setText("");
+		}
 	}
 	
 	public void removeListView()
@@ -429,19 +444,16 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 					count += FrameMouseDragListener.getLookupOrCreate().lookupCount(
 							jbll.getText(), jbll.getName());
 				}
-				refreshSouthPanel(count);
+				TOTAL_COUNT = count;
 				
-				removeListView();
+				selectedButton = null;
 				listView.removeAll();
-				listView = new VideoChannelListView(parentButtons, ycvs, ProcessType.child);
-				if(hrp != null)
-				{
-					hrp.setArrayActionListener(listView, 1);//TODO. 2nd index.
-					//update.
-				}
+				createListViewAll(parentButtons, ycvs);
 				addListView();
 				setImageButton(null);
 				refreshListView(btn);
+				
+				updateCount();
 			}
 		});
 		
@@ -461,7 +473,8 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 				
 				if(!jbll.equals(selectedButton))//changed. update count.
 				{
-					refreshSouthPanel(count);
+					TOTAL_COUNT = count;
+					updateCount();
 				}
 				selectedButton = jbll;
 				selectedButtonParent = parentButton;
@@ -499,6 +512,31 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 			listView.postFrameBuild();
 		}
 		VideoChannelsPlayer.this.validate();
+	}
+	
+	private void createListViewAll(Map<Integer, JButtonLengthLimited> buttonParents, 
+			Map <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
+	{
+		removeListView();
+		listView = new VideoChannelListView(buttonParents, ycvs, ProcessType.child);
+		if(hrp != null)
+		{
+			hrp.setArrayActionListener(listView, 1);//TODO. 2nd index.
+		}
+		addListView();
+		updateCount();
+	}
+	
+	private void createListView(JButtonLengthLimited buttonParent, ArrayList <YoutubeChannelVideo> ycv)
+	{
+		removeListView();
+		listView = new VideoChannelListView(buttonParent, ycv, ProcessType.child);
+		if(hrp != null)
+		{
+			hrp.setArrayActionListener(listView, 1);//TODO. 2nd index.
+		}
+		addListView();
+		updateCount();
 	}
 	
 	private ActionListener getUpdateChannelActionListener() 
@@ -542,13 +580,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	private void refreshSelection(JButtonLengthLimited buttonParent, JButtonLengthLimited selectedButton)
 	{
 		ArrayList<YoutubeChannelVideo> ycv = parentButtonAndYoutubeVideos.get(buttonParent);
-		removeListView();
-		listView = new VideoChannelListView(buttonParent, ycv, ProcessType.child);
-		if(hrp != null)
-		{
-			hrp.setArrayActionListener(listView, 1);//TODO. 2nd index.
-		}
-		addListView();
+		createListView(buttonParent, ycv);
 		refreshListView(selectedButton);
 		setImageButton(buttonParent);
 	}
@@ -559,13 +591,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 				selectedButtonParent.getText(), selectedButtonParent.getName());
 		int key = ycvs.keySet().iterator().next();
 		parentButtonAndYoutubeVideos.put(selectedButtonParent, ycvs.get(key));
-		removeListView();
-		listView = new VideoChannelListView(selectedButton, ycvs, ProcessType.child);
-		if(hrp != null)
-		{
-			hrp.setArrayActionListener(listView, 1);//TODO. 2nd index.
-		}
-		addListView();
+		createListView(selectedButton, ycvs.get(key));
 		setImageButton(selectedButtonParent);//TODO
 		refreshListView(selectedButton);
 	}
@@ -730,7 +756,12 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		
 		VideoBookMarksDialog vbmd = new VideoBookMarksDialog(videoBookmarksDirectory, osks, null, false);
 		vbmd.setLocation(LAUNCH_LOCATION);
-		vbmd.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		vbmd.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent e) {
+				VideoChannelsPlayer.this.dispose();
+			}
+		});
 	}
 	
 	private void provision(int rootPort, int listenPort)
