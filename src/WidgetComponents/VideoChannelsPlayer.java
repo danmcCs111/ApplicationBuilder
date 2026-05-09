@@ -163,6 +163,8 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	
 	public void buildLoadingFrame(LinkedHashMap<JButtonLengthLimited, ImageIcon> buttonAndIcon) 
 	{
+		setupListener();
+		
 		JFrame loadingFrame = new JFrame();
 		loadingFrame.setResizable(false);
 		loadingFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -238,6 +240,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		RegisterArrayActionListener.addListener(this);
 		
 		urlSelect(LaunchUrlActionListener.getLastButtonOrigin());
+		refreshListView(highlightButton);
 		
 		if(parentContainer != null)
 		{
@@ -686,7 +689,6 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	
 	public void open()
 	{
-		setupListener();
 		OpenAndSaveKeepsSubscriber osks = new OpenAndSaveKeepsSubscriber() 
 		{
 			LinkedHashMap<JButtonLengthLimited, ImageIcon> jbllAndIcon = new LinkedHashMap<JButtonLengthLimited, ImageIcon>();

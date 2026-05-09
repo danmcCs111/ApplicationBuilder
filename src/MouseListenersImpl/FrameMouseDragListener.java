@@ -188,12 +188,13 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		
 		JMenuItemLaunchUrl jmi = new JMenuItemLaunchUrl(OPEN_MENU_TEXT);
 		jmi.setHighlightButton(parentButton);
+		jmi.setReqText(jm.getText());
 		jmi.setName(ycv.getUrl());
-		jmi.addActionListener(new VideoSubSelectionLauncher(parentButton, jm, this, ProcessType.parent));
+		jmi.addActionListener(new VideoSubSelectionLauncher(parentButton, this, ProcessType.parent));
 		
 		JMenuItemLaunchUrl jmi2 = new JMenuItemLaunchUrl(OPEN_MENU_TEXT + " NEW");
 		jmi2.setName(ycv.getUrl());
-		jmi2.addActionListener(new VideoSubSelectionLauncher(parentButton, jm, this, ProcessType.parent, 1));
+		jmi2.addActionListener(new VideoSubSelectionLauncher(parentButton, this, ProcessType.parent, 1));
 		
 		jm.add(jmi);
 		jm.add(jmi2);

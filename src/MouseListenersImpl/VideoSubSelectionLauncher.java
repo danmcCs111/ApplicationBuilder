@@ -15,6 +15,7 @@ import HttpDatabaseRequest.HttpRequestHandler.ProcessType;
 import HttpDatabaseRequest.HttpRequestProcessor;
 import WidgetComponentInterfaces.HighlightListener;
 import WidgetComponents.JButtonLengthLimited;
+import WidgetComponents.JMenuItemLaunchUrl;
 import WidgetComponents.JMenuLaunchUrl;
 
 public class VideoSubSelectionLauncher implements ActionListener
@@ -24,8 +25,6 @@ public class VideoSubSelectionLauncher implements ActionListener
 	
 	private AbstractButton 
 		parentComponent;
-	private Component
-		childComponent;
 	private HighlightListener 
 		hlListener;
 	private int
@@ -39,15 +38,14 @@ public class VideoSubSelectionLauncher implements ActionListener
 		this.procType = procType;
 	}
 	
-	public VideoSubSelectionLauncher(AbstractButton component, AbstractButton childButton, HighlightListener hlListener, ProcessType procType)
+	public VideoSubSelectionLauncher(AbstractButton component, HighlightListener hlListener, ProcessType procType)
 	{
-		this(component, childButton, hlListener, procType, -1);
+		this(component, hlListener, procType, -1);
 	}
 	
-	public VideoSubSelectionLauncher(AbstractButton component, AbstractButton childButton, HighlightListener hlListener, ProcessType procType, int id)
+	public VideoSubSelectionLauncher(AbstractButton component, HighlightListener hlListener, ProcessType procType, int id)
 	{
 		this.parentComponent = component;
-		this.childComponent = childButton;
 		this.hlListener = hlListener;
 		this.id = id;
 		this.procType = procType;
@@ -108,11 +106,11 @@ public class VideoSubSelectionLauncher implements ActionListener
 	{
 		if(id == -1)
 		{
-			performLaunch(this.childComponent);
+			performLaunch((Component) e.getSource());
 		}
 		else
 		{
-			performLaunch(childComponent, id);
+			performLaunch((Component) e.getSource(), id);
 		}
 	}
 	
@@ -135,14 +133,14 @@ public class VideoSubSelectionLauncher implements ActionListener
 					HttpRequestProcessor.getPortNumber()+"";
 			}
 		}
-		else if(newButton instanceof JMenuLaunchUrl)
+		else if(newButton instanceof JMenuItemLaunchUrl)
 		{
-			JMenuLaunchUrl jmlu = (JMenuLaunchUrl) newButton;
+			JMenuItemLaunchUrl jmlu = (JMenuItemLaunchUrl) newButton;
 			if(newButton != null)
 			{
 				req = 
-					jmlu.getText() + HttpLaunchUrlRequest.ARG_DELIMITER + 
-					jmlu.getText() + HttpLaunchUrlRequest.ARG_DELIMITER +
+					jmlu.getReqText() + HttpLaunchUrlRequest.ARG_DELIMITER + 
+					jmlu.getReqText() + HttpLaunchUrlRequest.ARG_DELIMITER +
 					jmlu.getHighlightButton().getText() + HttpLaunchUrlRequest.ARG_DELIMITER +
 					((JButtonLengthLimited) jmlu.getHighlightButton()).getFullLengthText() + HttpLaunchUrlRequest.ARG_DELIMITER + 
 					jmlu.getName() + HttpLaunchUrlRequest.ARG_DELIMITER +
