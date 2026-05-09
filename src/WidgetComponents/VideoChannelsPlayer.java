@@ -14,7 +14,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,7 +25,6 @@ import java.util.Map;
 import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -445,8 +443,6 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 							jbll.getText(), jbll.getName());
 				}
 				TOTAL_COUNT = count;
-				
-				selectedButton = null;
 				listView.removeAll();
 				createListViewAll(parentButtons, ycvs);
 				addListView();
@@ -470,12 +466,9 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int count = lcv.lookupCount(parentButton.getText(), parentButton.getName());
+				TOTAL_COUNT = count;
+				updateCount();
 				
-				if(!jbll.equals(selectedButton))//changed. update count.
-				{
-					TOTAL_COUNT = count;
-					updateCount();
-				}
 				selectedButton = jbll;
 				selectedButtonParent = parentButton;
 				
@@ -514,7 +507,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		VideoChannelsPlayer.this.validate();
 	}
 	
-	private void createListViewAll(Map<Integer, JButtonLengthLimited> buttonParents, 
+	private void createListViewAll(HashMap<Integer, JButtonLengthLimited> buttonParents, 
 			Map <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
 	{
 		removeListView();
@@ -743,6 +736,8 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 					String path = props.get(s);
 					JButtonLengthLimited jbll = (JButtonLengthLimited) FileListOptionGenerator.buildComponent(
 							path, s.split("@")[0]+".url", JButtonLengthLimited.class);
+					if(jbll == null)
+						continue;
 					
 					FileSelection fs = new FileSelection(path + "/images/" + s.split("@")[0] + ".png");
 					jbll.setCharacterLimit(CHARACTER_LIMIT);

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 
+import Properties.LoggingMessages;
 import Properties.PathUtility;
 import Properties.UrlToValueReader;
 import WidgetComponents.JButtonLengthLimited;
@@ -54,27 +55,32 @@ public class FileListOptionGenerator
 	public static JComponent buildComponent(String path, String fileName, String url, Class<?> componentType)
 	{
 		JComponent comp = null;
-		if(componentType.equals(JButtonLengthLimited.class))
-		{
-			JButtonLengthLimited button = new JButtonLengthLimited();
-			button.setPath(path);
-			button.setText(fileName);
-			button.setFullText(PathUtility.getFilenameNoExtension(fileName));
-			button.setName(url == null
-					?UrlToValueReader.parse(fileName, path)
-							:url);
-			comp = button;
-		}
-		else if(componentType.equals(JToggleButtonLengthLimited.class))
-		{
-			JToggleButtonLengthLimited button = new JToggleButtonLengthLimited();
-			button.setPath(path);
-			button.setText(fileName);
-			button.setFullText(PathUtility.getFilenameNoExtension(fileName));
-			button.setName(url == null
-					?UrlToValueReader.parse(fileName, path)
-							:url);
-			comp = button;
+		try {
+			if(componentType.equals(JButtonLengthLimited.class))
+			{
+				JButtonLengthLimited button = new JButtonLengthLimited();
+				button.setPath(path);
+				button.setText(fileName);
+				button.setFullText(PathUtility.getFilenameNoExtension(fileName));
+				button.setName(url == null
+						?UrlToValueReader.parse(fileName, path)
+								:url);
+				comp = button;
+			}
+			else if(componentType.equals(JToggleButtonLengthLimited.class))
+			{
+				JToggleButtonLengthLimited button = new JToggleButtonLengthLimited();
+				button.setPath(path);
+				button.setText(fileName);
+				button.setFullText(PathUtility.getFilenameNoExtension(fileName));
+				button.setName(url == null
+						?UrlToValueReader.parse(fileName, path)
+								:url);
+				comp = button;
+			}
+		} catch(NullPointerException npe) {
+			LoggingMessages.printOut("file not found: " + fileName);
+			LoggingMessages.printOut(npe.getMessage());
 		}
 		return comp;
 	}
