@@ -38,7 +38,7 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 		{
 			switch(proc)
 			{
-			case ProcessType.child:
+			case child:
 				LaunchUrlActionListener.setLastButtonOrigin(null);
 				return;
 			}
@@ -69,7 +69,7 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 		{
 			switch(proc)
 			{
-			case ProcessType.child:
+			case child:
 				LaunchUrlActionListener.setLastButtonOrigin(virtualButton);
 				return;
 			}
@@ -94,12 +94,12 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 		{
 			switch(proc)
 			{
-			case ProcessType.parent:
+			case parent:
 				virtualButton.setName(LaunchUrlActionListener.CLOSE_LAUNCH_ACTION_EVENT);
 				virtualButton.doClick();
 				PicLabelMouseListener.highLightLabel(virtualButtonHighlight, false);
 				return;
-			case ProcessType.child:
+			case child:
 				for(ArrayActionListener aal : aals)
 				{
 					aal.urlSelect(null);
@@ -135,11 +135,11 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 		{
 			switch(proc)
 			{
-			case ProcessType.parent:
+			case parent:
 				virtualButton.doClick();
 				PicLabelMouseListener.highLightLabel(virtualButtonHighlight, true);
 				return;
-			case ProcessType.child:
+			case child:
 				for(ArrayActionListener aal : aals)
 				{
 					aal.urlSelect(virtualButton);

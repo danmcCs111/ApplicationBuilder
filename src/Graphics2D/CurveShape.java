@@ -3,6 +3,7 @@ package Graphics2D;
 import java.awt.Point;
 import java.awt.geom.CubicCurve2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 
 public class CurveShape extends CubicCurve2D
 {
@@ -15,6 +16,12 @@ public class CurveShape extends CubicCurve2D
 		x2,y2,
 		cx1,cy1,
 		cx2,cy2;
+	
+	@Override
+	public Rectangle2D getBounds2D()
+	{
+		return null;//TODO.
+	}
 	
 	@Override
 	public double getX1() 
