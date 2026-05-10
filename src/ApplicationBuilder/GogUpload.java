@@ -13,7 +13,6 @@ import Properties.StringUtility;
 public class GogUpload 
 {
 	private static final String 
-		primaryKey = "title",
 		gameMatch = "\\([^\\)]*\\)",
 		valueAndTagMatch = "[^\\|\\(]*\\|[^\\|]*\\|",
 		tagMatch = "\\|[^\\|]*\\|",

@@ -54,8 +54,6 @@ public class OpenVideoChannelsUpdater extends JFrame
 		jblls;
 	private HashMap<JCheckBox, Date> 
 		checkBoxLatestDate;
-	private LookupOrCreateYoutube
-		lcv = new LookupOrCreateYoutube();
 	private EditChannelsHandle 
 		ech;
 	
@@ -169,8 +167,8 @@ public class OpenVideoChannelsUpdater extends JFrame
 	private JCheckBox updateCheckBox(String text, String name, JCheckBox cb)
 	{
 		HashMap<Integer, Date> 
-			parentIdAndLatestDate = lcv.lookupLatestDate(text, name),
-			parentIdAndFirstDate = lcv.lookupFirstDate(text, name);
+			parentIdAndLatestDate = LookupOrCreateYoutube.lookupLatestDate(text, name),
+			parentIdAndFirstDate = LookupOrCreateYoutube.lookupFirstDate(text, name);
 		Date 
 			latestDate = null,
 			firstDate = null;
@@ -221,7 +219,7 @@ public class OpenVideoChannelsUpdater extends JFrame
 			{
 				String [] args = cbL.getName().split(NAME_DELIMITER);
 				LoggingMessages.printOut("args: " + args[0] + args[1]);
-				lcv.update(args[0], args[1], checkBoxLatestDate.get(cbL));
+				LookupOrCreateYoutube.update(args[0], args[1], checkBoxLatestDate.get(cbL));
 				cbL = updateCheckBox(args[0], args[1], cbL);
 				cbL.setSelected(false);
 			}

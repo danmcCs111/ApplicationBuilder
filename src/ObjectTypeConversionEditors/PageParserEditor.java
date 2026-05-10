@@ -15,10 +15,7 @@ public class PageParserEditor extends JButton implements ParameterEditor
 {
 	private static final long serialVersionUID = 1L;
 	
-	private static final int 
-		CHARACTER_LIMIT = 100;
 	private static final String 
-		LIMIT_POSTFIX = "..",
 		DEFAULT_EDITOR_TEXT = "<Enter Page Filter>";
 	
 	private String commandText = DEFAULT_EDITOR_TEXT;

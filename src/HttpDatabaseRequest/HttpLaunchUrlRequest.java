@@ -16,8 +16,6 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 {
 	public static String
 		ARG_DELIMITER = "-@-";
-	private static HttpLaunchUrlRequest 
-		self;
 	private static JButtonLengthLimited
 		virtualButton = new JButtonLengthLimited(),
 		virtualButtonHighlight = new JButtonLengthLimited();
@@ -41,6 +39,8 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 			case child:
 				LaunchUrlActionListener.setLastButtonOrigin(null);
 				return;
+			default://nop
+				break;
 			}
 		}
 		String
@@ -72,6 +72,8 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 			case child:
 				LaunchUrlActionListener.setLastButtonOrigin(virtualButton);
 				return;
+			default://nop
+				break;
 			}
 		}
 	}

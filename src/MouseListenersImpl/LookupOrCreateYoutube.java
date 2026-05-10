@@ -59,12 +59,12 @@ public class LookupOrCreateYoutube
 		KEY_PATH = keyPath;
 	}
 	
-	public void update(String videoChannelName, String videoChannelLink)
+	public static void update(String videoChannelName, String videoChannelLink)
 	{
 		update(videoChannelName, videoChannelLink, null);
 	}
 	
-	public void update(String videoChannelName, String videoChannelLink, Date beginDate)
+	public static void update(String videoChannelName, String videoChannelLink, Date beginDate)
 	{
 		String query = youtubeSql.getYoutubeQuery(videoChannelName);
 		String response = QueryUpdateTool.executeQuery(query);
@@ -102,7 +102,7 @@ public class LookupOrCreateYoutube
 		}
 	}
 	
-	public HashMap<Integer, Date> lookupLatestDate(String videoChannelName, String videoChannelLink)
+	public static HashMap<Integer, Date> lookupLatestDate(String videoChannelName, String videoChannelLink)
 	{
 		HashMap<Integer, Date> parentIdAndDate = new HashMap<Integer, Date>();
 		
@@ -135,7 +135,7 @@ public class LookupOrCreateYoutube
 		return parentIdAndDate;
 	}
 	
-	public HashMap<Integer, Date> lookupFirstDate(String videoChannelName, String videoChannelLink)
+	public static HashMap<Integer, Date> lookupFirstDate(String videoChannelName, String videoChannelLink)
 	{
 		HashMap<Integer, Date> parentIdAndDate = new HashMap<Integer, Date>();
 		
@@ -168,7 +168,7 @@ public class LookupOrCreateYoutube
 		return parentIdAndDate;
 	}
 	
-	public int lookupCount(String videoChannelName, String videoChannelLink)
+	public static int lookupCount(String videoChannelName, String videoChannelLink)
 	{
 		int count = 0;
 		
@@ -200,7 +200,7 @@ public class LookupOrCreateYoutube
 		return count;
 	}
 	
-	public HashMap<Integer, ArrayList<YoutubeChannelVideo>> lookup(String videoChannelName, String videoChannelLink)
+	public static HashMap<Integer, ArrayList<YoutubeChannelVideo>> lookup(String videoChannelName, String videoChannelLink)
 	{
 		ArrayList <ArrayList <DatabaseResponseNode>> 
 			drns = lookupVideoChannel(videoChannelName);
@@ -228,12 +228,12 @@ public class LookupOrCreateYoutube
 		return parentIdAndYoutubeChannelVideos;
 	}
 	
-	public void updateVideoChannel(VideoChannel vc)
+	public static void updateVideoChannel(VideoChannel vc)
 	{
 		QueryUpdateTool.executeUpdate(vc.getDatabaseUpdate());
 	}
 	
-	public ArrayList <ArrayList <DatabaseResponseNode>> lookupVideoChannel(String videoChannelName)
+	public static ArrayList <ArrayList <DatabaseResponseNode>> lookupVideoChannel(String videoChannelName)
 	{
 		String 
 			query = youtubeSql.getYoutubeQuery(videoChannelName),
@@ -241,8 +241,6 @@ public class LookupOrCreateYoutube
 		if(response == null)
 			return null;
 		
-		HashMap<Integer, ArrayList<YoutubeChannelVideo>> 
-			parentIdAndYoutubeChannelVideos = null;
 		HttpDatabaseResponse 
 			hdr = new HttpDatabaseResponse();
 		ArrayList <ArrayList <DatabaseResponseNode>> 
@@ -251,7 +249,7 @@ public class LookupOrCreateYoutube
 		return drns;
 	}
 	
-	private void createIfEmpty(String videoChannelName, String url)
+	private static void createIfEmpty(String videoChannelName, String url)
 	{
 		String insert = youtubeSql.getYoutubeInsertPrefix() + 
 				PathUtility.surroundString(videoChannelName, "\"") + ", " + 
@@ -262,13 +260,13 @@ public class LookupOrCreateYoutube
 		lookup(videoChannelName, url);
 	}
 	
-	public HashMap<Integer, ArrayList<YoutubeChannelVideo>> lookupYoutubeVideo(int parentId, String videoChannelLink)
+	public static HashMap<Integer, ArrayList<YoutubeChannelVideo>> lookupYoutubeVideo(int parentId, String videoChannelLink)
 	{
 		Date lastDate = getLastDate(parentId, videoChannelLink);
 		return getYoutubeVideos(parentId, videoChannelLink, (lastDate == null) ? -1 : lastDate.getTime());
 	}
 	
-	private Date getLastDate(int parentId, String videoChannelLink)
+	private static Date getLastDate(int parentId, String videoChannelLink)
 	{
 		String query = youtubeSql.getYoutubeVideoLatestQuery(parentId);
 		String response = QueryUpdateTool.executeQuery(query);
@@ -295,7 +293,7 @@ public class LookupOrCreateYoutube
 		return lastDate;
 	}
 	
-	private Date getFirstDate(int parentId, String videoChannelLink)
+	private static Date getFirstDate(int parentId, String videoChannelLink)
 	{
 		String query = youtubeSql.getYoutubeVideoFirstQuery(parentId);
 		String response = QueryUpdateTool.executeQuery(query);
@@ -322,7 +320,7 @@ public class LookupOrCreateYoutube
 		return lastDate;
 	}
 	
-	private int getCount(int parentId, String videoChannelLink)
+	private static int getCount(int parentId, String videoChannelLink)
 	{
 		String query = youtubeSql.getYoutubeVideoCount(parentId);
 		String response = QueryUpdateTool.executeQuery(query);
@@ -349,7 +347,7 @@ public class LookupOrCreateYoutube
 		return count;
 	}
 	
-	private HashMap<Integer, ArrayList<YoutubeChannelVideo>> getYoutubeVideos(
+	private static HashMap<Integer, ArrayList<YoutubeChannelVideo>> getYoutubeVideos(
 			int parentId, String videoChannelLink, long lastDate)
 	{
 		HashMap<Integer, ArrayList<YoutubeChannelVideo>> parentIdAndYoutubeChannelVideos = 
@@ -386,7 +384,7 @@ public class LookupOrCreateYoutube
 		return parentIdAndYoutubeChannelVideos;
 	}
 	
-	private String getYoutubeHandle(String videoChannelLink)
+	private static String getYoutubeHandle(String videoChannelLink)
 	{
 		String youtubeHandle = videoChannelLink;
 		for(String strip : YOUTUBE_CHANNEL_HANDLE_STRIP)
@@ -403,7 +401,7 @@ public class LookupOrCreateYoutube
 		return youtubeHandle;
 	}
 	
-	private void updateYoutubeChannel(int parentId, String youtubeChannelLink, String youtubeHandle, long lastDate)
+	private static void updateYoutubeChannel(int parentId, String youtubeChannelLink, String youtubeHandle, long lastDate)
 	{
 		if(youtubeHandle == null || youtubeHandle.isEmpty() || youtubeHandle.strip().equals("null"))
 			youtubeHandle = getYoutubeHandle(youtubeChannelLink);
@@ -447,7 +445,7 @@ public class LookupOrCreateYoutube
 		}
 	}
 	
-	private Image getPng(YoutubeChannelVideo ycv)
+	public static Image getPng(YoutubeChannelVideo ycv)
 	{
 		String
 			img = ycv.getImageUrl(),
@@ -467,28 +465,8 @@ public class LookupOrCreateYoutube
 	
 	public static void main(String [] args)
 	{
-//		LookupOrCreateYoutube lcy = new LookupOrCreateYoutube();
-//		HashMap<Integer, ArrayList<YoutubeChannelVideo>> ycvs = null;
-//		ycvs = lcy.lookup("test abc", "https://www.youtube.com/@ABCNews");
-//		printYoutubeChannelVideos(ycvs);
-//		ycvs = lcy.lookup("test nbc", "https://www.youtube.com/@NBCNews");
-//		printYoutubeChannelVideos(ycvs);
-//		ycvs = lcy.lookup("microcentertech", "https://www.youtube.com/@microcentertech");
-//		printYoutubeChannelVideos(ycvs);
-		LookupOrCreateYoutube lcv = new LookupOrCreateYoutube();
-		int count = lcv.lookupCount("Underworld", "https://www.youtube.com/@Underworld5s/videos");
+		int count = LookupOrCreateYoutube.lookupCount("Underworld", "https://www.youtube.com/@Underworld5s/videos");
 		LoggingMessages.printOut(count + "");
-	}
-	
-	private static void printYoutubeChannelVideos(HashMap<Integer, ArrayList<YoutubeChannelVideo>> ycvs)
-	{
-		for(int key : ycvs.keySet())
-		{
-			for(YoutubeChannelVideo ycv : ycvs.get(key))
-			{
-				LoggingMessages.printOut(ycv.toString());
-			}
-		}
 	}
 	
 }

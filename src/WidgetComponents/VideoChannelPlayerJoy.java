@@ -30,7 +30,7 @@ import javax.swing.border.EmptyBorder;
 import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
 import HttpDatabaseRequest.HttpJoystickFuctionRequest;
-import MouseListenersImpl.FrameMouseDragListener;
+import MouseListenersImpl.LookupOrCreateYoutube;
 import MouseListenersImpl.YoutubeChannelVideo;
 import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
 
@@ -194,7 +194,7 @@ public class VideoChannelPlayerJoy extends JFrame
 	private void setCount(AbstractButton parentButton)
 	{
 		int 
-			count = FrameMouseDragListener.getLookupOrCreate().lookupCount(
+			count = LookupOrCreateYoutube.lookupCount(
 					parentButton.getText(), 
 					parentButton.getName()
 			);

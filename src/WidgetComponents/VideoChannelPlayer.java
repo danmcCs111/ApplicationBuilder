@@ -26,7 +26,7 @@ import javax.swing.border.EmptyBorder;
 import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
 import HttpDatabaseRequest.HttpRequestHandler.ProcessType;
-import MouseListenersImpl.FrameMouseDragListener;
+import MouseListenersImpl.LookupOrCreateYoutube;
 import MouseListenersImpl.YoutubeChannelVideo;
 import MouseListenersImpl.YoutubeVideosContainer;
 import WidgetComponentInterfaces.DurationLimitSubscriber;
@@ -211,7 +211,7 @@ public class VideoChannelPlayer extends JFrame
 			southPane = new JPanel();
 		
 		countLabel = new JLabel();
-		TOTAL_COUNT = FrameMouseDragListener.getLookupOrCreate().lookupCount(parentButton.getText(), parentButton.getName());
+		TOTAL_COUNT = LookupOrCreateYoutube.lookupCount(parentButton.getText(), parentButton.getName());
 		
 		southPane.setLayout(new BorderLayout());
 		

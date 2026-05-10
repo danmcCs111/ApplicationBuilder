@@ -41,7 +41,6 @@ import HttpDatabaseRequest.HttpRequestHandler.ProcessType;
 import HttpDatabaseRequest.HttpDatabaseRequest;
 import HttpDatabaseRequest.HttpRequestHandler;
 import HttpDatabaseRequest.HttpRequestProcessor;
-import MouseListenersImpl.FrameMouseDragListener;
 import MouseListenersImpl.LookupOrCreateYoutube;
 import MouseListenersImpl.VideoSubSelectionLauncher;
 import MouseListenersImpl.YoutubeChannelVideo;
@@ -123,8 +122,6 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	private JLabel 
 		countLabel = new JLabel();
 	
-	private LookupOrCreateYoutube 
-		lcv = new LookupOrCreateYoutube();
 	private OpenVideoChannelsUpdater
 		ovcu;
 	private HttpRequestProcessor 
@@ -203,7 +200,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		for(JButtonLengthLimited jbll : buttonAndIcon.keySet())
 		{
 			label.updateCount(count, buttonAndIcon.keySet().size());
-			HashMap<Integer, ArrayList<YoutubeChannelVideo>> vids = lcv.lookup(
+			HashMap<Integer, ArrayList<YoutubeChannelVideo>> vids = LookupOrCreateYoutube.lookup(
 					jbll.getText(), jbll.getName());
 			
 			if(vids != null && !vids.isEmpty())
@@ -343,14 +340,14 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		
 		if(parentButton instanceof JButtonLengthLimited)
 		{
-			count = FrameMouseDragListener.getLookupOrCreate().lookupCount(
+			count = LookupOrCreateYoutube.lookupCount(
 					parentButton.getText(), parentButton.getName());
 		}
 		else//all select
 		{
 			for(JButtonLengthLimited jbll : parentButtons.values())
 			{
-				count += FrameMouseDragListener.getLookupOrCreate().lookupCount(
+				count += LookupOrCreateYoutube.lookupCount(
 						jbll.getText(), jbll.getName());
 			}
 		}
@@ -439,7 +436,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 				int count = 0;
 				for(JButtonLengthLimited jbll : parentButtons.values())
 				{
-					count += FrameMouseDragListener.getLookupOrCreate().lookupCount(
+					count += LookupOrCreateYoutube.lookupCount(
 							jbll.getText(), jbll.getName());
 				}
 				TOTAL_COUNT = count;
@@ -465,7 +462,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		jbll.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int count = lcv.lookupCount(parentButton.getText(), parentButton.getName());
+				int count = LookupOrCreateYoutube.lookupCount(parentButton.getText(), parentButton.getName());
 				TOTAL_COUNT = count;
 				updateCount();
 				
@@ -580,7 +577,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	
 	private void refreshSelectionFromDB(JButtonLengthLimited selectedButtonParent, JButtonLengthLimited selectedButton)
 	{
-		HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs = lcv.lookup(
+		HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs = LookupOrCreateYoutube.lookup(
 				selectedButtonParent.getText(), selectedButtonParent.getName());
 		int key = ycvs.keySet().iterator().next();
 		parentButtonAndYoutubeVideos.put(selectedButtonParent, ycvs.get(key));
@@ -591,7 +588,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	
 	private void updateSelection(JButtonLengthLimited selectedButtonParent, JButtonLengthLimited selectedButton)
 	{
-		lcv.update(selectedButtonParent.getText(), selectedButtonParent.getName());
+		LookupOrCreateYoutube.update(selectedButtonParent.getText(), selectedButtonParent.getName());
 		refreshSelectionFromDB(selectedButtonParent, selectedButton);
 	}
 	

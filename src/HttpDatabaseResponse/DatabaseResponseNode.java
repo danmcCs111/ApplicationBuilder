@@ -35,7 +35,7 @@ public class DatabaseResponseNode
 	public String toString()
 	{
 		String att = (this.nodeAttributes != null && !this.nodeAttributes.isEmpty())
-				? LoggingMessages.combine(this.nodeAttributes.values()) + " " + LoggingMessages.combine(this.nodeAttributes.keySet()) 
+				? this.nodeAttributes.values() + " " + LoggingMessages.combine(this.nodeAttributes.keySet().toArray()) 
 				: "";
 		return this.nodeName + " " + att; 
 	}

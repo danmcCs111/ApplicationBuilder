@@ -60,8 +60,6 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		parentButton;
 	private JLabel 
 		picLabel;
-	private static LookupOrCreateYoutube 
-		lcv = new LookupOrCreateYoutube();
 	private VideoChannelPlayer
 		vqp = null;
 	private Point 
@@ -85,11 +83,6 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		this.imgIcon = imgIcon;
 		this.parentButton = parentButton;
 		this.picLabel = picLabel;
-	}
-	
-	public static LookupOrCreateYoutube getLookupOrCreate()
-	{
-		return lcv;
 	}
 	
 	@Override
@@ -116,7 +109,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 			LoggingMessages.printOut(jbll.getName());
 			if(jbll.getName().contains("youtube.com"))
 			{
-				this.ycvs = lcv.lookup(jbll.getText(), jbll.getName());
+				this.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName());
 				JMenu mi2 = buildViewMenu();
 				if(mi2 != null)
 				{
@@ -240,7 +233,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 				Runnable r = new Runnable() {
 					@Override
 					public void run() {
-						vutd = new VideoUpdateTimespanDialog(f, parentButton, lcv, cal.getTime());
+						vutd = new VideoUpdateTimespanDialog(f, parentButton, cal.getTime());
 						vutd.addWindowListener(new WindowAdapter() {
 							@Override
 							public void windowClosed(WindowEvent e) {
@@ -280,8 +273,8 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	public void update()
 	{
 		JButtonLengthLimited jbll = (JButtonLengthLimited) parentButton;
-		lcv.update(jbll.getText(), jbll.getName());
-		this.ycvs = lcv.lookup(jbll.getText(), jbll.getName());
+		LookupOrCreateYoutube.update(jbll.getText(), jbll.getName());
+		this.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName());
 	}
 	
 	@Override

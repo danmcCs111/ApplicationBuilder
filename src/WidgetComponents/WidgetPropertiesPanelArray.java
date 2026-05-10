@@ -41,6 +41,11 @@ public class WidgetPropertiesPanelArray extends JPanel implements RedrawableFram
 		this.setLayout(new GridLayout(0,1));
 	}
 	
+	public RedrawableFrame getRedrawableFrame()//unused.
+	{
+		return this.redrawableFrame;
+	}
+	
 	public void buildLayoutPropertiesArray(ActionListener al)
 	{
 		//TODO

@@ -29,8 +29,6 @@ public class HttpJoystickFuctionRequest
 	private static final int
 		SHIFT_AMOUNT = 30;
 	
-	private static LookupOrCreateYoutube 
-		lcv = new LookupOrCreateYoutube();
 	private static JButtonArray 
 		ba;
 	private static KeepSelectionSelector
@@ -62,8 +60,8 @@ public class HttpJoystickFuctionRequest
 	public static void update() 
 	{
 		JButtonLengthLimited jbll = (JButtonLengthLimited) kss.getSelectedKeep().getJButtonLengthLimited();
-		lcv.update(jbll.getText(), jbll.getName());
-		HttpJoystickFuctionRequest.ycvs = lcv.lookup(jbll.getText(), jbll.getName());
+		LookupOrCreateYoutube.update(jbll.getText(), jbll.getName());
+		HttpJoystickFuctionRequest.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName());
 	}
 
 	public static void buildVideoChannelPlayer() 
@@ -83,7 +81,7 @@ public class HttpJoystickFuctionRequest
 	public static HashMap<Integer, ArrayList<YoutubeChannelVideo>> getYoutubeVideos() 
 	{
 		JButtonLengthLimited jbll = (JButtonLengthLimited) kss.getSelectedKeep().getJButtonLengthLimited();
-		HttpJoystickFuctionRequest.ycvs = lcv.lookup(jbll.getText(), jbll.getName());
+		HttpJoystickFuctionRequest.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName());
 		return HttpJoystickFuctionRequest.ycvs;
 	}
 	

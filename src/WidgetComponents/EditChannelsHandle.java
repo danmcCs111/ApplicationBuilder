@@ -46,8 +46,6 @@ public class EditChannelsHandle extends JDialog
 	
 	private ArrayList<VideoChannel>
 		videoChannels;
-	private LookupOrCreateYoutube
-		lcy = new LookupOrCreateYoutube();
 	
 	private JScrollPane
 		scrollPane;
@@ -76,7 +74,7 @@ public class EditChannelsHandle extends JDialog
 		{
 			for(JButtonLengthLimited jbll : (ArrayList<JButtonLengthLimited>)jblls)
 			{
-				ArrayList <ArrayList <DatabaseResponseNode>> drns = lcy.lookupVideoChannel(jbll.getText());
+				ArrayList <ArrayList <DatabaseResponseNode>> drns = LookupOrCreateYoutube.lookupVideoChannel(jbll.getText());
 				VideoChannel vc = new VideoChannel(drns.get(1));
 				videoChannels.add(vc);
 			}
@@ -86,7 +84,7 @@ public class EditChannelsHandle extends JDialog
 			for(JCheckBox cb : (ArrayList<JCheckBox>)jblls)
 			{
 				String [] args = cb.getName().split(OpenVideoChannelsUpdater.NAME_DELIMITER);
-				ArrayList <ArrayList <DatabaseResponseNode>> drns = lcy.lookupVideoChannel(args[0]);
+				ArrayList <ArrayList <DatabaseResponseNode>> drns = LookupOrCreateYoutube.lookupVideoChannel(args[0]);
 				VideoChannel vc = new VideoChannel(drns.get(1));
 				videoChannels.add(vc);
 			}
@@ -175,7 +173,7 @@ public class EditChannelsHandle extends JDialog
 	
 	private void performUpdate(VideoChannel vc)
 	{
-		lcy.updateVideoChannel(vc);
+		LookupOrCreateYoutube.updateVideoChannel(vc);
 	}
 	
 }

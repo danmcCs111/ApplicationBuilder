@@ -21,6 +21,11 @@ public class ApplicationLayoutEditor extends RedrawableFrame implements PostWidg
 		this.builderWindow = builderWindow;
 	}
 	
+	public BuilderWindow getBuilderWindow()//unused.
+	{
+		return this.builderWindow;
+	}
+	
 	@Override
 	public void clearInnerPanels() 
 	{

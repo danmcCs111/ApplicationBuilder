@@ -4,9 +4,6 @@ import Properties.PathUtility;
 
 public class YoutubeSQLite implements YoutubeQuery
 {
-	private static String
-		DATABASES_PATH = PathUtility.getCurrentDirectory() + "/" + "plugin-projects/SQLiteInstall/";
-		
 	public static String
 		YOUTUBE_QUERY = 
 			"SELECT * FROM video WHERE VideoName_Video_VideoDatabase = <arg0>" +

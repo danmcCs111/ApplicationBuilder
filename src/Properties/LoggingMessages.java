@@ -29,11 +29,11 @@ public interface LoggingMessages
 	
 	
 	/*******Utils**************/
-	public static String combine(Object ...out)
+	public static String combine(Object [] out)
 	{
 		return combine(COMBINE_DELIMITER, out);
 	}
-	public static String combine(String delimit, Object ...out)
+	public static String combine(String delimit, Object ... out)
 	{
 		StringBuffer sb = new StringBuffer();
 		for(Object s : out)
