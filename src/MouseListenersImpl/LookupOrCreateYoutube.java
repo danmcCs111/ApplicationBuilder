@@ -405,7 +405,7 @@ public class LookupOrCreateYoutube
 	
 	private void updateYoutubeChannel(int parentId, String youtubeChannelLink, String youtubeHandle, long lastDate)
 	{
-		if(youtubeHandle == null || youtubeHandle.isEmpty())
+		if(youtubeHandle == null || youtubeHandle.isEmpty() || youtubeHandle.strip().equals("null"))
 			youtubeHandle = getYoutubeHandle(youtubeChannelLink);
 		String
 			youtubeHandleMinusAt = youtubeHandle.replace("@", ""),
