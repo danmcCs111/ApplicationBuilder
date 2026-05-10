@@ -89,7 +89,6 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	public FrameMouseDragListener(JFrame f, KeepSelection ks, JButtonLengthLimited parentButton, JLabel picLabel)
 	{
 		super();
-		setIsTouch(true);
 		this.f = f;
 		this.ks = ks;
 		this.parentButton = parentButton;
