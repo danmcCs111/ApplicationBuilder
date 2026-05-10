@@ -37,7 +37,7 @@ public class LookupOrCreateYoutube
 	private static YoutubeQuery 
 		youtubeSql = new YoutubeSQLite();
 	
-	public LookupOrCreateYoutube()
+	private LookupOrCreateYoutube()
 	{
 		
 	}
