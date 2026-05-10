@@ -140,8 +140,6 @@ PostWidgetBuildProcessing, ButtonArray
 		abce;
 	private VideoBookMarksDialog 
 		vbmd = null;
-//	private ImageReader 
-//		buttonImageReader;
 	private ActionListener 
 		actionListener = null;
 	
@@ -152,9 +150,19 @@ PostWidgetBuildProcessing, ButtonArray
 		
 	}
 	
+	public static void setAltFontSize(int size)
+	{
+		VideoChannelPlayerJoy.setAltFontSize(size);
+	}
+	
 	public static void setIsTouch(boolean isTouch)
 	{
 		FrameMouseDragListener.setIsTouch(isTouch);
+	}
+	
+	public static void setScrollBarDimension(Dimension dim)
+	{
+		FrameMouseDragListener.setScrollWidthHeight(dim);
 	}
 	
 	public static void setMinimumMinuteChannelViewJoystick(int minMinute)

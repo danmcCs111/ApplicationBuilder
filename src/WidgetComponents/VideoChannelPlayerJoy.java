@@ -47,11 +47,12 @@ public class VideoChannelPlayerJoy extends VideoChannelPlayer
 	private static Dimension 
 		MIN_SIZE = new Dimension(1600, 600);
 	private static int 
+		SIZE = 20,
 		SCROLL_UNIT_INC = 25;
 	private static Border
 		COUNT_BORDER = new EmptyBorder(5, 0, 5, 15);//EmptyBorder(top, left, bottom, right)
-	private static final Font 
-		SELECT_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 24);
+	private static Font 
+		SELECT_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, SIZE);
 	
 	private VideoChannelListViewJoy
 		listView; 
@@ -68,6 +69,12 @@ public class VideoChannelPlayerJoy extends VideoChannelPlayer
 		listView = new VideoChannelListViewJoy();
 		buildWidgets();
 		GraphicsUtil.centerOnScreen(this);
+	}
+	
+	public static void setAltFontSize(int size)
+	{
+		SIZE = size;
+		SELECT_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, SIZE);
 	}
 	
 	public static Font getFontAlt()

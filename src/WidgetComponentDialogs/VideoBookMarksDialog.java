@@ -41,6 +41,7 @@ import ObjectTypeConversion.DirectorySelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
 import WidgetComponentInterfaces.OpenAndSaveKeepsSubscriber;
+import WidgetComponents.VideoChannelPlayerJoy;
 import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
 
 public class VideoBookMarksDialog extends JDialog 
@@ -58,8 +59,6 @@ public class VideoBookMarksDialog extends JDialog
 		MIN_DIMENSION_DIALOG = new Dimension(400, 325);
 	private static int
 		SAVE_FILE_COLUMN_LENGTH = 15;
-	private static Font
-		TEXT_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 24);
 	
 	private static final String
 		PROPERTIES_FILE_ARG_DELIMITER = "@",
@@ -117,11 +116,6 @@ public class VideoBookMarksDialog extends JDialog
 		buildWidgets();
 	}
 	
-	public static void setFontSize(int size)//TODO.
-	{
-		TEXT_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, size);
-	}
-	
 	public boolean isAltFontSize()
 	{
 		return altFontSize;
@@ -129,17 +123,18 @@ public class VideoBookMarksDialog extends JDialog
 	
 	public void setAltFontSize()
 	{
-		fileList.setFont(TEXT_FONT);
-		titlesList.setFont(TEXT_FONT);
+		Font altFont = VideoChannelPlayerJoy.getFontAlt();
+		fileList.setFont(altFont);
+		titlesList.setFont(altFont);
 		
 		if(saveField != null)
-			saveField.setFont(TEXT_FONT);
+			saveField.setFont(altFont);
 		if(saveLabel != null)
-			saveLabel.setFont(TEXT_FONT);
+			saveLabel.setFont(altFont);
 		if(applyButton != null)
-			applyButton.setFont(TEXT_FONT);
+			applyButton.setFont(altFont);
 		if(cancelButton != null)
-			cancelButton.setFont(TEXT_FONT);
+			cancelButton.setFont(altFont);
 		
 		Dimension newDim = new Dimension(
 				(int)(MIN_DIMENSION_DIALOG.width * 2), 

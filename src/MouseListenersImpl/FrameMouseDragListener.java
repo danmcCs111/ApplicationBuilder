@@ -1,6 +1,7 @@
 package MouseListenersImpl;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,6 +23,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 import Graphics2D.ColorTemplate;
 import HttpDatabaseRequest.HttpRequestHandler.ProcessType;
@@ -74,8 +76,10 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	private HashMap <Integer, ArrayList <YoutubeChannelVideo>> 
 		ycvs;
 	private static boolean
-		isTouch = true,
+		isTouch = false,
 		isPreview = false;
+	private static Dimension
+		scrollBarTouchDim = new Dimension(25, 25);
 	
 	public FrameMouseDragListener()
 	{
@@ -85,10 +89,18 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	public FrameMouseDragListener(JFrame f, KeepSelection ks, JButtonLengthLimited parentButton, JLabel picLabel)
 	{
 		super();
+		setIsTouch(true);
 		this.f = f;
 		this.ks = ks;
 		this.parentButton = parentButton;
 		this.picLabel = picLabel;
+	}
+	
+	public static void setScrollWidthHeight(Dimension dim)
+	{
+		scrollBarTouchDim = dim;
+		UIManager.put("ScrollBar.width", scrollBarTouchDim.width);
+		UIManager.put("ScrollBar.height", scrollBarTouchDim.height);
 	}
 	
 	public static void setIsTouch(boolean isTouch)
