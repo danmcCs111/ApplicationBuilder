@@ -616,11 +616,17 @@ PostWidgetBuildProcessing
 	}
 
 	@Override
+	public void performOpenAltFont() 
+	{
+		performPropertiesOpen(true);
+	}
+	
+	@Override
 	public void performOpen() 
 	{
-		performPropertiesOpen();
+		performPropertiesOpen(false);
 	}
-	private void performPropertiesOpen()
+	private void performPropertiesOpen(boolean altText)
 	{
 		if(!SHOW_JAVA_SWING_FILE_CHOOSER)
 		{
@@ -628,7 +634,7 @@ PostWidgetBuildProcessing
 			{
 				vbmd.performSelect(false);
 			}
-			vbmd = new VideoBookMarksDialog(keepsFileLocation, this, WidgetBuildController.getInstance().getFrame(), false);
+			vbmd = new VideoBookMarksDialog(keepsFileLocation, this, WidgetBuildController.getInstance().getFrame(), altText);
 		}
 		else //TODO linux / alternate option
 		{

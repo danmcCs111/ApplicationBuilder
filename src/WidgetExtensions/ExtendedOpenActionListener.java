@@ -12,7 +12,18 @@ import WidgetUtility.WidgetCreatorProperty;
 
 public class ExtendedOpenActionListener implements ExtendedAttributeStringParam
 {
-	OpenActionExtension oae = null;
+	private OpenActionExtension oae = null;
+	
+	protected OpenActionExtension getOpenActionExtension()
+	{
+		return this.oae;
+	}
+	
+	public void performOpen()
+	{
+		getOpenActionExtension().performOpen();
+	}
+	
 	@Override
 	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 
 	{
@@ -33,7 +44,7 @@ public class ExtendedOpenActionListener implements ExtendedAttributeStringParam
 			ab.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					oae.performOpen();
+					performOpen();
 				}
 			});
 		}

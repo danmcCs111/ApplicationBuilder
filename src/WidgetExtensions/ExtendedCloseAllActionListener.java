@@ -3,7 +3,7 @@ package WidgetExtensions;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JMenuItem;
+import javax.swing.AbstractButton;
 
 import WidgetExtensionDefs.ExtendedAttributeStringParam;
 import WidgetExtensionInterfaces.CloseActionExtension;
@@ -19,10 +19,10 @@ public class ExtendedCloseAllActionListener implements ExtendedAttributeStringPa
 		String name = arg0;
 		Object m = widgetProperties.getInstance();
 		
-		if(m instanceof JMenuItem)
+		if(m instanceof AbstractButton)
 		{
-			JMenuItem mi = (JMenuItem) m;
-			mi.addActionListener(new ActionListener() {
+			AbstractButton ab = (AbstractButton) m;
+			ab.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					WidgetCreatorProperty wcp = WidgetBuildController.getInstance().findRefByName(name);

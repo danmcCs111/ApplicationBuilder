@@ -165,6 +165,13 @@ public class ScheduledCommandList extends JPanel implements PostWidgetBuildProce
 		scie.performSave(this, xml);
 	}
 
+	@Override
+	public void performOpenAltFont() 
+	{
+		//TODO.
+		performOpen();
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public void performOpen() 
