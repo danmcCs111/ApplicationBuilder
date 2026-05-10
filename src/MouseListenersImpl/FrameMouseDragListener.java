@@ -21,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+import javax.swing.SwingUtilities;
 
 import Graphics2D.ColorTemplate;
 import HttpDatabaseRequest.HttpRequestHandler.ProcessType;
@@ -31,6 +32,7 @@ import WidgetComponents.JMenuItemLaunchUrl;
 import WidgetComponents.JMenuLaunchUrl;
 import WidgetComponents.VideoChannelListView;
 import WidgetComponents.VideoChannelPlayer;
+import WidgetComponents.VideoChannelPlayerJoy;
 import WidgetComponentsTips4Java.MenuScroller;
 
 public class FrameMouseDragListener extends MouseAdapter implements MouseListener, MouseMotionListener, HighlightListener, YoutubeVideosContainer
@@ -70,6 +72,9 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		vutd = null;
 	private HashMap <Integer, ArrayList <YoutubeChannelVideo>> 
 		ycvs;
+	private static boolean
+		isTouch = false,
+		isPreview = false;
 	
 	public FrameMouseDragListener()
 	{
@@ -85,6 +90,16 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		this.picLabel = picLabel;
 	}
 	
+	public static void setIsTouch(boolean isTouch)
+	{
+		FrameMouseDragListener.isTouch = isTouch;
+	}
+	
+	public static boolean isTouch()
+	{
+		return FrameMouseDragListener.isTouch;
+	}
+	
 	@Override
 	public void mouseClicked(MouseEvent e) 
 	{
@@ -93,6 +108,10 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 			JButtonLengthLimited jbll = parentButton;//TODO
 			JPopupMenu pm = new JPopupMenu();
 			JMenuItem mi = new JMenuItem(OPEN_MENU_TEXT);
+			if(isTouch)
+			{
+				mi.setFont(VideoChannelPlayerJoy.getFontAlt());
+			}
 			
 			mi.addActionListener(new ActionListener() {
 				@Override
@@ -109,19 +128,37 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 			LoggingMessages.printOut(jbll.getName());
 			if(jbll.getName().contains("youtube.com"))
 			{
-				this.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName());
-				JMenu mi2 = buildViewMenu();
-				if(mi2 != null)
+				if(isTouch)
 				{
-					pm.add(mi2);
+					JMenuItem mi3 = buildOpenVideosViewTouch(jbll);
+					if(isTouch)
+					{
+						mi3.setFont(VideoChannelPlayerJoy.getFontAlt());
+					}
+					if(mi3 != null)
+					{
+						pm.add(mi3);
+					}
 				}
-				if(mi2 != null)
+				else
 				{
-					JMenuItem mi3 = buildOpenVideosView();
-					pm.add(mi3);
+					if(isPreview)
+					{
+						this.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName());
+						JMenu mi2 = buildViewMenu();
+						if(mi2 != null)
+						{
+							pm.add(mi2);
+						}
+					}
+					JMenuItem mi3 = buildOpenVideosView(jbll);
+					if(mi3 != null)
+					{
+						pm.add(mi3);
+					}
+					JMenuItem mi4 = buildUpdateMenu();
+					pm.add(mi4);
 				}
-				JMenuItem mi4 = buildUpdateMenu();
-				pm.add(mi4);
 			}
 			picLabel.add(pm);
 			int x = e.getPoint().x, y = e.getPoint().y;
@@ -256,14 +293,36 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		return miP;
 	}
 	
-	private JMenuItem buildOpenVideosView()
+	private JMenuItem buildOpenVideosView(JButtonLengthLimited jbll)
 	{
 		JMenuItem mi4 = new JMenuItem(VIEW_LIST_VIDEOS);
 		mi4.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				buildVideoChannelPlayer();
+				SwingUtilities.invokeLater(() -> {
+					if(!isPreview)
+					{
+						FrameMouseDragListener.this.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName());
+					}
+					buildVideoChannelPlayer();
+				});
+			}
+		});
+		return mi4;
+	}
+	
+	private JMenuItem buildOpenVideosViewTouch(JButtonLengthLimited jbll)
+	{
+		JMenuItem mi4 = new JMenuItem(VIEW_LIST_VIDEOS);
+		mi4.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				SwingUtilities.invokeLater(() -> {
+				    FrameMouseDragListener.this.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName());
+				    buildVideoChannelPlayer();
+				});
 			}
 		});
 		return mi4;
@@ -286,8 +345,16 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 			p = vqp.getLocationOnScreen();
 			vqp.dispose();
 		}
-		
-		vqp = new VideoChannelPlayer(imgIcon, this, (JButtonLengthLimited) parentButton, f);
+		if(isTouch)
+		{
+			VideoChannelPlayerJoy vcpj = new VideoChannelPlayerJoy(f);
+			vcpj.setVideos(imgIcon, parentButton);
+			vqp = vcpj;
+		}
+		else
+		{
+			vqp = new VideoChannelPlayer(imgIcon, this, (JButtonLengthLimited) parentButton, f);
+		}
 		if(p != null)
 		{
 			vqp.setLocation(p);

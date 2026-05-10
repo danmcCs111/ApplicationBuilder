@@ -2,7 +2,6 @@ package WidgetComponents;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -22,13 +21,13 @@ import javax.swing.AbstractButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
 import ActionListeners.ArrayActionListener;
 import ActionListenersImpl.LaunchUrlActionListener;
 import Graphics2D.ColorTemplate;
 import HttpDatabaseRequest.HttpRequestHandler.ProcessType;
+import MouseListenersImpl.FrameMouseDragListener;
 import MouseListenersImpl.VideoSubSelectionLauncher;
 import MouseListenersImpl.YoutubeChannelVideo;
 import Properties.LoggingMessages;
@@ -37,7 +36,7 @@ import WidgetComponentInterfaces.RegisterArrayActionListener;
 import WidgetComponents.DurationLimiter.Mode;
 import WidgetUtility.FileListOptionGenerator;
 
-public class VideoChannelListViewJoy extends JPanel implements ArrayActionListener
+public class VideoChannelListViewJoy extends VideoChannelListView implements ArrayActionListener
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -49,8 +48,6 @@ public class VideoChannelListViewJoy extends JPanel implements ArrayActionListen
 	private static int
 		MINIMUM_MINUTE = -1,
 		VIDEO_TITLE_CHARACTER_LIMIT = 90;
-	private static final Font 
-		SELECT_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 24);
 	
 	private HashMap<Integer, JButtonLengthLimited> 
 		parentButtons;
@@ -92,6 +89,19 @@ public class VideoChannelListViewJoy extends JPanel implements ArrayActionListen
 		listItems.setListData(videoButtonsFiltered.toArray(new JButtonLengthLimited[] {}));
 		listItems.ensureIndexIsVisible(0);
 		listItems.setSelectedIndex(0);
+		if(FrameMouseDragListener.isTouch())
+		{
+			listItems.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mousePressed(MouseEvent e) 
+				{
+					if(e.getButton() == MouseEvent.BUTTON3)
+					{
+						sendMouseClick();
+					}
+				}
+			});
+		}
 		
 		clearSelect();
 		postFrameBuild();
@@ -138,7 +148,7 @@ public class VideoChannelListViewJoy extends JPanel implements ArrayActionListen
 		
 		listItems = new JList<JButtonLengthLimited>();
 		
-		listItems.setFont(SELECT_FONT);
+		listItems.setFont(VideoChannelPlayerJoy.getFontAlt());
 		listItems.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

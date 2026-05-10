@@ -78,6 +78,11 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 	private HashMap<Integer, VideoSubSelectionLauncher> 
 		vssl = null;
 	
+	public VideoChannelListView()
+	{
+		
+	}
+	
 	public VideoChannelListView(
 			JButtonLengthLimited parentButton, ArrayList <YoutubeChannelVideo> ycv, ProcessType procType)
 	{

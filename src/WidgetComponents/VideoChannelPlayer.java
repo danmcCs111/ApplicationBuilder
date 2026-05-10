@@ -66,6 +66,11 @@ public class VideoChannelPlayer extends JFrame
 	private YoutubeVideosContainer 
 		fmdl;
 
+	public VideoChannelPlayer()
+	{
+		
+	}
+	
 	public VideoChannelPlayer(
 			ImageIcon videoImage, YoutubeVideosContainer fmdl, JButtonLengthLimited parentButton, Container parent)
 	{

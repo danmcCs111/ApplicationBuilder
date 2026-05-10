@@ -32,6 +32,7 @@ import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
 import HttpDatabaseRequest.HttpRequestHandler.ProcessType;
 import HttpDatabaseRequest.HttpRequestProcessor;
+import MouseListenersImpl.FrameMouseDragListener;
 import MouseListenersImpl.ImageMouseAdapter;
 import MouseListenersImpl.LookupOrCreateYoutube;
 import MouseListenersImpl.MiddleClickLaunchUrlActionListener;
@@ -149,6 +150,11 @@ PostWidgetBuildProcessing, ButtonArray
 	public JButtonArray()
 	{
 		
+	}
+	
+	public static void setIsTouch(boolean isTouch)
+	{
+		FrameMouseDragListener.setIsTouch(isTouch);
 	}
 	
 	public static void setMinimumMinuteChannelViewJoystick(int minMinute)

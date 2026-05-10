@@ -34,7 +34,7 @@ import MouseListenersImpl.LookupOrCreateYoutube;
 import MouseListenersImpl.YoutubeChannelVideo;
 import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
 
-public class VideoChannelPlayerJoy extends JFrame
+public class VideoChannelPlayerJoy extends VideoChannelPlayer
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -70,6 +70,12 @@ public class VideoChannelPlayerJoy extends JFrame
 		GraphicsUtil.centerOnScreen(this);
 	}
 	
+	public static Font getFontAlt()
+	{
+		return SELECT_FONT;
+	}
+	
+	@Override
 	public VideoChannelListViewJoy getVideoChannelListView()
 	{
 		return this.listView;
