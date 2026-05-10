@@ -25,6 +25,7 @@ import javax.swing.SwingUtilities;
 
 import Graphics2D.ColorTemplate;
 import HttpDatabaseRequest.HttpRequestHandler.ProcessType;
+import Params.KeepSelection;
 import Properties.LoggingMessages;
 import WidgetComponentInterfaces.HighlightListener;
 import WidgetComponents.JButtonLengthLimited;
@@ -56,8 +57,8 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	
 	private JFrame 
 		f;
-	private ImageIcon
-		imgIcon;
+	private KeepSelection
+		ks;
 	private JButtonLengthLimited 
 		parentButton;
 	private JLabel 
@@ -73,7 +74,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	private HashMap <Integer, ArrayList <YoutubeChannelVideo>> 
 		ycvs;
 	private static boolean
-		isTouch = false,
+		isTouch = true,
 		isPreview = false;
 	
 	public FrameMouseDragListener()
@@ -81,11 +82,11 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		
 	}
 	
-	public FrameMouseDragListener(JFrame f, ImageIcon imgIcon, JButtonLengthLimited parentButton, JLabel picLabel)
+	public FrameMouseDragListener(JFrame f, KeepSelection ks, JButtonLengthLimited parentButton, JLabel picLabel)
 	{
 		super();
 		this.f = f;
-		this.imgIcon = imgIcon;
+		this.ks = ks;
 		this.parentButton = parentButton;
 		this.picLabel = picLabel;
 	}
@@ -348,12 +349,12 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		if(isTouch)
 		{
 			VideoChannelPlayerJoy vcpj = new VideoChannelPlayerJoy(f);
-			vcpj.setVideos(imgIcon, parentButton);
+			vcpj.setVideos(new ImageIcon(ks.getImg()), parentButton);
 			vqp = vcpj;
 		}
 		else
 		{
-			vqp = new VideoChannelPlayer(imgIcon, this, (JButtonLengthLimited) parentButton, f);
+			vqp = new VideoChannelPlayer(ks.getImageIcon(), this, (JButtonLengthLimited) parentButton, f);
 		}
 		if(p != null)
 		{
