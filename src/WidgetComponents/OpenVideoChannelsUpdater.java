@@ -32,7 +32,7 @@ public class OpenVideoChannelsUpdater extends JFrame
 		ALL_CHECKBOX_TEXT = "Select All",
 		EDIT_BUTTON_TEXT = "Edit",
 		UPDATE_BUTTON_TEXT = "Update",
-		CANCEL_BUTTON_TEXT = "Cancel";
+		CANCEL_BUTTON_TEXT = "Close";
 	public static final String
 		NAME_DELIMITER = ":@:";
 	private static Dimension 

@@ -125,7 +125,7 @@ public class EditChannelsHandle extends JDialog
 			saveButton.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					vc.setHandle(channelHandleName.getText());
+					vc.setHandle(channelHandleName.getText().strip());
 					performUpdate(vc);
 				}
 			});
