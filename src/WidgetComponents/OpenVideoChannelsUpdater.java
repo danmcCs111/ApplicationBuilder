@@ -30,7 +30,10 @@ public class OpenVideoChannelsUpdater extends JFrame
 	private static String
 		TITLE_TEXT = "Open Channels Updater",
 		ALL_CHECKBOX_TEXT = "Select All",
+		EDIT_BUTTON_TEXT = "Edit",
 		UPDATE_BUTTON_TEXT = "Update",
+		CANCEL_BUTTON_TEXT = "Cancel";
+	public static final String
 		NAME_DELIMITER = ":@:";
 	private static Dimension 
 		MIN_SIZE = new Dimension(750, 450);
@@ -42,7 +45,9 @@ public class OpenVideoChannelsUpdater extends JFrame
 		checkBoxPanel,
 		buttonPanel;
 	private JButton
-		updateButton;
+		editButton,
+		updateButton,
+		cancelButton;
 	private ArrayList<JCheckBox>
 		checkBoxes;
 	private List<JButtonLengthLimited> 
@@ -51,6 +56,8 @@ public class OpenVideoChannelsUpdater extends JFrame
 		checkBoxLatestDate;
 	private LookupOrCreateYoutube
 		lcv = new LookupOrCreateYoutube();
+	private EditChannelsHandle 
+		ech;
 	
 	public OpenVideoChannelsUpdater(List<JButtonLengthLimited> jblls)
 	{
@@ -88,10 +95,27 @@ public class OpenVideoChannelsUpdater extends JFrame
 			}
 		});
 		
+		editButton = new JButton(EDIT_BUTTON_TEXT);
+		editButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				performEdit();
+			}
+		});
+		cancelButton = new JButton(CANCEL_BUTTON_TEXT);
+		cancelButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				cancel();
+			}
+		});
+		
 		buildControlPanel();
 		buildCheckBoxPanel();
 		
+		buttonPanel.add(editButton);
 		buttonPanel.add(updateButton);
+		buttonPanel.add(cancelButton);
 		
 		JScrollPane scrollPane = new JScrollPane(checkBoxPanel);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(25);
@@ -169,29 +193,44 @@ public class OpenVideoChannelsUpdater extends JFrame
 		return cb;
 	}
 	
-	private void performUpdate()
+	private void performEdit()
 	{
-		for(JCheckBox cb : checkBoxes)
+		if(ech == null || !ech.isVisible())
 		{
-			if(cb.isSelected())
+			ech = new EditChannelsHandle(this);
+			ArrayList<JCheckBox> cbs = new ArrayList<JCheckBox>();
+			for(JCheckBox cb : checkBoxes)
 			{
-//				Runnable r = new Runnable()
-//				{
-//					@Override
-//					public void run() 
-//					{
-						JCheckBox cbL = cb;
-						String [] args = cbL.getName().split(NAME_DELIMITER);
-						LoggingMessages.printOut("args: " + args[0] + args[1]);
-						lcv.update(args[0], args[1], checkBoxLatestDate.get(cbL));
-						cbL = updateCheckBox(args[0], args[1], cbL);
-						cbL.setSelected(false);
-//					}
-//				};
-//				Thread t = new Thread(r);
-//				t.start();
+				if(cb.isSelected())
+				{
+					cbs.add(cb);
+				}
+			}
+			if(!cbs.isEmpty())
+			{
+				ech.setChannels(cbs);
 			}
 		}
+	}
+	
+	private void performUpdate()
+	{
+		for(JCheckBox cbL : checkBoxes)
+		{
+			if(cbL.isSelected())
+			{
+				String [] args = cbL.getName().split(NAME_DELIMITER);
+				LoggingMessages.printOut("args: " + args[0] + args[1]);
+				lcv.update(args[0], args[1], checkBoxLatestDate.get(cbL));
+				cbL = updateCheckBox(args[0], args[1], cbL);
+				cbL.setSelected(false);
+			}
+		}
+	}
+	
+	private void cancel()
+	{
+		this.dispose();
 	}
 
 }

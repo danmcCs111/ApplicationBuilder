@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-import ObjectTypeConversion.FileSelection;
 import ObjectTypeConversion.ShapeFileSelection;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetExtensionInterfaces.ShapeDrawingCollectionLoad;

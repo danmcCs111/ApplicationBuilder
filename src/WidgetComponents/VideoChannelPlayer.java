@@ -224,7 +224,7 @@ public class VideoChannelPlayer extends JFrame
 	
 	private void updateCount()
 	{
-		countLabel.setText(COUNT_PREFIX + listView.getVisibleCount()  + "/" + TOTAL_COUNT);
+		countLabel.setText(COUNT_PREFIX + listView.getVisibleCount()  + " / " + TOTAL_COUNT);
 	}
 	
 }

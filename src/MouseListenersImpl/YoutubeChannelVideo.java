@@ -35,37 +35,33 @@ public class YoutubeChannelVideo
 	{
 		for(DatabaseResponseNode drn : drns)
 		{
-			if(drn.getNodeName().equals(ID_COLUMN))
+			String value = drn.getNodeAttributes().get("content");
+			switch(drn.getNodeName())
 			{
-				idVideo = drn.getNodeAttributes().get("content");
-			}
-			else if(drn.getNodeName().equals(PARENT_ID_COLUMN))
-			{
-				parentId = Integer.parseInt(drn.getNodeAttributes().get("content"));
-			}
-			else if(drn.getNodeName().equals(TITLE_COLUMN))
-			{
-				title = drn.getNodeAttributes().get("content");
-			}
-			else if(drn.getNodeName().equals(URL_COLUMN))
-			{
-				url = drn.getNodeAttributes().get("content");
-			}
-			else if(drn.getNodeName().equals(IMAGE_URL_COLUMN))
-			{
-				imageUrl = drn.getNodeAttributes().get("content");
-			}
-			else if(drn.getNodeName().equals(DURATION_COLUMN))
-			{
-				duration = drn.getNodeAttributes().get("content");
-			}
-			else if(drn.getNodeName().equals(UPLOAD_DATE_COLUMN))
-			{
+			case ID_COLUMN:
+				idVideo = value;
+				break;
+			case PARENT_ID_COLUMN:
+				parentId = Integer.parseInt(value);
+				break;
+			case TITLE_COLUMN:
+				title = value;
+				break;
+			case URL_COLUMN:
+				url = value;
+				break;
+			case IMAGE_URL_COLUMN:
+				imageUrl = value;
+				break;
+			case DURATION_COLUMN:
+				duration = value;
+				break;
+			case UPLOAD_DATE_COLUMN:
 				uploadDate = DateParser.getDate(drn.getNodeAttributes()).getTime();
-			}
-			else if(drn.getNodeName().equals(INSERT_DATE_COLUMN))
-			{
+				break;
+			case INSERT_DATE_COLUMN:
 				insertDate = DateParser.getDate(drn.getNodeAttributes()).getTime();
+				break;
 			}
 		}
 	}
