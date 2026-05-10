@@ -36,6 +36,7 @@ public class EditChannelsHandle extends JDialog
 		CHANNEL_LABEL_DIM = new Dimension(50, 50),
 		MIN_SIZE = new Dimension(500, 450);
 	private static String
+		TITLE = "Channel Properties Editor",
 		HANDLE_LABEL = "Handle: ",
 		SAVE_BUTTON_TEXT = "Save",
 		CANCEL_BUTTON_TEXT = "Close";
@@ -61,6 +62,7 @@ public class EditChannelsHandle extends JDialog
 	public EditChannelsHandle(Container parentContainer)
 	{
 		this.parentContainer = parentContainer;
+		this.setTitle(TITLE);
 		this.setMinimumSize(MIN_SIZE);
 		this.setLayout(new BorderLayout());
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
