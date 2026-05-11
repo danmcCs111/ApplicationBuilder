@@ -126,7 +126,7 @@ public class VideoChannelPlayer extends JFrame
 		listView.postFrameBuild();
 	}
 	
-	public JPanel buildNorthPanel()
+	private JPanel buildNorthPanel()
 	{
 		JPanel searchPanel = new JPanel();
 		FlowLayout fl = new FlowLayout();
@@ -203,14 +203,14 @@ public class VideoChannelPlayer extends JFrame
 		return searchPanel;
 	}
 	
-	public void buildCenterPanel(HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
+	private void buildCenterPanel(HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
 	{
 		listView = new VideoChannelListView(parentButton, ycvs, ProcessType.parent);
 		scrollPane = new JScrollPane(listView);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(SCROLL_UNIT_INC);
 	}
 	
-	public JPanel buildSouthPanel(JButtonLengthLimited parentButton)
+	private JPanel buildSouthPanel(JButtonLengthLimited parentButton)
 	{
 		JPanel 
 			southPane = new JPanel();

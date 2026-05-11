@@ -341,7 +341,7 @@ public class VideoChannelListViewJoy extends VideoChannelListView implements Arr
 		return null;
 	}
 	
-	public void performSelect(Highlighter hl, int index)
+	private void performSelect(Highlighter hl, int index)
 	{
 		clearSelect();
 		if(hl != null)

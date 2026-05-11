@@ -133,7 +133,7 @@ public class VideoChannelPlayerJoy extends VideoChannelPlayer
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 	
-	public JPanel buildNorthPanel()
+	private JPanel buildNorthPanel()
 	{
 		JPanel northPanel = new JPanel();
 		FlowLayout fl = new FlowLayout();
@@ -160,7 +160,7 @@ public class VideoChannelPlayerJoy extends VideoChannelPlayer
 		return northPanel;
 	}
 	
-	public JPanel buildWestPanel()
+	private JPanel buildWestPanel()
 	{
 		JPanel westPanel = new JPanel();
 		FlowLayout fl = new FlowLayout();
@@ -175,12 +175,12 @@ public class VideoChannelPlayerJoy extends VideoChannelPlayer
 		return westPanel;
 	}
 	
-	public void setListVideos(HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs, JButtonLengthLimited parentButton)
+	private void setListVideos(HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs, JButtonLengthLimited parentButton)
 	{
 		listView.setVideos(parentButton, ycvs);
 	}
 	
-	public JScrollPane buildCenterPanel()
+	private JScrollPane buildCenterPanel()
 	{
 		scrollPane.setViewportView(listView);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(SCROLL_UNIT_INC);
@@ -188,7 +188,7 @@ public class VideoChannelPlayerJoy extends VideoChannelPlayer
 		return scrollPane;
 	}
 	
-	public JPanel buildSouthPanel()
+	private JPanel buildSouthPanel()
 	{
 		JPanel 
 			southPane = new JPanel();
