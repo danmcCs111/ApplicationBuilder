@@ -102,6 +102,11 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		UIManager.put("ScrollBar.height", scrollBarTouchDim.height);
 	}
 	
+	public static void setShowRightClickPreview(boolean preview)
+	{
+		isPreview = preview;
+	}
+	
 	public static void setIsTouch(boolean isTouch)
 	{
 		FrameMouseDragListener.isTouch = isTouch;

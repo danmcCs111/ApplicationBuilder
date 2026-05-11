@@ -256,6 +256,11 @@ PostWidgetBuildProcessing, ButtonArray
 		ImageMouseAdapter.setShowTitleOnPoster(SHOW_TITLE_ON_POSTER);
 	}
 	
+	public static void setRightClickPreview(boolean preview)
+	{
+		FrameMouseDragListener.setShowRightClickPreview(preview);
+	}
+	
 	public static void setShowPreview(boolean showPreview)
 	{
 		SHOW_PREVIEW = showPreview;
