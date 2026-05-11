@@ -14,7 +14,9 @@ With "Desktop development with C++" package. seen in checkbox below. (buildLite.
 
 In the drive and directory desired
 
-(Recommend saving on a seperate external SSD for portability of the app as well as files accumulated and database entries)
+(Recommend saving on a seperate external SSD for portability of the app and for accumulated files and database entries)
+
+(close the chrome browser manually to save any preferences like logins/ which monitor & size to show in during opening)
 
 Run:
 
