@@ -88,9 +88,8 @@ public class VideoChannelPlayerJoy extends VideoChannelPlayer
 		return this.listView;
 	}
 	
-	public void setVideos(ImageIcon videoImage, JButtonLengthLimited parentButton)
+	public void setVideos(ImageIcon videoImage, JButtonLengthLimited parentButton, HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
 	{
-		HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs = HttpJoystickFuctionRequest.getYoutubeVideos();
 		if(ycvs == null || ycvs.isEmpty())
 			return;
 		

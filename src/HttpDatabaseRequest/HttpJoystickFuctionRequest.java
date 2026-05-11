@@ -69,7 +69,8 @@ public class HttpJoystickFuctionRequest
 		if(vcp == null || !vcp.isVisible())
 		{
 			KeepSelection ks = kss.getSelectedKeep();
-			vcp.setVideos(new ImageIcon(ks.getImg()), ks.getJButtonLengthLimited());
+			HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs = HttpJoystickFuctionRequest.getYoutubeVideos();
+			vcp.setVideos(new ImageIcon(ks.getImg()), ks.getJButtonLengthLimited(), ycvs);
 			
 			if(!vcp.isVisible())
 			{

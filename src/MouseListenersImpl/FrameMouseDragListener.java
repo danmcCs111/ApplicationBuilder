@@ -337,7 +337,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 			public void actionPerformed(ActionEvent e) 
 			{
 				SwingUtilities.invokeLater(() -> {
-				    FrameMouseDragListener.this.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName());
+					FrameMouseDragListener.this.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName());
 				    buildVideoChannelPlayer();
 				});
 			}
@@ -365,7 +365,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		if(isTouch)
 		{
 			VideoChannelPlayerJoy vcpj = new VideoChannelPlayerJoy(f);
-			vcpj.setVideos(new ImageIcon(ks.getImg()), parentButton);
+			vcpj.setVideos(new ImageIcon(ks.getImg()), parentButton, FrameMouseDragListener.this.ycvs);
 			vqp = vcpj;
 		}
 		else
