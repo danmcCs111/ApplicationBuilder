@@ -29,7 +29,6 @@ import javax.swing.border.EmptyBorder;
 
 import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
-import HttpDatabaseRequest.HttpJoystickFuctionRequest;
 import MouseListenersImpl.LookupOrCreateYoutube;
 import MouseListenersImpl.YoutubeChannelVideo;
 import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
@@ -60,6 +59,8 @@ public class VideoChannelPlayerJoy extends VideoChannelPlayer
 		scrollPane = new JScrollPane();
 	private JLabel
 		countLabel;
+	private JButtonLengthLimited 
+		parentButton;
 	private JButton 
 		imageHomeButton,
 		updateButton;
@@ -95,6 +96,7 @@ public class VideoChannelPlayerJoy extends VideoChannelPlayer
 		
 		this.setTitle(TITLE_PREFIX + parentButton.getText());
 		this.setIconImage(videoImage.getImage());
+		this.parentButton = parentButton;
 		setListVideos(ycvs, parentButton);
 		imageHomeButton.setIcon(videoImage);
 		setHomeButton(parentButton);
@@ -108,6 +110,14 @@ public class VideoChannelPlayerJoy extends VideoChannelPlayer
 		
 		this.setVisible(true);
 		listView.postFrameBuild();
+	}
+	
+	private void update() 
+	{
+		LookupOrCreateYoutube.update(parentButton.getText(), parentButton.getName());
+		//TODO. if closing?
+		HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs = LookupOrCreateYoutube.lookup(parentButton.getText(), parentButton.getName());
+		setListVideos(ycvs, parentButton);
 	}
 	
 	private void buildWidgets()
@@ -148,7 +158,7 @@ public class VideoChannelPlayerJoy extends VideoChannelPlayer
 				Runnable r = new Runnable() {
 					@Override
 					public void run() {
-						HttpJoystickFuctionRequest.update();
+						update();
 					}
 				};
 				Thread t = new Thread(r);

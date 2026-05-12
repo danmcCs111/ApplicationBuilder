@@ -57,13 +57,6 @@ public class HttpJoystickFuctionRequest
 		kss = new KeepSelectionSelector(ba);
 	}
 
-	public static void update() 
-	{
-		JButtonLengthLimited jbll = (JButtonLengthLimited) kss.getSelectedKeep().getJButtonLengthLimited();
-		LookupOrCreateYoutube.update(jbll.getText(), jbll.getName());
-		HttpJoystickFuctionRequest.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName());
-	}
-
 	public static void buildVideoChannelPlayer() 
 	{
 		if(vcp == null || !vcp.isVisible())
