@@ -116,8 +116,8 @@ public class VideoChannelPlayerJoy extends VideoChannelPlayer
 	{
 		LookupOrCreateYoutube.update(parentButton.getText(), parentButton.getName());
 		//TODO. if closing?
-		HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs = LookupOrCreateYoutube.lookup(parentButton.getText(), parentButton.getName());
-		setListVideos(ycvs, parentButton);
+//		HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs = LookupOrCreateYoutube.lookup(parentButton.getText(), parentButton.getName());
+//		setListVideos(ycvs, parentButton);
 	}
 	
 	private void buildWidgets()
