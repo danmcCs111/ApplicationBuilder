@@ -2,6 +2,7 @@ package MouseListenersImpl;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +15,7 @@ import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 import javax.swing.ImageIcon;
@@ -52,6 +54,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		UPDATE_VIDEOS_TOOLTIP = "Update after last timestamp stored.";
 	
 	private static final SimpleDateFormat
+		SDF_DATE_VIEW = new SimpleDateFormat("MM/dd/yy"),
 		SDF_DATE_SHORT = new SimpleDateFormat("MMM-dd-yyyy");
 	
 	public static int
@@ -145,6 +148,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 			LoggingMessages.printOut(jbll.getName());
 			if(jbll.getName().contains("youtube.com"))
 			{
+				
 				if(isTouch)
 				{
 					JMenuItem mi3 = buildOpenVideosViewTouch(jbll);
@@ -156,6 +160,8 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 					{
 						pm.add(mi3);
 					}
+					JMenuItem mi4 = buildUpdateMenu(VideoChannelPlayerJoy.getFontAlt());
+					pm.add(mi4);
 				}
 				else
 				{
@@ -167,6 +173,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 						{
 							pm.add(mi2);
 						}
+						
 					}
 					JMenuItem mi3 = buildOpenVideosView(jbll);
 					if(mi3 != null)
@@ -176,6 +183,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 					JMenuItem mi4 = buildUpdateMenu();
 					pm.add(mi4);
 				}
+				
 			}
 			picLabel.add(pm);
 			int x = e.getPoint().x, y = e.getPoint().y;
@@ -251,9 +259,14 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	
 	private JMenu buildUpdateMenu()
 	{
+		return buildUpdateMenu(null);
+	}
+	
+	private JMenu buildUpdateMenu(Font fnt)
+	{
 		JMenu miP = new JMenu(UPDATE_VIDEOS);
-		
 		JMenuItem mi1 = new JMenuItem(UPDATE_VIDEOS);
+		
 		mi1.setToolTipText(UPDATE_VIDEOS_TOOLTIP);
 		mi1.addActionListener(new ActionListener() {
 			@Override
@@ -287,7 +300,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 				Runnable r = new Runnable() {
 					@Override
 					public void run() {
-						vutd = new VideoUpdateTimespanDialog(f, parentButton, cal.getTime());
+						vutd = new VideoUpdateTimespanDialog(f, parentButton, cal.getTime(), fnt);
 						vutd.addWindowListener(new WindowAdapter() {
 							@Override
 							public void windowClosed(WindowEvent e) {
@@ -304,6 +317,12 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 			}
 		});
 		
+		if(f != null) {
+			miP.setFont(fnt);
+			mi1.setFont(fnt);
+			mi2.setFont(fnt);
+		}
+		
 		miP.add(mi1);
 		miP.add(mi2);
 		
@@ -312,7 +331,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	
 	private JMenuItem buildOpenVideosView(JButtonLengthLimited jbll)
 	{
-		JMenuItem mi4 = new JMenuItem(VIEW_LIST_VIDEOS);
+		JMenuItem mi4 = getViewItemsJMenu(jbll);
 		mi4.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) 
@@ -331,7 +350,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	
 	private JMenuItem buildOpenVideosViewTouch(JButtonLengthLimited jbll)
 	{
-		JMenuItem mi4 = new JMenuItem(VIEW_LIST_VIDEOS);
+		JMenuItem mi4 = getViewItemsJMenu(jbll);
 		mi4.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) 
@@ -342,6 +361,25 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 				});
 			}
 		});
+		return mi4;
+	}
+	
+	private JMenuItem getViewItemsJMenu(JButtonLengthLimited jbll)
+	{
+		Date 
+		firstDate = VideoChannel.getFirstDate(jbll),
+		lastDate = VideoChannel.getLastDate(jbll);
+		String 
+			range = ((lastDate == null) 
+					? "" 
+					: SDF_DATE_VIEW.format(lastDate)) 
+					+ " - " + 
+					((firstDate == null) 
+					? "" 
+					: SDF_DATE_VIEW.format(firstDate));
+		
+		JMenuItem mi4 = new JMenuItem(VIEW_LIST_VIDEOS + " (" + range + ")");
+		
 		return mi4;
 	}
 	
@@ -357,24 +395,30 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	public void buildVideoChannelPlayer()
 	{
 		Point p = null;
-		if(vqp != null && vqp.isVisible())
+		if(vqp == null)
 		{
-			p = vqp.getLocationOnScreen();
-			vqp.dispose();
+			if(isTouch)
+			{
+				VideoChannelPlayerJoy vcpj = new VideoChannelPlayerJoy(f);
+				vqp = vcpj;
+			}
+			else
+			{
+				vqp = new VideoChannelPlayer(ks.getImageIcon(), this, (JButtonLengthLimited) parentButton, f);
+			}
 		}
+		else if(!isTouch)
+		{
+			p = vqp.getLocation();
+			vqp.setVisible(false);
+			vqp.dispose();
+			vqp = new VideoChannelPlayer(ks.getImageIcon(), this, (JButtonLengthLimited) parentButton, f);
+			vqp.setLocation(p);
+		}
+		
 		if(isTouch)
 		{
-			VideoChannelPlayerJoy vcpj = new VideoChannelPlayerJoy(f);
-			vcpj.setVideos(new ImageIcon(ks.getImg()), parentButton, FrameMouseDragListener.this.ycvs);
-			vqp = vcpj;
-		}
-		else
-		{
-			vqp = new VideoChannelPlayer(ks.getImageIcon(), this, (JButtonLengthLimited) parentButton, f);
-		}
-		if(p != null)
-		{
-			vqp.setLocation(p);
+			((VideoChannelPlayerJoy) vqp).setVideos(new ImageIcon(ks.getImg()), parentButton, FrameMouseDragListener.this.ycvs);
 		}
 	}
 	

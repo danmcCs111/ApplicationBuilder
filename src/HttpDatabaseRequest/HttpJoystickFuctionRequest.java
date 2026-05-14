@@ -59,16 +59,18 @@ public class HttpJoystickFuctionRequest
 
 	public static void buildVideoChannelPlayer() 
 	{
-		if(vcp == null || !vcp.isVisible())
+		if(vcp == null)
 		{
-			KeepSelection ks = kss.getSelectedKeep();
-			HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs = HttpJoystickFuctionRequest.getYoutubeVideos();
-			vcp.setVideos(new ImageIcon(ks.getImg()), ks.getJButtonLengthLimited(), ycvs);
-			
-			if(!vcp.isVisible())
-			{
-				ks.getJButtonLengthLimited().doClick();
-			}
+			vcp = new VideoChannelPlayerJoy(ba);
+		}
+		
+		KeepSelection ks = kss.getSelectedKeep();
+		HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs = HttpJoystickFuctionRequest.getYoutubeVideos();
+		vcp.setVideos(new ImageIcon(ks.getImg()), ks.getJButtonLengthLimited(), ycvs);
+		
+		if(!vcp.isVisible())
+		{
+			ks.getJButtonLengthLimited().doClick();
 		}
 	}
 

@@ -1,8 +1,11 @@
 package MouseListenersImpl;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 
 import HttpDatabaseResponse.DatabaseResponseNode;
+import WidgetComponents.JButtonLengthLimited;
 
 public class VideoChannel 
 {
@@ -57,6 +60,26 @@ public class VideoChannel
 	public String getDatabaseUpdate()
 	{
 		return VIDEO_UPDATE_HANDLE.replaceFirst("<arg0>", getHandle()).replaceFirst("<arg1>", getId()+"");
+	}
+	
+	public static Date getFirstDate(JButtonLengthLimited jbll)
+	{
+		return getDate(LookupOrCreateYoutube.lookupFirstDate(jbll.getText(), jbll.getName()));
+	}
+	public static Date getLastDate(JButtonLengthLimited jbll)
+	{
+		return getDate(LookupOrCreateYoutube.lookupLatestDate(jbll.getText(), jbll.getName()));
+	}
+	private static Date getDate(HashMap<Integer, Date> dateMap)
+	{
+		Date date = null;
+		
+		if(dateMap != null && !dateMap.isEmpty())
+		{
+			int key = dateMap.keySet().iterator().next();
+			date = dateMap.get(key);
+		}
+		return date;
 	}
 	
 	public int getId()

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Timestamp;
@@ -25,6 +26,7 @@ public class VideoUpdateTimespanDialog extends JDialog
 	private static final long serialVersionUID = 1L;
 	
 	private static final String
+		TITLE = "Update Channel",
 		TIMESTAMP_LABEL = "Update Begin Date : ",
 		RUN_BUTTON_TEXT = "Run",
 		CANCEL_BUTTON_TEXT = "Cancel";
@@ -38,12 +40,18 @@ public class VideoUpdateTimespanDialog extends JDialog
 	
 	public VideoUpdateTimespanDialog(Container refContainer, AbstractButton ab, Date d)
 	{
+		this(refContainer, ab, d, null);
+	}
+	
+	public VideoUpdateTimespanDialog(Container refContainer, AbstractButton ab, Date d, Font fnt)
+	{
 		this.ab = ab;
 		
-		buildWidgets(d);
-		
+		this.setTitle(TITLE);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setSize(MIN_DIMENSION_DIALOG);
+		
+		buildWidgets(d, fnt);
 		
 		GraphicsUtil.rightEdgeCenterWindow(refContainer, this);
 		
@@ -54,7 +62,7 @@ public class VideoUpdateTimespanDialog extends JDialog
 		this.setVisible(true);
 	}
 	
-	private void buildWidgets(Date d)
+	private void buildWidgets(Date d, Font fnt)
 	{
 		this.setLayout(new BorderLayout());
 		
@@ -103,6 +111,15 @@ public class VideoUpdateTimespanDialog extends JDialog
 		
 		this.add(controlPanel, BorderLayout.NORTH);
 		this.add(runCancelPanel, BorderLayout.SOUTH);
+		
+		if(fnt != null)
+		{
+			timestampLabel.setFont(fnt);
+			de.setFont(fnt);
+			applyButton.setFont(fnt);
+			cancelButton.setFont(fnt);
+			this.pack();
+		}
 	}
 	
 	public boolean updated()
