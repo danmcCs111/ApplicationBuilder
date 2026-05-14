@@ -46,13 +46,14 @@ public class VideoChannelPlayer extends JFrame
 	private static Dimension 
 		MIN_SIZE = new Dimension(800, 425);
 	private static int 
-		TOTAL_COUNT = 0,
 		DEFAULT_MINUTE_SETTING = 10,
 		SEARCH_COLUMN_LENGTH = 15,
 		SCROLL_UNIT_INC = 25;
 	private static Border
 		COUNT_BORDER = new EmptyBorder(5, 0, 5, 15);//EmptyBorder(top, left, bottom, right)
 	
+	private int
+		totalCount = 0;
 	private JButtonLengthLimited 
 		parentButton;
 	private VideoChannelListView 
@@ -216,7 +217,7 @@ public class VideoChannelPlayer extends JFrame
 			southPane = new JPanel();
 		
 		countLabel = new JLabel();
-		TOTAL_COUNT = LookupOrCreateYoutube.lookupCount(parentButton.getText(), parentButton.getName());
+		totalCount = LookupOrCreateYoutube.lookupCount(parentButton.getText(), parentButton.getName());
 		
 		southPane.setLayout(new BorderLayout());
 		
@@ -229,7 +230,7 @@ public class VideoChannelPlayer extends JFrame
 	
 	private void updateCount()
 	{
-		countLabel.setText(COUNT_PREFIX + listView.getVisibleCount()  + " / " + TOTAL_COUNT);
+		countLabel.setText(COUNT_PREFIX + listView.getVisibleCount()  + " / " + totalCount);
 	}
 	
 }

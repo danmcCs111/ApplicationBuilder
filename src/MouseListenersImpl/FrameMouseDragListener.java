@@ -45,6 +45,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	private static final int 
 		FRAME_AND_TITLE_HEIGHT = 45; 
 	private static final String 
+		EMPTY_CHANNELS_LIST_TEXT = "Empty",
 		OPEN_MENU_TEXT = "OPEN",
 		VIEW_LATEST_VIDEOS = "VIEW",
 		VIEW_LIST_VIDEOS = "VIEW LIST",
@@ -367,8 +368,8 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	private JMenuItem getViewItemsJMenu(JButtonLengthLimited jbll)
 	{
 		Date 
-		firstDate = VideoChannel.getFirstDate(jbll),
-		lastDate = VideoChannel.getLastDate(jbll);
+			firstDate = VideoChannel.getFirstDate(jbll),
+			lastDate = VideoChannel.getLastDate(jbll);
 		String 
 			range = ((lastDate == null) 
 					? "" 
@@ -377,6 +378,11 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 					((firstDate == null) 
 					? "" 
 					: SDF_DATE_VIEW.format(firstDate));
+		
+		if(range.strip().equals("-"))
+		{
+			range = EMPTY_CHANNELS_LIST_TEXT;
+		}
 		
 		JMenuItem mi4 = new JMenuItem(VIEW_LIST_VIDEOS + " (" + range + ")");
 		
