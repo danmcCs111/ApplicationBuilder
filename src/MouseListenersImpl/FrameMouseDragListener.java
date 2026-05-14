@@ -29,6 +29,8 @@ import javax.swing.UIManager;
 
 import Graphics2D.ColorTemplate;
 import HttpDatabaseRequest.HttpRequestHandler.ProcessType;
+import HttpDatabaseRequest.HttpRequestProcessor;
+import ObjectTypeConversion.CommandBuild;
 import Params.KeepSelection;
 import Properties.LoggingMessages;
 import WidgetComponentInterfaces.HighlightListener;
@@ -59,7 +61,11 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		SDF_DATE_SHORT = new SimpleDateFormat("MMM-dd-yyyy");
 	
 	public static int
+		PORT_NUMBER_MASK = 8,
 		SCALED_WIDTH_ICON = 35;
+	
+	public static HashMap<FrameMouseDragListener, Integer>
+		portMaskAndDragListener = new HashMap<FrameMouseDragListener, Integer>();
 	
 	private JFrame 
 		f;
@@ -84,6 +90,8 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		isPreview = false;
 	private static Dimension
 		scrollBarTouchDim = new Dimension(25, 25);
+	private Process 
+		runningProcess;
 	
 	public FrameMouseDragListener()
 	{
@@ -389,6 +397,35 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		return mi4;
 	}
 	
+	private CommandBuild getLaunchVideoChannelPlayer(JButtonLengthLimited jbll, String path, Point loc)
+	{
+		int port = -1;
+		
+		if(portMaskAndDragListener.containsKey(this))
+		{
+			port = portMaskAndDragListener.get(this); 
+		}
+		else
+		{
+			port = PORT_NUMBER_MASK + HttpRequestProcessor.getPortNumber();
+			portMaskAndDragListener.put(this, port);
+			PORT_NUMBER_MASK++;
+		}
+		CommandBuild cb = new CommandBuild();
+		cb.setCommand("java", new String[]{"-cp"}, new String[]{
+				"./Application Builder.jar", 
+				"ApplicationBuilder.ApplicationBuilder", 
+				"./Properties/data/VideoChannelPlayer.xml",
+				path,
+				jbll.getText(),
+				jbll.getFullLengthText(),
+				jbll.getName(),
+				port + "",
+				loc.x + "," + loc.y
+		});
+		return cb;
+	}
+	
 	@Override
 	public void update()
 	{
@@ -400,7 +437,6 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	@Override
 	public void buildVideoChannelPlayer()
 	{
-		Point p = null;
 		if(vqp == null)
 		{
 			if(isTouch)
@@ -410,15 +446,15 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 			}
 			else
 			{
-				vqp = new VideoChannelPlayer(ks.getImageIcon(), this, (JButtonLengthLimited) parentButton, f);
+				vqp = new VideoChannelPlayer(ks.getImageIcon(), this, parentButton, f);
 			}
 		}
 		else if(!isTouch)
 		{
-			p = vqp.getLocation();
+			Point p = vqp.getLocation();
 			vqp.setVisible(false);
 			vqp.dispose();
-			vqp = new VideoChannelPlayer(ks.getImageIcon(), this, (JButtonLengthLimited) parentButton, f);
+			vqp = new VideoChannelPlayer(ks.getImageIcon(), this, parentButton, f);
 			vqp.setLocation(p);
 		}
 		

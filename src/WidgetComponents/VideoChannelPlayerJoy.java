@@ -64,6 +64,11 @@ public class VideoChannelPlayerJoy extends VideoChannelPlayer
 	private JButton 
 		imageHomeButton,
 		updateButton;
+	
+	public VideoChannelPlayerJoy()
+	{
+		
+	}
 
 	public VideoChannelPlayerJoy(Container parent)
 	{
@@ -112,7 +117,7 @@ public class VideoChannelPlayerJoy extends VideoChannelPlayer
 		listView.postFrameBuild();
 	}
 	
-	private void update() 
+	public void update() 
 	{
 		LookupOrCreateYoutube.update(parentButton.getText(), parentButton.getName());
 		//TODO. if closing?

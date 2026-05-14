@@ -44,9 +44,7 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 	private static final String 
 		POPUP_OPEN = "OPEN",
 		POPUP_OPEN_NEW = "OPEN NEW";
-//		TOOLTIP_INSTRUCTION = "[Left click Primary Window, Middle click Alternate Window]";
 	private static final SimpleDateFormat 
-//		SDF_UPLOAD = new SimpleDateFormat("MM/dd/yyyy hh:mm a"),
 		SDF_UPLOAD_SHORT = new SimpleDateFormat("MM/dd/yyyy");
 	private static final int
 		VIDEO_TITLE_CHARACTER_LIMIT = 100;
@@ -146,8 +144,34 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 	private void buildWidgets(Map<Integer, JButtonLengthLimited> parentButtons,
 			Map <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
 	{
+		hlPanel = new Highlighter(this, borderColor);
+		this.setLayout(new BorderLayout());
+		
+		buildListViewPanel(parentButtons, ycvs);
+		RegisterArrayActionListener.addListener(this);
+	}
+	
+	public void clearListViewPanel()
+	{
+		listPanel.removeAll();
+		channelListPanel.removeAll();
+		videoListPanel.removeAll();
+		durationPanel.removeAll();
+		uploadDatePanel.removeAll();
+		
+		this.remove(listPanel);
+	}
+	
+	public void buildListViewPanel(Map<Integer, JButtonLengthLimited> parentButtons,
+			Map <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
+	{
 		listPanel = new JPanel();
 		listPanel.setLayout(new GridBagLayout());
+		
+		channelListPanel = new JPanel(new GridLayout(0,1));
+		videoListPanel = new JPanel(new GridLayout(0,1));
+		durationPanel = new JPanel(new GridLayout(0,1));
+		uploadDatePanel = new JPanel(new GridLayout(0,1));
 		
 		double
 			titleCon = .8,
@@ -160,7 +184,6 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 			titleCon = .5;
 			titleCon2 = .3;
 		}
-		
 		GridBagConstraints gbcT2 = new GridBagConstraints();
 		if(parentButtons != null)
 		{
@@ -192,12 +215,6 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 		gbcT.weightx = titleCon;
 		gbcT.weighty = 1;
 		
-		channelListPanel = new JPanel(new GridLayout(0,1));
-		videoListPanel = new JPanel(new GridLayout(0,1));
-		durationPanel = new JPanel(new GridLayout(0,1));
-		uploadDatePanel = new JPanel(new GridLayout(0,1));
-		
-		hlPanel = new Highlighter(this, borderColor);
 		for(int key : ycvs.keySet())
 		{
 			for(YoutubeChannelVideo ycv : ycvs.get(key))
@@ -229,9 +246,9 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 		listPanel.add(durationPanel, gbc2);
 		listPanel.add(videoListPanel, gbcT);
 		
-		this.setLayout(new BorderLayout());
+		
 		this.add(listPanel, BorderLayout.NORTH);
-		RegisterArrayActionListener.addListener(this);
+		
 	}
 	
 	public int getVisibleCount()
@@ -400,17 +417,10 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 	{
 		JButtonLengthLimited jbll = (JButtonLengthLimited) FileListOptionGenerator.buildComponent(
 				"", ycv.getTitle(), ycv.getUrl(), JButtonLengthLimited.class);
-//		String duration = ycv.getDuration();
-//		String durText = "";
-//		durText = formatDuration(duration);
-//		durText += "<br>";
 		
 		jbll.setToolTipText(
 				"<html>" +
 				ycv.getTitle() + "<br>" + 
-//				SDF_UPLOAD.format(ycv.getUploadDate()) + "<br>" +
-//				durText +  
-//				TOOLTIP_INSTRUCTION +
 				"</html>"
 				);
 		jbll.setHighlightButton(parentButtons.get(key));

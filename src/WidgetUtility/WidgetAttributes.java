@@ -42,6 +42,7 @@ import WidgetComponents.ScheduledCommandList;
 import WidgetComponents.SearchBar;
 import WidgetComponents.SendHttpRequestPanel;
 import WidgetComponents.SwappableCollection;
+import WidgetComponents.VideoChannelPlayer;
 import WidgetComponents.WeatherGraphViewer;
 import WidgetComponents.XmlToEditor;
 import WidgetExtensionDefs.ExtendedAttributeParam;
@@ -103,6 +104,7 @@ public class WidgetAttributes
 	static {
 		INITIAL_CLASSES.add(JFrame.class);
 		INITIAL_CLASSES.add(ApplicationLayoutEditor.class);
+		INITIAL_CLASSES.add(VideoChannelPlayer.class);
 		INITIAL_CLASSES.add(VideoChannelsPlayer.class);
 	}
 	private static final ArrayList<Class<?>> 
@@ -139,6 +141,7 @@ public class WidgetAttributes
 		COMPONENT_CLASSES.add(SwappableCollection.class);
 		COMPONENT_CLASSES.add(JButtonArray.class);
 		COMPONENT_CLASSES.add(JButtonArrayListPicture.class);
+		COMPONENT_CLASSES.add(VideoChannelPlayer.class);
 		COMPONENT_CLASSES.add(VideoChannelsPlayer.class);
 		COMPONENT_CLASSES.add(MenuOption.class);
 	}
@@ -307,6 +310,14 @@ public class WidgetAttributes
 		});
 		EXTENDED_METHODS.put(MenuOption.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
+		});
+		EXTENDED_METHODS.put(VideoChannelPlayer.class, new String [] {
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetupTaskbar.class, ExtendedMethodArgDef.ExtendedFileSelection.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedTextStripper.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetLookAndFeel.class, ExtendedMethodArgDef.LookAndFeelClassNameSelection.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetBackgroundPanelColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetButtonBackgroundColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetButtonForegroundColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(VideoChannelsPlayer.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetupTaskbar.class, ExtendedMethodArgDef.ExtendedFileSelection.getMethodArgDef()),

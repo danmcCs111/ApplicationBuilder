@@ -20,6 +20,7 @@ public class HttpRequestHandler implements HttpHandler
 	public static final String 
 		REQUEST_TYPE_HEADER_KEY = "Get-request-type",
 		FUNCTION_TYPE_LAUNCH_URL = "URL_Launch",
+		FUNCTION_TYPE_OPEN_CHANNEL_PLAYER = "Channel_Player_Open",
 		FUNCTION_TYPE_LAUNCH_REFRESH_RESPONSE = "URL_Launch_Refresh_Response",
 		FUNCTION_TYPE_LAUNCH_REFRESH_REQUEST = "URL_Launch_Refresh_Request",
 		FUNCTION_TYPE_JOYSTICK = "Joystick_Button";

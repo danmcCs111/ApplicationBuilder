@@ -9,9 +9,12 @@ public class ApplicationBuilder
 		DEFAULT_APPLICATION_EDITOR_PATH = PathUtility.getCurrentDirectory() + 
 			"/Properties/data/GeneratedApplicationBuilder.xml";
 	
+	public static String [] argsApp;
+	
 	public static void main(String [] args)
 	{
-		if(args.length == 1) 
+		argsApp = args;
+		if(args.length >= 1) 
 		{
 			buildAppFromXML(args[0]);
 		}

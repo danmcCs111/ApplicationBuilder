@@ -9,12 +9,12 @@ import Properties.LoggingMessages;
 public class CommandExecutor 
 {
 	
-	public static void executeProcess(CommandBuild commandBuild) throws IOException
+	public static Process executeProcess(CommandBuild commandBuild) throws IOException
 	{
-		executeProcess(commandBuild, false);
+		return executeProcess(commandBuild, false);
 	}
 	
-	public static void executeProcess(CommandBuild commandBuild, boolean haltTillComplete) throws IOException
+	public static Process executeProcess(CommandBuild commandBuild, boolean haltTillComplete) throws IOException
 	{
 		Process runningProcess = null;
 		ProcessBuilder pb = new ProcessBuilder(commandBuild.getArgs());
@@ -37,5 +37,6 @@ public class CommandExecutor
 				}
 			}
 		}
+		return runningProcess;
 	}
 }
