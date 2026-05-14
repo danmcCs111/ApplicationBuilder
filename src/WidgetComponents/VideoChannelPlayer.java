@@ -164,7 +164,7 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 		});
 		
 		this.setMinimumSize(MIN_SIZE);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setVisible(true);
 
 		listView.postFrameBuild();
