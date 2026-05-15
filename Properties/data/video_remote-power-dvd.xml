@@ -6,6 +6,12 @@
 				</JMenuItem>
 			</JMenu>
 		</JMenuBar>
+		<JPanel extendedLayoutApplyParent="West" setBackground="0, 0, 0" setLayout="java.awt.GridLayout" >
+			<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/send-pid-key.ahk%Tn read-power-dvd-pid.txt%Tn =" extendedLayoutApplyParent="" setBackground="51, 0, 51" setForeground="204, 204, 204" setText="[+]" setToolTipText="" >
+			</JButton>
+			<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/send-pid-key.ahk%Tn read-power-dvd-pid.txt%Tn -" extendedLayoutApplyParent="" setBackground="51, 0, 51" setForeground="204, 204, 204" setText="[-]" setToolTipText="" >
+			</JButton>
+		</JPanel>
 		<JPanel addMouseListener="MouseListenersImpl.MouseDragMoveWindowListener" addMouseMotionListener="MouseListenersImpl.MouseDragMoveWindowListener" extendedLayoutApplyParent="Center" setBackground="0, 0, 0" setLayout="java.awt.BorderLayout" >
 			<JPanel extendedLayoutApplyParent="Center" setBackground="0, 0, 0" setLayout="java.awt.FlowLayout" >
 				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/send-pid-key.ahk%Tn read-power-dvd-pid.txt%Tn s" extendedLayoutApplyParent="" setBackground="51, 0, 51" setForeground="204, 204, 204" setText="[--]" setToolTipText="Stop" >
