@@ -19,6 +19,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.JToggleButton;
 
 import ObjectTypeConvertersImpl.ClassAndSetters;
 import ObjectTypeConvertersImpl.ClassTextAdapter;
@@ -113,6 +114,7 @@ public class WidgetAttributes
 		COMPONENT_CLASSES.add(JFrame.class);
 		COMPONENT_CLASSES.add(JPanel.class);
 		COMPONENT_CLASSES.add(JButton.class);
+		COMPONENT_CLASSES.add(JToggleButton.class);
 		COMPONENT_CLASSES.add(JTextField.class);
 		COMPONENT_CLASSES.add(JLabel.class);
 		COMPONENT_CLASSES.add(JScrollPane.class);
@@ -163,6 +165,9 @@ public class WidgetAttributes
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetBackgroundPanelColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetButtonBackgroundColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetButtonForegroundColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef())
+		});
+		EXTENDED_METHODS.put(JToggleButton.class, new String [] {
+				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 		});
 		EXTENDED_METHODS.put(JButton.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),

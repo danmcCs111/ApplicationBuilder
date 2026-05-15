@@ -78,8 +78,10 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		picLabel;
 //	private static VideoChannelPlayer
 //		vqp = null;
+	private VideoChannelPlayerJoy
+		vcpj = null;
 	private VideoChannelPlayer
-		vqp = null;
+		vcp = null;
 	private Point 
 		mouseDownCompCoords = null;
 	private boolean 
@@ -287,7 +289,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 					@Override
 					public void run() {
 						update();
-						if(vqp != null && vqp.isVisible())
+						if(vcp != null && vcp.isVisible())
 						{
 							buildVideoChannelPlayer();
 						}
@@ -316,7 +318,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 						vutd.addWindowListener(new WindowAdapter() {
 							@Override
 							public void windowClosed(WindowEvent e) {
-								if(vqp != null && vqp.isVisible() && vutd.updated())
+								if(vcp != null && vcp.isVisible() && vutd.updated())
 								{
 									buildVideoChannelPlayer();
 								}
@@ -433,16 +435,25 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	@Override
 	public void buildVideoChannelPlayer()
 	{
-		if(vqp == null)
+		if(isTouch && vcpj == null)
 		{
-			if(isTouch)
+			if(vcpj ==null)
 			{
-				VideoChannelPlayerJoy vcpj = new VideoChannelPlayerJoy(f);
-				vqp = vcpj;
+				vcpj = new VideoChannelPlayerJoy(f);
+			}
+			vcpj.setVideos(new ImageIcon(ks.getImg()), parentButton, FrameMouseDragListener.this.ycvs);
+		}
+		else if(!isTouch)
+		{
+			if(vcp == null)
+			{
+				vcp = new VideoChannelPlayer(ks.getImageIcon(), this, parentButton, f);
 			}
 			else
 			{
-				vqp = new VideoChannelPlayer(ks.getImageIcon(), this, parentButton, f);
+				vcp.setVisible(false);
+				vcp.dispose();
+				vcp = new VideoChannelPlayer(ks.getImageIcon(), this, parentButton, f);
 			}
 		}
 //		if(!isTouch)
@@ -462,19 +473,6 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 //			}
 //		}
 		
-		else if(!isTouch)
-		{
-			Point p = vqp.getLocation();
-			vqp.setVisible(false);
-			vqp.dispose();
-			vqp = new VideoChannelPlayer(ks.getImageIcon(), this, parentButton, f);
-			vqp.setLocation(p);
-		}
-		
-		if(isTouch)
-		{
-			((VideoChannelPlayerJoy) vqp).setVideos(new ImageIcon(ks.getImg()), parentButton, FrameMouseDragListener.this.ycvs);
-		}
 	}
 	
 	@Override
@@ -517,18 +515,18 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	@Override
 	public void highlight()
 	{
-		if(vqp != null)
+		if(vcp != null)
 		{
-			vqp.getVideoChannelListView().findHighlight(null);
+			vcp.getVideoChannelListView().findHighlight(null);
 		}
 	}
 
 	@Override
 	public Component getMatchingComponent(String name) 
 	{
-		if(vqp == null)
+		if(vcp == null)
 			return null;
-		return vqp.getVideoChannelListView().getAbstractButton(name);
+		return vcp.getVideoChannelListView().getAbstractButton(name);
 	}
 	
 }

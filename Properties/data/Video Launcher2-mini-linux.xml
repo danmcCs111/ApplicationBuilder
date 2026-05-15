@@ -22,6 +22,8 @@
 				</JButton>
 				<JButton extendedCloseAllActionListener="channels" extendedLayoutApplyParent="" setBackground="0, 102, 102" setForeground="153, 153, 153" setText="|  X  |" setToolTipText="Close All Bookmarks" >
 				</JButton>
+				<JToggleButton addActionListener="ActionListenersImpl.TouchFrameDragActionListener" extendedLayoutApplyParent="" setBackground="102, 102, 102" setForeground="153, 153, 153" setText="|  P  |" setToolTipText="Toggle touch actions on/off" >
+				</JToggleButton>
 				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Fn./plugin-projects/AutoHotKey-Utils/ahk_x11.AppImage%Tn  `pwd`/plugin-projects/AutoHotKey-Utils/send-chrome-key-play-linux.ahk" extendedLayoutApplyParent="" setBackground="0, 153, 153" setText="| &gt; |" setToolTipText="Play/Pause" >
 				</JButton>
 				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Fn./plugin-projects/AutoHotKey-Utils/ahk_x11.AppImage%Tn  `pwd`/plugin-projects/AutoHotKey-Utils/send-chrome-key-fullscreen-linux.ahk" extendedLayoutApplyParent="" setBackground="0, 153, 153" setText="| [Full] |" setToolTipText="Go Fullscreen" >
