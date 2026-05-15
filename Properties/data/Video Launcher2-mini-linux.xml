@@ -86,8 +86,15 @@
 				</JMenuItem>
 				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ApplicationBuilder|%Fn./Properties/data/ScheduledCommandListEditor.xml" extendedLayoutApplyParent="" setText="Reload Tool" setToolTipText="Launch a process to recycle and retrieve new content" >
 				</JMenuItem>
-				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ApplicationBuilder|%Fn./Properties/data/video_remote_linux.xml" extendedLayoutApplyParent="" setText="Play Remote" setToolTipText="uses ahk-x11" >
+				<JMenu extendedLayoutApplyParent="" setText="Remote" >
+					<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellExecutor|%Fn./plugin-projects/JoystickDriver/joystick.sh" extendedLayoutApplyParent="" setText="Joystick Driver1" setToolTipText="For Controlling Input through interprocess communication" >
+					</JMenuItem>
+					<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="" extendedLayoutApplyParent="" setText="Joystick Driver2" setToolTipText="For Controlling Input with antimicrox (missing.)" >
+					</JMenuItem>
+					<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ApplicationBuilder|%Fn./Properties/data/video_remote_linux.xml" extendedLayoutApplyParent="" setText="Play Remote" setToolTipText="uses ahk-x11" >
 				</JMenuItem>
+				</JMenu>
+				
 			</JMenu>
 		</JMenuBar>
 	</JFrame>
