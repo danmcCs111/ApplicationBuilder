@@ -64,14 +64,17 @@ public class VideoChannelPlayerJoy extends VideoChannelPlayer
 	private JButton 
 		imageHomeButton,
 		updateButton;
+	private KeepSelectionSelector
+		kss;
 	
 	public VideoChannelPlayerJoy()
 	{
 		
 	}
 
-	public VideoChannelPlayerJoy(Container parent)
+	public VideoChannelPlayerJoy(Container parent, KeepSelectionSelector kss)
 	{
+		this.kss = kss;
 		listView = new VideoChannelListViewJoy();
 		buildWidgets();
 		GraphicsUtil.centerOnScreen(this);
@@ -137,6 +140,10 @@ public class VideoChannelPlayerJoy extends VideoChannelPlayer
 			@Override
 			public void windowLostFocus(WindowEvent e) {
 				setVisible(false);
+				if(kss != null)
+				{
+					kss.setSelected(true);
+				}
 			}
 			@Override
 			public void windowGainedFocus(WindowEvent e) {

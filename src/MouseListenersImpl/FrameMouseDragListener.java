@@ -443,7 +443,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		{
 			if(vcpj == null)
 			{
-				vcpj = new VideoChannelPlayerJoy(f);
+				vcpj = new VideoChannelPlayerJoy(f, null);
 			}
 			vcpj.setVideos(new ImageIcon(ks.getImg()), parentButton, FrameMouseDragListener.this.ycvs);
 		}

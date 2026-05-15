@@ -59,8 +59,8 @@ public class HttpJoystickFuctionRequest implements ArrayActionListener
 	public static void setButtonArray(JButtonArray ba)
 	{
 		HttpJoystickFuctionRequest.ba = ba;
-		vcp = new VideoChannelPlayerJoy(ba);
 		kss = new KeepSelectionSelector(ba);
+		vcp = new VideoChannelPlayerJoy(ba, kss);
 	}
 
 	public static void buildVideoChannelPlayer() 
@@ -71,7 +71,7 @@ public class HttpJoystickFuctionRequest implements ArrayActionListener
 		kss.setSelected(false);
 		if(vcp == null)
 		{
-			vcp = new VideoChannelPlayerJoy(ba);
+			vcp = new VideoChannelPlayerJoy(ba, kss);
 		}
 		
 		KeepSelection ks = kss.getSelectedKeep();
