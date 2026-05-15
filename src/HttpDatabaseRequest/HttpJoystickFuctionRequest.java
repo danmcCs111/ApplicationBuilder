@@ -1,6 +1,7 @@
 package HttpDatabaseRequest;
 
 import java.awt.Frame;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,6 +9,7 @@ import java.util.HashMap;
 import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 
+import ActionListeners.ArrayActionListener;
 import ActionListenersImpl.LaunchUrlActionListener;
 import Actions.CommandExecutor;
 import MouseListenersImpl.LookupOrCreateYoutube;
@@ -24,7 +26,7 @@ import WidgetComponents.KeepSelectionSelector;
 import WidgetComponents.VideoChannelPlayerJoy;
 import WidgetUtility.WidgetBuildController;
 
-public class HttpJoystickFuctionRequest 
+public class HttpJoystickFuctionRequest implements ArrayActionListener
 {
 	private static final int
 		SHIFT_AMOUNT = 30;
@@ -37,10 +39,14 @@ public class HttpJoystickFuctionRequest
 		vcp;
 	private static HashMap <Integer, ArrayList <YoutubeChannelVideo>> 
 		ycvs;
-		
+	
+	static {
+		new HttpJoystickFuctionRequest();
+	}
+	
 	private HttpJoystickFuctionRequest()
 	{
-		
+		LaunchUrlActionListener.addArrayActionListener(this);
 	}
 	
 	public static void selectCurrent()
@@ -59,6 +65,10 @@ public class HttpJoystickFuctionRequest
 
 	public static void buildVideoChannelPlayer() 
 	{
+		if(!kss.isSelected())
+			return;
+		
+		kss.setSelected(false);
 		if(vcp == null)
 		{
 			vcp = new VideoChannelPlayerJoy(ba);
@@ -72,6 +82,7 @@ public class HttpJoystickFuctionRequest
 		{
 			ks.getJButtonLengthLimited().doClick();
 		}
+		
 	}
 
 	public static HashMap<Integer, ArrayList<YoutubeChannelVideo>> getYoutubeVideos() 
@@ -185,7 +196,7 @@ public class HttpJoystickFuctionRequest
 		
 		else if(responseXml.equals("A"))
 		{
-			if(!ba.isVideoBookmarksOpen())
+			if(!ba.isVideoBookmarksOpen() && kss.isSelected())
 			{
 				buildVideoChannelPlayer();
 			}
@@ -272,5 +283,30 @@ public class HttpJoystickFuctionRequest
 			Thread t = new Thread(r);
 			t.start();
 		}
+	}
+
+	@Override
+	public void addActionListener(ActionListener actionListener) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void urlSelect(AbstractButton newButton) {
+		kss.setSelected(true);
+	}
+
+	@Override
+	public void addArrayActionListener() {
+		LaunchUrlActionListener.addArrayActionListener(this);
+	}
+
+	@Override
+	public void removeArrayActionListener() {
+		LaunchUrlActionListener.removeArrayActionListener(this);
+	}
+
+	@Override
+	public void addStripFilter(String filter) {
+		// TODO Auto-generated method stub
 	}
 }

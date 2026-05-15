@@ -78,7 +78,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		picLabel;
 //	private static VideoChannelPlayer
 //		vqp = null;
-	private VideoChannelPlayerJoy
+	private static VideoChannelPlayerJoy
 		vcpj = null;
 	private VideoChannelPlayer
 		vcp = null;
@@ -110,6 +110,11 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		this.ks = ks;
 		this.parentButton = parentButton;
 		this.picLabel = picLabel;
+	}
+	
+	public static boolean videoChannelPlayerJoyOpen()
+	{
+		return vcpj != null && vcpj.isVisible();
 	}
 	
 	public static void setScrollWidthHeight(Dimension dim)
@@ -162,7 +167,6 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 			LoggingMessages.printOut(jbll.getName());
 			if(jbll.getName().contains("youtube.com"))
 			{
-				
 				if(isTouch)
 				{
 					JMenuItem mi3 = buildOpenVideosViewTouch(jbll);

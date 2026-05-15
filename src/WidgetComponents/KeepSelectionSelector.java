@@ -12,9 +12,22 @@ public class KeepSelectionSelector
 	private JButtonArray
 		ba;
 	
+	private boolean 
+		selected = true;
+	
 	public KeepSelectionSelector(JButtonArray ba)
 	{
 		this.ba = ba;
+	}
+	
+	public void setSelected(boolean sel)
+	{
+		selected = sel;
+	}
+	
+	public boolean isSelected()
+	{
+		return selected;
 	}
 	
 	public void decrementIndex()
