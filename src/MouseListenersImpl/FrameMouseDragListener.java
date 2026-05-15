@@ -12,6 +12,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,6 +28,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+import Actions.CommandExecutor;
 import Graphics2D.ColorTemplate;
 import HttpDatabaseRequest.HttpRequestHandler.ProcessType;
 import HttpDatabaseRequest.HttpRequestProcessor;
@@ -61,7 +63,6 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		SDF_DATE_SHORT = new SimpleDateFormat("MMM-dd-yyyy");
 	
 	public static int
-		PORT_NUMBER_MASK = 8,
 		SCALED_WIDTH_ICON = 35;
 	
 	public static HashMap<FrameMouseDragListener, Integer>
@@ -75,6 +76,8 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		parentButton;
 	private JLabel 
 		picLabel;
+//	private static VideoChannelPlayer
+//		vqp = null;
 	private VideoChannelPlayer
 		vqp = null;
 	private Point 
@@ -90,7 +93,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		isPreview = false;
 	private static Dimension
 		scrollBarTouchDim = new Dimension(25, 25);
-	private Process 
+	private static Process 
 		runningProcess;
 	
 	public FrameMouseDragListener()
@@ -399,18 +402,8 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	
 	private CommandBuild getLaunchVideoChannelPlayer(JButtonLengthLimited jbll, String path, Point loc)
 	{
-		int port = -1;
+		int port = HttpRequestProcessor.getPortNumber() + VideoChannelPlayer.PORT_NUMBER_MASK;
 		
-		if(portMaskAndDragListener.containsKey(this))
-		{
-			port = portMaskAndDragListener.get(this); 
-		}
-		else
-		{
-			port = PORT_NUMBER_MASK + HttpRequestProcessor.getPortNumber();
-			portMaskAndDragListener.put(this, port);
-			PORT_NUMBER_MASK++;
-		}
 		CommandBuild cb = new CommandBuild();
 		cb.setCommand("java", new String[]{"-cp"}, new String[]{
 				"./Application Builder.jar", 
@@ -423,6 +416,9 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 				port + "",
 				loc.x + "," + loc.y
 		});
+		
+		LoggingMessages.printOut(LoggingMessages.combine(cb.getParameters()));
+		
 		return cb;
 	}
 	
@@ -449,6 +445,23 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 				vqp = new VideoChannelPlayer(ks.getImageIcon(), this, parentButton, f);
 			}
 		}
+//		if(!isTouch)
+//		{
+//			Point p = ks.getLocationPoint();
+//			p.x += ks.getFrame().getWidth();
+//			if(runningProcess != null)
+//			{
+//				runningProcess.destroy();
+//				runningProcess.descendants().forEach(ProcessHandle::destroy);
+//			}
+//			CommandBuild cb = getLaunchVideoChannelPlayer(parentButton, ks.getPath(), p);
+//			try {
+//				runningProcess = CommandExecutor.executeProcess(cb);
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
+		
 		else if(!isTouch)
 		{
 			Point p = vqp.getLocation();

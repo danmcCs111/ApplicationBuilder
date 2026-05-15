@@ -1,6 +1,7 @@
 package HttpDatabaseRequest;
 
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.AbstractButton;
 
@@ -10,6 +11,7 @@ import ApplicationBuilder.QueryUpdateTool;
 import HttpDatabaseRequest.HttpRequestHandler.ProcessType;
 import MouseListenersImpl.PicLabelMouseListener;
 import MouseListenersImpl.VideoSubSelectionLauncher;
+import Properties.LoggingMessages;
 import WidgetComponents.JButtonLengthLimited;
 
 public class HttpLaunchUrlRequest implements ArrayActionListener
@@ -19,25 +21,29 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 	private static JButtonLengthLimited
 		virtualButton = new JButtonLengthLimited(),
 		virtualButtonHighlight = new JButtonLengthLimited();
-	private static int
-		distributionPortNumber = -1;
+	private static ArrayList<Integer>
+		distributionPortNumber = new ArrayList<Integer>();
+	private static int lastPort = -1;
+	private ProcessType procType;
 	
-	public HttpLaunchUrlRequest()
+	public HttpLaunchUrlRequest(ProcessType proc)
 	{
+		this.procType = proc;
 		addArrayActionListener();
 		virtualButton.setHighlightButton(virtualButtonHighlight);
 		virtualButton.addActionListener(new LaunchUrlActionListener());
 	}
 	
-	public void processRefresh(String responseXml, ProcessType proc, ArrayActionListener ...aals)
+	public void processRefresh(String responseXml, ArrayActionListener ...aals)
 	{
 		String [] args = responseXml.split(ARG_DELIMITER);
 		if(args.length <= 1)//do close
 		{
-			switch(proc)
+			switch(procType)
 			{
 			case child:
-				LaunchUrlActionListener.setLastButtonOrigin(null);
+//				LaunchUrlActionListener.setLastButtonOrigin(null);
+				LaunchUrlActionListener.notifyActionListeners(null);
 				return;
 			default://nop
 				break;
@@ -56,7 +62,10 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 			id = Integer.parseInt(idStr),
 			port = Integer.parseInt(portStr);
 		
-		setPortNumber(port);
+		if(procType == ProcessType.parent)
+		{
+			setPortNumber(port);
+		}
 		
 		//Referenced -> FileListOptionGenerator
 		virtualButton.setText(sourceButton);
@@ -67,10 +76,11 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 		
 		if(id == -1)
 		{
-			switch(proc)
+			switch(procType)
 			{
 			case child:
-				LaunchUrlActionListener.setLastButtonOrigin(virtualButton);
+//				LaunchUrlActionListener.setLastButtonOrigin(virtualButton);
+				LaunchUrlActionListener.notifyActionListeners(virtualButton);
 				return;
 			default://nop
 				break;
@@ -80,26 +90,33 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 	
 	public void processLaunchRefresh(String responseXml)
 	{
-		int port = Integer.parseInt(responseXml);
-		setPortNumber(port);
-		
-		JButtonLengthLimited jbll = (JButtonLengthLimited) LaunchUrlActionListener.getLastButtonOrigin();
-		
+		if(procType.equals(ProcessType.parent))
+		{
+			int port = Integer.parseInt(responseXml);
+			setPortNumber(port);
+			
+			refresh((JButtonLengthLimited) LaunchUrlActionListener.getLastButtonOrigin());
+		}
+	}
+	
+	private void refresh(JButtonLengthLimited jbll)
+	{
 		String req = VideoSubSelectionLauncher.getRequest(jbll, -1);
 		notifySubscribers(req, HttpRequestHandler.FUNCTION_TYPE_LAUNCH_REFRESH_RESPONSE);
 	}
 	
-	public void processLaunch(String responseXml, ProcessType proc, ArrayActionListener ...aals)
+	public void processLaunch(String responseXml, ArrayActionListener ...aals)
 	{
 		String [] args = responseXml.split(ARG_DELIMITER);
 		if(args.length <= 1)//do close
 		{
-			switch(proc)
+			switch(procType)
 			{
 			case parent:
 				virtualButton.setName(LaunchUrlActionListener.CLOSE_LAUNCH_ACTION_EVENT);
 				virtualButton.doClick();
 				PicLabelMouseListener.highLightLabel(virtualButtonHighlight, false);
+				lastPort = -1;
 				return;
 			case child:
 				for(ArrayActionListener aal : aals)
@@ -124,7 +141,14 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 			id = Integer.parseInt(idStr),
 			port = Integer.parseInt(portStr);
 		
-		setPortNumber(port);
+		if(procType.equals(ProcessType.parent))
+		{
+			setPortNumber(port);
+		}
+		else
+		{
+			lastPort = port;
+		}
 		
 		//Referenced -> FileListOptionGenerator
 		virtualButton.setText(sourceButton);
@@ -135,7 +159,7 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 		
 		if(id == -1)
 		{
-			switch(proc)
+			switch(procType)
 			{
 			case parent:
 				virtualButton.doClick();
@@ -150,31 +174,43 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 				return;
 			}
 		}
-		else if(proc.equals(ProcessType.parent))
+		else if(procType.equals(ProcessType.parent))
 		{
 			String [] argsP = LaunchUrlActionListener.buildCommand(virtualButton, id);
 			LaunchUrlActionListener.executeProcess(id, argsP);
 		}
 	}
 	
-	private static void notifySubscribers(String req, String reqType)
+	private void notifySubscribers(String req, String reqType)
 	{
-		if(distributionPortNumber != -1)
+		if(!procType.equals(ProcessType.parent))
+			return;
+		
+		for(int dist : distributionPortNumber)
 		{
+//			if(dist == lastPort)
+//				continue;
+			
 			HttpDatabaseRequest.executeGetRequest(
 				QueryUpdateTool.ENDPOINT,
-				distributionPortNumber,
+				dist,
 				req,
 				HttpRequestHandler.REQUEST_TYPE_HEADER_KEY,
 				reqType
 			);
+			LoggingMessages.printOut(dist + " is the dist number");
 		}
 	}
 	
 	private void setPortNumber(int port)
 	{
-		distributionPortNumber = port;
-		VideoSubSelectionLauncher.setPortNumber(port);
+		for(int dist : distributionPortNumber)
+		{
+			if(dist == port)
+				return;
+		}
+		distributionPortNumber.add(port);
+//		VideoSubSelectionLauncher.setPortNumber(port);
 	}
 
 	@Override
@@ -193,6 +229,7 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 	@Override
 	public void addArrayActionListener() 
 	{
+		
 		LaunchUrlActionListener.addArrayActionListener(this);
 	}
 

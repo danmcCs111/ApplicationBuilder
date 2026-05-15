@@ -76,12 +76,14 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		ALL_SELECT_TEXT = "All Channels";
 	private static int 
 		TOTAL_COUNT = 0,
-		PORT_NUMBER_MASK = 5,
+		PORT_NUMBER_MASK = 6,
 		CHARACTER_LIMIT = 35,
 		SCALED_WIDTH = 50,
 		DEFAULT_MINUTE_SETTING = 10,
 		SEARCH_COLUMN_LENGTH = 15,
-		SCROLL_UNIT_INC = 25;
+		SCROLL_UNIT_INC = 25,
+		ROOT_PORT = HttpRequestProcessor.getPortNumber(),
+		LISTEN_PORT = HttpRequestProcessor.getPortNumber()+PORT_NUMBER_MASK;
 	private static Border
 		COUNT_BORDER = new EmptyBorder(5, 0, 5, 15);//EmptyBorder(top, left, bottom, right)
 	private static FileSelection
@@ -129,6 +131,8 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	
 	private ArrayList <String> 
 		stripFilter = new ArrayList<String>(); 
+	private boolean
+		open=false;
 	
 	public VideoChannelsPlayer()
 	{
@@ -171,11 +175,8 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	
 	public void buildLoadingFrame(LinkedHashMap<JButtonLengthLimited, ImageIcon> buttonAndIcon) 
 	{
-		setupListener();
-		
 		JFrame loadingFrame = new JFrame();
 		loadingFrame.setResizable(false);
-		loadingFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		loadingFrame.setVisible(true);
 		
 		if(parentContainer != null)
@@ -525,6 +526,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		{
 			hrp.setArrayActionListener(listView, 1);//TODO. 2nd index.
 		}
+		TOTAL_COUNT = ycv.size();
 		addListView();
 		updateCount();
 	}
@@ -727,6 +729,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 				if(props == null)
 					return;
 				
+				open =true;
 				for(String s : props.keySet())
 				{
 					LoggingMessages.printOut("props: " + s.split("@")[0]+".url" + " " + props.get(s));
@@ -741,7 +744,6 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 					VideoChannelsPlayer.this.filterText(jbll);
 					jbllAndIcon.put(jbll, ir.getImageIcon(new File(fs.getFullPath())));
 				}
-				
 				VideoChannelsPlayer.this.build(jbllAndIcon, null);
 			}
 		};
@@ -752,6 +754,10 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 			@Override
 			public void windowClosed(WindowEvent e) {
 				VideoChannelsPlayer.this.dispose();
+				if(!open)
+				{
+					System.exit(0);
+				}
 			}
 		});
 	}
@@ -764,25 +770,23 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 			listenPort+"",
 			HttpRequestHandler.REQUEST_TYPE_HEADER_KEY,
 			HttpRequestHandler.FUNCTION_TYPE_LAUNCH_REFRESH_REQUEST
-			);
+		);
 	}
 	
 	private void setupListener()
 	{
 		hrp = new HttpRequestProcessor(ProcessType.child, new ArrayActionListener[] { this, listView});
-		int rootPort = HttpRequestProcessor.getPortNumber();
-		VideoSubSelectionLauncher.setPortNumber(rootPort);
-		
-		int listenPort = HttpRequestProcessor.getPortNumber()+PORT_NUMBER_MASK;
-		HttpRequestProcessor.setPortNumber(listenPort);
+		VideoSubSelectionLauncher.setPortNumber(ROOT_PORT);
+		HttpRequestProcessor.setPortNumber(LISTEN_PORT);
 		hrp.listenHttp();
-		provision(rootPort, listenPort);
 	}
 	
 	@Override
 	public void postExecute() 
 	{
+		setupListener();
 		open();
+		provision(ROOT_PORT, LISTEN_PORT);
 	}
 	
 }

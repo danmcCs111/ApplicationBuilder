@@ -19,7 +19,7 @@ import WidgetComponents.JMenuItemLaunchUrl;
 
 public class VideoSubSelectionLauncher implements ActionListener
 {
-	private static int 
+	private static int
 		portNumber = -1;
 	
 	private AbstractButton 
@@ -62,8 +62,10 @@ public class VideoSubSelectionLauncher implements ActionListener
 			String [] args = LaunchUrlActionListener.buildCommand(childButton, id);
 			LaunchUrlActionListener.executeProcess(id, args);
 		}
-		
-		VideoSubSelectionLauncher.launchRequest(childButton, id);
+		else
+		{
+			VideoSubSelectionLauncher.launchRequest(childButton, id);
+		}
 	}
 	
 	public void performLaunch(Component childComponent) //double loop b/c of order.

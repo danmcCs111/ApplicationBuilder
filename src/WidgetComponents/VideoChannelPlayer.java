@@ -45,6 +45,7 @@ import WidgetComponentInterfaces.DefaultAndScaledImage;
 import WidgetComponentInterfaces.DurationLimitSubscriber;
 import WidgetComponentInterfaces.ImageReader;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
+import WidgetComponentInterfaces.RegisterArrayActionListener;
 import WidgetComponentInterfaces.SearchSubscriber;
 import WidgetComponents.DurationLimiter.Mode;
 import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
@@ -66,10 +67,11 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 		SEARCH_COLUMN_LENGTH = 15,
 		SCROLL_UNIT_INC = 25;
 	public static int
-		PORT_NUMBER_MASK = 6;
+		PORT_NUMBER_MASK = 8;
 	private static Border
 		COUNT_BORDER = new EmptyBorder(5, 0, 5, 15);//EmptyBorder(top, left, bottom, right)
 	public static String
+		IMAGE_SUBFOLDER = "/images/",
 		DEFAULT_IMG = "./Properties/shapes/Default-Play-Image.xml";
 	private static Dimension
 		DIM_DEFAULT_PIC = new Dimension(279,150),
@@ -87,16 +89,22 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 		countLabel;
 	private ImageIcon 
 		videoImage;
+	private JButton 
+		imageLabel = new JButton();
 	private YoutubeVideosContainer 
 		fmdl;
 	private HashMap<Integer, ArrayList<YoutubeChannelVideo>>
 		ycvs;
 	private HttpRequestProcessor 
 		hrp;
+	private int 
+		rootPort = HttpRequestProcessor.getPortNumber(),
+		listenPort = HttpRequestProcessor.getPortNumber() + PORT_NUMBER_MASK;
 	
 	public VideoChannelPlayer()
 	{
-		
+		VideoChannelPlayer.this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		RegisterArrayActionListener.addListener(this);
 	}
 	
 	public VideoChannelPlayer(
@@ -113,17 +121,23 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 	public void setVideos(JButtonLengthLimited jbll, String path, Point loc)
 	{
 		ImageReader ir = new ImageReader(VideoChannelPlayer.this);
-		FileSelection fs = new FileSelection(path + "/" + jbll.getFullLengthText() + ".png");
+		
+		FileSelection fs = new FileSelection(path + "/images/" + jbll.getFullLengthText() + ".png");
 		ImageIcon ii = ir.getImageIcon(new File(fs.getFullPath()));
 		ii = ImageReader.getScaledImageIcon(ii.getImage(), SCALED_HEIGHT);
+		
 		VideoChannelPlayer.this.videoImage = ii;
 		VideoChannelPlayer.this.parentButton = jbll;
 		VideoChannelPlayer.this.fmdl =VideoChannelPlayer. this;
 		VideoChannelPlayer.this.setTitle(TITLE_PREFIX + parentButton.getFullLengthText());
 		VideoChannelPlayer.this.setLocation(loc);
-		VideoChannelPlayer.this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		buildWidgets(fmdl.getYoutubeVideos());
+	}
+	
+	public static void setImagesSubfolder(String folder)
+	{
+		IMAGE_SUBFOLDER = folder;
 	}
 	
 	public static void setDefaultMinuteSetting(int minute)
@@ -134,6 +148,11 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 	public VideoChannelListView getVideoChannelListView()
 	{
 		return this.listView;
+	}
+	
+	public void setParentButton(JButtonLengthLimited jbll)
+	{
+		this.parentButton = jbll;
 	}
 	
 	private void buildWidgets(HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
@@ -164,7 +183,6 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 		});
 		
 		this.setMinimumSize(MIN_SIZE);
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setVisible(true);
 
 		listView.postFrameBuild();
@@ -179,7 +197,7 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 		fl.setAlignment(FlowLayout.LEFT);
 		searchPanel.setLayout(fl);
 		
-		JButton imageLabel = new JButton(videoImage);
+		imageLabel.setIcon(videoImage);
 		imageLabel.setToolTipText(HOME_PAGE_TOOLTIP_TEXT.replaceAll("<arg0>", parentButton.getText()));
 		imageLabel.addMouseListener(new MouseAdapter() {
 			@Override
@@ -251,7 +269,7 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 	
 	private void buildCenterPanel(HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
 	{
-		listView = new VideoChannelListView(parentButton, ycvs, ProcessType.parent);
+		listView = new VideoChannelListView(parentButton, ycvs, ProcessType.child);
 		scrollPane = new JScrollPane(listView);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(SCROLL_UNIT_INC);
 	}
@@ -280,6 +298,17 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 	
 	public static void main(String [] args)
 	{
+		String [] argv = new String [] {
+		"./Properties/data/VideoChannelPlayer.xml",
+		"./VideoLaunchFiles/YoutubeChannels/",
+		"Paul39s Hardware", 
+		"Paul39s Hardware - YouTube", 
+		"https://www.youtube.com/@paulshardware",
+		"9098", 
+		"361,731"};
+		VideoChannelPlayer vcp = new VideoChannelPlayer();
+		vcp.parseArgs(argv);
+		vcp.setupListener();
 	}
 
 	@Override
@@ -365,7 +394,7 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 	@Override
 	public void urlSelect(AbstractButton newButton) 
 	{
-		listView.urlSelect(newButton);
+//		listView.urlSelect(newButton);
 	}
 
 	@Override
@@ -386,25 +415,21 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 		
 	}
 	
-	private void provision(int rootPort, int listenPort)
+	private static void provision(int rootPort, int listenPort)
 	{
 		HttpDatabaseRequest.executeGetRequest(
 			QueryUpdateTool.ENDPOINT,
 			rootPort,
 			listenPort+"",
 			HttpRequestHandler.REQUEST_TYPE_HEADER_KEY,
-			HttpRequestHandler.FUNCTION_TYPE_LAUNCH_REFRESH_REQUEST
-			);
+			HttpRequestHandler.FUNCTION_TYPE_LAUNCH_REFRESH_REQUEST);
 	}
 	
 	private void setupListener()
 	{
-		hrp = new HttpRequestProcessor(ProcessType.child, new ArrayActionListener[] { this, listView});
-		int rootPort = HttpRequestProcessor.getPortNumber();
-		VideoSubSelectionLauncher.setPortNumber(rootPort);
-		
-		int listenPort = HttpRequestProcessor.getPortNumber()+PORT_NUMBER_MASK;
-		HttpRequestProcessor.setPortNumber(listenPort);
+		hrp = new HttpRequestProcessor(ProcessType.child, new ArrayActionListener[] {this, listView});
+		VideoSubSelectionLauncher.setPortNumber(this.rootPort);
+		HttpRequestProcessor.setPortNumber(this.listenPort);
 		hrp.listenHttp();
 		provision(rootPort, listenPort);
 	}
@@ -425,7 +450,8 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 			url = args[4],
 			portNumber = args[5];
 		
-		PORT_NUMBER_MASK = Integer.parseInt(portNumber);
+		this.listenPort = Integer.parseInt(portNumber);
+		
 		String [] pointStr = args[6].split(",");
 		int
 			x = Integer.parseInt(pointStr[0].strip()),
@@ -437,6 +463,26 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 		jbll.setText(buttonText);
 		jbll.setFullText(fullText);
 		jbll.setName(url);
+		
+		imageLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int button = e.getButton();
+				switch(button)
+				{
+				case MouseEvent.BUTTON1:
+					VideoSubSelectionLauncher.launchRequest(jbll, -1);
+					urlSelect(jbll);//highlight manually
+					LaunchUrlActionListener.notifyActionListeners(jbll);
+					break;
+				case MouseEvent.BUTTON2:
+					VideoSubSelectionLauncher.launchRequest(jbll, 1);
+					break;
+				case MouseEvent.BUTTON3://ignore
+					break;
+				}
+			}
+		});
 		
 		this.setVideos(jbll, path, loc);
 	}

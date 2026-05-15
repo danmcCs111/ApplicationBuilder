@@ -25,8 +25,6 @@ public class HttpRequestHandler implements HttpHandler
 		FUNCTION_TYPE_LAUNCH_REFRESH_REQUEST = "URL_Launch_Refresh_Request",
 		FUNCTION_TYPE_JOYSTICK = "Joystick_Button";
 
-	private ProcessType 
-		proc;
 	private ArrayActionListener []
 		aals;
 	private HttpLaunchUrlRequest
@@ -41,15 +39,13 @@ public class HttpRequestHandler implements HttpHandler
 	{
 		this.aals = aals;
 		HttpJoystickFuctionRequest.setButtonArray(ba);
-		this.proc = proc;
-		hlur = new HttpLaunchUrlRequest();
+		hlur = new HttpLaunchUrlRequest(proc);
 	}
 	
 	public HttpRequestHandler(ProcessType proc, ArrayActionListener ... aals)
 	{
 		this.aals = aals;
-		this.proc = proc;
-		hlur = new HttpLaunchUrlRequest();
+		hlur = new HttpLaunchUrlRequest(proc);
 	}
 	
 	public void setArrayActionListener(ArrayActionListener aal, int index)
@@ -100,11 +96,11 @@ public class HttpRequestHandler implements HttpHandler
 			}
 			else if(h.get(REQUEST_TYPE_HEADER_KEY).contains(FUNCTION_TYPE_LAUNCH_URL))
 			{
-				hlur.processLaunch(responseXml, proc, aals);
+				hlur.processLaunch(responseXml, aals);
 			}
 			else if(h.get(REQUEST_TYPE_HEADER_KEY).contains(FUNCTION_TYPE_LAUNCH_REFRESH_RESPONSE))
 			{
-				hlur.processRefresh(responseXml, proc, aals);
+				hlur.processRefresh(responseXml, aals);
 			}
 			else if(h.get(REQUEST_TYPE_HEADER_KEY).contains(FUNCTION_TYPE_LAUNCH_REFRESH_REQUEST))
 			{
