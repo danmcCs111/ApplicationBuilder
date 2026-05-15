@@ -1,5 +1,5 @@
 <Build>
-	<JFrame extendedSetupTaskbar="./src/ApplicationBuilder/video-icon.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="450, 550" setMinimumSize="300, 165" setResizable="False" setTitle="WinTV" >
+	<JFrame extendedSetupTaskbar="./src/ApplicationBuilder/video-icon.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="338, 500" setMinimumSize="300, 165" setResizable="False" setTitle="WinTV" >
 		<JPanel extendedLayoutApplyParent="West" setLayout="java.awt.GridLayout" >
 			<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/send-pid-key.ahk%Tn read-wintv-pid.txt%Tn {+}" extendedLayoutApplyParent="" setBackground="102, 0, 0" setForeground="204, 204, 204" setText="[+]" setToolTipText="Channel Up" >
 			</JButton>
