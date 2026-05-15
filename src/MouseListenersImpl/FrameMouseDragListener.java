@@ -435,9 +435,9 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	@Override
 	public void buildVideoChannelPlayer()
 	{
-		if(isTouch && vcpj == null)
+		if(isTouch)
 		{
-			if(vcpj ==null)
+			if(vcpj == null)
 			{
 				vcpj = new VideoChannelPlayerJoy(f);
 			}
