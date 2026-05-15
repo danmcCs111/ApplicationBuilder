@@ -42,7 +42,7 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 			switch(procType)
 			{
 			case child:
-//				LaunchUrlActionListener.setLastButtonOrigin(null);
+				LaunchUrlActionListener.setLastButtonOrigin(null);
 				LaunchUrlActionListener.notifyActionListeners(null);
 				return;
 			default://nop
@@ -79,7 +79,7 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 			switch(procType)
 			{
 			case child:
-//				LaunchUrlActionListener.setLastButtonOrigin(virtualButton);
+				LaunchUrlActionListener.setLastButtonOrigin(virtualButton);
 				LaunchUrlActionListener.notifyActionListeners(virtualButton);
 				return;
 			default://nop
