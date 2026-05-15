@@ -54,7 +54,7 @@ public class ExtendedLaunchUrlTextSubscriber implements ExtendedAttributeStringP
 				text = "";
 			if(!textChild.equals(textParent))
 			{
-				text = "<" + textParent + "> ";
+				text = "[ " + textParent + " ] -- ";
 				text += textChild;
 				textComp.setText(text);
 				textComp.setCaretPosition(0);
@@ -62,7 +62,7 @@ public class ExtendedLaunchUrlTextSubscriber implements ExtendedAttributeStringP
 			}
 		}
 		
-		textComp.setText("<" + newButton.getText() + ">");
+		textComp.setText("[ " + newButton.getText() + " ]");
 		textComp.setCaretPosition(0);
 	}
 
