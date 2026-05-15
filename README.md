@@ -63,7 +63,11 @@ if it isn't copying, highlight the url in browser and hit enter again. the actua
 <img width="25%" width="1013" height="1013" alt="IMG20260425145002" src="https://github.com/user-attachments/assets/77f100e9-4db0-48f1-bb3c-5119b3c18bd9" />
 
 
-*added touch controls & toggle button, youtube handle editor.
+*added touch controls & toggle button, youtube handle editor and status bar.
+
+<img width="%25" width="412" height="149" alt="image" src="https://github.com/user-attachments/assets/d91b89d0-4f72-4691-bdb5-7150767e6128" />
+
+
 
 *added Video Channels Player as a seperate process connecting to the main window. updated main window layout
 
