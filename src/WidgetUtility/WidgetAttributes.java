@@ -66,6 +66,7 @@ import WidgetExtensions.ExtendedCsvReader;
 import WidgetExtensions.ExtendedDatabaseResponseNodeListener;
 import WidgetExtensions.ExtendedEditCollectionActionListener;
 import WidgetExtensions.ExtendedImageMouseAdapterArray;
+import WidgetExtensions.ExtendedLaunchUrlTextSubscriber;
 import WidgetExtensions.ExtendedLayoutApplyParent;
 import WidgetExtensions.ExtendedMinimizeActionListener;
 import WidgetExtensions.ExtendedNewFileActionListener;
@@ -82,6 +83,7 @@ import WidgetExtensions.ExtendedSearchField;
 import WidgetExtensions.ExtendedSetBackgroundPanelColorTemplate;
 import WidgetExtensions.ExtendedSetButtonBackgroundColorTemplate;
 import WidgetExtensions.ExtendedSetButtonForegroundColorTemplate;
+import WidgetExtensions.ExtendedSetFontSize;
 import WidgetExtensions.ExtendedSetJMenuBarParent;
 import WidgetExtensions.ExtendedSetLookAndFeel;
 import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
@@ -190,7 +192,10 @@ public class WidgetAttributes
 				ExtendedAttributeParam.getMethodDefinition(ExtendedScheduledCommandStartActionListener.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(JTextField.class, new String [] {
-				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
+				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetFontSize.class, ExtendedMethodArgDef.ExtendedInteger.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedLaunchUrlTextSubscriber.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
+				
 		});
 		EXTENDED_METHODS.put(JLabel.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),

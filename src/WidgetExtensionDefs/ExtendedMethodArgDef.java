@@ -14,6 +14,7 @@ public enum ExtendedMethodArgDef
 	NameIdSendAndReceiveSelection(" [ObjectTypeConversion.NameId arg0, ObjectTypeConversion.NameId arg1]"),
 	WavReaderSelection(" [ObjectTypeConversion.WavReader arg0]"),
 	ExtendedScrollBarSetUnit(" [int arg0]"),
+	ExtendedInteger(" [int arg0]"),
 	ImageMouseAdapter(" [ObjectTypeConversion.NameId arg0, boolean arg1]"),
 	PageParserCollection(" [ObjectTypeConversion.PageParserCollection arg0"),
 	PathArrayProcessingFolders(" [ObjectTypeConversion.PathArrayProcessing arg0]"),

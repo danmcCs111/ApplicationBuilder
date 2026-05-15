@@ -1,5 +1,5 @@
 <Build>
-	<JFrame addWindowListener="WindowListeners.ProcessExecutorWindowListener" extendedSetLookAndFeel="CrossPlatform" extendedSetupTaskbar="./src/ApplicationBuilder/launch_xsm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="10, 30" setMinimumSize="425, 163" setName="VideoPlayer" setResizable="True" setSize="425, 400" setTitle="Video Launcher" >
+	<JFrame addWindowListener="WindowListeners.ProcessExecutorWindowListener" extendedSetLookAndFeel="CrossPlatform" extendedSetupTaskbar="./src/ApplicationBuilder/launch_xsm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="20, 300" setMinimumSize="425, 163" setName="VideoPlayer" setResizable="True" setSize="425, 163" setTitle="Video Launcher" >
 		<JPanel extendedLayoutApplyParent="Center" setLayout="java.awt.BorderLayout" >
 			<JScrollPane extendedLayoutApplyParent="Center" extendedScrollBarSetUnit="15" extendedSetScrollBackgroundForegroundColor="51, 51, 51, 0, 0, 0" setName="scrollPane" >
 				<SwappableCollection extendedArrayProcessingPath="./VideoLaunchFiles/YoutubeChannels/@.url; ./VideoLaunchFiles/RokuChannels/@.url; ./VideoLaunchFiles/Music/@.url; ./VideoLaunchFiles/AmazonVideos/@.url; ./VideoLaunchFiles/Tubi/@.url; ./VideoLaunchFiles/YoutubeFreeMovies2/@.url; ./VideoLaunchFiles/RokuVideos/@.url" extendedSetViewportView="" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" setName="swapVideos" >
@@ -10,10 +10,16 @@
 				</SwappableCollection>
 			</JScrollPane>
 			<JPanel extendedLayoutApplyParent="North" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" >
-				<SearchBar extendedLayoutApplyParent="East" extendedSearchField="swapVideos" setButtonBackground="0, 0, 0" setButtonForeground="204, 204, 204" setColumnCharacterLength="10" setSearchFieldBackground="51, 51, 51" setSearchFieldForeground="255, 255, 255" >
-				</SearchBar>
-				<JLabel extendedLayoutApplyParent="West" extendedTitleSwitcher="swapVideos" setBackground="51, 51, 51" setForeground="191, 255, 220" setHorizontalAlignment="0" setName="title" setText="TODO" >
-				</JLabel>
+				<JPanel extendedLayoutApplyParent="North" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" >
+					<JTextField extendedLaunchUrlTextSubscriber="&lt;stopped&gt;" extendedLayoutApplyParent="North" extendedSetFontSize="18" setBackground="0, 0, 0" setEditable="False" setForeground="204, 102, 0" setHorizontalAlignment="2" setText="&lt;stopped&gt;" >
+					</JTextField>
+				</JPanel>
+				<JPanel extendedLayoutApplyParent="South" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" >
+					<SearchBar extendedLayoutApplyParent="East" extendedSearchField="swapVideos" setButtonBackground="0, 0, 0" setButtonForeground="204, 204, 204" setColumnCharacterLength="10" setSearchFieldBackground="51, 51, 51" setSearchFieldForeground="255, 255, 255" >
+					</SearchBar>
+					<JLabel extendedLayoutApplyParent="West" extendedTitleSwitcher="swapVideos" setBackground="51, 51, 51" setForeground="191, 255, 220" setHorizontalAlignment="0" setName="title" setText="TODO" >
+					</JLabel>
+				</JPanel>
 			</JPanel>
 		</JPanel>
 		<JPanel extendedLayoutApplyParent="South" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" >
