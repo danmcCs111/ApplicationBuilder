@@ -36,6 +36,7 @@ public enum ParamTypes
 	Int(new IntConverter()),
 	Integer(new IntegerConverter()),
 	Double(new DoubleConverter()),
+//	Float(new FloatConverter()),
 	Point(new PointConverter()),
 	Dimension(new DimensionConverter()),
 	Boolean(new BooleanConverter()),

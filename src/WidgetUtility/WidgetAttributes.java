@@ -87,6 +87,7 @@ import WidgetExtensions.ExtendedSetFontSize;
 import WidgetExtensions.ExtendedSetJMenuBarParent;
 import WidgetExtensions.ExtendedSetLookAndFeel;
 import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
+import WidgetExtensions.ExtendedSetScrollBarDimension;
 import WidgetExtensions.ExtendedSetViewportView;
 import WidgetExtensions.ExtendedSetupTaskbar;
 import WidgetExtensions.ExtendedShapeDrawingCollectionLoader;
@@ -155,6 +156,7 @@ public class WidgetAttributes
 		EXTENDED_METHODS.put(JFrame.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetupTaskbar.class, ExtendedMethodArgDef.ExtendedFileSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetLookAndFeel.class, ExtendedMethodArgDef.LookAndFeelClassNameSelection.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetScrollBarDimension.class, ExtendedMethodArgDef.ExtendedDimension.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedCsvReader.class, ExtendedMethodArgDef.CsvReaderSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetBackgroundPanelColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetButtonBackgroundColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef()),

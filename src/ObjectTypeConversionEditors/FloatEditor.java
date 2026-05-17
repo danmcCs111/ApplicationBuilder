@@ -12,10 +12,11 @@ public class FloatEditor extends JSpinner implements ParameterEditor
 	private static final long serialVersionUID = 1995L;
 	
 	private static final int 
-		SPINNER_LIMIT = 1000000,
-		SPINNER_INTERVAL = 1;
+		SPINNER_LIMIT = 1000000;
+	private static final float
+		SPINNER_INTERVAL = .01f;
 	private static final String 
-		SPINNER_FORMAT = "000000.00";
+		SPINNER_FORMAT = "0.00";
 	
 	public FloatEditor()
 	{
@@ -52,9 +53,16 @@ public class FloatEditor extends JSpinner implements ParameterEditor
 	@Override
 	public String[] getComponentValue() 
 	{
-		return this == null
-				? new String [] {""}
-				: new String [] {this.getValue()+""};
+		if(this.getValue() == null)
+		{
+			return new String [] {""};
+		}
+		if(this.getValue() instanceof Double)
+		{
+			float val = ((Double) this.getValue()).floatValue();
+			return new String [] {val+""};
+		}
+		return new String [] {this.getValue()+""};
 	}
 
 	@Override

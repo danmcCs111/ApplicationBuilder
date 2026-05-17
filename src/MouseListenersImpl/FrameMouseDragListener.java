@@ -12,7 +12,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -28,7 +27,6 @@ import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import Actions.CommandExecutor;
 import Graphics2D.ColorTemplate;
 import HttpDatabaseRequest.HttpRequestHandler.ProcessType;
 import HttpDatabaseRequest.HttpRequestProcessor;

@@ -12,10 +12,11 @@ public class DoubleEditor extends JSpinner implements ParameterEditor
 	private static final long serialVersionUID = 1994L;
 	
 	private static final int 
-		SPINNER_LIMIT = 1000000,
-		SPINNER_INTERVAL = 1;
+		SPINNER_LIMIT = 1000000;
+	private static final double
+		SPINNER_INTERVAL = .01;
 	private static final String 
-		SPINNER_FORMAT = "000000.00";
+		SPINNER_FORMAT = "0.00";
 	
 	public DoubleEditor()
 	{
@@ -54,7 +55,7 @@ public class DoubleEditor extends JSpinner implements ParameterEditor
 	{
 		return this == null
 				? new String [] {""}
-				: new String [] {(double) this.getValue()+""};
+				: new String [] {(Double) this.getValue()+""};
 	}
 
 	@Override

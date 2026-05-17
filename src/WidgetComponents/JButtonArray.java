@@ -160,11 +160,6 @@ PostWidgetBuildProcessing, ButtonArray
 		FrameMouseDragListener.setIsTouch(isTouch);
 	}
 	
-	public static void setScrollBarDimension(Dimension dim)
-	{
-		FrameMouseDragListener.setScrollWidthHeight(dim);
-	}
-	
 	public static void setMinimumMinuteChannelViewJoystick(int minMinute)
 	{
 		VideoChannelListViewJoy.setMinimumMinute(minMinute);

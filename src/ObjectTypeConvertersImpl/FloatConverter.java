@@ -2,7 +2,7 @@ package ObjectTypeConvertersImpl;
 
 import ObjectTypeConversion.StringToObjectConverter;
 
-public class DoubleConverter implements StringToObjectConverter
+public class FloatConverter implements StringToObjectConverter
 {
 	@Override
 	public int numberOfArgs() 
@@ -13,13 +13,13 @@ public class DoubleConverter implements StringToObjectConverter
 	@Override
 	public Class<?> getDefinitionClass() 
 	{
-		return double.class;
+		return float.class;
 	}
 
 	@Override
 	public Object getDefaultNullValue() 
 	{
-		return 0.0;
+		return 0f;
 	}
 
 	@Override
@@ -27,7 +27,7 @@ public class DoubleConverter implements StringToObjectConverter
 	{
 		return conversionCallIsBlankCheck(args)
 				? getDefaultNullValue()
-				: Double.parseDouble(args[0]);
+				: Float.parseFloat(args[0]);
 	}
 
 	@Override
@@ -35,5 +35,4 @@ public class DoubleConverter implements StringToObjectConverter
 	{
 		return args[0];
 	}
-	
 }
