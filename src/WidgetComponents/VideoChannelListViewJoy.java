@@ -89,19 +89,6 @@ public class VideoChannelListViewJoy extends VideoChannelListView implements Arr
 		listItems.setListData(videoButtonsFiltered.toArray(new JButtonLengthLimited[] {}));
 		listItems.ensureIndexIsVisible(0);
 		listItems.setSelectedIndex(0);
-		if(FrameMouseDragListener.isTouch())
-		{
-			listItems.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mousePressed(MouseEvent e) 
-				{
-					if(e.getButton() == MouseEvent.BUTTON3)
-					{
-						sendMouseClick();
-					}
-				}
-			});
-		}
 		
 		clearSelect();
 		postFrameBuild();
@@ -149,12 +136,25 @@ public class VideoChannelListViewJoy extends VideoChannelListView implements Arr
 		listItems = new JList<JButtonLengthLimited>();
 		
 		listItems.setFont(VideoChannelPlayerJoy.getFontAlt());
+		
 		listItems.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1)
 				{
-					sendMouseClick();
+					sendMouseClick(MouseEvent.BUTTON1);
+				}
+				if(FrameMouseDragListener.isTouch())
+				{
+					switch(e.getButton())
+					{
+					case MouseEvent.BUTTON3:
+						sendMouseClick(MouseEvent.BUTTON1);
+						break;
+					case MouseEvent.BUTTON2:
+						sendMouseClick(MouseEvent.BUTTON2);
+						break;
+					}
 				}
 			}
 		});
@@ -169,7 +169,7 @@ public class VideoChannelListViewJoy extends VideoChannelListView implements Arr
 				}
 				else if(e.getKeyCode() == KeyEvent.VK_ENTER)
 				{
-					sendMouseClick();
+					sendMouseClick(MouseEvent.BUTTON1);
 				}
 			}
 		});
@@ -218,9 +218,9 @@ public class VideoChannelListViewJoy extends VideoChannelListView implements Arr
 		((JFrame)VideoChannelListViewJoy.this.getTopLevelAncestor()).dispose();
 	}
 	
-	public void sendMouseClick()
+	public void sendMouseClick(int mouseButton)
 	{
-		MouseEvent me = new MouseEvent(listItems, -1, WHEN_FOCUSED, WHEN_FOCUSED, 0, 0, 0, 0, 1, false, 1);
+		MouseEvent me = new MouseEvent(listItems, -1, WHEN_FOCUSED, WHEN_FOCUSED, 0, 0, 0, 0, 1, false, mouseButton);
 		for(MouseListener ml : listItems.getSelectedValue().getMouseListeners())
 		{
 			ml.mouseClicked(me);

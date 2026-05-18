@@ -269,7 +269,7 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 	
 	private void buildCenterPanel(HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs)
 	{
-		listView = new VideoChannelListView(parentButton, ycvs, ProcessType.child);
+		listView = new VideoChannelListView(parentButton, ycvs, ProcessType.parent);//TODO, seperate process, child.
 		scrollPane = new JScrollPane(listView);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(SCROLL_UNIT_INC);
 	}
