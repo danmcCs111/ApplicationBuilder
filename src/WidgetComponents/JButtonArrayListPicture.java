@@ -94,7 +94,8 @@ PostWidgetBuildProcessing
 		saveIncPoint = new Point(100, 0),
 		saveStartLocation = new Point(100, 700);
 	private static int
-		lineWrap = -1;
+		lineWrap = -1,
+		lineWrapYInc = -1;
 	
 	public ImageReader 
 		imageReader = null;
@@ -176,7 +177,11 @@ PostWidgetBuildProcessing
 	
 	public void setSaveLineWrapNumber(int numberLineWrap)
 	{
-		lineWrap = numberLineWrap;
+		JButtonArrayListPicture.lineWrap = numberLineWrap;
+	}
+	public void setSaveLineWrapYInc(int lineWrapYInc)
+	{
+		JButtonArrayListPicture.lineWrapYInc = lineWrapYInc;
 	}
 	
 	public void setSaveStartLocation(Point saveStartLocation)
@@ -615,6 +620,10 @@ PostWidgetBuildProcessing
 			{
 				if(count >= JButtonArrayListPicture.lineWrap && JButtonArrayListPicture.lineWrap > 0)
 				{
+					if(JButtonArrayListPicture.lineWrapYInc > 0)
+					{
+						y+=JButtonArrayListPicture.lineWrapYInc;
+					}
 					x=saveStartLocation.x;
 					count=0;
 				}
