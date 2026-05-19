@@ -47,6 +47,8 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	private static final int 
 		FRAME_AND_TITLE_HEIGHT = 45; 
 	private static final String 
+		YOUTUBE_CHANNELS_FILTER = "youtube.com/",
+//		YOUTUBE_CHANNELS_FILTER2 = "youtube.com/@",
 		EMPTY_CHANNELS_LIST_TEXT = "Empty",
 		OPEN_MENU_TEXT = "OPEN",
 		VIEW_LATEST_VIDEOS = "VIEW",
@@ -163,8 +165,12 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 			pm.add(mi);
 			
 			LoggingMessages.printOut(jbll.getName());
-			if(jbll.getName().contains("youtube.com"))
+			if(jbll.getName().contains(YOUTUBE_CHANNELS_FILTER))
 			{
+				if(jbll.getName().contains(EMPTY_CHANNELS_LIST_TEXT))
+				{
+					
+				}
 				if(isTouch)
 				{
 					JMenuItem mi3 = buildOpenVideosViewTouch(jbll);

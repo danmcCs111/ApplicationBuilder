@@ -20,7 +20,6 @@ import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -31,7 +30,6 @@ import ActionListenersImpl.AddActionReceive;
 import ActionListenersImpl.LaunchUrlActionListener;
 import ActionListenersImpl.NavigationButtonActionListener;
 import Graphics2D.ColorTemplate;
-import MouseListenersImpl.FrameMouseDragListener;
 import ObjectTypeConversion.DirectorySelection;
 import ObjectTypeConversion.FileSelection;
 import Properties.LoggingMessages;
@@ -92,17 +90,19 @@ PostWidgetBuildProcessing
 	private static Border
 		highlightBorder = new BevelBorder(BevelBorder.RAISED, highlightColor, highlightColor),
 		defaultBorder = new JCheckBoxLimited().getBorder();
+	private static Point 
+		saveIncPoint = new Point(100, 0),
+		saveStartLocation = new Point(100, 700);
+	private static int
+		lineWrap = -1;
 	
 	public ImageReader 
 		imageReader = null;
 	private HashMap<String, ArrayList<JCheckBoxLimited>> 
 		collectionJButtons = new HashMap<String, ArrayList<JCheckBoxLimited>>();
-	private Point 
-		saveIncPoint = new Point(100, 0),
-		saveStartLocation = new Point(100, 700);
 	private ArrayList<String> 
 		stripFilter = new ArrayList<String>();
-	private int 
+	private int
 		characterLimit=0,
 		columns = 3;
 	private boolean 
@@ -171,12 +171,17 @@ PostWidgetBuildProcessing
 	
 	public void setSaveIncPoint(Point saveIncPoint)
 	{
-		this.saveIncPoint = saveIncPoint;
+		JButtonArrayListPicture.saveIncPoint = saveIncPoint;
+	}
+	
+	public void setSaveLineWrapNumber(int numberLineWrap)
+	{
+		lineWrap = numberLineWrap;
 	}
 	
 	public void setSaveStartLocation(Point saveStartLocation)
 	{
-		this.saveStartLocation = saveStartLocation;
+		JButtonArrayListPicture.saveStartLocation = saveStartLocation;
 	}
 	
 	public void setShowAll(boolean showAll)
@@ -599,7 +604,8 @@ PostWidgetBuildProcessing
 	public void performSave() 
 	{
 		ArrayList<String[]> allToSave = new ArrayList<String[]>();
-		int 
+		int
+			count = 0,
 			x = saveStartLocation.x,
 			y = saveStartLocation.y;
 		
@@ -607,9 +613,15 @@ PostWidgetBuildProcessing
 		{
 			for(JCheckBoxLimited cbl : collectionJButtons.get(k))
 			{
+				if(count >= JButtonArrayListPicture.lineWrap && JButtonArrayListPicture.lineWrap > 0)
+				{
+					x=saveStartLocation.x;
+					count=0;
+				}
 				allToSave.add(new String[] {cbl.getFullLengthText()+"@"+x+"@"+y, cbl.getPathKey()});
 				x+=saveIncPoint.x;
 				y+=saveIncPoint.y;
+				count++;
 			}
 		}
 		String [] [] props = allToSave.toArray(new String[][] {});
