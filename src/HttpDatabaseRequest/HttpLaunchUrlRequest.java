@@ -23,7 +23,6 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 		virtualButtonHighlight = new JButtonLengthLimited();
 	private static ArrayList<Integer>
 		distributionPortNumber = new ArrayList<Integer>();
-	private static int lastPort = -1;
 	private ProcessType procType;
 	
 	public HttpLaunchUrlRequest(ProcessType proc)
@@ -116,7 +115,6 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 				virtualButton.setName(LaunchUrlActionListener.CLOSE_LAUNCH_ACTION_EVENT);
 				virtualButton.doClick();
 				PicLabelMouseListener.highLightLabel(virtualButtonHighlight, false);
-				lastPort = -1;
 				return;
 			case child:
 				for(ArrayActionListener aal : aals)
@@ -144,10 +142,6 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 		if(procType.equals(ProcessType.parent))
 		{
 			setPortNumber(port);
-		}
-		else
-		{
-			lastPort = port;
 		}
 		
 		//Referenced -> FileListOptionGenerator

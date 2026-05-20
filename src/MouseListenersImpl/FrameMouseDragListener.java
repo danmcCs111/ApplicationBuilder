@@ -95,8 +95,6 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		isPreview = false;
 	private static Dimension
 		scrollBarTouchDim = new Dimension(25, 25);
-	private static Process 
-		runningProcess;
 	
 	public FrameMouseDragListener()
 	{

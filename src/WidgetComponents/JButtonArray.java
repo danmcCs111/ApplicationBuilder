@@ -80,7 +80,6 @@ PostWidgetBuildProcessing, ButtonArray
 	private static final long serialVersionUID = 1883L;
 	
 	public static final String 
-		SAVE_ID = "JButtonArray",
 		CHARACTER_LIMIT_TEXT= "..",
 		IMAGES_RELATIVE_FILE_LOCATION= "/images/",
 		PROPERTIES_FILE_OPEN_TITLE = "Open Properties",

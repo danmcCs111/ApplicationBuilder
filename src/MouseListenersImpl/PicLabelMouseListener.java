@@ -30,6 +30,7 @@ public class PicLabelMouseListener extends MouseAdapter
 		SELECTION_BORDER = BorderFactory.createLineBorder(SELECTION_COLOR, 5),
 		HIGHLIGHT_BORDER = BorderFactory.createLineBorder(HIGHLIGHT_COLOR, 5);
 	private static AbstractButton 
+		highlight,
 		selected;
 	
 	private AbstractButton 
@@ -67,6 +68,9 @@ public class PicLabelMouseListener extends MouseAdapter
 			if(ab instanceof JButtonLengthLimited && 
 					l.getName().equals(((JButtonLengthLimited) ab).getFullLengthText()))
 			{
+				highlight = (on)
+					?ab
+					:null;
 				
 				l.setBorder(on
 					? HIGHLIGHT_BORDER
@@ -97,9 +101,6 @@ public class PicLabelMouseListener extends MouseAdapter
 			if(ab instanceof JButtonLengthLimited && 
 					l.getName().equals(((JButtonLengthLimited) ab).getFullLengthText()))
 			{
-				if(l.getBorder().equals(HIGHLIGHT_BORDER))
-					continue;
-				
 				l.setBorder(on
 					? SELECTION_BORDER
 					: EMPTY_BORDER);
@@ -109,7 +110,17 @@ public class PicLabelMouseListener extends MouseAdapter
 				if(l.getBorder() != null && l.getBorder().equals(HIGHLIGHT_BORDER))
 					continue;
 				
-				l.setBorder(EMPTY_BORDER);
+				if(highlight != null)
+				{
+					l.setBorder(l.getName().equals(((JButtonLengthLimited) highlight).getFullLengthText())
+						? HIGHLIGHT_BORDER
+						: EMPTY_BORDER
+					);
+				}
+				else
+				{
+					l.setBorder(EMPTY_BORDER);
+				}
 			}
 		}
 		if(on)
