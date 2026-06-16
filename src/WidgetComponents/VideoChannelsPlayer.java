@@ -17,6 +17,7 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -270,6 +271,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		
 		allSelectBtn = buildAllSelectionButton();
 		listPanel.add(allSelectBtn);
+		ArrayList<AbstractButton> abs = new ArrayList<AbstractButton>();
 		for(int i : parentButtons.keySet())
 		{
 			parentButtonAndYoutubeVideos.put(parentButtons.get(i), ycvs.get(i));
@@ -277,6 +279,14 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 			selectionButtonAndParentButton.put(ab, parentButtons.get(i));
 			ab.setIcon(buttonAndIcon.get(parentButtons.get(i)));
 			ab.setHorizontalAlignment(AbstractButton.LEFT);
+			abs.add(ab);
+		}
+		Comparator<AbstractButton> buttonTextComparator = Comparator.comparing(
+			    AbstractButton::getText
+			);
+		abs.sort(buttonTextComparator);
+		for(AbstractButton ab : abs)
+		{
 			listPanel.add(ab);
 		}
 	}

@@ -42,6 +42,7 @@ public class EditChannelsHandle extends JDialog
 //		COUNT_LABEL = "Count: ",
 		SAVE_BUTTON_TEXT = "Update",
 		CANCEL_BUTTON_TEXT = "Close";
+	
 	private static int
 		HANDLE_COLUMN_LENGTH = 10,
 		SCROLL_INC = 25;
