@@ -124,6 +124,8 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		buttonAndIcon;
 	private JLabel 
 		countLabel = new JLabel();
+	private static boolean
+		isAlphaNumeric = false;
 	
 	private OpenVideoChannelsUpdater
 		ovcu;
@@ -133,11 +135,16 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	private ArrayList <String> 
 		stripFilter = new ArrayList<String>(); 
 	private boolean
-		open=false;
+		open = false;
 	
 	public VideoChannelsPlayer()
 	{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
+	public static void setAlphaNumericOrder(boolean isAlphaNumeric)
+	{
+		VideoChannelsPlayer.isAlphaNumeric = isAlphaNumeric;
 	}
 	
 	public static void setDirectorySelection(DirectorySelection ds)
@@ -281,10 +288,13 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 			ab.setHorizontalAlignment(AbstractButton.LEFT);
 			abs.add(ab);
 		}
-		Comparator<AbstractButton> buttonTextComparator = Comparator.comparing(
-			    AbstractButton::getText
+		if(VideoChannelsPlayer.isAlphaNumeric)
+		{
+			Comparator<AbstractButton> buttonTextComparator = Comparator.comparing(
+					AbstractButton::getText
 			);
-		abs.sort(buttonTextComparator);
+			abs.sort(buttonTextComparator);
+		}
 		for(AbstractButton ab : abs)
 		{
 			listPanel.add(ab);
