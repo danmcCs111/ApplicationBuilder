@@ -114,7 +114,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	
 	private HashMap <Integer, ArrayList <YoutubeChannelVideo>> 
 		ycvs; 
-	private HashMap<Integer, JButtonLengthLimited> 
+	private LinkedHashMap<Integer, JButtonLengthLimited> 
 		parentButtons;
 	private HashMap<JButtonLengthLimited, ArrayList<YoutubeChannelVideo>>
 		parentButtonAndYoutubeVideos = new HashMap<JButtonLengthLimited, ArrayList<YoutubeChannelVideo>>();
@@ -165,7 +165,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	public void build(LinkedHashMap<JButtonLengthLimited, ImageIcon> buttonAndIcon, 
 			Container parentContainer)
 	{
-		this.parentButtons = new HashMap<Integer, JButtonLengthLimited>();
+		this.parentButtons = new LinkedHashMap<Integer, JButtonLengthLimited>();
 		this.parentContainer = parentContainer;
 		this.ycvs = new HashMap<Integer, ArrayList<YoutubeChannelVideo>>();
 		this.buttonAndIcon = buttonAndIcon;
