@@ -17,6 +17,7 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -600,6 +601,13 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 					public void run() {
 						List<JButtonLengthLimited> jblls = Arrays.asList
 								(parentButtons.values().toArray(new JButtonLengthLimited [] {}));
+						if(isAlphaNumeric)
+						{
+							Comparator<AbstractButton> buttonTextComparator = Comparator.comparing(
+									AbstractButton::getText
+									);
+							Collections.sort(jblls, buttonTextComparator);
+						}
 						ovcu = new OpenVideoChannelsUpdater(jblls);
 						GraphicsUtil.centerWindow(VideoChannelsPlayer.this, ovcu);
 					}
