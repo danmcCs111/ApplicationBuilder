@@ -235,6 +235,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		loadingFrame.dispose();
 		
 		buildWidgets();
+		provision(ROOT_PORT, LISTEN_PORT);
 	}
 	
 	public static void setDefaultMinuteSetting(int minute)
@@ -777,7 +778,6 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 					jbllAndIcon.put(jbll, ir.getImageIcon(new File(fs.getFullPath())));
 				}
 				VideoChannelsPlayer.this.build(jbllAndIcon, null);
-				urlSelect(LaunchUrlActionListener.getLastButtonOrigin());
 			}
 		};
 		
@@ -819,7 +819,6 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	{
 		setupListener();
 		open();
-		provision(ROOT_PORT, LISTEN_PORT);
 	}
 	
 }
