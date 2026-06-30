@@ -74,6 +74,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		HOME_PAGE_TOOLTIP_TEXT = "[ <arg0> ] - Homepage",
 		COUNT_PREFIX = "Video Count: ",
 		UPDATE_BUTTON_TEXT = "Update",
+		UPDATE_VIEWER_BUTTON_TEXT = "List Update",
 		ALL_SELECT_TEXT = "All Channels";
 	private static int 
 		TOTAL_COUNT = 0,
@@ -94,6 +95,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	
 	private JButton 
 		updateButton = new JButton(UPDATE_BUTTON_TEXT),
+		updateViewer = new JButton(UPDATE_VIEWER_BUTTON_TEXT),
 		imageLabel = new JButton();
 	private JButtonLengthLimited
 		selectedButton = null,
@@ -323,6 +325,9 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		
 		updateButton.addActionListener(getUpdateChannelsActionListener());
 		
+		updateViewer.addActionListener(getUpdateChannelsActionListener());
+		updateViewer.setVisible(false);
+		
 		SearchBar sb = new SearchBar();
 		sb.setColumnCharacterLength(SEARCH_COLUMN_LENGTH);
 		sb.addSearchSubscriber(new SearchSubscriber() {
@@ -346,6 +351,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		
 		searchPanel.add(imageLabel);
 		searchPanel.add(updateButton);
+		searchPanel.add(updateViewer);
 		searchPanel.add(sb);
 		searchPanel.add(dl);
 		
@@ -430,10 +436,12 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		{
 			imageLabel.setVisible(false);
 			updateButton.addActionListener(getUpdateChannelsActionListener());
+			updateViewer.setVisible(false);
 			return;
 		}
 		imageLabel.setVisible(true);
 		updateButton.addActionListener(getUpdateChannelActionListener());
+		updateViewer.setVisible(true);
 		
 		imageLabel.setIcon(buttonAndIcon.get(jbllParent));
 		imageLabel.setToolTipText(HOME_PAGE_TOOLTIP_TEXT.replaceAll("<arg0>", jbllParent.getText()));
