@@ -324,10 +324,10 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		fl.setAlignment(FlowLayout.LEFT);
 		searchPanel.setLayout(fl);
 		
-		updateButton.addActionListener(getUpdateChannelsActionListener());
+		updateButton.addActionListener(getUpdateChannelActionListener());
+		updateButton.setVisible(false);
 		
 		updateViewer.addActionListener(getUpdateChannelsActionListener());
-		updateViewer.setVisible(false);
 		
 		SearchBar sb = new SearchBar();
 		sb.setColumnCharacterLength(SEARCH_COLUMN_LENGTH);
@@ -428,21 +428,15 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		{
 			imageLabel.removeMouseListener(ml);
 		}
-		for(ActionListener al : updateButton.getActionListeners())
-		{
-			updateButton.removeActionListener(al);
-		}
 		
 		if(jbllParent == null)
 		{
 			imageLabel.setVisible(false);
-			updateButton.addActionListener(getUpdateChannelsActionListener());
-			updateViewer.setVisible(false);
+			updateButton.setVisible(false);
 			return;
 		}
 		imageLabel.setVisible(true);
-		updateButton.addActionListener(getUpdateChannelActionListener());
-		updateViewer.setVisible(true);
+		updateButton.setVisible(true);
 		
 		imageLabel.setIcon(buttonAndIcon.get(jbllParent));
 		imageLabel.setToolTipText(HOME_PAGE_TOOLTIP_TEXT.replaceAll("<arg0>", jbllParent.getText()));
