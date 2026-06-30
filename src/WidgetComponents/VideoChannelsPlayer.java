@@ -135,6 +135,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	private ArrayList <String> 
 		stripFilter = new ArrayList<String>(); 
 	private boolean
+		loadingOpen = false,
 		open = false;
 	
 	public VideoChannelsPlayer()
@@ -185,7 +186,6 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	{
 		JFrame loadingFrame = new JFrame();
 		loadingFrame.setResizable(false);
-		loadingFrame.setVisible(true);
 		
 		if(parentContainer != null)
 		{
@@ -198,12 +198,23 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		
 		loadingFrame.setMinimumSize(new Dimension(180,70));//TODO
 		LoadingLabel label = new LoadingLabel();
-		label.updateCount(SCROLL_UNIT_INC, DEFAULT_MINUTE_SETTING);
 		loadingFrame.add(label);
+		
+		loadingFrame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				if(!loadingOpen)
+				{
+					System.exit(0);
+				}
+			}
+		});
 		
 		ColorTemplate.setBackgroundColorPanel(loadingFrame, ColorTemplate.getPanelBackgroundColor());
 		ColorTemplate.setBackgroundColorButtons(loadingFrame, ColorTemplate.getButtonBackgroundColor());
 		ColorTemplate.setForegroundColorButtons(loadingFrame, ColorTemplate.getButtonForegroundColor());
+		
+		loadingFrame.setVisible(true);
 		
 		int count = 0;
 		for(JButtonLengthLimited jbll : buttonAndIcon.keySet())
@@ -215,11 +226,12 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 			if(vids != null && !vids.isEmpty())
 			{
 				int key = vids.keySet().iterator().next();
-				this.ycvs.put(key, vids.get(key));
-				this.parentButtons.put(key, jbll);
+				VideoChannelsPlayer.this.ycvs.put(key, vids.get(key));
+				VideoChannelsPlayer.this.parentButtons.put(key, jbll);
 			}
 			count++;
 		}
+		loadingOpen = true;
 		loadingFrame.dispose();
 		
 		buildWidgets();
@@ -749,7 +761,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 				if(props == null)
 					return;
 				
-				open =true;
+				open = true;
 				for(String s : props.keySet())
 				{
 					LoggingMessages.printOut("props: " + s.split("@")[0]+".url" + " " + props.get(s));
@@ -765,6 +777,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 					jbllAndIcon.put(jbll, ir.getImageIcon(new File(fs.getFullPath())));
 				}
 				VideoChannelsPlayer.this.build(jbllAndIcon, null);
+				urlSelect(LaunchUrlActionListener.getLastButtonOrigin());
 			}
 		};
 		

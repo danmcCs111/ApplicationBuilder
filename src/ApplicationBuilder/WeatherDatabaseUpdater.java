@@ -56,11 +56,11 @@ public class WeatherDatabaseUpdater
 			LoggingMessages.printOut(query);
 			HttpDatabaseRequest.executeGetRequest
 			(
-					QueryUpdateTool.ENDPOINT,
-					QueryUpdateTool.PORT_NUMBER,
-					query,
-					QueryUpdateTool.REQUEST_TYPE_HEADER_KEY,
-					"Update"
+				QueryUpdateTool.ENDPOINT,
+				QueryUpdateTool.PORT_NUMBER,
+				query,
+				QueryUpdateTool.REQUEST_TYPE_HEADER_KEY,
+				"Update"
 			);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -75,9 +75,9 @@ public class WeatherDatabaseUpdater
 	public static void main(String [] args)
 	{
 		String 
-			weatherFileLocation = args[0],
-			uploadScriptPath = args[1],
-			zipCode = args[2];
+			weatherFileLocation = PathUtility.getCurrentDirectory() + "/" + "plugin-projects/PlayrightCopyUrl/PlayrightVideo/GrabFolder/Weather/",
+			uploadScriptPath = PathUtility.getCurrentDirectory() + "/" + "plugin-projects/PlayrightCopyUrl/PlayrightVideo/GrabScripts/Weather/collectWeatherToCsv.sh",
+			zipCode = args[0];
 		
 		WeatherDatabaseUpdater wdu = new WeatherDatabaseUpdater(weatherFileLocation, uploadScriptPath, zipCode);
 		LoggingMessages.printOut(wdu.getCommandBuild().getArgs());
