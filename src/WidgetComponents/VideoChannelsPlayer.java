@@ -586,24 +586,6 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-//				if(ovcu != null)
-//				{
-//					ovcu.dispose();
-//				}
-//				Runnable r = new Runnable() {
-//					@Override
-//					public void run() {
-//						List<JButtonLengthLimited> jblls = Arrays.asList
-//								(parentButtons.values().toArray(new JButtonLengthLimited [] {}));
-//						if(isAlphaNumeric)
-//						{
-//							Comparator<AbstractButton> buttonTextComparator = Comparator.comparing(
-//									AbstractButton::getText
-//									);
-//							Collections.sort(jblls, buttonTextComparator);
-//						}
-//						ovcu = new OpenVideoChannelsUpdater(jblls);
-//						GraphicsUtil.centerWindow(VideoChannelsPlayer.this, ovcu);
 				Point scrnPoint = updateViewer.getLocationOnScreen();
 				String absPath = vbmd.getFileSelection().getAbsolutePath();
 				
@@ -643,10 +625,6 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 					ioe.printStackTrace();
 				}
 			}
-//				};
-//				Thread t = new Thread(r);
-//				t.start();
-//			}
 		};
 	}
 	
