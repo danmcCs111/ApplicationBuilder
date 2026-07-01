@@ -1,17 +1,21 @@
 package WidgetComponents;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -21,7 +25,9 @@ import javax.swing.JScrollPane;
 import Graphics2D.ColorTemplate;
 import MouseListenersImpl.LookupOrCreateYoutube;
 import Properties.LoggingMessages;
+import Properties.PathUtility;
 import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
+import WidgetUtility.FileListOptionGenerator;
 
 public class OpenVideoChannelsUpdater extends JFrame
 {
@@ -33,7 +39,10 @@ public class OpenVideoChannelsUpdater extends JFrame
 		EDIT_BUTTON_TEXT = "Edit",
 		UPDATE_BUTTON_TEXT = "Update",
 		CANCEL_BUTTON_TEXT = "Close";
+	private static int
+		CHARACTER_LIMIT = 35;
 	public static final String
+		PROPERTIES_VALUE_DELIMITER = "=",
 		NAME_DELIMITER = ":@:";
 	private static Dimension 
 		MIN_SIZE = new Dimension(750, 450);
@@ -56,6 +65,8 @@ public class OpenVideoChannelsUpdater extends JFrame
 		checkBoxLatestDate;
 	private EditChannelsHandle 
 		ech;
+	private static ArrayList <String> 
+		stripFilter = new ArrayList<String>(); 
 	
 	public OpenVideoChannelsUpdater(List<JButtonLengthLimited> jblls)
 	{
@@ -158,9 +169,11 @@ public class OpenVideoChannelsUpdater extends JFrame
 		{
 			JCheckBox cb = new JCheckBox();
 			cb = updateCheckBox(jbll.getText(), jbll.getName(), cb);
-			
-			checkBoxes.add(cb);
-			checkBoxPanel.add(cb);
+			if(cb != null)
+			{
+				checkBoxes.add(cb);
+				checkBoxPanel.add(cb);
+			}
 		}
 	}
 	
@@ -172,6 +185,9 @@ public class OpenVideoChannelsUpdater extends JFrame
 		Date 
 			latestDate = null,
 			firstDate = null;
+		
+		if(!parentIdAndLatestDate.keySet().iterator().hasNext())
+			return null;
 		
 		if(parentIdAndLatestDate != null)
 		{
@@ -229,6 +245,62 @@ public class OpenVideoChannelsUpdater extends JFrame
 	private void cancel()
 	{
 		this.dispose();
+	}
+	
+	public static void filterText(JButtonLengthLimited jbl)
+	{
+		String txt = jbl.getFullLengthText();
+		for(String s : stripFilter)
+		{
+			txt = txt.replace(s, "");
+		}
+		jbl.setText(txt);
+	}
+	
+	public static void main(String [] args)
+	{
+		String filename = args[0];
+		boolean isAlphaNumeric = Boolean.getBoolean(args[1]);
+		String [] ptLoc = args[2].split(",");
+		Point loc = new Point(Integer.parseInt(ptLoc[0]), Integer.parseInt(ptLoc[1]));
+		String [] 
+			strC1 = args[3].split(","),
+			strC2 = args[4].split(","),
+			strC3 = args[5].split(",");
+		Color
+			backgroundButton = new Color(Integer.parseInt(strC1[0]), Integer.parseInt(strC1[1]), Integer.parseInt(strC1[2])),
+			foregroundButton = new Color(Integer.parseInt(strC2[0]), Integer.parseInt(strC2[1]), Integer.parseInt(strC2[2])),
+			backgroundPanel = new Color(Integer.parseInt(strC3[0]), Integer.parseInt(strC3[1]), Integer.parseInt(strC3[2]));
+		String [] stripFilterTmp = args[6].split(NAME_DELIMITER);
+		for(String s : stripFilterTmp) stripFilter.add(s);
+		
+		ColorTemplate.setButtonBackgroundColor(backgroundButton);
+		ColorTemplate.setButtonForegroundColor(foregroundButton);
+		ColorTemplate.setPanelBackgroundColor(backgroundPanel);
+		
+		ArrayList<JButtonLengthLimited> jblls = new ArrayList<JButtonLengthLimited>();
+		HashMap<String, String> props = PathUtility.readProperties(filename, PROPERTIES_VALUE_DELIMITER);
+		for(String s : props.keySet())
+		{
+			String path = props.get(s);
+			JButtonLengthLimited jbll = (JButtonLengthLimited) FileListOptionGenerator.buildComponent(
+					path, s.split("@")[0]+".url", JButtonLengthLimited.class);
+			if(jbll == null)
+				continue;
+			
+			jbll.setCharacterLimit(CHARACTER_LIMIT);
+			filterText(jbll);
+			jblls.add(jbll);
+		}
+		if(isAlphaNumeric)
+		{
+			Comparator<AbstractButton> buttonTextComparator = Comparator.comparing(
+					AbstractButton::getText
+			);
+			jblls.sort(buttonTextComparator);
+		}
+		OpenVideoChannelsUpdater ovcu = new OpenVideoChannelsUpdater(jblls);
+		ovcu.setLocation(loc);
 	}
 
 }

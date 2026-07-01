@@ -15,13 +15,11 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.swing.AbstractButton;
@@ -36,6 +34,7 @@ import javax.swing.border.EmptyBorder;
 
 import ActionListeners.ArrayActionListener;
 import ActionListenersImpl.LaunchUrlActionListener;
+import Actions.CommandExecutor;
 import ApplicationBuilder.QueryUpdateTool;
 import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
@@ -46,6 +45,7 @@ import HttpDatabaseRequest.HttpRequestProcessor;
 import MouseListenersImpl.LookupOrCreateYoutube;
 import MouseListenersImpl.VideoSubSelectionLauncher;
 import MouseListenersImpl.YoutubeChannelVideo;
+import ObjectTypeConversion.CommandBuild;
 import ObjectTypeConversion.DirectorySelection;
 import ObjectTypeConversion.FileSelection;
 import Properties.LoggingMessages;
@@ -130,8 +130,6 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	private static boolean
 		isAlphaNumeric = false;
 	
-	private OpenVideoChannelsUpdater
-		ovcu;
 	private HttpRequestProcessor 
 		hrp;
 	
@@ -140,6 +138,8 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	private boolean
 		loadingOpen = false,
 		open = false;
+	private VideoBookMarksDialog 
+		vbmd;
 	
 	public VideoChannelsPlayer()
 	{
@@ -586,30 +586,73 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				if(ovcu != null)
+//				if(ovcu != null)
+//				{
+//					ovcu.dispose();
+//				}
+//				Runnable r = new Runnable() {
+//					@Override
+//					public void run() {
+//						List<JButtonLengthLimited> jblls = Arrays.asList
+//								(parentButtons.values().toArray(new JButtonLengthLimited [] {}));
+//						if(isAlphaNumeric)
+//						{
+//							Comparator<AbstractButton> buttonTextComparator = Comparator.comparing(
+//									AbstractButton::getText
+//									);
+//							Collections.sort(jblls, buttonTextComparator);
+//						}
+//						ovcu = new OpenVideoChannelsUpdater(jblls);
+//						GraphicsUtil.centerWindow(VideoChannelsPlayer.this, ovcu);
+				Point scrnPoint = updateViewer.getLocationOnScreen();
+				String absPath = vbmd.getFileSelection().getAbsolutePath();
+				
+				String 
+					bgBtnColor = getColorString(ColorTemplate.getButtonBackgroundColor()),
+					fgBtnColor = getColorString(ColorTemplate.getButtonForegroundColor()),
+					bgPanelColor = getColorString(ColorTemplate.getPanelBackgroundColor());
+				FileSelection 
+					fs = new FileSelection("./Application Builder.jar");
+				String stripFilterStr = "";
+				for(int i = 0; i < stripFilter.size(); i++)
 				{
-					ovcu.dispose();
+					String s = stripFilter.get(i);
+					stripFilterStr += (i < stripFilter.size()+1)
+							?s + OpenVideoChannelsUpdater.NAME_DELIMITER
+							:s;
 				}
-				Runnable r = new Runnable() {
-					@Override
-					public void run() {
-						List<JButtonLengthLimited> jblls = Arrays.asList
-								(parentButtons.values().toArray(new JButtonLengthLimited [] {}));
-						if(isAlphaNumeric)
-						{
-							Comparator<AbstractButton> buttonTextComparator = Comparator.comparing(
-									AbstractButton::getText
-									);
-							Collections.sort(jblls, buttonTextComparator);
-						}
-						ovcu = new OpenVideoChannelsUpdater(jblls);
-						GraphicsUtil.centerWindow(VideoChannelsPlayer.this, ovcu);
-					}
+				String [] args = new String [] {
+					fs.getFullPath(),
+					"WidgetComponents.OpenVideoChannelsUpdater",
+					absPath, 
+					isAlphaNumeric+"", 
+					scrnPoint.x + "," + scrnPoint.y, 
+					bgBtnColor, 
+					fgBtnColor, 
+					bgPanelColor,
+					stripFilterStr
 				};
-				Thread t = new Thread(r);
-				t.start();
+				
+				LoggingMessages.printOut(args);
+				
+				CommandBuild cb = new CommandBuild();
+				cb.setCommand("java", new String [] {"-cp"}, args);
+				try {
+					CommandExecutor.executeProcess(cb);
+				} catch (IOException ioe) {
+					ioe.printStackTrace();
+				}
 			}
+//				};
+//				Thread t = new Thread(r);
+//				t.start();
+//			}
 		};
+	}
+	
+	private static String getColorString(Color bgBtnColor)
+	{
+		return bgBtnColor.getRed() + "," + bgBtnColor.getGreen() + "," + bgBtnColor.getBlue();
 	}
 	
 	private void refreshSelection(JButtonLengthLimited buttonParent, JButtonLengthLimited selectedButton)
@@ -791,7 +834,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 			}
 		};
 		
-		VideoBookMarksDialog vbmd = new VideoBookMarksDialog(videoBookmarksDirectory, osks, null, false);
+		vbmd = new VideoBookMarksDialog(videoBookmarksDirectory, osks, null, false);
 		vbmd.setLocation(LAUNCH_LOCATION);
 		vbmd.addWindowListener(new WindowAdapter() {
 			@Override
