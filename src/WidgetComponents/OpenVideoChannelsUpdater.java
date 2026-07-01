@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.AbstractButton;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -24,6 +25,7 @@ import javax.swing.JScrollPane;
 
 import Graphics2D.ColorTemplate;
 import MouseListenersImpl.LookupOrCreateYoutube;
+import ObjectTypeConversion.FileSelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
 import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
@@ -34,6 +36,7 @@ public class OpenVideoChannelsUpdater extends JFrame
 	private static final long serialVersionUID = 1L;
 	
 	private static String
+		FRAME_ICON = "./src/ApplicationBuilder/build-icon_sm.png",
 		TITLE_TEXT = "Open Channels Updater",
 		ALL_CHECKBOX_TEXT = "Select All",
 		EDIT_BUTTON_TEXT = "Edit",
@@ -70,6 +73,10 @@ public class OpenVideoChannelsUpdater extends JFrame
 	
 	public OpenVideoChannelsUpdater(List<JButtonLengthLimited> jblls)
 	{
+		FileSelection fs = new FileSelection(FRAME_ICON);
+		ImageIcon ii = new ImageIcon(fs.getFullPath());
+		this.setIconImage(ii.getImage());
+		
 		this.jblls = jblls;
 		Runnable r = new Runnable()
 		{
