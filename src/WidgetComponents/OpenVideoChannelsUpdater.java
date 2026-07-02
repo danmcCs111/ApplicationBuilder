@@ -4,10 +4,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -28,6 +32,8 @@ import MouseListenersImpl.LookupOrCreateYoutube;
 import ObjectTypeConversion.FileSelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
+import WidgetComponentInterfaces.DefaultAndScaledImage;
+import WidgetComponentInterfaces.ImageReader;
 import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
 import WidgetUtility.FileListOptionGenerator;
 
@@ -43,14 +49,19 @@ public class OpenVideoChannelsUpdater extends JFrame
 		UPDATE_BUTTON_TEXT = "Update",
 		CANCEL_BUTTON_TEXT = "Close";
 	private static int
+		IMAGE_SCALE = 25,
 		CHARACTER_LIMIT = 35;
 	public static final String
 		PROPERTIES_VALUE_DELIMITER = "=",
 		NAME_DELIMITER = ":@:";
 	private static Dimension 
+		DIM_DEFAULT_PIC = new Dimension(279,150),
+		SCALED_DEFAULT_PIC = new Dimension(279, 150),
 		MIN_SIZE = new Dimension(750, 450);
 	private static final SimpleDateFormat
 		SDF_DATE_LABEL = new SimpleDateFormat("MM/dd/YYYY");
+	private static final Color
+		SELECT_COLOR = Color.CYAN;
 	
 	private JPanel
 		controlPanel,
@@ -70,6 +81,18 @@ public class OpenVideoChannelsUpdater extends JFrame
 		ech;
 	private static ArrayList <String> 
 		stripFilter = new ArrayList<String>(); 
+	private static ImageIcon fillImage;
+	static {
+		int 
+			width = IMAGE_SCALE,
+			height = IMAGE_SCALE;
+	    BufferedImage imageSelect = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+	    Graphics2D g2d = imageSelect.createGraphics();
+	    g2d.setColor(SELECT_COLOR);
+	    g2d.fillRect(0, 0, width, height);
+	    g2d.dispose();
+	    fillImage = new ImageIcon(imageSelect);
+	}
 	
 	public OpenVideoChannelsUpdater(List<JButtonLengthLimited> jblls)
 	{
@@ -176,8 +199,58 @@ public class OpenVideoChannelsUpdater extends JFrame
 		{
 			JCheckBox cb = new JCheckBox();
 			cb = updateCheckBox(jbll.getText(), jbll.getName(), cb);
+			//change to image.
+			ImageReader ir = new ImageReader(new DefaultAndScaledImage() {
+				@Override
+				public void setScaledWidth(int scaledWidth) {
+					//NOP
+				}
+				
+				@Override
+				public void setScaledDefaultPic(Dimension scaledDefaultPicDimension) {
+					//NOP
+				}
+				
+				@Override
+				public void setDefaultPicSize(Dimension defaultPicDimension) {
+					//NOP
+				}
+				
+				@Override
+				public void setDefaultImageXmlPath(FileSelection fs) {
+					//NOP
+				}
+				
+				@Override
+				public int getScaledWidth() {
+					return 25;
+				}
+				
+				@Override
+				public Dimension getScaledDefaultPic() {
+					return SCALED_DEFAULT_PIC;
+				}
+				
+				@Override
+				public Dimension getDefaultPicSize() {
+					return DIM_DEFAULT_PIC;
+				}
+				
+				@Override
+				public String getDefaultImagePath() {
+					return JButtonArray.DEFAULT_IMG;
+				}
+			});
+			
 			if(cb != null)
 			{
+				String filename = jbll.getPath() + "images/" + jbll.getFullLengthText()+".png";
+				LoggingMessages.printOut(filename);
+				FileSelection fs = new FileSelection(filename);
+				Image img = ir.getImage(new File(fs.getFullPath()));
+				ImageIcon defIcon = ImageReader.getScaledImageIcon(img, IMAGE_SCALE);
+				cb.setIcon(defIcon);
+				cb.setSelectedIcon(fillImage);
 				checkBoxes.add(cb);
 				checkBoxPanel.add(cb);
 			}
