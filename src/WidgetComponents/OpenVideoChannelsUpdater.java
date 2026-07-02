@@ -340,7 +340,7 @@ public class OpenVideoChannelsUpdater extends JFrame
 	public static void main(String [] args)
 	{
 		String filename = args[0];
-		boolean isAlphaNumeric = Boolean.getBoolean(args[1]);
+		boolean isAlphaNumeric = Boolean.parseBoolean(args[1]);
 		String [] ptLoc = args[2].split(",");
 		Point loc = new Point(Integer.parseInt(ptLoc[0]), Integer.parseInt(ptLoc[1]));
 		String [] 
