@@ -80,10 +80,15 @@ public class WeatherGraphViewer extends GraphViewer implements CsvReaderSubscrib
 	
 	public WeatherGraphViewer()
 	{
+		buildWidgets();
+	}
+	
+	private void buildWidgets()
+	{
 		JLabel 
-			dateLabel = new JLabel("Between: "),
-			dateLabel2 = new JLabel(" + ");
-		
+		dateLabel = new JLabel("Between: "),
+		dateLabel2 = new JLabel(" + ");
+	
 		Calendar cal1 = Calendar.getInstance(),
 				cal2 = Calendar.getInstance();
 		cal2.add(Calendar.DAY_OF_MONTH, 1);

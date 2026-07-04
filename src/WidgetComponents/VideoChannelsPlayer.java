@@ -612,7 +612,9 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 					bgBtnColor, 
 					fgBtnColor, 
 					bgPanelColor,
-					stripFilterStr
+					stripFilterStr,
+					QueryUpdateTool.ENDPOINT,
+					QueryUpdateTool.PORT_NUMBER + ""
 				};
 				
 				LoggingMessages.printOut(args);

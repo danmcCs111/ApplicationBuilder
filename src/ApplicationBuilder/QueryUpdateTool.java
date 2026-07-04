@@ -4,16 +4,28 @@ import HttpDatabaseRequest.HttpDatabaseRequest;
 
 public class QueryUpdateTool 
 {
+	public static String
+		ENDPOINT = "http://localhost:";
+	public static int
+		PORT_NUMBER = 8000;
+	
 	public static final String
-		ENDPOINT = "http://localhost:",
 		REQUEST_TYPE_HEADER_KEY = "Get-request-type",
 		REQUEST_TYPE_HEADER_VALUE_QUERY = "Query",
 		REQUEST_TYPE_HEADER_VALUE_INSERT = "Insert",
 		REQUEST_TYPE_HEADER_VALUE_UPDATE = "Update",
 		WEBSERVICE_QUERY_TAG_NAME = "WebserviceQuery",
 		WEBSERVICE_QUERY_ATTRIBUTE_NAME = "content";
-	public static final int
-		PORT_NUMBER = 8000;
+	
+	public static void setEndpoint(String endpoint)
+	{
+		ENDPOINT = endpoint;
+	}
+	
+	public static void setPortNumber(int portNumber)
+	{
+		PORT_NUMBER = portNumber;
+	}
 	
 	public static String executeQuery(String query)
 	{

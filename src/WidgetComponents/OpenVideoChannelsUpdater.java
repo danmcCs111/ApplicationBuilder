@@ -27,6 +27,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import ApplicationBuilder.QueryUpdateTool;
 import Graphics2D.ColorTemplate;
 import MouseListenersImpl.LookupOrCreateYoutube;
 import ObjectTypeConversion.FileSelection;
@@ -341,8 +342,8 @@ public class OpenVideoChannelsUpdater extends JFrame
 	{
 		String filename = args[0];
 		boolean isAlphaNumeric = Boolean.parseBoolean(args[1]);
-		String [] ptLoc = args[2].split(",");
-		Point loc = new Point(Integer.parseInt(ptLoc[0]), Integer.parseInt(ptLoc[1]));
+		String [] ptLocTmp = args[2].split(",");
+		Point loc = new Point(Integer.parseInt(ptLocTmp[0]), Integer.parseInt(ptLocTmp[1]));
 		String [] 
 			strC1 = args[3].split(","),
 			strC2 = args[4].split(","),
@@ -351,12 +352,20 @@ public class OpenVideoChannelsUpdater extends JFrame
 			backgroundButton = new Color(Integer.parseInt(strC1[0]), Integer.parseInt(strC1[1]), Integer.parseInt(strC1[2])),
 			foregroundButton = new Color(Integer.parseInt(strC2[0]), Integer.parseInt(strC2[1]), Integer.parseInt(strC2[2])),
 			backgroundPanel = new Color(Integer.parseInt(strC3[0]), Integer.parseInt(strC3[1]), Integer.parseInt(strC3[2]));
-		String [] stripFilterTmp = args[6].split(NAME_DELIMITER);
-		for(String s : stripFilterTmp) stripFilter.add(s);
-		
 		ColorTemplate.setButtonBackgroundColor(backgroundButton);
 		ColorTemplate.setButtonForegroundColor(foregroundButton);
 		ColorTemplate.setPanelBackgroundColor(backgroundPanel);
+		
+		String [] stripFilterTmp = args[6].split(NAME_DELIMITER);
+		for(String s : stripFilterTmp) stripFilter.add(s);
+		
+		String
+			endpointStr = args[7];
+		int
+			portNumber = Integer.parseInt(args[8]);
+		
+		QueryUpdateTool.setEndpoint(endpointStr);
+		QueryUpdateTool.setPortNumber(portNumber);
 		
 		ArrayList<JButtonLengthLimited> jblls = new ArrayList<JButtonLengthLimited>();
 		HashMap<String, String> props = PathUtility.readProperties(filename, PROPERTIES_VALUE_DELIMITER);

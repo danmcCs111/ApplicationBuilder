@@ -82,7 +82,7 @@ public class WeatherGrabCsvConverter extends CsvConverter
 		}
 	}
 	
-	private HashMap<String, String>  getStrippedString(ArrayList<String> row)
+	private HashMap<String, String> getStrippedString(ArrayList<String> row)
 	{
 		HashMap<String, String> filtered = new HashMap<String, String>();
 		
