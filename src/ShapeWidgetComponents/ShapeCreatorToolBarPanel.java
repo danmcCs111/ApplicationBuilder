@@ -1,13 +1,19 @@
 package ShapeWidgetComponents;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.File;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import DrawModesAbstract.DrawMode;
 import Graphics2D.ColorTemplate;
@@ -26,11 +32,13 @@ public class ShapeCreatorToolBarPanel extends JPanel implements PostWidgetBuildP
 	private static final long serialVersionUID = 1L;
 	
 	private static final String 
+		SET_BACKGROUND = "Set Background",
 		ADD_BUTTON_TEXT = "+ Add",
 		SAVE_BUTTON_TEXT = "Save",
 		OPEN_BUTTON_TEXT = "Open";
 	
 	private JButton 
+		setBackgroundButton,
 		saveButton,
 		addShape,
 		openButton;
@@ -57,6 +65,27 @@ public class ShapeCreatorToolBarPanel extends JPanel implements PostWidgetBuildP
 		operationLabel = new JLabel(shapeCreator.getOperation().getTitleText());
 		modeSelections = new JComboBox<DrawMode>(DrawMode.values());
 		addShape = new JButton(ADD_BUTTON_TEXT);
+		setBackgroundButton = new JButton(SET_BACKGROUND);
+		setBackgroundButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				JFileChooser chooser = new JFileChooser();
+				FileNameExtensionFilter filter = new FileNameExtensionFilter(
+						"JPG & png Images", "jpg", "png"
+				);
+				chooser.setFileFilter(filter);
+				int returnVal = chooser.showOpenDialog(ShapeCreatorToolBarPanel.this);
+			    if(returnVal == JFileChooser.APPROVE_OPTION) 
+			    {
+			       System.out.println("You chose to open this file: " +
+			            chooser.getSelectedFile().getName());
+			    }
+				File file = chooser.getSelectedFile();
+            	ImageIcon imageIcon = new ImageIcon(file.getAbsolutePath());
+            	shapeCreator.setBackgroundImage(imageIcon.getImage());
+			}
+		});
 		saveButton = new JButton(SAVE_BUTTON_TEXT);
 		openButton = new JButton(OPEN_BUTTON_TEXT);
 		saveButton.addActionListener(new SaveShapeActionListener(shapeCreator));
@@ -75,6 +104,7 @@ public class ShapeCreatorToolBarPanel extends JPanel implements PostWidgetBuildP
 		this.add(operationLabel);
 		this.add(modeSelections);
 		this.add(addShape);
+		this.add(setBackgroundButton);
 		this.add(saveButton);
 		this.add(openButton);
 		this.add(colorEditorTop);

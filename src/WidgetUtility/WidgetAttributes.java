@@ -37,7 +37,6 @@ import WidgetComponents.DatabaseResponseNodeTextArea;
 import WidgetComponents.JButtonArray;
 import WidgetComponents.JButtonArrayListPicture;
 import WidgetComponents.LoadingLabel;
-import WidgetComponents.MenuOption;
 import WidgetComponents.ScheduledCommandExecutionEditor;
 import WidgetComponents.ScheduledCommandList;
 import WidgetComponents.SearchBar;
@@ -150,7 +149,6 @@ public class WidgetAttributes
 		COMPONENT_CLASSES.add(JButtonArrayListPicture.class);
 		COMPONENT_CLASSES.add(VideoChannelPlayer.class);
 		COMPONENT_CLASSES.add(VideoChannelsPlayer.class);
-		COMPONENT_CLASSES.add(MenuOption.class);
 	}
 	//TODO replace :(
 	private static final HashMap<Class<?>, String []> EXTENDED_METHODS = new HashMap<Class<?>, String []>();
@@ -323,9 +321,6 @@ public class WidgetAttributes
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetBackgroundPanelColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetButtonBackgroundColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetButtonForegroundColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef())
-		});
-		EXTENDED_METHODS.put(MenuOption.class, new String [] {
-				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(VideoChannelPlayer.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetupTaskbar.class, ExtendedMethodArgDef.ExtendedFileSelection.getMethodArgDef()),

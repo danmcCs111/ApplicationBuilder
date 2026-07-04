@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
@@ -35,7 +36,6 @@ public interface ShapeDrawingCollectionGraphics
 	public static void drawAll(Container drawPanel, ShapeDrawingCollection sdc, Shape selectionRect, boolean drawControlPoints)
 	{
 		Graphics2D g2d = (Graphics2D) drawPanel.getGraphics();
-		clearAll(drawPanel);
 		drawShapes(g2d, sdc);
 		if(selectionRect != null) drawShape(g2d, selectionRect, Color.gray);
 		if(drawControlPoints) 
@@ -89,6 +89,14 @@ public interface ShapeDrawingCollectionGraphics
 		g2d.setColor(c);
 		g2d.draw(shape);
 	}
+	
+	 public static void drawImage(Graphics2D g2d, Image backgroundImage) 
+	 {
+        if (backgroundImage != null) 
+        {
+            g2d.drawImage(backgroundImage, 0, 0, null);
+        }
+    }
 	
 	public static void clearAndDrawShape(Container draw, Shape shape, ShapeStyling shapeStyling)
 	{

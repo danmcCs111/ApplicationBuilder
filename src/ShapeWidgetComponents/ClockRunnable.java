@@ -56,6 +56,7 @@ public class ClockRunnable implements Runnable
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		ShapeDrawingCollectionGraphics.clearAll(drawContainer);
 		ShapeDrawingCollectionGraphics.drawAll(drawContainer, sdc, null, false);
 		do
 		{
@@ -78,6 +79,7 @@ public class ClockRunnable implements Runnable
 		minuteHand.setLine(centerPoint, points.get(minuteDeg));
 		secondHand.setLine(centerPoint, points.get(secondDeg));
 		
+		ShapeDrawingCollectionGraphics.clearAll(drawContainer);
 		ShapeDrawingCollectionGraphics.drawAll(drawContainer, sdc, null, false);
 		
 		ShapeDrawingCollectionGraphics.drawShape(drawContainer, hourHand, Color.gray);

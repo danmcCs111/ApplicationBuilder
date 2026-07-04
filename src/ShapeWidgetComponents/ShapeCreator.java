@@ -3,6 +3,7 @@ package ShapeWidgetComponents;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.Shape;
 import java.awt.event.MouseEvent;
@@ -64,6 +65,8 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 		colorPallette;
 	private ArrayList<ShapeDirectionsNotification> 
 		shapeDirectionsNotification = new ArrayList<ShapeDirectionsNotification>();
+	private Image
+		backgroundImage;
 	
 	public ShapeCreator()
 	{
@@ -85,6 +88,11 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 		ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
 	}
 	
+	public void setBackgroundImage(Image img)
+	{
+		this.backgroundImage = img;
+	}
+	
 	public void validateFrame()
 	{
 		this.getParent().validate();
@@ -97,6 +105,8 @@ public class ShapeCreator extends JPanel implements ShapeStylingActionListener, 
 	
 	public void drawAll()
 	{
+		ShapeDrawingCollectionGraphics.clearAll(draw);
+		ShapeDrawingCollectionGraphics.drawImage((Graphics2D) draw.getGraphics(), backgroundImage);
 		ShapeDrawingCollectionGraphics.drawAll(draw, sdc, selectionRect);
 	}
 	

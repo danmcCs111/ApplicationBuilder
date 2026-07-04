@@ -141,7 +141,6 @@ public class ShapeCreatorEditPanel extends JPanel implements PostWidgetBuildProc
 		JButton deleteButton = new JButton("Delete");
 		deleteButton.setForeground(Color.red);
 		deleteButton.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				sc.getShapeDrawingCollection().remove(shapeStyling.getIndex());
