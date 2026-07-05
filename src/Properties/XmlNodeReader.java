@@ -22,6 +22,7 @@ public abstract class XmlNodeReader
 	private ArrayList<Object> 
 		elements = new ArrayList<Object>();
 	private int 
+		attributeLimit = 90000,
 		counter = 0;
 	
 	public ArrayList<?> getArrayList()
@@ -58,6 +59,7 @@ public abstract class XmlNodeReader
 			return;
 		File f = new File(sourceFile);
 		DocumentBuilderFactory dbFact = DocumentBuilderFactory.newInstance();
+		dbFact.setAttribute("jdk.xml.elementAttributeLimit", attributeLimit+"");
 		DocumentBuilder dc;
 		try {
 			dc = dbFact.newDocumentBuilder();
