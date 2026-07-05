@@ -1,0 +1,6 @@
+<Build>
+	<JFrame setMinimumSize="350, 350" setTitle="City and Zip Uploader" >
+		<GeoNamesUploader extendedLayoutApplyParent="" setPageParser="geonames@F@https://www.geonames.org/postal-codes@F@Zip@F@@M@&gt;[a-zA-Z]+&lt;/a&gt;&lt;/td&gt;&lt;td&gt;[0-9]{5}&lt;/td&gt;@R@&gt;[a-zA-Z]+&lt;/a&gt;&lt;/td&gt;&lt;td&gt;@RV@@R@&lt;/td&gt;@RV@@F@City@F@@M@&gt;[a-zA-Z]+&lt;/a&gt;&lt;/td&gt;&lt;td&gt;[0-9]{5}&lt;/td&gt;@R@&lt;/a&gt;&lt;/td&gt;&lt;td&gt;[0-9]{5}&lt;/td&gt;@RV@@R@^&gt;@RV@" >
+		</GeoNamesUploader>
+	</JFrame>
+</Build>

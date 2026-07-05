@@ -26,6 +26,9 @@ public interface PathUtility
 	
 	public static String filterPathToFilename(String path)
 	{
+		if(path == null)
+			return null;
+		
 		path = path.strip();
 		path = getPathLinux(path);
 		if(path.endsWith("/"))
