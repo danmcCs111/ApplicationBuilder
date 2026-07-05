@@ -6,15 +6,14 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import ObjectTypeConversion.PageParser;
+import ObjectTypeConversion.PageParserCollection;
 
 public class GeoNamesUploader extends JPanel 
 {
 	private static final long serialVersionUID = 1L;
 	
-	private static PageParser 
-		pageParserCounty = null,
-		pageParserCollectData = null;
+	private static PageParserCollection 
+		pageParserCollection = null;
 
 	private JButton
 		collectButton;
@@ -34,13 +33,8 @@ public class GeoNamesUploader extends JPanel
 		});
 	}
 	
-	public static void setPageParserDataCollect(PageParser pp)
+	public static void setPageParserCollection(PageParserCollection pp)
 	{
-		pageParserCollectData = pp;
-	}
-	
-	public static void setPageParser(PageParser pp)
-	{
-		pageParserCounty = pp;
+		pageParserCollection = pp;
 	}
 }

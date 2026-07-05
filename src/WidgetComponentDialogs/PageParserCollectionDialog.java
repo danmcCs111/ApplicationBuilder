@@ -16,7 +16,6 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import Graphics2D.ColorTemplate;
-import Graphics2D.GraphicsUtil;
 import ObjectTypeConversion.PageParser;
 import ObjectTypeConversion.PageParserCollection;
 import ObjectTypeConversionEditors.PageParserCollectionEditor;
@@ -74,12 +73,13 @@ public class PageParserCollectionDialog extends JDialog
 	{
 		if(pageParserCollectionEditor != null)
 		{
-			GraphicsUtil.centerHeightOnlyWindow(pageParserCollectionEditor, this);
+			this.setLocation(pageParserCollectionEditor.getLocationOnScreen());
 		}
 		this.setTitle(TITLE_TEXT);
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setLayout(new BorderLayout());
 		this.setMinimumSize(MIN_DIMENSION_DIALOG);
+		
 		arrayPageParser.setLayout(new GridLayout(0,1));
 		JButton addParserButton = new JButton(ADD_PARSER_BUTTON_TEXT);
 		ColorTemplate.setForegroundColorButtons(addParserButton, ColorTemplate.getButtonForegroundColor());
