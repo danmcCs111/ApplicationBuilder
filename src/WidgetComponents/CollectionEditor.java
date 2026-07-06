@@ -76,13 +76,34 @@ public class CollectionEditor extends JFrame
 		path;
 	private ArrayList<String> 
 		addUrls = new ArrayList<String>();
+	private boolean 
+		keyValue = false;
 	
-	public CollectionEditor(String path, ArrayList<?> collection, EditButtonArrayUrls ebau, String title, String addText)
+	public CollectionEditor(
+			String path, 
+			ArrayList<?> collection, 
+			EditButtonArrayUrls ebau, 
+			String title, 
+			String addText
+	)
+	{
+		this(path, collection, ebau, title, addText, false);
+	}
+	
+	public CollectionEditor(
+			String path, 
+			ArrayList<?> collection, 
+			EditButtonArrayUrls ebau, 
+			String title, 
+			String addText,
+			boolean keyValue
+	)
 	{
 		this.path = path;
 		this.collection = collection;
 		this.ebau = ebau;
 		this.addText = addText;
+		this.keyValue = keyValue;
 		this.setTitle(title);
 		buildWidgets();
 		
@@ -267,7 +288,7 @@ public class CollectionEditor extends JFrame
 		
 		JPanel southPanel = new JPanel();
 		southPanel.setLayout(new GridLayout(0,1));
-		new CollectionEditorAddPanel(southPanel, ebau, path, this.addText);
+		new CollectionEditorAddPanel(southPanel, ebau, path, this.addText, keyValue);
 		southPanel.add(applyCancelPanel);
 		
 		return southPanel;

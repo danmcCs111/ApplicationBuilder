@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 
 import ActionListenersImpl.PageParserSequenceLaunch;
 import ObjectTypeConversion.PageParserCollection;
+import Properties.DatabaseMap;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 
 public class PageParserUploader extends JPanel implements PostWidgetBuildProcessing
@@ -14,12 +15,14 @@ public class PageParserUploader extends JPanel implements PostWidgetBuildProcess
 	private static final String
 		COLLECT_BUTTON_TEXT = "Collect";
 	
-	private static String
+	private String
 		homepage = null;
-	private static PageParserCollection 
+	private PageParserCollection 
 		pageParserCollection = null;
 	private JButton
 		collectButton;
+	private DatabaseMap
+		databaseMap;
 	
 	public PageParserUploader()
 	{
@@ -37,14 +40,19 @@ public class PageParserUploader extends JPanel implements PostWidgetBuildProcess
 		this.add(collectButton);
 	}
 	
-	public static void setPageParserCollection(PageParserCollection pp)
+	public void setPageParserCollection(PageParserCollection pp)
 	{
 		pageParserCollection = pp;
 	}
 	
-	public static void setHomePage(String homepage)
+	public void setHomePage(String homepage)
 	{
-		PageParserUploader.homepage = homepage;
+		this.homepage = homepage;
+	}
+	
+	public void setDatabaseMap(DatabaseMap databaseMap)
+	{
+		this.databaseMap = databaseMap;
 	}
 
 	@Override

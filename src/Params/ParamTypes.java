@@ -6,6 +6,7 @@ import ObjectTypeConvertersImpl.BooleanConverter;
 import ObjectTypeConvertersImpl.ColorConverter;
 import ObjectTypeConvertersImpl.CommandBuildConverter;
 import ObjectTypeConvertersImpl.CsvReaderConverter;
+import ObjectTypeConvertersImpl.DatabaseMapConverter;
 import ObjectTypeConvertersImpl.DimensionConverter;
 import ObjectTypeConvertersImpl.DirectorySelectionConverter;
 import ObjectTypeConvertersImpl.DoubleConverter;
@@ -52,6 +53,7 @@ public enum ParamTypes
 	lookAndFeel(new LookAndFeelClassNameConverter()),
 	pageParser(new PageParserConverter()),
 	pageParserCollection(new PageParserCollectionConverter()),
+	databaseMap(new DatabaseMapConverter()),
 	WindowListener(new WindowListenerConverter()),
 	KeyListener(new KeyListenerConverter()),
 	DirectorySelection(new DirectorySelectionConverter()),

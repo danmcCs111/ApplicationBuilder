@@ -18,9 +18,12 @@ public class PageParserEditor extends JButton implements ParameterEditor
 	private static final String 
 		DEFAULT_EDITOR_TEXT = "<Enter Page Filter>";
 	
-	private String commandText = DEFAULT_EDITOR_TEXT;
-	private PageParser pageParser;
-	private PageParserDialog parserDialog;
+	private String 
+		commandText = DEFAULT_EDITOR_TEXT;
+	private PageParser 
+		pageParser;
+	private PageParserDialog 
+		parserDialog;
 	
 	public PageParserEditor()
 	{

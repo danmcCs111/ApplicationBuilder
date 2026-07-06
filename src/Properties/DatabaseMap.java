@@ -1,0 +1,86 @@
+package Properties;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+
+public class DatabaseMap 
+{
+	private static String
+		FIELD_COLUMN_DELIMITER = "=,=",
+		DEFINITION_DELIMITER = "=@=";
+	
+	private LinkedHashMap<String, String>
+		parseFieldsAndDbColumn = new LinkedHashMap<String, String>();
+	private ArrayList<HashMap<String, String>>
+		parseFieldsAndValues = new ArrayList<HashMap<String, String>>();
+	
+	public DatabaseMap()
+	{
+		
+	}
+	
+	public DatabaseMap(String xml)
+	{
+		String [] defs = xml.split(DEFINITION_DELIMITER);
+		for(int i = 1; i < defs.length; i++)
+		{
+			String [] fieldColumn = defs[i].split(FIELD_COLUMN_DELIMITER);
+			addFieldAndColumnDefinition(fieldColumn[0], fieldColumn[1]);
+		}
+	}
+	
+	public void addFieldAndColumnDefinition(String parseField, String column)
+	{
+		parseFieldsAndDbColumn.put(parseField, column);
+	}
+	
+	public LinkedHashMap<String, String> getParseFieldsAndDbColumn()
+	{
+		return parseFieldsAndDbColumn;
+	}
+	
+	public void addFieldValue(String parseField, String value, int index)
+	{
+		HashMap<String, String> parseFieldAndValues;
+		if(index <= parseFieldsAndValues.size()-1)
+		{
+			parseFieldAndValues = parseFieldsAndValues.get(index);
+		}
+		else
+		{
+			parseFieldAndValues = new HashMap<String, String>();
+			parseFieldsAndValues.add(parseFieldAndValues);
+		}
+		parseFieldAndValues.put(parseField, value);
+	}
+	
+	public String getXmlString()
+	{
+		String retStr = "";
+		
+		int count = 0;
+		for(String field : parseFieldsAndDbColumn.keySet())
+		{
+			String column = parseFieldsAndDbColumn.get(field);
+			retStr += field + FIELD_COLUMN_DELIMITER + column;
+			
+			count++;
+			if(count < parseFieldsAndDbColumn.size())
+			{
+				retStr += DEFINITION_DELIMITER;
+			}
+		}
+		return retStr;
+	}
+	
+	private void getTableDefinition()
+	{
+		//TODO.
+	}
+	
+	private void wrapValue()
+	{
+		//TODO.
+	}
+}
