@@ -12,6 +12,8 @@ import Properties.LoggingMessages;
 
 public class PageParserSequenceLaunch implements ActionListener 
 {
+	private static String
+		SEQUENCE_SPLIT_TAG = "link";
 	private PageParserCollection 
 		pageParserCollection;
 	private String 
@@ -44,7 +46,6 @@ public class PageParserSequenceLaunch implements ActionListener
 			index--;
 		
 		PageParser pageParser = pageParserCollection.getPageParsers().get(index);
-		int len = 0;
 		for(ParseAttribute pa : pageParser.getParseAttributes())
 		{
 			String [] matches = pageParser.getAttributesFromResponse(pa, htmlResponse, false);
@@ -54,25 +55,21 @@ public class PageParserSequenceLaunch implements ActionListener
 			parsePagesAndMatches.put(pa, matches);
 			LoggingMessages.printOut(pa.name());
 			LoggingMessages.printOut(LoggingMessages.combine(matches));
-			if(pa.name().toLowerCase().contains("link"))
+			if(pa.name().toLowerCase().contains(SEQUENCE_SPLIT_TAG))
 			{
 				for(String m : matches)
 				{
 					if(m.strip().isBlank())
 						continue;
 					
-					try{
+					try {
 						String htmlResp = HttpDatabaseRequest.executeGetRequest(m);
 						simulateAction(htmlResp, index+1);
-					}catch(Exception e)
-					{
+					} catch(Exception e) {
 						LoggingMessages.printOut("failed request: " + m);
 					}
 				}
 			}
-			
-			if(matches.length < len || len == 0)
-				len = matches.length;//TODO
 		}
 	}
 
