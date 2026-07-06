@@ -18,7 +18,6 @@ public class PageParserSequenceLaunch implements ActionListener
 		homepage;
 	private LinkedHashMap<ParseAttribute, String[]> 
 		parsePagesAndMatches = new LinkedHashMap<ParseAttribute, String[]>();
-	private int index = 0;
 	
 	public PageParserSequenceLaunch(PageParserCollection pageParserCollection, String homepage) 
 	{
@@ -30,8 +29,7 @@ public class PageParserSequenceLaunch implements ActionListener
 	public void actionPerformed(ActionEvent e) 
 	{
 		String htmlResponse = HttpDatabaseRequest.executeGetRequest(homepage);
-		index = 0;
-		simulateAction(htmlResponse, pageParserCollection.getPageParsers().get(index));
+		simulateAction(htmlResponse, 0);
 		for(ParseAttribute pa : parsePagesAndMatches.keySet())
 		{
 			String [] matches = parsePagesAndMatches.get(pa);
@@ -40,8 +38,12 @@ public class PageParserSequenceLaunch implements ActionListener
 		}
 	}
 	
-	private void simulateAction(String htmlResponse, PageParser pageParser)
+	private void simulateAction(String htmlResponse, int index)
 	{
+		if(index >= pageParserCollection.getPageParsers().size())
+			index--;
+		
+		PageParser pageParser = pageParserCollection.getPageParsers().get(index);
 		int len = 0;
 		for(ParseAttribute pa : pageParser.getParseAttributes())
 		{
@@ -61,9 +63,7 @@ public class PageParserSequenceLaunch implements ActionListener
 					
 					try{
 						String htmlResp = HttpDatabaseRequest.executeGetRequest(m);
-						if(index + 1 < pageParserCollection.getPageParsers().size()-1)
-							index++;
-						simulateAction(htmlResp, pageParserCollection.getPageParsers().get(1));
+						simulateAction(htmlResp, index+1);
 					}catch(Exception e)
 					{
 						LoggingMessages.printOut("failed request: " + m);
