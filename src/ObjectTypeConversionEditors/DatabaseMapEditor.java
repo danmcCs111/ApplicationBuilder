@@ -51,6 +51,7 @@ public class DatabaseMapEditor extends JButton implements ParameterEditor, EditB
 						DatabaseMapEditor.this, 
 						TITLE_TEXT
 				);
+				databaseMapDialog.setLocation(DatabaseMapEditor.this.getLocationOnScreen());
 				databaseMapDialog.setVisible(true);
 			}
 		});
