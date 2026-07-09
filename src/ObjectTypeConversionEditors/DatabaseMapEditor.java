@@ -25,8 +25,6 @@ public class DatabaseMapEditor extends JButton implements ParameterEditor, EditB
 		TITLE_TEXT = "Edit Field and Database Column Mapping",
 		DEFAULT_EDITOR_TEXT = "<Enter Database Mapping>";
 	
-	private String 
-		commandText = DEFAULT_EDITOR_TEXT;
 	private DatabaseMap
 		databaseMap;
 	private DatabaseMapDialog
@@ -39,7 +37,6 @@ public class DatabaseMapEditor extends JButton implements ParameterEditor, EditB
 	
 	public void buildWidgets()
 	{
-		this.setText(commandText);
 		this.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) 

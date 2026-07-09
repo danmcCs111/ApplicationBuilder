@@ -7,24 +7,23 @@ import java.util.LinkedHashMap;
 public class DatabaseMap 
 {
 	private static String
-		FIELD_COLUMN_DELIMITER = "=,=",
-		DEFINITION_DELIMITER = "=@=";
+		FIELD_COLUMN_DELIMITER = "\\^",
+		DEFINITION_DELIMITER = "@";
 	
 	private LinkedHashMap<String, String>
 		parseFieldsAndDbColumn = new LinkedHashMap<String, String>();
 	private ArrayList<HashMap<String, String>>
 		parseFieldsAndValues = new ArrayList<HashMap<String, String>>();
 	
-	public DatabaseMap()
-	{
-		
-	}
-	
 	public DatabaseMap(String xml)
 	{
+		if(xml == null || xml.isBlank())
+			return;
+		
 		String [] defs = xml.split(DEFINITION_DELIMITER);
-		for(int i = 1; i < defs.length; i++)
+		for(int i = 0; i < defs.length; i++)
 		{
+			LoggingMessages.printOut(defs[i]);
 			String [] fieldColumn = defs[i].split(FIELD_COLUMN_DELIMITER);
 			addFieldAndColumnDefinition(fieldColumn[0], fieldColumn[1]);
 		}
@@ -71,6 +70,7 @@ public class DatabaseMap
 				retStr += DEFINITION_DELIMITER;
 			}
 		}
+		LoggingMessages.printOut(retStr);
 		return retStr;
 	}
 	

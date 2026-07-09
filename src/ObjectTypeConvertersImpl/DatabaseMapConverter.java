@@ -28,7 +28,7 @@ public class DatabaseMapConverter implements StringToObjectConverter
 	@Override
 	public Object getDefaultNullValue() 
 	{
-		return new DatabaseMap();
+		return new DatabaseMap("");
 	}
 
 	@Override
