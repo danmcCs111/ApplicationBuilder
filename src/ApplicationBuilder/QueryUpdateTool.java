@@ -14,6 +14,7 @@ public class QueryUpdateTool
 		REQUEST_TYPE_HEADER_VALUE_QUERY = "Query",
 		REQUEST_TYPE_HEADER_VALUE_INSERT = "Insert",
 		REQUEST_TYPE_HEADER_VALUE_UPDATE = "Update",
+		REQUEST_TYPE_HEADER_TABLE_METADATA_TYPE = "TableMetadata",
 		WEBSERVICE_QUERY_TAG_NAME = "WebserviceQuery",
 		WEBSERVICE_QUERY_ATTRIBUTE_NAME = "content";
 	
@@ -25,6 +26,18 @@ public class QueryUpdateTool
 	public static void setPortNumber(int portNumber)
 	{
 		PORT_NUMBER = portNumber;
+	}
+	
+	public static String executeTableDefinition(String query)
+	{
+		return HttpDatabaseRequest.executeGetRequest
+		(
+			ENDPOINT,
+			PORT_NUMBER,
+			query,
+			REQUEST_TYPE_HEADER_KEY,
+			REQUEST_TYPE_HEADER_TABLE_METADATA_TYPE
+		);
 	}
 	
 	public static String executeQuery(String query)

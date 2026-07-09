@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
+import ApplicationBuilder.QueryUpdateTool;
+
 public class DatabaseMap 
 {
 	private static String
@@ -82,5 +84,11 @@ public class DatabaseMap
 	private void wrapValue()
 	{
 		//TODO.
+	}
+	
+	public static void main(String [] args)
+	{
+		String ret = QueryUpdateTool.executeTableDefinition("Select * from encyclopedia.encyclopedia");//only showing string.
+		LoggingMessages.printOut(ret);
 	}
 }
