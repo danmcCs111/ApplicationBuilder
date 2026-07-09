@@ -6,18 +6,18 @@ import java.util.LinkedHashMap;
 
 import ApplicationBuilder.QueryUpdateTool;
 
-public class DatabaseMap 
+public class DatabaseColumnTypeMap 
 {
 	private static String
-		FIELD_COLUMN_DELIMITER = "\\^",
-		DEFINITION_DELIMITER = "@";
-	
-	private LinkedHashMap<String, String>
-		parseFieldsAndDbColumn = new LinkedHashMap<String, String>();
-	private ArrayList<HashMap<String, String>>
-		parseFieldsAndValues = new ArrayList<HashMap<String, String>>();
-	
-	public DatabaseMap(String xml)
+	FIELD_COLUMN_DELIMITER = "\\^",
+	DEFINITION_DELIMITER = "@";
+
+private LinkedHashMap<String, String>
+	parseDbColumnDataType = new LinkedHashMap<String, String>();
+private ArrayList<HashMap<String, String>>
+	parseFieldsAndValues = new ArrayList<HashMap<String, String>>();
+
+	public DatabaseColumnTypeMap(String xml)
 	{
 		if(xml == null || xml.isBlank())
 			return;
@@ -33,12 +33,12 @@ public class DatabaseMap
 	
 	public void addFieldAndColumnDefinition(String parseField, String column)
 	{
-		parseFieldsAndDbColumn.put(parseField, column);
+		parseDbColumnDataType.put(parseField, column);
 	}
 	
 	public LinkedHashMap<String, String> getParseFieldsAndDbColumn()
 	{
-		return parseFieldsAndDbColumn;
+		return parseDbColumnDataType;
 	}
 	
 	public void addFieldValue(String parseField, String value, int index)
@@ -61,13 +61,13 @@ public class DatabaseMap
 		String retStr = "";
 		
 		int count = 0;
-		for(String field : parseFieldsAndDbColumn.keySet())
+		for(String field : parseDbColumnDataType.keySet())
 		{
-			String column = parseFieldsAndDbColumn.get(field);
+			String column = parseDbColumnDataType.get(field);
 			retStr += field + FIELD_COLUMN_DELIMITER + column;
 			
 			count++;
-			if(count < parseFieldsAndDbColumn.size())
+			if(count < parseDbColumnDataType.size())
 			{
 				retStr += DEFINITION_DELIMITER;
 			}

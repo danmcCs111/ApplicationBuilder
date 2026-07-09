@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 
 import ActionListenersImpl.PageParserSequenceLaunch;
 import ObjectTypeConversion.PageParserCollection;
+import Properties.DatabaseColumnTypeMap;
 import Properties.DatabaseMap;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 
@@ -23,6 +24,8 @@ public class PageParserUploader extends JPanel implements PostWidgetBuildProcess
 		collectButton;
 	private DatabaseMap
 		databaseMap;
+	private DatabaseColumnTypeMap 
+		databaseColumnTypeMap;
 	
 	public PageParserUploader()
 	{
@@ -53,6 +56,11 @@ public class PageParserUploader extends JPanel implements PostWidgetBuildProcess
 	public void setDatabaseMap(DatabaseMap databaseMap)
 	{
 		this.databaseMap = databaseMap;
+	}
+	
+	public void setDatabaseColumnTypeMap(DatabaseColumnTypeMap databaseColumnTypeMap)
+	{
+		this.databaseColumnTypeMap = databaseColumnTypeMap;
 	}
 
 	@Override

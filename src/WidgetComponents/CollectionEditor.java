@@ -78,6 +78,7 @@ public class CollectionEditor extends JFrame
 		addUrls = new ArrayList<String>();
 	private boolean 
 		keyValue = false;
+//		selectPopulate = false;
 	
 	public CollectionEditor(
 			String path, 
@@ -97,6 +98,7 @@ public class CollectionEditor extends JFrame
 			String title, 
 			String addText,
 			boolean keyValue
+//			boolean selectPopulate
 	)
 	{
 		this.path = path;
@@ -104,6 +106,7 @@ public class CollectionEditor extends JFrame
 		this.ebau = ebau;
 		this.addText = addText;
 		this.keyValue = keyValue;
+//		this.selectPopulate = selectPopulate;
 		this.setTitle(title);
 		buildWidgets();
 		
