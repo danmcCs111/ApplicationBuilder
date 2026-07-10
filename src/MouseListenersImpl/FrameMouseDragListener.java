@@ -48,6 +48,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		FRAME_AND_TITLE_HEIGHT = 45; 
 	private static final String 
 		YOUTUBE_CHANNELS_FILTER = "youtube.com/",
+		YOUTUBE_CHANNELS_NOT_FILTER = "youtube.com/watch?v=",
 //		YOUTUBE_CHANNELS_FILTER2 = "youtube.com/@",
 		EMPTY_CHANNELS_LIST_TEXT = "Empty",
 		OPEN_MENU_TEXT = "OPEN",
@@ -163,7 +164,8 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 			pm.add(mi);
 			
 			LoggingMessages.printOut(jbll.getName());
-			if(jbll.getName().contains(YOUTUBE_CHANNELS_FILTER))
+			if(jbll.getName().contains(YOUTUBE_CHANNELS_FILTER) &&
+					!jbll.getName().contains(YOUTUBE_CHANNELS_NOT_FILTER)) //youtube channel selection items.
 			{
 				if(jbll.getName().contains(EMPTY_CHANNELS_LIST_TEXT))
 				{
