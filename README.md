@@ -50,6 +50,8 @@ if it isn't copying, highlight the url in browser and hit enter again. the actua
 
 **Progress Log:**
 
+Cleaned up issue with loosing highlight when refreshing. window size enlarging upon opening when highlighted. and added filter to not include channel menu selection actions for direct youtube videos.
+
 (using in a dual monitor setup.)
 
 <img width="25%" src="https://github.com/user-attachments/assets/a5dc474a-e387-48ec-9ecb-7680b0b8e732" />
