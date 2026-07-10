@@ -113,6 +113,10 @@ public class KeepSelection implements ShapeDrawingCollectionLoad, Comparator<Kee
 	{
 		return ab;
 	}
+	public void setJButtonLengthLimited(JButtonLengthLimited jbll)
+	{
+		this.ab = jbll;
+	}
 	
 	public JPanel getConnectedPanel()
 	{

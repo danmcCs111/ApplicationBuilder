@@ -526,7 +526,28 @@ PostWidgetBuildProcessing, ButtonArray
 	@Override
 	public boolean isHighlightButton(AbstractButton ab)
 	{
-		return highlightButton == ab;
+		if(highlightButton == null || ab == null)
+			return false;
+		
+		if(highlightButton instanceof JButtonLengthLimited)
+		{
+			if(ab instanceof JButtonLengthLimited)
+			{
+				if(((JButtonLengthLimited) highlightButton).getFullLengthText().equals(
+						((JButtonLengthLimited) ab).getFullLengthText())) 
+				{
+					return true; 
+				}
+			}
+		}
+		else
+		{
+			if(highlightButton.getText().equals(ab.getText()))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	@Override
@@ -611,16 +632,33 @@ PostWidgetBuildProcessing, ButtonArray
 	public void refreshJButtons(String path, List<String> listOf, int index, int indexPl)
 	{
 		AbstractButton ab = LaunchUrlActionListener.getLastButtonOrigin();
-		String text = ab.getText();
+		String 
+			text = (ab != null) ? ab.getText() : "",
+			highlightText = (highlightButton != null) ? highlightButton.getText() : "";
 		
 		collectionJButtons.get(path).clear();
 		addJButtons(path, listOf, index, indexPl);
 		rebuildButtons();
 		refreshAllMouseListeners();
-		ArrayList<JButtonLengthLimited> jblls = findButtonFromText(text);
-		if(!jblls.isEmpty())
+		
+		
+		ArrayList<JButtonLengthLimited> jblls = null;
+		//move state over to new buttons.
+		if(!text.isBlank())
 		{
-			LaunchUrlActionListener.setLastButtonOrigin(jblls.get(0));//TODO? just first.
+			jblls = findButtonFromText(text);
+			if(!jblls.isEmpty())
+			{
+				LaunchUrlActionListener.setLastButtonOrigin(jblls.get(0));//TODO? just first.
+			}
+		}
+		if(!highlightText.isBlank())
+		{
+			jblls = findButtonFromText(highlightText);
+			if(!jblls.isEmpty())
+			{
+				highlightButton = jblls.get(0);
+			}
 		}
 		urlSelect(LaunchUrlActionListener.getLastButtonOrigin());
 	}
