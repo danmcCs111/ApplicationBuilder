@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -114,14 +113,12 @@ public class PageParserDialog extends JDialog implements EditButtonArrayUrls
 	{
 		pas = new ParseAttributes(pp.getParseAttributes());
 		
-		Point parentLocation = null;
 		this.pageParserEditor = ppe;
 		if(ppe.getRootPane() == null || ppe.getRootPane().getParent() == null)
 		{
 			return;
 		}
-		parentLocation = ppe.getRootPane().getParent().getLocation();
-		this.setLocation(parentLocation);
+		GraphicsUtil.rightEdgeTopWindow(ppe, this);
 		this.setTitle(TITLE);
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setMinimumSize(MIN_DIMENSION_DIALOG);
@@ -336,6 +333,7 @@ public class PageParserDialog extends JDialog implements EditButtonArrayUrls
 				simulateViewResponseHtml.setText(htmlResponse);
 				JScrollPane jsp = new JScrollPane(simulateViewResponseHtml);
 				f.add(jsp);
+				GraphicsUtil.rightEdgeTopWindow(PageParserDialog.this, f);
 				f.setVisible(true);
 			}
 		});
