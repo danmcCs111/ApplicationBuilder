@@ -9,13 +9,13 @@ import ApplicationBuilder.QueryUpdateTool;
 public class DatabaseColumnTypeMap 
 {
 	private static String
-	FIELD_COLUMN_DELIMITER = "\\^",
-	DEFINITION_DELIMITER = "@";
+		FIELD_COLUMN_DELIMITER = "@F@",
+		DEFINITION_DELIMITER = "@D@";
 
-private LinkedHashMap<String, String>
-	parseDbColumnDataType = new LinkedHashMap<String, String>();
-private ArrayList<HashMap<String, String>>
-	parseFieldsAndValues = new ArrayList<HashMap<String, String>>();
+	private LinkedHashMap<String, String>
+		parseDbColumnDataType = new LinkedHashMap<String, String>();
+	private ArrayList<HashMap<String, String>>
+		parseFieldsAndValues = new ArrayList<HashMap<String, String>>();
 
 	public DatabaseColumnTypeMap(String xml)
 	{

@@ -9,8 +9,8 @@ import ApplicationBuilder.QueryUpdateTool;
 public class DatabaseMap 
 {
 	private static String
-		FIELD_COLUMN_DELIMITER = "\\^",
-		DEFINITION_DELIMITER = "@";
+		FIELD_COLUMN_DELIMITER = "@F@",
+		DEFINITION_DELIMITER = "@D@";
 	
 	private LinkedHashMap<String, String>
 		parseFieldsAndDbColumn = new LinkedHashMap<String, String>();
