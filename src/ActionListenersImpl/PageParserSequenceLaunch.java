@@ -9,6 +9,7 @@ import ObjectTypeConversion.PageParser;
 import ObjectTypeConversion.PageParserCollection;
 import ObjectTypeConversion.ParseAttribute;
 import Properties.LoggingMessages;
+import WidgetComponentInterfaces.TextOutputSubscriber;
 
 public class PageParserSequenceLaunch implements ActionListener 
 {
@@ -16,27 +17,36 @@ public class PageParserSequenceLaunch implements ActionListener
 		SEQUENCE_SPLIT_TAG = "link";
 	private PageParserCollection 
 		pageParserCollection;
-	private String 
+	private String
 		homepage;
 	private LinkedHashMap<ParseAttribute, String[]> 
 		parsePagesAndMatches = new LinkedHashMap<ParseAttribute, String[]>();
+	private TextOutputSubscriber 
+		textOutputSubscriber;
+	private Thread
+		runThread;
 	
-	public PageParserSequenceLaunch(PageParserCollection pageParserCollection, String homepage) 
+	public PageParserSequenceLaunch(PageParserCollection pageParserCollection, String homepage, TextOutputSubscriber textSubscriber) 
 	{
 		this.pageParserCollection = pageParserCollection;
 		this.homepage = homepage;
+		this.textOutputSubscriber = textSubscriber;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		String htmlResponse = HttpDatabaseRequest.executeGetRequest(homepage);
-		simulateAction(htmlResponse, 0);
-		for(ParseAttribute pa : parsePagesAndMatches.keySet())
+		if(runThread == null || !runThread.isAlive())
 		{
-			String [] matches = parsePagesAndMatches.get(pa);
-			LoggingMessages.printOut(pa.name());
-			LoggingMessages.printOut(LoggingMessages.combine(matches));
+			String htmlResponse = HttpDatabaseRequest.executeGetRequest(homepage);
+			Runnable r = new Runnable() {
+				@Override
+				public void run() {
+					simulateAction(htmlResponse, 0);
+				}
+			};
+			runThread = new Thread(r);
+			runThread.start();
 		}
 	}
 	
@@ -53,8 +63,9 @@ public class PageParserSequenceLaunch implements ActionListener
 				continue;
 			
 			parsePagesAndMatches.put(pa, matches);
-			LoggingMessages.printOut(pa.name());
-			LoggingMessages.printOut(LoggingMessages.combine(matches));
+			
+			textOutputSubscriber.textOutput(pa.name() + "\n" + LoggingMessages.combine(matches) + "\n");
+			
 			if(pa.name().toLowerCase().contains(SEQUENCE_SPLIT_TAG))
 			{
 				for(String m : matches)

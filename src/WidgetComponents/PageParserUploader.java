@@ -1,15 +1,20 @@
 package WidgetComponents;
 
+import java.awt.BorderLayout;
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 import ActionListenersImpl.PageParserSequenceLaunch;
 import ObjectTypeConversion.PageParserCollection;
 import Properties.DatabaseColumnTypeMap;
 import Properties.DatabaseMap;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
+import WidgetComponentInterfaces.TextOutputSubscriber;
 
-public class PageParserUploader extends JPanel implements PostWidgetBuildProcessing
+public class PageParserUploader extends JPanel implements TextOutputSubscriber, PostWidgetBuildProcessing
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -22,6 +27,10 @@ public class PageParserUploader extends JPanel implements PostWidgetBuildProcess
 		pageParserCollection = null;
 	private JButton
 		collectButton;
+	private JTextArea
+		outputText;
+	private JScrollPane
+		scrollPane;
 	private DatabaseMap
 		databaseMap;
 	private DatabaseColumnTypeMap 
@@ -29,7 +38,7 @@ public class PageParserUploader extends JPanel implements PostWidgetBuildProcess
 	
 	public PageParserUploader()
 	{
-		
+		this.setLayout(new BorderLayout());
 	}
 	
 	private void buildWidgets()
@@ -37,10 +46,14 @@ public class PageParserUploader extends JPanel implements PostWidgetBuildProcess
 		collectButton = new JButton(COLLECT_BUTTON_TEXT);
 		PageParserSequenceLaunch ppsl = new PageParserSequenceLaunch(
 				pageParserCollection, 
-				homepage
+				homepage,
+				this
 		);
 		collectButton.addActionListener(ppsl);
-		this.add(collectButton);
+		outputText = new JTextArea();
+		scrollPane = new JScrollPane(outputText);
+		this.add(collectButton, BorderLayout.NORTH);
+		this.add(scrollPane, BorderLayout.CENTER);
 	}
 	
 	public void setPageParserCollection(PageParserCollection pp)
@@ -67,5 +80,11 @@ public class PageParserUploader extends JPanel implements PostWidgetBuildProcess
 	public void postExecute() 
 	{
 		buildWidgets();
+	}
+
+	@Override
+	public void textOutput(String text) 
+	{
+		outputText.setText(outputText.getText() + text);
 	}
 }
