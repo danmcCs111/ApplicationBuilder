@@ -38,7 +38,7 @@ public class DimensionEditor extends JPanel implements ParameterEditor
 		spin2.setModel(snm2);
 		spin2.setEditor(new JSpinner.NumberEditor(spin2, SPINNER_FORMAT));
 		
-		this.setLayout(new GridLayout(0,1));
+		this.setLayout(new GridLayout(0,2));
 		this.add(spin1);
 		this.add(spin2);
 	}

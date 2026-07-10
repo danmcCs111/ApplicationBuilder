@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -19,13 +18,17 @@ import EditorInterfaces.EditorStateChangedDistributor;
 import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
 import Params.ParameterEditor;
+import WidgetComponents.JButtonLengthLimited;
 import WidgetComponents.ScheduledCommandExecutionEditor;
 
-public class ScheduledCommandEditor extends JButton implements ParameterEditor, EditorState
+public class ScheduledCommandEditor extends JButtonLengthLimited implements ParameterEditor, EditorState
 {
 	private static final long serialVersionUID = 1L;
 	
-	private static final String DEFAULT_TEXT = "Edit Command";
+	private static final String 
+		DEFAULT_TEXT = "Edit Command";
+	private static int 
+		CHARACTER_LIMIT = 100;
 	
 	private ScheduledCommand 
 		sc = null;
@@ -39,6 +42,7 @@ public class ScheduledCommandEditor extends JButton implements ParameterEditor, 
 	
 	public void buildWidgets()
 	{
+		this.setCharacterLimit(CHARACTER_LIMIT);
 		if(sc == null || sc.getCommandBuild() == null)
 		{
 			this.setText(DEFAULT_TEXT);

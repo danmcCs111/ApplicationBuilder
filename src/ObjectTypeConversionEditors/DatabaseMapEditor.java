@@ -6,8 +6,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.swing.JButton;
-
 import Graphics2D.ColorTemplate;
 import Params.ParameterEditor;
 import Properties.DatabaseMap;
@@ -15,8 +13,9 @@ import Properties.LoggingMessages;
 import WidgetComponentDialogs.DatabaseMapDialog;
 import WidgetComponentInterfaces.EditButtonArrayUrls;
 import WidgetComponents.CollectionEditorAddPanel;
+import WidgetComponents.JButtonLengthLimited;
 
-public class DatabaseMapEditor extends JButton implements ParameterEditor, EditButtonArrayUrls
+public class DatabaseMapEditor extends JButtonLengthLimited implements ParameterEditor, EditButtonArrayUrls
 {
 	private static final long serialVersionUID = 1L;
 
@@ -24,6 +23,8 @@ public class DatabaseMapEditor extends JButton implements ParameterEditor, EditB
 		DISPLAY_DELIMITER = ",",
 		TITLE_TEXT = "Edit Field and Database Column Mapping",
 		DEFAULT_EDITOR_TEXT = "<Enter Database Mapping>";
+	private static int 
+		CHARACTER_LIMIT = 100;
 	
 	private DatabaseMap
 		databaseMap;
@@ -37,6 +38,7 @@ public class DatabaseMapEditor extends JButton implements ParameterEditor, EditB
 	
 	public void buildWidgets()
 	{
+		this.setCharacterLimit(CHARACTER_LIMIT);
 		this.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) 

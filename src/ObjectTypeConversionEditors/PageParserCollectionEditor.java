@@ -4,21 +4,22 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-
 import Graphics2D.ColorTemplate;
 import ObjectTypeConversion.PageParser;
 import ObjectTypeConversion.PageParserCollection;
 import Params.ParameterEditor;
 import Properties.LoggingMessages;
 import WidgetComponentDialogs.PageParserCollectionDialog;
+import WidgetComponents.JButtonLengthLimited;
 
-public class PageParserCollectionEditor extends JButton implements ParameterEditor 
+public class PageParserCollectionEditor extends JButtonLengthLimited implements ParameterEditor 
 {
 	private static final long serialVersionUID = 1L;
 
 	private static final String 
 		DEFAULT_EDITOR_TEXT = "<Enter Page Filter>";
+	private static int 
+		CHARACTER_LIMIT = 100;
 	
 	private String 
 		commandText = DEFAULT_EDITOR_TEXT;
@@ -34,6 +35,7 @@ public class PageParserCollectionEditor extends JButton implements ParameterEdit
 
 	public void buildWidgets()
 	{
+		this.setCharacterLimit(CHARACTER_LIMIT);
 		this.setText(commandText);
 		this.addActionListener(new ActionListener() {
 			@Override
