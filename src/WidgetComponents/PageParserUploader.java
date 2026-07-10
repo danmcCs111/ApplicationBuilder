@@ -86,5 +86,6 @@ public class PageParserUploader extends JPanel implements TextOutputSubscriber, 
 	public void textOutput(String text) 
 	{
 		outputText.setText(outputText.getText() + text);
+		outputText.setCaretPosition(outputText.getText().length());
 	}
 }
