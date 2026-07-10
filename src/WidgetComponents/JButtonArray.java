@@ -610,10 +610,18 @@ PostWidgetBuildProcessing, ButtonArray
 	
 	public void refreshJButtons(String path, List<String> listOf, int index, int indexPl)
 	{
+		AbstractButton ab = LaunchUrlActionListener.getLastButtonOrigin();
+		String text = ab.getText();
+		
 		collectionJButtons.get(path).clear();
 		addJButtons(path, listOf, index, indexPl);
 		rebuildButtons();
 		refreshAllMouseListeners();
+		ArrayList<JButtonLengthLimited> jblls = findButtonFromText(text);
+		if(!jblls.isEmpty())
+		{
+			LaunchUrlActionListener.setLastButtonOrigin(jblls.get(0));//TODO? just first.
+		}
 		urlSelect(LaunchUrlActionListener.getLastButtonOrigin());
 	}
 	
@@ -657,7 +665,6 @@ PostWidgetBuildProcessing, ButtonArray
 			{
 				hlButton = ((JButtonLengthLimited) newButton).getHighlightButton();
 			}
-			
 			
 			ArrayList<JButtonLengthLimited> matches = findButtonFromText(hlButton.getText());//TODO
 			
