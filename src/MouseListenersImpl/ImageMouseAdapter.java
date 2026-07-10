@@ -229,10 +229,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 				f.setVisible(true);
 				f.pack();
 				
-				if(ba.isHighlightButton(keep.getJButtonLengthLimited()))
-				{
-					PicLabelMouseListener.highLightLabel(keep.getJButtonLengthLimited(), true);
-				}
+				highlightIfButton(keep);
 			}
 			else
 			{
@@ -244,6 +241,14 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 			destroyFrame();
 		}
 		keepFrame = false;
+	}
+	
+	private void highlightIfButton(KeepSelection keep)
+	{
+		if(ba.isHighlightButton(keep.getJButtonLengthLimited()))
+		{
+			PicLabelMouseListener.highLightLabel(keep.getJButtonLengthLimited(), true);
+		}
 	}
 	
 	@Override
@@ -344,10 +349,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		
 		GraphicsUtil.rightEdgeCenterWindow(WidgetBuildController.getInstance().getFrame(), f);
 		
-		if(ba.isHighlightButton(ks.getJButtonLengthLimited()))
-		{
-			PicLabelMouseListener.highLightLabel(ks.getJButtonLengthLimited(), true);
-		}
+		highlightIfButton(ks);
 	}
 	
 	private JLabel buildPicLabel(ImageIcon ii, KeepSelection ks)
