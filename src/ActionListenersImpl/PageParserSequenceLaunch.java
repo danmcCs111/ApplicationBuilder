@@ -26,7 +26,11 @@ public class PageParserSequenceLaunch implements ActionListener
 	private Thread
 		runThread;
 	
-	public PageParserSequenceLaunch(PageParserCollection pageParserCollection, String homepage, TextOutputSubscriber textSubscriber) 
+	public PageParserSequenceLaunch(
+			PageParserCollection pageParserCollection, 
+			String homepage, 
+			TextOutputSubscriber textSubscriber
+	) 
 	{
 		this.pageParserCollection = pageParserCollection;
 		this.homepage = homepage;

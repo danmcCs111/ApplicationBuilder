@@ -182,9 +182,9 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		KeepSelection keep = getKeepSelectionVisible(c);
 		if(!keepFrame && !keeps.contains(keep))
 		{
-			performFrameBuild(c);
-			keepFrame = true;
+			performFrameBuild(c, "");
 			f.setLocation(x, y);
+			keepFrame = true;
 			createKeepFrame(c);
 			//TODO read if youtube and perform query
 		}
@@ -291,12 +291,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 	@Override
 	public void mouseEntered(MouseEvent e) 
 	{
-		performFrameBuild((Component)e.getSource());
-	}
-	
-	private void performFrameBuild(Component c)
-	{
-		performFrameBuild(c, "");
+		performFrameBuild((Component)e.getSource(), "");
 	}
 	
 	private void performFrameBuild(Component component, String title)
@@ -342,12 +337,12 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		
 		f.add(p);
 		f.setResizable(false);
+		GraphicsUtil.rightEdgeCenterWindow(WidgetBuildController.getInstance().getFrame(), f);
+		
 		if(SHOW_PREVIEW &&!KeepSelection.isDefaultImg(useImage))//hide default image. only during keeping.
 		{
 			f.setVisible(true);
 		}
-		
-		GraphicsUtil.rightEdgeCenterWindow(WidgetBuildController.getInstance().getFrame(), f);
 		
 		highlightIfButton(ks);
 	}

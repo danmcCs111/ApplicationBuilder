@@ -207,6 +207,37 @@ public interface PathUtility
 		}
 	}
 	
+	public static void writeToCsv(File saveFile, String [] header, String [][] values)
+	{
+		String delimiter = ",";
+		if(header == null) {
+			LoggingMessages.printOut("failure: header is null");
+			return;
+		}
+		try {
+			FileWriter myWriter = new FileWriter(saveFile);
+			for(String s : header)
+			{
+				myWriter.write("\"" + s + "\"" + delimiter);
+			}
+			myWriter.write("\n");
+			if(values != null)
+			{
+				for(String [] vals : values)
+				{
+					for(String v : vals)
+					{
+						myWriter.write("\"" + v + "\"" + delimiter + " ");
+					}
+					myWriter.write("\n");
+				}
+			}
+			myWriter.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
+	}
+	
 	public static String readFileToString(File locationFile)
 	{
 		Scanner sc;

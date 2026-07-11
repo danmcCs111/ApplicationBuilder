@@ -276,7 +276,6 @@ public class VideoBookMarksDialog extends JDialog
 		ExtendedSetScrollBackgroundForegroundColor.applyBackgroundForeground(
 				ColorTemplate.getPanelBackgroundColor(), ColorTemplate.getButtonBackgroundColor(), scrollPane);
 		
-		this.setVisible(true);
 		if(refContainer != null)
 		{
 			if(altFontSize)
@@ -288,6 +287,7 @@ public class VideoBookMarksDialog extends JDialog
 				this.setLocation(refContainer.getLocation());
 			}
 		}
+		this.setVisible(true);
 	}
 	
 	private void updateTextArea()

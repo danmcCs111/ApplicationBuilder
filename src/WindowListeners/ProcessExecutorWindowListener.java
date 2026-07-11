@@ -80,7 +80,6 @@ public class ProcessExecutorWindowListener extends WindowAdapter
 		
 	}
 	
-	
 	public JButtonLengthLimited createVirtualButton(
 			String sourceButtonText, 
 			String sourceButtonFull,

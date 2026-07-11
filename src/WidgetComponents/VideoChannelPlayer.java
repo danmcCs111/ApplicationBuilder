@@ -100,6 +100,8 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 	private int 
 		rootPort = HttpRequestProcessor.getPortNumber(),
 		listenPort = HttpRequestProcessor.getPortNumber() + PORT_NUMBER_MASK;
+	private Container
+		parent;
 	
 	public VideoChannelPlayer()
 	{
@@ -113,9 +115,9 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 		this.parentButton = parentButton;
 		this.videoImage = videoImage;
 		this.fmdl = fmdl;
+		this.parent = parent;
 		this.setTitle(TITLE_PREFIX + parentButton.getText());
 		buildWidgets(fmdl.getYoutubeVideos());
-		GraphicsUtil.rightEdgeCenterWindow(parent, this);
 	}
 	
 	public void setVideos(JButtonLengthLimited jbll, String path, Point loc)
@@ -183,6 +185,7 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 		});
 		
 		this.setMinimumSize(MIN_SIZE);
+		GraphicsUtil.rightEdgeCenterWindow(parent, this);
 		this.setVisible(true);
 
 		listView.postFrameBuild();
