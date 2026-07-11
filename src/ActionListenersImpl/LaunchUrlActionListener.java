@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Optional;
 
 import javax.swing.AbstractButton;
 
@@ -34,8 +35,8 @@ public class LaunchUrlActionListener implements ActionListener
 		processWindows = PROCESS_WINDOWS,
 		processLinux = PROCESS_LINUX;
 	
-	private static HashMap<Integer, Process>
-		runningProcesses = new HashMap<Integer, Process>();
+	private static HashMap<Integer, ProcessHandle>
+		runningProcesses = new HashMap<Integer, ProcessHandle>();
 	private static ArrayList<AbstractButton> 
 		lastButtons = new ArrayList<AbstractButton>();
 	private static AbstractButton
@@ -113,7 +114,7 @@ public class LaunchUrlActionListener implements ActionListener
 		storeLast(button);
 	}
 	
-	private static void performHighlight(AbstractButton button)
+	public static void performHighlight(AbstractButton button)
 	{
 		if(button.getName().equals(CLOSE_LAUNCH_ACTION_EVENT))
 		{
@@ -195,13 +196,35 @@ public class LaunchUrlActionListener implements ActionListener
 		lastButtonOrigin = button;
 	}
 	
+	public static long getProcessId()
+	{
+		ProcessHandle runningProcess = runningProcesses.get(defaultId);
+		if(runningProcess != null && runningProcess.isAlive())
+		{
+			return runningProcess.pid();
+		}
+		return -1;
+	}
+	
+	public static boolean setProcess(long processId, int id)
+	{
+		Optional<ProcessHandle> optionalHandle = ProcessHandle.of(processId);
+		if(optionalHandle.isPresent())
+		{
+			ProcessHandle ph = optionalHandle.get();
+			runningProcesses.put(id, ph);
+			return true;
+		}
+		return false;
+	}
+	
 	private static void executePrimaryProcess(String [] args, AbstractButton ab)
 	{
 		try {
 			destroyRunningProcess(defaultId);
 			ProcessBuilder pb = new ProcessBuilder(args);
-			Process runningProcess = runningProcesses.get(defaultId);
-			runningProcess = pb.start();
+			ProcessHandle runningProcess = runningProcesses.get(defaultId);
+			runningProcess = pb.start().toHandle();
 			Long pid = runningProcess.pid();
 			File f = new File(new DirectorySelection(AHK_RELATIVE_PATH).getFullPath());
 			PathUtility.writeStringToFile(f, pid + "");
@@ -229,7 +252,7 @@ public class LaunchUrlActionListener implements ActionListener
 			public void run() {
 				while(true)
 				{
-					Process runningProcess = runningProcesses.get(defaultId);
+					ProcessHandle runningProcess = runningProcesses.get(defaultId);
 					if(runningProcess != null && !runningProcess.isAlive())
 					{
 						closeEvent();
@@ -254,7 +277,7 @@ public class LaunchUrlActionListener implements ActionListener
 	
 	public static boolean destroyRunningProcess(int id)
 	{
-		Process runningProcess = runningProcesses.get(id);
+		ProcessHandle runningProcess = runningProcesses.get(id);
 		if(runningProcess != null)
 		{
 			runningProcess.destroy();
