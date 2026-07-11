@@ -117,20 +117,24 @@ public class LaunchUrlActionListener implements ActionListener
 	{
 		if(button.getName().equals(CLOSE_LAUNCH_ACTION_EVENT))
 		{
-			for(AbstractButton lastButton : lastButtons)
-			{
-				LoggingMessages.printOut(lastButton.getText());
-				if(lastButton instanceof JButtonLengthLimited)
-				{
-					PicLabelMouseListener.highLightLabel((JButtonLengthLimited) lastButton, false);//TODO interface?
-				}
-			}
-			notifyActionListeners(null);
+			closeEvent();
 		}
 		else
 		{
 			notifyActionListeners(button);
 		}
+	}
+	
+	private static void closeEvent()
+	{
+		for(AbstractButton lastButton : lastButtons)
+		{
+			if(lastButton instanceof JButtonLengthLimited)
+			{
+				PicLabelMouseListener.highLightLabel((JButtonLengthLimited) lastButton, false);//TODO interface?
+			}
+		}
+		notifyActionListeners(null);
 	}
 	
 	public static void notifyActionListeners(AbstractButton button)
@@ -216,6 +220,31 @@ public class LaunchUrlActionListener implements ActionListener
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static void bootCheckRunningProcess()
+	{
+		Runnable r = new Runnable() {
+			@Override
+			public void run() {
+				while(true)
+				{
+					Process runningProcess = runningProcesses.get(defaultId);
+					if(runningProcess != null && !runningProcess.isAlive())
+					{
+						closeEvent();
+						storeLast(null);
+					}
+					try {
+						Thread.sleep(1000l);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		};
+		Thread t = new Thread(r);
+		t.start();
 	}
 	
 	public static boolean destroyRunningProcess()

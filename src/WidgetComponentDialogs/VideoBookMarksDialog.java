@@ -43,6 +43,7 @@ import Properties.PathUtility;
 import WidgetComponentInterfaces.OpenAndSaveKeepsSubscriber;
 import WidgetComponents.VideoChannelPlayerJoy;
 import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
+import WidgetUtility.WidgetBuildController;
 
 public class VideoBookMarksDialog extends JDialog 
 {
@@ -103,6 +104,7 @@ public class VideoBookMarksDialog extends JDialog
 	
 	public VideoBookMarksDialog(DirectorySelection chosenFileDirectory, OpenAndSaveKeepsSubscriber openKeepsSubscriber, Container refContainer, String [] [] props, boolean altFontSize)
 	{
+		this.setIconImage(WidgetBuildController.getInstance().getFrame().getIconImage());
 		this.altFontSize = altFontSize;
 		this.chosenFileDirectory = chosenFileDirectory;
 		this.openKeepsSubscriber = openKeepsSubscriber;

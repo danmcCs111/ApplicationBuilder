@@ -524,7 +524,7 @@ PostWidgetBuildProcessing, ButtonArray
 	}
 	
 	@Override
-	public boolean isHighlightButton(AbstractButton ab)
+	public boolean isHighlightButton(AbstractButton ab)//TODO.?
 	{
 		if(highlightButton == null || ab == null)
 			return false;
