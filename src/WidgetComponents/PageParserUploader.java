@@ -31,6 +31,8 @@ public class PageParserUploader extends JPanel implements TextOutputSubscriber, 
 		outputText;
 	private JScrollPane
 		scrollPane;
+	private long
+		sleepMillis = 20000l;//20sec default.
 	private DatabaseMap
 		databaseMap;
 	private DatabaseColumnTypeMap 
@@ -47,9 +49,12 @@ public class PageParserUploader extends JPanel implements TextOutputSubscriber, 
 		PageParserSequenceLaunch ppsl = new PageParserSequenceLaunch(
 				pageParserCollection, 
 				homepage,
-				this
+				this,
+				sleepMillis
 		);
 		collectButton.addActionListener(ppsl);
+		collectButton.setEnabled(false);
+		collectButton.setToolTipText("disabled.");
 		outputText = new JTextArea();
 		scrollPane = new JScrollPane(outputText);
 		this.add(collectButton, BorderLayout.NORTH);
@@ -74,6 +79,11 @@ public class PageParserUploader extends JPanel implements TextOutputSubscriber, 
 	public void setDatabaseColumnTypeMap(DatabaseColumnTypeMap databaseColumnTypeMap)
 	{
 		this.databaseColumnTypeMap = databaseColumnTypeMap;
+	}
+	
+	public void setSleepMillis(long sleepDurationMillis)
+	{
+		sleepMillis = sleepDurationMillis;
 	}
 
 	@Override

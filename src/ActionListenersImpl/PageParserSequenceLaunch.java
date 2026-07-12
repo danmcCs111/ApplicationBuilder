@@ -25,16 +25,20 @@ public class PageParserSequenceLaunch implements ActionListener
 		textOutputSubscriber;
 	private Thread
 		runThread;
+	private long
+		sleepMillis;
 	
 	public PageParserSequenceLaunch(
 			PageParserCollection pageParserCollection, 
 			String homepage, 
-			TextOutputSubscriber textSubscriber
+			TextOutputSubscriber textSubscriber,
+			long sleepMillis
 	) 
 	{
 		this.pageParserCollection = pageParserCollection;
 		this.homepage = homepage;
 		this.textOutputSubscriber = textSubscriber;
+		this.sleepMillis = sleepMillis;
 	}
 	
 	@Override
@@ -78,9 +82,10 @@ public class PageParserSequenceLaunch implements ActionListener
 						continue;
 					
 					try {
+						Thread.sleep(sleepMillis);
 						String htmlResp = HttpDatabaseRequest.executeGetRequest(m);
 						simulateAction(htmlResp, index+1);
-					} catch(Exception e) {
+					} catch(InterruptedException ie) {
 						LoggingMessages.printOut("failed request: " + m);
 					}
 				}

@@ -392,7 +392,8 @@ public class VideoBookMarksDialog extends JDialog
 				{
 					openKeepsSubscriber.openKeeps(
 							PathUtility.readProperties(fle.getAbsolutePath(), 
-									PROPERTIES_FILE_DELIMITER));
+							PROPERTIES_FILE_DELIMITER)
+					);
 				}
 			}
 			VideoBookMarksDialog.this.dispose();
