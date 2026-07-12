@@ -151,9 +151,15 @@ public class VideoBookMarksDialog extends JDialog
 		LoggingMessages.printOut("Focus: " + this.toString());
 	}
 	
-	public File getFileSelection()
+	public ArrayList<File> getFileSelection()
 	{
-		return new File(chosenFileDirectory.getFullPath().strip() + fileList.getSelectedValue());
+		ArrayList<File> fileSelections = new ArrayList<File>();
+		for(String fle : fileList.getSelectedValuesList())
+		{
+			File f = new File(chosenFileDirectory.getFullPath().strip() + fle);
+			fileSelections.add(f);
+		}
+		return fileSelections;
 	}
 	
 	public File getFileNameTyped()
@@ -189,7 +195,7 @@ public class VideoBookMarksDialog extends JDialog
 		Collections.sort(titles);
 		
 		fileList = new JList<String>(titles.toArray(new String[titles.size()]));
-		fileList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);//TODO.
+		setSelectionModeSingle(save);//single with save, multi otherwise.
 		fileList.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
@@ -290,6 +296,15 @@ public class VideoBookMarksDialog extends JDialog
 		this.setVisible(true);
 	}
 	
+	public void setSelectionModeSingle(boolean singleSelect)
+	{
+		fileList.setSelectionMode( 
+				(singleSelect)
+				? ListSelectionModel.SINGLE_INTERVAL_SELECTION 
+				: ListSelectionModel.MULTIPLE_INTERVAL_SELECTION
+		);
+	}
+	
 	private void updateTextArea()
 	{
 		String select = fileList.getSelectedValue();
@@ -373,9 +388,12 @@ public class VideoBookMarksDialog extends JDialog
 			}
 			else
 			{
-				openKeepsSubscriber.openKeeps(
-						PathUtility.readProperties(getFileSelection().getAbsolutePath(), 
-						PROPERTIES_FILE_DELIMITER));
+				for(File fle : getFileSelection())
+				{
+					openKeepsSubscriber.openKeeps(
+							PathUtility.readProperties(fle.getAbsolutePath(), 
+									PROPERTIES_FILE_DELIMITER));
+				}
 			}
 			VideoBookMarksDialog.this.dispose();
 		}

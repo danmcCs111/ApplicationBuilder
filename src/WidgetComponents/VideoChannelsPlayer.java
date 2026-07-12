@@ -584,10 +584,10 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	{
 		return new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				
+			public void actionPerformed(ActionEvent e) 
+			{
 				Point scrnPoint = updateViewer.getLocationOnScreen();
-				String absPath = vbmd.getFileSelection().getAbsolutePath();
+				String absPath = vbmd.getFileSelection().get(0).getAbsolutePath();
 				
 				String 
 					bgBtnColor = getColorString(ColorTemplate.getButtonBackgroundColor()),
@@ -815,6 +815,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		};
 		
 		vbmd = new VideoBookMarksDialog(videoBookmarksDirectory, osks, null, false);
+		vbmd.setSelectionModeSingle(true);
 		vbmd.setLocation(LAUNCH_LOCATION);
 		vbmd.addWindowListener(new WindowAdapter() {
 			@Override
