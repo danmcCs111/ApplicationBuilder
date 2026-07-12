@@ -42,6 +42,7 @@ public class LaunchUrlActionListener implements ActionListener
 	private static AbstractButton
 		lastButtonOrigin;
 	private static boolean 
+		executing = false,
 		isKiosk = false;
 	private static int
 		defaultId = -1;
@@ -220,6 +221,7 @@ public class LaunchUrlActionListener implements ActionListener
 	
 	private static void executePrimaryProcess(String [] args, AbstractButton ab)
 	{
+		executing = true;
 		try {
 			destroyRunningProcess(defaultId);
 			ProcessBuilder pb = new ProcessBuilder(args);
@@ -233,6 +235,7 @@ public class LaunchUrlActionListener implements ActionListener
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		executing = false;
 	}
 	
 	public static void executeProcess(int id, String ...args)
@@ -253,7 +256,7 @@ public class LaunchUrlActionListener implements ActionListener
 				while(true)
 				{
 					ProcessHandle runningProcess = runningProcesses.get(defaultId);
-					if(runningProcess != null && !runningProcess.isAlive())
+					if(runningProcess != null && !runningProcess.isAlive() && !executing)
 					{
 						closeEvent();
 						storeLast(null);
