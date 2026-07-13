@@ -2,7 +2,6 @@ package WidgetExtensions;
 
 import ObjectTypeConversion.NameId;
 import Params.XmlToWidgetGenerator;
-import Properties.LoggingMessages;
 import WidgetExtensionDefs.ExtendedAttributeParam;
 import WidgetExtensionInterfaces.OpenActionExtension;
 import WidgetUtility.WidgetBuildController;
@@ -42,7 +41,6 @@ public class ExtendedOpenAltTextActionListener extends ExtendedOpenActionListene
 		{
 			getOae();
 		}
-		LoggingMessages.printOut(oae.toString());
 		if(oae != null)
 		{
 			for(XmlToWidgetGenerator xtwg : widgetProperties.getXmlToWidgetGenerators())

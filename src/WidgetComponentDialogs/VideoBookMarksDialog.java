@@ -290,7 +290,7 @@ public class VideoBookMarksDialog extends JDialog
 			}
 			else
 			{
-				this.setLocation(refContainer.getLocation());
+				GraphicsUtil.rightEdgeTopWindow(refContainer, this);
 			}
 		}
 		this.setVisible(true);
