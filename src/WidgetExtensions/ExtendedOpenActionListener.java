@@ -5,12 +5,13 @@ import java.awt.event.ActionListener;
 
 import javax.swing.AbstractButton;
 
-import WidgetExtensionDefs.ExtendedAttributeStringParam;
+import ObjectTypeConversion.NameId;
+import WidgetExtensionDefs.ExtendedAttributeParam;
 import WidgetExtensionInterfaces.OpenActionExtension;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
 
-public class ExtendedOpenActionListener implements ExtendedAttributeStringParam
+public class ExtendedOpenActionListener implements ExtendedAttributeParam
 {
 	private OpenActionExtension oae = null;
 	
@@ -24,12 +25,11 @@ public class ExtendedOpenActionListener implements ExtendedAttributeStringParam
 		getOpenActionExtension().performOpen();
 	}
 	
-	@Override
-	public void applyMethod(String arg0, WidgetCreatorProperty widgetProperties) 
+	public void applyMethod(NameId arg0, WidgetCreatorProperty widgetProperties) 
 	{
-		String name = arg0;
+		NameId name = arg0;
 		Object m = widgetProperties.getInstance();
-		WidgetCreatorProperty wcp = WidgetBuildController.getInstance().findRefByName(name);
+		WidgetCreatorProperty wcp = WidgetBuildController.getInstance().findRefByName(name.getNameId());
 		if(wcp != null)
 		{
 			Object o = wcp.getInstance();

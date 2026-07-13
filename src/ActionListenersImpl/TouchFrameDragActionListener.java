@@ -10,6 +10,11 @@ import MouseListenersImpl.FrameMouseDragListener;
 
 public class TouchFrameDragActionListener implements ActionListener 
 {
+	public boolean isTouch()
+	{
+		return FrameMouseDragListener.isTouch(); 
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{

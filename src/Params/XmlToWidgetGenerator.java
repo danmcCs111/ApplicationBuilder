@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import ObjectTypeConversion.StringToObjectConverter;
@@ -24,6 +25,8 @@ public class XmlToWidgetGenerator
 	//list of lists, example: setArrayForegroundAndBackground [240, 240, 240], [175, 204, 175] class ClassDefintions.ColorConverter, class ClassDefintions.ColorConverter
 	private ArrayList<List<String>> 
 		paramsList = new ArrayList<List<String>>();
+	private HashMap<Class<?>, Object>
+		extendedAttributeAndObject = new HashMap<Class<?>, Object>();
 	
 	public XmlToWidgetGenerator(StringToObjectConverter stringToObjectConverter, String methodName, List<String> params)
 	{
@@ -151,6 +154,7 @@ public class XmlToWidgetGenerator
 			}
 			
 			Object tmp = extendedAttr.getDeclaredConstructor().newInstance();
+			extendedAttributeAndObject.put(extendedAttr, tmp);
 			LoggingMessages.printOut(tmp+" " + cs[0] + " " + cs[1]);
 			m = tmp.getClass().getMethod("applyMethod", cs);
 			m.invoke(tmp, os);
@@ -165,6 +169,11 @@ public class XmlToWidgetGenerator
 		} catch (InstantiationException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public Object getExtendedAttributeObject(Class<?> clazz)
+	{
+		return extendedAttributeAndObject.get(clazz);
 	}
 	
 	public void replaceParamsListWithParamEditors()
