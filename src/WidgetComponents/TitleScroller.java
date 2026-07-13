@@ -24,10 +24,10 @@ public class TitleScroller extends JTextField implements ArrayActionListener
 	private boolean 
 		scroll = false;
 	private int
-		scrollOverCountFront = 25,
+		scrollOverCountFront = 75,
 		scrollOverCountBack = 0,
-		scrollCountOverBackJumpPosition = 0,
-		scrollSpeedMillis;
+		scrollCountOverBackJumpPosition = 20,
+		scrollSpeedMillis = 300;
 	
 	public TitleScroller()
 	{
