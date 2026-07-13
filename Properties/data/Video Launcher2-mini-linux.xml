@@ -11,8 +11,8 @@
 			</JScrollPane>
 			<JPanel extendedLayoutApplyParent="North" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" >
 				<JPanel extendedLayoutApplyParent="North" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" >
-					<JTextField extendedLaunchUrlTextSubscriber="&lt;stopped&gt;" extendedLayoutApplyParent="North" extendedSetFontSize="18" setBackground="0, 0, 0" setEditable="False" setForeground="204, 102, 0" setHorizontalAlignment="2" setText="&lt;stopped&gt;" >
-					</JTextField>
+					<TitleScroller extendedLayoutApplyParent="North" extendedSetFontSize="18" setBackground="0, 0, 0" setCaretColor="0, 0, 0" setDefaultTitle="&lt;stopped&gt;" setEditable="False" setForeground="0, 204, 204" setFormatChannel=" -- &lt;arg&gt;" setFormatVideo="[ &lt;arg&gt; ]" setHorizontalAlignment="2" setReplaceValue="&lt;arg&gt;" setScrollOption="True" setScrollOverCountBack="0" setScrollOverCountBackJumpPosition="20" setScrollOverCountFront="50" setScrollSpeedMillis="200" >
+					</TitleScroller>
 				</JPanel>
 				<JPanel extendedLayoutApplyParent="South" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" >
 					<SearchBar extendedLayoutApplyParent="East" extendedSearchField="swapVideos" setButtonBackground="0, 0, 0" setButtonForeground="204, 204, 204" setColumnCharacterLength="10" setSearchFieldBackground="51, 51, 51" setSearchFieldForeground="255, 255, 255" >

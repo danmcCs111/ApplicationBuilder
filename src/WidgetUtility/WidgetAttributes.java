@@ -43,6 +43,7 @@ import WidgetComponents.ScheduledCommandList;
 import WidgetComponents.SearchBar;
 import WidgetComponents.SendHttpRequestPanel;
 import WidgetComponents.SwappableCollection;
+import WidgetComponents.TitleScroller;
 import WidgetComponents.VideoChannelPlayer;
 import WidgetComponents.WeatherGraphViewer;
 import WidgetComponents.XmlToEditor;
@@ -66,7 +67,6 @@ import WidgetExtensions.ExtendedCsvReader;
 import WidgetExtensions.ExtendedDatabaseResponseNodeListener;
 import WidgetExtensions.ExtendedEditCollectionActionListener;
 import WidgetExtensions.ExtendedImageMouseAdapterArray;
-import WidgetExtensions.ExtendedLaunchUrlTextSubscriber;
 import WidgetExtensions.ExtendedLayoutApplyParent;
 import WidgetExtensions.ExtendedMinimizeActionListener;
 import WidgetExtensions.ExtendedNewFileActionListener;
@@ -130,6 +130,7 @@ public class WidgetAttributes
 		COMPONENT_CLASSES.add(JMenu.class);
 		COMPONENT_CLASSES.add(JMenuItem.class);
 		
+		COMPONENT_CLASSES.add(TitleScroller.class);
 		COMPONENT_CLASSES.add(DatabaseResponseNodeTextArea.class);
 		COMPONENT_CLASSES.add(DatabaseEditor.class);
 		COMPONENT_CLASSES.add(ShapeCreator.class);
@@ -201,9 +202,11 @@ public class WidgetAttributes
 		});
 		EXTENDED_METHODS.put(JTextField.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
-				ExtendedAttributeParam.getMethodDefinition(ExtendedSetFontSize.class, ExtendedMethodArgDef.ExtendedInteger.getMethodArgDef()),
-				ExtendedAttributeParam.getMethodDefinition(ExtendedLaunchUrlTextSubscriber.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
-				
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetFontSize.class, ExtendedMethodArgDef.ExtendedInteger.getMethodArgDef())
+		});
+		EXTENDED_METHODS.put(TitleScroller.class, new String [] {
+				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetFontSize.class, ExtendedMethodArgDef.ExtendedInteger.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(JLabel.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),

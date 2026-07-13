@@ -40,4 +40,13 @@ public interface StringUtility
 		return val;
 	}
 	
+	public static String replaceArg(String format, String replaceFirstMatch, String ... args)
+	{
+		String retStr = format;
+		for(String s : args)
+		{
+			retStr = retStr.replaceFirst(replaceFirstMatch, s);
+		}
+		return retStr;
+	}
 }
