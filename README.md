@@ -51,6 +51,8 @@ if it isn't copying, highlight the url in browser and hit enter again. the actua
 **Progress Log:**
 
 Cleaned up issue with loosing highlight when refreshing. window size enlarging upon opening when highlighted. and added filter to not include channel menu selection actions for direct youtube videos.
+Added Title Bar scrolling with settings to configure turn off/on in application layout editor. 
+Added detection of touch control option discoverable through Extension system and applied on bookmarks dialog.
 
 (using in a dual monitor setup.)
 
