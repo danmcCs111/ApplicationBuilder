@@ -102,6 +102,7 @@ public class TitleScroller extends JTextField implements ArrayActionListener
 							{
 								backCount=0;
 								position -= scrollCountOverBackJumpPosition;
+								if(position < 0) position = 0;
 								dir = -1;
 							}
 						}
