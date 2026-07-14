@@ -8,8 +8,9 @@ import javax.swing.JTextField;
 import ActionListeners.ArrayActionListener;
 import ActionListenersImpl.LaunchUrlActionListener;
 import Properties.StringUtility;
+import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 
-public class TitleScroller extends JTextField implements ArrayActionListener 
+public class TitleScroller extends JTextField implements ArrayActionListener, PostWidgetBuildProcessing
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -17,7 +18,7 @@ public class TitleScroller extends JTextField implements ArrayActionListener
 		REPLACE_VALUE="<arg>",
 		FORMAT_VIDEO="[ <arg> ] ",
 		FORMAT_CHANNEL=" -- <arg>",
-		FORMAT_VIDEO_CHANNEL = FORMAT_VIDEO + FORMAT_CHANNEL,
+		FORMAT_VIDEO_CHANNEL = "",
 		DEFAULT_TEXT = "<stopped>";
 	private Thread
 		spanThread;
@@ -207,6 +208,12 @@ public class TitleScroller extends JTextField implements ArrayActionListener
 	@Override
 	public void addActionListener(ActionListener actionListener) {
 		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void postExecute() 
+	{
+		FORMAT_VIDEO_CHANNEL = FORMAT_VIDEO + FORMAT_CHANNEL;
 	}
 
 }
