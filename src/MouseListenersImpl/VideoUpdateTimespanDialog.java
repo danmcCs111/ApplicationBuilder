@@ -5,6 +5,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Timestamp;
@@ -38,18 +39,19 @@ public class VideoUpdateTimespanDialog extends JDialog
 	private boolean 
 		updated = false;
 	
-	public VideoUpdateTimespanDialog(Container refContainer, AbstractButton ab, Date d)
+	public VideoUpdateTimespanDialog(Container refContainer, Image img, AbstractButton ab, Date d)
 	{
-		this(refContainer, ab, d, null);
+		this(refContainer, img, ab, d, null);
 	}
 	
-	public VideoUpdateTimespanDialog(Container refContainer, AbstractButton ab, Date d, Font fnt)
+	public VideoUpdateTimespanDialog(Container refContainer, Image img, AbstractButton ab, Date d, Font fnt)
 	{
 		this.ab = ab;
 		
 		this.setTitle(TITLE);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setSize(MIN_DIMENSION_DIALOG);
+		this.setIconImage(img);
 		
 		buildWidgets(d, fnt);
 		

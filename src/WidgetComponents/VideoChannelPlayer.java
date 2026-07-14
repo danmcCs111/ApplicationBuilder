@@ -209,9 +209,9 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 		{
 			GraphicsUtil.rightEdgeCenterWindow(parentContainer, this);
 		}
-		this.setVisible(true);
 		listView.postFrameBuild();
 		
+		this.setVisible(true);
 		this.validate();
 	}
 	
@@ -403,7 +403,7 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 			lastDate = cal.getTime();
 		}
 		VideoUpdateTimespanDialog vutd = new VideoUpdateTimespanDialog(
-				this, parentButton, lastDate
+				this, videoImage.getImage(), parentButton, lastDate
 		);
 		vutd.addWindowListener(new WindowAdapter() {
 			@Override

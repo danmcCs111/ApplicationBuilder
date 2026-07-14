@@ -690,7 +690,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 			lastDate = cal.getTime();
 		}
 		VideoUpdateTimespanDialog vutd = new VideoUpdateTimespanDialog(
-				this, selectedButtonParent, lastDate
+				this, this.getIconImage(), selectedButtonParent, lastDate
 		);
 		vutd.addWindowListener(new WindowAdapter() {
 			@Override

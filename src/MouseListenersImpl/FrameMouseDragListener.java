@@ -308,7 +308,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 				Runnable r = new Runnable() {
 					@Override
 					public void run() {
-						vutd = new VideoUpdateTimespanDialog(f, parentButton, lastDate, fnt);
+						vutd = new VideoUpdateTimespanDialog(f, f.getIconImage(), parentButton, lastDate, fnt);
 						vutd.addWindowListener(new WindowAdapter() {
 							@Override
 							public void windowClosed(WindowEvent e) {
@@ -425,7 +425,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 			lastDate = cal.getTime();
 		}
 		VideoUpdateTimespanDialog vutd = new VideoUpdateTimespanDialog(
-				f, jbll, lastDate
+				f, f.getIconImage(), jbll, lastDate
 		);
 		vutd.addWindowListener(new WindowAdapter() {
 			@Override
