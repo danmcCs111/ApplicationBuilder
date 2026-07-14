@@ -158,6 +158,10 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 		videoListPanel.removeAll();
 		durationPanel.removeAll();
 		uploadDatePanel.removeAll();
+		videoButtons.clear();
+		videoLabelChannel.clear();
+		videoLabelDuration.clear();
+		videoLabelDate.clear();
 		
 		this.remove(listPanel);
 	}

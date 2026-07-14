@@ -182,11 +182,7 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 		this.add(scrollPane, BorderLayout.CENTER);
 		this.add(buildSouthPanel(parentButton), BorderLayout.SOUTH);
 		
-		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
-		ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
-		ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
-		ExtendedSetScrollBackgroundForegroundColor.applyBackgroundForeground(
-				ColorTemplate.getPanelBackgroundColor(), ColorTemplate.getButtonBackgroundColor(), scrollPane);
+		paintButtons();
 		
 		this.addWindowFocusListener(new WindowFocusListener() {
 			@Override
@@ -206,6 +202,15 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 		listView.postFrameBuild();
 		
 		this.validate();
+	}
+	
+	private void paintButtons()
+	{
+		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
+		ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
+		ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
+		ExtendedSetScrollBackgroundForegroundColor.applyBackgroundForeground(
+				ColorTemplate.getPanelBackgroundColor(), ColorTemplate.getButtonBackgroundColor(), scrollPane);
 	}
 	
 	private JPanel buildNorthPanel()
@@ -395,6 +400,8 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 				if(vutd.updated())
 				{
 					buildVideoChannelPlayer(true);
+					paintButtons();
+					listView.urlSelect(LaunchUrlActionListener.getLastButtonOrigin());
 				}
 			}
 		});
