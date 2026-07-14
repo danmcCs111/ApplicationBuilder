@@ -399,7 +399,7 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 		if(lastDate == null)
 		{
 			Calendar cal = Calendar.getInstance();
-			cal.set(Calendar.MONTH, -6);
+			cal.add(Calendar.MONTH, -6);
 			lastDate = cal.getTime();
 		}
 		VideoUpdateTimespanDialog vutd = new VideoUpdateTimespanDialog(

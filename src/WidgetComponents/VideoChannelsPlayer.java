@@ -686,7 +686,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		if(lastDate == null)
 		{
 			Calendar cal = Calendar.getInstance();
-			cal.set(Calendar.MONTH, -6);
+			cal.add(Calendar.MONTH, -6);
 			lastDate = cal.getTime();
 		}
 		VideoUpdateTimespanDialog vutd = new VideoUpdateTimespanDialog(

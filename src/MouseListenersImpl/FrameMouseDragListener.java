@@ -290,15 +290,14 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		mi2.setToolTipText(UPDATE_VIDEOS_TOOLTIP);
 		mi2.addActionListener(new ActionListener() 
 		{
-			Date lastDate = null;
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				VideoChannel.getLastDate(parentButton);
+				lastDate = VideoChannel.getLastDate(parentButton);
 				if(lastDate == null)
 				{
 					Calendar cal = Calendar.getInstance();
-					cal.set(Calendar.MONTH, -6);
+					cal.add(Calendar.MONTH, -6);
 					lastDate = cal.getTime();
 				}
 				if(vutd != null)
@@ -421,7 +420,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		if(lastDate == null)
 		{
 			Calendar cal = Calendar.getInstance();
-			cal.set(Calendar.MONTH, -6);
+			cal.add(Calendar.MONTH, -6);
 			lastDate = cal.getTime();
 		}
 		VideoUpdateTimespanDialog vutd = new VideoUpdateTimespanDialog(
