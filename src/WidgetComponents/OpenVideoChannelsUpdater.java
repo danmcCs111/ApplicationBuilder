@@ -48,7 +48,8 @@ public class OpenVideoChannelsUpdater extends JFrame
 		ALL_CHECKBOX_TEXT = "Select All",
 		EDIT_BUTTON_TEXT = "Edit",
 		UPDATE_BUTTON_TEXT = "Update",
-		CANCEL_BUTTON_TEXT = "Close";
+		CANCEL_BUTTON_TEXT = "Cancel",
+		CLOSE_BUTTON_TEXT = "Close";
 	private static int
 		IMAGE_SCALE = 25,
 		CHARACTER_LIMIT = 35;
@@ -94,6 +95,11 @@ public class OpenVideoChannelsUpdater extends JFrame
 	    g2d.dispose();
 	    fillImage = new ImageIcon(imageSelect);
 	}
+	
+	private Thread 
+		updateThread;
+	private boolean
+		killUpdate;
 	
 	public OpenVideoChannelsUpdater(List<JButtonLengthLimited> jblls)
 	{
@@ -142,11 +148,22 @@ public class OpenVideoChannelsUpdater extends JFrame
 				performEdit();
 			}
 		});
-		cancelButton = new JButton(CANCEL_BUTTON_TEXT);
+		cancelButton = new JButton(CLOSE_BUTTON_TEXT);
 		cancelButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				cancel();
+				if(cancelButton.getText().equals(CANCEL_BUTTON_TEXT))
+				{
+					if(updateThread != null)
+					{
+//						updateThread.interrupt();
+						killUpdate = true;
+					}
+				}
+				else
+				{
+					close();
+				}
 			}
 		});
 		
@@ -310,20 +327,55 @@ public class OpenVideoChannelsUpdater extends JFrame
 	
 	private void performUpdate()
 	{
-		for(JCheckBox cbL : checkBoxes)
+		Runnable r = new Runnable()
 		{
-			if(cbL.isSelected())
+			@Override
+			public void run() 
 			{
-				String [] args = cbL.getName().split(NAME_DELIMITER);
-				LoggingMessages.printOut("args: " + args[0] + args[1]);
-				LookupOrCreateYoutube.update(args[0], args[1], checkBoxLatestDate.get(cbL));
-				cbL = updateCheckBox(args[0], args[1], cbL);
-				cbL.setSelected(false);
+				killUpdate = false;
+				editButton.setEnabled(false);
+				updateButton.setEnabled(false);
+				cancelButton.setText("Cancel");
+				for(JCheckBox cbL : checkBoxes)
+				{
+					if(killUpdate) return;
+					if(cbL.isSelected())
+					{
+						String [] args = cbL.getName().split(NAME_DELIMITER);
+						LoggingMessages.printOut("args: " + args[0] + args[1]);
+						LookupOrCreateYoutube.update(args[0], args[1], checkBoxLatestDate.get(cbL));
+						cbL = updateCheckBox(args[0], args[1], cbL);
+						cbL.setSelected(false);
+					}
+				}
 			}
-		}
+		};
+		updateThread = new Thread(r);
+		updateThread.start();
+		
+		Runnable r2 = new Runnable()
+		{
+			@Override
+			public void run() 
+			{
+				while(updateThread.isAlive())
+				{
+					try {
+						Thread.sleep(500);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+				editButton.setEnabled(true);
+				updateButton.setEnabled(true);
+				cancelButton.setText(CLOSE_BUTTON_TEXT);
+			}
+		};
+		Thread t2 = new Thread(r2);
+		t2.start();
 	}
 	
-	private void cancel()
+	private void close()
 	{
 		this.dispose();
 	}

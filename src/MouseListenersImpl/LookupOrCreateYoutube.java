@@ -9,7 +9,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import ApplicationBuilder.QueryUpdateTool;
-import ApplicationBuilder.ShellExecutor;
 import ApplicationBuilder.ShellHeadlessExecutor;
 import Graphics2D.GraphicsUtil;
 import HttpDatabaseResponse.DatabaseResponseNode;
