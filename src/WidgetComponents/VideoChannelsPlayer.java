@@ -94,6 +94,8 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		defaultFileImage = new FileSelection("./Properties/shapes/Default-Play-Image.xml");
 	private static DirectorySelection
 		videoBookmarksDirectory = new DirectorySelection("./Properties/VideoLaunchBookmarks/");
+	private static boolean
+		OVERRIDE_ERROR_DIALOG = false;
 	
 	private JButton 
 		updateButton = new JButton(UPDATE_BUTTON_TEXT),
@@ -147,10 +149,20 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
+	public static void setParentRootPort(int rootPort)
+	{
+		ROOT_PORT = rootPort;
+	}
+	
 	public static void setPortNumberMask(int portNumberMask)
 	{
 		PORT_NUMBER_MASK = portNumberMask;
 		LISTEN_PORT = HttpRequestProcessor.getPortNumber()+PORT_NUMBER_MASK;
+	}
+	
+	public static void setOverrideErrorDialog(boolean override)
+	{
+		OVERRIDE_ERROR_DIALOG = override;
 	}
 	
 	public static void setAlphaNumericOrder(boolean isAlphaNumeric)
@@ -851,6 +863,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	{
 		hrp = new HttpRequestProcessor(ProcessType.child, new ArrayActionListener[] { this, listView});
 		hrp.setDialogLocation(ERROR_DIALOG_LOCATION);
+		hrp.setOverrideError(OVERRIDE_ERROR_DIALOG);
 		VideoSubSelectionLauncher.setPortNumber(ROOT_PORT);
 		HttpRequestProcessor.setPortNumber(LISTEN_PORT);
 		hrp.listenHttp();

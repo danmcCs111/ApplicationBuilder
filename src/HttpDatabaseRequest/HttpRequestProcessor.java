@@ -25,6 +25,8 @@ public class HttpRequestProcessor
 		hrh;
 	private Point
 		dialogLocation = null;
+	private boolean 
+		overrideDialog = false;
 
 	public HttpRequestProcessor(JButtonArray ba, ProcessType procType, ArrayActionListener ... aals)
 	{
@@ -40,6 +42,11 @@ public class HttpRequestProcessor
 	public void setDialogLocation(Point dialogLocation)
 	{
 		this.dialogLocation = dialogLocation;
+	}
+	
+	public void setOverrideError(boolean override)
+	{
+		overrideDialog = override;
 	}
 	
 	public void setArrayActionListener(ArrayActionListener aal, int index)
@@ -73,22 +80,26 @@ public class HttpRequestProcessor
 	        server.start();
 	        System.out.println("Server is running on port " + portNumber);
 		} catch (IOException e) {
-			JOptionPane optionPane = new JOptionPane(e.getMessage(), JOptionPane.ERROR_MESSAGE);
-			JDialog dialog = optionPane.createDialog(ba, "Error");
-			if(ba == null)
-			{
-				if(dialogLocation != null)
-				{
-					dialog.setLocation(dialogLocation);
-				}
-			}
-			else
-			{
-				GraphicsUtil.centerWindow(ba, dialog);
-			}
-			dialog.setVisible(true);
 			e.printStackTrace();
-			System.exit(1);
+			
+			if(!overrideDialog)
+			{
+				JOptionPane optionPane = new JOptionPane(e.getMessage(), JOptionPane.ERROR_MESSAGE);
+				JDialog dialog = optionPane.createDialog(ba, "Error");
+				if(ba == null)
+				{
+					if(dialogLocation != null)
+					{
+						dialog.setLocation(dialogLocation);
+					}
+				}
+				else
+				{
+					GraphicsUtil.centerWindow(ba, dialog);
+				}
+				dialog.setVisible(true);
+				System.exit(1);
+			}
 		}
 	}
 }
