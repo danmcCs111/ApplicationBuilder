@@ -299,7 +299,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 						update();
 						if(vcp != null && vcp.isVisible())
 						{
-							buildVideoChannelPlayer();
+							buildVideoChannelPlayer(true);
 						}
 					}
 				};
@@ -328,7 +328,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 							public void windowClosed(WindowEvent e) {
 								if(vcp != null && vcp.isVisible() && vutd.updated())
 								{
-									buildVideoChannelPlayer();
+									buildVideoChannelPlayer(true);
 								}
 							}
 						});
@@ -363,7 +363,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 					{
 						FrameMouseDragListener.this.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName());
 					}
-					buildVideoChannelPlayer();
+					buildVideoChannelPlayer(false);
 				});
 			}
 		});
@@ -379,7 +379,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 			{
 				SwingUtilities.invokeLater(() -> {
 					FrameMouseDragListener.this.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName());
-				    buildVideoChannelPlayer();
+				    buildVideoChannelPlayer(false);
 				});
 			}
 		});
@@ -441,7 +441,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	}
 	
 	@Override
-	public void buildVideoChannelPlayer()
+	public void buildVideoChannelPlayer(boolean reuseLocation)
 	{
 		if(isTouch)
 		{
@@ -459,9 +459,12 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 			}
 			else
 			{
+				Point loc = vcp.getLocation();
 				vcp.setVisible(false);
 				vcp.dispose();
-				vcp = new VideoChannelPlayer(ks.getImageIcon(), this, parentButton, f);
+				vcp = (reuseLocation) 
+					? new VideoChannelPlayer(ks.getImageIcon(), this, parentButton, loc)
+					: new VideoChannelPlayer(ks.getImageIcon(), this, parentButton, f);
 			}
 		}
 //		if(!isTouch)

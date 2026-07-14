@@ -100,8 +100,6 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 	private int 
 		rootPort = HttpRequestProcessor.getPortNumber(),
 		listenPort = HttpRequestProcessor.getPortNumber() + PORT_NUMBER_MASK;
-	private Container
-		parent;
 	
 	public VideoChannelPlayer()
 	{
@@ -110,14 +108,24 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 	}
 	
 	public VideoChannelPlayer(
-			ImageIcon videoImage, YoutubeVideosContainer fmdl, JButtonLengthLimited parentButton, Container parent)
+			ImageIcon videoImage, YoutubeVideosContainer fmdl, JButtonLengthLimited parentButton, Point location)
 	{
 		this.parentButton = parentButton;
 		this.videoImage = videoImage;
 		this.fmdl = fmdl;
-		this.parent = parent;
 		this.setTitle(TITLE_PREFIX + parentButton.getText());
+		if(location.x != 0 && location.y != 0)
+		{
+			this.setLocation(location.x, location.y);
+		}
 		buildWidgets(fmdl.getYoutubeVideos());
+	}
+	
+	public VideoChannelPlayer(
+			ImageIcon videoImage, YoutubeVideosContainer fmdl, JButtonLengthLimited parentButton, Container parent)
+	{
+		this(videoImage, fmdl, parentButton, new Point());
+		GraphicsUtil.rightEdgeCenterWindow(parent, this);
 	}
 	
 	public void setVideos(JButtonLengthLimited jbll, String path, Point loc)
@@ -185,7 +193,7 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 		});
 		
 		this.setMinimumSize(MIN_SIZE);
-		GraphicsUtil.rightEdgeCenterWindow(parent, this);
+		
 		this.setVisible(true);
 
 		listView.postFrameBuild();
@@ -232,7 +240,7 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 					@Override
 					public void run() {
 						fmdl.update();
-						fmdl.buildVideoChannelPlayer();
+						fmdl.buildVideoChannelPlayer(false);//param not used.
 					}
 				};
 				Thread t = new Thread(r);
@@ -369,7 +377,7 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 	}
 
 	@Override
-	public void buildVideoChannelPlayer() 
+	public void buildVideoChannelPlayer(boolean reuseLocation) 
 	{
 		//refresh.
 		listView.clearListViewPanel();

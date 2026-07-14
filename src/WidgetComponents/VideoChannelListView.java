@@ -246,7 +246,6 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 		listPanel.add(durationPanel, gbc2);
 		listPanel.add(videoListPanel, gbcT);
 		
-		
 		this.add(listPanel, BorderLayout.NORTH);
 		
 	}
