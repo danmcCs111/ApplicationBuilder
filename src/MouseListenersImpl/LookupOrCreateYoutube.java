@@ -9,7 +9,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import ApplicationBuilder.QueryUpdateTool;
-import ApplicationBuilder.ShellExecutorAlt;
+import ApplicationBuilder.ShellExecutor;
+import ApplicationBuilder.ShellHeadlessExecutor;
 import Graphics2D.GraphicsUtil;
 import HttpDatabaseResponse.DatabaseResponseNode;
 import HttpDatabaseResponse.HttpDatabaseResponse;
@@ -24,11 +25,9 @@ public class LookupOrCreateYoutube
 		APPLICATION_BUILDER_CLI_OPTIONS = new String [] {"-cp"};
 	public static final String
 		APPLICATION_BUILDER_JAR_LOC = "./Application Builder.jar",
-		APPLICATION_BUILDER_CLASS = "ApplicationBuilder.ShellHeadlessExecutor",//TDOD
 		YOUTUBE_CHANNEL_HANDLE_MATCH = "/[^/]*$",
 		OPERATION = "showResult",
-		PLUGIN_JAR_LOCATION = PathUtility.getCurrentDirectory() + "/" + 
-				"plugin-projects/YouTube-API-list/YoutubeApiList/youtubeApiList.sh",
+		PLUGIN_JAR_LOCATION = "./plugin-projects/YouTube-API-list/YoutubeApiList/youtubeApiList.sh",
 		SAVE_INSERT_PATH = "./VideoLaunchFiles/YoutubeChannels/video-images/", //TODO
 		IS_LOOKUP_FRAME_FILTER = "";
 	
@@ -413,10 +412,9 @@ public class LookupOrCreateYoutube
 		
 		PathUtility.createDirectoryIfNotExist(saveLoc);
 		
-		String [] args = new String [] {
-//				new FileSelection(APPLICATION_BUILDER_JAR_LOC).getFullPath(),
-//				APPLICATION_BUILDER_CLASS,
-				PLUGIN_JAR_LOCATION + " " +
+		String [] args = new String [] 
+		{
+				new FileSelection(PLUGIN_JAR_LOCATION).getPathLinux() + " " +
 				OPERATION + " " + 
 				youtubeSql.getSqlType() + " " + 
 				key + " " +
@@ -425,16 +423,9 @@ public class LookupOrCreateYoutube
 				lastDate + " " + 
 				saveFile
 			};
-		//run plugin.
-//		CommandBuild cb = new CommandBuild();
-//		cb.setCommand("java", APPLICATION_BUILDER_CLI_OPTIONS, args);
-//		try {
-//			CommandExecutor.executeProcess(cb, true);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-		
-		ShellExecutorAlt.run(args, true);
+		LoggingMessages.printOut(LoggingMessages.combine(args));
+		ShellHeadlessExecutor.loadHideOption();
+		ShellHeadlessExecutor.run(args, true);
 		
 		//run insert & image grab jobs. use loading screen.
 		String contents = PathUtility.readFileToString(new File(saveFile));
