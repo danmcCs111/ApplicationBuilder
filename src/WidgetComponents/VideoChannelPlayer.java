@@ -82,6 +82,10 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 		DIM_DEFAULT_PIC = new Dimension(279,150),
 		SCALED_DEFAULT_PIC = new Dimension(279, 150);
 	
+	private Container
+		parentContainer = null;
+	private Point 
+		location = null;
 	private int
 		totalCount = 0;
 	private JButtonLengthLimited 
@@ -120,6 +124,7 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 		this.parentButton = parentButton;
 		this.videoImage = videoImage;
 		this.fmdl = fmdl;
+		this.location = location;
 		this.setTitle(TITLE_PREFIX + parentButton.getText());
 		if(location.x != 0 && location.y != 0)
 		{
@@ -131,8 +136,12 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 	public VideoChannelPlayer(
 			ImageIcon videoImage, YoutubeVideosContainer fmdl, JButtonLengthLimited parentButton, Container parent)
 	{
-		this(videoImage, fmdl, parentButton, new Point());
-		GraphicsUtil.rightEdgeCenterWindow(parent, this);
+		this.parentButton = parentButton;
+		this.videoImage = videoImage;
+		this.fmdl = fmdl;
+		this.parentContainer = parent;
+		this.setTitle(TITLE_PREFIX + parentButton.getText());
+		buildWidgets(fmdl.getYoutubeVideos());
 	}
 	
 	public void setVideos(JButtonLengthLimited jbll, String path, Point loc)
@@ -196,9 +205,11 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 		});
 		
 		this.setMinimumSize(MIN_SIZE);
-		
+		if(parentContainer != null && location == null)
+		{
+			GraphicsUtil.rightEdgeCenterWindow(parentContainer, this);
+		}
 		this.setVisible(true);
-
 		listView.postFrameBuild();
 		
 		this.validate();
