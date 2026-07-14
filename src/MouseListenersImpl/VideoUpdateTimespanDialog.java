@@ -53,7 +53,7 @@ public class VideoUpdateTimespanDialog extends JDialog
 		
 		buildWidgets(d, fnt);
 		
-		GraphicsUtil.rightEdgeCenterWindow(refContainer, this);
+		GraphicsUtil.centerWindow(refContainer, this);
 		
 		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
 		ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());

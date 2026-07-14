@@ -10,10 +10,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 import javax.swing.AbstractButton;
@@ -37,7 +40,9 @@ import HttpDatabaseRequest.HttpRequestHandler;
 import HttpDatabaseRequest.HttpRequestProcessor;
 import HttpDatabaseRequest.HttpRequestHandler.ProcessType;
 import MouseListenersImpl.LookupOrCreateYoutube;
+import MouseListenersImpl.VideoChannel;
 import MouseListenersImpl.VideoSubSelectionLauncher;
+import MouseListenersImpl.VideoUpdateTimespanDialog;
 import MouseListenersImpl.YoutubeChannelVideo;
 import MouseListenersImpl.YoutubeVideosContainer;
 import ObjectTypeConversion.FileSelection;
@@ -83,6 +88,8 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 		parentButton;
 	private VideoChannelListView 
 		listView; 
+	private Date 
+		lastDate;
 	private JScrollPane 
 		scrollPane;
 	private JLabel
@@ -239,8 +246,7 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 				Runnable r = new Runnable() {
 					@Override
 					public void run() {
-						fmdl.update();
-						fmdl.buildVideoChannelPlayer(true);
+						update();
 					}
 				};
 				Thread t = new Thread(r);
@@ -373,7 +379,25 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 	@Override
 	public void update() 
 	{
-		LookupOrCreateYoutube.update(parentButton.getText(), parentButton.getName());
+		lastDate = VideoChannel.getLastDate(parentButton);
+		if(lastDate == null)
+		{
+			Calendar cal = Calendar.getInstance();
+			cal.set(Calendar.MONTH, -6);
+			lastDate = cal.getTime();
+		}
+		VideoUpdateTimespanDialog vutd = new VideoUpdateTimespanDialog(
+				this, parentButton, lastDate
+		);
+		vutd.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent e) {
+				if(vutd.updated())
+				{
+					buildVideoChannelPlayer(true);
+				}
+			}
+		});
 	}
 
 	@Override

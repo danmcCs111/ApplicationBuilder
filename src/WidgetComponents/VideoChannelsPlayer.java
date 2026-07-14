@@ -17,7 +17,9 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -43,7 +45,9 @@ import HttpDatabaseRequest.HttpDatabaseRequest;
 import HttpDatabaseRequest.HttpRequestHandler;
 import HttpDatabaseRequest.HttpRequestProcessor;
 import MouseListenersImpl.LookupOrCreateYoutube;
+import MouseListenersImpl.VideoChannel;
 import MouseListenersImpl.VideoSubSelectionLauncher;
+import MouseListenersImpl.VideoUpdateTimespanDialog;
 import MouseListenersImpl.YoutubeChannelVideo;
 import ObjectTypeConversion.CommandBuild;
 import ObjectTypeConversion.DirectorySelection;
@@ -118,6 +122,8 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	private AbstractButton 
 		allSelectBtn;
 	
+	private Date
+		lastDate;
 	private HashMap <Integer, ArrayList <YoutubeChannelVideo>> 
 		ycvs; 
 	private LinkedHashMap<Integer, JButtonLengthLimited> 
@@ -676,8 +682,27 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	
 	private void updateSelection(JButtonLengthLimited selectedButtonParent, JButtonLengthLimited selectedButton)
 	{
-		LookupOrCreateYoutube.update(selectedButtonParent.getText(), selectedButtonParent.getName());
-		refreshSelectionFromDB(selectedButtonParent, selectedButton);
+		lastDate = VideoChannel.getLastDate(selectedButtonParent);
+		if(lastDate == null)
+		{
+			Calendar cal = Calendar.getInstance();
+			cal.set(Calendar.MONTH, -6);
+			lastDate = cal.getTime();
+		}
+		VideoUpdateTimespanDialog vutd = new VideoUpdateTimespanDialog(
+				this, selectedButtonParent, lastDate
+		);
+		vutd.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent e) {
+				if(vutd.updated())
+				{
+					refreshSelectionFromDB(selectedButtonParent, selectedButton);
+				}
+			}
+		});
+		
+		
 	}
 	
 	@Override

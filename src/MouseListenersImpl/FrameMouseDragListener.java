@@ -54,8 +54,6 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		OPEN_MENU_TEXT = "OPEN",
 		VIEW_LATEST_VIDEOS = "VIEW",
 		VIEW_LIST_VIDEOS = "VIEW LIST",
-		UPDATE_BACKFILL = "BACKFILL UPDATE",
-		UPDATE_BACKFILL_TOOLTIP = "Bulk update to backfill from a selected begin date.",
 		UPDATE_VIDEOS = "UPDATE",
 		UPDATE_VIDEOS_TOOLTIP = "Update after last timestamp stored.";
 	
@@ -77,6 +75,8 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		parentButton;
 	private JLabel 
 		picLabel;
+	private Date
+		lastDate;
 //	private static VideoChannelPlayer
 //		vqp = null;
 	private static VideoChannelPlayerJoy
@@ -279,42 +279,28 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		return jm;
 	}
 	
-	private JMenu buildUpdateMenu()
+	private JMenuItem buildUpdateMenu()
 	{
 		return buildUpdateMenu(null);
 	}
 	
-	private JMenu buildUpdateMenu(Font fnt)
+	private JMenuItem buildUpdateMenu(Font fnt)
 	{
-		JMenu miP = new JMenu(UPDATE_VIDEOS);
-		JMenuItem mi1 = new JMenuItem(UPDATE_VIDEOS);
-		
-		mi1.setToolTipText(UPDATE_VIDEOS_TOOLTIP);
-		mi1.addActionListener(new ActionListener() {
+		JMenuItem mi2 = new JMenuItem(UPDATE_VIDEOS);
+		mi2.setToolTipText(UPDATE_VIDEOS_TOOLTIP);
+		mi2.addActionListener(new ActionListener() 
+		{
+			Date lastDate = null;
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				Runnable r = new Runnable() {
-					@Override
-					public void run() {
-						update();
-						if(vcp != null && vcp.isVisible())
-						{
-							buildVideoChannelPlayer(true);
-						}
-					}
-				};
-				Thread t = new Thread(r);
-				t.start();
-			}
-		});
-		
-		JMenuItem mi2 = new JMenuItem(UPDATE_BACKFILL);
-		mi2.setToolTipText(UPDATE_BACKFILL_TOOLTIP);
-		mi2.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Calendar cal = Calendar.getInstance();
-				cal.set(Calendar.MONTH, -6);
+			public void actionPerformed(ActionEvent e) 
+			{
+				VideoChannel.getLastDate(parentButton);
+				if(lastDate == null)
+				{
+					Calendar cal = Calendar.getInstance();
+					cal.set(Calendar.MONTH, -6);
+					lastDate = cal.getTime();
+				}
 				if(vutd != null)
 				{
 					vutd.dispose();
@@ -322,7 +308,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 				Runnable r = new Runnable() {
 					@Override
 					public void run() {
-						vutd = new VideoUpdateTimespanDialog(f, parentButton, cal.getTime(), fnt);
+						vutd = new VideoUpdateTimespanDialog(f, parentButton, lastDate, fnt);
 						vutd.addWindowListener(new WindowAdapter() {
 							@Override
 							public void windowClosed(WindowEvent e) {
@@ -340,15 +326,10 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		});
 		
 		if(f != null) {
-			miP.setFont(fnt);
-			mi1.setFont(fnt);
 			mi2.setFont(fnt);
 		}
 		
-		miP.add(mi1);
-		miP.add(mi2);
-		
-		return miP;
+		return mi2;
 	}
 	
 	private JMenuItem buildOpenVideosView(JButtonLengthLimited jbll)
@@ -389,8 +370,8 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	private JMenuItem getViewItemsJMenu(JButtonLengthLimited jbll)
 	{
 		Date 
-			firstDate = VideoChannel.getFirstDate(jbll),
-			lastDate = VideoChannel.getLastDate(jbll);
+			lastDate = VideoChannel.getLastDate(jbll),
+			firstDate = VideoChannel.getFirstDate(jbll);
 		String 
 			range = ((lastDate == null) 
 					? "" 
@@ -436,8 +417,26 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	public void update()
 	{
 		JButtonLengthLimited jbll = (JButtonLengthLimited) parentButton;
-		LookupOrCreateYoutube.update(jbll.getText(), jbll.getName());
-		this.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName());
+		lastDate = VideoChannel.getLastDate(parentButton);
+		if(lastDate == null)
+		{
+			Calendar cal = Calendar.getInstance();
+			cal.set(Calendar.MONTH, -6);
+			lastDate = cal.getTime();
+		}
+		VideoUpdateTimespanDialog vutd = new VideoUpdateTimespanDialog(
+				f, jbll, lastDate
+		);
+		vutd.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent e) {
+				if(vutd.updated())
+				{
+					FrameMouseDragListener.this.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName());
+					buildVideoChannelPlayer(true);
+				}
+			}
+		});
 	}
 	
 	@Override
