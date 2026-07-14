@@ -457,7 +457,18 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 			}
 			else
 			{
-				vcp.rebuildVideoChannelPlayerList();
+				if(!vcp.isVisible())
+				{
+					Point loc = vcp.getLocation();
+					vcp.dispose();
+					vcp = (reuseLocation) 
+						? new VideoChannelPlayer(ks.getImageIcon(), this, parentButton, loc)
+						: new VideoChannelPlayer(ks.getImageIcon(), this, parentButton, f);
+				}
+				else
+				{
+					vcp.rebuildVideoChannelPlayerList();
+				}
 			}
 		}
 	}
