@@ -240,7 +240,7 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 					@Override
 					public void run() {
 						fmdl.update();
-						fmdl.buildVideoChannelPlayer(false);//param not used.
+						fmdl.buildVideoChannelPlayer(true);
 					}
 				};
 				Thread t = new Thread(r);
