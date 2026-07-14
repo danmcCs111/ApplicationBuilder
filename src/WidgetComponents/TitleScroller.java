@@ -156,6 +156,7 @@ public class TitleScroller extends JTextField implements ArrayActionListener
 		if(newButton == null)
 		{
 			TitleScroller.this.setText(DEFAULT_TEXT);
+			TitleScroller.this.setToolTipText(null);
 			return;
 		}
 		
@@ -174,6 +175,7 @@ public class TitleScroller extends JTextField implements ArrayActionListener
 						new String[] {textParent, textChild}
 					)
 				);
+				TitleScroller.this.setToolTipText(getText());
 				TitleScroller.this.setCaretPosition(0);
 				return;//
 			}
@@ -184,6 +186,7 @@ public class TitleScroller extends JTextField implements ArrayActionListener
 				FORMAT_VIDEO, REPLACE_VALUE, newButton.getText()
 			)
 		);
+		TitleScroller.this.setToolTipText(getText());
 		TitleScroller.this.setCaretPosition(0);
 	}
 	
