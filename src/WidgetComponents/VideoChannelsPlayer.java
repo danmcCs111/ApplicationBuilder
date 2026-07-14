@@ -701,8 +701,6 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 				}
 			}
 		});
-		
-		
 	}
 	
 	@Override

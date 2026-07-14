@@ -21,13 +21,15 @@ import javax.swing.JPanel;
 import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
 import ObjectTypeConversionEditors.TimestampEditor;
+import Properties.StringUtility;
 
 public class VideoUpdateTimespanDialog extends JDialog 
 {
 	private static final long serialVersionUID = 1L;
 	
 	private static final String
-		TITLE = "Update Channel",
+		TITLE = "Update [ <arg> ]",
+		REPLACE_PATTERN = "<arg>",
 		TIMESTAMP_LABEL = "Update Begin Date : ",
 		RUN_BUTTON_TEXT = "Run",
 		CANCEL_BUTTON_TEXT = "Cancel";
@@ -47,8 +49,8 @@ public class VideoUpdateTimespanDialog extends JDialog
 	public VideoUpdateTimespanDialog(Container refContainer, Image img, AbstractButton ab, Date d, Font fnt)
 	{
 		this.ab = ab;
-		
-		this.setTitle(TITLE);
+		String title = StringUtility.replaceArg(TITLE, REPLACE_PATTERN, ab.getText());
+		this.setTitle(title);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setSize(MIN_DIMENSION_DIALOG);
 		this.setIconImage(img);
