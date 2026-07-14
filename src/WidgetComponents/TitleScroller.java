@@ -129,8 +129,11 @@ public class TitleScroller extends JTextField implements ArrayActionListener, Po
 							dir = 1;
 							lastText = TitleScroller.this.getText();
 						}
-						TitleScroller.this.setCaretPosition(position);
-						TitleScroller.this.validate();
+						if(backCount == 0 && frontCount == 0)
+						{
+							TitleScroller.this.setCaretPosition(position);
+							TitleScroller.this.validate();
+						}
 						//scroll.
 						position += dir;
 					}
