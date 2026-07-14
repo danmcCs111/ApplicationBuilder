@@ -92,7 +92,7 @@ public class TitleScroller extends JTextField implements ArrayActionListener, Po
 				{
 					if(TitleScroller.this.getText().contains(chnlPat))
 					{
-						if(position >= TitleScroller.this.getText().length())
+						if(position > TitleScroller.this.getText().length())
 						{
 							if(backCount < scrollOverCountBack)
 							{
