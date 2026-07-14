@@ -457,31 +457,9 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 			}
 			else
 			{
-				Point loc = vcp.getLocation();
-				vcp.setVisible(false);
-				vcp.dispose();
-				vcp = (reuseLocation) 
-					? new VideoChannelPlayer(ks.getImageIcon(), this, parentButton, loc)
-					: new VideoChannelPlayer(ks.getImageIcon(), this, parentButton, f);
+				vcp.rebuildVideoChannelPlayerList();
 			}
 		}
-//		if(!isTouch)
-//		{
-//			Point p = ks.getLocationPoint();
-//			p.x += ks.getFrame().getWidth();
-//			if(runningProcess != null)
-//			{
-//				runningProcess.destroy();
-//				runningProcess.descendants().forEach(ProcessHandle::destroy);
-//			}
-//			CommandBuild cb = getLaunchVideoChannelPlayer(parentButton, ks.getPath(), p);
-//			try {
-//				runningProcess = CommandExecutor.executeProcess(cb);
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//		}
-		
 	}
 	
 	@Override

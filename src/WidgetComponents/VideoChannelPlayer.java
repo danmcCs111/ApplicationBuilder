@@ -410,12 +410,17 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 			public void windowClosed(WindowEvent e) {
 				if(vutd.updated())
 				{
-					buildVideoChannelPlayer(true);
-					paintButtons();
-					listView.urlSelect(LaunchUrlActionListener.getLastButtonOrigin());
+					rebuildVideoChannelPlayerList();
 				}
 			}
 		});
+	}
+	
+	public void rebuildVideoChannelPlayerList()
+	{
+		buildVideoChannelPlayer(true);
+		paintButtons();
+		listView.urlSelect(LaunchUrlActionListener.getLastButtonOrigin());
 	}
 
 	@Override
