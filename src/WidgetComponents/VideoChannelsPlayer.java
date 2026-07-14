@@ -70,7 +70,8 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		DEFAULT_SCALED_PIC_SIZE = new Dimension(279, 150),
 		MIN_SIZE = new Dimension(1050, 450);
 	private static Point
-		LAUNCH_LOCATION = new Point(600, 50);
+		LAUNCH_LOCATION = new Point(600, 50),
+		ERROR_DIALOG_LOCATION = LAUNCH_LOCATION;
 	private static String
 		HOME_PAGE_TOOLTIP_TEXT = "[ <arg0> ] - Homepage",
 		COUNT_PREFIX = "Video Count: ",
@@ -165,6 +166,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	public static void setLaunchLocation(Point p)
 	{
 		LAUNCH_LOCATION = p;
+		ERROR_DIALOG_LOCATION = LAUNCH_LOCATION;
 	}
 	
 	public static void setHighlightColor(Color c)
@@ -848,6 +850,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	private void setupListener()
 	{
 		hrp = new HttpRequestProcessor(ProcessType.child, new ArrayActionListener[] { this, listView});
+		hrp.setDialogLocation(ERROR_DIALOG_LOCATION);
 		VideoSubSelectionLauncher.setPortNumber(ROOT_PORT);
 		HttpRequestProcessor.setPortNumber(LISTEN_PORT);
 		hrp.listenHttp();

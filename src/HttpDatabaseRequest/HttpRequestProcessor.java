@@ -1,13 +1,16 @@
 package HttpDatabaseRequest;
 
+import java.awt.Point;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 import com.sun.net.httpserver.HttpServer;
 
 import ActionListeners.ArrayActionListener;
+import Graphics2D.GraphicsUtil;
 import HttpDatabaseRequest.HttpRequestHandler.ProcessType;
 import WidgetComponents.JButtonArray;
 
@@ -20,6 +23,8 @@ public class HttpRequestProcessor
 		ba;
 	private HttpRequestHandler
 		hrh;
+	private Point
+		dialogLocation = null;
 
 	public HttpRequestProcessor(JButtonArray ba, ProcessType procType, ArrayActionListener ... aals)
 	{
@@ -30,6 +35,11 @@ public class HttpRequestProcessor
 	public HttpRequestProcessor(ProcessType procType, ArrayActionListener ... aals)
 	{
 		hrh = new HttpRequestHandler(procType, aals);
+	}
+	
+	public void setDialogLocation(Point dialogLocation)
+	{
+		this.dialogLocation = dialogLocation;
 	}
 	
 	public void setArrayActionListener(ArrayActionListener aal, int index)
@@ -63,12 +73,20 @@ public class HttpRequestProcessor
 	        server.start();
 	        System.out.println("Server is running on port " + portNumber);
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(
-		        null, 
-		        e.getMessage(), 
-		        "Error", 
-		        javax.swing.JOptionPane.ERROR_MESSAGE
-		    );
+			JOptionPane optionPane = new JOptionPane(e.getMessage(), JOptionPane.ERROR_MESSAGE);
+			JDialog dialog = optionPane.createDialog(ba, "Error");
+			if(ba == null)
+			{
+				if(dialogLocation != null)
+				{
+					dialog.setLocation(dialogLocation);
+				}
+			}
+			else
+			{
+				GraphicsUtil.centerWindow(ba, dialog);
+			}
+			dialog.setVisible(true);
 			e.printStackTrace();
 			System.exit(1);
 		}
