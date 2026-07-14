@@ -84,7 +84,10 @@ public class HttpRequestProcessor
 			
 			if(!overrideDialog)
 			{
-				JOptionPane optionPane = new JOptionPane(e.getMessage(), JOptionPane.ERROR_MESSAGE);
+				JOptionPane optionPane = new JOptionPane(
+						"Process already opened. \n" + "\"" + e.getMessage() + "\"", 
+						JOptionPane.ERROR_MESSAGE
+				);
 				JDialog dialog = optionPane.createDialog(ba, "Error");
 				if(ba == null)
 				{
