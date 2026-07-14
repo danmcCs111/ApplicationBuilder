@@ -657,7 +657,7 @@ PostWidgetBuildProcessing
 			{
 				vbmd.performSelect(false);
 			}
-			vbmd = new VideoBookMarksDialog(keepsFileLocation, this, WidgetBuildController.getInstance().getFrame(), altText);
+			vbmd = new VideoBookMarksDialog(keepsFileLocation, this, WidgetBuildController.getInstance().getFrame(), false, altText);
 		}
 		else //TODO linux / alternate option
 		{
@@ -685,7 +685,7 @@ PostWidgetBuildProcessing
 			{
 				vbmd.performSelect(false);
 			}
-			vbmd = new VideoBookMarksDialog(keepsFileLocation, this, WidgetBuildController.getInstance().getFrame(), props, false);
+			vbmd = new VideoBookMarksDialog(keepsFileLocation, this, WidgetBuildController.getInstance().getFrame(), props, false, false);
 		}
 		else
 		{

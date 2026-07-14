@@ -146,6 +146,12 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
+	public static void setPortNumberMask(int portNumberMask)
+	{
+		PORT_NUMBER_MASK = portNumberMask;
+		LISTEN_PORT = HttpRequestProcessor.getPortNumber()+PORT_NUMBER_MASK;
+	}
+	
 	public static void setAlphaNumericOrder(boolean isAlphaNumeric)
 	{
 		VideoChannelsPlayer.isAlphaNumeric = isAlphaNumeric;
@@ -814,8 +820,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 			}
 		};
 		
-		vbmd = new VideoBookMarksDialog(videoBookmarksDirectory, osks, null, false);
-		vbmd.setSelectionModeSingle(true);
+		vbmd = new VideoBookMarksDialog(videoBookmarksDirectory, osks, null, true, false);
 		vbmd.setLocation(LAUNCH_LOCATION);
 		vbmd.addWindowListener(new WindowAdapter() {
 			@Override

@@ -387,7 +387,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 			vbmd = new VideoBookMarksDialog(ds, 
 					(OpenAndSaveKeepsSubscriber)ba,
 					WidgetBuildController.getInstance().getFrame(),
-					getProperties(), false);
+					getProperties(), true, false);
 		}
 		else
 		{

@@ -91,18 +91,18 @@ public class VideoBookMarksDialog extends JDialog
 	private Container 
 		refContainer;
 	private boolean
+		selectionSingle = false,
 		altFontSize = false,
 		save = false;
 	private String [] [] 
 		props = null;
 	
-	
-	public VideoBookMarksDialog(DirectorySelection chosenFileDirectory, OpenAndSaveKeepsSubscriber openKeepsSubscriber, Container refContainer, boolean altFontSize)
+	public VideoBookMarksDialog(DirectorySelection chosenFileDirectory, OpenAndSaveKeepsSubscriber openKeepsSubscriber, Container refContainer, boolean selectionSingle, boolean altFontSize)
 	{
-		this(chosenFileDirectory, openKeepsSubscriber, refContainer, null, altFontSize);
+		this(chosenFileDirectory, openKeepsSubscriber, refContainer, null, selectionSingle, altFontSize);
 	}
 	
-	public VideoBookMarksDialog(DirectorySelection chosenFileDirectory, OpenAndSaveKeepsSubscriber openKeepsSubscriber, Container refContainer, String [] [] props, boolean altFontSize)
+	public VideoBookMarksDialog(DirectorySelection chosenFileDirectory, OpenAndSaveKeepsSubscriber openKeepsSubscriber, Container refContainer, String [] [] props, boolean selectionSingle, boolean altFontSize)
 	{
 		this.setIconImage(WidgetBuildController.getInstance().getFrame().getIconImage());
 		this.altFontSize = altFontSize;
@@ -110,6 +110,7 @@ public class VideoBookMarksDialog extends JDialog
 		this.openKeepsSubscriber = openKeepsSubscriber;
 		this.refContainer = refContainer;
 		this.props = props;
+		this.selectionSingle = selectionSingle;
 		if(props != null)
 		{
 			this.save = true;
@@ -158,6 +159,7 @@ public class VideoBookMarksDialog extends JDialog
 		{
 			File f = new File(chosenFileDirectory.getFullPath().strip() + fle);
 			fileSelections.add(f);
+			if(selectionSingle) break; //only add first.
 		}
 		return fileSelections;
 	}
@@ -195,7 +197,7 @@ public class VideoBookMarksDialog extends JDialog
 		Collections.sort(titles);
 		
 		fileList = new JList<String>(titles.toArray(new String[titles.size()]));
-		setSelectionModeSingle(save);//single with save, multi otherwise.
+		setSelectionModeSingle(save ? true : selectionSingle);//single with save, multi/single config otherwise.
 		fileList.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
@@ -411,4 +413,5 @@ public class VideoBookMarksDialog extends JDialog
 			VideoBookMarksDialog.this.dispose();
 		}
 	}
+
 }

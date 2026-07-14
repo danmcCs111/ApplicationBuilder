@@ -788,7 +788,7 @@ PostWidgetBuildProcessing, ButtonArray
 		if(!SHOW_JAVA_SWING_FILE_CHOOSER)
 		{
 			performCancelAll();
-			vbmd = new VideoBookMarksDialog(keepsFileLocation, this, WidgetBuildController.getInstance().getFrame(), altText);
+			vbmd = new VideoBookMarksDialog(keepsFileLocation, this, WidgetBuildController.getInstance().getFrame(), false, altText);
 		}
 		else
 		{

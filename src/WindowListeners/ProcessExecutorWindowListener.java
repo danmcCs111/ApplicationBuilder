@@ -12,18 +12,22 @@ import ObjectTypeConversion.FileSelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
 import WidgetComponents.JButtonLengthLimited;
+import WidgetUtility.WidgetBuildController;
 
 public class ProcessExecutorWindowListener extends WindowAdapter
 {
-	private static String 
-		PROPERTIES_LOCATION = "./Properties/lastRunningProcess/process.txt";
+	private static String
+		FILE_NAME = "",
+		PROPERTIES_LOCATION = "./Properties/lastRunningProcess/";
 	
 	@Override
 	public void windowOpened(WindowEvent e)
 	{
 		LaunchUrlActionListener.bootCheckRunningProcess();
 		
-		FileSelection fs = new FileSelection(PROPERTIES_LOCATION);
+		FILE_NAME = WidgetBuildController.getInstance().getFrame().getTitle() + ".txt";
+		
+		FileSelection fs = new FileSelection(PROPERTIES_LOCATION + FILE_NAME);
 		HashMap<String, String> props = PathUtility.readProperties(fs.getFullPath(), "=");
 		if(!props.isEmpty())
 		{
@@ -47,7 +51,7 @@ public class ProcessExecutorWindowListener extends WindowAdapter
 	@Override
 	public void windowClosing(WindowEvent e) 
 	{
-		FileSelection fs = new FileSelection(PROPERTIES_LOCATION);
+		FileSelection fs = new FileSelection(PROPERTIES_LOCATION + FILE_NAME);
 		File f = new File(fs.getFullPath());
 		
 		AbstractButton ab = LaunchUrlActionListener.getLastButtonOrigin();

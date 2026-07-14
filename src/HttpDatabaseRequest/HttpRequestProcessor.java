@@ -2,6 +2,9 @@ package HttpDatabaseRequest;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+
+import javax.swing.JOptionPane;
+
 import com.sun.net.httpserver.HttpServer;
 
 import ActionListeners.ArrayActionListener;
@@ -60,7 +63,14 @@ public class HttpRequestProcessor
 	        server.start();
 	        System.out.println("Server is running on port " + portNumber);
 		} catch (IOException e) {
+			JOptionPane.showMessageDialog(
+		        null, 
+		        e.getMessage(), 
+		        "Error", 
+		        javax.swing.JOptionPane.ERROR_MESSAGE
+		    );
 			e.printStackTrace();
+			System.exit(1);
 		}
 	}
 }
