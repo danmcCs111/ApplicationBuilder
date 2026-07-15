@@ -1,5 +1,6 @@
 package WidgetComponents;
 
+import java.awt.Color;
 import java.awt.event.ActionListener;
 
 import javax.swing.AbstractButton;
@@ -20,8 +21,19 @@ public class TitleScroller extends JTextField implements ArrayActionListener, Po
 		FORMAT_CHANNEL=" -- <arg>",
 		FORMAT_VIDEO_CHANNEL = "",
 		DEFAULT_TEXT = "<stopped>";
+	private int
+		totalCycleTime = 3000,
+		waitCycle = 100;
+	private static Color
+		DEFAULT_COLOR_SET,
+		SELECTION_COLOR_SET = Color.RED;
 	private Thread
+		joystickSelectionThread,
 		spanThread;
+	private AbstractButton
+		urlButton,
+		lastJoySelectedButton,
+		joySelectedButton;
 	private boolean 
 		scroll = false;
 	private int
@@ -71,6 +83,19 @@ public class TitleScroller extends JTextField implements ArrayActionListener, Po
 	{
 		this.scrollCountOverBackJumpPosition = scrollCountOverBackJumpPosition;
 	}
+	public void setSelectionColor(Color c)
+	{
+		SELECTION_COLOR_SET = c;
+	}
+	public void setTotalCycleTime(int cycleTime)
+	{
+		this.totalCycleTime = cycleTime;
+	}
+	public void setWaitCycle(int waitCycle)
+	{
+		this.waitCycle = waitCycle;
+	}
+	
 	
 	private void startScrollThread()
 	{
@@ -149,14 +174,49 @@ public class TitleScroller extends JTextField implements ArrayActionListener, Po
 		spanThread.start();
 	}
 	
-	@Override
-	public void urlSelect(AbstractButton newButton) 
+	private void startJoystickSelectionViewThread()
 	{
-		if(spanThread == null && scroll)
+		Runnable r = new Runnable() 
 		{
-			startScrollThread();
-		}
-		
+			@Override
+			public void run() 
+			{
+				int cycles = 0;
+				while(cycles < totalCycleTime)
+				{
+					if(joySelectedButton != null)
+					{
+						if(lastJoySelectedButton == null)
+						{
+							cycles = 0;
+							copyButtonText(joySelectedButton, true);
+						}
+						else if(lastJoySelectedButton != joySelectedButton)
+						{
+							cycles = 0;
+							copyButtonText(joySelectedButton, true);
+						}
+					}
+					try {
+						lastJoySelectedButton = joySelectedButton;
+						Thread.sleep(waitCycle);//apply delay
+						cycles += waitCycle;
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+				copyButtonText(urlButton, false);
+			}
+		};
+		joystickSelectionThread = new Thread(r);
+		joystickSelectionThread.start();
+	}
+	
+	private void copyButtonText(AbstractButton newButton, boolean selection)
+	{
+		TitleScroller.this.setForeground(
+				(selection) ? SELECTION_COLOR_SET : DEFAULT_COLOR_SET
+		);
 		if(newButton == null)
 		{
 			TitleScroller.this.setText(DEFAULT_TEXT);
@@ -194,6 +254,27 @@ public class TitleScroller extends JTextField implements ArrayActionListener, Po
 		TitleScroller.this.setCaretPosition(0);
 	}
 	
+	public void joySelect(AbstractButton newButton)
+	{
+		joySelectedButton = newButton;
+		if(joystickSelectionThread == null || !joystickSelectionThread.isAlive())
+		{
+			startJoystickSelectionViewThread();
+		}
+	}
+	
+	@Override
+	public void urlSelect(AbstractButton newButton) 
+	{
+		urlButton = newButton;
+		if(spanThread == null && scroll)
+		{
+			startScrollThread();
+		}
+		
+		copyButtonText(newButton, false);
+	}
+	
 	@Override
 	public void addArrayActionListener() {
 		LaunchUrlActionListener.addArrayActionListener(this);
@@ -217,6 +298,7 @@ public class TitleScroller extends JTextField implements ArrayActionListener, Po
 	public void postExecute() 
 	{
 		FORMAT_VIDEO_CHANNEL = FORMAT_VIDEO + FORMAT_CHANNEL;
+		DEFAULT_COLOR_SET = TitleScroller.this.getForeground();
 	}
 
 }

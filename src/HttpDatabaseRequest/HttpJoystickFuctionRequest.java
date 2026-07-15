@@ -23,8 +23,10 @@ import WidgetComponentDialogs.ShiftDialog;
 import WidgetComponents.JButtonArray;
 import WidgetComponents.JButtonLengthLimited;
 import WidgetComponents.KeepSelectionSelector;
+import WidgetComponents.TitleScroller;
 import WidgetComponents.VideoChannelPlayerJoy;
 import WidgetUtility.WidgetBuildController;
+import WidgetUtility.WidgetCreatorProperty;
 
 public class HttpJoystickFuctionRequest implements ArrayActionListener
 {
@@ -54,6 +56,15 @@ public class HttpJoystickFuctionRequest implements ArrayActionListener
 		KeepSelection ks = kss.getSelectedKeep();
 		JButtonLengthLimited jbll = ks.getJButtonLengthLimited();
 		PicLabelMouseListener.selectionLabel(jbll, true);//TODO
+		
+		for(WidgetCreatorProperty wcp : WidgetBuildController.getInstance().getWidgetCreatorProperties())
+		{
+			Object o = wcp.getInstance();
+			if(o instanceof TitleScroller)
+			{
+				((TitleScroller) o).joySelect(jbll);
+			}
+		}
 	}
 	
 	public static void setButtonArray(JButtonArray ba)
@@ -142,9 +153,7 @@ public class HttpJoystickFuctionRequest implements ArrayActionListener
 					if((vcp == null || !vcp.isVisible()) && !ba.isVideoBookmarksOpen())
 					{
 						kss.advanceIndex();
-						KeepSelection ks = kss.getSelectedKeep();
-						JButtonLengthLimited jbll = ks.getJButtonLengthLimited();
-						PicLabelMouseListener.selectionLabel(jbll, true);//TODO
+						selectCurrent();
 					}
 				}
 				else 
@@ -152,9 +161,7 @@ public class HttpJoystickFuctionRequest implements ArrayActionListener
 					if((vcp == null || !vcp.isVisible()) && !ba.isVideoBookmarksOpen())
 					{
 						kss.decrementIndex();
-						KeepSelection ks = kss.getSelectedKeep();
-						JButtonLengthLimited jbll = ks.getJButtonLengthLimited();
-						PicLabelMouseListener.selectionLabel(jbll, true);//TODO
+						selectCurrent();
 					}
 				}
 				

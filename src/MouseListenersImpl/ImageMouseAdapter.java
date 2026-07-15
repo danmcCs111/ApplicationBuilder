@@ -384,10 +384,12 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 			{
 				vbmd.performSelect(false);
 			}
-			vbmd = new VideoBookMarksDialog(ds, 
-					(OpenAndSaveKeepsSubscriber)ba,
-					WidgetBuildController.getInstance().getFrame(),
-					getProperties(), true, false);
+			vbmd = new VideoBookMarksDialog(
+				ds, 
+				(OpenAndSaveKeepsSubscriber)ba,
+				WidgetBuildController.getInstance().getFrame(),
+				getProperties(), true, false
+			);
 		}
 		else
 		{
@@ -423,10 +425,12 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 	public void getSaveSelections()
 	{
 		ComboSelectionDialog csd = new ComboSelectionDialog();
-		csd.buildAndShow(KeepSelection.getTextOnlyConversion(keeps), 
-				DIALOG_SELECT_CHILD_COMPONENTS_TITLE,
-				DIALOG_SELECT_CHILD_COMPONENTS_MESSAGE,
-				ImageMouseAdapter.this, parentFrame);
+		csd.buildAndShow(
+			KeepSelection.getTextOnlyConversion(keeps), 
+			DIALOG_SELECT_CHILD_COMPONENTS_TITLE,
+			DIALOG_SELECT_CHILD_COMPONENTS_MESSAGE,
+			ImageMouseAdapter.this, parentFrame
+		);
 	}
 	
 	private void performAfterSelectionEventSave()
