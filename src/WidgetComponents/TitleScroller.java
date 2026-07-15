@@ -21,9 +21,9 @@ public class TitleScroller extends JTextField implements ArrayActionListener, Po
 		FORMAT_CHANNEL=" -- <arg>",
 		FORMAT_VIDEO_CHANNEL = "",
 		DEFAULT_TEXT = "<stopped>";
-	private int
-		totalCycleTime = 3000,
-		waitCycle = 100;
+	private static int
+		TOTAL_CYCLE_TIME = 3000,
+		WAIT_CYCLE = 100;
 	private static Color
 		DEFAULT_COLOR_SET,
 		SELECTION_COLOR_SET = Color.RED;
@@ -89,11 +89,11 @@ public class TitleScroller extends JTextField implements ArrayActionListener, Po
 	}
 	public void setTotalCycleTime(int cycleTime)
 	{
-		this.totalCycleTime = cycleTime;
+		TOTAL_CYCLE_TIME = cycleTime;
 	}
 	public void setWaitCycle(int waitCycle)
 	{
-		this.waitCycle = waitCycle;
+		WAIT_CYCLE = waitCycle;
 	}
 	
 	
@@ -182,7 +182,7 @@ public class TitleScroller extends JTextField implements ArrayActionListener, Po
 			public void run() 
 			{
 				int cycles = 0;
-				while(cycles < totalCycleTime)
+				while(cycles < TOTAL_CYCLE_TIME)
 				{
 					if(joySelectedButton != null)
 					{
@@ -199,8 +199,8 @@ public class TitleScroller extends JTextField implements ArrayActionListener, Po
 					}
 					try {
 						lastJoySelectedButton = joySelectedButton;
-						Thread.sleep(waitCycle);//apply delay
-						cycles += waitCycle;
+						Thread.sleep(WAIT_CYCLE);//apply delay
+						cycles += WAIT_CYCLE;
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -217,10 +217,11 @@ public class TitleScroller extends JTextField implements ArrayActionListener, Po
 		TitleScroller.this.setForeground(
 				(selection) ? SELECTION_COLOR_SET : DEFAULT_COLOR_SET
 		);
-		if(newButton == null)
+		if(newButton == null || newButton.getName().equals(LaunchUrlActionListener.CLOSE_LAUNCH_ACTION_EVENT))
 		{
 			TitleScroller.this.setText(DEFAULT_TEXT);
 			TitleScroller.this.setToolTipText(null);
+			TitleScroller.this.setCaretPosition(0);
 			return;
 		}
 		
@@ -244,10 +245,10 @@ public class TitleScroller extends JTextField implements ArrayActionListener, Po
 				return;//
 			}
 		}
-		
+		//other remaining conditions.
 		TitleScroller.this.setText(
 			StringUtility.replaceArg(
-				FORMAT_VIDEO, REPLACE_VALUE, newButton.getText()
+					FORMAT_VIDEO, REPLACE_VALUE, newButton.getText()
 			)
 		);
 		TitleScroller.this.setToolTipText(getText());

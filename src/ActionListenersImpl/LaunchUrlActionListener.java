@@ -256,7 +256,8 @@ public class LaunchUrlActionListener implements ActionListener
 				while(true)
 				{
 					ProcessHandle runningProcess = runningProcesses.get(defaultId);
-					if(runningProcess != null && !runningProcess.isAlive() && !executing)
+					if(runningProcess != null && !runningProcess.isAlive() && 
+							!executing && getLastButtonOrigin() != null)
 					{
 						closeEvent();
 						storeLast(null);
