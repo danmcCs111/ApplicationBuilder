@@ -248,7 +248,7 @@ public class TitleScroller extends JTextField implements ArrayActionListener, Po
 		//other remaining conditions.
 		TitleScroller.this.setText(
 			StringUtility.replaceArg(
-					FORMAT_VIDEO, REPLACE_VALUE, newButton.getText()
+				FORMAT_VIDEO, REPLACE_VALUE, newButton.getText()
 			)
 		);
 		TitleScroller.this.setToolTipText(getText());
