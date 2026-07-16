@@ -95,12 +95,13 @@ public class VideoUpdateTimespanDialog extends JDialog
 						Date d = new Date(ts.getTime());
 						LookupOrCreateYoutube.update(ab.getText(), ab.getName(), d);
 						updated = true;
+						dispose();
 					}
 				};
 				Thread t = new Thread(r);
 				t.start();
 				
-				dispose();
+				setVisible(false);
 			}
 		});
 		cancelButton.addActionListener(new ActionListener() {
