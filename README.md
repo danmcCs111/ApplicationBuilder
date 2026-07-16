@@ -54,6 +54,7 @@ Cleaned up issue with loosing highlight when refreshing. window size enlarging u
 Added Title Bar scrolling with settings to configure turn off/on in application layout editor. 
 Added detection of touch control option discoverable through Extension system and applied on bookmarks dialog.
 dialog added to youtube api. hiding terminal.
+added replicate/backup tool. altered loading images routine on update channel tool.
 
 (using in a dual monitor setup.)
 
