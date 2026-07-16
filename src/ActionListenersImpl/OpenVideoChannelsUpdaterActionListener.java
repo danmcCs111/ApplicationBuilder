@@ -3,6 +3,7 @@ package ActionListenersImpl;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import Graphics2D.GraphicsUtil;
 import Params.KeepSelection;
@@ -26,6 +27,7 @@ public class OpenVideoChannelsUpdaterActionListener implements ActionListener
 	public void actionPerformed(ActionEvent e) 
 	{
 		ArrayList<KeepSelection> kss = ba.getKeepSelection();
+		Collections.sort(kss, new KeepSelection());
 		ArrayList<JButtonLengthLimited> jblls = new ArrayList<JButtonLengthLimited>();
 		for(KeepSelection ks : kss)
 		{
