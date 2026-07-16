@@ -221,6 +221,7 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 					ShellHeadlessExecutor.run(args, true);
 				}
 				saveButton.setEnabled(true);
+				cancelButton.setText(CLOSE_BUTTON_TEXT);
 			}
 		};
 		Thread t = new Thread(r);
