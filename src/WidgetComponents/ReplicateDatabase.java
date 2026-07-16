@@ -32,6 +32,7 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 	private static String
 		REPLICATE_COMMAND = "rsync.sh",
 		SAVE_BUTTON_TEXT = "Replicate",
+		CLOSE_BUTTON_TEXT = "Close",
 		CANCEL_BUTTON_TEXT = "Cancel",
 		ORIGIN_LABEL = "Origin",
 		REPLICA_LABEL = "Replica",
@@ -55,6 +56,9 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 	private JButton
 		saveButton,
 		cancelButton;
+	
+	private boolean 
+		cancelFlag = false;
 	
 	public ReplicateDatabase()
 	{
@@ -165,11 +169,18 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 				replicate();
 			}
 		});
-		cancelButton = new JButton(CANCEL_BUTTON_TEXT);
+		cancelButton = new JButton(CLOSE_BUTTON_TEXT);
 		cancelButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				if(cancelButton.getText().equals(CANCEL_BUTTON_TEXT))
+				{
+					cancelFlag = true;
+				}
+				else
+				{
+					System.exit(0);
+				}
 			}
 		});
 		
@@ -185,19 +196,36 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 			dsR = (DirectorySelection) dsSelectionReplicaEditor.getComponentValueObj();
 		List<String> selectedValues = databasesList.getSelectedValuesList();
 		
-		for(String select : selectedValues)
+		cancelButton.setText(CANCEL_BUTTON_TEXT);
+		saveButton.setEnabled(false);
+		
+		Runnable r = new Runnable()
 		{
-			String [] args = new String [] 
+			@Override
+			public void run() 
 			{
-				replicateCommand.getPathLinux() + " " +
-				select + " " + //same location as replicate command.
-				dsR.getPathLinux().trim() + select + " "
-			};
-			
-			LoggingMessages.printOut(LoggingMessages.combine(args));
-			ShellHeadlessExecutor.loadHideOption();
-			ShellHeadlessExecutor.run(args, true);
-		}
+				for(String select : selectedValues)
+				{
+					if(cancelFlag)
+						break;
+					
+					String [] args = new String [] 
+					{
+						replicateCommand.getPathLinux() + " " +
+						select + " " + //same location as replicate command.
+						dsR.getPathLinux().trim() + select + " "
+					};
+					
+					LoggingMessages.printOut(LoggingMessages.combine(args));
+					ShellHeadlessExecutor.loadHideOption();
+					ShellHeadlessExecutor.run(args, true);
+				}
+				saveButton.setEnabled(true);
+			}
+		};
+		Thread t = new Thread(r);
+		t.start();
+		
 	}
 	
 	private void refreshDatabasesList(DirectorySelection ds)
