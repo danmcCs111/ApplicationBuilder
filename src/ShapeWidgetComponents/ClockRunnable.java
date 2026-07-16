@@ -1,9 +1,12 @@
 package ShapeWidgetComponents;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Shape;
+import java.awt.Stroke;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.PathIterator;
@@ -82,9 +85,11 @@ public class ClockRunnable implements Runnable
 		ShapeDrawingCollectionGraphics.clearAll(drawContainer);
 		ShapeDrawingCollectionGraphics.drawAll(drawContainer, sdc, null, false);
 		
-		ShapeDrawingCollectionGraphics.drawShape(drawContainer, hourHand, Color.gray);
-		ShapeDrawingCollectionGraphics.drawShape(drawContainer, minuteHand, Color.blue);
-		ShapeDrawingCollectionGraphics.drawShape(drawContainer, secondHand, Color.red);
+//		BasicStroke stroke = new BasicStroke(2f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND);
+		Graphics2D g2d = (Graphics2D) drawContainer.getGraphics();
+		ShapeDrawingCollectionGraphics.drawShape(g2d, hourHand, Color.gray);
+		ShapeDrawingCollectionGraphics.drawShape(g2d, minuteHand, Color.blue);
+		ShapeDrawingCollectionGraphics.drawShape(g2d, secondHand, Color.red);
 		
 	}
 	

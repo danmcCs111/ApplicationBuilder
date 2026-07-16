@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JToggleButton;
 
 import ApplicationBuilder.ShellHeadlessExecutor;
 import Graphics2D.ColorTemplate;
@@ -34,8 +35,12 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 		SAVE_BUTTON_TEXT = "Replicate",
 		CLOSE_BUTTON_TEXT = "Close",
 		CANCEL_BUTTON_TEXT = "Cancel",
+		FLIP_ORIGIN_REPLICA_TEXT = "Swap",
+		FLIP_ORIGIN_REPLICA_TOOLTIP_TEXT = "Swap Origin / Replica",
 		ORIGIN_LABEL = "Origin",
+		ORIGIN_TOOLTIP_LABEL = "Source Database",
 		REPLICA_LABEL = "Replica",
+		REPLICA_TOOLTIP_LABEL = "Destination Database",
 		DATABASES_ORIGIN_LOCATION = "./plugin-projects/SQLiteInstall/ ",
 		FILE_FILTER = ".db",
 		DATABASES_REPLICA_LOCATION = null;
@@ -50,14 +55,20 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 		scrollPane;
 	private JList<String>
 		databasesList;
+	private JLabel
+		originLabel,
+		replicaLabel;
 	private DirectorySelectionEditor
 		dsSelectionReplicaEditor,
 		dsSelectionOriginEditor;
+	private JToggleButton
+		flipOriginAndReplica;
 	private JButton
 		saveButton,
 		cancelButton;
 	
 	private boolean 
+		isFlippedOriginReplica = false,
 		cancelFlag = false;
 	
 	public ReplicateDatabase()
@@ -141,11 +152,14 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 		{
 			dsSelectionReplicaEditor.setComponentValue(null);
 		}
-		
-		innerPanelO.add(new JLabel(ORIGIN_LABEL));
+		originLabel = new JLabel(ORIGIN_LABEL);
+		originLabel.setToolTipText(ORIGIN_TOOLTIP_LABEL);
+		innerPanelO.add(originLabel);
 		innerPanelO.add(dsSelectionOriginEditor);
 		
-		innerPanelR.add(new JLabel(REPLICA_LABEL));
+		replicaLabel = new JLabel(REPLICA_LABEL);
+		replicaLabel.setToolTipText(REPLICA_TOOLTIP_LABEL);
+		innerPanelR.add(replicaLabel);
 		innerPanelR.add(dsSelectionReplicaEditor);
 		
 		northPanel.add(innerPanelO);
@@ -160,6 +174,31 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 	{
 		JPanel saveCancelPanel = new JPanel();
 		saveCancelPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		
+		flipOriginAndReplica = new JToggleButton(FLIP_ORIGIN_REPLICA_TEXT);
+		flipOriginAndReplica.setToolTipText(FLIP_ORIGIN_REPLICA_TOOLTIP_TEXT);
+		flipOriginAndReplica.addActionListener(new ActionListener() 
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				isFlippedOriginReplica = flipOriginAndReplica.isSelected();
+				if(isFlippedOriginReplica)
+				{
+					originLabel.setText(REPLICA_LABEL);
+					originLabel.setToolTipText(REPLICA_TOOLTIP_LABEL);
+					replicaLabel.setText(ORIGIN_LABEL);
+					replicaLabel.setToolTipText(ORIGIN_TOOLTIP_LABEL);
+				}
+				else
+				{
+					originLabel.setText(ORIGIN_LABEL);
+					originLabel.setToolTipText(ORIGIN_TOOLTIP_LABEL);
+					replicaLabel.setText(REPLICA_LABEL);
+					replicaLabel.setToolTipText(REPLICA_TOOLTIP_LABEL);
+				}
+			}
+		});
 		
 		saveButton = new JButton(SAVE_BUTTON_TEXT);
 		saveButton.addActionListener(new ActionListener() {
@@ -184,6 +223,7 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 			}
 		});
 		
+		saveCancelPanel.add(flipOriginAndReplica);
 		saveCancelPanel.add(saveButton);
 		saveCancelPanel.add(cancelButton);
 		
@@ -209,12 +249,25 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 					if(cancelFlag)
 						break;
 					
-					String [] args = new String [] 
+					String [] args; 
+					if(isFlippedOriginReplica)
 					{
-						replicateCommand.getPathLinux() + " " +
-						select + " " + //same location as replicate command.
-						dsR.getPathLinux().trim() + select + " "
-					};
+						args = new String [] 
+						{
+							replicateCommand.getPathLinux() + " " +
+							dsR.getPathLinux().trim() + select + " " +
+							select + " " //same location as replicate command.
+						};
+					}
+					else
+					{
+						args = new String [] 
+						{
+							replicateCommand.getPathLinux() + " " +
+							select + " " + //same location as replicate command.
+							dsR.getPathLinux().trim() + select + " "
+						};
+					}
 					
 					LoggingMessages.printOut(LoggingMessages.combine(args));
 					ShellHeadlessExecutor.loadHideOption();

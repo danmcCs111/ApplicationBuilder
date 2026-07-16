@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JToggleButton;
 
 import WidgetComponents.JCheckBoxLimited;
 
@@ -149,18 +150,28 @@ public class ColorTemplate
 			return;
 		}
 		
-		if (container instanceof JButton ) 
+		if (container instanceof AbstractButton ) 
         {
-			JButton ab = (JButton) container;
+			AbstractButton ab = (AbstractButton) container;
         	ab.setBackground(c);
         } 
+		else if(container instanceof JToggleButton)
+        {
+        	JToggleButton ab = (JToggleButton) container;
+        	ab.setBackground(c);
+        }
         for (Component component : container.getComponents()) 
         {
             if (component instanceof JButton) 
             {
-            	AbstractButton ab = (JButton) component;
+            	JButton ab = (JButton) component;
             	ab.setBackground(c);
             } 
+            else if(component instanceof JToggleButton)
+            {
+            	JToggleButton ab = (JToggleButton) component;
+            	ab.setBackground(c);
+            }
             else if (component instanceof Container) 
             {
             	setBackgroundColorButtons((Container) component, c);
@@ -177,6 +188,11 @@ public class ColorTemplate
 		if (container instanceof JButton) 
         {
 			JButton ab = (JButton) container;
+        	ab.setForeground(c);
+        } 
+		else if (container instanceof JToggleButton) 
+        {
+			JToggleButton ab = (JToggleButton) container;
         	ab.setForeground(c);
         } 
 		else if (container instanceof JTextField) 
@@ -221,6 +237,11 @@ public class ColorTemplate
             if (component instanceof JButton) 
             {
             	JButton ab = (JButton) component;
+            	ab.setForeground(c);
+            } 
+            else if (container instanceof JToggleButton) 
+            {
+    			JToggleButton ab = (JToggleButton) container;
             	ab.setForeground(c);
             } 
             else if (component instanceof JTextField) 

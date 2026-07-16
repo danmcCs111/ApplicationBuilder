@@ -83,9 +83,13 @@ public interface ShapeDrawingCollectionGraphics
 	}
 	public static void drawShape(Graphics2D g2d, Shape shape, Color c)//Use defaultStroke
 	{
+		drawShape(g2d, shape, c, ShapeDrawingCollection.defaultStroke);
+	}
+	public static void drawShape(Graphics2D g2d, Shape shape, Color c, Stroke stroke)
+	{
 		if(g2d == null)
 			return;
-		g2d.setStroke(ShapeDrawingCollection.defaultStroke);
+		g2d.setStroke(stroke);
 		g2d.setColor(c);
 		g2d.draw(shape);
 	}
