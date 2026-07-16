@@ -107,6 +107,7 @@ public class PicLabelMouseListener extends MouseAdapter
 					if(on) selected = ab;
 					break;
 				}
+				
 				l.setBorder(
 					(on)
 					? borderType
@@ -145,7 +146,7 @@ public class PicLabelMouseListener extends MouseAdapter
 	
 	public void mouseClicked(MouseEvent e)
 	{
-		if(singleClick || e.getClickCount() == 2)//require double click
+		if(singleClick || e.getClickCount() == 2)
 		{
 			if(e.getButton() == MouseEvent.BUTTON1)
 			{

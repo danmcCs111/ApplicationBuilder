@@ -1083,7 +1083,7 @@ PostWidgetBuildProcessing, ButtonArray
 	}
 
 	@Override
-	public void notifyLinkTitleAndImageUrl(String [] linkTitleAndImageUrl) 
+	public void linkTitleAndImageUrlNotification(String [] linkTitleAndImageUrl) 
 	{
 		int indexPos = NavigationButtonActionListener.getCurPosition();
 		String path = SwappableCollection.indexPaths.get(indexPos);

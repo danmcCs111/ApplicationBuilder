@@ -62,7 +62,7 @@ public class LinkDragAndDropListener extends DropTargetAdapter
 				
 				LoggingMessages.printOut(imageDownload);
 				LoggingMessages.printOut(title);
-				ldds.notifyLinkTitleAndImageUrl(new String [] {url, title, imageDownload});
+				ldds.linkTitleAndImageUrlNotification(new String [] {url, title, imageDownload});
 			}
 		}
 	}

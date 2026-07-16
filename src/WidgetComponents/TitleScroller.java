@@ -37,6 +37,7 @@ public class TitleScroller extends JTextField implements ArrayActionListener, Po
 	private boolean 
 		scroll = false;
 	private int
+		scrollNotChannelSleep = 1000,
 		scrollOverCountFront = 100,
 		scrollOverCountBack = 25,
 		scrollCountOverBackJumpPosition = 1000,
@@ -87,6 +88,10 @@ public class TitleScroller extends JTextField implements ArrayActionListener, Po
 	{
 		SELECTION_COLOR_SET = c;
 	}
+	public void setScrollNotChannelSleep(int millis)
+	{
+		scrollNotChannelSleep = millis;
+	}
 	public void setTotalCycleTime(int cycleTime)
 	{
 		TOTAL_CYCLE_TIME = cycleTime;
@@ -95,7 +100,6 @@ public class TitleScroller extends JTextField implements ArrayActionListener, Po
 	{
 		WAIT_CYCLE = waitCycle;
 	}
-	
 	
 	private void startScrollThread()
 	{
@@ -161,6 +165,14 @@ public class TitleScroller extends JTextField implements ArrayActionListener, Po
 						}
 						//scroll.
 						position += dir;
+					}
+					else
+					{
+						try {
+							Thread.sleep(scrollNotChannelSleep);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
 					}
 					try {
 						Thread.sleep(scrollSpeedMillis);

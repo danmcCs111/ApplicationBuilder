@@ -2,5 +2,5 @@ package WidgetComponentInterfaces;
 
 public interface LinkDragAndDropSubscriber 
 {
-	public void notifyLinkTitleAndImageUrl(String [] linkTitleAndImageUrl);
+	public void linkTitleAndImageUrlNotification(String [] linkTitleAndImageUrl);
 }
