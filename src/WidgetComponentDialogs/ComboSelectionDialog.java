@@ -139,7 +139,6 @@ public class ComboSelectionDialog extends JDialog
 			cancel.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					//cancel
 					cdsl.selectionChosen(null);
 					ComboSelectionDialog.this.removeWindowListener(wl);
 					ComboSelectionDialog.this.dispose();

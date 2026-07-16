@@ -103,7 +103,7 @@ public class CommandBuild
 				parameter.addParamDirectory(new DirectorySelection(content, pMod));
 				break;
 			case File:
-				parameter.addParamFile(new FileSelection(content, pMod));
+				parameter.addParamFile(new FileSelection(content, pMod, true));
 				break;
 			}
 		}

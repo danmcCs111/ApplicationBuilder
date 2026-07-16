@@ -72,6 +72,8 @@
 				</JMenuItem>
 				<JMenuItem extendedEditCollectionActionListener="channels" extendedLayoutApplyParent="" setText="Edit Collection" setToolTipText="Edit current navigated collection" >
 				</JMenuItem>
+				<JMenuItem extendedLayoutApplyParent="" addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ApplicationBuilder|%Fn./Properties/data/BackupDatabase.xml" setText="Backup Database" setToolTipText="Launch Backup Database Tool" >
+				</JMenuItem>
 			</JMenu>
 			<JMenu extendedLayoutApplyParent="" setText="Launch" >
 				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellExecutorAlt|%Fn./plugin-projects/DatabaseAdapterService/runDatabase.sh" extendedLayoutApplyParent="" setText="Database Service" setToolTipText="Manages and retrieves stored database content" >

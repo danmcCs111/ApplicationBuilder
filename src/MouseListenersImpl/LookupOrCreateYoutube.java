@@ -421,7 +421,7 @@ public class LookupOrCreateYoutube
 				youtubeHandle + " " +
 				lastDate + " " + 
 				saveFile
-			};
+		};
 		LoggingMessages.printOut(LoggingMessages.combine(args));
 		ShellHeadlessExecutor.loadHideOption();
 		ShellHeadlessExecutor.run(args, true);

@@ -35,6 +35,7 @@ import WidgetComponents.ApplicationLayoutEditor;
 import WidgetComponents.DatabaseEditor;
 import WidgetComponents.DatabaseResponseNodeTextArea;
 import WidgetComponents.PageParserUploader;
+import WidgetComponents.ReplicateDatabase;
 import WidgetComponents.JButtonArray;
 import WidgetComponents.JButtonArrayListPicture;
 import WidgetComponents.LoadingLabel;
@@ -153,6 +154,7 @@ public class WidgetAttributes
 		COMPONENT_CLASSES.add(VideoChannelPlayer.class);
 		COMPONENT_CLASSES.add(VideoChannelsPlayer.class);
 		COMPONENT_CLASSES.add(PageParserUploader.class);
+		COMPONENT_CLASSES.add(ReplicateDatabase.class);
 	}
 	//TODO replace :(
 	private static final HashMap<Class<?>, String []> EXTENDED_METHODS = new HashMap<Class<?>, String []>();
@@ -350,6 +352,13 @@ public class WidgetAttributes
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetButtonForegroundColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(PageParserUploader.class, new String [] {
+				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetViewportView.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetBackgroundPanelColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetButtonBackgroundColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetButtonForegroundColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef())
+		});
+		EXTENDED_METHODS.put(ReplicateDatabase.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetViewportView.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetBackgroundPanelColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef()),

@@ -63,7 +63,11 @@ public interface PathUtility
 	public static String getPathLinux(String path)
 	{
 		path = replaceBackslash(path);
-		path = path.replace("C:", "/c");
+		if(path.contains(":"))
+		{
+			path = "/" + path;
+			path = path.replace(":", "");
+		}
 		return path;
 	}
 	

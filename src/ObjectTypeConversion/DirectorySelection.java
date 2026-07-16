@@ -10,21 +10,42 @@ public class DirectorySelection
 		linuxPath;
 	private PathModifier 
 		pm;
+	private boolean
+		isRelativePath = true;
 	
 	public DirectorySelection(String relativePath)
 	{
-		this(relativePath, PathModifier.none);
+		this(relativePath, PathModifier.none, true);
 	}
 	
-	public DirectorySelection(String relatviePath, PathModifier pm)
+	public DirectorySelection(String relativePath, boolean isRelativePath)
 	{
-		this.pm = pm;
-		if(!relatviePath.startsWith("."))
+		this(relativePath, PathModifier.none, isRelativePath);
+	}
+	
+	public DirectorySelection(String relativePath, PathModifier pm)
+	{
+		this(relativePath, pm, true);
+	}
+	
+	public DirectorySelection(String relatviePath, PathModifier pm, boolean isRelativePath)
+	{
+		this.isRelativePath = isRelativePath;
+		if(isRelativePath)
 		{
-			relatviePath = "." + relatviePath;
+			this.pm = pm;
+			if(!relatviePath.startsWith("."))
+			{
+				relatviePath = "." + relatviePath;
+			}
+			this.relativePath = relatviePath;
+			this.linuxPath = PathUtility.getPathLinux(relatviePath);
 		}
-		this.relativePath = relatviePath;
-		this.linuxPath = PathUtility.getPathLinux(relatviePath);
+		else
+		{
+			this.relativePath = relatviePath;
+			this.linuxPath = PathUtility.getPathLinux(relatviePath);
+		}
 	}
 	
 	public PathModifier getPathModifier()
@@ -44,13 +65,27 @@ public class DirectorySelection
 	
 	public String getFullPath()
 	{
-		if(PathUtility.isWindows())
+		if(isRelativePath)
 		{
-			return PathUtility.getCurrentDirectory() + this.relativePath.substring(1);
+			if(PathUtility.isWindows())
+			{
+				return PathUtility.getCurrentDirectory() + this.relativePath.substring(1);
+			}
+			else
+			{
+				return PathUtility.getCurrentDirectory() + this.linuxPath.substring(1);
+			}
 		}
-		else
+		else //direct.
 		{
-			return PathUtility.getCurrentDirectory() + this.linuxPath.substring(1);
+			if(PathUtility.isWindows())
+			{
+				return relativePath;
+			}
+			else
+			{
+				return linuxPath;
+			}
 		}
 	}
 }
