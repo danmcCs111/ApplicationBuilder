@@ -39,9 +39,10 @@ public class OpenVideoChannelsUpdaterActionListener implements ActionListener
 			ovcu.dispose();
 		}
 		Runnable r = new Runnable() {
+			
 			@Override
 			public void run() {
-				ovcu = new OpenVideoChannelsUpdater(jblls);
+				ovcu = new OpenVideoChannelsUpdater(jblls, kss);
 				GraphicsUtil.rightEdgeTopWindow(ba.getRootPane().getParent(), ovcu);
 			}
 		};

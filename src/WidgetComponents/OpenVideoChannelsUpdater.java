@@ -6,12 +6,12 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -31,9 +32,9 @@ import ApplicationBuilder.QueryUpdateTool;
 import Graphics2D.ColorTemplate;
 import MouseListenersImpl.LookupOrCreateYoutube;
 import ObjectTypeConversion.FileSelection;
+import Params.KeepSelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
-import WidgetComponentInterfaces.DefaultAndScaledImage;
 import WidgetComponentInterfaces.ImageReader;
 import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
 import WidgetUtility.FileListOptionGenerator;
@@ -57,8 +58,6 @@ public class OpenVideoChannelsUpdater extends JFrame
 		PROPERTIES_VALUE_DELIMITER = "=",
 		NAME_DELIMITER = ":@:";
 	private static Dimension 
-		DIM_DEFAULT_PIC = new Dimension(279,150),
-		SCALED_DEFAULT_PIC = new Dimension(279, 150),
 		MIN_SIZE = new Dimension(750, 450);
 	private static final SimpleDateFormat
 		SDF_DATE_LABEL = new SimpleDateFormat("MM/dd/YYYY");
@@ -77,6 +76,8 @@ public class OpenVideoChannelsUpdater extends JFrame
 		checkBoxes;
 	private List<JButtonLengthLimited> 
 		jblls;
+	private List<KeepSelection> 
+		kss;
 	private HashMap<JCheckBox, Date> 
 		checkBoxLatestDate;
 	private EditChannelsHandle 
@@ -108,6 +109,24 @@ public class OpenVideoChannelsUpdater extends JFrame
 		this.setIconImage(ii.getImage());
 		
 		this.jblls = jblls;
+		Runnable r = new Runnable()
+		{
+			@Override
+			public void run() {
+				buildWidgets();
+			}
+		};
+		Thread t = new Thread(r);
+		t.start();
+	}
+	
+	public OpenVideoChannelsUpdater(List<JButtonLengthLimited> jblls, List<KeepSelection> kss)
+	{
+		FileSelection fs = new FileSelection(FRAME_ICON);
+		ImageIcon ii = new ImageIcon(fs.getFullPath());
+		this.setIconImage(ii.getImage());
+		this.jblls = jblls;
+		this.kss = kss;
 		Runnable r = new Runnable()
 		{
 			@Override
@@ -156,7 +175,6 @@ public class OpenVideoChannelsUpdater extends JFrame
 				{
 					if(updateThread != null)
 					{
-//						updateThread.interrupt();
 						killUpdate = true;
 					}
 				}
@@ -213,65 +231,39 @@ public class OpenVideoChannelsUpdater extends JFrame
 	
 	private void buildCheckBoxPanel()
 	{
+		int count = 0;
 		for(JButtonLengthLimited jbll : this.jblls)
 		{
 			JCheckBox cb = new JCheckBox();
 			cb = updateCheckBox(jbll.getText(), jbll.getName(), cb);
-			//change to image.
-			ImageReader ir = new ImageReader(new DefaultAndScaledImage() {
-				@Override
-				public void setScaledWidth(int scaledWidth) {
-					//NOP
-				}
-				
-				@Override
-				public void setScaledDefaultPic(Dimension scaledDefaultPicDimension) {
-					//NOP
-				}
-				
-				@Override
-				public void setDefaultPicSize(Dimension defaultPicDimension) {
-					//NOP
-				}
-				
-				@Override
-				public void setDefaultImageXmlPath(FileSelection fs) {
-					//NOP
-				}
-				
-				@Override
-				public int getScaledWidth() {
-					return 25;
-				}
-				
-				@Override
-				public Dimension getScaledDefaultPic() {
-					return SCALED_DEFAULT_PIC;
-				}
-				
-				@Override
-				public Dimension getDefaultPicSize() {
-					return DIM_DEFAULT_PIC;
-				}
-				
-				@Override
-				public String getDefaultImagePath() {
-					return JButtonArray.DEFAULT_IMG;
-				}
-			});
 			
 			if(cb != null)
 			{
 				String filename = jbll.getPath() + "images/" + jbll.getFullLengthText()+".png";
 				LoggingMessages.printOut(filename);
 				FileSelection fs = new FileSelection(filename);
-				Image img = ir.getImage(new File(fs.getFullPath()));
-				ImageIcon defIcon = ImageReader.getScaledImageIcon(img, IMAGE_SCALE);
+				BufferedImage img = null;
+				ImageIcon defIcon = null;
+				if(kss == null)
+				{
+					try {
+						img = ImageIO.read(new File(fs.getFullPath()));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					defIcon = ImageReader.getScaledImageIcon(img, IMAGE_SCALE);
+				}
+				else
+				{
+					defIcon = kss.get(count).getImageIcon();
+				}
+				
 				cb.setIcon(defIcon);
 				cb.setSelectedIcon(fillImage);
 				checkBoxes.add(cb);
 				checkBoxPanel.add(cb);
 			}
+			count++;
 		}
 	}
 	
