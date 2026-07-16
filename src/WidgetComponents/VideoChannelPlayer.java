@@ -313,7 +313,8 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 			southPane = new JPanel();
 		
 		countLabel = new JLabel();
-		totalCount = LookupOrCreateYoutube.lookupCount(parentButton.getText(), parentButton.getName());
+		
+		lookupTotalCount();
 		
 		southPane.setLayout(new BorderLayout());
 		
@@ -322,6 +323,11 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 		southPane.add(countLabel, BorderLayout.EAST);
 		
 		return southPane;
+	}
+	
+	private void lookupTotalCount()
+	{
+		totalCount = LookupOrCreateYoutube.lookupCount(parentButton.getText(), parentButton.getName());
 	}
 	
 	private void updateCount()
@@ -430,6 +436,7 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 		listView.clearListViewPanel();
 		ycvs = LookupOrCreateYoutube.lookup(parentButton.getText(), parentButton.getName());
 		listView.buildListViewPanel(null, ycvs);
+		lookupTotalCount();
 		updateCount();
 	}
 
