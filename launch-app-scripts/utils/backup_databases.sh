@@ -1,4 +1,4 @@
 #!/bin/bash
 cd "$(dirname "$0")"
-cd ..
+cd ../../
 java -jar Application\ Builder.jar "Properties/data/BackupDatabase.xml"
