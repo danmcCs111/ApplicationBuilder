@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 
-import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -150,9 +149,9 @@ public class ColorTemplate
 			return;
 		}
 		
-		if (container instanceof AbstractButton ) 
+		if (container instanceof JButton) 
         {
-			AbstractButton ab = (AbstractButton) container;
+			JButton ab = (JButton) container;
         	ab.setBackground(c);
         } 
 		else if(container instanceof JToggleButton)
