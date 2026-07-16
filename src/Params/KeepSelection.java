@@ -24,6 +24,7 @@ import WidgetComponentInterfaces.ButtonArray;
 import WidgetComponentInterfaces.ImageReader;
 import WidgetComponents.JButtonArray;
 import WidgetComponents.JButtonLengthLimited;
+import WidgetComponents.OpenVideoChannelsUpdater;
 import WidgetExtensionInterfaces.ShapeDrawingCollectionLoad;
 
 public class KeepSelection implements ShapeDrawingCollectionLoad, Comparator<KeepSelection>
@@ -46,7 +47,8 @@ public class KeepSelection implements ShapeDrawingCollectionLoad, Comparator<Kee
 		img,
 		previewImage;
 	private ImageIcon
-		imgIcon;
+		imgIconListUpdate,
+		imgIconSmall;
 	private String 
 		path,
 		fullText,
@@ -158,14 +160,24 @@ public class KeepSelection implements ShapeDrawingCollectionLoad, Comparator<Kee
 		return this.path;
 	}
 	
-	public ImageIcon getImageIcon()
+	public ImageIcon getImageIconListSelectionSmall()
 	{
-		if(imgIcon == null)
+		if(imgIconListUpdate == null)
 		{
 			Image im = getImg();
-			imgIcon = ImageReader.getScaledImageIcon(im, IMAGE_ICON_HEIGHT);
+			imgIconListUpdate = ImageReader.getScaledImageIcon(im, OpenVideoChannelsUpdater.IMAGE_SCALE);
 		}
-		return imgIcon;
+		return imgIconListUpdate;
+	}
+	
+	public ImageIcon getImageIconSmall()
+	{
+		if(imgIconSmall == null)
+		{
+			Image im = getImg();
+			imgIconSmall = ImageReader.getScaledImageIcon(im, IMAGE_ICON_HEIGHT);
+		}
+		return imgIconSmall;
 	}
 	
 	public Image getImg()

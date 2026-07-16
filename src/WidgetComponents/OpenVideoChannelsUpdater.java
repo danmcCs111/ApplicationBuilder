@@ -51,8 +51,9 @@ public class OpenVideoChannelsUpdater extends JFrame
 		UPDATE_BUTTON_TEXT = "Update",
 		CANCEL_BUTTON_TEXT = "Cancel",
 		CLOSE_BUTTON_TEXT = "Close";
+	public static int
+		IMAGE_SCALE = 25;
 	private static int
-		IMAGE_SCALE = 25,
 		CHARACTER_LIMIT = 35;
 	public static final String
 		PROPERTIES_VALUE_DELIMITER = "=",
@@ -229,6 +230,22 @@ public class OpenVideoChannelsUpdater extends JFrame
 		controlPanel.add(allCheckBox);
 	}
 	
+	public void rebuildCheckBoxPanel(List<JButtonLengthLimited> jblls, List<KeepSelection> kss)
+	{
+		this.jblls = jblls;
+		this.kss = kss;
+		
+		checkBoxLatestDate.clear();
+		checkBoxes.clear();
+		checkBoxPanel.removeAll();
+		
+		buildCheckBoxPanel();
+		
+		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
+		ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
+		ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
+	}
+	
 	private void buildCheckBoxPanel()
 	{
 		int count = 0;
@@ -255,7 +272,7 @@ public class OpenVideoChannelsUpdater extends JFrame
 				}
 				else
 				{
-					defIcon = kss.get(count).getImageIcon();
+					defIcon = kss.get(count).getImageIconListSelectionSmall();
 				}
 				
 				cb.setIcon(defIcon);

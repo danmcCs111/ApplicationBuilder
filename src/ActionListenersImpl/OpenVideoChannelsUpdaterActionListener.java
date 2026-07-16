@@ -36,18 +36,24 @@ public class OpenVideoChannelsUpdaterActionListener implements ActionListener
 		}
 		if(ovcu != null)
 		{
-			ovcu.dispose();
+			ovcu.rebuildCheckBoxPanel(jblls, kss);
+			ovcu.setVisible(true);
+//			ovcu.dispose();
 		}
-		Runnable r = new Runnable() {
-			
-			@Override
-			public void run() {
-				ovcu = new OpenVideoChannelsUpdater(jblls, kss);
-				GraphicsUtil.rightEdgeTopWindow(ba.getRootPane().getParent(), ovcu);
-			}
-		};
-		Thread t = new Thread(r);
-		t.start();
+		else 
+		{
+			Runnable r = new Runnable() 
+			{
+				@Override
+				public void run() 
+				{
+					ovcu = new OpenVideoChannelsUpdater(jblls, kss);
+					GraphicsUtil.rightEdgeTopWindow(ba.getRootPane().getParent(), ovcu);
+				}
+			};
+			Thread t = new Thread(r);
+			t.start();
+		}
 	}
 
 }

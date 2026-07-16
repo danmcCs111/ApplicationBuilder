@@ -31,7 +31,7 @@ public class OpenAllVideoChannelsActionListener implements ActionListener
 		LinkedHashMap<JButtonLengthLimited, ImageIcon> buttonAndIcon = new LinkedHashMap<JButtonLengthLimited, ImageIcon>();
 		for(KeepSelection ks : kss)
 		{
-			buttonAndIcon.put(ks.getJButtonLengthLimited(), ks.getImageIcon());
+			buttonAndIcon.put(ks.getJButtonLengthLimited(), ks.getImageIconSmall());
 		}
 		if(avop != null)
 		{
