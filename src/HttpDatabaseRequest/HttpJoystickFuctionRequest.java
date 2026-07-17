@@ -1,6 +1,7 @@
 package HttpDatabaseRequest;
 
 import java.awt.Frame;
+import java.awt.Point;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.HashMap;
 
 import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 
 import ActionListeners.ArrayActionListener;
 import ActionListenersImpl.LaunchUrlActionListener;
@@ -103,6 +105,21 @@ public class HttpJoystickFuctionRequest implements ArrayActionListener
 		return HttpJoystickFuctionRequest.ycvs;
 	}
 	
+	private static void shiftMainWindow(int xPosShift, int yPosShift)
+	{
+		JFrame frame = WidgetBuildController.getInstance().getFrame();
+		Point loc = frame.getLocationOnScreen();
+		if(xPosShift != 0)
+		{
+			loc.x += xPosShift;
+		}
+		if(yPosShift != 0)
+		{
+			loc.y += yPosShift;
+		}
+		frame.setLocation(loc);
+	}
+	
 	public static void process(String responseXml)
 	{
 		System.out.println(responseXml);
@@ -125,23 +142,37 @@ public class HttpJoystickFuctionRequest implements ArrayActionListener
 			else if(responseXml.startsWith("RIGHTX"))
 			{
 				//shift
+				int count = 0;
 				for(KeepSelection ks : ba.getKeepSelection())
 				{
 					if(ks.getFrame().getExtendedState() == Frame.NORMAL)
 					{
 						ShiftDialog.updateKeep(ks, true, false, positive?SHIFT_AMOUNT:-SHIFT_AMOUNT);
+						count++;
 					}
+				}
+				if(count == 0)
+				{
+					//shift main window.
+					shiftMainWindow(positive?SHIFT_AMOUNT:-SHIFT_AMOUNT, 0);
 				}
 			}
 			else if(responseXml.startsWith("RIGHTY"))
 			{
 				//shift
+				int count = 0;
 				for(KeepSelection ks : ba.getKeepSelection())
 				{
 					if(ks.getFrame().getExtendedState() == Frame.NORMAL)
 					{
 						ShiftDialog.updateKeep(ks, false, true, positive?-SHIFT_AMOUNT:SHIFT_AMOUNT);
+						count++;
 					}
+				}
+				if(count == 0)
+				{
+					//shift main window.
+					shiftMainWindow(0, positive?-SHIFT_AMOUNT:SHIFT_AMOUNT);
 				}
 			}
 			
@@ -189,6 +220,21 @@ public class HttpJoystickFuctionRequest implements ArrayActionListener
 			}
 			
 		}//End open bookmarks req.
+		else //still shift window if no bookmarks.
+		{
+			boolean positive = responseXml.endsWith("true");
+			if(responseXml.startsWith("RIGHTX"))
+			{
+				//shift main window.
+				shiftMainWindow(positive?SHIFT_AMOUNT:-SHIFT_AMOUNT, 0);
+			}
+			else if(responseXml.startsWith("RIGHTY"))
+			{
+				//shift main window.
+				shiftMainWindow(0, positive?-SHIFT_AMOUNT:SHIFT_AMOUNT);
+			}
+		}
+		
 		if(responseXml.equals("START"))
 		{
 			ba.toggleFocusButtonArray();
