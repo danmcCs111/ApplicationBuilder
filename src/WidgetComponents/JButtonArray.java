@@ -955,6 +955,7 @@ PostWidgetBuildProcessing, ButtonArray
 		RegisterArrayActionListener.addListener(this);
 		HttpRequestProcessor hrp = new HttpRequestProcessor(this, ProcessType.parent);
 		hrp.listenHttp();
+		
 	}
 
 	private void addDragAndDropListener(Component target)

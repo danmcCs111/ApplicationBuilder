@@ -9,9 +9,13 @@ import WidgetUtility.WidgetCreatorProperty;
 
 public class ExtendedSetLookAndFeel implements ExtendedAttributeParam
 {
+	private LookAndFeelClassName 
+		lookAndFeel;
+	
 	public void applyMethod(LookAndFeelClassName arg0, WidgetCreatorProperty widgetProperties)
 	{
 		try {
+			lookAndFeel = arg0;
 			UIManager.setLookAndFeel(arg0.getLookAndFeel());
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -22,5 +26,10 @@ public class ExtendedSetLookAndFeel implements ExtendedAttributeParam
 		} catch (UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public LookAndFeelClassName getLookAndFeelClassName()
+	{
+		return lookAndFeel;
 	}
 }

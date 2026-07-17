@@ -24,7 +24,7 @@ public class HttpRequestProcessor
 	private HttpRequestHandler
 		hrh;
 	private Point
-		dialogLocation = null;
+		dialogLocation = new Point(200,200);
 	private boolean 
 		overrideDialog = false;
 
@@ -89,16 +89,13 @@ public class HttpRequestProcessor
 						JOptionPane.ERROR_MESSAGE
 				);
 				JDialog dialog = optionPane.createDialog(ba, "Error");
-				if(ba == null)
+				if(ba != null && ba.isShowing())
 				{
-					if(dialogLocation != null)
-					{
-						dialog.setLocation(dialogLocation);
-					}
+					GraphicsUtil.centerWindow(ba, dialog);
 				}
 				else
 				{
-					GraphicsUtil.centerWindow(ba, dialog);
+					dialog.setLocation(dialogLocation);
 				}
 				dialog.setVisible(true);
 				System.exit(1);
