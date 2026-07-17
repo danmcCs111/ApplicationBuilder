@@ -1,7 +1,7 @@
 #!/bin/bash
 
 source ./packages.sh
-mvnPath="`pwd`/mavenInstall/apache-maven-3.9.12/bin/mvn"
+mvnPath="`pwd`/mavenInstall/apache-maven-*/bin/mvn"
 
 for proj in ${projects[@]}
 do
