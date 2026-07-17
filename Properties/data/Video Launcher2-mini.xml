@@ -1,5 +1,5 @@
 <Build>
-	<JFrame addWindowListener="WindowListeners.ProcessExecutorWindowListener" extendedSetLookAndFeel="CrossPlatform" extendedSetQueryEndpointAddress="http://localhost:" extendedSetQueryPortNumber="8000" extendedSetScrollBarDimension="18, 18" extendedSetupTaskbar="./src/ApplicationBuilder/launch_xsm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="115, 340" setMinimumSize="425, 163" setName="VideoPlayer" setResizable="True" setSize="425, 163" setTitle="Video Launcher" >
+	<JFrame addWindowListener="WindowListeners.ProcessExecutorWindowListener" extendedSetLookAndFeel="CrossPlatform" extendedSetQueryEndpointAddress="http://localhost:" extendedSetQueryPortNumber="8000" extendedSetScrollBarDimension="18, 18" extendedSetupTaskbar="./src/ApplicationBuilder/launch_xsm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="115, 365" setMinimumSize="425, 163" setName="VideoPlayer" setResizable="True" setSize="425, 163" setTitle="Video Launcher" >
 		<JPanel extendedLayoutApplyParent="Center" setLayout="java.awt.BorderLayout" >
 			<JScrollPane extendedLayoutApplyParent="Center" extendedScrollBarSetUnit="15" extendedSetScrollBackgroundForegroundColor="51, 51, 51, 0, 0, 0" setName="scrollPane" >
 				<SwappableCollection extendedArrayProcessingPath="./VideoLaunchFiles/YoutubeChannels/@.url; ./VideoLaunchFiles/RokuChannels/@.url; ./VideoLaunchFiles/Music/@.url; ./VideoLaunchFiles/AmazonVideos/@.url; ./VideoLaunchFiles/Tubi/@.url; ./VideoLaunchFiles/YoutubeFreeMovies2/@.url; ./VideoLaunchFiles/RokuVideos/@.url" extendedSetViewportView="" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" setName="swapVideos" >
@@ -75,10 +75,10 @@
 				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ApplicationBuilder|%Fn./Properties/data/BackupDatabase.xml" extendedLayoutApplyParent="" setBackground="51, 51, 51" setForeground="255, 255, 255" setText="Backup Database" setToolTipText="Launch Backup Database Tool" >
 				</JMenuItem>
 			</JMenu>
-			<JMenu extendedLayoutApplyParent="" setBackground="51, 51, 51" setForeground="255, 255, 255" setText="Launch" setOpaque="True" >
+			<JMenu extendedLayoutApplyParent="" setBackground="51, 51, 51" setForeground="255, 255, 255" setOpaque="True" setText="Launch" >
 				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellExecutor|%Fn./plugin-projects/DatabaseAdapterService/runDatabase.sh" extendedLayoutApplyParent="" setBackground="51, 51, 51" setForeground="255, 255, 255" setText="Database Service" setToolTipText="Manages and retrieves stored database content" >
 				</JMenuItem>
-				<JMenu extendedLayoutApplyParent="" setBackground="51, 51, 51" setForeground="255, 255, 255" setText="Channels" setOpaque="True" >
+				<JMenu extendedLayoutApplyParent="" setBackground="51, 51, 51" setForeground="255, 255, 255" setOpaque="True" setText="Channels" >
 					<JMenuItem extendedLayoutApplyParent="" extendedOpenVideoChannelsUpdater="channels" setBackground="51, 51, 51" setForeground="255, 255, 255" setText="Update Open Channels" >
 					</JMenuItem>
 					<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-jar|%Fn./Application Builder.jar|%Fn./Properties/data/VideoChannelsPlayer.xml" extendedLayoutApplyParent="" setBackground="51, 51, 51" setForeground="255, 255, 255" setText="Video Channels Player" >
@@ -88,7 +88,7 @@
 				</JMenuItem>
 				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ApplicationBuilder|%Fn./Properties/data/ScheduledCommandListEditor.xml" extendedLayoutApplyParent="" setBackground="51, 51, 51" setForeground="255, 255, 255" setText="Reload Tool" setToolTipText="Launch a process to recycle and retrieve new content" >
 				</JMenuItem>
-				<JMenu extendedLayoutApplyParent="" setBackground="51, 51, 51" setForeground="255, 255, 255" setText="Remote" setOpaque="True" >
+				<JMenu extendedLayoutApplyParent="" setBackground="51, 51, 51" setForeground="255, 255, 255" setOpaque="True" setText="Remote" >
 					<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellExecutor|%Fn./plugin-projects/JoystickDriver/joystick.sh" extendedLayoutApplyParent="" setBackground="51, 51, 51" setForeground="255, 255, 255" setText="Joystick Driver1" setToolTipText="For Controlling Input through interprocess communication" >
 					</JMenuItem>
 					<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellExecutor|%Fn./plugin-projects/joystick_mouse_config/launch_antimicrox-windows.sh" extendedLayoutApplyParent="" setBackground="51, 51, 51" setForeground="255, 255, 255" setText="Joystick Driver2" setToolTipText="For Controlling Input with antimicrox" >
