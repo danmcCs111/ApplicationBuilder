@@ -77,6 +77,7 @@ import WidgetExtensions.ExtendedOpenVideoChannelsUpdater;
 import WidgetExtensions.ExtendedPageParserCollection;
 import WidgetExtensions.ExtendedRefreshAction;
 import WidgetExtensions.ExtendedRestoreActionListener;
+import WidgetExtensions.ExtendedReturnLocation;
 import WidgetExtensions.ExtendedSaveActionListener;
 import WidgetExtensions.ExtendedScheduledCommandStartActionListener;
 import WidgetExtensions.ExtendedScrollBarSetUnit;
@@ -200,7 +201,8 @@ public class WidgetAttributes
 				ExtendedAttributeParam.getMethodDefinition(ExtendedRefreshAction.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedAllVideoChannelsOpenedList.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedOpenVideoChannelsUpdater.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
-				ExtendedAttributeParam.getMethodDefinition(ExtendedScheduledCommandStartActionListener.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
+				ExtendedAttributeParam.getMethodDefinition(ExtendedScheduledCommandStartActionListener.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedReturnLocation.class, ExtendedMethodArgDef.ExtendedPoint.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(JTextField.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
@@ -248,7 +250,8 @@ public class WidgetAttributes
 				ExtendedAttributeParam.getMethodDefinition(ExtendedRefreshAction.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedAllVideoChannelsOpenedList.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedOpenVideoChannelsUpdater.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
-				ExtendedAttributeParam.getMethodDefinition(ExtendedCommandExecution.class, ExtendedMethodArgDef.CommandBuildSelection.getMethodArgDef())
+				ExtendedAttributeParam.getMethodDefinition(ExtendedCommandExecution.class, ExtendedMethodArgDef.CommandBuildSelection.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedReturnLocation.class, ExtendedMethodArgDef.ExtendedPoint.getMethodArgDef())
 		});
 		
 		//EXTENDED WIDGETS

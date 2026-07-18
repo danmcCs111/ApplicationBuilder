@@ -1,7 +1,6 @@
 package WidgetComponents;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -10,13 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JToggleButton;
-import javax.swing.UIManager;
 
 import ApplicationBuilder.ShellHeadlessExecutor;
 import Graphics2D.ColorTemplate;
@@ -301,29 +298,5 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 		this.setLayout(new BorderLayout());
 		buildWidgets();
 	}
-	
-    public static void main(String[] args) {
-        try {
-            // 1. Tell Swing to draw the window decorations instead of the OS
-            JFrame.setDefaultLookAndFeelDecorated(true);
-            
-            // 2. Change the active and inactive title bar background colors
-            UIManager.put("activeCaption", new javax.swing.plaf.ColorUIResource(Color.DARK_GRAY));
-            UIManager.put("inactiveCaption", new javax.swing.plaf.ColorUIResource(Color.LIGHT_GRAY));
-            
-            // 3. Change the text color on the title bar
-            UIManager.put("activeCaptionText", new javax.swing.plaf.ColorUIResource(Color.WHITE));
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        // Standard JFrame creation
-        JFrame frame = new JFrame("Custom Title Bar Color");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 300);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-    }
 	
 }
