@@ -26,6 +26,7 @@ import ObjectTypeConversionEditors.DirectorySelectionEditor;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
 import Properties.StringUtility;
+import WidgetComponentInterfaces.FileView;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
 
@@ -35,6 +36,8 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 	
 	private static String
 		FILE_LIST_FORMAT = "<arg> [<arg>] (size: <arg> KB)",
+		STATUS_FORMAT = "Replicating: <arg>",
+		REPLACE_ARG = "<arg>",
 		REPLICATE_COMMAND = "rsync.sh",
 		SAVE_BUTTON_TEXT = "Replicate",
 		CLOSE_BUTTON_TEXT = "Close",
@@ -59,11 +62,12 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 	
 	private JScrollPane
 		scrollPane;
-	private JList<String>
+	private JList<FileView>
 		databasesList;
 	private JLabel
 		originLabel,
-		replicaLabel;
+		replicaLabel,
+		statusLabel;
 	private DirectorySelectionEditor
 		dsSelectionReplicaEditor,
 		dsSelectionOriginEditor;
@@ -86,10 +90,17 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 	{
 		FILE_LIST_FORMAT = format;
 	}
-	
+	public static void setStatusFormat(String format)
+	{
+		STATUS_FORMAT = format;
+	}
 	public static void setByteSizeConvert(int convert)
 	{
 		BYTE_SIZE_CONVERT = convert;
+	}
+	public static void setReplaceArg(String replArg)
+	{
+		REPLACE_ARG = replArg;
 	}
 	
 	public static void setReplicateLocation(DirectorySelection ds)
@@ -110,12 +121,12 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 	
 	private void buildWidgets()
 	{
-		databasesList = new JList<String>();
+		databasesList = new JList<FileView>();
 		scrollPane = new JScrollPane();
 		scrollPane.setViewportView(databasesList);
 		
-		JScrollPane northScrollPane = buildNorthPanel();
 		JPanel southPanel = buildSouthPanel();
+		JScrollPane northScrollPane = buildNorthPanel();
 		
 		this.add(northScrollPane, BorderLayout.NORTH);
 		this.add(scrollPane, BorderLayout.CENTER);
@@ -166,22 +177,30 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 		
 		if(DATABASES_REPLICA_LOCATION != null)
 		{
-			dsSelectionReplicaEditor.setComponentValue(new DirectorySelection(DATABASES_REPLICA_LOCATION, false));
+			DirectorySelection dsR = new DirectorySelection(DATABASES_REPLICA_LOCATION, false);
+			dsSelectionReplicaEditor.setComponentValue(dsR);
+			saveButton.setEnabled(dsR != null);
 		}
 		else
 		{
 			dsSelectionReplicaEditor.setComponentValue(null);
+			saveButton.setEnabled(false);
 		}
 		dsSelectionReplicaEditor.addValueChangedListener(new ValueChangedListener() {
 			@Override
 			public void valueChanged(Object o) {
+				DirectorySelection dsR =  (DirectorySelection) dsSelectionReplicaEditor.getComponentValueObj();
 				if(flipOriginAndReplica.isSelected())
 				{
-					DirectorySelection dsR =  (DirectorySelection) dsSelectionReplicaEditor.getComponentValueObj();
 					refreshDatabasesList(dsR);
+				}
+				if(dsR != null)
+				{
+					saveButton.setEnabled(true);
 				}
 			}
 		});
+		
 		originLabel = new JLabel(ORIGIN_LABEL);
 		originLabel.setToolTipText(ORIGIN_TOOLTIP_LABEL);
 		innerPanelO.add(originLabel);
@@ -202,8 +221,16 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 	
 	private JPanel buildSouthPanel()
 	{
-		JPanel saveCancelPanel = new JPanel();
-		saveCancelPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		JPanel
+			innerRightPanel = new JPanel(),
+			innerLeftPanel = new JPanel(),
+			saveCancelPanel = new JPanel();
+		saveCancelPanel.setLayout(new BorderLayout());
+		innerLeftPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+		innerRightPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		
+		statusLabel = new JLabel();
+		innerLeftPanel.add(statusLabel);
 		
 		flipOriginAndReplica = new JToggleButton(FLIP_ORIGIN_REPLICA_TEXT);
 		flipOriginAndReplica.setToolTipText(FLIP_ORIGIN_REPLICA_TOOLTIP_TEXT);
@@ -238,6 +265,7 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 		});
 		
 		saveButton = new JButton(SAVE_BUTTON_TEXT);
+		saveButton.setEnabled(false);
 		saveButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -260,9 +288,12 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 			}
 		});
 		
-		saveCancelPanel.add(flipOriginAndReplica);
-		saveCancelPanel.add(saveButton);
-		saveCancelPanel.add(cancelButton);
+		innerRightPanel.add(flipOriginAndReplica);
+		innerRightPanel.add(saveButton);
+		innerRightPanel.add(cancelButton);
+		
+		saveCancelPanel.add(innerLeftPanel, BorderLayout.WEST);
+		saveCancelPanel.add(innerRightPanel, BorderLayout.EAST);
 		
 		return saveCancelPanel;
 	}
@@ -271,17 +302,21 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 	{
 		DirectorySelection 
 			dsR = (DirectorySelection) dsSelectionReplicaEditor.getComponentValueObj();
-		List<String> selectedValues = databasesList.getSelectedValuesList();
+		List<FileView> selectedValues = databasesList.getSelectedValuesList();
+		
+		if(dsR == null)
+			return;
 		
 		cancelButton.setText(CANCEL_BUTTON_TEXT);
 		saveButton.setEnabled(false);
+		flipOriginAndReplica.setEnabled(false);
 		
 		Runnable r = new Runnable()
 		{
 			@Override
 			public void run() 
 			{
-				for(String select : selectedValues)
+				for(FileView select : selectedValues)
 				{
 					if(cancelFlag)
 						break;
@@ -305,13 +340,18 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 							dsR.getPathLinux().trim() + select + " "
 						};
 					}
-					
+					String stat = STATUS_FORMAT;
+					stat = StringUtility.replaceArg(STATUS_FORMAT, REPLACE_ARG, select.getFilename());
+					statusLabel.setText(stat);
 					LoggingMessages.printOut(LoggingMessages.combine(args));
 					ShellHeadlessExecutor.loadHideOption();
 					ShellHeadlessExecutor.run(args, true);
 				}
+				
 				saveButton.setEnabled(true);
+				flipOriginAndReplica.setEnabled(true);
 				cancelButton.setText(CLOSE_BUTTON_TEXT);
+				statusLabel.setText("");
 			}
 		};
 		Thread t = new Thread(r);
@@ -323,13 +363,14 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 	{
 		if(ds == null)
 		{
-			databasesList.setListData(new String [] {});
+			databasesList.setListData(new FileView [] {});
 		}
 		else
 		{
 			ArrayList<String> 
-				filesList = PathUtility.getOSFileList(ds.getFullPath(), FILE_FILTER),
-				filesFormatted = new ArrayList<String>();
+				filesList = PathUtility.getOSFileList(ds.getFullPath(), FILE_FILTER);
+			ArrayList<FileView>
+				filesFormatted = new ArrayList<FileView>();
 			
 			for(String fileStr : filesList)
 			{
@@ -345,12 +386,13 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 				
 				filename = StringUtility.replaceArg(
 						filename, 
-						"<arg>", 
+						REPLACE_ARG, 
 						new String [] {ldt.toLocalDate().toString(), fileStr, sizeConvert + ""}
 				);
-				filesFormatted.add(filename);
+				FileView fv = new FileView(fileStr, filename);
+				filesFormatted.add(fv);
 			}
-			databasesList.setListData(filesFormatted.toArray(new String[] {}));
+			databasesList.setListData(filesFormatted.toArray(new FileView[] {}));
 		}
 		this.validate();
 	}
