@@ -5,6 +5,8 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +25,7 @@ import ObjectTypeConversion.ValueChangedListener;
 import ObjectTypeConversionEditors.DirectorySelectionEditor;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
+import Properties.StringUtility;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
 
@@ -31,6 +34,7 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 	private static final long serialVersionUID = 1L;
 	
 	private static String
+		FILE_LIST_FORMAT = "<arg> [<arg>] (size: <arg> KB)",
 		REPLICATE_COMMAND = "rsync.sh",
 		SAVE_BUTTON_TEXT = "Replicate",
 		CLOSE_BUTTON_TEXT = "Close",
@@ -44,6 +48,8 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 		DATABASES_ORIGIN_LOCATION = "./plugin-projects/SQLiteInstall/ ",
 		FILE_FILTER = ".db",
 		DATABASES_REPLICA_LOCATION = null;
+	private static long
+		BYTE_SIZE_CONVERT = 1024; //in KB
 	
 	private static FileSelection
 		replicateCommand = new FileSelection(
@@ -74,6 +80,16 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 	public ReplicateDatabase()
 	{
 		
+	}
+	
+	public static void setFileListFormat(String format)
+	{
+		FILE_LIST_FORMAT = format;
+	}
+	
+	public static void setByteSizeConvert(int convert)
+	{
+		BYTE_SIZE_CONVERT = convert;
 	}
 	
 	public static void setReplicateLocation(DirectorySelection ds)
@@ -311,8 +327,30 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 		}
 		else
 		{
-			ArrayList<String> filesList = PathUtility.getOSFileList(ds.getFullPath(), FILE_FILTER);
-			databasesList.setListData(filesList.toArray(new String[] {}));
+			ArrayList<String> 
+				filesList = PathUtility.getOSFileList(ds.getFullPath(), FILE_FILTER),
+				filesFormatted = new ArrayList<String>();
+			
+			for(String fileStr : filesList)
+			{
+				File 
+					f = new File(ds.getFullPath().trim() + fileStr);
+				long 
+					byteSize = PathUtility.getSizeOfFileInBytes(f),
+					sizeConvert = byteSize / BYTE_SIZE_CONVERT;
+				String 
+					filename = FILE_LIST_FORMAT;
+				LocalDateTime 
+					ldt = PathUtility.getFileModifiedDate(f);
+				
+				filename = StringUtility.replaceArg(
+						filename, 
+						"<arg>", 
+						new String [] {ldt.toLocalDate().toString(), fileStr, sizeConvert + ""}
+				);
+				filesFormatted.add(filename);
+			}
+			databasesList.setListData(filesFormatted.toArray(new String[] {}));
 		}
 		this.validate();
 	}

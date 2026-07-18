@@ -9,6 +9,10 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.attribute.FileTime;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -111,6 +115,33 @@ public interface PathUtility
 			LoggingMessages.printOut(f.getName());
 		}
 		return files;
+	}
+	
+	public static long getSizeOfFileInBytes(File f)
+	{
+		long size = -1;
+		Path path = Paths.get(f.getAbsolutePath());
+		try {
+			size = Files.size(path);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return size;
+	}
+	
+	public static LocalDateTime getFileModifiedDate(File f)
+	{
+		LocalDateTime localDateTime = null;
+		Path path = Paths.get(f.getAbsolutePath());
+		try {
+			FileTime ft = Files.getLastModifiedTime(path);
+			Instant instant = ft.toInstant();
+			ZoneId zone = ZoneId.systemDefault(); 
+			localDateTime = LocalDateTime.ofInstant(instant, zone);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return localDateTime;
 	}
 	
 	public static boolean isFileExisting(String destinationPath)

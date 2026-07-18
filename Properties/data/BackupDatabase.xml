@@ -1,6 +1,6 @@
 <Build>
-	<JFrame extendedSetLookAndFeel="CrossPlatform" extendedSetupTaskbar="./src/ApplicationBuilder/build-icon_sm.png" setDefaultCloseOperation="3" setLocation="300, 300" setMinimumSize="350, 400" setTitle="Replicate Database Tool" >
-		<ReplicateDatabase extendedLayoutApplyParent="" extendedSetBackgroundPanelColorTemplate="51, 51, 51" extendedSetButtonBackgroundColorTemplate="0, 0, 0" extendedSetButtonForegroundColorTemplate="255, 255, 255" setDatabasesOriginLocation="./plugin-projects/SQLiteInstall/ " >
+	<JFrame extendedSetLookAndFeel="CrossPlatform" extendedSetupTaskbar="./src/ApplicationBuilder/build-icon_sm.png" setDefaultCloseOperation="3" setLocation="300, 300" setMinimumSize="450, 400" setTitle="Replicate Database Tool" >
+		<ReplicateDatabase extendedLayoutApplyParent="" extendedSetBackgroundPanelColorTemplate="51, 51, 51" extendedSetButtonBackgroundColorTemplate="0, 0, 0" extendedSetButtonForegroundColorTemplate="255, 255, 255" setByteSizeConvert="1024" setDatabasesOriginLocation="./plugin-projects/SQLiteInstall/ " setFileListFormat="&lt;arg&gt; [&lt;arg&gt;] (size: &lt;arg&gt; KB)" >
 		</ReplicateDatabase>
 	</JFrame>
 </Build>
