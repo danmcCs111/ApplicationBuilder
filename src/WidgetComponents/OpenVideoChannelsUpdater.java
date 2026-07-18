@@ -35,6 +35,7 @@ import ObjectTypeConversion.FileSelection;
 import Params.KeepSelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
+import Properties.StringUtility;
 import WidgetComponentInterfaces.ImageReader;
 import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
 import WidgetUtility.FileListOptionGenerator;
@@ -46,6 +47,7 @@ public class OpenVideoChannelsUpdater extends JFrame
 	private static String
 		FRAME_ICON = "./src/ApplicationBuilder/build-icon_sm.png",
 		TITLE_TEXT = "Open Channels Updater",
+		CHECKBOX_FORMAT_TEXT = "<arg> - <arg> [ <arg> ] -- (count: <arg>)",
 		ALL_CHECKBOX_TEXT = "Select All",
 		EDIT_BUTTON_TEXT = "Edit",
 		UPDATE_BUTTON_TEXT = "Update",
@@ -292,6 +294,7 @@ public class OpenVideoChannelsUpdater extends JFrame
 		Date 
 			latestDate = null,
 			firstDate = null;
+		int count = LookupOrCreateYoutube.lookupCount(text, name);
 		
 		if(!parentIdAndLatestDate.keySet().iterator().hasNext())
 			return null;
@@ -304,9 +307,17 @@ public class OpenVideoChannelsUpdater extends JFrame
 		}
 		String 
 			dateLatestText = latestDate == null ? "" : SDF_DATE_LABEL.format(latestDate),
-			dateFirstText = firstDate == null ? "" : SDF_DATE_LABEL.format(firstDate);
-				
-		cb.setText(dateLatestText + " - " + dateFirstText + " [ " + text + " ] ");
+			dateFirstText = firstDate == null ? "" : SDF_DATE_LABEL.format(firstDate),
+			displayText = CHECKBOX_FORMAT_TEXT;
+			
+		displayText = StringUtility.replaceArg(
+				displayText, 
+				"<arg>", 
+				new String[] {
+					dateLatestText, dateFirstText, text, count+""
+				}
+		);
+		cb.setText(displayText);
 		cb.setName(text + NAME_DELIMITER + name);
 		
 		checkBoxLatestDate.put(cb, latestDate);
