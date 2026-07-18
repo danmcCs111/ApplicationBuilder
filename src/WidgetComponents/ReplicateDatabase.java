@@ -16,6 +16,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JToggleButton;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import ApplicationBuilder.ShellHeadlessExecutor;
 import Graphics2D.ColorTemplate;
@@ -122,6 +124,20 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 	private void buildWidgets()
 	{
 		databasesList = new JList<FileView>();
+		databasesList.addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				DirectorySelection dsR =  (DirectorySelection) dsSelectionReplicaEditor.getComponentValueObj();
+				if(dsR == null)
+				{
+					enableReplicate(false);
+				}
+				else
+				{
+					enableReplicate(true);
+				}
+			}
+		});
 		scrollPane = new JScrollPane();
 		scrollPane.setViewportView(databasesList);
 		
@@ -179,12 +195,12 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 		{
 			DirectorySelection dsR = new DirectorySelection(DATABASES_REPLICA_LOCATION, false);
 			dsSelectionReplicaEditor.setComponentValue(dsR);
-			saveButton.setEnabled(dsR != null);
+			enableReplicate(dsR != null);
 		}
 		else
 		{
 			dsSelectionReplicaEditor.setComponentValue(null);
-			saveButton.setEnabled(false);
+			enableReplicate(false);
 		}
 		dsSelectionReplicaEditor.addValueChangedListener(new ValueChangedListener() {
 			@Override
@@ -196,7 +212,7 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 				}
 				if(dsR != null)
 				{
-					saveButton.setEnabled(true);
+					enableReplicate(true);
 				}
 			}
 		});
@@ -265,7 +281,7 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 		});
 		
 		saveButton = new JButton(SAVE_BUTTON_TEXT);
-		saveButton.setEnabled(false);
+		enableReplicate(false);
 		saveButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -298,6 +314,19 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 		return saveCancelPanel;
 	}
 	
+	private void enableReplicate(boolean enable)
+	{
+		if(!enable)
+			saveButton.setEnabled(false);
+		
+		else
+		{
+			saveButton.setEnabled(
+					(databasesList.getSelectedIndices().length != 0)
+			);
+		}
+	}
+	
 	private void replicate()
 	{
 		DirectorySelection 
@@ -308,7 +337,7 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 			return;
 		
 		cancelButton.setText(CANCEL_BUTTON_TEXT);
-		saveButton.setEnabled(false);
+		enableReplicate(false);
 		flipOriginAndReplica.setEnabled(false);
 		
 		Runnable r = new Runnable()
@@ -348,7 +377,7 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 					ShellHeadlessExecutor.run(args, true);
 				}
 				
-				saveButton.setEnabled(true);
+				enableReplicate(true);
 				flipOriginAndReplica.setEnabled(true);
 				cancelButton.setText(CLOSE_BUTTON_TEXT);
 				statusLabel.setText("");
