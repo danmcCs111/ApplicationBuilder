@@ -136,12 +136,16 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 		dsSelectionOriginEditor.addValueChangedListener(new ValueChangedListener() {
 			@Override
 			public void valueChanged(Object o) {
-				DirectorySelection dsO =  (DirectorySelection) dsSelectionOriginEditor.getComponentValueObj();
-				setReplicateLocation(dsO);
-				refreshDatabasesList(dsO);
+				if(!flipOriginAndReplica.isSelected())
+				{
+					DirectorySelection dsO =  (DirectorySelection) dsSelectionOriginEditor.getComponentValueObj();
+					setReplicateLocation(dsO);
+					refreshDatabasesList(dsO);
+				}
 			}
 		});
 		DirectorySelection dsO =  (DirectorySelection) dsSelectionOriginEditor.getComponentValueObj();
+		setReplicateLocation(dsO);
 		refreshDatabasesList(dsO);
 		
 		if(DATABASES_REPLICA_LOCATION != null)
@@ -152,6 +156,16 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 		{
 			dsSelectionReplicaEditor.setComponentValue(null);
 		}
+		dsSelectionReplicaEditor.addValueChangedListener(new ValueChangedListener() {
+			@Override
+			public void valueChanged(Object o) {
+				if(flipOriginAndReplica.isSelected())
+				{
+					DirectorySelection dsR =  (DirectorySelection) dsSelectionReplicaEditor.getComponentValueObj();
+					refreshDatabasesList(dsR);
+				}
+			}
+		});
 		originLabel = new JLabel(ORIGIN_LABEL);
 		originLabel.setToolTipText(ORIGIN_TOOLTIP_LABEL);
 		innerPanelO.add(originLabel);
@@ -189,6 +203,9 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 					originLabel.setToolTipText(REPLICA_TOOLTIP_LABEL);
 					replicaLabel.setText(ORIGIN_LABEL);
 					replicaLabel.setToolTipText(ORIGIN_TOOLTIP_LABEL);
+					
+					DirectorySelection dsR =  (DirectorySelection) dsSelectionReplicaEditor.getComponentValueObj();
+					refreshDatabasesList(dsR);
 				}
 				else
 				{
@@ -196,6 +213,10 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 					originLabel.setToolTipText(ORIGIN_TOOLTIP_LABEL);
 					replicaLabel.setText(REPLICA_LABEL);
 					replicaLabel.setToolTipText(REPLICA_TOOLTIP_LABEL);
+					
+					DirectorySelection dsO =  (DirectorySelection) dsSelectionOriginEditor.getComponentValueObj();
+					setReplicateLocation(dsO);
+					refreshDatabasesList(dsO);
 				}
 			}
 		});
@@ -285,10 +306,14 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 	private void refreshDatabasesList(DirectorySelection ds)
 	{
 		if(ds == null)
-			return;
-		
-		ArrayList<String> filesList = PathUtility.getOSFileList(ds.getFullPath(), FILE_FILTER);
-		databasesList.setListData(filesList.toArray(new String[] {}));
+		{
+			databasesList.setListData(new String [] {});
+		}
+		else
+		{
+			ArrayList<String> filesList = PathUtility.getOSFileList(ds.getFullPath(), FILE_FILTER);
+			databasesList.setListData(filesList.toArray(new String[] {}));
+		}
 		this.validate();
 	}
 	
