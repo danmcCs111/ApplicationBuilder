@@ -356,8 +356,8 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 						args = new String [] 
 						{
 							replicateCommand.getPathLinux() + " " +
-							dsR.getPathLinux().trim() + select + " " +
-							select + " " //same location as replicate command.
+							dsR.getPathLinux().trim() + select.getFilename() + " " +
+							select.getFilename() + " " //same location as replicate command.
 						};
 					}
 					else
@@ -365,8 +365,8 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 						args = new String [] 
 						{
 							replicateCommand.getPathLinux() + " " +
-							select + " " + //same location as replicate command.
-							dsR.getPathLinux().trim() + select + " "
+							select.getFilename() + " " + //same location as replicate command.
+							dsR.getPathLinux().trim() + select.getFilename() + " "
 						};
 					}
 					String stat = STATUS_FORMAT;
