@@ -44,7 +44,7 @@ public class VideoChannelPlayerJoy extends VideoChannelPlayer
 		HOME_PAGE_TOOLTIP_TEXT = "[ <arg0> ] - Homepage",
 		TITLE_PREFIX = "Channel | ";
 	private static Dimension 
-		MIN_SIZE = new Dimension(1600, 600);
+		MIN_SIZE = new Dimension(1350, 600);
 	private static int 
 		SIZE = 20,
 		SCROLL_UNIT_INC = 25;
