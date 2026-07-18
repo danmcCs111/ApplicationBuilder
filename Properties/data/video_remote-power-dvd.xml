@@ -1,8 +1,8 @@
 <Build>
 	<JFrame extendedSetupTaskbar="./src/ApplicationBuilder/video-icon.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="170, 700" setMinimumSize="300, 165" setResizable="False" setTitle="PowerDVD" >
-		<JMenuBar extendedSetJMenuBarParent="" >
-			<JMenu extendedLayoutApplyParent="" setText="Open" >
-				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="C:\Program Files\CyberLink\PowerDVD22\PowerDVD.exe" extendedLayoutApplyParent="" setText="PowerDVD" >
+		<JMenuBar extendedSetJMenuBarParent="" setBackground="0, 0, 0" setForeground="255, 255, 255" >
+			<JMenu extendedLayoutApplyParent="" setText="Open" setBackground="0, 0, 0" setForeground="255, 255, 255" >
+				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="C:\Program Files\CyberLink\PowerDVD22\PowerDVD.exe" extendedLayoutApplyParent="" setText="PowerDVD" setBackground="0, 0, 0" setForeground="255, 255, 255" >
 				</JMenuItem>
 			</JMenu>
 		</JMenuBar>

@@ -6,9 +6,9 @@
 			<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/send-pid-key.ahk%Tn read-wintv-pid.txt%Tn -" extendedLayoutApplyParent="" setBackground="102, 0, 0" setForeground="204, 204, 204" setText="[-]" setToolTipText="Channel Down" >
 			</JButton>
 		</JPanel>
-		<JMenuBar extendedSetJMenuBarParent="" >
-			<JMenu extendedLayoutApplyParent="" setText="Open" >
-				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="C:\Program Files (x86)\WinTV\WinTV10\WinTV10.exe" extendedLayoutApplyParent="" setText="WinTv" >
+		<JMenuBar extendedSetJMenuBarParent="" setBackground="0, 0, 0" setForeground="255, 255, 255" >
+			<JMenu extendedLayoutApplyParent="" setBackground="0, 0, 0" setForeground="255, 255, 255" setText="Open" >
+				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="C:\Program Files (x86)\WinTV\WinTV10\WinTV10.exe" extendedLayoutApplyParent="" setBackground="0, 0, 0" setForeground="255, 255, 255" setText="WinTv" >
 				</JMenuItem>
 			</JMenu>
 		</JMenuBar>

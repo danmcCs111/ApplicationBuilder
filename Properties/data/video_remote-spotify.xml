@@ -6,9 +6,9 @@
 			<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/send-pid-key.ahk%Tn read-spotify-pid.txt%Tn ^{Down}" extendedLayoutApplyParent="" setBackground="0, 46, 0" setForeground="204, 204, 204" setText="[-]" setToolTipText="Volume Down" >
 			</JButton>
 		</JPanel>
-		<JMenuBar extendedSetJMenuBarParent="" >
-			<JMenu extendedLayoutApplyParent="" setText="Open" >
-				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="C:\Users\danie\AppData\Local\Microsoft\WindowsApps\Spotify.exe" extendedLayoutApplyParent="" setText="Spotify" >
+		<JMenuBar extendedSetJMenuBarParent="" setBackground="0, 0, 0" setForeground="255, 255, 255" >
+			<JMenu extendedLayoutApplyParent="" setBackground="0, 0, 0" setForeground="255, 255, 255" setText="Open" >
+				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="C:\Users\danie\AppData\Local\Microsoft\WindowsApps\Spotify.exe" extendedLayoutApplyParent="" setBackground="0, 0, 0" setForeground="255, 255, 255" setText="Spotify" >
 				</JMenuItem>
 			</JMenu>
 		</JMenuBar>
