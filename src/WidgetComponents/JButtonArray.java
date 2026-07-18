@@ -30,6 +30,7 @@ import ActionListenersImpl.LaunchUrlActionListener;
 import ActionListenersImpl.NavigationButtonActionListener;
 import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
+import HttpDatabaseRequest.HttpJoystickFuctionRequest;
 import HttpDatabaseRequest.HttpRequestHandler.ProcessType;
 import HttpDatabaseRequest.HttpRequestProcessor;
 import MouseListenersImpl.FrameMouseDragListener;
@@ -147,6 +148,15 @@ PostWidgetBuildProcessing, ButtonArray
 	public JButtonArray()
 	{
 		
+	}
+	
+	public static void setControllerPlaceHome(Point loc)
+	{
+		HttpJoystickFuctionRequest.setMainWindowPlaceHome(loc);
+	}
+	public static void setControllerShiftAmount(int shiftPixel)
+	{
+		HttpJoystickFuctionRequest.setShiftAmount(shiftPixel);
 	}
 	
 	public static void setAltFontSize(int size)

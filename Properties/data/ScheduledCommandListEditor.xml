@@ -1,20 +1,20 @@
 <Build>
 	<JFrame extendedSetLookAndFeel="CrossPlatform" extendedSetupTaskbar="./src/ApplicationBuilder/build-icon_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="300, 300" setMinimumSize="400, 300" setTitle="Scheduled Command Editor" >
 		<JPanel extendedLayoutApplyParent="Center" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" >
-			<ScheduledCommandList extendedLayoutApplyParent="North" extendedSetButtonBackgroundColorTemplate="102, 102, 102" extendedSetButtonForegroundColorTemplate="255, 255, 255" setDeleteBackgroundColor="51, 51, 51" setDeleteForegroundColor="255, 0, 12" setLayout="java.awt.GridLayout" setName="scheduledCommandList" extendedSetBackgroundPanelColorTemplate="51, 51, 51" >
+			<ScheduledCommandList extendedLayoutApplyParent="North" extendedSetBackgroundPanelColorTemplate="51, 51, 51" extendedSetButtonBackgroundColorTemplate="102, 102, 102" extendedSetButtonForegroundColorTemplate="255, 255, 255" setDeleteBackgroundColor="51, 51, 51" setDeleteForegroundColor="255, 0, 12" setLayout="java.awt.GridLayout" setName="scheduledCommandList" >
 			</ScheduledCommandList>
 		</JPanel>
 		<JPanel extendedLayoutApplyParent="South" setBackground="51, 51, 51" >
 			<JButton extendedLayoutApplyParent="" extendedScheduledCommandStartActionListener="scheduledCommandList" setBackground="102, 102, 102" setForeground="255, 255, 255" setText="Run" setToolTipText="Start Execution Scheduler" >
 			</JButton>
 		</JPanel>
-		<JMenuBar extendedSetJMenuBarParent="" >
-			<JMenu extendedLayoutApplyParent="" setText="File" >
-				<JMenuItem extendedLayoutApplyParent="" extendedNewFileActionListener="scheduledCommandList" setText="New" >
+		<JMenuBar extendedSetJMenuBarParent="" setBackground="51, 51, 51" setForeground="255, 255, 255" >
+			<JMenu extendedLayoutApplyParent="" setBackground="51, 51, 51" setForeground="255, 255, 255" setOpaque="True" setText="File" >
+				<JMenuItem extendedLayoutApplyParent="" extendedNewFileActionListener="scheduledCommandList" setBackground="51, 51, 51" setForeground="255, 255, 255" setText="New" >
 				</JMenuItem>
-				<JMenuItem extendedLayoutApplyParent="" extendedSaveActionListener="scheduledCommandList" setText="Save" >
+				<JMenuItem extendedLayoutApplyParent="" extendedSaveActionListener="scheduledCommandList" setBackground="51, 51, 51" setForeground="255, 255, 255" setText="Save" >
 				</JMenuItem>
-				<JMenuItem extendedLayoutApplyParent="" extendedOpenActionListener="scheduledCommandList" setText="Open" >
+				<JMenuItem extendedLayoutApplyParent="" extendedOpenActionListener="scheduledCommandList" setBackground="51, 51, 51" setForeground="255, 255, 255" setText="Open" >
 				</JMenuItem>
 			</JMenu>
 		</JMenuBar>

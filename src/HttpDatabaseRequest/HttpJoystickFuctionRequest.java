@@ -32,8 +32,10 @@ import WidgetUtility.WidgetCreatorProperty;
 
 public class HttpJoystickFuctionRequest implements ArrayActionListener
 {
-	private static final int
+	private static int
 		SHIFT_AMOUNT = 30;
+	private static Point
+		MAIN_WINDOW_PLACE_HOME = new Point(SHIFT_AMOUNT, SHIFT_AMOUNT);
 	
 	private static JButtonArray 
 		ba;
@@ -51,6 +53,15 @@ public class HttpJoystickFuctionRequest implements ArrayActionListener
 	private HttpJoystickFuctionRequest()
 	{
 		LaunchUrlActionListener.addArrayActionListener(this);
+	}
+	
+	public static void setShiftAmount(int shift)
+	{
+		SHIFT_AMOUNT = shift;
+	}
+	public static void setMainWindowPlaceHome(Point loc)
+	{
+		MAIN_WINDOW_PLACE_HOME = loc;
 	}
 	
 	public static void selectCurrent()
@@ -108,16 +119,23 @@ public class HttpJoystickFuctionRequest implements ArrayActionListener
 	private static void shiftMainWindow(int xPosShift, int yPosShift)
 	{
 		JFrame frame = WidgetBuildController.getInstance().getFrame();
-		Point loc = frame.getLocationOnScreen();
-		if(xPosShift != 0)
+		if(frame.getExtendedState() == Frame.NORMAL)
 		{
-			loc.x += xPosShift;
+			Point loc = frame.getLocationOnScreen();
+			if(xPosShift != 0)
+			{
+				loc.x += xPosShift;
+			}
+			if(yPosShift != 0)
+			{
+				loc.y += yPosShift;
+			}
+			frame.setLocation(loc);
 		}
-		if(yPosShift != 0)
+		else
 		{
-			loc.y += yPosShift;
+			frame.setLocation(MAIN_WINDOW_PLACE_HOME);
 		}
-		frame.setLocation(loc);
 	}
 	
 	public static void process(String responseXml)

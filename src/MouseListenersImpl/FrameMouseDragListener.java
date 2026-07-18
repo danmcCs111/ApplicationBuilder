@@ -49,7 +49,6 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	private static final String 
 		YOUTUBE_CHANNELS_FILTER = "youtube.com/",
 		YOUTUBE_CHANNELS_NOT_FILTER = "youtube.com/watch?v=",
-//		YOUTUBE_CHANNELS_FILTER2 = "youtube.com/@",
 		EMPTY_CHANNELS_LIST_TEXT = "Empty",
 		OPEN_MENU_TEXT = "OPEN",
 		VIEW_LATEST_VIDEOS = "VIEW",
@@ -77,8 +76,6 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		picLabel;
 	private Date
 		lastDate;
-//	private static VideoChannelPlayer
-//		vqp = null;
 	private static VideoChannelPlayerJoy
 		vcpj = null;
 	private VideoChannelPlayer
@@ -167,10 +164,6 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 			if(jbll.getName().contains(YOUTUBE_CHANNELS_FILTER) &&
 					!jbll.getName().contains(YOUTUBE_CHANNELS_NOT_FILTER)) //youtube channel selection items.
 			{
-				if(jbll.getName().contains(EMPTY_CHANNELS_LIST_TEXT))
-				{
-					
-				}
 				if(isTouch)
 				{
 					JMenuItem mi3 = buildOpenVideosViewTouch(jbll);
@@ -195,7 +188,6 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 						{
 							pm.add(mi2);
 						}
-						
 					}
 					JMenuItem mi3 = buildOpenVideosView(jbll);
 					if(mi3 != null)
@@ -205,7 +197,6 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 					JMenuItem mi4 = buildUpdateMenu();
 					pm.add(mi4);
 				}
-				
 			}
 			picLabel.add(pm);
 			int x = e.getPoint().x, y = e.getPoint().y;
