@@ -140,8 +140,8 @@ public class VideoBookMarksDialog extends JDialog
 			cancelButton.setFont(altFont);
 		
 		Dimension newDim = new Dimension(
-				(int)(MIN_DIMENSION_DIALOG.width * 2), 
-				(int)(MIN_DIMENSION_DIALOG.height * 2)
+				(int)(MIN_DIMENSION_DIALOG.width * 1.5), 
+				(int)(MIN_DIMENSION_DIALOG.height * 1.5)
 		);
 		this.setMinimumSize(newDim);
 	}
