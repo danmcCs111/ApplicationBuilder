@@ -233,15 +233,17 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 				JButtonLengthLimited jbll = buildVideoButton(key, ycv);
 				jbll.setCharacterLimit(VIDEO_TITLE_CHARACTER_LIMIT);
 				jbll.setHorizontalAlignment(AbstractButton.LEFT);
-				MouseDragScrollListener mdsl = new MouseDragScrollListener();
-				jbll.addMouseListener(mdsl);
-				jbll.addMouseMotionListener(mdsl);
 				videoListPanel.add(jbll);
 				
+				MouseDragScrollListener mdsl = new MouseDragScrollListener();
 				JLabel labDuration = buildDurationLabel(ycv, jbll);
+				labDuration.addMouseListener(mdsl);
+				labDuration.addMouseMotionListener(mdsl);
 				durationPanel.add(labDuration);
 				
 				JLabel labDate = buildUploadLabel(ycv, jbll);
+				labDate.addMouseListener(mdsl);
+				labDate.addMouseMotionListener(mdsl);
 				uploadDatePanel.add(labDate);
 			}
 		}
