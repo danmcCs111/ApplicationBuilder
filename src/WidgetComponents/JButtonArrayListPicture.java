@@ -138,6 +138,11 @@ PostWidgetBuildProcessing
 		MouseDragScrollListener.setMouseDragDelay(delay);
 	}
 	
+	public static void setMouseWheelSpin(int spin)
+	{
+		MouseDragScrollListener.setMouseWheelSpin(spin);
+	}
+	
 	public static void setHighlightColor(Color color)
 	{
 		highlightColor = color;

@@ -13,11 +13,16 @@ public class MouseDragScrollListener extends MouseAdapter
 	 
 	 private static int
 	 	MOUSE_DRAG_DELAY = 50,
-	 	MOUSE_DRAG_SPEED = 1;
+	 	MOUSE_WHEEL_SPIN = 1;
 	 
 	 public static void setMouseDragDelay(int delay)
 	 {
 		 MOUSE_DRAG_DELAY = delay;
+	 }
+	 
+	 public static void setMouseWheelSpin(int spin)
+	 {
+		 MOUSE_WHEEL_SPIN = spin;
 	 }
 
      @Override
@@ -36,7 +41,7 @@ public class MouseDragScrollListener extends MouseAdapter
          Robot robot;
 		try {
 			robot = new Robot();
-			robot.mouseWheel(dy > 0 ? -MOUSE_DRAG_SPEED : MOUSE_DRAG_SPEED);
+			robot.mouseWheel(dy > 0 ? -MOUSE_WHEEL_SPIN : MOUSE_WHEEL_SPIN);
 			robot.delay(MOUSE_DRAG_DELAY);
 		} catch (AWTException e1) {
 			e1.printStackTrace();

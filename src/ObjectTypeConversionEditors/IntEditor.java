@@ -17,7 +17,7 @@ public class IntEditor extends JSpinner implements ParameterEditor
 		SPINNER_INTERVAL = 1;
 	private static final String SPINNER_FORMAT = "0";
 	private static final Dimension SPINNER_SIZE = new Dimension(50, 50);
-	private SpinnerNumberModel snm = new SpinnerNumberModel(0, 0, SPINNER_LIMIT, SPINNER_INTERVAL);
+	private SpinnerNumberModel snm = new SpinnerNumberModel(0, -SPINNER_LIMIT, SPINNER_LIMIT, SPINNER_INTERVAL);
 	
 	public IntEditor()
 	{
