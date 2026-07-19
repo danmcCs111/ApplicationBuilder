@@ -10,12 +10,14 @@ import java.awt.event.MouseEvent;
 public class MouseDragScrollListener extends MouseAdapter
 {
 	 private Point 
+	 	lastPoint,
 	 	compLastLocation,
 	 	startPoint;
 	 
 	 private static int
 	 	MOUSE_DRAG_DELAY = 50,
 	 	MOUSE_WHEEL_SPIN = 1;
+	 
 	 
 	 public static void setMouseDragDelay(int delay)
 	 {
@@ -34,8 +36,15 @@ public class MouseDragScrollListener extends MouseAdapter
      }
      
      @Override
+     public void mouseReleased(MouseEvent e)
+     {
+    	 lastPoint = null;
+     }
+     
+     @Override
      public void mouseDragged(MouseEvent e) 
      {
+    	 
     	 Component 
     	 	comp = (Component) e.getSource();
     	 Point 
@@ -50,7 +59,17 @@ public class MouseDragScrollListener extends MouseAdapter
     	 }
     	 compLastLocation = compLoc;
 		 
-    	 int dy = (startPoint.y + movedDiff) - currentPoint.y;
+    	 if(movedDiff == 0 && lastPoint != null)
+    	 {
+    		 return;
+    	 }
+    	 
+    	 if(lastPoint == null)
+    	 {
+    		 lastPoint = startPoint;
+    	 }
+    	 
+    	 int dy = (lastPoint.y + movedDiff) - currentPoint.y;
  
     	 Robot robot;
     	 try {
@@ -63,7 +82,7 @@ public class MouseDragScrollListener extends MouseAdapter
     		 {
     			 robot.mouseWheel(MOUSE_WHEEL_SPIN);
     		 }
-    		 startPoint = currentPoint;
+    		 lastPoint = currentPoint;
     		 robot.delay(MOUSE_DRAG_DELAY);
     	 } catch (AWTException e1) {
 			e1.printStackTrace();
