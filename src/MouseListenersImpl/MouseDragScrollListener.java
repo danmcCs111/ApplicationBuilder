@@ -36,37 +36,38 @@ public class MouseDragScrollListener extends MouseAdapter
      @Override
      public void mouseDragged(MouseEvent e) 
      {
-    	 Component comp = (Component) e.getSource();
-    	 Point p = comp.getLocationOnScreen();
-    	 
-    	 int movedDiff = 0;
+    	 Component 
+    	 	comp = (Component) e.getSource();
+    	 Point 
+    	 	compLoc = comp.getLocationOnScreen(),
+			currentPoint = e.getPoint();
+    	 int 
+    	 	movedDiff = 0;
+		
     	 if(compLastLocation != null)
     	 {
-    		 movedDiff = compLastLocation.y - p.y;
+    		 movedDiff = compLastLocation.y - compLoc.y;
     	 }
-    	 compLastLocation = p;
-    	 
-         Point currentPoint = e.getPoint();
-       	 int dy = (startPoint.y + movedDiff) - currentPoint.y;
-         int spin = MOUSE_WHEEL_SPIN;
-         
-         Robot robot;
-		try {
-			robot = new Robot();
-			if(dy > 0)
-			{
-				robot.mouseWheel(-spin);
-			}
-			else if(dy < 0)
-			{
-				robot.mouseWheel(spin);
-			}
-			startPoint = currentPoint;
-			robot.delay(MOUSE_DRAG_DELAY);
-		} catch (AWTException e1) {
+    	 compLastLocation = compLoc;
+		 
+    	 int dy = (startPoint.y + movedDiff) - currentPoint.y;
+ 
+    	 Robot robot;
+    	 try {
+    		 robot = new Robot();
+    		 if(dy > 0)
+    		 {
+    			 robot.mouseWheel(-MOUSE_WHEEL_SPIN);
+    		 }
+    		 else if(dy < 0)
+    		 {
+    			 robot.mouseWheel(MOUSE_WHEEL_SPIN);
+    		 }
+    		 startPoint = currentPoint;
+    		 robot.delay(MOUSE_DRAG_DELAY);
+    	 } catch (AWTException e1) {
 			e1.printStackTrace();
-		}
-
+    	 }
      }
      
 }
