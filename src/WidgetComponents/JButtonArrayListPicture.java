@@ -8,6 +8,8 @@ import java.awt.Point;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,6 +32,7 @@ import ActionListenersImpl.AddActionReceive;
 import ActionListenersImpl.LaunchUrlActionListener;
 import ActionListenersImpl.NavigationButtonActionListener;
 import Graphics2D.ColorTemplate;
+import MouseListenersImpl.MouseDragScrollListener;
 import ObjectTypeConversion.DirectorySelection;
 import ObjectTypeConversion.FileSelection;
 import Properties.LoggingMessages;
@@ -128,6 +131,11 @@ PostWidgetBuildProcessing
 	private void buildWidgets()
 	{
 		this.setLayout(new GridLayout(0, this.columns));
+	}
+	
+	public static void setMouseDragDelay(int delay)
+	{
+		MouseDragScrollListener.setMouseDragDelay(delay);
 	}
 	
 	public static void setHighlightColor(Color color)
@@ -305,6 +313,9 @@ PostWidgetBuildProcessing
 				{
 					comp.setForeground(buttonCheckboxForeground);
 				}
+				MouseDragScrollListener mdsl = new MouseDragScrollListener();
+				ab.addMouseListener(mdsl);
+				ab.addMouseMotionListener(mdsl);
 				this.add(comp);
 			}
 			Collections.sort(jbuts, new JCheckBoxLimited());
