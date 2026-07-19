@@ -1,5 +1,9 @@
 #!/bin/bash
 cd "$(dirname "$0")"
+
+youtube_file=$1
+youtube_file=$(realpath "$youtube_file")
+
 if [ -z $1 ];
 then
 	echo "enter filename"
@@ -8,7 +12,7 @@ fi
 
 ls | egrep .*.url | awk '{system("rm " "\""$0"\"")}'
 
-youtube_file=$1
+
 echo $youtube_file
 
 cat $youtube_file | sed 's/\"/\n/g' | sed 's/:/ /g' | egrep -o "(watch\?.*)" > watch.txt

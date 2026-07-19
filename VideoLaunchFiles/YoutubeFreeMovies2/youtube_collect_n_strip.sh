@@ -1,9 +1,20 @@
 #!/bin/bash
 cd "$(dirname "$0")"
+
+typeOs=`uname`
 autoHotKey=$1
 autoHotKey_file=$2
-scrape_filename=$3
+dirPath=$3
+scrapeFilename=$4
+dirPathLinux=$(realpath "$dirPath")
 
-"$autoHotKey" "$autoHotKey_file"
+if [[ "$typeOs" == "Linux" ]]
+then
+	dirPath=$dirPathLinux
+else
+	dirPath=`echo $(realpath "$dirPath") | sed 's/^\///g' | sed -E 's/^(.{1})/\1:/g'`
+fi
 
-./youtube_strip.sh $scrape_filename
+projLocation=$dirPathLinux
+
+"$autoHotKey" "$autoHotKey_file" "$dirpath" "$scrapeFilename"
