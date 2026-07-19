@@ -37,6 +37,7 @@ import MouseListenersImpl.FrameMouseDragListener;
 import MouseListenersImpl.ImageMouseAdapter;
 import MouseListenersImpl.LookupOrCreateYoutube;
 import MouseListenersImpl.MiddleClickLaunchUrlActionListener;
+import MouseListenersImpl.MouseDragScrollListener;
 import MouseListenersImpl.PicLabelMouseListener;
 import ObjectTypeConversion.DirectorySelection;
 import ObjectTypeConversion.FileSelection;
@@ -148,6 +149,16 @@ PostWidgetBuildProcessing, ButtonArray
 	public JButtonArray()
 	{
 		
+	}
+
+	public static void setMouseDragDelay(int delay)
+	{
+		MouseDragScrollListener.setMouseDragDelay(delay);
+	}
+	
+	public static void setMouseWheelSpin(int spin)
+	{
+		MouseDragScrollListener.setMouseWheelSpin(spin);
 	}
 	
 	public static void setControllerPlaceHome(Point loc)

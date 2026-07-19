@@ -29,6 +29,7 @@ import ActionListeners.ArrayActionListener;
 import ActionListenersImpl.LaunchUrlActionListener;
 import Graphics2D.ColorTemplate;
 import HttpDatabaseRequest.HttpRequestHandler.ProcessType;
+import MouseListenersImpl.MouseDragScrollListener;
 import MouseListenersImpl.VideoSubSelectionLauncher;
 import MouseListenersImpl.YoutubeChannelVideo;
 import Properties.LoggingMessages;
@@ -232,6 +233,9 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 				JButtonLengthLimited jbll = buildVideoButton(key, ycv);
 				jbll.setCharacterLimit(VIDEO_TITLE_CHARACTER_LIMIT);
 				jbll.setHorizontalAlignment(AbstractButton.LEFT);
+				MouseDragScrollListener mdsl = new MouseDragScrollListener();
+				jbll.addMouseListener(mdsl);
+				jbll.addMouseMotionListener(mdsl);
 				videoListPanel.add(jbll);
 				
 				JLabel labDuration = buildDurationLabel(ycv, jbll);

@@ -31,6 +31,7 @@ import javax.swing.JScrollPane;
 import ApplicationBuilder.QueryUpdateTool;
 import Graphics2D.ColorTemplate;
 import MouseListenersImpl.LookupOrCreateYoutube;
+import MouseListenersImpl.MouseDragScrollListener;
 import ObjectTypeConversion.FileSelection;
 import Params.KeepSelection;
 import Properties.LoggingMessages;
@@ -258,6 +259,10 @@ public class OpenVideoChannelsUpdater extends JFrame
 			
 			if(cb != null)
 			{
+				MouseDragScrollListener mdsl = new MouseDragScrollListener();
+				cb.addMouseListener(mdsl);
+				cb.addMouseMotionListener(mdsl);
+				
 				String filename = jbll.getPath() + "images/" + jbll.getFullLengthText()+".png";
 				LoggingMessages.printOut(filename);
 				FileSelection fs = new FileSelection(filename);

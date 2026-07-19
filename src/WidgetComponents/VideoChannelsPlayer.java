@@ -45,6 +45,7 @@ import HttpDatabaseRequest.HttpDatabaseRequest;
 import HttpDatabaseRequest.HttpRequestHandler;
 import HttpDatabaseRequest.HttpRequestProcessor;
 import MouseListenersImpl.LookupOrCreateYoutube;
+import MouseListenersImpl.MouseDragScrollListener;
 import MouseListenersImpl.VideoChannel;
 import MouseListenersImpl.VideoSubSelectionLauncher;
 import MouseListenersImpl.VideoUpdateTimespanDialog;
@@ -153,6 +154,16 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	public VideoChannelsPlayer()
 	{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
+	public static void setMouseDragDelay(int delay)
+	{
+		MouseDragScrollListener.setMouseDragDelay(delay);
+	}
+	
+	public static void setMouseWheelSpin(int spin)
+	{
+		MouseDragScrollListener.setMouseWheelSpin(spin);
 	}
 	
 	public static void setParentRootPort(int rootPort)
