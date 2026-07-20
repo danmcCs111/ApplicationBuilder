@@ -13,16 +13,12 @@ import javax.swing.JLabel;
 import javax.swing.border.Border;
 
 import ActionListenersImpl.LaunchUrlActionListener;
+import Properties.LoggingMessages;
 import WidgetComponents.JButtonLengthLimited;
 
 
 public class PicLabelMouseListener extends MouseAdapter 
 {
-	private enum LabelType{
-		highlight,
-		selection
-	}
-	
 	private static ArrayList<JLabel> connectedLabels = new ArrayList<JLabel>();
 	
 	private static Color
@@ -63,66 +59,61 @@ public class PicLabelMouseListener extends MouseAdapter
 	
 	public static void highLightLabel(AbstractButton ab, boolean on)
 	{
-		setLabel(LabelType.highlight, ab, on);
-	}
-	
-	public static void selectionLabel(AbstractButton ab, boolean on)
-	{
-		setLabel(LabelType.selection, ab, on);
-	}
-	
-	private static void setLabel(LabelType lt, AbstractButton ab, boolean on)
-	{
+		LoggingMessages.printOut("highlight label.");
 		if(ab == null)
 			return;
-		
-		Border 
-			borderType = null,
-			otherBorderType = null;
-		switch(lt)
-		{
-		case highlight:
-			borderType = HIGHLIGHT_BORDER;
-			otherBorderType = SELECTION_BORDER;
-			break;
-		case selection:
-			borderType = SELECTION_BORDER;
-			otherBorderType = HIGHLIGHT_BORDER;
-			break;
-		}
 		
 		for(JLabel l : PicLabelMouseListener.connectedLabels)
 		{
 			if(ab instanceof JButtonLengthLimited && 
 					l.getName().equals(((JButtonLengthLimited) ab).getFullLengthText()))
 			{
-				switch(lt)
-				{
-				case highlight:
-					highlight = (on)
-						? ab
-						: null;
-					break;
-				case selection:
-					if(on) selected = ab;
-					break;
-				}
+				highlight = (on)
+					?ab
+					:null;
 				
-				l.setBorder(
-					(on)
-					? borderType
-					: EMPTY_BORDER
-				);
+				l.setBorder(on
+					? HIGHLIGHT_BORDER
+					: EMPTY_BORDER);
 			}
 			else
 			{
-				if(l.getBorder() != null && l.getBorder().equals(otherBorderType))
+				if(l.getBorder() != null && l.getBorder().equals(SELECTION_BORDER))
+					continue;
+				
+				l.setBorder(EMPTY_BORDER);
+			}
+		}
+		if(!on)
+		{
+			selectionLabel(selected, true);
+		}
+	}
+	
+	public static void selectionLabel(AbstractButton ab, boolean on)
+	{
+		LoggingMessages.printOut("select label.");
+		if(ab == null)
+			return;
+		
+		for(JLabel l : PicLabelMouseListener.connectedLabels)
+		{
+			if(ab instanceof JButtonLengthLimited && 
+					l.getName().equals(((JButtonLengthLimited) ab).getFullLengthText()))
+			{
+				l.setBorder(on
+					? SELECTION_BORDER
+					: EMPTY_BORDER);
+			}
+			else
+			{
+				if(l.getBorder() != null && l.getBorder().equals(HIGHLIGHT_BORDER))
 					continue;
 				
 				if(highlight != null)
 				{
 					l.setBorder(l.getName().equals(((JButtonLengthLimited) highlight).getFullLengthText())
-						? otherBorderType
+						? HIGHLIGHT_BORDER
 						: EMPTY_BORDER
 					);
 				}
@@ -132,10 +123,9 @@ public class PicLabelMouseListener extends MouseAdapter
 				}
 			}
 		}
-		
-		if(lt == LabelType.highlight)
+		if(on)
 		{
-			if(!on) selectionLabel(selected, true);
+			selected = ab;
 		}
 	}
 	
@@ -146,7 +136,7 @@ public class PicLabelMouseListener extends MouseAdapter
 	
 	public void mouseClicked(MouseEvent e)
 	{
-		if(singleClick || e.getClickCount() == 2)
+		if(singleClick || e.getClickCount() == 2)//require double click
 		{
 			if(e.getButton() == MouseEvent.BUTTON1)
 			{
