@@ -96,22 +96,25 @@ public class DirectorySelectionEditor extends JButton implements ParameterEditor
 	@Override
 	public void setComponentValue(Object value) 
 	{
+		if(value instanceof String)
+			return;
+		
 		if(value == null)
 		{
 			directorySelection = null;
 			this.setText(NULL_VALUE_TEXT);
-			return;
+			jcc.setSelectedFile(new File(PathUtility.getCurrentDirectory()));
 		}
-		if(value instanceof String)
-			return;
-		
-		directorySelection = (DirectorySelection) value;
-		this.setText(
-			(isRelativePath)
+		else
+		{
+			directorySelection = (DirectorySelection) value;
+			this.setText(
+				(isRelativePath)
 				? directorySelection.getRelativePath()
 				: directorySelection.getFullPath()
-		);
-		jcc.setSelectedFile(new File(directorySelection.getFullPath()));
+			);
+			jcc.setSelectedFile(new File(directorySelection.getFullPath()));
+		}
 		if(vcls != null)
 		{
 			for(ValueChangedListener vcl : vcls)

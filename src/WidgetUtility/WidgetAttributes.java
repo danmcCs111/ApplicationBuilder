@@ -40,6 +40,7 @@ import WidgetComponents.ReplicateDatabase;
 import WidgetComponents.JButtonArray;
 import WidgetComponents.JButtonArrayListPicture;
 import WidgetComponents.LoadingLabel;
+import WidgetComponents.OpenVideoChannelsUpdater;
 import WidgetComponents.ScheduledCommandExecutionEditor;
 import WidgetComponents.ScheduledCommandList;
 import WidgetComponents.SearchBar;
@@ -117,6 +118,7 @@ public class WidgetAttributes
 		INITIAL_CLASSES.add(ApplicationLayoutEditor.class);
 		INITIAL_CLASSES.add(VideoChannelPlayer.class);
 		INITIAL_CLASSES.add(VideoChannelsPlayer.class);
+		INITIAL_CLASSES.add(OpenVideoChannelsUpdater.class);
 	}
 	private static final ArrayList<Class<?>> 
 		COMPONENT_CLASSES = new ArrayList<Class<?>>();
@@ -159,6 +161,7 @@ public class WidgetAttributes
 		COMPONENT_CLASSES.add(VideoChannelsPlayer.class);
 		COMPONENT_CLASSES.add(PageParserUploader.class);
 		COMPONENT_CLASSES.add(ReplicateDatabase.class);
+		COMPONENT_CLASSES.add(OpenVideoChannelsUpdater.class);
 	}
 	//TODO replace :(
 	private static final HashMap<Class<?>, String []> EXTENDED_METHODS = new HashMap<Class<?>, String []>();
@@ -372,6 +375,12 @@ public class WidgetAttributes
 		EXTENDED_METHODS.put(ReplicateDatabase.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetViewportView.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetBackgroundPanelColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetButtonBackgroundColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetButtonForegroundColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef())
+		});
+		EXTENDED_METHODS.put(OpenVideoChannelsUpdater.class, new String [] {
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetupTaskbar.class, ExtendedMethodArgDef.ExtendedFileSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetBackgroundPanelColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetButtonBackgroundColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetButtonForegroundColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef())

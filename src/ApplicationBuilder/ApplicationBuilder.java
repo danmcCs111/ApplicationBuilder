@@ -29,4 +29,9 @@ public class ApplicationBuilder
 		WidgetBuildController.getInstance().readProperties(SOURCE_FILE);
 		WidgetBuildController.getInstance().generateGraphicalInterface(false);
 	}
+	
+	public static String [] getApplicationArgs()
+	{
+		return argsApp;
+	}
 }

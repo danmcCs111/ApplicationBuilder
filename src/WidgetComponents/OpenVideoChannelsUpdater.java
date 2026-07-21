@@ -28,6 +28,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import ApplicationBuilder.ApplicationBuilder;
 import ApplicationBuilder.QueryUpdateTool;
 import Graphics2D.ColorTemplate;
 import MouseListenersImpl.LookupOrCreateYoutube;
@@ -38,10 +39,11 @@ import Properties.LoggingMessages;
 import Properties.PathUtility;
 import Properties.StringUtility;
 import WidgetComponentInterfaces.ImageReader;
+import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
 import WidgetUtility.FileListOptionGenerator;
 
-public class OpenVideoChannelsUpdater extends JFrame
+public class OpenVideoChannelsUpdater extends JFrame implements PostWidgetBuildProcessing
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -106,13 +108,36 @@ public class OpenVideoChannelsUpdater extends JFrame
 	private boolean
 		killUpdate;
 	
+	public OpenVideoChannelsUpdater()
+	{
+		setupIconImage();
+	}
+	
 	public OpenVideoChannelsUpdater(List<JButtonLengthLimited> jblls)
+	{
+		setupIconImage();
+		this.jblls = jblls;
+		load(jblls, null);
+	}
+	
+	public OpenVideoChannelsUpdater(List<JButtonLengthLimited> jblls, List<KeepSelection> kss)
+	{
+		setupIconImage();
+		this.jblls = jblls;
+		this.kss = kss;
+		load(jblls, kss);
+	}
+	
+	private void setupIconImage()
 	{
 		FileSelection fs = new FileSelection(FRAME_ICON);
 		ImageIcon ii = new ImageIcon(fs.getFullPath());
 		this.setIconImage(ii.getImage());
+	}
+	
+	private void load(List<JButtonLengthLimited> jblls, List<KeepSelection> kss)
+	{
 		
-		this.jblls = jblls;
 		Runnable r = new Runnable()
 		{
 			@Override
@@ -124,22 +149,14 @@ public class OpenVideoChannelsUpdater extends JFrame
 		t.start();
 	}
 	
-	public OpenVideoChannelsUpdater(List<JButtonLengthLimited> jblls, List<KeepSelection> kss)
+	public List<JButtonLengthLimited> getButtons()
 	{
-		FileSelection fs = new FileSelection(FRAME_ICON);
-		ImageIcon ii = new ImageIcon(fs.getFullPath());
-		this.setIconImage(ii.getImage());
-		this.jblls = jblls;
-		this.kss = kss;
-		Runnable r = new Runnable()
-		{
-			@Override
-			public void run() {
-				buildWidgets();
-			}
-		};
-		Thread t = new Thread(r);
-		t.start();
+		return this.jblls;
+	}
+	
+	public List<KeepSelection> getKeeps()
+	{
+		return kss;
 	}
 	
 	private void buildWidgets()
@@ -415,16 +432,23 @@ public class OpenVideoChannelsUpdater extends JFrame
 		jbl.setText(txt);
 	}
 	
-	public static void main(String [] args)
+	public void collectFromArgs(String [] args, int startIndex)
 	{
-		String filename = args[0];
-		boolean isAlphaNumeric = Boolean.parseBoolean(args[1]);
-		String [] ptLocTmp = args[2].split(",");
-		Point loc = new Point(Integer.parseInt(ptLocTmp[0]), Integer.parseInt(ptLocTmp[1]));
+		int 
+			argsIt = startIndex;
+		
+		String 
+			filename = args[argsIt++];
+		boolean 
+			isAlphaNumeric = Boolean.parseBoolean(args[argsIt++]);
 		String [] 
-			strC1 = args[3].split(","),
-			strC2 = args[4].split(","),
-			strC3 = args[5].split(",");
+			ptLocTmp = args[argsIt++].split(",");
+		Point 
+			loc = new Point(Integer.parseInt(ptLocTmp[0]), Integer.parseInt(ptLocTmp[1]));
+		String [] 
+			strC1 = args[argsIt++].split(","),
+			strC2 = args[argsIt++].split(","),
+			strC3 = args[argsIt++].split(",");
 		Color
 			backgroundButton = new Color(Integer.parseInt(strC1[0]), Integer.parseInt(strC1[1]), Integer.parseInt(strC1[2])),
 			foregroundButton = new Color(Integer.parseInt(strC2[0]), Integer.parseInt(strC2[1]), Integer.parseInt(strC2[2])),
@@ -433,19 +457,19 @@ public class OpenVideoChannelsUpdater extends JFrame
 		ColorTemplate.setButtonForegroundColor(foregroundButton);
 		ColorTemplate.setPanelBackgroundColor(backgroundPanel);
 		
-		String [] stripFilterTmp = args[6].split(NAME_DELIMITER);
+		String [] stripFilterTmp = args[argsIt++].split(NAME_DELIMITER);
 		for(String s : stripFilterTmp) stripFilter.add(s);
 		
 		int
-			dragDelay = Integer.parseInt(args[7]),
-			wheelSpin = Integer.parseInt(args[8]);
+			dragDelay = Integer.parseInt(args[argsIt++]),
+			wheelSpin = Integer.parseInt(args[argsIt++]);
 		MouseDragScrollListener.setMouseDragDelay(dragDelay);
 		MouseDragScrollListener.setMouseWheelSpin(wheelSpin);
 		
 		String
-			endpointStr = args[9];
+			endpointStr = args[argsIt++];
 		int
-			portNumber = Integer.parseInt(args[10]);
+			portNumber = Integer.parseInt(args[argsIt++]);
 		
 		QueryUpdateTool.setEndpoint(endpointStr);
 		QueryUpdateTool.setPortNumber(portNumber);
@@ -471,8 +495,25 @@ public class OpenVideoChannelsUpdater extends JFrame
 			);
 			jblls.sort(buttonTextComparator);
 		}
-		OpenVideoChannelsUpdater ovcu = new OpenVideoChannelsUpdater(jblls);
-		ovcu.setLocation(loc);
+		this.jblls = jblls;
+		this.setLocation(loc);
+//		OpenVideoChannelsUpdater ovcu = new OpenVideoChannelsUpdater(jblls);
+//		ovcu.setLocation(loc);
+	}
+	
+	public static void main(String [] args)
+	{
+		OpenVideoChannelsUpdater ovcu = new OpenVideoChannelsUpdater();
+		ovcu.collectFromArgs(args, 0);
+		ovcu.load(ovcu.getButtons(), ovcu.getKeeps());
+	}
+
+	@Override
+	public void postExecute() 
+	{
+		String [] args = ApplicationBuilder.getApplicationArgs();
+		collectFromArgs(args, 1);
+		load(jblls, kss);
 	}
 
 }

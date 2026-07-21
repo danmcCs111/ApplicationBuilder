@@ -14,7 +14,6 @@ import javax.swing.JPanel;
 import ObjectTypeConversion.FileSelection;
 import ObjectTypeConversion.ValueChangedListener;
 import Params.ParameterEditor;
-import Properties.LoggingMessages;
 import Properties.PathUtility;
 
 public class FileSelectionEditor extends JPanel implements ParameterEditor 
@@ -118,22 +117,27 @@ public class FileSelectionEditor extends JPanel implements ParameterEditor
 	@Override
 	public void setComponentValue(Object value) 
 	{
+		if(value instanceof String)
+			return;
+		
 		if(value == null)
 		{
 			fileSelection = null;
 			getFileButton().setText(NULL_VALUE_TEXT);
+			jcc.setSelectedFile(new File(PathUtility.getCurrentDirectory()));
 		}
-		if(value instanceof String)
-			return;
 		
-		fileSelection = (FileSelection) value;
-		LoggingMessages.printOut(fileSelection.getFullPath());
-		getFileButton().setText(
-			(isRelativePath)
-				? fileSelection.getRelativePath()
-				: fileSelection.getFullPath()
-		);
-		jcc.setSelectedFile(new File(fileSelection.getFullPath()));
+		else
+		{
+			fileSelection = (FileSelection) value;
+			getFileButton().setText(
+					(isRelativePath)
+					? fileSelection.getRelativePath()
+							: fileSelection.getFullPath()
+					);
+			jcc.setSelectedFile(new File(fileSelection.getFullPath()));
+		}
+		
 		if(vcls != null)
 		{
 			for(ValueChangedListener vcl : vcls)
