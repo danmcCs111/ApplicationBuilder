@@ -51,6 +51,7 @@ public class OpenVideoChannelsUpdater extends JFrame implements PostWidgetBuildP
 		FRAME_ICON = "./src/ApplicationBuilder/build-icon_sm.png",
 		TITLE_TEXT = "Open Channels Updater",
 		CHECKBOX_FORMAT_TEXT = "<arg> - <arg> [ <arg> ] -- (count: <arg>)",
+		ARG_REPLACE = "<arg>",
 		ALL_CHECKBOX_TEXT = "Select All",
 		EDIT_BUTTON_TEXT = "Edit",
 		UPDATE_BUTTON_TEXT = "Update",
@@ -65,9 +66,9 @@ public class OpenVideoChannelsUpdater extends JFrame implements PostWidgetBuildP
 		NAME_DELIMITER = ":@:";
 	private static Dimension 
 		MIN_SIZE = new Dimension(750, 450);
-	private static final SimpleDateFormat
+	private static SimpleDateFormat
 		SDF_DATE_LABEL = new SimpleDateFormat("MM/dd/YYYY");
-	private static final Color
+	private static Color
 		SELECT_COLOR = Color.CYAN;
 	
 	private JPanel
@@ -90,18 +91,8 @@ public class OpenVideoChannelsUpdater extends JFrame implements PostWidgetBuildP
 		ech;
 	private static ArrayList <String> 
 		stripFilter = new ArrayList<String>(); 
-	private static ImageIcon fillImage;
-	static {
-		int 
-			width = IMAGE_SCALE,
-			height = IMAGE_SCALE;
-	    BufferedImage imageSelect = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-	    Graphics2D g2d = imageSelect.createGraphics();
-	    g2d.setColor(SELECT_COLOR);
-	    g2d.fillRect(0, 0, width, height);
-	    g2d.dispose();
-	    fillImage = new ImageIcon(imageSelect);
-	}
+	private static ImageIcon 
+		fillImage;
 	
 	private Thread 
 		updateThread;
@@ -110,22 +101,60 @@ public class OpenVideoChannelsUpdater extends JFrame implements PostWidgetBuildP
 	
 	public OpenVideoChannelsUpdater()
 	{
-		setupIconImage();
+		
 	}
 	
 	public OpenVideoChannelsUpdater(List<JButtonLengthLimited> jblls)
 	{
-		setupIconImage();
-		this.jblls = jblls;
-		load(jblls, null);
+		this(jblls, null);
 	}
 	
 	public OpenVideoChannelsUpdater(List<JButtonLengthLimited> jblls, List<KeepSelection> kss)
 	{
 		setupIconImage();
+		setupSelectImage();
 		this.jblls = jblls;
 		this.kss = kss;
+		this.setTitle(TITLE_TEXT);
+		this.setMinimumSize(MIN_SIZE);
 		load(jblls, kss);
+	}
+	
+	public static void setFrameIcon(FileSelection fs)
+	{
+		FRAME_ICON = fs.getRelativePath();
+	}
+	public static void setCheckBoxFormatText(String format)
+	{
+		CHECKBOX_FORMAT_TEXT = format;
+	}
+	public static void setArgReplace(String argRepl)
+	{
+		ARG_REPLACE = argRepl;
+	}
+	public static void setDateLabel(String dateLabel)
+	{
+		SDF_DATE_LABEL = new SimpleDateFormat(dateLabel);
+	}
+	public static void setSelectImageColor(Color selectColor)
+	{
+		SELECT_COLOR = selectColor;
+	}
+	
+	private static void setupSelectImage()
+	{
+		int 
+			width = IMAGE_SCALE,
+			height = IMAGE_SCALE;
+	    BufferedImage 
+	    	imageSelect = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+	    Graphics2D 
+	    	g2d = imageSelect.createGraphics();
+	    
+	    g2d.setColor(SELECT_COLOR);
+	    g2d.fillRect(0, 0, width, height);
+	    g2d.dispose();
+	    fillImage = new ImageIcon(imageSelect);
 	}
 	
 	private void setupIconImage()
@@ -216,8 +245,6 @@ public class OpenVideoChannelsUpdater extends JFrame implements PostWidgetBuildP
 		JScrollPane scrollPane = new JScrollPane(checkBoxPanel);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(25);
 		
-		this.setTitle(TITLE_TEXT);
-		this.setMinimumSize(MIN_SIZE);
 		this.setLayout(new BorderLayout());
 		this.add(controlPanel, BorderLayout.NORTH);
 		this.add(scrollPane, BorderLayout.CENTER);
@@ -334,7 +361,7 @@ public class OpenVideoChannelsUpdater extends JFrame implements PostWidgetBuildP
 			
 		displayText = StringUtility.replaceArg(
 				displayText, 
-				"<arg>", 
+				ARG_REPLACE, 
 				new String[] {
 					dateLatestText, dateFirstText, text, count+""
 				}
@@ -504,6 +531,8 @@ public class OpenVideoChannelsUpdater extends JFrame implements PostWidgetBuildP
 	public static void main(String [] args)
 	{
 		OpenVideoChannelsUpdater ovcu = new OpenVideoChannelsUpdater();
+		ovcu.setupIconImage();
+		setupSelectImage();
 		ovcu.collectFromArgs(args, 0);
 		ovcu.load(ovcu.getButtons(), ovcu.getKeeps());
 	}
@@ -512,6 +541,16 @@ public class OpenVideoChannelsUpdater extends JFrame implements PostWidgetBuildP
 	public void postExecute() 
 	{
 		String [] args = ApplicationBuilder.getApplicationArgs();
+		if(this.getTitle().isBlank())
+		{
+			setTitle(TITLE_TEXT);
+		}
+		if(this.getMinimumSize() == null)
+		{
+			setMinimumSize(MIN_SIZE);
+		}
+		setupIconImage();
+		setupSelectImage();
 		collectFromArgs(args, 1);
 		load(jblls, kss);
 	}

@@ -623,26 +623,30 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				Point scrnPoint = updateViewer.getLocationOnScreen();
-				String absPath = vbmd.getFileSelection().get(0).getAbsolutePath();
-				
+				Point 
+					scrnPoint = updateViewer.getLocationOnScreen();
+				String 
+					absPath = vbmd.getFileSelection().get(0).getAbsolutePath();
 				String 
 					bgBtnColor = getColorString(ColorTemplate.getButtonBackgroundColor()),
 					fgBtnColor = getColorString(ColorTemplate.getButtonForegroundColor()),
 					bgPanelColor = getColorString(ColorTemplate.getPanelBackgroundColor());
 				FileSelection 
 					fs = new FileSelection("./Application Builder.jar");
-				String stripFilterStr = "";
+				String 
+					stripFilterStr = "";
+				
 				for(int i = 0; i < stripFilter.size(); i++)
 				{
 					String s = stripFilter.get(i);
 					stripFilterStr += (i < stripFilter.size()+1)
-							?s + OpenVideoChannelsUpdater.NAME_DELIMITER
-							:s;
+							? s + OpenVideoChannelsUpdater.NAME_DELIMITER
+							: s;
 				}
 				String [] args = new String [] {
 					fs.getFullPath(),
-					"WidgetComponents.OpenVideoChannelsUpdater",
+					"ApplicationBuilder.ApplicationBuilder",
+					"./Properties/data/channelsUpdater.xml",
 					absPath, 
 					isAlphaNumeric+"", 
 					scrnPoint.x + "," + scrnPoint.y, 
