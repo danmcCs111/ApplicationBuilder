@@ -123,6 +123,8 @@ PostWidgetBuildProcessing
 		loadingFrame;
 	private VideoBookMarksDialog 
 		vbmd = null;
+	private ArrayList<SelectAllAction>
+		selectAllSubscribers = new ArrayList<SelectAllAction>();
 	
 	public JButtonArrayListPicture()
 	{
@@ -611,7 +613,13 @@ PostWidgetBuildProcessing
 			}
 		}
 		
+		for(SelectAllAction saa : selectAllSubscribers)
+		{
+			saa.isSelectAll(false);
+		}
+		
 		rebuildButtons(isShowAll());
+		
 		
 		return btns;
 	}
@@ -792,6 +800,12 @@ PostWidgetBuildProcessing
 				ab.setSelected(false);
 			}
 		}
+	}
+	
+	@Override
+	public void addSelectAllSubscriber(SelectAllAction selectAll) 
+	{
+		selectAllSubscribers.add(selectAll);
 	}
 	
 	@SuppressWarnings("unchecked")
