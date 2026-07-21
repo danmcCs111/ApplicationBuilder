@@ -161,6 +161,11 @@ PostWidgetBuildProcessing, ButtonArray
 		MouseDragScrollListener.setMouseWheelSpin(spin);
 	}
 	
+	public static void setDragScrollChannelsUpdater(boolean isDragScroll)
+	{
+		OpenVideoChannelsUpdater.setIsDragScroll(isDragScroll);
+	}
+	
 	public static void setControllerPlaceHome(Point loc)
 	{
 		HttpJoystickFuctionRequest.setMainWindowPlaceHome(loc);

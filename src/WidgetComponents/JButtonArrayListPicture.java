@@ -83,6 +83,7 @@ PostWidgetBuildProcessing
 	private static DirectorySelection 
 		keepsFileLocation;
 	private static boolean
+		IS_DRAG_SCROLL = true,
 		SHOW_JAVA_SWING_FILE_CHOOSER = false,
 		SHOW_TITLE_ON_POSTER = false,
 		SHOW_DEFAULT_TEXT = false;
@@ -131,6 +132,11 @@ PostWidgetBuildProcessing
 	private void buildWidgets()
 	{
 		this.setLayout(new GridLayout(0, this.columns));
+	}
+	
+	public static void setIsDragScroll(boolean isDragScroll)
+	{
+		IS_DRAG_SCROLL = isDragScroll;
 	}
 	
 	public static void setMouseDragDelay(int delay)
@@ -323,9 +329,12 @@ PostWidgetBuildProcessing
 				{
 					comp.setForeground(buttonCheckboxForeground);
 				}
-				MouseDragScrollListener mdsl = new MouseDragScrollListener();
-				ab.addMouseListener(mdsl);
-				ab.addMouseMotionListener(mdsl);
+				if(IS_DRAG_SCROLL)
+				{
+					MouseDragScrollListener mdsl = new MouseDragScrollListener();
+					ab.addMouseListener(mdsl);
+					ab.addMouseMotionListener(mdsl);
+				}
 				this.add(comp);
 			}
 			Collections.sort(jbuts, new JCheckBoxLimited());

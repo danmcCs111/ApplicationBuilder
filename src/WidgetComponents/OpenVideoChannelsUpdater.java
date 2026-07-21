@@ -70,6 +70,8 @@ public class OpenVideoChannelsUpdater extends JFrame implements PostWidgetBuildP
 		SDF_DATE_LABEL = new SimpleDateFormat("MM/dd/YYYY");
 	private static Color
 		SELECT_COLOR = Color.CYAN;
+	private static boolean
+		IS_DRAG_SCROLL = true;
 	
 	private JPanel
 		controlPanel,
@@ -120,6 +122,10 @@ public class OpenVideoChannelsUpdater extends JFrame implements PostWidgetBuildP
 		load(jblls, kss);
 	}
 	
+	public static void setIsDragScroll(boolean isScroll)
+	{
+		IS_DRAG_SCROLL = isScroll;
+	}
 	public static void setFrameIcon(FileSelection fs)
 	{
 		FRAME_ICON = fs.getRelativePath();
@@ -303,9 +309,12 @@ public class OpenVideoChannelsUpdater extends JFrame implements PostWidgetBuildP
 			
 			if(cb != null)
 			{
-				MouseDragScrollListener mdsl = new MouseDragScrollListener();
-				cb.addMouseListener(mdsl);
-				cb.addMouseMotionListener(mdsl);
+				if(IS_DRAG_SCROLL)
+				{
+					MouseDragScrollListener mdsl = new MouseDragScrollListener();
+					cb.addMouseListener(mdsl);
+					cb.addMouseMotionListener(mdsl);
+				}
 				
 				String filename = jbll.getPath() + "images/" + jbll.getFullLengthText()+".png";
 				LoggingMessages.printOut(filename);

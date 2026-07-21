@@ -1,4 +1,0 @@
-<Build>
-	<OpenVideoChannelsUpdater extendedSetBackgroundPanelColorTemplate="51, 51, 51" extendedSetButtonBackgroundColorTemplate="0, 0, 0" extendedSetButtonForegroundColorTemplate="255, 255, 255" extendedSetupTaskbar="./src/ApplicationBuilder/film-movies-icon.png" setArgReplace="&lt;arg&gt;" setCheckBoxFormatText="&lt;arg&gt; - &lt;arg&gt; [ &lt;arg&gt; ] -- (count: &lt;arg&gt;)" setDateLabel="MM/dd/YYYY" setFrameIcon="./src/ApplicationBuilder/film-movies-icon.png" setMinimumSize="750, 450" setSelectImageColor="0, 255, 255" setTitle="Channels Updater" >
-	</OpenVideoChannelsUpdater>
-</Build>
