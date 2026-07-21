@@ -650,6 +650,8 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 					fgBtnColor, 
 					bgPanelColor,
 					stripFilterStr,
+					MouseDragScrollListener.getMouseDragDelay()+"",
+					MouseDragScrollListener.getMouseWheelSpin()+"",
 					QueryUpdateTool.ENDPOINT,
 					QueryUpdateTool.PORT_NUMBER + ""
 				};

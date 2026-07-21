@@ -436,10 +436,16 @@ public class OpenVideoChannelsUpdater extends JFrame
 		String [] stripFilterTmp = args[6].split(NAME_DELIMITER);
 		for(String s : stripFilterTmp) stripFilter.add(s);
 		
-		String
-			endpointStr = args[7];
 		int
-			portNumber = Integer.parseInt(args[8]);
+			dragDelay = Integer.parseInt(args[7]),
+			wheelSpin = Integer.parseInt(args[8]);
+		MouseDragScrollListener.setMouseDragDelay(dragDelay);
+		MouseDragScrollListener.setMouseWheelSpin(wheelSpin);
+		
+		String
+			endpointStr = args[9];
+		int
+			portNumber = Integer.parseInt(args[10]);
 		
 		QueryUpdateTool.setEndpoint(endpointStr);
 		QueryUpdateTool.setPortNumber(portNumber);

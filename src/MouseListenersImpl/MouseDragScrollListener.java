@@ -18,15 +18,21 @@ public class MouseDragScrollListener extends MouseAdapter
 	 	MOUSE_DRAG_DELAY = 50,
 	 	MOUSE_WHEEL_SPIN = 1;
 	 
-	 
 	 public static void setMouseDragDelay(int delay)
 	 {
 		 MOUSE_DRAG_DELAY = delay;
 	 }
-	 
+	 public static int getMouseDragDelay()
+	 {
+		 return MOUSE_DRAG_DELAY;
+	 }
 	 public static void setMouseWheelSpin(int spin)
 	 {
 		 MOUSE_WHEEL_SPIN = spin;
+	 }
+	 public static int getMouseWheelSpin()
+	 {
+		 return MOUSE_WHEEL_SPIN;
 	 }
 	 
      @Override
@@ -44,7 +50,6 @@ public class MouseDragScrollListener extends MouseAdapter
      @Override
      public void mouseDragged(MouseEvent e) 
      {
-    	 
     	 Component 
     	 	comp = (Component) e.getSource();
     	 Point 
