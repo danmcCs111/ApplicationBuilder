@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -82,6 +83,7 @@ import WidgetExtensions.ExtendedSaveActionListener;
 import WidgetExtensions.ExtendedScheduledCommandStartActionListener;
 import WidgetExtensions.ExtendedScrollBarSetUnit;
 import WidgetExtensions.ExtendedSearchField;
+import WidgetExtensions.ExtendedSelectAll;
 import WidgetExtensions.ExtendedSetBackgroundPanelColorTemplate;
 import WidgetExtensions.ExtendedSetButtonBackgroundColorTemplate;
 import WidgetExtensions.ExtendedSetButtonForegroundColorTemplate;
@@ -131,6 +133,7 @@ public class WidgetAttributes
 		COMPONENT_CLASSES.add(JMenuBar.class);
 		COMPONENT_CLASSES.add(JMenu.class);
 		COMPONENT_CLASSES.add(JMenuItem.class);
+		COMPONENT_CLASSES.add(JCheckBox.class);
 		
 		COMPONENT_CLASSES.add(TitleScroller.class);
 		COMPONENT_CLASSES.add(DatabaseResponseNodeTextArea.class);
@@ -253,6 +256,11 @@ public class WidgetAttributes
 				ExtendedAttributeParam.getMethodDefinition(ExtendedCommandExecution.class, ExtendedMethodArgDef.CommandBuildSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedReturnLocation.class, ExtendedMethodArgDef.ExtendedPoint.getMethodArgDef())
 		});
+		EXTENDED_METHODS.put(JCheckBox.class, new String [] {
+				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSelectAll.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef())
+		});
+		
 		
 		//EXTENDED WIDGETS
 		EXTENDED_METHODS.put(DatabaseEditor.class, new String [] {

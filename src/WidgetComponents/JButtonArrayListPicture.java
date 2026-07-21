@@ -8,8 +8,6 @@ import java.awt.Point;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -54,10 +52,11 @@ import WidgetExtensionInterfaces.ClearActionExtension;
 import WidgetExtensionInterfaces.ConnectedComponentName;
 import WidgetExtensionInterfaces.OpenActionExtension;
 import WidgetExtensionInterfaces.SaveActionExtension;
+import WidgetExtensionInterfaces.SelectAllAction;
 import WidgetUtility.WidgetBuildController;
 
 public class JButtonArrayListPicture extends JPanel implements ButtonArray, ArrayActionListener, CharacterLimited, 
-AddActionSend, AddActionReceive,
+AddActionSend, AddActionReceive, SelectAllAction,
 OpenActionExtension, SaveActionExtension, ClearActionExtension,
 ConnectedComponentName, ButtonArrayLoadingNotifier,
 PostWidgetBuildProcessing
@@ -85,7 +84,8 @@ PostWidgetBuildProcessing
 		keepsFileLocation;
 	private static boolean
 		SHOW_JAVA_SWING_FILE_CHOOSER = false,
-		SHOW_TITLE_ON_POSTER = false;
+		SHOW_TITLE_ON_POSTER = false,
+		SHOW_DEFAULT_TEXT = false;
 	private static Color
 		highlightColor = Color.orange,
 		buttonCheckboxBackground = null,
@@ -141,6 +141,11 @@ PostWidgetBuildProcessing
 	public static void setMouseWheelSpin(int spin)
 	{
 		MouseDragScrollListener.setMouseWheelSpin(spin);
+	}
+	
+	public static void setShowTextOnDefaultImage(boolean show)
+	{
+		SHOW_DEFAULT_TEXT = show;
 	}
 	
 	public static void setHighlightColor(Color color)
@@ -305,7 +310,7 @@ PostWidgetBuildProcessing
 				ImageIcon img = (ImageIcon) (ab.getIcon());
 				String strippedText = getStrippedTextOnComponent((JCheckBoxLimited)comp);
 				((JCheckBoxLimited) comp).setStrippedText(strippedText);
-				if(SHOW_TITLE_ON_POSTER || img.equals(imageReader.getDefaultImageIcon()))
+				if(SHOW_TITLE_ON_POSTER || (SHOW_DEFAULT_TEXT && img.equals(imageReader.getDefaultImageIcon()) ))
 				{
 					ab.setText(strippedText);
 				}
@@ -418,7 +423,7 @@ PostWidgetBuildProcessing
 			button.setIcon(img);
 			String nameNoExtension = PathUtility.getFilenameNoExtension(fileName);
 			
-			if(SHOW_TITLE_ON_POSTER || img.equals(imageReader.getDefaultImageIcon()))
+			if(SHOW_TITLE_ON_POSTER || (SHOW_DEFAULT_TEXT && img.equals(imageReader.getDefaultImageIcon()) ))
 			{
 				button.setText(nameNoExtension);
 			}
@@ -757,6 +762,27 @@ PostWidgetBuildProcessing
 	public void setLoadingSpinXmlFile(FileSelection xmlFile)
 	{
 		this.xmlFile = xmlFile;
+	}
+	
+	@Override
+	public void isSelectAll(boolean selectAll) 
+	{
+		int pos = NavigationButtonActionListener.getCurPosition();
+		String path = SwappableCollection.indexPaths.get(pos);
+		if(selectAll)
+		{
+			for(AbstractButton ab : collectionJButtons.get(path))
+			{
+				ab.setSelected(true);
+			}
+		}
+		else
+		{
+			for(AbstractButton ab : collectionJButtons.get(path))
+			{
+				ab.setSelected(false);
+			}
+		}
 	}
 	
 	@SuppressWarnings("unchecked")
