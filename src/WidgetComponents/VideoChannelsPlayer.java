@@ -100,6 +100,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	private static DirectorySelection
 		videoBookmarksDirectory = new DirectorySelection("./Properties/VideoLaunchBookmarks/");
 	private static boolean
+		IS_DRAG_SCROLL = true,
 		OVERRIDE_ERROR_DIALOG = false;
 	
 	private JButton 
@@ -162,49 +163,44 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	{
 		videoChannelsUpdateXml = fs;
 	}
-	
+	public static void setIsDragScroll(boolean isScroll)
+	{
+		IS_DRAG_SCROLL = isScroll;
+	}
 	public static void setMouseDragDelay(int delay)
 	{
 		MouseDragScrollListener.setMouseDragDelay(delay);
 	}
-	
 	public static void setMouseWheelSpin(int spin)
 	{
 		MouseDragScrollListener.setMouseWheelSpin(spin);
 	}
-	
 	public static void setParentRootPort(int rootPort)
 	{
 		ROOT_PORT = rootPort;
 	}
-	
 	public static void setPortNumberMask(int portNumberMask)
 	{
 		PORT_NUMBER_MASK = portNumberMask;
 		LISTEN_PORT = HttpRequestProcessor.getPortNumber()+PORT_NUMBER_MASK;
 	}
-	
 	public static void setOverrideErrorDialog(boolean override)
 	{
 		OVERRIDE_ERROR_DIALOG = override;
 	}
-	
 	public static void setAlphaNumericOrder(boolean isAlphaNumeric)
 	{
 		VideoChannelsPlayer.isAlphaNumeric = isAlphaNumeric;
 	}
-	
 	public static void setDirectorySelection(DirectorySelection ds)
 	{
 		videoBookmarksDirectory = ds;
 	}
-	
 	public static void setLaunchLocation(Point p)
 	{
 		LAUNCH_LOCATION = p;
 		ERROR_DIALOG_LOCATION = LAUNCH_LOCATION;
 	}
-	
 	public static void setHighlightColor(Color c)
 	{
 		Highlighter.setBorderColor(c);
@@ -344,6 +340,14 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 			parentButtonAndYoutubeVideos.put(parentButtons.get(i), ycvs.get(i));
 			AbstractButton ab = buildSelectionButton(parentButtons.get(i));
 			selectionButtonAndParentButton.put(ab, parentButtons.get(i));
+			
+			if(IS_DRAG_SCROLL)
+			{
+				MouseDragScrollListener mdsl = new MouseDragScrollListener();
+				ab.addMouseListener(mdsl);
+				ab.addMouseMotionListener(mdsl);
+			}
+			
 			ab.setIcon(buttonAndIcon.get(parentButtons.get(i)));
 			ab.setHorizontalAlignment(AbstractButton.LEFT);
 			abs.add(ab);
