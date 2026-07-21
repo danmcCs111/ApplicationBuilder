@@ -139,6 +139,8 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		countLabel = new JLabel();
 	private static boolean
 		isAlphaNumeric = false;
+	private static FileSelection
+		videoChannelsUpdateXml = new FileSelection("./Properties/data/ChannelsUpdater.xml");
 	
 	private HttpRequestProcessor 
 		hrp;
@@ -154,6 +156,11 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	public VideoChannelsPlayer()
 	{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
+	public static void setVideoChannelsUpdaterXml(FileSelection fs)
+	{
+		videoChannelsUpdateXml = fs;
 	}
 	
 	public static void setMouseDragDelay(int delay)
@@ -646,7 +653,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 				String [] args = new String [] {
 					fs.getFullPath(),
 					"ApplicationBuilder.ApplicationBuilder",
-					"./Properties/data/channelsUpdater.xml",
+					videoChannelsUpdateXml.getRelativePath(),
 					absPath, 
 					isAlphaNumeric+"", 
 					scrnPoint.x + "," + scrnPoint.y, 
