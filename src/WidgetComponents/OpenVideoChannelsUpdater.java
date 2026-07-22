@@ -56,6 +56,7 @@ public class OpenVideoChannelsUpdater extends JFrame implements PostWidgetBuildP
 		ALL_CHECKBOX_TEXT = "Select All",
 		EDIT_BUTTON_TEXT = "Edit",
 		DELETE_BUTTON_TEXT = "Delete",
+		DELETE_BUTTON_TOOLTIP_TEXT = "Remove Video Links before Date",
 		UPDATE_BUTTON_TEXT = "Update",
 		CANCEL_BUTTON_TEXT = "Cancel",
 		CLOSE_BUTTON_TEXT = "Close";
@@ -222,6 +223,7 @@ public class OpenVideoChannelsUpdater extends JFrame implements PostWidgetBuildP
 		});
 		
 		deleteButton = new JButton(DELETE_BUTTON_TEXT);
+		deleteButton.setToolTipText(DELETE_BUTTON_TOOLTIP_TEXT);
 		deleteButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
