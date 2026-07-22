@@ -1,21 +1,21 @@
 <Build>
-	<JFrame addWindowListener="WindowListeners.ProcessExecutorWindowListener" extendedSetLookAndFeel="System" extendedSetQueryEndpointAddress="http://localhost:" extendedSetQueryPortNumber="8000" extendedSetScrollBarDimension="18, 18" extendedSetupTaskbar="./src/ApplicationBuilder/launch_xsm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="115, 365" setMinimumSize="425, 163" setName="VideoPlayer" setResizable="True" setSize="425, 163" setTitle="Video Launcher" >
+	<JFrame addWindowListener="WindowListeners.ProcessExecutorWindowListener" extendedSetLookAndFeel="System" extendedSetQueryEndpointAddress="http://localhost:" extendedSetQueryPortNumber="8000" extendedSetScrollBarDimension="18, 18" extendedSetupTaskbar="./src/ApplicationBuilder/launch_xsm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="115, 365" setMinimumSize="425, 159" setName="VideoPlayer" setResizable="True" setSize="425, 159" setTitle="Video Launcher" >
 		<JPanel extendedLayoutApplyParent="Center" setLayout="java.awt.BorderLayout" >
 			<JScrollPane extendedLayoutApplyParent="Center" extendedScrollBarSetUnit="15" setName="scrollPane" >
 				<SwappableCollection extendedArrayProcessingPath="./VideoLaunchFiles/YoutubeChannels/@.url; ./VideoLaunchFiles/RokuChannels/@.url; ./VideoLaunchFiles/Music/@.url; ./VideoLaunchFiles/AmazonVideos/@.url; ./VideoLaunchFiles/Tubi/@.url; ./VideoLaunchFiles/YoutubeFreeMovies2/@.url; ./VideoLaunchFiles/RokuVideos/@.url" extendedSetViewportView="" setLayout="java.awt.BorderLayout" setName="swapVideos" >
 					<JPanel extendedLayoutApplyParent="North" setLayout="java.awt.BorderLayout" >
-						<JButtonArray addActionListener="ActionListenersImpl.LaunchUrlActionListener" extendedImageMouseAdapterArray="swapVideos, False" extendedLayoutApplyParent="Center" extendedPageParserCollection="Youtube@F@youtube.com@F@Image@F@@M@https://yt3.googleusercontent.com([^@Q@])*(@Q@)@R@@Q@@RV@@F@Title@F@@M@&lt;title&gt;([^&lt;])*&lt;/title&gt;@R@&lt;title&gt;@RV@@R@&lt;/title&gt;@RV@@R@[^a-zA-Z0-9\-\s]@RV@@C@Roku@F@therokuchannel.roku.com@F@Title@F@@M@&lt;link rel=@Q@canonical@Q@ href=@Q@[^&gt;]*&gt;@R@&lt;link rel=@Q@canonical@Q@ href=@Q@@RV@@R@@Q@[ ]*&gt;@RV@@R@.*/[\\-a-zA-Z0-9]*@RV@@F@Image@F@@M@&lt;meta itemprop=@Q@image@Q@ content=[^&gt;]*&gt;@R@&lt;meta itemprop=@Q@image@Q@ content=@Q@@RV@@R@@Q@ &gt;@RV@" extendedSwappableHolder="swapVideos" extendedTextStripper="Watch @ Online for Free _ The Roku Channel _ Roku@ - YouTube@ - Prime Video@Prime Video- @1_@.url" setCharacterLimit="35" setControllerPlaceHome="30, 30" setControllerShiftAmount="30" setDefaultImageXmlPath="./Properties/shapes/Default-Play-Image.xml" setDefaultPicSize="280, 150" setDefaultVideoListViewMinute="3" setDragScrollChannelsUpdater="True" setExpandedArrangementFileRelativeLocation="./Properties/VideoLaunchBookmarks/ " setFrameHightlightColor="255, 51, 51" setFrameSelectionColor="30, 206, 206" setHighlightBackgroundColor="240, 240, 240" setImageIconHeight="33" setJavaSwingFileChooser="False" setLayout="java.awt.GridLayout" setMinimumMinuteChannelViewJoystick="3" setMouseDragDelay="50" setMouseWheelSpin="-1" setMoviesIcon="./src/ApplicationBuilder/video-icon.png" setName="channels" setScaledDefaultPic="145, 75" setScaledWidth="145" setScaledWidthPreview="200" setShiftSliderMaxSettingXY="1500, 1000" setShowTitleOnPoster="False" setSingleClick="False" setSqlType="SQLite" setYoutubeApiKeyPath="./Properties/api-keys/youtube-api-key.txt" >
+						<JButtonArray addActionListener="ActionListenersImpl.LaunchUrlActionListener" extendedImageMouseAdapterArray="swapVideos, False" extendedLayoutApplyParent="Center" extendedPageParserCollection="Youtube@F@youtube.com@F@Image@F@@M@https://yt3.googleusercontent.com([^@Q@])*(@Q@)@R@@Q@@RV@@F@Title@F@@M@&lt;title&gt;([^&lt;])*&lt;/title&gt;@R@&lt;title&gt;@RV@@R@&lt;/title&gt;@RV@@R@[^a-zA-Z0-9\-\s]@RV@@C@Roku@F@therokuchannel.roku.com@F@Image@F@@M@&lt;meta itemprop=@Q@image@Q@ content=[^&gt;]*&gt;@R@&lt;meta itemprop=@Q@image@Q@ content=@Q@@RV@@R@@Q@ &gt;@RV@@F@Title@F@@M@&lt;link rel=@Q@canonical@Q@ href=@Q@[^&gt;]*&gt;@R@&lt;link rel=@Q@canonical@Q@ href=@Q@@RV@@R@@Q@[ ]*&gt;@RV@@R@.*/[\\-a-zA-Z0-9]*@RV@" extendedSwappableHolder="swapVideos" extendedTextStripper="Watch @ Online for Free _ The Roku Channel _ Roku@ - YouTube@ - Prime Video@Prime Video- @1_@.url" setArrayForegroundAndBackground="51, 51, 51, 0, 0, 0" setBorderColorVideoChannelListView="255, 51, 51" setCharacterLimit="35" setControllerPlaceHome="30, 30" setControllerShiftAmount="30" setDefaultImageXmlPath="./Properties/shapes/Default-Play-Image.xml" setDefaultPicSize="280, 150" setDefaultVideoListViewMinute="3" setDragScrollChannelsUpdater="True" setExpandedArrangementFileRelativeLocation="./Properties/VideoLaunchBookmarks/ " setForegroundBackgroundColorVideoChannelListView="51, 51, 51, 51, 51, 51" setFrameHightlightColor="255, 51, 51" setFrameSelectionColor="30, 206, 206" setHighlightBackgroundColor="240, 240, 240" setHighlightForegroundBackgroundColorVideoChannelListView="51, 51, 51, 255, 255, 255" setHighlightForegroundColor="255, 51, 51" setImageIconHeight="33" setJavaSwingFileChooser="False" setLayout="java.awt.GridLayout" setMinimumMinuteChannelViewJoystick="3" setMouseDragDelay="50" setMouseWheelSpin="-1" setMoviesIcon="./src/ApplicationBuilder/video-icon.png" setName="channels" setScaledDefaultPic="145, 75" setScaledWidth="145" setScaledWidthPreview="200" setShiftSliderMaxSettingXY="1500, 1000" setShowTitleOnPoster="False" setSingleClick="False" setSqlType="SQLite" setYoutubeApiKeyPath="./Properties/api-keys/youtube-api-key.txt" >
 						</JButtonArray>
 					</JPanel>
 				</SwappableCollection>
 			</JScrollPane>
-			<JPanel extendedLayoutApplyParent="North" setLayout="java.awt.BorderLayout" >
+			<JPanel extendedLayoutApplyParent="North" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" >
 				<JPanel extendedLayoutApplyParent="North" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" >
-					<TitleScroller extendedLayoutApplyParent="North" extendedSetFontSize="18" setCaretColor="255, 255, 255" setDefaultTitle="&lt;stopped&gt;" setEditable="False" setForeground="0, 102, 102" setFormatChannel=" -- &lt;arg&gt;" setFormatVideo="[ &lt;arg&gt; ]" setHorizontalAlignment="2" setReplaceValue="&lt;arg&gt;" setScrollOption="True" setScrollOverCountBack="25" setScrollOverCountBackJumpPosition="500" setScrollOverCountFront="100" setScrollSpeedMillis="150" setSelectionColor="204, 102, 0" setText="&lt;stopped&gt;" setTotalCycleTime="3000" setWaitCycle="100" >
+					<TitleScroller extendedLayoutApplyParent="North" extendedSetFontSize="18" setCaretColor="255, 255, 255" setDefaultTitle="&lt;stopped&gt;" setEditable="False" setForeground="0, 204, 204" setFormatChannel=" -- &lt;arg&gt;" setFormatVideo="[ &lt;arg&gt; ]" setHorizontalAlignment="2" setReplaceValue="&lt;arg&gt;" setScrollOption="True" setScrollOverCountBack="50" setScrollOverCountBackJumpPosition="500" setScrollOverCountFront="100" setScrollSpeedMillis="75" setSelectionColor="204, 102, 0" setText="&lt;stopped&gt;" setTotalCycleTime="6000" setWaitCycle="50" >
 					</TitleScroller>
 				</JPanel>
 				<JPanel extendedLayoutApplyParent="South" setLayout="java.awt.BorderLayout" >
-					<SearchBar extendedLayoutApplyParent="East" extendedSearchField="swapVideos" setColumnCharacterLength="10" setSearchFieldForeground="255, 255, 255" >
+					<SearchBar extendedLayoutApplyParent="East" extendedSearchField="swapVideos" setColumnCharacterLength="10" >
 					</SearchBar>
 					<JLabel extendedLayoutApplyParent="West" extendedTitleSwitcher="swapVideos" setHorizontalAlignment="0" setName="title" setText="TODO" >
 					</JLabel>
@@ -24,37 +24,37 @@
 		</JPanel>
 		<JPanel extendedLayoutApplyParent="South" setLayout="java.awt.BorderLayout" >
 			<JPanel extendedLayoutApplyParent="South" setLayout="java.awt.FlowLayout" >
-				<JButton extendedLayoutApplyParent="" extendedOpenAltTextActionListener="channels" extendedTouchOptionLookup="touch-option" setText="|  O  |" setToolTipText="Open Bookmarks" >
+				<JButton extendedLayoutApplyParent="" extendedOpenAltTextActionListener="channels" extendedTouchOptionLookup="touch-option" setBackground="0, 102, 102" setForeground="153, 153, 153" setText="|  O  |" setToolTipText="Open Bookmarks" >
 				</JButton>
-				<JButton extendedCloseAllActionListener="channels" extendedLayoutApplyParent="" setText="|  X  |" setToolTipText="Close All Bookmarks" >
+				<JButton extendedCloseAllActionListener="channels" extendedLayoutApplyParent="" setBackground="0, 102, 102" setForeground="153, 153, 153" setText="|  X  |" setToolTipText="Close All Bookmarks" >
 				</JButton>
-				<JToggleButton addActionListener="ActionListenersImpl.TouchFrameDragActionListener" extendedLayoutApplyParent="" setName="touch-option" setText="|  P  |" setToolTipText="Toggle touch actions on/off" >
+				<JToggleButton addActionListener="ActionListenersImpl.TouchFrameDragActionListener" extendedLayoutApplyParent="" setBackground="0, 0, 0" setForeground="153, 153, 153" setName="touch-option" setText="|  P  |" setToolTipText="Toggle touch actions on/off" >
 				</JToggleButton>
-				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/send-pid-key.ahk%Tn pid.txt%Tn {space}" extendedLayoutApplyParent="" setText="| &gt; |" setToolTipText="Play/Pause" >
+				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/send-pid-key.ahk%Tn pid.txt%Tn {space}" extendedLayoutApplyParent="" setBackground="42, 0, 7" setForeground="153, 153, 153" setText="| &gt; |" setToolTipText="Play/Pause" >
 				</JButton>
-				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/send-pid-key.ahk%Tn pid.txt%Tn {F11}%Tn f" extendedLayoutApplyParent="" setText="| [Full] |" setToolTipText="Go Fullscreen" >
+				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/send-pid-key.ahk%Tn pid.txt%Tn {F11}%Tn f" extendedLayoutApplyParent="" setBackground="42, 0, 7" setForeground="153, 153, 153" setText="| [Full] |" setToolTipText="Go Fullscreen" >
 				</JButton>
 			</JPanel>
 			<JPanel extendedLayoutApplyParent="North" setLayout="java.awt.FlowLayout" >
-				<JButton extendedLayoutApplyParent="" extendedShiftFramesActionListener="channels" setText="&lt;---[  ]" setToolTipText="Shift Frames" >
+				<JButton extendedLayoutApplyParent="" extendedShiftFramesActionListener="channels" setBackground="0, 0, 0" setForeground="0, 204, 204" setText="&lt;---[  ]" setToolTipText="Shift Frames" >
 				</JButton>
-				<JButton extendedLayoutApplyParent="" extendedRestoreActionListener="channels" setName="restore-win" setText="^" setToolTipText="Restore Frames" >
+				<JButton extendedLayoutApplyParent="" extendedRestoreActionListener="channels" setBackground="0, 0, 0" setForeground="51, 51, 51" setName="restore-win" setText="^" setToolTipText="Restore Frames" >
 				</JButton>
-				<JButton extendedLayoutApplyParent="" extendedMinimizeActionListener="channels" setName="minimize-win" setText="_" setToolTipText="Minimize frames" >
+				<JButton extendedLayoutApplyParent="" extendedMinimizeActionListener="channels" setBackground="0, 0, 0" setForeground="51, 51, 51" setName="minimize-win" setText="_" setToolTipText="Minimize frames" >
 				</JButton>
-				<JButton addActionListener="ActionListenersImpl.LaunchUrlActionListener" extendedLayoutApplyParent="" setName="closeLaunchAction" setPreferredSize="60, 25" setText=" X" setToolTipText="close browser" >
+				<JButton addActionListener="ActionListenersImpl.LaunchUrlActionListener" extendedLayoutApplyParent="" setBackground="0, 0, 0" setForeground="153, 0, 0" setName="closeLaunchAction" setPreferredSize="60, 25" setText=" X" setToolTipText="close browser" >
 				</JButton>
 			</JPanel>
 		</JPanel>
 		<JPanel extendedLayoutApplyParent="West" setLayout="java.awt.BorderLayout" >
-			<JButton addActionListener="ActionListenersImpl.NavigationButtonActionListener" extendedActionListenerConnectedComponent="swapVideos" extendedActionListenerSubType="WidgetComponents.Direction@BACKWARD" extendedLayoutApplyParent="North" setText="[&lt;]" >
+			<JButton addActionListener="ActionListenersImpl.NavigationButtonActionListener" extendedActionListenerConnectedComponent="swapVideos" extendedActionListenerSubType="WidgetComponents.Direction@BACKWARD" extendedLayoutApplyParent="North" setBackground="0, 0, 0" setForeground="153, 153, 153" setText="[&lt;]" >
 			</JButton>
 		</JPanel>
 		<JPanel extendedLayoutApplyParent="East" setLayout="java.awt.BorderLayout" >
-			<JButton addActionListener="ActionListenersImpl.NavigationButtonActionListener" extendedActionListenerConnectedComponent="swapVideos" extendedActionListenerSubType="WidgetComponents.Direction@FORWARD" extendedLayoutApplyParent="North" setText="[&gt;]" >
+			<JButton addActionListener="ActionListenersImpl.NavigationButtonActionListener" extendedActionListenerConnectedComponent="swapVideos" extendedActionListenerSubType="WidgetComponents.Direction@FORWARD" extendedLayoutApplyParent="North" setBackground="0, 0, 0" setForeground="153, 153, 153" setText="[&gt;]" >
 			</JButton>
 		</JPanel>
-		<JMenuBar extendedSetJMenuBarParent="" >
+		<JMenuBar extendedSetJMenuBarParent="" setForeground="255, 255, 255" >
 			<JMenu extendedLayoutApplyParent="" setText="File" >
 				<JMenuItem extendedLayoutApplyParent="" extendedOpenActionListener="channels" setText="Open" setToolTipText="Open available conent from a stored bookmark into seperate windows" >
 				</JMenuItem>
