@@ -259,9 +259,9 @@ public class OpenVideoChannelsUpdater extends JFrame implements PostWidgetBuildP
 		buildControlPanel();
 		buildCheckBoxPanel();
 		
+		buttonPanel.add(deleteButton);
 		buttonPanel.add(editButton);
 		buttonPanel.add(updateButton);
-		buttonPanel.add(deleteButton);
 		buttonPanel.add(cancelButton);
 		
 		JScrollPane scrollPane = new JScrollPane(checkBoxPanel);
