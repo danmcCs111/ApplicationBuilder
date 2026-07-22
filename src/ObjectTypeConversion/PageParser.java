@@ -19,6 +19,7 @@ public class PageParser
 	public static final String
 		PARSER_DELIMIT_COLLECTION = "@C@",
 		QUOTE_REPLACEMENT = "@Q@",
+		COMA_REPLACEMENT = "@CC@",
 		DELIMITER_FILTER_SEPERATOR = "@F@",
 		DELIMITER_MATCH_FILTER_SEPERATOR = "@M@",
 		DELIMITER_REPLACE_SEPERATOR = "@R@",
@@ -163,6 +164,7 @@ public class PageParser
 		retStr = (String) retStr.subSequence(0, retStr.length()-DELIMITER_FILTER_SEPERATOR.length());
 		
 		retStr = retStr.replaceAll("\"", QUOTE_REPLACEMENT);
+		retStr = retStr.replaceAll(",", COMA_REPLACEMENT);
 		
 		LoggingMessages.printOut(retStr);
 		
@@ -189,6 +191,7 @@ public class PageParser
 		}
 		
 		xmlString = xmlString.replaceAll(QUOTE_REPLACEMENT, "\"");
+		xmlString = xmlString.replaceAll(COMA_REPLACEMENT, ",");
 		
 		String [] filterSepStr = xmlString.split(DELIMITER_FILTER_SEPERATOR);
 		this.titleLabel = filterSepStr[0];
