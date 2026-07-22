@@ -1,5 +1,5 @@
 <Build>
-	<JFrame extendedSetLookAndFeel="System" setDefaultCloseOperation="3" setMinimumSize="350, 350" setTitle="Encyclopedia Pages Uploader" >
+	<JFrame extendedSetLookAndFeel="System" setDefaultCloseOperation="3" setMinimumSize="350, 350" setTitle="GOG Updater" >
 		<PageParserUploader extendedLayoutApplyParent="" setHomePage="https://www.gog.com/en/games?order=desc:releaseDate" setPageParserCollection="GOG@F@https://www.gog.com/en/games@F@GameLink@F@@M@product-tile[^\@Q@]*\@Q@ href=\@Q@[^\@Q@]*@R@product-tile[^\@Q@]*\@Q@ href=\@Q@@RV@@C@GOGGame@F@https://www.gog.com/en/game/@F@ReleaseDate@F@@M@Release date:.*\n.*&lt;span ng-cloak&gt;.*\+@R@Release date:.*\n.*&lt;span ng-cloak&gt;@RV@@R@^[^;]*@RV@@R@^;@RV@@M@^[^\+]*@R@@F@Price@F@@M@\@Q@Offer\@Q@@CC@.*\n.*\n.*\@Q@USD\@Q@@CC@\n.*\n.*\n.*\@Q@US\@Q@@CC@@R@\@Q@Offer\@Q@@CC@.*\n@RV@@R@.*\@Q@USD\@Q@@CC@\n.*\n.*\n.*\@Q@US\@Q@@CC@@RV@@R@[a-zA-Z\@Q@:@CC@ ]*@RV@" >
 		</PageParserUploader>
 	</JFrame>

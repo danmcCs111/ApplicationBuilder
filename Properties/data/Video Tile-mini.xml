@@ -11,7 +11,7 @@
 			</JScrollPane>
 			<JPanel extendedLayoutApplyParent="North" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" >
 				<JPanel extendedLayoutApplyParent="West" setBackground="51, 51, 51" setLayout="java.awt.FlowLayout" >
-					<JCheckBox extendedLayoutApplyParent="" extendedSelectAll="channels" setBackground="51, 51, 51" setForeground="255, 255, 255" setText="Select All" >
+					<JCheckBox extendedLayoutApplyParent="" extendedSelectAll="channels" setBackground="51, 51, 51" setForeground="255, 255, 255" setText="" setToolTipText="Select All" >
 					</JCheckBox>
 					<JLabel extendedLayoutApplyParent="" extendedTitleSwitcher="swapVideos" setBackground="51, 51, 51" setForeground="255, 153, 102" setName="title" setText="TODO" >
 					</JLabel>
