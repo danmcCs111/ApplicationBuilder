@@ -111,14 +111,11 @@ PostWidgetBuildProcessing
 		characterLimit=0,
 		columns = 3;
 	private boolean 
-		showAll = false,
-		isLoadingSpinGraphic = true;
+		showAll = false;
 	private String 
 		connectedComponentName;
 	private ArrayList<ButtonArrayLoadingNotification> 
 		loadingNofications = new ArrayList<ButtonArrayLoadingNotification>();
-	private FileSelection 
-		xmlFile = new FileSelection("./Properties/shapes/reload.xml");
 	private JFrame 
 		loadingFrame;
 	private VideoBookMarksDialog 
@@ -140,33 +137,27 @@ PostWidgetBuildProcessing
 	{
 		IS_DRAG_SCROLL = isDragScroll;
 	}
-	
 	public static void setMouseDragDelay(int delay)
 	{
 		MouseDragScrollListener.setMouseDragDelay(delay);
 	}
-	
 	public static void setMouseWheelSpin(int spin)
 	{
 		MouseDragScrollListener.setMouseWheelSpin(spin);
 	}
-	
 	public static void setShowTextOnDefaultImage(boolean show)
 	{
 		SHOW_DEFAULT_TEXT = show;
 	}
-	
 	public static void setHighlightColor(Color color)
 	{
 		highlightColor = color;
 		highlightBorder = new BevelBorder(BevelBorder.RAISED, highlightColor, highlightColor);
 	}
-	
 	public static void setDefaultBorder(Color color)
 	{
 		defaultBorder = new BevelBorder(BevelBorder.RAISED, color, color);
 	}
-	
 	public static void setDeleteForegroundColor(Color c)
 	{
 		ColorTemplate.setDeleteForegroundColor(c);
@@ -175,32 +166,26 @@ PostWidgetBuildProcessing
 	{
 		ColorTemplate.setDeleteBackgroundColor(c);
 	}
-	
 	public static void setButtonCheckboxBackground(Color backgroundCheckbox)
 	{
 		buttonCheckboxBackground = backgroundCheckbox;
 	}
-	
 	public static void setButtonCheckboxForeground(Color foregroundCheckbox)
 	{
 		buttonCheckboxForeground = foregroundCheckbox;
 	}
-	
 	public static void setJavaSwingFileChooser(boolean isSwingFileChooser)
 	{
 		SHOW_JAVA_SWING_FILE_CHOOSER = isSwingFileChooser;
 	}
-	
 	public static void setShowTitleOnPoster(boolean showTitleOnPoster)
 	{
 		SHOW_TITLE_ON_POSTER = showTitleOnPoster;
 	}
-	
 	public void setSaveIncPoint(Point saveIncPoint)
 	{
 		JButtonArrayListPicture.saveIncPoint = saveIncPoint;
 	}
-	
 	public void setSaveLineWrapNumber(int numberLineWrap)
 	{
 		JButtonArrayListPicture.lineWrap = numberLineWrap;
@@ -209,22 +194,18 @@ PostWidgetBuildProcessing
 	{
 		JButtonArrayListPicture.lineWrapYInc = lineWrapYInc;
 	}
-	
 	public void setSaveStartLocation(Point saveStartLocation)
 	{
 		JButtonArrayListPicture.saveStartLocation = saveStartLocation;
 	}
-	
 	public void setShowAll(boolean showAll)
 	{
 		this.showAll = showAll;
 	}
-	
 	public boolean isShowAll()
 	{
 		return this.showAll;
 	}
-	
 	public void setDefaultImageXmlPath(FileSelection fs)
 	{
 		DEFAULT_IMG = fs.getRelativePath();
@@ -776,11 +757,6 @@ PostWidgetBuildProcessing
 		loadingNofications.add(baln);
 	}
 	
-	public void setLoadingSpinXmlFile(FileSelection xmlFile)
-	{
-		this.xmlFile = xmlFile;
-	}
-	
 	@Override
 	public void isSelectAll(boolean selectAll) 
 	{
@@ -818,13 +794,15 @@ PostWidgetBuildProcessing
 		loadingFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		loadingFrame.setVisible(true);
 		
-		if(this.isLoadingSpinGraphic)
+		if(SwappableCollection.IS_LOADING_GRAPHIC)
 		{
-			loadingFrame.setMinimumSize(new Dimension(150,160));//TODO
+			loadingFrame.setMinimumSize(SwappableCollection.LOADING_DIMENSION);
 			ShapeImportExport sie = new ShapeImportExport();
 			ShapeDrawingCollection sdc = new ShapeDrawingCollection();
-			LoadingSpin spin = new LoadingSpin(Color.black, Color.white);
-			ArrayList<ShapeElement> shapes = (ArrayList<ShapeElement>) sie.openXml(new File(xmlFile.getRelativePath()));
+			LoadingSpin spin = new LoadingSpin(SwappableCollection.LOADING_BACKGROUND, SwappableCollection.LOADING_FOREGROUND);
+			ArrayList<ShapeElement> shapes = (ArrayList<ShapeElement>) sie.openXml(
+					new File(SwappableCollection.LOADING_GRAPHIC.getRelativePath())
+			);
 			sdc.addShapeImports(shapes, spin);
 			spin.addShapeDrawingCollection(sdc);
 			spin.postExecute();
@@ -833,17 +811,11 @@ PostWidgetBuildProcessing
 		}
 		else
 		{
-			loadingFrame.setMinimumSize(new Dimension(180,70));//TODO
+			loadingFrame.setMinimumSize(SwappableCollection.LOADING_DIMENSION_NO_GRAPHIC);
 			LoadingLabel label = new LoadingLabel();
 			this.addButtonArrayLoadingSubscriber(label);
 			loadingFrame.add(label);
 		}
-	}
-
-	@Override
-	public void setIsLoadingSpinGraphic(boolean loadGraphic)
-	{
-		this.isLoadingSpinGraphic = loadGraphic;
 	}
 
 	@Override

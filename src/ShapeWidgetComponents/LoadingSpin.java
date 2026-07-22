@@ -27,7 +27,8 @@ ButtonArrayLoadingNotification
 	{
 		this();
 		this.setBackground(backgroundColor);
-		this.loadingLabel.setForeground(Color.white);
+		this.loadingLabel.setBackground(backgroundColor);
+		this.loadingLabel.setForeground(textColor);
 	}
 	public LoadingSpin()
 	{

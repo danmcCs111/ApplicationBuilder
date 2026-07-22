@@ -45,15 +45,21 @@ import ObjectTypeConversion.PageParserCollection;
 import Params.KeepSelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
+import ShapeWidgetComponents.LoadingSpin;
+import ShapeWidgetComponents.ShapeDrawingCollection;
+import ShapeWidgetComponents.ShapeElement;
+import ShapeWidgetComponents.ShapeImportExport;
 import WidgetComponentDialogs.ShiftDialog;
 import WidgetComponentDialogs.VideoBookMarksDialog;
 import WidgetComponentInterfaces.ButtonArray;
+import WidgetComponentInterfaces.ButtonArrayLoadingNotification;
 import WidgetComponentInterfaces.CharacterLimited;
 import WidgetComponentInterfaces.EditButtonArrayUrls;
 import WidgetComponentInterfaces.LinkDragAndDropSubscriber;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetComponentInterfaces.RegisterArrayActionListener;
 import WidgetExtensionDefs.ExtendedStringCollection;
+import WidgetExtensionInterfaces.ButtonArrayLoadingNotifier;
 import WidgetExtensionInterfaces.CloseActionExtension;
 import WidgetExtensionInterfaces.CloseAllActionExtension;
 import WidgetExtensionInterfaces.ComboListDialogSelectedListener;
@@ -77,7 +83,7 @@ import WidgetUtility.WidgetBuildController;
 public class JButtonArray extends JPanel implements ArrayActionListener, CharacterLimited, 
 SaveActionExtension, OpenActionExtension, CloseActionExtension, CloseAllActionExtension, MinimizeActionExtension, RestoreActionExtension, ShiftFramesExtension,
 ComboListDialogSelectedListener, MouseAdapterArrayExtension, LinkDragAndDropSubscriber, PageParserCollectionLoad, EditButtonArrayUrls, EditCollectionExtension,
-PostWidgetBuildProcessing, ButtonArray
+PostWidgetBuildProcessing, ButtonArray, ButtonArrayLoadingNotifier
 {
 	private static final long serialVersionUID = 1883L;
 	
@@ -143,6 +149,10 @@ PostWidgetBuildProcessing, ButtonArray
 		vbmd = null;
 	private ActionListener 
 		actionListener = null;
+	private JFrame 
+		loadingFrame;
+	private ArrayList<ButtonArrayLoadingNotification> 
+		loadingNofications = new ArrayList<ButtonArrayLoadingNotification>();
 	
 	private int characterLimit=0;
 	
@@ -362,6 +372,14 @@ PostWidgetBuildProcessing, ButtonArray
 	public int getScaledWidthPreview() 
 	{
 		return SCALED_WIDTH_PREVIEW;
+	}
+	
+	private void performLoadingNotify(int count, int total)
+	{
+		for(ButtonArrayLoadingNotification baln : loadingNofications)
+		{
+			baln.updateCount(count, total);
+		}
 	}
 	
 	public void setScaledWidthPreview(int width) 
@@ -982,6 +1000,11 @@ PostWidgetBuildProcessing, ButtonArray
 		HttpRequestProcessor hrp = new HttpRequestProcessor(this, ProcessType.parent);
 		hrp.listenHttp();
 		
+		if(loadingFrame != null)
+		{
+			loadingFrame.dispose();
+		}
+		
 	}
 
 	private void addDragAndDropListener(Component target)
@@ -1070,15 +1093,38 @@ PostWidgetBuildProcessing, ButtonArray
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public void buildLoadingFrame() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void setIsLoadingSpinGraphic(boolean loadGraphic) {
-		// TODO Auto-generated method stub
+	public void buildLoadingFrame() 
+	{
+		loadingFrame = new JFrame();//TODO.
+		loadingFrame.setResizable(false);
+		loadingFrame.setLocation(WidgetBuildController.getInstance().getFrame().getLocation());
+		loadingFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		loadingFrame.setVisible(true);
 		
+		if(SwappableCollection.IS_LOADING_GRAPHIC)
+		{
+			loadingFrame.setMinimumSize(SwappableCollection.LOADING_DIMENSION);
+			ShapeImportExport sie = new ShapeImportExport();
+			ShapeDrawingCollection sdc = new ShapeDrawingCollection();
+			LoadingSpin spin = new LoadingSpin(SwappableCollection.LOADING_BACKGROUND, SwappableCollection.LOADING_FOREGROUND);
+			ArrayList<ShapeElement> shapes = (ArrayList<ShapeElement>) sie.openXml(
+					new File(SwappableCollection.LOADING_GRAPHIC.getRelativePath())
+			);
+			sdc.addShapeImports(shapes, spin);
+			spin.addShapeDrawingCollection(sdc);
+			spin.postExecute();
+			this.addButtonArrayLoadingSubscriber(spin);
+			loadingFrame.add(spin);
+		}
+		else
+		{
+			loadingFrame.setMinimumSize(SwappableCollection.LOADING_DIMENSION_NO_GRAPHIC);
+			LoadingLabel label = new LoadingLabel();
+			this.addButtonArrayLoadingSubscriber(label);
+			loadingFrame.add(label);
+		}
 	}
 
 	@Override
@@ -1209,6 +1255,12 @@ PostWidgetBuildProcessing, ButtonArray
 	public void removeArrayActionListener() 
 	{
 		LaunchUrlActionListener.removeArrayActionListener(this);
+	}
+
+	@Override
+	public void addButtonArrayLoadingSubscriber(ButtonArrayLoadingNotification baln) 
+	{
+		loadingNofications.add(baln);
 	}
 
 }

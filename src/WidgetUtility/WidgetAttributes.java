@@ -58,7 +58,6 @@ import WidgetExtensions.ExtendedAddActionSendReceive;
 import WidgetExtensions.ExtendedAddButtonArrayNotification;
 import WidgetExtensions.ExtendedAllVideoChannelsOpenedList;
 import WidgetExtensions.ExtendedArrayProcessingPath;
-import WidgetExtensions.ExtendedButtonArrayLoadingGraphic;
 import WidgetExtensions.ExtendedCalculationPad;
 import WidgetExtensions.ExtendedClearActionListener;
 import WidgetExtensions.ExtendedCloseActionListener;
@@ -323,7 +322,6 @@ public class WidgetAttributes
 		EXTENDED_METHODS.put(SwappableCollection.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedLayoutApplyParent.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedArrayProcessingPath.class, ExtendedMethodArgDef.PathArrayProcessingFolders.getMethodArgDef()),
-				ExtendedAttributeParam.getMethodDefinition(ExtendedButtonArrayLoadingGraphic.class, ExtendedMethodArgDef.BooleanSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetViewportView.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef())
 		});
 		EXTENDED_METHODS.put(JButtonArray.class, new String [] {

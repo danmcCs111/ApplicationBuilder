@@ -20,7 +20,7 @@ import Properties.LoggingMessages;
 import Properties.PathUtility;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetExtensionDefs.ExtendedAttributeStringParam;
-import WidgetExtensions.ExtendedButtonArrayLoadingGraphic;
+import WidgetExtensions.ExtendedArrayProcessingPath;
 import WidgetExtensions.ExtendedLayoutApplyParent;
 import WidgetExtensions.ExtendedSwappableHolder;
 import WidgetExtensions.ExtendedTextStripper;
@@ -34,14 +34,14 @@ public class WidgetBuildController
 		TEMP_FILE_LOCATION = "/Properties/data/tmp.xml";
 	private static final Class<?> [] 
 		FIRST_ORDERED_GENERATORS = new Class<?> [] {
-			ExtendedButtonArrayLoadingGraphic.class,
 			ExtendedLayoutApplyParent.class, 
 			ExtendedTextStripper.class
 	};
 	private static final Class<?> [] 
 		LAST_ORDERED_GENERATORS = new Class<?> [] {
 			ExtendedSwappableHolder.class,
-			ExtendedTitleSwitcher.class
+			ExtendedTitleSwitcher.class,
+			ExtendedArrayProcessingPath.class
 	};
 	private static ArrayList<WidgetBuildController> 
 		widgetBuildController = new ArrayList<WidgetBuildController> ();

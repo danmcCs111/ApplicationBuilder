@@ -1,6 +1,8 @@
 package WidgetComponents;
 
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -11,6 +13,7 @@ import javax.swing.JPanel;
 
 import ActionListeners.ConnectedComponent;
 import ActionListenersImpl.NavigationButtonActionListener;
+import ObjectTypeConversion.FileSelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
 import WidgetComponentInterfaces.ButtonArray;
@@ -33,6 +36,17 @@ ExtendedStringCollection, SearchSubscriber, ConnectedComponent, RefreshActionExt
 	private static int 
 		fileCount = 0;
 	
+	public static FileSelection 
+		LOADING_GRAPHIC = new FileSelection("./Properties/shapes/reload.xml");
+	public static Dimension
+		LOADING_DIMENSION_NO_GRAPHIC = new Dimension(180,70),
+		LOADING_DIMENSION = new Dimension(150,160);
+	public static Color
+		LOADING_BACKGROUND = Color.BLACK,
+		LOADING_FOREGROUND = Color.WHITE;
+	public static boolean 
+		IS_LOADING_GRAPHIC = false;
+	
 	private LinkedHashMap<String, List<String>> 
 		pathAndFileList = new LinkedHashMap<String, List<String>>();
 	private LinkedHashMap<String, String> 
@@ -41,17 +55,35 @@ ExtendedStringCollection, SearchSubscriber, ConnectedComponent, RefreshActionExt
 		path;
 	private Component 
 		pathTextComponent;
-	private boolean 
-		isLoadingGraphic = false;
 
 	public int getFileCount()
 	{
 		return fileCount;
 	}
 	
-	public void setIsLoadingGraphic(boolean loadGraphic)
+	public static void setLoadingWindowSize(Dimension size)
 	{
-		this.isLoadingGraphic = loadGraphic;
+		LOADING_DIMENSION = size;
+	}
+	public static void setLoadingWindowNoGraphicSize(Dimension size)
+	{
+		LOADING_DIMENSION = size;
+	}
+	public static void setLoadingBackground(Color c)
+	{
+		LOADING_BACKGROUND = c;
+	}
+	public static void setLoadingForeground(Color c)
+	{
+		LOADING_FOREGROUND = c;
+	}
+	public static void setLoadingGraphic(FileSelection fs)
+	{
+		LOADING_GRAPHIC = fs;
+	}
+	public static void setIsLoadingGraphic(boolean loadGraphic)
+	{
+		IS_LOADING_GRAPHIC = loadGraphic;
 	}
 	
 	private int getCollectionSize()
@@ -82,7 +114,6 @@ ExtendedStringCollection, SearchSubscriber, ConnectedComponent, RefreshActionExt
 		fileCount = getCollectionSize();
 		LoggingMessages.printOut("File count: " + fileCount);
 		ButtonArray buttonArray = (ButtonArray) ExtendedAttributeParam.findComponentWithInterface(ButtonArray.class);
-		buttonArray.setIsLoadingSpinGraphic(isLoadingGraphic);
 		buttonArray.buildLoadingFrame();
 		NavigationButtonActionListener.setLastIndex(pathAndFileList.size()-1);
 	}
