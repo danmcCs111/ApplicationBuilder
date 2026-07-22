@@ -1,0 +1,112 @@
+<Build>
+	<JFrame addWindowListener="WindowListeners.ProcessExecutorWindowListener" extendedSetLookAndFeel="System" extendedSetQueryEndpointAddress="http://localhost:" extendedSetQueryPortNumber="8000" extendedSetScrollBarDimension="18, 18" extendedSetupTaskbar="./src/ApplicationBuilder/launch_xsm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="115, 365" setMinimumSize="425, 163" setName="VideoPlayer" setResizable="True" setSize="425, 163" setTitle="Video Launcher" >
+		<JPanel extendedLayoutApplyParent="Center" setLayout="java.awt.BorderLayout" >
+			<JScrollPane extendedLayoutApplyParent="Center" extendedScrollBarSetUnit="15" setName="scrollPane" >
+				<SwappableCollection extendedArrayProcessingPath="./VideoLaunchFiles/YoutubeChannels/@.url; ./VideoLaunchFiles/RokuChannels/@.url; ./VideoLaunchFiles/Music/@.url; ./VideoLaunchFiles/AmazonVideos/@.url; ./VideoLaunchFiles/Tubi/@.url; ./VideoLaunchFiles/YoutubeFreeMovies2/@.url; ./VideoLaunchFiles/RokuVideos/@.url" extendedSetViewportView="" setLayout="java.awt.BorderLayout" setName="swapVideos" >
+					<JPanel extendedLayoutApplyParent="North" setLayout="java.awt.BorderLayout" >
+						<JButtonArray addActionListener="ActionListenersImpl.LaunchUrlActionListener" extendedImageMouseAdapterArray="swapVideos, False" extendedLayoutApplyParent="Center" extendedPageParserCollection="Youtube@F@youtube.com@F@Image@F@@M@https://yt3.googleusercontent.com([^@Q@])*(@Q@)@R@@Q@@RV@@F@Title@F@@M@&lt;title&gt;([^&lt;])*&lt;/title&gt;@R@&lt;title&gt;@RV@@R@&lt;/title&gt;@RV@@R@[^a-zA-Z0-9\-\s]@RV@@C@Roku@F@therokuchannel.roku.com@F@Title@F@@M@&lt;link rel=@Q@canonical@Q@ href=@Q@[^&gt;]*&gt;@R@&lt;link rel=@Q@canonical@Q@ href=@Q@@RV@@R@@Q@[ ]*&gt;@RV@@R@.*/[\\-a-zA-Z0-9]*@RV@@F@Image@F@@M@&lt;meta itemprop=@Q@image@Q@ content=[^&gt;]*&gt;@R@&lt;meta itemprop=@Q@image@Q@ content=@Q@@RV@@R@@Q@ &gt;@RV@" extendedSwappableHolder="swapVideos" extendedTextStripper="Watch @ Online for Free _ The Roku Channel _ Roku@ - YouTube@ - Prime Video@Prime Video- @1_@.url" setCharacterLimit="35" setControllerPlaceHome="30, 30" setControllerShiftAmount="30" setDefaultImageXmlPath="./Properties/shapes/Default-Play-Image.xml" setDefaultPicSize="280, 150" setDefaultVideoListViewMinute="3" setDragScrollChannelsUpdater="True" setExpandedArrangementFileRelativeLocation="./Properties/VideoLaunchBookmarks/ " setFrameHightlightColor="255, 51, 51" setFrameSelectionColor="30, 206, 206" setHighlightBackgroundColor="240, 240, 240" setImageIconHeight="33" setJavaSwingFileChooser="False" setLayout="java.awt.GridLayout" setMinimumMinuteChannelViewJoystick="3" setMouseDragDelay="50" setMouseWheelSpin="-1" setMoviesIcon="./src/ApplicationBuilder/video-icon.png" setName="channels" setScaledDefaultPic="145, 75" setScaledWidth="145" setScaledWidthPreview="200" setShiftSliderMaxSettingXY="1500, 1000" setShowTitleOnPoster="False" setSingleClick="False" setSqlType="SQLite" setYoutubeApiKeyPath="./Properties/api-keys/youtube-api-key.txt" >
+						</JButtonArray>
+					</JPanel>
+				</SwappableCollection>
+			</JScrollPane>
+			<JPanel extendedLayoutApplyParent="North" setLayout="java.awt.BorderLayout" >
+				<JPanel extendedLayoutApplyParent="North" setBackground="51, 51, 51" setLayout="java.awt.BorderLayout" >
+					<TitleScroller extendedLayoutApplyParent="North" extendedSetFontSize="18" setCaretColor="255, 255, 255" setDefaultTitle="&lt;stopped&gt;" setEditable="False" setForeground="0, 102, 102" setFormatChannel=" -- &lt;arg&gt;" setFormatVideo="[ &lt;arg&gt; ]" setHorizontalAlignment="2" setReplaceValue="&lt;arg&gt;" setScrollOption="True" setScrollOverCountBack="25" setScrollOverCountBackJumpPosition="500" setScrollOverCountFront="100" setScrollSpeedMillis="150" setSelectionColor="204, 102, 0" setText="&lt;stopped&gt;" setTotalCycleTime="3000" setWaitCycle="100" >
+					</TitleScroller>
+				</JPanel>
+				<JPanel extendedLayoutApplyParent="South" setLayout="java.awt.BorderLayout" >
+					<SearchBar extendedLayoutApplyParent="East" extendedSearchField="swapVideos" setColumnCharacterLength="10" setSearchFieldForeground="255, 255, 255" >
+					</SearchBar>
+					<JLabel extendedLayoutApplyParent="West" extendedTitleSwitcher="swapVideos" setHorizontalAlignment="0" setName="title" setText="TODO" >
+					</JLabel>
+				</JPanel>
+			</JPanel>
+		</JPanel>
+		<JPanel extendedLayoutApplyParent="South" setLayout="java.awt.BorderLayout" >
+			<JPanel extendedLayoutApplyParent="South" setLayout="java.awt.FlowLayout" >
+				<JButton extendedLayoutApplyParent="" extendedOpenAltTextActionListener="channels" extendedTouchOptionLookup="touch-option" setText="|  O  |" setToolTipText="Open Bookmarks" >
+				</JButton>
+				<JButton extendedCloseAllActionListener="channels" extendedLayoutApplyParent="" setText="|  X  |" setToolTipText="Close All Bookmarks" >
+				</JButton>
+				<JToggleButton addActionListener="ActionListenersImpl.TouchFrameDragActionListener" extendedLayoutApplyParent="" setName="touch-option" setText="|  P  |" setToolTipText="Toggle touch actions on/off" >
+				</JToggleButton>
+				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/send-pid-key.ahk%Tn pid.txt%Tn {space}" extendedLayoutApplyParent="" setText="| &gt; |" setToolTipText="Play/Pause" >
+				</JButton>
+				<JButton addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/send-pid-key.ahk%Tn pid.txt%Tn {F11}%Tn f" extendedLayoutApplyParent="" setText="| [Full] |" setToolTipText="Go Fullscreen" >
+				</JButton>
+			</JPanel>
+			<JPanel extendedLayoutApplyParent="North" setLayout="java.awt.FlowLayout" >
+				<JButton extendedLayoutApplyParent="" extendedShiftFramesActionListener="channels" setText="&lt;---[  ]" setToolTipText="Shift Frames" >
+				</JButton>
+				<JButton extendedLayoutApplyParent="" extendedRestoreActionListener="channels" setName="restore-win" setText="^" setToolTipText="Restore Frames" >
+				</JButton>
+				<JButton extendedLayoutApplyParent="" extendedMinimizeActionListener="channels" setName="minimize-win" setText="_" setToolTipText="Minimize frames" >
+				</JButton>
+				<JButton addActionListener="ActionListenersImpl.LaunchUrlActionListener" extendedLayoutApplyParent="" setName="closeLaunchAction" setPreferredSize="60, 25" setText=" X" setToolTipText="close browser" >
+				</JButton>
+			</JPanel>
+		</JPanel>
+		<JPanel extendedLayoutApplyParent="West" setLayout="java.awt.BorderLayout" >
+			<JButton addActionListener="ActionListenersImpl.NavigationButtonActionListener" extendedActionListenerConnectedComponent="swapVideos" extendedActionListenerSubType="WidgetComponents.Direction@BACKWARD" extendedLayoutApplyParent="North" setText="[&lt;]" >
+			</JButton>
+		</JPanel>
+		<JPanel extendedLayoutApplyParent="East" setLayout="java.awt.BorderLayout" >
+			<JButton addActionListener="ActionListenersImpl.NavigationButtonActionListener" extendedActionListenerConnectedComponent="swapVideos" extendedActionListenerSubType="WidgetComponents.Direction@FORWARD" extendedLayoutApplyParent="North" setText="[&gt;]" >
+			</JButton>
+		</JPanel>
+		<JMenuBar extendedSetJMenuBarParent="" >
+			<JMenu extendedLayoutApplyParent="" setText="File" >
+				<JMenuItem extendedLayoutApplyParent="" extendedOpenActionListener="channels" setText="Open" setToolTipText="Open available conent from a stored bookmark into seperate windows" >
+				</JMenuItem>
+				<JMenuItem extendedLayoutApplyParent="" extendedSaveActionListener="channels" setText="Save As" setToolTipText="Save open content using file selection dialog" >
+				</JMenuItem>
+				<JMenuItem extendedCloseActionListener="channels" extendedLayoutApplyParent="" setText="Close" setToolTipText="Close open content windows" >
+				</JMenuItem>
+				<JMenuItem extendedCloseAllActionListener="channels" extendedLayoutApplyParent="" setText="Close All" setToolTipText="Close all open conent windows" >
+				</JMenuItem>
+			</JMenu>
+			<JMenu extendedLayoutApplyParent="" setText="Action" >
+				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellHeadlessExecutor|%Tnplugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe%Tn plugin-projects/AutoHotKey-Utils/toggle_color_filter-win.ahk" extendedLayoutApplyParent="" setText="Toggle Color Filter" setToolTipText="Toggle windows color filter on/off (Accessibility -&gt; Color filters -&gt; Keyboard shortcut for colorfilters)" >
+				</JMenuItem>
+				<JMenuItem extendedLayoutApplyParent="" extendedRefreshAction="swapVideos" setText="Refresh" setToolTipText="Refresh the current visible collection" >
+				</JMenuItem>
+				<JMenuItem extendedEditCollectionActionListener="channels" extendedLayoutApplyParent="" setText="Edit Collection" setToolTipText="Edit current navigated collection" >
+				</JMenuItem>
+				<JMenuItem extendedLayoutApplyParent="" extendedReturnLocation="115, 365" setText="Return Window" setToolTipText="Return the window location" >
+				</JMenuItem>
+			</JMenu>
+			<JMenu extendedLayoutApplyParent="" setText="Launch" >
+				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellExecutor|%Fn./plugin-projects/DatabaseAdapterService/runDatabase.sh" extendedLayoutApplyParent="" setText="Database Service" setToolTipText="Manages and retrieves stored database content" >
+				</JMenuItem>
+				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ApplicationBuilder|%Fn./Properties/data/Video Tile-mini.xml" extendedLayoutApplyParent="" setText="List Creator" setToolTipText="Select available content and store under a bookmark file" >
+				</JMenuItem>
+				<JMenu extendedLayoutApplyParent="" setText="Channels" >
+					<JMenuItem extendedLayoutApplyParent="" extendedOpenVideoChannelsUpdater="channels" setText="Update Open Channels" >
+					</JMenuItem>
+					<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-jar|%Fn./Application Builder.jar|%Fn./Properties/data/VideoChannelsPlayer.xml" extendedLayoutApplyParent="" setText="Video Channels Player" >
+					</JMenuItem>
+				</JMenu>
+				<JMenu extendedLayoutApplyParent="" setText="Tools" >
+					<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ApplicationBuilder|%Fn./Properties/data/ClockApp2.xml" extendedLayoutApplyParent="" setText="Clock" setToolTipText="Launch Clock" >
+					</JMenuItem>
+					<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ApplicationBuilder|%Fn./Properties/data/ScheduledCommandListEditor.xml" extendedLayoutApplyParent="" setText="Reload Tool" setToolTipText="Launch a process to recycle and retrieve new content" >
+					</JMenuItem>
+					<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ApplicationBuilder|%Fn./Properties/data/BackupDatabase.xml" extendedLayoutApplyParent="" setText="Backup Database" setToolTipText="Launch Backup Database Tool" >
+					</JMenuItem>
+				</JMenu>
+				<JMenu extendedLayoutApplyParent="" setText="Remote" >
+					<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellExecutor|%Fn./plugin-projects/JoystickDriver/joystick.sh" extendedLayoutApplyParent="" setText="Joystick Driver1" setToolTipText="For Controlling Input through interprocess communication" >
+					</JMenuItem>
+					<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ShellExecutor|%Fn./plugin-projects/joystick_mouse_config/launch_antimicrox-windows.sh" extendedLayoutApplyParent="" setText="Joystick Driver2" setToolTipText="For Controlling Input with antimicrox" >
+					</JMenuItem>
+					<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ApplicationBuilder|%Fn./Properties/data/video_remote-spotify.xml" extendedLayoutApplyParent="" setText="Spotify Remote" >
+					</JMenuItem>
+					<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ApplicationBuilder|%Fn./Properties/data/video_remote-power-dvd.xml" extendedLayoutApplyParent="" setText="PowerDVD" >
+					</JMenuItem>
+					<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ApplicationBuilder|%Fn./Properties/data/video_remote-winTv.xml" extendedLayoutApplyParent="" setText="WinTV" >
+					</JMenuItem>
+				</JMenu>
+			</JMenu>
+		</JMenuBar>
+	</JFrame>
+</Build>
