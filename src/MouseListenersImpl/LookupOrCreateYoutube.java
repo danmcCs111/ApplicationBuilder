@@ -100,6 +100,38 @@ public class LookupOrCreateYoutube
 		}
 	}
 	
+	public static void remove(String videoChannelName, String videoChannelLink, Date beginDate)
+	{
+		String query = youtubeSql.getYoutubeQuery(videoChannelName);
+		String response = QueryUpdateTool.executeQuery(query);
+		if(response == null)
+			return;
+		
+		HttpDatabaseResponse hdr = new HttpDatabaseResponse();
+		ArrayList <ArrayList <DatabaseResponseNode>> drns = hdr.parseResponse(response);
+		if(drns.isEmpty())
+		{
+			createIfEmpty(videoChannelName, videoChannelLink);
+		}
+		else
+		{
+			int parentId=-1;
+			for(DatabaseResponseNode drn : drns.get(1))
+			{
+				if(drn.getNodeName().equals("VideoId_Video_VideoDatabase"))
+				{
+					parentId = Integer.parseInt(drn.getNodeAttributes().get("content"));
+					LoggingMessages.printOut("parentID is: " + parentId);
+					LoggingMessages.printOut("channelLink is: " + videoChannelLink);
+					break;
+				}
+			}
+			String removeQuery = youtubeSql.getYoutubeRemoveQuery(parentId, beginDate);
+			String updateResponse = QueryUpdateTool.executeUpdate(removeQuery);
+			LoggingMessages.printOut(updateResponse);
+		}
+	}
+	
 	public static HashMap<Integer, Date> lookupLatestDate(String videoChannelName, String videoChannelLink)
 	{
 		HashMap<Integer, Date> parentIdAndDate = new HashMap<Integer, Date>();

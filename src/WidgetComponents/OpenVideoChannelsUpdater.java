@@ -38,6 +38,7 @@ import Params.KeepSelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
 import Properties.StringUtility;
+import WidgetComponentDialogs.DeleteChannelsBeforeDialog;
 import WidgetComponentInterfaces.ImageReader;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
@@ -54,6 +55,7 @@ public class OpenVideoChannelsUpdater extends JFrame implements PostWidgetBuildP
 		ARG_REPLACE = "<arg>",
 		ALL_CHECKBOX_TEXT = "Select All",
 		EDIT_BUTTON_TEXT = "Edit",
+		DELETE_BUTTON_TEXT = "Delete",
 		UPDATE_BUTTON_TEXT = "Update",
 		CANCEL_BUTTON_TEXT = "Cancel",
 		CLOSE_BUTTON_TEXT = "Close";
@@ -80,11 +82,14 @@ public class OpenVideoChannelsUpdater extends JFrame implements PostWidgetBuildP
 	private JButton
 		editButton,
 		updateButton,
+		deleteButton,
 		cancelButton;
 	private ArrayList<JCheckBox>
 		checkBoxes;
 	private List<JButtonLengthLimited> 
 		jblls;
+	private HashMap<JCheckBox, JButtonLengthLimited>
+		checkBoxAndParentButton = new HashMap<JCheckBox, JButtonLengthLimited>();
 	private List<KeepSelection> 
 		kss;
 	private HashMap<JCheckBox, Date> 
@@ -216,6 +221,14 @@ public class OpenVideoChannelsUpdater extends JFrame implements PostWidgetBuildP
 			}
 		});
 		
+		deleteButton = new JButton(DELETE_BUTTON_TEXT);
+		deleteButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				performRemove();
+			}
+		});
+		
 		editButton = new JButton(EDIT_BUTTON_TEXT);
 		editButton.addActionListener(new ActionListener() {
 			@Override
@@ -246,6 +259,7 @@ public class OpenVideoChannelsUpdater extends JFrame implements PostWidgetBuildP
 		
 		buttonPanel.add(editButton);
 		buttonPanel.add(updateButton);
+		buttonPanel.add(deleteButton);
 		buttonPanel.add(cancelButton);
 		
 		JScrollPane scrollPane = new JScrollPane(checkBoxPanel);
@@ -309,6 +323,7 @@ public class OpenVideoChannelsUpdater extends JFrame implements PostWidgetBuildP
 			
 			if(cb != null)
 			{
+				checkBoxAndParentButton.put(cb, jbll);
 				if(IS_DRAG_SCROLL)
 				{
 					MouseDragScrollListener mdsl = new MouseDragScrollListener();
@@ -413,6 +428,7 @@ public class OpenVideoChannelsUpdater extends JFrame implements PostWidgetBuildP
 				killUpdate = false;
 				editButton.setEnabled(false);
 				updateButton.setEnabled(false);
+				deleteButton.setEnabled(false);
 				cancelButton.setText("Cancel");
 				for(JCheckBox cbL : checkBoxes)
 				{
@@ -446,6 +462,73 @@ public class OpenVideoChannelsUpdater extends JFrame implements PostWidgetBuildP
 				}
 				editButton.setEnabled(true);
 				updateButton.setEnabled(true);
+				deleteButton.setEnabled(true);
+				cancelButton.setText(CLOSE_BUTTON_TEXT);
+			}
+		};
+		Thread t2 = new Thread(r2);
+		t2.start();
+	}
+	
+	private void performRemove()
+	{
+		Runnable r = new Runnable()
+		{
+			@Override
+			public void run() 
+			{
+				killUpdate = false;
+				editButton.setEnabled(false);
+				updateButton.setEnabled(false);
+				deleteButton.setEnabled(false);
+				cancelButton.setText("Cancel");
+				for(JCheckBox cbL : checkBoxes)
+				{
+					if(killUpdate) return;
+					if(cbL.isSelected())
+					{
+						String [] args = cbL.getName().split(NAME_DELIMITER);
+						LoggingMessages.printOut("args: " + args[0] + args[1]);
+						JButtonLengthLimited jbll = checkBoxAndParentButton.get(cbL);
+						DeleteChannelsBeforeDialog dcbd = new DeleteChannelsBeforeDialog(
+								OpenVideoChannelsUpdater.this, 
+								((ImageIcon) cbL.getIcon()).getImage(),
+								jbll, 
+								checkBoxLatestDate.get(cbL)
+						);
+						while(dcbd.isVisible())
+						{
+							try {
+								Thread.sleep(500);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+						}
+						cbL = updateCheckBox(args[0], args[1], cbL);
+						cbL.setSelected(false);
+					}
+				}
+			}
+		};
+		updateThread = new Thread(r);
+		updateThread.start();
+		
+		Runnable r2 = new Runnable()
+		{
+			@Override
+			public void run() 
+			{
+				while(updateThread.isAlive())
+				{
+					try {
+						Thread.sleep(500);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+				editButton.setEnabled(true);
+				updateButton.setEnabled(true);
+				deleteButton.setEnabled(true);
 				cancelButton.setText(CLOSE_BUTTON_TEXT);
 			}
 		};

@@ -1,0 +1,137 @@
+package WidgetComponentDialogs;
+
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Timestamp;
+import java.util.Date;
+
+import javax.swing.AbstractButton;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import Graphics2D.ColorTemplate;
+import Graphics2D.GraphicsUtil;
+import MouseListenersImpl.LookupOrCreateYoutube;
+import ObjectTypeConversionEditors.TimestampEditor;
+import Properties.StringUtility;
+
+public class DeleteChannelsBeforeDialog extends JDialog 
+{
+	private static final long serialVersionUID = 1L;
+	
+	private static final String
+		TITLE = "Remove From [ <arg> ]",
+		REPLACE_PATTERN = "<arg>",
+		TIMESTAMP_LABEL = "Remove Before Date : ",
+		RUN_BUTTON_TEXT = "Remove",
+		CANCEL_BUTTON_TEXT = "Cancel";
+	private static final Dimension 
+		MIN_DIMENSION_DIALOG = new Dimension(350, 125);
+	
+	private AbstractButton
+		ab;
+	private boolean 
+		updated = false;
+	
+	public DeleteChannelsBeforeDialog(Container refContainer, Image img, AbstractButton ab, Date d)
+	{
+		this(refContainer, img, ab, d, null);
+	}
+	
+	public DeleteChannelsBeforeDialog(Container refContainer, Image img, AbstractButton ab, Date d, Font fnt)
+	{
+		this.ab = ab;
+		String title = StringUtility.replaceArg(TITLE, REPLACE_PATTERN, ab.getText());
+		this.setTitle(title);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setSize(MIN_DIMENSION_DIALOG);
+		this.setIconImage(img);
+		
+		buildWidgets(d, fnt);
+		
+		GraphicsUtil.centerWindow(refContainer, this);
+		
+		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
+		ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
+		ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
+		
+		this.setVisible(true);
+	}
+	
+	private void buildWidgets(Date d, Font fnt)
+	{
+		this.setLayout(new BorderLayout());
+		
+		JPanel
+			runCancelPanel = new JPanel(),
+			controlPanel = new JPanel();
+		JLabel
+			timestampLabel = new JLabel(TIMESTAMP_LABEL);
+		TimestampEditor 
+			de = new TimestampEditor();
+		JButton
+			applyButton = new JButton(RUN_BUTTON_TEXT),
+			cancelButton = new JButton(CANCEL_BUTTON_TEXT);
+		
+		de.setComponentValue(new Timestamp(d.getTime()));
+		controlPanel.add(timestampLabel);
+		controlPanel.add(de);
+		
+		applyButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Runnable r = new Runnable() {
+					@Override
+					public void run() {
+						Timestamp ts = (Timestamp) de.getComponentValueObj();
+						Date d = new Date(ts.getTime());
+						LookupOrCreateYoutube.remove(ab.getText(), ab.getName(), d);
+						updated = true;
+						dispose();
+					}
+				};
+				Thread t = new Thread(r);
+				t.start();
+				
+				setVisible(false);
+			}
+		});
+		cancelButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		
+		runCancelPanel.setLayout(new FlowLayout());
+		runCancelPanel.add(applyButton);
+		runCancelPanel.add(cancelButton);
+		
+		this.add(controlPanel, BorderLayout.NORTH);
+		this.add(runCancelPanel, BorderLayout.SOUTH);
+		
+		if(fnt != null)
+		{
+			timestampLabel.setFont(fnt);
+			de.setFont(fnt);
+			applyButton.setFont(fnt);
+			cancelButton.setFont(fnt);
+			this.pack();
+		}
+	}
+	
+	public boolean updated()
+	{
+		return updated;
+	}
+
+}

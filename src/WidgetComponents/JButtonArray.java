@@ -613,9 +613,12 @@ PostWidgetBuildProcessing, ButtonArray, ButtonArrayLoadingNotifier
 //				buttonImageReader = new ImageReader(this, true);
 //			}
 			collectionJButtons.put(path, jbuts);
-			
+//			int fileCount = listOf.size(),
+//				count = 1;
 			for(Component comp : FileListOptionGenerator.buildComponents(path, listOf, JButtonLengthLimited.class))
 			{
+//				performLoadingNotify(count++, fileCount);
+				
 				JButtonLengthLimited jbl = (JButtonLengthLimited)comp;
 				addJButton(jbl, path);
 				
