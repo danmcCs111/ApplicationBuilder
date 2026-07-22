@@ -481,17 +481,6 @@ public class OpenVideoChannelsUpdater extends JFrame implements PostWidgetBuildP
 			ptLocTmp = args[argsIt++].split(",");
 		Point 
 			loc = new Point(Integer.parseInt(ptLocTmp[0]), Integer.parseInt(ptLocTmp[1]));
-		String [] 
-			strC1 = args[argsIt++].split(","),
-			strC2 = args[argsIt++].split(","),
-			strC3 = args[argsIt++].split(",");
-		Color
-			backgroundButton = new Color(Integer.parseInt(strC1[0]), Integer.parseInt(strC1[1]), Integer.parseInt(strC1[2])),
-			foregroundButton = new Color(Integer.parseInt(strC2[0]), Integer.parseInt(strC2[1]), Integer.parseInt(strC2[2])),
-			backgroundPanel = new Color(Integer.parseInt(strC3[0]), Integer.parseInt(strC3[1]), Integer.parseInt(strC3[2]));
-		ColorTemplate.setButtonBackgroundColor(backgroundButton);
-		ColorTemplate.setButtonForegroundColor(foregroundButton);
-		ColorTemplate.setPanelBackgroundColor(backgroundPanel);
 		
 		String [] stripFilterTmp = args[argsIt++].split(NAME_DELIMITER);
 		for(String s : stripFilterTmp) stripFilter.add(s);

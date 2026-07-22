@@ -381,6 +381,7 @@ public class WidgetAttributes
 		});
 		EXTENDED_METHODS.put(OpenVideoChannelsUpdater.class, new String [] {
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetupTaskbar.class, ExtendedMethodArgDef.ExtendedFileSelection.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedSetLookAndFeel.class, ExtendedMethodArgDef.LookAndFeelClassNameSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetBackgroundPanelColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetButtonBackgroundColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetButtonForegroundColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef())

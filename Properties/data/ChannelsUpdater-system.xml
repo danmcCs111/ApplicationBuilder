@@ -1,0 +1,4 @@
+<Build>
+	<OpenVideoChannelsUpdater extendedSetLookAndFeel="System" setArgReplace="&lt;arg&gt;" setCheckBoxFormatText="&lt;arg&gt; - &lt;arg&gt; [ &lt;arg&gt; ] -- (count: &lt;arg&gt;)" setDateLabel="MM/dd/YYYY" setFrameIcon="./src/ApplicationBuilder/film-movies-icon.png" setIsDragScroll="True" setMinimumSize="750, 450" setSelectImageColor="0, 204, 204" setTitle="Channels Updater" >
+	</OpenVideoChannelsUpdater>
+</Build>

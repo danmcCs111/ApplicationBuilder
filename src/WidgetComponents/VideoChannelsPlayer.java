@@ -638,10 +638,6 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 					scrnPoint = updateViewer.getLocationOnScreen();
 				String 
 					absPath = vbmd.getFileSelection().get(0).getAbsolutePath();
-				String 
-					bgBtnColor = getColorString(ColorTemplate.getButtonBackgroundColor()),
-					fgBtnColor = getColorString(ColorTemplate.getButtonForegroundColor()),
-					bgPanelColor = getColorString(ColorTemplate.getPanelBackgroundColor());
 				FileSelection 
 					fs = new FileSelection("./Application Builder.jar");
 				String 
@@ -661,9 +657,6 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 					absPath, 
 					isAlphaNumeric+"", 
 					scrnPoint.x + "," + scrnPoint.y, 
-					bgBtnColor, 
-					fgBtnColor, 
-					bgPanelColor,
 					stripFilterStr,
 					MouseDragScrollListener.getMouseDragDelay()+"",
 					MouseDragScrollListener.getMouseWheelSpin()+"",
@@ -682,11 +675,6 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 				}
 			}
 		};
-	}
-	
-	private static String getColorString(Color bgBtnColor)
-	{
-		return bgBtnColor.getRed() + "," + bgBtnColor.getGreen() + "," + bgBtnColor.getBlue();
 	}
 	
 	private void refreshSelection(JButtonLengthLimited buttonParent, JButtonLengthLimited selectedButton)
