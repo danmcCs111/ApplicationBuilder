@@ -295,7 +295,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	{
 		JPanel searchPanel = buildNorthPanel();
 		addListView();
-		buildEastPanel();
+		buildWestPanel();
 		JPanel southPanel = buildSouthPanel(allSelectBtn);
 		
 		this.setLayout(new BorderLayout());
@@ -325,7 +325,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		this.setVisible(true);
 	}
 	
-	public void buildEastPanel()
+	public void buildWestPanel()
 	{
 		JPanel listPanel = new JPanel();
 		listPanel.setLayout(new GridLayout(0,1));
@@ -543,6 +543,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		JButtonLengthLimited jbll = new JButtonLengthLimited();
 		jbll.setCharacterLimit(parentButton.getCharacterLimit());
 		jbll.setText(parentButton.getText());
+		jbll.setName(parentButton.getName());
 		
 		jbll.addActionListener(new ActionListener() {
 			@Override
@@ -744,8 +745,8 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		}
 		for(AbstractButton ab : selectionButtonAndParentButton.keySet())
 		{
-			if(ab.getText().equals(newButton.getText()) || 
-					(altButton != null && altButton.getText().equals(ab.getText()))
+			if(ab.getName().equals(newButton.getName()) || 
+					(altButton != null && altButton.getName().equals(ab.getName()))
 			)
 			{
 				//highlight.
