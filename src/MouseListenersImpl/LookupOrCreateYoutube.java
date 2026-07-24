@@ -64,7 +64,7 @@ public class LookupOrCreateYoutube
 	
 	public static void update(String videoChannelName, String videoChannelLink, Date beginDate)
 	{
-		String query = youtubeSql.getYoutubeQuery(videoChannelName);
+		String query = youtubeSql.getYoutubeQuery(videoChannelLink);
 		String response = QueryUpdateTool.executeQuery(query);
 		if(response == null)
 			return;
@@ -102,7 +102,7 @@ public class LookupOrCreateYoutube
 	
 	public static void remove(String videoChannelName, String videoChannelLink, Date beginDate)
 	{
-		String query = youtubeSql.getYoutubeQuery(videoChannelName);
+		String query = youtubeSql.getYoutubeQuery(videoChannelLink);
 		String response = QueryUpdateTool.executeQuery(query);
 		if(response == null)
 			return;
