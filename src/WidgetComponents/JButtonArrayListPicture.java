@@ -137,6 +137,10 @@ PostWidgetBuildProcessing
 	{
 		IS_DRAG_SCROLL = isDragScroll;
 	}
+	public static void setMouseDragUnitIncrementAdjustment(int unitInc)
+	{
+		MouseDragScrollListener.setUnitIncrementAdjustment(unitInc);
+	}
 	public static void setMouseDragDelay(int delay)
 	{
 		MouseDragScrollListener.setMouseDragDelay(delay);

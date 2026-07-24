@@ -572,9 +572,11 @@ public class OpenVideoChannelsUpdater extends JFrame implements PostWidgetBuildP
 		
 		int
 			dragDelay = Integer.parseInt(args[argsIt++]),
-			wheelSpin = Integer.parseInt(args[argsIt++]);
+			wheelSpin = Integer.parseInt(args[argsIt++]),
+			unitInc = Integer.parseInt(args[argsIt++]);
 		MouseDragScrollListener.setMouseDragDelay(dragDelay);
 		MouseDragScrollListener.setMouseWheelSpin(wheelSpin);
+		MouseDragScrollListener.setUnitIncrementAdjustment(unitInc);
 		
 		String
 			endpointStr = args[argsIt++];

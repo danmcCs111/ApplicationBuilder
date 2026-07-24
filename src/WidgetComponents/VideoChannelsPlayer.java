@@ -167,6 +167,10 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	{
 		IS_DRAG_SCROLL = isScroll;
 	}
+	public static void setMouseDragUnitIncrementAdjustment(int unitInc)
+	{
+		MouseDragScrollListener.setUnitIncrementAdjustment(unitInc);
+	}
 	public static void setMouseDragDelay(int delay)
 	{
 		MouseDragScrollListener.setMouseDragDelay(delay);
@@ -661,6 +665,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 					stripFilterStr,
 					MouseDragScrollListener.getMouseDragDelay()+"",
 					MouseDragScrollListener.getMouseWheelSpin()+"",
+					MouseDragScrollListener.getUnitIncrementAdjustment()+"",
 					QueryUpdateTool.ENDPOINT,
 					QueryUpdateTool.PORT_NUMBER + ""
 				};

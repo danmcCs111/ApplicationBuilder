@@ -2,22 +2,38 @@ package MouseListenersImpl;
 
 import java.awt.AWTException;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Point;
 import java.awt.Robot;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JScrollPane;
+
 public class MouseDragScrollListener extends MouseAdapter
 {
+	private static int
+		SCROLL_ADJUSTMENT = -1,
+		MOUSE_DRAG_DELAY = 50,
+		MOUSE_WHEEL_SPIN = 1;
+	
 	 private Point 
 	 	lastPoint,
 	 	compLastLocation,
 	 	startPoint;
+	 private JScrollPane 
+	 	sPane;
+	 private int
+	 	originalValue = -1;
 	 
-	 private static int
-	 	MOUSE_DRAG_DELAY = 50,
-	 	MOUSE_WHEEL_SPIN = 1;
-	 
+	 public static void setUnitIncrementAdjustment(int unitIncrement)
+	 {
+		 SCROLL_ADJUSTMENT = unitIncrement;
+	 }
+	 public static int getUnitIncrementAdjustment()
+	 {
+		 return SCROLL_ADJUSTMENT;
+	 }
 	 public static void setMouseDragDelay(int delay)
 	 {
 		 MOUSE_DRAG_DELAY = delay;
@@ -45,6 +61,10 @@ public class MouseDragScrollListener extends MouseAdapter
      public void mouseReleased(MouseEvent e)
      {
     	 lastPoint = null;
+    	 if(SCROLL_ADJUSTMENT != -1 && originalValue != -1)
+    	 {
+    		 sPane.getVerticalScrollBar().setUnitIncrement(originalValue);
+    	 }
      }
      
      @Override
@@ -52,6 +72,20 @@ public class MouseDragScrollListener extends MouseAdapter
      {
     	 Component 
     	 	comp = (Component) e.getSource();
+    	 if(SCROLL_ADJUSTMENT != -1)//perform everytime incase scroll pane rebuilt...
+    	 {
+    		 sPane = findScrollPane(comp);
+    		 if(sPane != null)
+    		 {
+    			 int scrollInc = sPane.getVerticalScrollBar().getUnitIncrement();
+    			 if(originalValue != -1)
+    			 {
+    				 originalValue = scrollInc; 
+    			 }
+    			 sPane.getVerticalScrollBar().setUnitIncrement(SCROLL_ADJUSTMENT);
+    		 }
+    	 }
+    	 
     	 Point 
     	 	compLoc = comp.getLocationOnScreen(),
 			currentPoint = e.getPoint();
@@ -91,6 +125,26 @@ public class MouseDragScrollListener extends MouseAdapter
     		 robot.delay(MOUSE_DRAG_DELAY);
     	 } catch (AWTException e1) {
 			e1.printStackTrace();
+    	 }
+     }
+     
+     public JScrollPane findScrollPane(Component c)
+     {
+    	 if(c == null)
+    		 return null;
+    	 
+    	 Container parent = c.getParent();
+    	 if(parent == null)
+    	 {
+    		 return null;
+    	 }
+    	 if(parent instanceof JScrollPane)
+    	 {
+    		 return (JScrollPane) parent;
+    	 }
+    	 else
+    	 {
+    		 return findScrollPane(parent);
     	 }
      }
      
