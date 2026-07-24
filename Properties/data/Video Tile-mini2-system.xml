@@ -59,6 +59,10 @@
 				<JMenuItem extendedLayoutApplyParent="" extendedSaveActionListener="channelsSelect" setText="Save" >
 				</JMenuItem>
 			</JMenu>
+			<JMenu extendedLayoutApplyParent="" setText="Action" >
+				<JMenuItem extendedLayoutApplyParent="" setText="Drag Adjust" addActionListener="ActionListenersImpl.MouseDragScrollUnitAdjustActionListener" >
+				</JMenuItem>
+			</JMenu>
 		</JMenuBar>
 	</JFrame>
 </Build>

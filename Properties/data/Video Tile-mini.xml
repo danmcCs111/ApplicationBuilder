@@ -59,6 +59,10 @@
 				<JMenuItem extendedLayoutApplyParent="" extendedSaveActionListener="channelsSelect" setBackground="51, 51, 51" setForeground="255, 255, 255" setText="Save" >
 				</JMenuItem>
 			</JMenu>
+			<JMenu extendedLayoutApplyParent="" setBackground="51, 51, 51" setForeground="255, 255, 255" setOpaque="True" setText="Action" >
+				<JMenuItem extendedLayoutApplyParent="" setText="Drag Adjust" addActionListener="ActionListenersImpl.MouseDragScrollUnitAdjustActionListener" setBackground="51, 51, 51" setForeground="255, 255, 255" >
+				</JMenuItem>
+			</JMenu>
 		</JMenuBar>
 	</JFrame>
 </Build>
