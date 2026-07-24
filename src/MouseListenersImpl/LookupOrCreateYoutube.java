@@ -136,7 +136,7 @@ public class LookupOrCreateYoutube
 	{
 		HashMap<Integer, Date> parentIdAndDate = new HashMap<Integer, Date>();
 		
-		String query = youtubeSql.getYoutubeQuery(videoChannelName);
+		String query = youtubeSql.getYoutubeQuery(videoChannelLink);
 		String response = QueryUpdateTool.executeQuery(query);
 		if(response == null)
 			return null;
@@ -169,7 +169,7 @@ public class LookupOrCreateYoutube
 	{
 		HashMap<Integer, Date> parentIdAndDate = new HashMap<Integer, Date>();
 		
-		String query = youtubeSql.getYoutubeQuery(videoChannelName);
+		String query = youtubeSql.getYoutubeQuery(videoChannelLink);
 		String response = QueryUpdateTool.executeQuery(query);
 		if(response == null)
 			return null;
@@ -202,7 +202,7 @@ public class LookupOrCreateYoutube
 	{
 		int count = 0;
 		
-		String query = youtubeSql.getYoutubeQuery(videoChannelName);
+		String query = youtubeSql.getYoutubeQuery(videoChannelLink);
 		String response = QueryUpdateTool.executeQuery(query);
 		if(response == null)
 			return -1;
@@ -233,7 +233,7 @@ public class LookupOrCreateYoutube
 	public static HashMap<Integer, ArrayList<YoutubeChannelVideo>> lookup(String videoChannelName, String videoChannelLink)
 	{
 		ArrayList <ArrayList <DatabaseResponseNode>> 
-			drns = lookupVideoChannel(videoChannelName);
+			drns = lookupVideoChannel(videoChannelLink);
 		HashMap<Integer, ArrayList<YoutubeChannelVideo>> 
 			parentIdAndYoutubeChannelVideos = null;
 		
@@ -263,10 +263,10 @@ public class LookupOrCreateYoutube
 		QueryUpdateTool.executeUpdate(vc.getDatabaseUpdate());
 	}
 	
-	public static ArrayList <ArrayList <DatabaseResponseNode>> lookupVideoChannel(String videoChannelName)
+	public static ArrayList <ArrayList <DatabaseResponseNode>> lookupVideoChannel(String videoChannelLink)
 	{
 		String 
-			query = youtubeSql.getYoutubeQuery(videoChannelName),
+			query = youtubeSql.getYoutubeQuery(videoChannelLink),
 			response = QueryUpdateTool.executeQuery(query);
 		if(response == null)
 			return null;

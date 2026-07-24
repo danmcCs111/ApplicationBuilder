@@ -37,7 +37,8 @@ public class ProcessExecutorWindowListener extends WindowAdapter
 					props.get("sourceButtonFull"),
 					props.get("sourceName"),
 					props.get("highlightButtonText"),
-					props.get("highlightButtonFull")
+					props.get("highlightButtonFull"),
+					props.get("highlightButtonName")
 					);
 			boolean isSet = LaunchUrlActionListener.setProcess(procId, -1);
 			if(isSet)
@@ -71,7 +72,8 @@ public class ProcessExecutorWindowListener extends WindowAdapter
 					{"sourceButtonFull", jbll.getFullLengthText()},
 					{"sourceName", jbll.getName()},
 					{"highlightButtonText", highlightJbll.getText()},
-					{"highlightButtonFull", highlightJbll.getFullLengthText()}
+					{"highlightButtonFull", highlightJbll.getFullLengthText()},
+					{"highlightButtonName", highlightJbll.getName()}
 				};
 				PathUtility.writeProperties(fs.getFullPath(), props);
 			}
@@ -89,19 +91,22 @@ public class ProcessExecutorWindowListener extends WindowAdapter
 			String sourceButtonFull,
 			String sourceName,
 			String highlightButtonText,
-			String highlightButtonFull)
+			String highlightButtonFull,
+			String highlightButtonName)
 	{
 		JButtonLengthLimited 
 			virtualButton = new JButtonLengthLimited(),
 			virtualButtonHighlight = new JButtonLengthLimited();
 		virtualButton.setHighlightButton(virtualButtonHighlight);
 		virtualButton.addActionListener(new LaunchUrlActionListener());
+		virtualButtonHighlight.addActionListener(new LaunchUrlActionListener());
 		//Referenced -> FileListOptionGenerator
 		virtualButton.setText(sourceButtonText);
 		virtualButton.setFullText(sourceButtonFull);
 		virtualButton.setName(sourceName);
 		virtualButtonHighlight.setText(highlightButtonText);
 		virtualButtonHighlight.setFullText(highlightButtonFull);
+		virtualButtonHighlight.setName(highlightButtonName);
 		
 		return virtualButton;
 	}

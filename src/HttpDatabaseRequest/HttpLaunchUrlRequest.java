@@ -48,14 +48,16 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 				break;
 			}
 		}
+		int argsIt = 0;
 		String
-			sourceButton = args[0],
-			sourceButtonFull = args[1],
-			highlightButton = args[2],
-			highlightButtonFull = args[3],
-			url = args[4],
-			idStr = args[5],
-			portStr = args[6];
+			sourceButton = args[argsIt++],
+			sourceButtonFull = args[argsIt++],
+			highlightButton = args[argsIt++],
+			highlightButtonFull = args[argsIt++],
+			url = args[argsIt++],
+			url2 = args[argsIt++],
+			idStr = args[argsIt++],
+			portStr = args[argsIt++];
 
 		int 
 			id = Integer.parseInt(idStr),
@@ -72,6 +74,7 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 		virtualButton.setName(url);
 		virtualButtonHighlight.setText(highlightButton);
 		virtualButtonHighlight.setFullText(highlightButtonFull);
+		virtualButtonHighlight.setName(url2);
 		
 		if(id == -1)
 		{
@@ -126,14 +129,16 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 			}
 		}
 		
+		int argsIt = 0;
 		String
-			sourceButton = args[0],
-			sourceButtonFull = args[1],
-			highlightButton = args[2],
-			highlightButtonFull = args[3],
-			url = args[4],
-			idStr = args[5],
-			portStr = args[6];
+			sourceButton = args[argsIt++],
+			sourceButtonFull = args[argsIt++],
+			highlightButton = args[argsIt++],
+			highlightButtonFull = args[argsIt++],
+			url = args[argsIt++],
+			url2 = args[argsIt++],
+			idStr = args[argsIt++],
+			portStr = args[argsIt++];
 	
 		int 
 			id = Integer.parseInt(idStr),
@@ -150,6 +155,7 @@ public class HttpLaunchUrlRequest implements ArrayActionListener
 		virtualButton.setName(url);
 		virtualButtonHighlight.setText(highlightButton);
 		virtualButtonHighlight.setFullText(highlightButtonFull);
+		virtualButtonHighlight.setName(url2);
 		
 		if(id == -1)
 		{

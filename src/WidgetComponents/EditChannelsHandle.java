@@ -77,7 +77,7 @@ public class EditChannelsHandle extends JDialog
 		{
 			for(JButtonLengthLimited jbll : (ArrayList<JButtonLengthLimited>)jblls)
 			{
-				ArrayList <ArrayList <DatabaseResponseNode>> drns = LookupOrCreateYoutube.lookupVideoChannel(jbll.getText());
+				ArrayList <ArrayList <DatabaseResponseNode>> drns = LookupOrCreateYoutube.lookupVideoChannel(jbll.getName());
 				VideoChannel vc = new VideoChannel(drns.get(1));
 				videoChannels.add(vc);
 			}

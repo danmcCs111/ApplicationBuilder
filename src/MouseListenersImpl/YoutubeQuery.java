@@ -4,7 +4,7 @@ import java.util.Date;
 
 public interface YoutubeQuery 
 {
-	public String getYoutubeQuery(String VideoName);
+	public String getYoutubeQuery(String VideoUrl);
 	public String getYoutubeVideoQuery(int parentId);
 	public String getYoutubeVideoLatestQuery(int parentId);
 	public String getYoutubeVideoFirstQuery(int parentId);

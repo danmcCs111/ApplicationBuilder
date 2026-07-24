@@ -55,6 +55,7 @@ import WidgetComponentInterfaces.ButtonArray;
 import WidgetComponentInterfaces.ButtonArrayLoadingNotification;
 import WidgetComponentInterfaces.CharacterLimited;
 import WidgetComponentInterfaces.EditButtonArrayUrls;
+import WidgetComponentInterfaces.LaunchUrlButton;
 import WidgetComponentInterfaces.LinkDragAndDropSubscriber;
 import WidgetComponentInterfaces.PostWidgetBuildProcessing;
 import WidgetComponentInterfaces.RegisterArrayActionListener;
@@ -693,7 +694,7 @@ PostWidgetBuildProcessing, ButtonArray, ButtonArrayLoadingNotifier
 		//move state over to new buttons.
 		if(!text.isBlank())
 		{
-			jblls = findButtonFromText(text);
+			jblls = findButtonFromUrl(text);
 			if(!jblls.isEmpty())
 			{
 				LaunchUrlActionListener.setLastButtonOrigin(jblls.get(0));//TODO? just first.
@@ -701,7 +702,7 @@ PostWidgetBuildProcessing, ButtonArray, ButtonArrayLoadingNotifier
 		}
 		if(!highlightText.isBlank())
 		{
-			jblls = findButtonFromText(highlightText);
+			jblls = findButtonFromUrl(highlightText);
 			if(!jblls.isEmpty())
 			{
 				highlightButton = jblls.get(0);
@@ -720,9 +721,9 @@ PostWidgetBuildProcessing, ButtonArray, ButtonArrayLoadingNotifier
 		jbl.setText(txt);
 	}
 	
-	private ArrayList<JButtonLengthLimited> findButtonFromText(String text)
+	private ArrayList<JButtonLengthLimited> findButtonFromUrl(String url)
 	{
-		if(text == null)
+		if(url == null)
 			return null;
 		
 		ArrayList<JButtonLengthLimited> matches = new ArrayList<JButtonLengthLimited>();
@@ -731,7 +732,7 @@ PostWidgetBuildProcessing, ButtonArray, ButtonArrayLoadingNotifier
 		{
 			for(JButtonLengthLimited jbll : collectionJButtons.get(key))
 			{
-				if(jbll.getText().equals(text))
+				if(jbll.getName().equals(url))
 				{
 					matches.add(jbll);
 				}
@@ -746,12 +747,14 @@ PostWidgetBuildProcessing, ButtonArray, ButtonArrayLoadingNotifier
 		if(newButton != null)
 		{
 			AbstractButton hlButton = newButton; 
-			if(newButton instanceof JButtonLengthLimited)
+			ArrayList<JButtonLengthLimited> matches = findButtonFromUrl(hlButton.getName());//TODO
+			if(matches.isEmpty())
 			{
-				hlButton = ((JButtonLengthLimited) newButton).getHighlightButton();
+				if(hlButton instanceof LaunchUrlButton)
+				{
+					matches = findButtonFromUrl(((LaunchUrlButton) hlButton).getHighlightButton().getName());
+				}
 			}
-			
-			ArrayList<JButtonLengthLimited> matches = findButtonFromText(hlButton.getText());//TODO
 			
 			if(matches != null && !matches.isEmpty())
 			{
@@ -1007,6 +1010,8 @@ PostWidgetBuildProcessing, ButtonArray, ButtonArrayLoadingNotifier
 		{
 			loadingFrame.dispose();
 		}
+		
+		urlSelect(LaunchUrlActionListener.getLastButtonOrigin());
 		
 	}
 

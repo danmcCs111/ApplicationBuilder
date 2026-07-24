@@ -130,6 +130,7 @@ public class VideoSubSelectionLauncher implements ActionListener
 					jbll.getHighlightButton().getText() + HttpLaunchUrlRequest.ARG_DELIMITER +
 					((JButtonLengthLimited) jbll.getHighlightButton()).getFullLengthText() + HttpLaunchUrlRequest.ARG_DELIMITER + 
 					jbll.getName() + HttpLaunchUrlRequest.ARG_DELIMITER +
+					((JButtonLengthLimited) jbll.getHighlightButton()).getName() + HttpLaunchUrlRequest.ARG_DELIMITER + 
 					id+"" + HttpLaunchUrlRequest.ARG_DELIMITER + 
 					HttpRequestProcessor.getPortNumber()+"";
 			}
@@ -145,6 +146,7 @@ public class VideoSubSelectionLauncher implements ActionListener
 					jmlu.getHighlightButton().getText() + HttpLaunchUrlRequest.ARG_DELIMITER +
 					((JButtonLengthLimited) jmlu.getHighlightButton()).getFullLengthText() + HttpLaunchUrlRequest.ARG_DELIMITER + 
 					jmlu.getName() + HttpLaunchUrlRequest.ARG_DELIMITER +
+					((JButtonLengthLimited) jmlu.getHighlightButton()).getName() + HttpLaunchUrlRequest.ARG_DELIMITER +
 					id+"" + HttpLaunchUrlRequest.ARG_DELIMITER + 
 					HttpRequestProcessor.getPortNumber()+"";
 			}

@@ -13,7 +13,7 @@ public class YoutubeSQLite implements YoutubeQuery
 	public static String
 		REPLACE="<arg>",
 		YOUTUBE_QUERY = 
-			"SELECT * FROM video WHERE VideoName_Video_VideoDatabase = <arg>" +
+			"SELECT * FROM video WHERE VideoUrl_Video_VideoDatabase = <arg>" +
 			";",
 		YOUTUBE_REMOVE_QUERY = "DELETE FROM videoYoutube WHERE ParentID_VideoYoutube_VideoYoutubeDatabase = <arg> " + 
 			" AND UploadDate_VideoYoutube_VideoYoutubeDatabase < <arg>;",
@@ -43,9 +43,9 @@ public class YoutubeSQLite implements YoutubeQuery
 	}
 	
 	@Override
-	public String getYoutubeQuery(String VideoName) 
+	public String getYoutubeQuery(String VideoUrl) 
 	{
-		return YOUTUBE_QUERY.replaceFirst(REPLACE, PathUtility.surroundString(VideoName, "\'"));
+		return YOUTUBE_QUERY.replaceFirst(REPLACE, PathUtility.surroundString(VideoUrl, "\'"));
 	}
 
 	@Override
