@@ -3,6 +3,7 @@ package WidgetComponentDialogs;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -15,8 +16,10 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
 import MouseListenersImpl.MouseDragScrollListener;
+import WidgetUtility.WidgetBuildController;
 
 public class MouseDragScrollUnitAdjust extends JDialog 
 {
@@ -48,6 +51,9 @@ public class MouseDragScrollUnitAdjust extends JDialog
 	{
 		this.setTitle(TITLE);
 		this.setMinimumSize(MIN_SIZE);
+		
+		Image img = WidgetBuildController.getInstance().getFrame().getIconImage();
+		this.setIconImage(img);
 		
 		JPanel sliderPanel = new JPanel();
 		sliderPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -91,6 +97,10 @@ public class MouseDragScrollUnitAdjust extends JDialog
 		{
 			GraphicsUtil.rightEdgeCenterWindow(parent, this);
 		}
+		
+		ColorTemplate.setBackgroundColorPanel(this, ColorTemplate.getPanelBackgroundColor());
+		ColorTemplate.setBackgroundColorButtons(this, ColorTemplate.getButtonBackgroundColor());
+		ColorTemplate.setForegroundColorButtons(this, ColorTemplate.getButtonForegroundColor());
 		
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setVisible(true);
