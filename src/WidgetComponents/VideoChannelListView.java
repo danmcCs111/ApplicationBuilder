@@ -76,6 +76,8 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 		videoLabelDate = new LinkedHashMap<JLabel, Highlighter>();
 	private HashMap<Integer, VideoSubSelectionLauncher> 
 		vssl = null;
+	private MouseDragScrollListener 
+		mdsl = new MouseDragScrollListener();
 	
 	public VideoChannelListView()
 	{
@@ -235,7 +237,6 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 				jbll.setHorizontalAlignment(AbstractButton.LEFT);
 				videoListPanel.add(jbll);
 				
-				MouseDragScrollListener mdsl = new MouseDragScrollListener();
 				JLabel labDuration = buildDurationLabel(ycv, jbll);
 				labDuration.addMouseListener(mdsl);
 				labDuration.addMouseMotionListener(mdsl);

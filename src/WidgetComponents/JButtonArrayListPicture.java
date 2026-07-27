@@ -122,6 +122,8 @@ PostWidgetBuildProcessing
 		vbmd = null;
 	private ArrayList<SelectAllAction>
 		selectAllSubscribers = new ArrayList<SelectAllAction>();
+	private MouseDragScrollListener 
+		mdsl = new MouseDragScrollListener();
 	
 	public JButtonArrayListPicture()
 	{
@@ -318,7 +320,6 @@ PostWidgetBuildProcessing
 				}
 				if(IS_DRAG_SCROLL)
 				{
-					MouseDragScrollListener mdsl = new MouseDragScrollListener();
 					ab.addMouseListener(mdsl);
 					ab.addMouseMotionListener(mdsl);
 				}

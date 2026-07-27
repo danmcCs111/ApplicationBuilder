@@ -161,6 +161,8 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		open = false;
 	private VideoBookMarksDialog 
 		vbmd;
+	private MouseDragScrollListener 
+		mdsl = new MouseDragScrollListener();
 	
 	public VideoChannelsPlayer()
 	{
@@ -394,7 +396,6 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 			
 			if(IS_DRAG_SCROLL)
 			{
-				MouseDragScrollListener mdsl = new MouseDragScrollListener();
 				ab.addMouseListener(mdsl);
 				ab.addMouseMotionListener(mdsl);
 			}
