@@ -38,8 +38,6 @@ public class EditChannelsHandle extends JDialog
 	private static String
 		TITLE = "Channel Properties Editor",
 		HANDLE_LABEL = "Handle: ",
-//		STORE_RECORD_LABEL = "Store Record",
-//		COUNT_LABEL = "Count: ",
 		SAVE_BUTTON_TEXT = "Update",
 		CANCEL_BUTTON_TEXT = "Close";
 	
@@ -87,7 +85,7 @@ public class EditChannelsHandle extends JDialog
 			for(JCheckBox cb : (ArrayList<JCheckBox>)jblls)
 			{
 				String [] args = cb.getName().split(OpenVideoChannelsUpdater.NAME_DELIMITER);
-				ArrayList <ArrayList <DatabaseResponseNode>> drns = LookupOrCreateYoutube.lookupVideoChannel(args[0]);
+				ArrayList <ArrayList <DatabaseResponseNode>> drns = LookupOrCreateYoutube.lookupVideoChannel(args[1]);
 				VideoChannel vc = new VideoChannel(drns.get(1));
 				videoChannels.add(vc);
 			}
@@ -109,7 +107,6 @@ public class EditChannelsHandle extends JDialog
 			JPanel 
 				channelPanel = new JPanel(),
 				innerPanel = new JPanel();
-//				innerPanel2 = new JPanel();
 			
 			channelNameLabel.setPreferredSize(CHANNEL_LABEL_DIM);
 			channelHandleName.setColumns(HANDLE_COLUMN_LENGTH);
@@ -136,26 +133,11 @@ public class EditChannelsHandle extends JDialog
 				}
 			});
 			
-//			JCheckBox 
-//				storeRecord = new JCheckBox(STORE_RECORD_LABEL);
-//			JLabel 
-//				countLabel = new JLabel(COUNT_LABEL),
-//				countLabelValue = new JLabel();
-//			int count = LookupOrCreateYoutube.lookupCount(vc.getName(), vc.getUrl());
-//			countLabelValue.setText(count+"");
-			
 			innerPanel.add(channelNameLabel);
 			innerPanel.add(channelHandleName);
-			
-//			innerPanel2.add(countLabel);
-//			innerPanel2.add(countLabelValue);
-//			innerPanel2.add(storeRecord);
-//			innerPanel2.add(saveButton);
 			innerPanel.add(saveButton);
 			
 			channelPanel.add(innerPanel);
-//			channelPanel.add(innerPanel2);
-			
 			channelsPanel.add(channelPanel);
 		}
 		
