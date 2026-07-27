@@ -29,6 +29,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.Border;
@@ -81,6 +84,8 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		HOME_PAGE_TOOLTIP_TEXT = "[ <arg0> ] - Homepage",
 		COUNT_PREFIX = "Video Count: ",
 		UPDATE_BUTTON_TEXT = "Update",
+		ACTION_MENU_TEXT = "Action",
+		CONNECT_BUTTON_TEXT = "Reconnect",
 		UPDATE_VIEWER_BUTTON_TEXT = "List Update",
 		ALL_SELECT_TEXT = "All Channels";
 	private static int 
@@ -102,6 +107,9 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	private static boolean
 		IS_DRAG_SCROLL = true,
 		OVERRIDE_ERROR_DIALOG = false;
+	private static Color
+		FOREGROUND_MENUBAR = null,
+		BACKGROUND_MENUBAR = null;
 	
 	private JButton 
 		updateButton = new JButton(UPDATE_BUTTON_TEXT),
@@ -159,6 +167,11 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
+	public static void setMenuBarForegroundAndBackground(Color foreground, Color background)
+	{
+		FOREGROUND_MENUBAR = foreground;
+		BACKGROUND_MENUBAR = background;
+	}
 	public static void setVideoChannelsUpdaterXml(FileSelection fs)
 	{
 		videoChannelsUpdateXml = fs;
@@ -301,6 +314,9 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		addListView();
 		buildWestPanel();
 		JPanel southPanel = buildSouthPanel(allSelectBtn);
+		JMenuBar jmb = buildMenuBar();
+		
+		this.setJMenuBar(jmb);
 		
 		this.setLayout(new BorderLayout());
 		this.add(channelScroll, BorderLayout.WEST);
@@ -327,6 +343,37 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 			this.setLocation(LAUNCH_LOCATION);
 		}
 		this.setVisible(true);
+	}
+	
+	public JMenuBar buildMenuBar()
+	{
+		JMenuBar mb = new JMenuBar();
+		JMenu actionMenu = new JMenu(ACTION_MENU_TEXT);
+		JMenuItem connect = new JMenuItem(CONNECT_BUTTON_TEXT);
+		connect.addActionListener(new ActionListener() 
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				provision(ROOT_PORT, LISTEN_PORT);
+			}
+		});
+		actionMenu.add(connect);
+		mb.add(actionMenu);
+		if(BACKGROUND_MENUBAR != null )
+		{
+			mb.setBackground(BACKGROUND_MENUBAR);
+			actionMenu.setBackground(BACKGROUND_MENUBAR);
+			connect.setBackground(BACKGROUND_MENUBAR);
+		}
+		if(FOREGROUND_MENUBAR != null)
+		{
+			mb.setForeground(FOREGROUND_MENUBAR);
+			actionMenu.setForeground(FOREGROUND_MENUBAR);
+			connect.setForeground(FOREGROUND_MENUBAR);
+		}
+		
+		return mb;
 	}
 	
 	public void buildWestPanel()

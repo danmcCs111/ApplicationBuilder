@@ -435,7 +435,6 @@ PostWidgetBuildProcessing
 					int stateChange = e.getStateChange();
 					if(stateChange == ItemEvent.SELECTED)
 					{
-						
 						button.setBorder(highlightBorder);
 					}
 					else
