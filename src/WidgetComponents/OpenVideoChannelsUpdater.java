@@ -106,6 +106,8 @@ public class OpenVideoChannelsUpdater extends JFrame implements PostWidgetBuildP
 		updateThread;
 	private boolean
 		killUpdate;
+	private MouseDragScrollListener 
+		mdsl = new MouseDragScrollListener();
 	
 	public OpenVideoChannelsUpdater()
 	{
@@ -328,7 +330,6 @@ public class OpenVideoChannelsUpdater extends JFrame implements PostWidgetBuildP
 				checkBoxAndParentButton.put(cb, jbll);
 				if(IS_DRAG_SCROLL)
 				{
-					MouseDragScrollListener mdsl = new MouseDragScrollListener();
 					cb.addMouseListener(mdsl);
 					cb.addMouseMotionListener(mdsl);
 				}
