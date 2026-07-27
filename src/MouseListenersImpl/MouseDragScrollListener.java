@@ -13,6 +13,7 @@ import javax.swing.JScrollPane;
 public class MouseDragScrollListener extends MouseAdapter
 {
 	private static int
+		ORIGINAL_VALUE = -1,//TODO?
 		SCROLL_ADJUSTMENT = -1,
 		MOUSE_DRAG_DELAY = 50,
 		MOUSE_WHEEL_SPIN = 1;
@@ -23,8 +24,6 @@ public class MouseDragScrollListener extends MouseAdapter
 	 	startPoint;
 	 private JScrollPane 
 	 	sPane;
-	 private int
-	 	originalValue = -1;
 	 
 	 public static void setUnitIncrementAdjustment(int unitIncrement)
 	 {
@@ -61,9 +60,9 @@ public class MouseDragScrollListener extends MouseAdapter
      public void mouseReleased(MouseEvent e)
      {
     	 lastPoint = null;
-    	 if(SCROLL_ADJUSTMENT != -1 && originalValue != -1)
+    	 if(SCROLL_ADJUSTMENT != -1 && ORIGINAL_VALUE != -1)
     	 {
-    		 sPane.getVerticalScrollBar().setUnitIncrement(originalValue);
+    		 sPane.getVerticalScrollBar().setUnitIncrement(ORIGINAL_VALUE);
     	 }
      }
      
@@ -78,9 +77,9 @@ public class MouseDragScrollListener extends MouseAdapter
     		 if(sPane != null)
     		 {
     			 int scrollInc = sPane.getVerticalScrollBar().getUnitIncrement();
-    			 if(originalValue != -1)
+    			 if(ORIGINAL_VALUE == -1)
     			 {
-    				 originalValue = scrollInc; 
+    				 ORIGINAL_VALUE = scrollInc; 
     			 }
     			 sPane.getVerticalScrollBar().setUnitIncrement(SCROLL_ADJUSTMENT);
     		 }
