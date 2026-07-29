@@ -13,7 +13,10 @@ public class GeoNamesToSql
 		{
 			"AdminName1_GeoLocation_GeoNamesDatabase, AdminCode1_GeoLocation_GeoNamesDatabase, ",
 			"AdminName2_GeoLocation_GeoNamesDatabase, AdminCode2_GeoLocation_GeoNamesDatabase, ",
-			"AdminName3_GeoLocation_GeoNamesDatabase, AdminCode3_GeoLocation_GeoNamesDatabase, "
+			"AdminName3_GeoLocation_GeoNamesDatabase, AdminCode3_GeoLocation_GeoNamesDatabase, ",
+			"AdminName4_GeoLocation_GeoNamesDatabase, AdminCode4_GeoLocation_GeoNamesDatabase, ",
+			"AdminName5_GeoLocation_GeoNamesDatabase, AdminCode5_GeoLocation_GeoNamesDatabase, ",
+			"AdminName6_GeoLocation_GeoNamesDatabase, AdminCode6_GeoLocation_GeoNamesDatabase, "
 		};
 	private static String
 		INSERT_INTO = "INSERT INTO GeoLocation (",
@@ -73,6 +76,7 @@ public class GeoNamesToSql
 			ArrayList<String> records = PathUtility.readFileToStringArray(new File(path));
 			for(String rec : records)
 			{
+				rec = rec.replaceAll("[\t]+", ",");
 				String [] col = rec.split(SPLIT);
 				String 
 				insertValue = VALUES_PREFIX,
