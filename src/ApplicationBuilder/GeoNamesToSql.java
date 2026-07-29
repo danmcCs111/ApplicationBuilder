@@ -13,18 +13,16 @@ public class GeoNamesToSql
 		{
 			"AdminName1_GeoLocation_GeoNamesDatabase, AdminCode1_GeoLocation_GeoNamesDatabase, ",
 			"AdminName2_GeoLocation_GeoNamesDatabase, AdminCode2_GeoLocation_GeoNamesDatabase, ",
-			"AdminName3_GeoLocation_GeoNamesDatabase, AdminCode3_GeoLocation_GeoNamesDatabase, ",
-			"AdminName4_GeoLocation_GeoNamesDatabase, AdminCode4_GeoLocation_GeoNamesDatabase, ",
-			"AdminName5_GeoLocation_GeoNamesDatabase, AdminCode5_GeoLocation_GeoNamesDatabase, "
+			"AdminName3_GeoLocation_GeoNamesDatabase, AdminCode3_GeoLocation_GeoNamesDatabase, "
 		};
 	private static String
 		INSERT_INTO = "INSERT INTO GeoLocation (",
 		INSERT_INTO_DEF_PREFIX = "CountryCode_GeoLocation_GeoNamesDatabase, PostalCode_GeoLocation_GeoNamesDatabase, PlaceName_GeoLocation_GeoNamesDatabase, ",
 		INSERT_DEF_SUFFIX = "Latitude_GeoLocation_GeoNamesDatabase, Longitude_GeoLocation_GeoNamesDatabase, Accuracy_GeoLocation_GeoNamesDatabase)",
 		INSERT_DEF_SUFFIX_MISS_ACC = "Latitude_GeoLocation_GeoNamesDatabase, Longitude_GeoLocation_GeoNamesDatabase)",
-		VALUES_PREFIX = "VALUES (",
+		VALUES_PREFIX = " VALUES (",
 		VALUES_SUFFIX = " );",
-		SPLIT = ",";
+		SPLIT = "@,@";
 	
 	public static String buildFrontValues(String [] col)
 	{
@@ -70,12 +68,15 @@ public class GeoNamesToSql
 	
 	public static void main(String [] args)
 	{
-		for(String path : args)
+		StringBuffer sb = new StringBuffer();
+		for(int p = 0; p < args.length-1; p++)//last is output.
 		{
+			String path = args[p];
 			ArrayList<String> records = PathUtility.readFileToStringArray(new File(path));
+			int count = 0;
 			for(String rec : records)
 			{
-				rec = rec.replaceAll("[\t]+", ",");
+				rec = rec.replaceAll("[\t]+", SPLIT);
 				String [] col = rec.split(SPLIT);
 				String 
 				insertValue = VALUES_PREFIX,
@@ -135,9 +136,12 @@ public class GeoNamesToSql
 					continue;
 				}
 				insertValue += VALUES_SUFFIX;
-				LoggingMessages.printOut(headerInsert + insertValue);
+				count++;
+				LoggingMessages.printOut(count + "/" + records.size());
+				sb.append(headerInsert + insertValue + "\n");
 			}
 		}
-		
+		String saveFile = args[args.length-1];
+		PathUtility.writeStringToFile(new File(saveFile), sb.toString());
 	}
 }
