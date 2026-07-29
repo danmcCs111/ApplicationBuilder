@@ -37,14 +37,14 @@ public class ScheduledCommandImportExport extends XmlNodeReader
 	public String toXmlFromCommandList(List<ScheduledCommand> scs)
 	{
 		String retStr = "";
-		retStr += "<" + SCHEDULED_COMMAND_PARENT_TAG + "> " + PathUtility.NEW_LINE; 
+		retStr += "<" + SCHEDULED_COMMAND_PARENT_TAG + "> " + PathUtility.NEW_LINE_LINUX; 
 		for(int i = 0; i < scs.size(); i++)
 		{
 			ScheduledCommand sc = (ScheduledCommand) scs.get(i);
 			if(sc == null) continue;
 			retStr += "<" + SCHEDULED_COMMAND_TAG + " ";
 			retStr += sc.getXmlAttributesString() + " > ";
-			retStr += "</" + SCHEDULED_COMMAND_TAG + ">" + PathUtility.NEW_LINE;
+			retStr += "</" + SCHEDULED_COMMAND_TAG + ">" + PathUtility.NEW_LINE_LINUX;
 		}
 		retStr += "</" + SCHEDULED_COMMAND_PARENT_TAG + ">"; 
 		

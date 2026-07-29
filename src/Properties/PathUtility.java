@@ -26,7 +26,8 @@ public interface PathUtility
 		PATH_REMOVE_CURRENT_DIRECTORY = new String []{"\\./", "/"};
 	public static final String 
 		ESCAPE_CHARACTER = "\\",
-		NEW_LINE = "\n";
+		NEW_LINE_WINDOWS="\r\n",
+		NEW_LINE_LINUX = "\n";
 	
 	public static String filterPathToFilename(String path)
 	{
@@ -285,7 +286,27 @@ public interface PathUtility
 		try {
 			sc = new Scanner(locationFile);
 			while (sc.hasNextLine()) {
-				fileContents += sc.nextLine() + "\n";
+				fileContents += sc.nextLine();
+				fileContents += (isWindows()) ? NEW_LINE_WINDOWS : NEW_LINE_LINUX;
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return fileContents;
+	}
+	public static ArrayList<String> readFileToStringArray(File locationFile)
+	{
+		Scanner sc;
+		ArrayList<String> fileContents = new ArrayList<String>();
+		
+		if(!locationFile.exists())
+		{
+			return null;
+		}
+		try {
+			sc = new Scanner(locationFile);
+			while (sc.hasNextLine()) {
+				fileContents.add(sc.nextLine());
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

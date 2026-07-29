@@ -102,10 +102,10 @@ public class ShapeImportExport extends XmlNodeReader
 			}
 			content += "SkipShapeDraw=\"" + ss.skipShapeDraw() + "\"";
 			
-			xml += "<" + type + " " + content + " > " + "</" + type + ">" + PathUtility.NEW_LINE;
+			xml += "<" + type + " " + content + " > " + "</" + type + ">" + PathUtility.NEW_LINE_LINUX;
 			content = "";
 		}
-		return WIDGETS_SHAPE_OPEN_TAG + PathUtility.NEW_LINE + xml + WIDGETS_SHAPE_CLOSE_TAG;
+		return WIDGETS_SHAPE_OPEN_TAG + PathUtility.NEW_LINE_LINUX + xml + WIDGETS_SHAPE_CLOSE_TAG;
 	}
 	
 	private String stripString(String classname)

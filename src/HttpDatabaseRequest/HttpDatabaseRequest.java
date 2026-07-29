@@ -41,6 +41,9 @@ public interface HttpDatabaseRequest
 	
 	public static String executeGetRequest(String url)
 	{
+		if(url == null || url.isBlank())
+			return null;
+		
 		HttpResponse<String> response = null;
 		String comb = null;
 		HttpClient client = HttpClient.newHttpClient();

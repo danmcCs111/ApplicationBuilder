@@ -61,6 +61,7 @@ public class PageParserDialog extends JDialog implements EditButtonArrayUrls
 		SIMULATE_LABEL = "Simulate",
 		MULTI_MATCH_OPTION_TEXT = "Multi Match?",
 		SHOW_RESPONSE_BUTTON_TEXT = "Show Response",
+		OPEN_FILE_BUTTON_TEXT = "Open file",
 		SIMULATE_PARSE_ATTRIBUTE_SUFFIX = " Filtered: ",
 		SIMULATE_URL_ENTRY_STRIPPED = "Simulate with Url: ",
 		SAVE_BUTTON_LABEL = "Save",
@@ -337,13 +338,13 @@ public class PageParserDialog extends JDialog implements EditButtonArrayUrls
 				f.setVisible(true);
 			}
 		});
-		JButton openResponseFile = new JButton("Open html file");
+		JButton openResponseFile = new JButton(OPEN_FILE_BUTTON_TEXT);
 		openResponseFile.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				OpenDialog od = new OpenDialog();
 				File f = od.performOpen(PageParserDialog.this, 
-						"", "html", ".");
+						"", ".", ".");
 				htmlResponse = PathUtility.readFileToString(f);
 				LoggingMessages.printOut(f.getAbsolutePath());
 				LoggingMessages.printOut(htmlResponse);
@@ -695,8 +696,8 @@ public class PageParserDialog extends JDialog implements EditButtonArrayUrls
 				JTextField newI = new JTextField(JTEXT_FIELD_SIZE);
 				newI.setEditable(false);
 				String stripText = (i < parsePagesAndMatches.get(pa).length)
-						?parsePagesAndMatches.get(pa)[i]
-								:"";
+						? parsePagesAndMatches.get(pa)[i]
+						: "";
 				if(stripText.isBlank())
 				{
 					break;
