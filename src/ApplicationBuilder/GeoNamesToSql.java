@@ -15,8 +15,7 @@ public class GeoNamesToSql
 			"AdminName2_GeoLocation_GeoNamesDatabase, AdminCode2_GeoLocation_GeoNamesDatabase, ",
 			"AdminName3_GeoLocation_GeoNamesDatabase, AdminCode3_GeoLocation_GeoNamesDatabase, ",
 			"AdminName4_GeoLocation_GeoNamesDatabase, AdminCode4_GeoLocation_GeoNamesDatabase, ",
-			"AdminName5_GeoLocation_GeoNamesDatabase, AdminCode5_GeoLocation_GeoNamesDatabase, ",
-			"AdminName6_GeoLocation_GeoNamesDatabase, AdminCode6_GeoLocation_GeoNamesDatabase, "
+			"AdminName5_GeoLocation_GeoNamesDatabase, AdminCode5_GeoLocation_GeoNamesDatabase, "
 		};
 	private static String
 		INSERT_INTO = "INSERT INTO GeoLocation (",
