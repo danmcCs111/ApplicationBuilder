@@ -10,10 +10,17 @@ import WidgetUtility.WidgetBuildController;
 
 public class MouseDragScrollUnitAdjustActionListener implements ActionListener 
 {
+	private MouseDragScrollUnitAdjust 
+		mdsu;
+	
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
 		JFrame frame = WidgetBuildController.getInstance().getFrame();
-		MouseDragScrollUnitAdjust mdsu = new MouseDragScrollUnitAdjust(frame);
+		if(mdsu != null)
+		{
+			mdsu.dispose();
+		}
+		mdsu = new MouseDragScrollUnitAdjust(frame);
 	}
 }
