@@ -11,13 +11,13 @@ public class GeoNamesToSql
 	private static String []
 		ADMIN_INSERT_DEF = new String [] 
 		{
-			"AdminName1_GeoLocation_GeoNamesDatabase, AdminCode1_GeoLocation_GeoNamesDatabase",
-			"AdminName2_GeoLocation_GeoNamesDatabase, AdminCode2_GeoLocation_GeoNamesDatabase",
-			"AdminName3_GeoLocation_GeoNamesDatabase, AdminCode3_GeoLocation_GeoNamesDatabase"
+			"AdminName1_GeoLocation_GeoNamesDatabase, AdminCode1_GeoLocation_GeoNamesDatabase, ",
+			"AdminName2_GeoLocation_GeoNamesDatabase, AdminCode2_GeoLocation_GeoNamesDatabase, ",
+			"AdminName3_GeoLocation_GeoNamesDatabase, AdminCode3_GeoLocation_GeoNamesDatabase, "
 		};
 	private static String
 		INSERT_INTO = "INSERT INTO GeoLocation (",
-		INSERT_INTO_DEF_PREFIX = "CountryCode_GeoLocation_GeoNamesDatabase, PostalCode_GeoLocation_GeoNamesDatabase, PlaceName_GeoLocation_GeoNamesDatabase",
+		INSERT_INTO_DEF_PREFIX = "CountryCode_GeoLocation_GeoNamesDatabase, PostalCode_GeoLocation_GeoNamesDatabase, PlaceName_GeoLocation_GeoNamesDatabase, ",
 		INSERT_DEF_SUFFIX = "Latitude_GeoLocation_GeoNamesDatabase, Longitude_GeoLocation_GeoNamesDatabase, Accuracy_GeoLocation_GeoNamesDatabase)",
 		INSERT_DEF_SUFFIX_MISS_ACC = "Latitude_GeoLocation_GeoNamesDatabase, Longitude_GeoLocation_GeoNamesDatabase)",
 		VALUES_PREFIX = "VALUES (",
