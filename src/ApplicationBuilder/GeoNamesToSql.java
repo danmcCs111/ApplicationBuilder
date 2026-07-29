@@ -22,8 +22,7 @@ public class GeoNamesToSql
 		INSERT_DEF_SUFFIX_MISS_ACC = "Latitude_GeoLocation_GeoNamesDatabase, Longitude_GeoLocation_GeoNamesDatabase)",
 		VALUES_PREFIX = "VALUES (",
 		VALUES_SUFFIX = " );",
-		SPLIT = ",",
-		CSV_PATH = "";
+		SPLIT = ",";
 	
 	public static String buildFrontValues(String [] col)
 	{
@@ -69,72 +68,73 @@ public class GeoNamesToSql
 	
 	public static void main(String [] args)
 	{
-		CSV_PATH = args[0];
-		
-		ArrayList<String> records = PathUtility.readFileToStringArray(new File(CSV_PATH));
-		for(String rec : records)
+		for(String path : args)
 		{
-			String [] col = rec.split(SPLIT);
-			LoggingMessages.printOut(col.length + "");
-			String 
+			ArrayList<String> records = PathUtility.readFileToStringArray(new File(path));
+			for(String rec : records)
+			{
+				String [] col = rec.split(SPLIT);
+				String 
 				insertValue = VALUES_PREFIX,
 				headerInsert = INSERT_INTO;
-			
-			if(col.length == 5)
-			{
-				//missing accuracy.
-				headerInsert += INSERT_INTO_DEF_PREFIX;
-				headerInsert += INSERT_DEF_SUFFIX_MISS_ACC;
 				
-				insertValue += buildFrontValues(col);
-				insertValue += buildEndingValuesMinusAccuracy(col);
-			}
-			else if(col.length > 6 && col.length % 2 == 1)
-			{
-				int admins = ((col.length-6) / 2);
-				
-				headerInsert += INSERT_INTO_DEF_PREFIX;
-				for(int i = 0; i < admins; i++)
+				if(col.length == 5)
 				{
-					headerInsert += ADMIN_INSERT_DEF[i];
+					//missing accuracy.
+					headerInsert += INSERT_INTO_DEF_PREFIX;
+					headerInsert += INSERT_DEF_SUFFIX_MISS_ACC;
+					
+					insertValue += buildFrontValues(col);
+					insertValue += buildEndingValuesMinusAccuracy(col);
 				}
-				headerInsert += INSERT_DEF_SUFFIX;
-				
-				insertValue += buildFrontValues(col);
-				insertValue += buildMiddleValues(col, false);
-				insertValue += buildEndingValuesMinusAccuracy(col);
-			}
-			else if(col.length == 6)
-			{
-				//no admin.
-				headerInsert += INSERT_INTO_DEF_PREFIX;
-				headerInsert += INSERT_DEF_SUFFIX;
-				
-				insertValue += buildFrontValues(col);
-				insertValue += buildEndingValues(col);
-			}
-			else if(col.length > 6 && col.length % 2 == 0)
-			{
-				int admins = ((col.length-6) / 2);
-				
-				headerInsert += INSERT_INTO_DEF_PREFIX;
-				for(int i = 0; i < admins; i++)
+				else if(col.length > 6 && col.length % 2 == 1)
 				{
-					headerInsert += ADMIN_INSERT_DEF[i];
+					int admins = ((col.length-6) / 2);
+					
+					headerInsert += INSERT_INTO_DEF_PREFIX;
+					for(int i = 0; i < admins; i++)
+					{
+						headerInsert += ADMIN_INSERT_DEF[i];
+					}
+					headerInsert += INSERT_DEF_SUFFIX;
+					
+					insertValue += buildFrontValues(col);
+					insertValue += buildMiddleValues(col, false);
+					insertValue += buildEndingValuesMinusAccuracy(col);
 				}
-				headerInsert += INSERT_DEF_SUFFIX;
-				
-				insertValue += buildFrontValues(col);
-				insertValue += buildMiddleValues(col, true);
-				insertValue += buildEndingValues(col);
+				else if(col.length == 6)
+				{
+					//no admin.
+					headerInsert += INSERT_INTO_DEF_PREFIX;
+					headerInsert += INSERT_DEF_SUFFIX;
+					
+					insertValue += buildFrontValues(col);
+					insertValue += buildEndingValues(col);
+				}
+				else if(col.length > 6 && col.length % 2 == 0)
+				{
+					int admins = ((col.length-6) / 2);
+					
+					headerInsert += INSERT_INTO_DEF_PREFIX;
+					for(int i = 0; i < admins; i++)
+					{
+						headerInsert += ADMIN_INSERT_DEF[i];
+					}
+					headerInsert += INSERT_DEF_SUFFIX;
+					
+					insertValue += buildFrontValues(col);
+					insertValue += buildMiddleValues(col, true);
+					insertValue += buildEndingValues(col);
+				}
+				else
+				{
+					LoggingMessages.printOut("fix: " + LoggingMessages.combine(col));
+					continue;
+				}
+				insertValue += VALUES_SUFFIX;
+				LoggingMessages.printOut(headerInsert + insertValue);
 			}
-			else
-			{
-				LoggingMessages.printOut("fix: " + LoggingMessages.combine(col));
-				continue;
-			}
-			insertValue += VALUES_SUFFIX;
-			LoggingMessages.printOut(headerInsert + insertValue);
 		}
+		
 	}
 }
