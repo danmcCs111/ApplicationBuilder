@@ -1,7 +1,9 @@
 package ApplicationBuilder;
 
 import java.io.File;
+import java.net.http.HttpRequest;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import Properties.LoggingMessages;
 import Properties.PathUtility;
@@ -24,7 +26,15 @@ public class GeoNamesToSql
 		VALUES_SUFFIX = " );",
 		SPLIT = "@,@";
 	
-	public static String buildFrontValues(String [] col)
+	private String 
+		saveFile = "";
+	
+	public GeoNamesToSql()
+	{
+		
+	}
+	
+	public String buildFrontValues(String [] col)
 	{
 		String countryCode = col[0];
 		String postalCode = col[1];
@@ -33,7 +43,7 @@ public class GeoNamesToSql
 		return "'" + countryCode + "', '" + postalCode + "', '" + placeName + "', ";
 	}
 	
-	public static String buildMiddleValues(String [] col, boolean accuracyIncluded)
+	public String buildMiddleValues(String [] col, boolean accuracyIncluded)
 	{
 		String retStr = "";
 		int 
@@ -49,7 +59,7 @@ public class GeoNamesToSql
 		return retStr;
 	}
 	
-	public static String buildEndingValues(String [] col)
+	public String buildEndingValues(String [] col)
 	{
 		String accuracy = col[col.length-1];
 		String longitude = col[col.length-2];
@@ -58,7 +68,7 @@ public class GeoNamesToSql
 		return latitude + ", " + longitude + ", " + accuracy;
 	}
 	
-	public static String buildEndingValuesMinusAccuracy(String [] col)
+	public String buildEndingValuesMinusAccuracy(String [] col)
 	{
 		String longitude = col[col.length-1];
 		String latitude = col[col.length-2];
@@ -66,10 +76,10 @@ public class GeoNamesToSql
 		return latitude + ", " + longitude;
 	}
 	
-	public static void main(String [] args)
+	public String processArgs(String [] args)
 	{
 		StringBuffer sb = new StringBuffer();
-		for(int p = 0; p < args.length-1; p++)//last is output.
+		for(int p = 0; p < args.length; p++)//last is output.
 		{
 			String path = args[p];
 			ArrayList<String> records = PathUtility.readFileToStringArray(new File(path));
@@ -141,7 +151,15 @@ public class GeoNamesToSql
 				sb.append(headerInsert + insertValue + "\n");
 			}
 		}
-		String saveFile = args[args.length-1];
-		PathUtility.writeStringToFile(new File(saveFile), sb.toString());
+		return sb.toString();
+	}
+	
+	public static void main(String [] args)
+	{
+		GeoNamesToSql gns = new GeoNamesToSql();
+		gns.saveFile = args[args.length-1];
+		String [] argP = Arrays.copyOf(args, args.length-1);
+		String insertStr = gns.processArgs(argP);
+		PathUtility.writeStringToFile(new File(gns.saveFile), insertStr);
 	}
 }
