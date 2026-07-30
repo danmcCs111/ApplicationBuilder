@@ -13,7 +13,7 @@ public class IntEditor extends JSpinner implements ParameterEditor
 	private static final long serialVersionUID = 1996L;
 	
 	private static final int 
-		SPINNER_LIMIT = 1000000,
+		SPINNER_LIMIT = 1000000000,
 		SPINNER_INTERVAL = 1;
 	private static final String SPINNER_FORMAT = "0";
 	private static final Dimension SPINNER_SIZE = new Dimension(50, 50);

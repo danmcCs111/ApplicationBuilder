@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 	private static final long serialVersionUID = 1L;
 	
 	private static String
-		FILE_LIST_FORMAT = "<arg> [<arg>] (size: <arg> KB)",
+		FILE_LIST_FORMAT = "<arg> [<arg>] (size: <arg> <arg>)",
 		STATUS_FORMAT = "Replicating: <arg>",
 		REPLACE_ARG = "<arg>",
 		REPLICATE_COMMAND = "rsync.sh",
@@ -54,13 +55,18 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 		FILE_FILTER = ".db",
 		DATABASES_REPLICA_LOCATION = null;
 	private static long
-		BYTE_SIZE_CONVERT = 1024; //in KB
+		BYTE_SIZE_KB_CONVERT = 1024, //in KB
+		BYTE_SIZE_MB_CONVERT = 1024 * 1024, //in MB
+		BYTE_SIZE_GB_CONVERT = 1024 * 1024 * 1024; //in GB
+		
 	
 	private static FileSelection
 		replicateCommand = new FileSelection(
 				new DirectorySelection(DATABASES_ORIGIN_LOCATION).getFullPath().trim() + REPLICATE_COMMAND, 
 				false
 		);
+	private static DecimalFormat 
+		df = new DecimalFormat("#.00");
 	
 	private JScrollPane
 		scrollPane;
@@ -78,10 +84,37 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 	private JButton
 		saveButton,
 		cancelButton;
-	
 	private boolean 
 		isFlippedOriginReplica = false,
 		cancelFlag = false;
+	
+	private enum Size
+	{
+		KB(BYTE_SIZE_KB_CONVERT, "KB"),
+		MB(BYTE_SIZE_MB_CONVERT, "MB"),
+		GB(BYTE_SIZE_GB_CONVERT, "GB");
+		
+		private long
+			conversion = -1;
+		private String
+			label;
+		
+		private Size(long conversion, String label)
+		{
+			this.conversion = conversion;
+			this.label = label;
+		}
+		
+		public String getLabel()
+		{
+			return label;
+		}
+		
+		public long getConversion()
+		{
+			return conversion;
+		}
+	}
 	
 	public ReplicateDatabase()
 	{
@@ -96,13 +129,13 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 	{
 		STATUS_FORMAT = format;
 	}
-	public static void setByteSizeConvert(int convert)
-	{
-		BYTE_SIZE_CONVERT = convert;
-	}
 	public static void setReplaceArg(String replArg)
 	{
 		REPLACE_ARG = replArg;
+	}
+	public static void setDecimalFormat(String format)
+	{
+		df = new DecimalFormat(format);
 	}
 	
 	public static void setReplicateLocation(DirectorySelection ds)
@@ -406,8 +439,11 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 				File 
 					f = new File(ds.getFullPath().trim() + fileStr);
 				long 
-					byteSize = PathUtility.getSizeOfFileInBytes(f),
-					sizeConvert = byteSize / BYTE_SIZE_CONVERT;
+					byteSize = PathUtility.getSizeOfFileInBytes(f);
+				Size 
+					size = getSize(byteSize);
+				double
+					sizeConvert = convertAmount(byteSize, size);
 				String 
 					filename = FILE_LIST_FORMAT;
 				LocalDateTime 
@@ -416,7 +452,13 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 				filename = StringUtility.replaceArg(
 						filename, 
 						REPLACE_ARG, 
-						new String [] {ldt.toLocalDate().toString(), fileStr, sizeConvert + ""}
+						new String [] 
+						{
+							ldt.toLocalDate().toString(), 
+							fileStr, 
+							df.format(sizeConvert) + "", 
+							size.getLabel()
+						}
 				);
 				FileView fv = new FileView(fileStr, filename);
 				filesFormatted.add(fv);
@@ -424,6 +466,21 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 			databasesList.setListData(filesFormatted.toArray(new FileView[] {}));
 		}
 		this.validate();
+	}
+	
+	public Size getSize(long byteSize)
+	{
+		if(byteSize > BYTE_SIZE_GB_CONVERT)
+			return Size.GB;
+		if(byteSize > BYTE_SIZE_MB_CONVERT)
+			return Size.MB;
+		
+		return Size.KB;
+	}
+	
+	public double convertAmount(long byteSize, Size size)
+	{
+		return (double) byteSize / (double)size.getConversion();
 	}
 	
 	@Override
