@@ -10,9 +10,9 @@ windowsCom="/c/Program Files (x86)/Launch4j/launch4j.exe"
 
 if [[ "$typeOs" == "Linux" ]]
 then
-	com=linuxCom
+	com=$linuxCom
 else
-	com=windowsCom
+	com=$windowsCom
 fi
 
 builds=(`ls *.xml`)
