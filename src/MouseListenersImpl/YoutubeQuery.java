@@ -11,6 +11,7 @@ public interface YoutubeQuery
 	public String getYoutubeVideoCount(int parentId);
 	public String getYoutubeRemoveQuery(int parentId, Date fromDate);
 	public String getYoutubeInsertPrefix();
+	public String getYoutubeInsertWithHandlePrefix();
 	public String getYoutubeInsertSuffix();
 	public String getSqlType();
 }

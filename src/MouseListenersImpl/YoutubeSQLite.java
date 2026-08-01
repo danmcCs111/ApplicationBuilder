@@ -31,6 +31,8 @@ public class YoutubeSQLite implements YoutubeQuery
 			" ORDER BY UploadDate_VideoYoutube_VideoYoutubeDatabase;",
 		YOUTUBE_INSERT_PREFIX = 
 			"INSERT INTO video (VideoName_Video_VideoDatabase, VideoUrl_Video_VideoDatabase, InsertDate_Video_VideoDatabase) values( ",
+		YOUTUBE_INSERT_W_HANDLE_PREFIX = 
+			"INSERT INTO videodatabase.video (VideoName_Video_VideoDatabase, VideoUrl_Video_VideoDatabase, Handle_Video_VideoDatabase, InsertDate_Video_VideoDatabase) values( ",
 		YOUTUBE_INSERT_SUFFIX = 
 			" CURRENT_TIMESTAMP);";
 
@@ -82,6 +84,12 @@ public class YoutubeSQLite implements YoutubeQuery
 	public String getYoutubeInsertSuffix() 
 	{
 		return YOUTUBE_INSERT_SUFFIX;
+	}
+	
+	@Override
+	public String getYoutubeInsertWithHandlePrefix() 
+	{
+		return YOUTUBE_INSERT_W_HANDLE_PREFIX;
 	}
 
 	@Override

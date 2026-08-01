@@ -290,6 +290,17 @@ public class LookupOrCreateYoutube
 		lookup(videoChannelName, url);
 	}
 	
+	public static void createIfEmptyWithHandle(String videoChannelName, String url, String handle)
+	{
+		String insert = youtubeSql.getYoutubeInsertPrefix() + 
+				PathUtility.surroundString(videoChannelName, "\"") + ", " + 
+				PathUtility.surroundString(url, "\"") + ", " +
+				PathUtility.surroundString(handle, "\"") + ", " +
+				youtubeSql.getYoutubeInsertSuffix();
+		
+		QueryUpdateTool.executeInsert(insert);
+	}
+	
 	public static HashMap<Integer, ArrayList<YoutubeChannelVideo>> lookupYoutubeVideo(int parentId, String videoChannelLink)
 	{
 		Date lastDate = getLastDate(parentId, videoChannelLink);

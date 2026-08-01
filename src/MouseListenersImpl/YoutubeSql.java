@@ -31,6 +31,8 @@ public class YoutubeSql implements YoutubeQuery
 			" ORDER BY UploadDate_VideoYoutube_VideoYoutubeDatabase;",
 		YOUTUBE_INSERT_PREFIX = 
 			"INSERT INTO videodatabase.video (VideoName_Video_VideoDatabase, VideoUrl_Video_VideoDatabase, InsertDate_Video_VideoDatabase) values( ",
+		YOUTUBE_INSERT_W_HANDLE_PREFIX = 
+			"INSERT INTO videodatabase.video (VideoName_Video_VideoDatabase, VideoUrl_Video_VideoDatabase, Handle_Video_VideoDatabase, InsertDate_Video_VideoDatabase) values( ",
 		YOUTUBE_INSERT_SUFFIX = 
 			" CURRENT_TIMESTAMP);";
 
@@ -77,6 +79,12 @@ public class YoutubeSql implements YoutubeQuery
 	{
 		return YOUTUBE_INSERT_PREFIX;
 	}
+	
+	@Override
+	public String getYoutubeInsertWithHandlePrefix() 
+	{
+		return YOUTUBE_INSERT_W_HANDLE_PREFIX;
+	}
 
 	@Override
 	public String getYoutubeInsertSuffix() 
@@ -96,6 +104,5 @@ public class YoutubeSql implements YoutubeQuery
 		String date = "'" + SDF.format(fromDate) + "'";
 		return StringUtility.replaceArg(YOUTUBE_REMOVE_QUERY, REPLACE, new String[] {parentId+"", date});
 	}
-
 
 }

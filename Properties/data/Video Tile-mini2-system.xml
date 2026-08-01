@@ -2,7 +2,7 @@
 	<JFrame addWindowListener="WindowListeners.ProcessExecutorWindowListener" extendedSetLookAndFeel="System" extendedSetScrollBarDimension="18, 18" extendedSetupTaskbar="./src/ApplicationBuilder/build-icon_sm.png" setDefaultCloseOperation="3" setLayout="java.awt.BorderLayout" setLocation="450, 30" setName="VideoPlayer" setResizable="False" setSize="1100, 1000" setTitle="Video List Creator" >
 		<JPanel extendedLayoutApplyParent="Center" setLayout="java.awt.BorderLayout" >
 			<JScrollPane extendedLayoutApplyParent="Center" extendedScrollBarSetUnit="35" setName="scrollPane" >
-				<SwappableCollection extendedArrayProcessingPath="./VideoLaunchFiles/Tubi/@.url; ./VideoLaunchFiles/YoutubeFreeMovies2/@.url; ./VideoLaunchFiles/RokuVideos/@.url; ./VideoLaunchFiles/RokuChannels/@.url; ./VideoLaunchFiles/YoutubeChannels/@.url; ./VideoLaunchFiles/Music/@.url; ./VideoLaunchFiles/AmazonVideos@.url" extendedSetViewportView="" setIsLoadingGraphic="True" setLayout="java.awt.BorderLayout" setLoadingBackground="255, 255, 255" setLoadingForeground="0, 0, 0" setLoadingGraphic="./Properties/shapes/reload.xml" setLoadingWindowSize="150, 160" setName="swapVideos" >
+				<SwappableCollection extendedArrayProcessingPath="./VideoLaunchFiles/Tubi/@.url; ./VideoLaunchFiles/YoutubeFreeMovies2/@.url; ./VideoLaunchFiles/RokuVideos/@.url; ./VideoLaunchFiles/RokuChannels/@.url; ./VideoLaunchFiles/YoutubeChannels/@.url; ./VideoLaunchFiles/Music/@.url; ./VideoLaunchFiles/AmazonVideos@.url; ./VideoLaunchFiles/YoutubeNewsUnitedStates/ @.url" extendedSetViewportView="" setIsLoadingGraphic="True" setLayout="java.awt.BorderLayout" setLoadingBackground="255, 255, 255" setLoadingForeground="0, 0, 0" setLoadingGraphic="./Properties/shapes/reload.xml" setLoadingWindowSize="150, 160" setName="swapVideos" >
 					<JPanel extendedLayoutApplyParent="North" setLayout="java.awt.BorderLayout" >
 						<JButtonArrayListPicture extendedConnectedComponent="channelsSelect" extendedLayoutApplyParent="Center" extendedSwappableHolder="swapVideos" extendedTextStripper="Watch @ Online for Free _ The Roku Channel _ Roku@ - YouTube@ - Prime Video@Prime Video- @1_@.url" setButtonCheckboxBackground="255, 255, 255" setButtonCheckboxForeground="0, 0, 0" setCharacterLimit="15" setDefaultImageXmlPath="./Properties/shapes/Default-Play-Image.xml" setExpandedArrangementFileRelativeLocation="./Properties/VideoLaunchBookmarks/ " setHighlightColor="0, 204, 204" setIsDragScroll="True" setJavaSwingFileChooser="False" setMouseDragDelay="50" setMouseDragUnitIncrementAdjustment="50" setMouseWheelSpin="-1" setName="channels" setSaveLineWrapNumber="12" setSaveLineWrapYInc="250" >
 						</JButtonArrayListPicture>
@@ -60,7 +60,7 @@
 				</JMenuItem>
 			</JMenu>
 			<JMenu extendedLayoutApplyParent="" setText="Action" >
-				<JMenuItem extendedLayoutApplyParent="" setText="Drag Adjust" addActionListener="ActionListenersImpl.MouseDragScrollUnitAdjustActionListener" >
+				<JMenuItem addActionListener="ActionListenersImpl.MouseDragScrollUnitAdjustActionListener" extendedLayoutApplyParent="" setText="Drag Adjust" >
 				</JMenuItem>
 			</JMenu>
 		</JMenuBar>
