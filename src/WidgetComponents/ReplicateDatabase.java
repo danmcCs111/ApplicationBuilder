@@ -55,11 +55,9 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 		FILE_FILTER = ".db",
 		DATABASES_REPLICA_LOCATION = null;
 	private static long
-		BYTE_SIZE_KB_CONVERT = 1024, //in KB
-		BYTE_SIZE_MB_CONVERT = 1024 * 1024, //in MB
-		BYTE_SIZE_GB_CONVERT = 1024 * 1024 * 1024; //in GB
-		
-	
+		BYTE_SIZE_KB_CONVERT = 1024,
+		BYTE_SIZE_MB_CONVERT = 1024 * 1024,
+		BYTE_SIZE_GB_CONVERT = 1024 * 1024 * 1024;
 	private static FileSelection
 		replicateCommand = new FileSelection(
 				new DirectorySelection(DATABASES_ORIGIN_LOCATION).getFullPath().trim() + REPLICATE_COMMAND, 
@@ -477,7 +475,6 @@ public class ReplicateDatabase extends JPanel implements PostWidgetBuildProcessi
 		
 		return Size.KB;
 	}
-	
 	public double convertAmount(long byteSize, Size size)
 	{
 		return (double) byteSize / (double)size.getConversion();

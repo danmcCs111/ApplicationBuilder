@@ -253,16 +253,29 @@ public class LaunchUrlActionListener implements ActionListener
 		Runnable r = new Runnable() {
 			@Override
 			public void run() {
+				int detectCount = 0;
 				while(true)
 				{
-					ProcessHandle runningProcess = runningProcesses.get(defaultId);
-					if(runningProcess != null && !runningProcess.isAlive() && 
-							!executing && getLastButtonOrigin() != null)
-					{
-						closeEvent();
-						storeLast(null);
-					}
 					try {
+						ProcessHandle runningProcess = runningProcesses.get(defaultId);
+						if(runningProcess != null && !runningProcess.isAlive() && 
+								!executing && getLastButtonOrigin() != null)
+						{
+							if(detectCount >= 2)
+							{
+								closeEvent();
+								storeLast(null);
+								detectCount = 0;
+							}
+							else
+							{
+								detectCount++;
+							}
+						}
+						else
+						{
+							detectCount = 0;
+						}
 						Thread.sleep(1000l);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
