@@ -292,7 +292,7 @@ public class LookupOrCreateYoutube
 	
 	public static void createIfEmptyWithHandle(String videoChannelName, String url, String handle)
 	{
-		String insert = youtubeSql.getYoutubeInsertPrefix() + 
+		String insert = youtubeSql.getYoutubeInsertWithHandlePrefix() + 
 				PathUtility.surroundString(videoChannelName, "\"") + ", " + 
 				PathUtility.surroundString(url, "\"") + ", " +
 				PathUtility.surroundString(handle, "\"") + ", " +
