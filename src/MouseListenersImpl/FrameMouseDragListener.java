@@ -93,6 +93,8 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		isPreview = false;
 	private static Dimension
 		scrollBarTouchDim = new Dimension(25, 25);
+	private static ArrayList<VideoChannelPlayer>
+		videoChannelPlayers = new ArrayList<VideoChannelPlayer>();
 	
 	public FrameMouseDragListener()
 	{
@@ -133,6 +135,11 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	public static boolean isTouch()
 	{
 		return FrameMouseDragListener.isTouch;
+	}
+	
+	public static ArrayList<VideoChannelPlayer> getVideoChannelPlayers()
+	{
+		return videoChannelPlayers;
 	}
 	
 	@Override
@@ -182,7 +189,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 				{
 					if(isPreview)
 					{
-						this.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName());
+						this.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName(), VideoChannelListView.getChannelLimit());
 						JMenu mi2 = buildViewMenu();
 						if(mi2 != null)
 						{
@@ -332,7 +339,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 				SwingUtilities.invokeLater(() -> {
 					if(!isPreview)
 					{
-						FrameMouseDragListener.this.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName());
+						FrameMouseDragListener.this.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName(), VideoChannelListView.getChannelLimit());
 					}
 					buildVideoChannelPlayer(false);
 				});
@@ -349,7 +356,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 			public void actionPerformed(ActionEvent e) 
 			{
 				SwingUtilities.invokeLater(() -> {
-					FrameMouseDragListener.this.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName());
+					FrameMouseDragListener.this.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName(), VideoChannelListView.getChannelLimit());
 				    buildVideoChannelPlayer(false);
 				});
 			}
@@ -422,7 +429,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 			public void windowClosed(WindowEvent e) {
 				if(vutd.updated())
 				{
-					FrameMouseDragListener.this.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName());
+					FrameMouseDragListener.this.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName(), VideoChannelListView.getChannelLimit());
 					buildVideoChannelPlayer(true);
 				}
 			}
@@ -445,16 +452,19 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 			if(vcp == null)
 			{
 				vcp = new VideoChannelPlayer(ks.getImageIconSmall(), this, parentButton, f);
+				videoChannelPlayers.add(vcp);
 			}
 			else
 			{
 				if(!vcp.isVisible())
 				{
 					Point loc = vcp.getLocation();
+					videoChannelPlayers.remove(vcp);
 					vcp.dispose();
 					vcp = (reuseLocation) 
 						? new VideoChannelPlayer(ks.getImageIconSmall(), this, parentButton, loc)
 						: new VideoChannelPlayer(ks.getImageIconSmall(), this, parentButton, f);
+					videoChannelPlayers.add(vcp);
 				}
 				else
 				{

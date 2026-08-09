@@ -230,10 +230,11 @@ public class LookupOrCreateYoutube
 		return count;
 	}
 	
-	public static HashMap<Integer, ArrayList<YoutubeChannelVideo>> lookup(String videoChannelName, String videoChannelLink)
+	public static HashMap<Integer, ArrayList<YoutubeChannelVideo>> lookup(
+			String videoChannelName, String videoChannelLink, int limit)
 	{
 		ArrayList <ArrayList <DatabaseResponseNode>> 
-			drns = lookupVideoChannel(videoChannelLink);
+			drns = lookupVideoChannel(videoChannelLink, limit);
 		HashMap<Integer, ArrayList<YoutubeChannelVideo>> 
 			parentIdAndYoutubeChannelVideos = null;
 		
@@ -250,7 +251,7 @@ public class LookupOrCreateYoutube
 					int parentId = Integer.parseInt(drn.getNodeAttributes().get("content"));
 					LoggingMessages.printOut("parentID is: " + parentId);
 					LoggingMessages.printOut("channelLink is: " + videoChannelLink);
-					parentIdAndYoutubeChannelVideos = lookupYoutubeVideo(parentId, videoChannelLink);
+					parentIdAndYoutubeChannelVideos = lookupYoutubeVideo(parentId, videoChannelLink, limit);
 					break;
 				}
 			}
@@ -263,11 +264,14 @@ public class LookupOrCreateYoutube
 		QueryUpdateTool.executeUpdate(vc.getDatabaseUpdate());
 	}
 	
-	public static ArrayList <ArrayList <DatabaseResponseNode>> lookupVideoChannel(String videoChannelLink)
+	public static ArrayList <ArrayList <DatabaseResponseNode>> lookupVideoChannel(String videoChannelLink, int limit)
 	{
 		String 
-			query = youtubeSql.getYoutubeQuery(videoChannelLink),
+			query = (limit > 0)
+				? youtubeSql.getYoutubeQueryLimit(videoChannelLink, limit)
+				: youtubeSql.getYoutubeQuery(videoChannelLink),
 			response = QueryUpdateTool.executeQuery(query);
+		
 		if(response == null)
 			return null;
 		
@@ -287,7 +291,6 @@ public class LookupOrCreateYoutube
 				youtubeSql.getYoutubeInsertSuffix();
 		
 		QueryUpdateTool.executeInsert(insert);
-		lookup(videoChannelName, url);
 	}
 	
 	public static void createIfEmptyWithHandle(String videoChannelName, String url, String handle)
@@ -301,10 +304,10 @@ public class LookupOrCreateYoutube
 		QueryUpdateTool.executeInsert(insert);
 	}
 	
-	public static HashMap<Integer, ArrayList<YoutubeChannelVideo>> lookupYoutubeVideo(int parentId, String videoChannelLink)
+	public static HashMap<Integer, ArrayList<YoutubeChannelVideo>> lookupYoutubeVideo(int parentId, String videoChannelLink, int limit)
 	{
 		Date lastDate = getLastDate(parentId, videoChannelLink);
-		return getYoutubeVideos(parentId, videoChannelLink, (lastDate == null) ? -1 : lastDate.getTime());
+		return getYoutubeVideos(parentId, videoChannelLink, limit, (lastDate == null) ? -1 : lastDate.getTime());
 	}
 	
 	private static Date getLastDate(int parentId, String videoChannelLink)
@@ -389,7 +392,7 @@ public class LookupOrCreateYoutube
 	}
 	
 	private static HashMap<Integer, ArrayList<YoutubeChannelVideo>> getYoutubeVideos(
-			int parentId, String videoChannelLink, long lastDate)
+			int parentId, String videoChannelLink, int limit, long lastDate)
 	{
 		HashMap<Integer, ArrayList<YoutubeChannelVideo>> parentIdAndYoutubeChannelVideos = 
 				new HashMap<Integer, ArrayList<YoutubeChannelVideo>>();
@@ -398,7 +401,9 @@ public class LookupOrCreateYoutube
 		LoggingMessages.printOut("Channel Link: " + videoChannelLink);
 		LoggingMessages.printOut("Epoch Time: " + lastDate);
 		
-		String query = youtubeSql.getYoutubeVideoQuery(parentId);
+		String query = (limit > 0) 
+				? youtubeSql.getYoutubeVideoQueryLimit(parentId, limit)
+				: youtubeSql.getYoutubeVideoQuery(parentId);
 		LoggingMessages.printOut(query);
 		String response = QueryUpdateTool.executeQuery(query);
 		HttpDatabaseResponse hdr = new HttpDatabaseResponse();

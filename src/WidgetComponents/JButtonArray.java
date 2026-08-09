@@ -23,6 +23,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import ActionListeners.ArrayActionListener;
@@ -155,11 +156,17 @@ PostWidgetBuildProcessing, ButtonArray, ButtonArrayLoadingNotifier
 	private ArrayList<ButtonArrayLoadingNotification> 
 		loadingNofications = new ArrayList<ButtonArrayLoadingNotification>();
 	
-	private int characterLimit=0;
+	private int 
+		characterLimit=0;
 	
 	public JButtonArray()
 	{
 		
+	}
+	
+	public static void setChannelLimit(int limit)//TODO.
+	{
+		VideoChannelListView.setChannelLimit(limit);
 	}
 	
 	public static void setMouseDragUnitIncrementAdjustment(int unitInc)
@@ -1086,25 +1093,18 @@ PostWidgetBuildProcessing, ButtonArray, ButtonArrayLoadingNotifier
 	@Override
 	public void performRestore() 
 	{
-		if(getKeepSelection().size() <= 0)
-			return;
+		LoggingMessages.printOut(FrameMouseDragListener.getVideoChannelPlayers().size()+" ");
 		
-		AbstractButton ab = LaunchUrlActionListener.getLastButtonOrigin();
-		if(ab instanceof JButtonLengthLimited)
-		{
-			ab = ((JButtonLengthLimited) ab).getHighlightButton();
-		}
-		for(KeepSelection ks : getKeepSelection())
-		{
-			if(ab != null && ks.getJButtonLengthLimited().getText().equals(ab.getText()))
+		if(getKeepSelection().size() > 0)
+		{		
+			for(KeepSelection ks : getKeepSelection())
 			{
-				//TODO.
+				ks.getFrame().setExtendedState(JFrame.NORMAL);
+				ks.getFrame().toFront();
 			}
-			ks.getFrame().setExtendedState(JFrame.NORMAL);
-			ks.getFrame().toFront();
 		}
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public void buildLoadingFrame() 

@@ -5,7 +5,9 @@ import java.util.Date;
 public interface YoutubeQuery 
 {
 	public String getYoutubeQuery(String VideoUrl);
+	public String getYoutubeQueryLimit(String VideoUrl, int limit);
 	public String getYoutubeVideoQuery(int parentId);
+	public String getYoutubeVideoQueryLimit(int parentId, int limit); 
 	public String getYoutubeVideoLatestQuery(int parentId);
 	public String getYoutubeVideoFirstQuery(int parentId);
 	public String getYoutubeVideoCount(int parentId);

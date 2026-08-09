@@ -187,6 +187,7 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 		
 		this.setIconImage(videoImage.getImage());
 		this.setLayout(new BorderLayout());
+		
 		this.add(buildNorthPanel(), BorderLayout.NORTH);
 		this.add(scrollPane, BorderLayout.CENTER);
 		this.add(buildSouthPanel(parentButton), BorderLayout.SOUTH);
@@ -434,7 +435,7 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 	{
 		//refresh.
 		listView.clearListViewPanel();
-		ycvs = LookupOrCreateYoutube.lookup(parentButton.getText(), parentButton.getName());
+		ycvs = LookupOrCreateYoutube.lookup(parentButton.getText(), parentButton.getName(), VideoChannelListView.getChannelLimit());
 		listView.buildListViewPanel(null, ycvs);
 		lookupTotalCount();
 		updateCount();
@@ -445,7 +446,7 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 	{
 		if(ycvs == null)
 		{
-			ycvs = LookupOrCreateYoutube.lookup(parentButton.getText(), parentButton.getName());	
+			ycvs = LookupOrCreateYoutube.lookup(parentButton.getText(), parentButton.getName(), VideoChannelListView.getChannelLimit());	
 		}
 		return ycvs;
 	}
@@ -551,6 +552,6 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 		
 		this.setVideos(jbll, path, loc);
 	}
-
+	
 	
 }

@@ -169,6 +169,11 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
+	public static void setChannelLimit(int limit)
+	{
+		VideoChannelListView.setChannelLimit(limit);
+	}
+	
 	public static void setMenuBarForegroundAndBackground(Color foreground, Color background)
 	{
 		FOREGROUND_MENUBAR = foreground;
@@ -283,7 +288,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		{
 			label.updateCount(count, buttonAndIcon.keySet().size());
 			HashMap<Integer, ArrayList<YoutubeChannelVideo>> vids = LookupOrCreateYoutube.lookup(
-					jbll.getText(), jbll.getName());
+					jbll.getText(), jbll.getName(), VideoChannelListView.getChannelLimit());
 			
 			if(vids != null && !vids.isEmpty())
 			{
@@ -742,7 +747,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	private void refreshSelectionFromDB(JButtonLengthLimited selectedButtonParent, JButtonLengthLimited selectedButton)
 	{
 		HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs = LookupOrCreateYoutube.lookup(
-				selectedButtonParent.getText(), selectedButtonParent.getName());
+				selectedButtonParent.getText(), selectedButtonParent.getName(), VideoChannelListView.getChannelLimit());
 		int key = ycvs.keySet().iterator().next();
 		parentButtonAndYoutubeVideos.put(selectedButtonParent, ycvs.get(key));
 		createListView(selectedButton, ycvs.get(key));

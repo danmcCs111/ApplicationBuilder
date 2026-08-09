@@ -42,12 +42,13 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 {
 	private static final long serialVersionUID = 1L;
 	
-	private static final String 
+	private static String 
 		POPUP_OPEN = "OPEN",
 		POPUP_OPEN_NEW = "OPEN NEW";
-	private static final SimpleDateFormat 
+	private static SimpleDateFormat 
 		SDF_UPLOAD_SHORT = new SimpleDateFormat("MM/dd/yyyy");
-	private static final int
+	private static int
+		CHANNEL_LIMIT = -1,
 		VIDEO_TITLE_CHARACTER_LIMIT = 100;
 	
 	private HashMap<Integer, JButtonLengthLimited> 
@@ -114,6 +115,15 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 		buildWidgets(this.parentButtons, ycvs);
 	}
 	
+	public static void setChannelLimit(int limit)
+	{
+		CHANNEL_LIMIT = limit;
+	}
+	public static int getChannelLimit()
+	{
+		return CHANNEL_LIMIT;
+	}
+	
 	public static void setBorderColor(Color color)
 	{
 		borderColor = color;
@@ -149,6 +159,7 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 	{
 		hlPanel = new Highlighter(this, borderColor);
 		this.setLayout(new BorderLayout());
+		this.setDoubleBuffered(true);
 		
 		buildListViewPanel(parentButtons, ycvs);
 		RegisterArrayActionListener.addListener(this);
@@ -584,4 +595,5 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 	{
 		LaunchUrlActionListener.removeArrayActionListener(this);
 	}
+	
 }

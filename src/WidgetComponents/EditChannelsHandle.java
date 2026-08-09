@@ -74,7 +74,7 @@ public class EditChannelsHandle extends JDialog
 		{
 			for(JButtonLengthLimited jbll : (ArrayList<JButtonLengthLimited>)jblls)
 			{
-				ArrayList <ArrayList <DatabaseResponseNode>> drns = LookupOrCreateYoutube.lookupVideoChannel(jbll.getName());
+				ArrayList <ArrayList <DatabaseResponseNode>> drns = LookupOrCreateYoutube.lookupVideoChannel(jbll.getName(), VideoChannelListView.getChannelLimit());
 				VideoChannel vc = new VideoChannel(drns.get(1));
 				videoChannels.add(vc);
 			}
@@ -84,7 +84,7 @@ public class EditChannelsHandle extends JDialog
 			for(JCheckBox cb : (ArrayList<JCheckBox>)jblls)
 			{
 				String [] args = cb.getName().split(OpenVideoChannelsUpdater.NAME_DELIMITER);
-				ArrayList <ArrayList <DatabaseResponseNode>> drns = LookupOrCreateYoutube.lookupVideoChannel(args[1]);
+				ArrayList <ArrayList <DatabaseResponseNode>> drns = LookupOrCreateYoutube.lookupVideoChannel(args[1], VideoChannelListView.getChannelLimit());
 				VideoChannel vc = new VideoChannel(drns.get(1));
 				videoChannels.add(vc);
 			}

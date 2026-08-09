@@ -26,6 +26,7 @@ import WidgetComponents.JButtonArray;
 import WidgetComponents.JButtonLengthLimited;
 import WidgetComponents.KeepSelectionSelector;
 import WidgetComponents.TitleScroller;
+import WidgetComponents.VideoChannelListView;
 import WidgetComponents.VideoChannelPlayerJoy;
 import WidgetUtility.WidgetBuildController;
 import WidgetUtility.WidgetCreatorProperty;
@@ -112,7 +113,7 @@ public class HttpJoystickFuctionRequest implements ArrayActionListener
 	public static HashMap<Integer, ArrayList<YoutubeChannelVideo>> getYoutubeVideos() 
 	{
 		JButtonLengthLimited jbll = (JButtonLengthLimited) kss.getSelectedKeep().getJButtonLengthLimited();
-		HttpJoystickFuctionRequest.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName());
+		HttpJoystickFuctionRequest.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName(), VideoChannelListView.getChannelLimit());
 		return HttpJoystickFuctionRequest.ycvs;
 	}
 	

@@ -80,6 +80,8 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		ba;
 	private VideoBookMarksDialog 
 		vbmd = null;
+	private JLabel 
+		picLabel;
 		
 	public ImageMouseAdapter(JFrame parentFrame, String path, boolean singleClick)
 	{
@@ -125,6 +127,11 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 			String text = c.getFullLengthText();
 			keepsCurrentCollection.add(new KeepSelection(this.path, text, c.getText(), getButtonArray(), c));
 		}
+	}
+	
+	public JLabel getPicLabel()
+	{
+		return this.picLabel;
 	}
 	
 	public KeepSelection getAllStoredKeepSelection(Component component)
@@ -331,7 +338,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		{
 			useImage = ks.getPreviewImage();
 		}
-		JLabel picLabel = buildPicLabel(useImage==null ?null :new ImageIcon(useImage), ks);
+		buildPicLabel(useImage==null ?null :new ImageIcon(useImage), ks);
 		ks.setConnectedPanel(p);
 		p.add(picLabel, BorderLayout.CENTER);
 		
@@ -349,7 +356,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 	
 	private JLabel buildPicLabel(ImageIcon ii, KeepSelection ks)
 	{
-		JLabel picLabel = new JLabel(ii);
+		picLabel = new JLabel(ii);
 		JButtonLengthLimited ab = ks.getJButtonLengthLimited();
 		FrameMouseDragListener mouseDragListener = new FrameMouseDragListener(f, ks, ab, picLabel);
 		picLabel.addMouseMotionListener(mouseDragListener);
