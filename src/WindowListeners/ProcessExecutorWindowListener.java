@@ -23,8 +23,6 @@ public class ProcessExecutorWindowListener extends WindowAdapter
 	@Override
 	public void windowOpened(WindowEvent e)
 	{
-		LaunchUrlActionListener.bootCheckRunningProcess();
-		
 		FILE_NAME = WidgetBuildController.getInstance().getFrame().getTitle() + ".txt";
 		
 		FileSelection fs = new FileSelection(PROPERTIES_LOCATION + FILE_NAME);
