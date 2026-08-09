@@ -39,6 +39,7 @@ import MouseListenersImpl.LookupOrCreateYoutube;
 import MouseListenersImpl.MiddleClickLaunchUrlActionListener;
 import MouseListenersImpl.MouseDragScrollListener;
 import MouseListenersImpl.PicLabelMouseListener;
+import ObjectTypeConversion.CommandBuild;
 import ObjectTypeConversion.DirectorySelection;
 import ObjectTypeConversion.FileSelection;
 import ObjectTypeConversion.PageParserCollection;
@@ -161,6 +162,11 @@ PostWidgetBuildProcessing, ButtonArray, ButtonArrayLoadingNotifier
 	public JButtonArray()
 	{
 		
+	}
+	
+	public static void setAutoLaunchCommand(CommandBuild cb)
+	{
+		LaunchUrlActionListener.setAutoCommand(cb);
 	}
 	
 	public static void setVideoChannelPlayerMinSize(Dimension minSize)//TODO.

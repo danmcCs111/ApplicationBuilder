@@ -12,7 +12,9 @@ import java.util.Optional;
 import javax.swing.AbstractButton;
 
 import ActionListeners.ArrayActionListener;
+import Actions.CommandExecutor;
 import MouseListenersImpl.PicLabelMouseListener;
+import ObjectTypeConversion.CommandBuild;
 import ObjectTypeConversion.DirectorySelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
@@ -45,10 +47,21 @@ public class LaunchUrlActionListener implements ActionListener
 		executing = false,
 		isKiosk = false;
 	private static int
+		postExecuteAutoCommandWait = 3000,
 		defaultId = -1;
 	private static ArrayList<ArrayActionListener> 
 		aals = new ArrayList<ArrayActionListener>();
+	private static CommandBuild
+		autoCommandRun;
 		
+	public static void setAutoCommand(CommandBuild cb)
+	{
+		autoCommandRun = cb;
+	}
+	public static void setPostExecuteCommandWait(int waitMillis)
+	{
+		postExecuteAutoCommandWait = waitMillis;
+	}
 	
 	public static void addArrayActionListener(ArrayActionListener aal)
 	{
@@ -231,6 +244,7 @@ public class LaunchUrlActionListener implements ActionListener
 			File f = new File(new DirectorySelection(AHK_RELATIVE_PATH).getFullPath());
 			PathUtility.writeStringToFile(f, pid + "");
 			runningProcesses.put(defaultId, runningProcess);
+			executePostCommand();
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -246,6 +260,28 @@ public class LaunchUrlActionListener implements ActionListener
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private static void executePostCommand()
+	{
+		if(autoCommandRun == null)
+			return;
+		
+		Runnable r = new Runnable() 
+		{
+			@Override
+			public void run() 
+			{
+				try {
+					Thread.sleep(postExecuteAutoCommandWait);
+					CommandExecutor.executeProcess(autoCommandRun, false);
+				} catch (IOException | InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		};
+		Thread t = new Thread(r);
+		t.start();
 	}
 	
 	public static void bootCheckRunningProcess()
