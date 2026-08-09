@@ -256,7 +256,11 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 				{
 					getVideoChannelListView().setChannelLimit(VideoChannelListView.getChannelLimitGlobal());
 				}
-				rebuildVideoChannelPlayerList();
+				
+				if(!isSelect || (listView.getVisibleCount() != totalCount))
+				{
+					rebuildVideoChannelPlayerList();
+				}
 			}
 		});
 		

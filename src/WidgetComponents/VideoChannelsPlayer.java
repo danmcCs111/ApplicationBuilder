@@ -457,7 +457,10 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 					getVideoChannelListView().setChannelLimit(VideoChannelListView.getChannelLimitGlobal());
 				}
 				
-				refreshSelectionFromDB(selectedButtonParent, selectedButton);
+				if(!isSelect || (listView.getVisibleCount() != TOTAL_COUNT))
+				{				
+					refreshSelectionFromDB(selectedButtonParent, selectedButton);
+				}
 			}
 		});
 		
