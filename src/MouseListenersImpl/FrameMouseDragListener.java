@@ -488,6 +488,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 					vcp.rebuildVideoChannelPlayerList();
 				}
 			}
+			vcp.toFront();
 		}
 	}
 	
