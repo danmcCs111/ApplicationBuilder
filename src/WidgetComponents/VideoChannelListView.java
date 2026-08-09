@@ -79,10 +79,12 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 		vssl = null;
 	private MouseDragScrollListener 
 		mdsl = new MouseDragScrollListener();
+	private int
+		channelLimit;
 	
 	public VideoChannelListView()
 	{
-		
+		channelLimit = CHANNEL_LIMIT;
 	}
 	
 	public VideoChannelListView(
@@ -115,13 +117,22 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 		buildWidgets(this.parentButtons, ycvs);
 	}
 	
-	public static void setChannelLimit(int limit)
+	public static void setChannelLimitGlobal(int limit)
 	{
 		CHANNEL_LIMIT = limit;
 	}
-	public static int getChannelLimit()
+	public static int getChannelLimitGlobal()
 	{
 		return CHANNEL_LIMIT;
+	}
+	
+	public int getChannelLimit()
+	{
+		return channelLimit;
+	}
+	public void setChannelLimit(int channnelLimit)
+	{
+		this.channelLimit = channnelLimit;
 	}
 	
 	public static void setBorderColor(Color color)

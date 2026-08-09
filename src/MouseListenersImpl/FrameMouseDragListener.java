@@ -189,7 +189,14 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 				{
 					if(isPreview)
 					{
-						this.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName(), VideoChannelListView.getChannelLimit());
+						if(vcp != null)
+						{
+							this.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName(), vcp.getVideoChannelListView().getChannelLimit());
+						}
+						else
+						{
+							this.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName(), VideoChannelListView.getChannelLimitGlobal());
+						}
 						JMenu mi2 = buildViewMenu();
 						if(mi2 != null)
 						{
@@ -339,7 +346,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 				SwingUtilities.invokeLater(() -> {
 					if(!isPreview)
 					{
-						FrameMouseDragListener.this.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName(), VideoChannelListView.getChannelLimit());
+						FrameMouseDragListener.this.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName(), VideoChannelListView.getChannelLimitGlobal());
 					}
 					buildVideoChannelPlayer(false);
 				});
@@ -356,7 +363,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 			public void actionPerformed(ActionEvent e) 
 			{
 				SwingUtilities.invokeLater(() -> {
-					FrameMouseDragListener.this.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName(), VideoChannelListView.getChannelLimit());
+					FrameMouseDragListener.this.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName(), VideoChannelListView.getChannelLimitGlobal());
 				    buildVideoChannelPlayer(false);
 				});
 			}
@@ -429,7 +436,15 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 			public void windowClosed(WindowEvent e) {
 				if(vutd.updated())
 				{
-					FrameMouseDragListener.this.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName(), VideoChannelListView.getChannelLimit());
+					
+					if(vcp != null)
+					{
+						FrameMouseDragListener.this.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName(), vcp.getVideoChannelListView().getChannelLimit());
+					}
+					else
+					{
+						FrameMouseDragListener.this.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName(), VideoChannelListView.getChannelLimitGlobal());
+					}
 					buildVideoChannelPlayer(true);
 				}
 			}
@@ -459,11 +474,13 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 				if(!vcp.isVisible())
 				{
 					Point loc = vcp.getLocation();
+					int limit = vcp.getVideoChannelListView().getChannelLimit();
 					videoChannelPlayers.remove(vcp);
 					vcp.dispose();
 					vcp = (reuseLocation) 
 						? new VideoChannelPlayer(ks.getImageIconSmall(), this, parentButton, loc)
 						: new VideoChannelPlayer(ks.getImageIconSmall(), this, parentButton, f);
+					vcp.getVideoChannelListView().setChannelLimit(limit);
 					videoChannelPlayers.add(vcp);
 				}
 				else

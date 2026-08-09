@@ -15,9 +15,6 @@ public class YoutubeSQLite implements YoutubeQuery
 		YOUTUBE_QUERY = 
 			"SELECT * FROM video WHERE VideoUrl_Video_VideoDatabase = <arg>" +
 			";",
-		YOUTUBE_QUERY_LIMIT = 
-			"SELECT * FROM video WHERE VideoUrl_Video_VideoDatabase = <arg>" +
-			" LIMIT <arg>;",
 		YOUTUBE_REMOVE_QUERY = "DELETE FROM videoYoutube WHERE ParentID_VideoYoutube_VideoYoutubeDatabase = <arg> " + 
 			" AND UploadDate_VideoYoutube_VideoYoutubeDatabase < <arg>;",
 		YOUTUBE_VIDEO_QUERY = 
@@ -56,12 +53,6 @@ public class YoutubeSQLite implements YoutubeQuery
 		return YOUTUBE_QUERY.replaceFirst(REPLACE, PathUtility.surroundString(VideoUrl, "\'"));
 	}
 	
-	@Override
-	public String getYoutubeQueryLimit(String VideoUrl, int limit) 
-	{
-		return StringUtility.replaceArg(YOUTUBE_QUERY_LIMIT, REPLACE, PathUtility.surroundString(VideoUrl, "\'"), limit+"");
-	}
-
 	@Override
 	public String getYoutubeVideoQuery(int parentId) 
 	{

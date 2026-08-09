@@ -234,7 +234,7 @@ public class LookupOrCreateYoutube
 			String videoChannelName, String videoChannelLink, int limit)
 	{
 		ArrayList <ArrayList <DatabaseResponseNode>> 
-			drns = lookupVideoChannel(videoChannelLink, limit);
+			drns = lookupVideoChannel(videoChannelLink);
 		HashMap<Integer, ArrayList<YoutubeChannelVideo>> 
 			parentIdAndYoutubeChannelVideos = null;
 		
@@ -264,12 +264,10 @@ public class LookupOrCreateYoutube
 		QueryUpdateTool.executeUpdate(vc.getDatabaseUpdate());
 	}
 	
-	public static ArrayList <ArrayList <DatabaseResponseNode>> lookupVideoChannel(String videoChannelLink, int limit)
+	public static ArrayList <ArrayList <DatabaseResponseNode>> lookupVideoChannel(String videoChannelLink)
 	{
 		String 
-			query = (limit > 0)
-				? youtubeSql.getYoutubeQueryLimit(videoChannelLink, limit)
-				: youtubeSql.getYoutubeQuery(videoChannelLink),
+			query = youtubeSql.getYoutubeQuery(videoChannelLink),
 			response = QueryUpdateTool.executeQuery(query);
 		
 		if(response == null)

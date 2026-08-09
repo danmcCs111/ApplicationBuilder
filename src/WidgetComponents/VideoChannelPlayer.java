@@ -26,6 +26,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JToggleButton;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
@@ -61,15 +62,17 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 	
 	private static String
 		COUNT_PREFIX = "Video Count: ",
+		SHOW_ALL_BUTTON_TEXT = "Show All",
+		SHOW_ALL_BUTTON_TOOLTIP_TEXT = "Toggle on/off channel fetch limit.",
 		UPDATE_BUTTON_TEXT = "Update",
 		HOME_PAGE_TOOLTIP_TEXT = "[ <arg0> ] - Homepage",
 		TITLE_PREFIX = "Channel | ";
 	private static Dimension 
-		MIN_SIZE = new Dimension(800, 435);
+		MIN_SIZE = new Dimension(825, 435);
 	private static int 	
 		SCALED_HEIGHT = 25,
 		DEFAULT_MINUTE_SETTING = 10,
-		SEARCH_COLUMN_LENGTH = 15,
+		SEARCH_COLUMN_LENGTH = 10,
 		SCROLL_UNIT_INC = 25;
 	public static int
 		PORT_NUMBER_MASK = 8;
@@ -100,6 +103,8 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 		countLabel;
 	private ImageIcon 
 		videoImage;
+	private JToggleButton
+		showAllButton = new JToggleButton(SHOW_ALL_BUTTON_TEXT);
 	private JButton 
 		imageLabel = new JButton();
 	private YoutubeVideosContainer 
@@ -141,7 +146,14 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 		this.fmdl = fmdl;
 		this.parentContainer = parent;
 		this.setTitle(TITLE_PREFIX + parentButton.getText());
+		this.setMinimumSize(MIN_SIZE);
+		
 		buildWidgets(fmdl.getYoutubeVideos());
+	}
+	
+	public static void setMinSize(Dimension minSize)
+	{
+		MIN_SIZE = minSize;
 	}
 	
 	public void setVideos(JButtonLengthLimited jbll, String path, Point loc)
@@ -205,7 +217,6 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 			}
 		});
 		
-		this.setMinimumSize(MIN_SIZE);
 		if(parentContainer != null && location == null)
 		{
 			GraphicsUtil.rightEdgeCenterWindow(parentContainer, this);
@@ -231,6 +242,23 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 		FlowLayout fl = new FlowLayout();
 		fl.setAlignment(FlowLayout.LEFT);
 		searchPanel.setLayout(fl);
+		
+		showAllButton.setToolTipText(SHOW_ALL_BUTTON_TOOLTIP_TEXT);
+		showAllButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				boolean isSelect = showAllButton.isSelected();
+				if(isSelect)
+				{
+					getVideoChannelListView().setChannelLimit(-1);
+				}
+				else
+				{
+					getVideoChannelListView().setChannelLimit(VideoChannelListView.getChannelLimitGlobal());
+				}
+				rebuildVideoChannelPlayerList();
+			}
+		});
 		
 		imageLabel.setIcon(videoImage);
 		imageLabel.setToolTipText(HOME_PAGE_TOOLTIP_TEXT.replaceAll("<arg0>", parentButton.getText()));
@@ -297,6 +325,7 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 		searchPanel.add(updateButton);
 		searchPanel.add(sb);
 		searchPanel.add(dl);
+		searchPanel.add(showAllButton);
 		
 		return searchPanel;
 	}
@@ -435,7 +464,7 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 	{
 		//refresh.
 		listView.clearListViewPanel();
-		ycvs = LookupOrCreateYoutube.lookup(parentButton.getText(), parentButton.getName(), VideoChannelListView.getChannelLimit());
+		ycvs = LookupOrCreateYoutube.lookup(parentButton.getText(), parentButton.getName(), getVideoChannelListView().getChannelLimit());
 		listView.buildListViewPanel(null, ycvs);
 		lookupTotalCount();
 		updateCount();
@@ -446,7 +475,7 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 	{
 		if(ycvs == null)
 		{
-			ycvs = LookupOrCreateYoutube.lookup(parentButton.getText(), parentButton.getName(), VideoChannelListView.getChannelLimit());	
+			ycvs = LookupOrCreateYoutube.lookup(parentButton.getText(), parentButton.getName(), getVideoChannelListView().getChannelLimit());	
 		}
 		return ycvs;
 	}

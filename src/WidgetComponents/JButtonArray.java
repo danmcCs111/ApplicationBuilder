@@ -23,7 +23,6 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import ActionListeners.ArrayActionListener;
@@ -164,9 +163,14 @@ PostWidgetBuildProcessing, ButtonArray, ButtonArrayLoadingNotifier
 		
 	}
 	
+	public static void setVideoChannelPlayerMinSize(Dimension minSize)//TODO.
+	{
+		VideoChannelPlayer.setMinSize(minSize);
+	}
+	
 	public static void setChannelLimit(int limit)//TODO.
 	{
-		VideoChannelListView.setChannelLimit(limit);
+		VideoChannelListView.setChannelLimitGlobal(limit);
 	}
 	
 	public static void setMouseDragUnitIncrementAdjustment(int unitInc)

@@ -113,7 +113,7 @@ public class HttpJoystickFuctionRequest implements ArrayActionListener
 	public static HashMap<Integer, ArrayList<YoutubeChannelVideo>> getYoutubeVideos() 
 	{
 		JButtonLengthLimited jbll = (JButtonLengthLimited) kss.getSelectedKeep().getJButtonLengthLimited();
-		HttpJoystickFuctionRequest.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName(), VideoChannelListView.getChannelLimit());
+		HttpJoystickFuctionRequest.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName(), VideoChannelListView.getChannelLimitGlobal());
 		return HttpJoystickFuctionRequest.ycvs;
 	}
 	
