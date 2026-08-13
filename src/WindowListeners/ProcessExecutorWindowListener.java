@@ -12,6 +12,7 @@ import ObjectTypeConversion.FileSelection;
 import Properties.LoggingMessages;
 import Properties.PathUtility;
 import WidgetComponents.JButtonLengthLimited;
+import WidgetComponents.JMenuItemLaunchUrl;
 import WidgetUtility.WidgetBuildController;
 
 public class ProcessExecutorWindowListener extends WindowAdapter
@@ -31,13 +32,13 @@ public class ProcessExecutorWindowListener extends WindowAdapter
 		{
 			long procId = Long.parseLong(props.get("processID"));
 			JButtonLengthLimited jbll = createVirtualButton(
-					props.get("sourceButtonText"),
-					props.get("sourceButtonFull"),
-					props.get("sourceName"),
-					props.get("highlightButtonText"),
-					props.get("highlightButtonFull"),
-					props.get("highlightButtonName")
-					);
+				props.get("sourceButtonText"),
+				props.get("sourceButtonFull"),
+				props.get("sourceName"),
+				props.get("highlightButtonText"),
+				props.get("highlightButtonFull"),
+				props.get("highlightButtonName")
+			);
 			boolean isSet = LaunchUrlActionListener.setProcess(procId, -1);
 			if(isSet)
 			{
@@ -55,20 +56,40 @@ public class ProcessExecutorWindowListener extends WindowAdapter
 		
 		AbstractButton ab = LaunchUrlActionListener.getLastButtonOrigin();
 		LoggingMessages.printOut("close: " + ab);
+		
+		long procId = LaunchUrlActionListener.getProcessId();
+		LoggingMessages.printOut("processId: " + procId);
 		if(ab instanceof JButtonLengthLimited)
 		{
-			long procId = LaunchUrlActionListener.getProcessId();
-			LoggingMessages.printOut("processId: " + procId);
 			if(procId != -1)
 			{
 				JButtonLengthLimited jbll = (JButtonLengthLimited) ab;
-				JButtonLengthLimited highlightJbll = (JButtonLengthLimited) ((JButtonLengthLimited) ab).getHighlightButton();
+				JButtonLengthLimited highlightJbll = (JButtonLengthLimited) jbll.getHighlightButton();
 				//write to file.
 				String [][] props = new String [][] {
 					{"processID", procId+""},
 					{"sourceButtonText", jbll.getText()},
 					{"sourceButtonFull", jbll.getFullLengthText()},
 					{"sourceName", jbll.getName()},
+					{"highlightButtonText", highlightJbll.getText()},
+					{"highlightButtonFull", highlightJbll.getFullLengthText()},
+					{"highlightButtonName", highlightJbll.getName()}
+				};
+				PathUtility.writeProperties(fs.getFullPath(), props);
+			}
+		}
+		else if(ab instanceof JMenuItemLaunchUrl)
+		{
+			if(procId != -1)
+			{
+				JMenuItemLaunchUrl jmlu = (JMenuItemLaunchUrl) ab;
+				JButtonLengthLimited highlightJbll = (JButtonLengthLimited) jmlu.getHighlightButton();
+				//write to file.
+				String [][] props = new String [][] {
+					{"processID", procId+""},
+					{"sourceButtonText", jmlu.getReqText()},
+					{"sourceButtonFull", jmlu.getReqText()},
+					{"sourceName", jmlu.getName()},
 					{"highlightButtonText", highlightJbll.getText()},
 					{"highlightButtonFull", highlightJbll.getFullLengthText()},
 					{"highlightButtonName", highlightJbll.getName()}

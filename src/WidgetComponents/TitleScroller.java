@@ -237,25 +237,35 @@ public class TitleScroller extends JTextField implements ArrayActionListener, Po
 			return;
 		}
 		
+		String 
+			textParent = "",
+			textChild = "";
+		
 		if(newButton instanceof JButtonLengthLimited)
 		{
 			JButtonLengthLimited jbll = (JButtonLengthLimited)newButton;
-			String 
-				textParent = jbll.getHighlightButton().getText(),
-				textChild = jbll.getText();
-			if(!textChild.equals(textParent))
-			{
-				TitleScroller.this.setText(
-					StringUtility.replaceArg(
-						FORMAT_VIDEO_CHANNEL, 
-						REPLACE_VALUE, 
-						new String[] {textParent, textChild}
-					)
-				);
-				TitleScroller.this.setToolTipText(getText());
-				TitleScroller.this.setCaretPosition(0);
-				return;//
-			}
+			textParent = jbll.getHighlightButton().getText();
+			textChild = jbll.getText();
+		}
+		else if(newButton instanceof JMenuItemLaunchUrl)
+		{
+			JMenuItemLaunchUrl jbll = (JMenuItemLaunchUrl)newButton;
+			textParent = jbll.getHighlightButton().getText();
+			textChild = jbll.getReqText();
+		}
+		
+		if(!textChild.equals(textParent))
+		{
+			TitleScroller.this.setText(
+				StringUtility.replaceArg(
+					FORMAT_VIDEO_CHANNEL, 
+					REPLACE_VALUE, 
+					new String[] {textParent, textChild}
+				)
+			);
+			TitleScroller.this.setToolTipText(getText());
+			TitleScroller.this.setCaretPosition(0);
+			return;//
 		}
 		//other remaining conditions.
 		TitleScroller.this.setText(

@@ -36,7 +36,6 @@ import Properties.LoggingMessages;
 import WidgetComponentInterfaces.HighlightListener;
 import WidgetComponents.JButtonLengthLimited;
 import WidgetComponents.JMenuItemLaunchUrl;
-import WidgetComponents.JMenuLaunchUrl;
 import WidgetComponents.VideoChannelListView;
 import WidgetComponents.VideoChannelPlayer;
 import WidgetComponents.VideoChannelPlayerJoy;
@@ -234,7 +233,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 				for(YoutubeChannelVideo ycv : ycvs.get(key))
 				{
 					LoggingMessages.printOut("video found! " + ycv.getTitle());
-					JMenu jm = buildJMenuItem(ycv);
+					JMenuItemLaunchUrl jm = buildJMenuItem(ycv);
 					mi2.add(jm);
 					count++;
 				}
@@ -258,28 +257,30 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 		return mi2;
 	}
 	
-	private JMenu buildJMenuItem(YoutubeChannelVideo ycv)
+	private JMenuItemLaunchUrl buildJMenuItem(YoutubeChannelVideo ycv)
 	{
-		JMenuLaunchUrl jm = new JMenuLaunchUrl(ycv.getTitle());
+		JMenuItemLaunchUrl jm = new JMenuItemLaunchUrl(ycv.getTitle());
 		String tooltipText = "<html> Upload Date: " + SDF_DATE_SHORT.format(ycv.getUploadDate()) + 
 				"<br/> Duration: " + VideoChannelListView.formatDuration(ycv.getDuration()) +
 				"</html>";
 		jm.setName(ycv.getUrl());
 		jm.setHighlightButton(parentButton);
 		jm.setToolTipText(tooltipText);
+		jm.setReqText(jm.getText());
+		jm.addActionListener(new VideoSubSelectionLauncher(parentButton, this, ProcessType.parent));
 		
-		JMenuItemLaunchUrl jmi = new JMenuItemLaunchUrl(OPEN_MENU_TEXT);
-		jmi.setHighlightButton(parentButton);
-		jmi.setReqText(jm.getText());
-		jmi.setName(ycv.getUrl());
-		jmi.addActionListener(new VideoSubSelectionLauncher(parentButton, this, ProcessType.parent));
-		
-		JMenuItemLaunchUrl jmi2 = new JMenuItemLaunchUrl(OPEN_MENU_TEXT + " NEW");
-		jmi2.setName(ycv.getUrl());
-		jmi2.addActionListener(new VideoSubSelectionLauncher(parentButton, this, ProcessType.parent, 1));
-		
-		jm.add(jmi);
-		jm.add(jmi2);
+//		JMenuItemLaunchUrl jmi = new JMenuItemLaunchUrl(OPEN_MENU_TEXT);
+//		jmi.setHighlightButton(parentButton);
+//		jmi.setReqText(jm.getText());
+//		jmi.setName(ycv.getUrl());
+//		jmi.addActionListener(new VideoSubSelectionLauncher(parentButton, this, ProcessType.parent));
+//		
+//		JMenuItemLaunchUrl jmi2 = new JMenuItemLaunchUrl(OPEN_MENU_TEXT + " NEW");
+//		jmi2.setName(ycv.getUrl());
+//		jmi2.addActionListener(new VideoSubSelectionLauncher(parentButton, this, ProcessType.parent, 1));
+//		
+//		jm.add(jmi);
+//		jm.add(jmi2);
 		
 		return jm;
 	}

@@ -164,9 +164,9 @@ PostWidgetBuildProcessing, ButtonArray, ButtonArrayLoadingNotifier
 		
 	}
 	
-	public static void setIsBootCheckRunningProcess(boolean bookCheckRunning)
+	public static void setIsBootCheckRunningProcess(boolean isCheckRunningProcess)
 	{
-		if(bookCheckRunning) LaunchUrlActionListener.bootCheckRunningProcess();
+		if(isCheckRunningProcess) LaunchUrlActionListener.bootCheckRunningProcess();
 	}
 	
 	public static void setAutoLaunchCommand(CommandBuild cb)
