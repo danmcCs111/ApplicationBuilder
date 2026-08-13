@@ -190,7 +190,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 					{
 						if(vcp != null)
 						{
-							this.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName(), vcp.getVideoChannelListView().getChannelLimit());
+							this.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName(), VideoChannelListView.getChannelLimitGlobal());
 						}
 						else
 						{
@@ -440,7 +440,7 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 					
 					if(vcp != null)
 					{
-						FrameMouseDragListener.this.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName(), vcp.getVideoChannelListView().getChannelLimit());
+						FrameMouseDragListener.this.ycvs = LookupOrCreateYoutube.lookup(jbll.getText(), jbll.getName(), VideoChannelListView.getChannelLimitGlobal());
 					}
 					else
 					{

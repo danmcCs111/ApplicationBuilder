@@ -164,6 +164,11 @@ PostWidgetBuildProcessing, ButtonArray, ButtonArrayLoadingNotifier
 		
 	}
 	
+	public static void setPostExecuteCommandWait(int waitMillis)
+	{
+		LaunchUrlActionListener.setPostExecuteCommandWait(waitMillis);
+	}
+	
 	public static void setIsBootCheckRunningProcess(boolean isCheckRunningProcess)
 	{
 		if(isCheckRunningProcess) LaunchUrlActionListener.bootCheckRunningProcess();
