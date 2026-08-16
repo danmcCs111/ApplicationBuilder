@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -48,7 +49,8 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		PROPERTIES_FILE_SAVE_TITLE = "Save Properties",
 		PROPERTIES_FILE_SAVE_FILTER = "txt",
 		PROPERTIES_FILE_EXTENSION = ".txt",
-		KEEP_MENU_OPTION_TEXT = "keep",
+		KEEP_MENU_OPTION_TEXT = "Keep",
+		VIEW_MENU_OPTION_TEXT = "View List",
 //		KEEP_TITLE = "[Click Image]",
 		FILE_ARG_DELIMITER="@";
 	private static boolean
@@ -268,15 +270,34 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 		{
 			JPopupMenu pm = new JPopupMenu();
 			pm.setLocation(e.getLocationOnScreen());
-			JMenuItem mi = new JMenuItem();
-			mi.setText(KEEP_MENU_OPTION_TEXT);
-			mi.addActionListener(new ActionListener() {
+			JMenuItem miKeep = new JMenuItem();
+			miKeep.setText(KEEP_MENU_OPTION_TEXT);
+			miKeep.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					keepFrame = true;
 				}
 			});
-			pm.add(mi);
+			JMenuItem miView = new JMenuItem();
+			miView.setText(VIEW_MENU_OPTION_TEXT);
+			miView.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if(picLabel != null)
+					{
+						for(MouseListener ml : picLabel.getMouseListeners())
+						{
+							if(ml instanceof FrameMouseDragListener)
+							{
+								((FrameMouseDragListener) ml).buildVideoChannelPlayer(true);//TODO. place on channel player?
+							}
+						}
+					}
+				}
+			});
+			
+			pm.add(miKeep);
+			pm.add(miView);
 			component.add(pm);
 			pm.show(component, component.getBounds().width/2, 0);
 		}

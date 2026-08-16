@@ -219,7 +219,14 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 		
 		if(parentContainer != null && location == null)
 		{
-			GraphicsUtil.rightEdgeCenterWindow(parentContainer, this);
+			if(parentContainer.isShowing())
+			{
+				GraphicsUtil.rightEdgeCenterWindow(parentContainer, this);
+			}
+			else
+			{
+				GraphicsUtil.rightEdgeCenterWindow(parentButton, this);
+			}
 		}
 		listView.postFrameBuild();
 		

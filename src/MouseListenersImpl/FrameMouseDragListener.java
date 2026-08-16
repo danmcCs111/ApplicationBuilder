@@ -496,6 +496,10 @@ public class FrameMouseDragListener extends MouseAdapter implements MouseListene
 	@Override
 	public HashMap <Integer, ArrayList <YoutubeChannelVideo>> getYoutubeVideos()
 	{
+		if(this.ycvs == null)
+		{
+			FrameMouseDragListener.this.ycvs = LookupOrCreateYoutube.lookup(parentButton.getText(), parentButton.getName(), VideoChannelListView.getChannelLimitGlobal());
+		}
 		return this.ycvs;
 	}
 	
