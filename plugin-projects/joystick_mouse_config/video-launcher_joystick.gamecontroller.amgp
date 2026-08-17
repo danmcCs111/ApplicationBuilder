@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gamecontroller configversion="19" appversion="3.5.1">
     <!--The SDL name for a joystick is included for informational purposes only.-->
-    <sdlname>(XBOX 360 For Windows (Controller))</sdlname>
+    <sdlname>Xbox One Controller</sdlname>
     <!--The Unique ID for a joystick is included for informational purposes only.-->
-    <uniqueID>03004825120c0000120f00000000720030903858</uniqueID>
-    <stickAxisAssociation index="1" xAxis="1" yAxis="2"/>
+    <uniqueID>0300938d5e040000ff020000000072001118767</uniqueID>
     <stickAxisAssociation index="2" xAxis="3" yAxis="4"/>
+    <stickAxisAssociation index="1" xAxis="1" yAxis="2"/>
     <vdpadButtonAssociations index="1">
         <vdpadButtonAssociation axis="0" button="12" direction="1"/>
         <vdpadButtonAssociation axis="0" button="13" direction="4"/>
@@ -13,67 +13,29 @@
         <vdpadButtonAssociation axis="0" button="15" direction="2"/>
     </vdpadButtonAssociations>
     <names>
-        <controlstickname index="1">Stick 1</controlstickname>
         <controlstickname index="2">Stick 2</controlstickname>
+        <controlstickname index="1">Stick 1</controlstickname>
     </names>
     <sets>
         <set index="1">
             <dpad index="1">
-                <dpadbutton index="4">
+                <dpadbutton index="1">
                     <turbointerval>100</turbointerval>
                     <useturbo>true</useturbo>
-                    <slots>
-                        <slot>
-                            <code>0x1000015</code>
-                            <mode>keyboard</mode>
-                        </slot>
-                    </slots>
                 </dpadbutton>
                 <dpadbutton index="2">
                     <turbointerval>150</turbointerval>
                     <useturbo>true</useturbo>
-                    <slots>
-                        <slot>
-                            <code>0x1000017</code>
-                            <mode>keyboard</mode>
-                        </slot>
-                    </slots>
                 </dpadbutton>
-                <dpadbutton index="1">
+                <dpadbutton index="4">
                     <turbointerval>100</turbointerval>
                     <useturbo>true</useturbo>
-                    <slots>
-                        <slot>
-                            <code>0x1000013</code>
-                            <mode>keyboard</mode>
-                        </slot>
-                    </slots>
                 </dpadbutton>
                 <dpadbutton index="8">
                     <turbointerval>150</turbointerval>
                     <useturbo>true</useturbo>
-                    <slots>
-                        <slot>
-                            <code>0x1000016</code>
-                            <mode>keyboard</mode>
-                        </slot>
-                    </slots>
                 </dpadbutton>
             </dpad>
-            <trigger index="5">
-                <deadZone>2000</deadZone>
-                <throttle>positivehalf</throttle>
-                <triggerbutton index="2">
-                    <turbointerval>100</turbointerval>
-                    <useturbo>true</useturbo>
-                    <slots>
-                        <slot>
-                            <code>0x1000070</code>
-                            <mode>keyboard</mode>
-                        </slot>
-                    </slots>
-                </triggerbutton>
-            </trigger>
             <trigger index="6">
                 <deadZone>2000</deadZone>
                 <throttle>positivehalf</throttle>
@@ -88,22 +50,20 @@
                     </slots>
                 </triggerbutton>
             </trigger>
-            <button index="1">
-                <slots>
-                    <slot>
-                        <code>0x1000004</code>
-                        <mode>keyboard</mode>
-                    </slot>
-                </slots>
-            </button>
-            <button index="2">
-                <slots>
-                    <slot>
-                        <code>0x1000000</code>
-                        <mode>keyboard</mode>
-                    </slot>
-                </slots>
-            </button>
+            <trigger index="5">
+                <deadZone>2000</deadZone>
+                <throttle>positivehalf</throttle>
+                <triggerbutton index="2">
+                    <turbointerval>100</turbointerval>
+                    <useturbo>true</useturbo>
+                    <slots>
+                        <slot>
+                            <code>0x1000070</code>
+                            <mode>keyboard</mode>
+                        </slot>
+                    </slots>
+                </triggerbutton>
+            </trigger>
         </set>
     </sets>
 </gamecontroller>
