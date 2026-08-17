@@ -1,8 +1,11 @@
 package HttpDatabaseRequest;
 
+import java.awt.AWTException;
 import java.awt.Frame;
 import java.awt.Point;
+import java.awt.Robot;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -220,21 +223,40 @@ public class HttpJoystickFuctionRequest implements ArrayActionListener
 			{
 				//select move up/down
 			}
-			
 			else if(responseXml.startsWith("DPAD_LEFT"))
 			{
-				if((vcp == null || !vcp.isVisible()) && !ba.isVideoBookmarksOpen())
+				if((vcp == null || (!vcp.isVisible()) && !ba.isVideoBookmarksOpen()))
 				{
 					kss.decrementIndex();
 					selectCurrent();
 				}
+				else
+				{
+					Robot r;
+					try {
+						r = new Robot();
+						r.keyPress(KeyEvent.VK_PAGE_UP);
+					} catch (AWTException e) {
+						e.printStackTrace();
+					}
+				}
 			}
 			else if(responseXml.startsWith("DPAD_RIGHT"))
 			{
-				if((vcp == null || !vcp.isVisible()) && !ba.isVideoBookmarksOpen())
+				if((vcp == null || (!vcp.isVisible()) && !ba.isVideoBookmarksOpen()))
 				{
 					kss.advanceIndex();
 					selectCurrent();
+				}
+				else
+				{
+					Robot r;
+					try {
+						r = new Robot();
+						r.keyPress(KeyEvent.VK_PAGE_DOWN);
+					} catch (AWTException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 			
@@ -254,10 +276,57 @@ public class HttpJoystickFuctionRequest implements ArrayActionListener
 			}
 		}
 		
+		//always.
 		if(responseXml.equals("START"))
 		{
 			ba.toggleFocusButtonArray();
 			
+		}
+		else if(responseXml.startsWith("DPAD_UP"))
+		{
+			Robot r;
+			try {
+				r = new Robot();
+				r.keyPress(KeyEvent.VK_UP);
+			} catch (AWTException e) {
+				e.printStackTrace();
+			}
+		}
+		else if(responseXml.startsWith("DPAD_DOWN"))
+		{
+			Robot r;
+			try {
+				r = new Robot();
+				r.keyPress(KeyEvent.VK_DOWN);
+			} catch (AWTException e) {
+				e.printStackTrace();
+			}
+		}
+		else if(responseXml.startsWith("DPAD_LEFT"))
+		{
+			if(!(vcp == null || (!vcp.isVisible()) && !ba.isVideoBookmarksOpen()))
+			{
+				Robot r;
+				try {
+					r = new Robot();
+					r.keyPress(KeyEvent.VK_PAGE_UP);
+				} catch (AWTException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		else if(responseXml.startsWith("DPAD_RIGHT"))
+		{
+			if(!(vcp == null || (!vcp.isVisible()) && !ba.isVideoBookmarksOpen()))
+			{
+				Robot r;
+				try {
+					r = new Robot();
+					r.keyPress(KeyEvent.VK_PAGE_DOWN);
+				} catch (AWTException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		else if(responseXml.equals("BACK"))
 		{
@@ -272,10 +341,28 @@ public class HttpJoystickFuctionRequest implements ArrayActionListener
 			{
 				buildVideoChannelPlayer();
 			}
-			
+			else
+			{
+				Robot r;
+				try {
+					r = new Robot();
+					r.keyPress(KeyEvent.VK_ENTER);
+					r.keyRelease(KeyEvent.VK_ENTER);
+				} catch (AWTException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		else if(responseXml.equals("B"))
 		{
+			Robot r;
+			try {
+				r = new Robot();
+				r.keyPress(KeyEvent.VK_ESCAPE);
+				r.keyRelease(KeyEvent.VK_ESCAPE);
+			} catch (AWTException e) {
+				e.printStackTrace();
+			}
 		}
 		else if(responseXml.equals("X"))
 		{
@@ -300,6 +387,28 @@ public class HttpJoystickFuctionRequest implements ArrayActionListener
 				ba.performOpenAltFont();
 			}
 		}
+		else if(responseXml.equals("TRIGGERLEFT"))
+		{
+//			Robot r;
+//			try {
+//				r = new Robot();
+//				r.keyPress(0x1C0);
+//			} catch (AWTException e) {
+//				e.printStackTrace();
+//			}
+		}
+		else if(responseXml.equals("TRIGGERRIGHT"))
+		{
+//			Robot r;
+//			try {
+//				r = new Robot();
+//				r.keyPress(0x1bf);
+//				r.keyRelease(0x1bf);
+//			} catch (AWTException e) {
+//				e.printStackTrace();
+//			}
+		}
+		
 		//TODO. place in config.
 		else if(responseXml.equals("RIGHTSTICK"))
 		{
