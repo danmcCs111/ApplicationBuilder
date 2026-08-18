@@ -141,6 +141,17 @@ public class HttpJoystickFuctionRequest implements ArrayActionListener
 			frame.setLocation(MAIN_WINDOW_PLACE_HOME);
 		}
 	}
+	private static void keyPress(int key)
+	{
+		Robot r;
+		try {
+			r = new Robot();
+			r.keyPress(key);
+			r.keyRelease(key);
+		} catch (AWTException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public static void process(String responseXml)
 	{
@@ -203,18 +214,26 @@ public class HttpJoystickFuctionRequest implements ArrayActionListener
 				//select move left/right
 				if(positive)
 				{
-					if((vcp == null || !vcp.isVisible()) && !ba.isVideoBookmarksOpen())
+					if( (vcp == null || !vcp.isVisible()) && !ba.isVideoBookmarksOpen() )
 					{
 						kss.advanceIndex();
 						selectCurrent();
 					}
+					else
+					{
+						keyPress(KeyEvent.VK_PAGE_DOWN);
+					}
 				}
 				else 
 				{
-					if((vcp == null || !vcp.isVisible()) && !ba.isVideoBookmarksOpen())
+					if( (vcp == null || !vcp.isVisible()) && !ba.isVideoBookmarksOpen() )
 					{
 						kss.decrementIndex();
 						selectCurrent();
+					}
+					else
+					{
+						keyPress(KeyEvent.VK_PAGE_UP);
 					}
 				}
 				
@@ -222,6 +241,14 @@ public class HttpJoystickFuctionRequest implements ArrayActionListener
 			else if(responseXml.startsWith("LEFTY"))
 			{
 				//select move up/down
+				if(positive)
+				{
+					keyPress(KeyEvent.VK_UP);
+				}
+				else
+				{
+					keyPress(KeyEvent.VK_DOWN);
+				}
 			}
 			else if(responseXml.startsWith("DPAD_LEFT"))
 			{
@@ -232,13 +259,7 @@ public class HttpJoystickFuctionRequest implements ArrayActionListener
 				}
 				else
 				{
-					Robot r;
-					try {
-						r = new Robot();
-						r.keyPress(KeyEvent.VK_PAGE_UP);
-					} catch (AWTException e) {
-						e.printStackTrace();
-					}
+					keyPress(KeyEvent.VK_PAGE_UP);
 				}
 			}
 			else if(responseXml.startsWith("DPAD_RIGHT"))
@@ -250,13 +271,7 @@ public class HttpJoystickFuctionRequest implements ArrayActionListener
 				}
 				else
 				{
-					Robot r;
-					try {
-						r = new Robot();
-						r.keyPress(KeyEvent.VK_PAGE_DOWN);
-					} catch (AWTException e) {
-						e.printStackTrace();
-					}
+					keyPress(KeyEvent.VK_PAGE_DOWN);
 				}
 			}
 			
@@ -284,48 +299,24 @@ public class HttpJoystickFuctionRequest implements ArrayActionListener
 		}
 		else if(responseXml.startsWith("DPAD_UP"))
 		{
-			Robot r;
-			try {
-				r = new Robot();
-				r.keyPress(KeyEvent.VK_UP);
-			} catch (AWTException e) {
-				e.printStackTrace();
-			}
+			keyPress(KeyEvent.VK_UP);
 		}
 		else if(responseXml.startsWith("DPAD_DOWN"))
 		{
-			Robot r;
-			try {
-				r = new Robot();
-				r.keyPress(KeyEvent.VK_DOWN);
-			} catch (AWTException e) {
-				e.printStackTrace();
-			}
+			keyPress(KeyEvent.VK_DOWN);
 		}
 		else if(responseXml.startsWith("DPAD_LEFT"))
 		{
 			if(!(vcp == null || (!vcp.isVisible()) && !ba.isVideoBookmarksOpen()))
 			{
-				Robot r;
-				try {
-					r = new Robot();
-					r.keyPress(KeyEvent.VK_PAGE_UP);
-				} catch (AWTException e) {
-					e.printStackTrace();
-				}
+				keyPress(KeyEvent.VK_PAGE_UP);
 			}
 		}
 		else if(responseXml.startsWith("DPAD_RIGHT"))
 		{
 			if(!(vcp == null || (!vcp.isVisible()) && !ba.isVideoBookmarksOpen()))
 			{
-				Robot r;
-				try {
-					r = new Robot();
-					r.keyPress(KeyEvent.VK_PAGE_DOWN);
-				} catch (AWTException e) {
-					e.printStackTrace();
-				}
+				keyPress(KeyEvent.VK_PAGE_DOWN);
 			}
 		}
 		else if(responseXml.equals("BACK"))
@@ -343,26 +334,12 @@ public class HttpJoystickFuctionRequest implements ArrayActionListener
 			}
 			else
 			{
-				Robot r;
-				try {
-					r = new Robot();
-					r.keyPress(KeyEvent.VK_ENTER);
-					r.keyRelease(KeyEvent.VK_ENTER);
-				} catch (AWTException e) {
-					e.printStackTrace();
-				}
+				keyPress(KeyEvent.VK_ENTER);
 			}
 		}
 		else if(responseXml.equals("B"))
 		{
-			Robot r;
-			try {
-				r = new Robot();
-				r.keyPress(KeyEvent.VK_ESCAPE);
-				r.keyRelease(KeyEvent.VK_ESCAPE);
-			} catch (AWTException e) {
-				e.printStackTrace();
-			}
+			keyPress(KeyEvent.VK_ESCAPE);
 		}
 		else if(responseXml.equals("X"))
 		{
