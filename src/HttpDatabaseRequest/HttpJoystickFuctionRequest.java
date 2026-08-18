@@ -252,26 +252,38 @@ public class HttpJoystickFuctionRequest implements ArrayActionListener
 			}
 			else if(responseXml.startsWith("DPAD_LEFT"))
 			{
-				if((vcp == null || (!vcp.isVisible()) && !ba.isVideoBookmarksOpen()))
+				if( (vcp == null || !vcp.isVisible()) && !ba.isVideoBookmarksOpen() )
 				{
 					kss.decrementIndex();
 					selectCurrent();
 				}
-				else
+				else if( vcp != null && vcp.isVisible() && !ba.isVideoBookmarksOpen() && ba.getKeepSelection().size() > 0)
 				{
-					keyPress(KeyEvent.VK_PAGE_UP);
+					vcp.dispose();
+					vcp = null;
+					
+					kss.decrementIndex();
+					selectCurrent();
+					kss.setSelected(true);
+					buildVideoChannelPlayer();
 				}
 			}
 			else if(responseXml.startsWith("DPAD_RIGHT"))
 			{
-				if((vcp == null || (!vcp.isVisible()) && !ba.isVideoBookmarksOpen()))
+				if( (vcp == null || !vcp.isVisible()) && !ba.isVideoBookmarksOpen() )
 				{
 					kss.advanceIndex();
 					selectCurrent();
 				}
-				else
+				else if( vcp != null && vcp.isVisible() && !ba.isVideoBookmarksOpen() )
 				{
-					keyPress(KeyEvent.VK_PAGE_DOWN);
+					vcp.dispose();
+					vcp = null;
+					
+					kss.advanceIndex();
+					selectCurrent();
+					kss.setSelected(true);
+					buildVideoChannelPlayer();
 				}
 			}
 			
@@ -307,25 +319,25 @@ public class HttpJoystickFuctionRequest implements ArrayActionListener
 		}
 		else if(responseXml.startsWith("DPAD_LEFT"))
 		{
-			if(!(vcp == null || (!vcp.isVisible()) && !ba.isVideoBookmarksOpen()))
+			if( (vcp == null || !vcp.isVisible()) && ba.isVideoBookmarksOpen() )
 			{
 				keyPress(KeyEvent.VK_PAGE_UP);
 			}
 		}
 		else if(responseXml.startsWith("DPAD_RIGHT"))
 		{
-			if(!(vcp == null || (!vcp.isVisible()) && !ba.isVideoBookmarksOpen()))
+			if( (vcp == null || !vcp.isVisible()) && ba.isVideoBookmarksOpen())
 			{
 				keyPress(KeyEvent.VK_PAGE_DOWN);
 			}
 		}
+		
 		else if(responseXml.equals("BACK"))
 		{
 			AbstractButton ab = (AbstractButton) WidgetBuildController.getInstance().findRefByName(
 					LaunchUrlActionListener.CLOSE_LAUNCH_ACTION_EVENT).getInstance(); //TODO.
 			ab.doClick();
 		}
-		
 		else if(responseXml.equals("A"))
 		{
 			if(!ba.isVideoBookmarksOpen() && kss.isSelected())
