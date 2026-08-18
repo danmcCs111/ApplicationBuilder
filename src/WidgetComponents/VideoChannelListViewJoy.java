@@ -98,6 +98,10 @@ public class VideoChannelListViewJoy extends VideoChannelListView implements Arr
 	{
 		MINIMUM_MINUTE = minMinute;
 	}
+	public static int getMinimumMinute()
+	{
+		return MINIMUM_MINUTE;
+	}
 	
 	public static void setBorderColor(Color color)
 	{
@@ -208,7 +212,7 @@ public class VideoChannelListViewJoy extends VideoChannelListView implements Arr
 		
 		videoButtonsFiltered = (MINIMUM_MINUTE > 0)
 				? getVisible(0, MINIMUM_MINUTE, Mode.GreaterThan, btnAndDuration)
-				: btns;
+				: (MINIMUM_MINUTE == 0) ? btns : getVisible(0, -MINIMUM_MINUTE, Mode.LessThan, btnAndDuration);
 		
 		return videoButtonsFiltered;
 	}
