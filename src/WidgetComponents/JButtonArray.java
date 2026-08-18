@@ -164,6 +164,23 @@ PostWidgetBuildProcessing, ButtonArray, ButtonArrayLoadingNotifier
 		
 	}
 	
+	public static void setLeftTriggerCommand(CommandBuild cb)
+	{
+		HttpJoystickFuctionRequest.setLeftTriggerCommand(cb);
+	}
+	public static void setRightTriggerCommand(CommandBuild cb)
+	{
+		HttpJoystickFuctionRequest.setRightTriggerCommand(cb);
+	}
+	public static void setLeftTriggerCommandWaitMillis(int millis)
+	{
+		HttpJoystickFuctionRequest.setLeftTriggerCommandWaitMillis(millis);
+	}
+	public static void setRightTriggerCommandWaitMillis(int millis)
+	{
+		HttpJoystickFuctionRequest.setRightTriggerCommandWaitMillis(millis);
+	}
+	
 	public static void setPostExecuteCommandWait(int waitMillis)
 	{
 		LaunchUrlActionListener.setPostExecuteCommandWait(waitMillis);

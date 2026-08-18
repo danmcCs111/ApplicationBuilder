@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import javax.swing.AbstractButton;
@@ -23,6 +24,7 @@ import MouseListenersImpl.YoutubeChannelVideo;
 import ObjectTypeConversion.CommandBuild;
 import ObjectTypeConversion.FileSelection;
 import Params.KeepSelection;
+import Properties.LoggingMessages;
 import Properties.PathUtility;
 import WidgetComponentDialogs.ShiftDialog;
 import WidgetComponents.JButtonArray;
@@ -49,6 +51,15 @@ public class HttpJoystickFuctionRequest implements ArrayActionListener
 		vcp;
 	private static HashMap <Integer, ArrayList <YoutubeChannelVideo>> 
 		ycvs;
+	private static CommandBuild
+		rightTriggerCommand,
+		leftTriggerCommand;
+	private static long
+		leftTriggerTimer = 0,
+		rightTriggerTimer = 0;
+	private static int
+		leftTriggerWaitMillis = 30,
+		rightTriggerWaitMillis = 30;
 	
 	static {
 		new HttpJoystickFuctionRequest();
@@ -66,6 +77,22 @@ public class HttpJoystickFuctionRequest implements ArrayActionListener
 	public static void setMainWindowPlaceHome(Point loc)
 	{
 		MAIN_WINDOW_PLACE_HOME = loc;
+	}
+	public static void setLeftTriggerCommand(CommandBuild cb)
+	{
+		leftTriggerCommand = cb;
+	}
+	public static void setRightTriggerCommand(CommandBuild cb)
+	{
+		rightTriggerCommand = cb;
+	}
+	public static void setLeftTriggerCommandWaitMillis(int millis)
+	{
+		leftTriggerWaitMillis = millis;
+	}
+	public static void setRightTriggerCommandWaitMillis(int millis)
+	{
+		rightTriggerWaitMillis = millis;
 	}
 	
 	public static void selectCurrent()
@@ -377,26 +404,49 @@ public class HttpJoystickFuctionRequest implements ArrayActionListener
 				ba.performOpenAltFont();
 			}
 		}
-		else if(responseXml.equals("TRIGGERLEFT"))
+		else if(responseXml.startsWith("TRIGGERLEFT"))
 		{
-//			Robot r;
-//			try {
-//				r = new Robot();
-//				r.keyPress(0x1C0);
-//			} catch (AWTException e) {
-//				e.printStackTrace();
-//			}
+			if(leftTriggerCommand != null)
+			{
+				LoggingMessages.printOut("process trigger left");
+				long timeMillis = Calendar.getInstance().getTimeInMillis();
+				
+				if(Math.abs(timeMillis - leftTriggerTimer) > leftTriggerWaitMillis)
+				{
+					try {
+						CommandExecutor.executeProcess(leftTriggerCommand);
+						leftTriggerTimer = 0;
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+				if(leftTriggerTimer == 0)
+				{
+					leftTriggerTimer = timeMillis;
+				}
+			}
 		}
-		else if(responseXml.equals("TRIGGERRIGHT"))
+		else if(responseXml.startsWith("TRIGGERRIGHT"))
 		{
-//			Robot r;
-//			try {
-//				r = new Robot();
-//				r.keyPress(0x1bf);
-//				r.keyRelease(0x1bf);
-//			} catch (AWTException e) {
-//				e.printStackTrace();
-//			}
+			if(rightTriggerCommand != null)
+			{
+				LoggingMessages.printOut("process trigger right");
+				long timeMillis = Calendar.getInstance().getTimeInMillis();
+				
+				if(Math.abs(timeMillis - rightTriggerTimer) > rightTriggerWaitMillis)
+				{
+					try {
+						CommandExecutor.executeProcess(rightTriggerCommand);
+						rightTriggerTimer = 0;
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+				if(rightTriggerTimer == 0)
+				{
+					rightTriggerTimer = timeMillis;
+				}
+			}
 		}
 		
 		//TODO. place in config.
