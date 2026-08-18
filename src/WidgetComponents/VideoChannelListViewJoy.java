@@ -70,11 +70,18 @@ public class VideoChannelListViewJoy extends VideoChannelListView implements Arr
 	
 	private ArrayList<JButtonLengthLimited> 
 		videoButtonsFiltered;
+	private Map <Integer, ArrayList <YoutubeChannelVideo>> 
+		ycvs;
 	
 	
 	public VideoChannelListViewJoy()
 	{
 		buildWidgets();
+	}
+	
+	public Map <Integer, ArrayList <YoutubeChannelVideo>> getYoutubeChannelVideos()
+	{
+		return ycvs;
 	}
 	
 	public void setVideos(JButtonLengthLimited parentButton, Map <Integer, ArrayList <YoutubeChannelVideo>> ycvs)

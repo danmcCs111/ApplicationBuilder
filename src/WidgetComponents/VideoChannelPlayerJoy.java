@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
@@ -34,9 +35,11 @@ import Graphics2D.GraphicsUtil;
 import MouseListenersImpl.LookupOrCreateYoutube;
 import MouseListenersImpl.YoutubeChannelVideo;
 import Properties.StringUtility;
+import WidgetComponentInterfaces.DurationLimitSubscriber;
+import WidgetComponents.DurationLimiter.Mode;
 import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
 
-public class VideoChannelPlayerJoy extends VideoChannelPlayer
+public class VideoChannelPlayerJoy extends VideoChannelPlayer implements DurationLimitSubscriber
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -44,7 +47,7 @@ public class VideoChannelPlayerJoy extends VideoChannelPlayer
 		COUNT_PREFIX = "Video Count: ",
 		UPDATE_BUTTON_TEXT = "Update",
 		HOME_BUTTON_TEXT = "",
-		DATE_RANGE_FORMAT = "<arg> - <arg>",
+		DATE_RANGE_FORMAT = "[ <arg> - <arg> ]",
 		REPLACE_ARG = "<arg>",
 		HOME_PAGE_TOOLTIP_TEXT = "[ <arg> ] - Homepage",
 		TITLE_PREFIX = "Channel | ";
@@ -187,9 +190,13 @@ public class VideoChannelPlayerJoy extends VideoChannelPlayer
 		});
 		dateRangeLabel = new JLabel();
 		dateRangeLabel.setFont(SELECT_FONT);
+		DurationLimiter dl = new DurationLimiter(this);
+		dl.setMinuteDefault(VideoChannelListViewJoy.getMinimumMinute());
+		dl.setFontChildren(SELECT_FONT);
 		
 		northPanel.add(updateButton);
 		northPanel.add(dateRangeLabel);
+		northPanel.add(dl);
 		
 		return northPanel;
 	}
@@ -209,7 +216,7 @@ public class VideoChannelPlayerJoy extends VideoChannelPlayer
 		return westPanel;
 	}
 	
-	private void setListVideos(HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs, JButtonLengthLimited parentButton)
+	private void setListVideos(Map <Integer, ArrayList <YoutubeChannelVideo>> ycvs, JButtonLengthLimited parentButton)
 	{
 		listView.setVideos(parentButton, ycvs);
 		setDateRangeText(parentButton);
@@ -305,6 +312,26 @@ public class VideoChannelPlayerJoy extends VideoChannelPlayer
 		for(MouseListener ml : source.getMouseListeners())
 		{
 			ml.mouseClicked(me);
+		}
+	}
+
+	@Override
+	public void notifyDurationLimit(int hour, int minute, Mode m) 
+	{
+		int min = 0;
+		switch(m)
+		{
+		case GreaterThan:
+			min += hour * 60;
+			min += minute;
+			VideoChannelListViewJoy.setMinimumMinute(Math.abs(min));
+			break;
+			
+		case LessThan:
+			min += hour * 60;
+			min += minute;
+			VideoChannelListViewJoy.setMinimumMinute(-Math.abs(min));
+			break;
 		}
 	}
 	
