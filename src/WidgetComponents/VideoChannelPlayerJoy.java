@@ -13,7 +13,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import javax.swing.AbstractButton;
@@ -31,6 +33,7 @@ import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
 import MouseListenersImpl.LookupOrCreateYoutube;
 import MouseListenersImpl.YoutubeChannelVideo;
+import Properties.StringUtility;
 import WidgetExtensions.ExtendedSetScrollBackgroundForegroundColor;
 
 public class VideoChannelPlayerJoy extends VideoChannelPlayer
@@ -41,7 +44,9 @@ public class VideoChannelPlayerJoy extends VideoChannelPlayer
 		COUNT_PREFIX = "Video Count: ",
 		UPDATE_BUTTON_TEXT = "Update",
 		HOME_BUTTON_TEXT = "",
-		HOME_PAGE_TOOLTIP_TEXT = "[ <arg0> ] - Homepage",
+		DATE_RANGE_FORMAT = "<arg> - <arg>",
+		REPLACE_ARG = "<arg>",
+		HOME_PAGE_TOOLTIP_TEXT = "[ <arg> ] - Homepage",
 		TITLE_PREFIX = "Channel | ";
 	private static Dimension 
 		MIN_SIZE = new Dimension(1350, 600);
@@ -52,12 +57,15 @@ public class VideoChannelPlayerJoy extends VideoChannelPlayer
 		COUNT_BORDER = new EmptyBorder(5, 0, 5, 15);//EmptyBorder(top, left, bottom, right)
 	private static Font 
 		SELECT_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, SIZE);
+	private static SimpleDateFormat
+		SDF_DATE_LABEL = new SimpleDateFormat("MM/dd/YYYY");
 	
 	private VideoChannelListViewJoy
 		listView; 
 	private JScrollPane 
 		scrollPane = new JScrollPane();
 	private JLabel
+		dateRangeLabel,
 		countLabel;
 	private JButtonLengthLimited 
 		parentButton;
@@ -177,7 +185,11 @@ public class VideoChannelPlayerJoy extends VideoChannelPlayer
 				t.start();
 			}
 		});
+		dateRangeLabel = new JLabel();
+		dateRangeLabel.setFont(SELECT_FONT);
+		
 		northPanel.add(updateButton);
+		northPanel.add(dateRangeLabel);
 		
 		return northPanel;
 	}
@@ -200,6 +212,18 @@ public class VideoChannelPlayerJoy extends VideoChannelPlayer
 	private void setListVideos(HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs, JButtonLengthLimited parentButton)
 	{
 		listView.setVideos(parentButton, ycvs);
+		setDateRangeText(parentButton);
+	}
+	
+	private void setDateRangeText(JButtonLengthLimited parentButton)
+	{
+		Date
+			firstDate = LookupOrCreateYoutube.lookupFirstDate(parentButton.getText(), parentButton.getName()).values().iterator().next(),
+			latestDate = LookupOrCreateYoutube.lookupLatestDate(parentButton.getText(), parentButton.getName()).values().iterator().next();
+		String 
+			fDate = SDF_DATE_LABEL.format(firstDate),
+			lDate = SDF_DATE_LABEL.format(latestDate);
+		dateRangeLabel.setText(StringUtility.replaceArg(DATE_RANGE_FORMAT, REPLACE_ARG, new String [] {lDate, fDate}));
 	}
 	
 	private JScrollPane buildCenterPanel()
@@ -241,7 +265,7 @@ public class VideoChannelPlayerJoy extends VideoChannelPlayer
 		{
 			imageHomeButton.removeMouseListener(ml);
 		}
-		imageHomeButton.setToolTipText(HOME_PAGE_TOOLTIP_TEXT.replaceAll("<arg0>", parentButton.getText()));
+		imageHomeButton.setToolTipText(HOME_PAGE_TOOLTIP_TEXT.replaceAll(REPLACE_ARG, parentButton.getText()));
 		imageHomeButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
