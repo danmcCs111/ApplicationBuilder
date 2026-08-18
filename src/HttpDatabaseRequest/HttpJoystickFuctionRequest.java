@@ -22,10 +22,8 @@ import MouseListenersImpl.LookupOrCreateYoutube;
 import MouseListenersImpl.PicLabelMouseListener;
 import MouseListenersImpl.YoutubeChannelVideo;
 import ObjectTypeConversion.CommandBuild;
-import ObjectTypeConversion.FileSelection;
 import Params.KeepSelection;
 import Properties.LoggingMessages;
-import Properties.PathUtility;
 import WidgetComponentDialogs.ShiftDialog;
 import WidgetComponents.JButtonArray;
 import WidgetComponents.JButtonLengthLimited;
@@ -52,6 +50,8 @@ public class HttpJoystickFuctionRequest implements ArrayActionListener
 	private static HashMap <Integer, ArrayList <YoutubeChannelVideo>> 
 		ycvs;
 	private static CommandBuild
+		rightStickCommand,
+		leftStickCommand,
 		rightTriggerCommand,
 		leftTriggerCommand;
 	private static long
@@ -77,6 +77,14 @@ public class HttpJoystickFuctionRequest implements ArrayActionListener
 	public static void setMainWindowPlaceHome(Point loc)
 	{
 		MAIN_WINDOW_PLACE_HOME = loc;
+	}
+	public static void setLeftStickCommand(CommandBuild cb)
+	{
+		leftStickCommand = cb;
+	}
+	public static void setRightStickCommand(CommandBuild cb)
+	{
+		rightStickCommand = cb;
 	}
 	public static void setLeftTriggerCommand(CommandBuild cb)
 	{
@@ -452,57 +460,43 @@ public class HttpJoystickFuctionRequest implements ArrayActionListener
 		//TODO. place in config.
 		else if(responseXml.equals("RIGHTSTICK"))
 		{
-			FileSelection fs = new FileSelection("./Application Builder.jar");
-			Runnable r = new Runnable() 
+			if(rightStickCommand != null)
 			{
-				String fullscreen = (PathUtility.isWindows())
-						?"plugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe  plugin-projects/AutoHotKey-Utils/send-pid-key-video-launcher.ahk  pid.txt  f"
-						:"./plugin-projects/AutoHotKey-Utils/ahk_x11.AppImage  `pwd`/plugin-projects/AutoHotKey-Utils/send-chrome-key-fullscreen-linux.ahk";
-				@Override
-				public void run() 
+				Runnable r = new Runnable() 
 				{
-					CommandBuild cb = new CommandBuild();
-					cb.setCommand("java", new String[] {"-cp"}, new String [] {
-						fs.getFullPath(), 
-						"ApplicationBuilder.ShellHeadlessExecutor", 
-						fullscreen
-					});
-					try {
-						CommandExecutor.executeProcess(cb);
-					} catch (IOException e) {
-						e.printStackTrace();
+					@Override
+					public void run() 
+					{
+						try {
+							CommandExecutor.executeProcess(rightStickCommand);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
 					}
-				}
-			};
-			Thread t = new Thread(r);
-			t.start();
+				};
+				Thread t = new Thread(r);
+				t.start();
+			}
 		}
 		else if(responseXml.equals("LEFTSTICK"))
 		{
-			FileSelection fs = new FileSelection("./Application Builder.jar");
-			Runnable r = new Runnable() 
+			if(leftStickCommand != null)
 			{
-				String play = (PathUtility.isWindows())
-						?"plugin-projects/AutoHotKey-Utils/install/v2/AutoHotkey64.exe  plugin-projects/AutoHotKey-Utils/send-pid-key-video-launcher.ahk  pid.txt  {space}"
-						:"./plugin-projects/AutoHotKey-Utils/ahk_x11.AppImage  `pwd`/plugin-projects/AutoHotKey-Utils/send-chrome-key-play-linux.ahk";
-				@Override
-				public void run() 
+				Runnable r = new Runnable() 
 				{
-					CommandBuild cb = new CommandBuild();
-					cb.setCommand("java", new String[] {"-cp"}, new String [] {
-						fs.getFullPath(), 
-						"ApplicationBuilder.ShellHeadlessExecutor", 
-						play
-					});
-					try {
-						CommandExecutor.executeProcess(cb);
-					} catch (IOException e) {
-						e.printStackTrace();
+					@Override
+					public void run() 
+					{
+						try {
+							CommandExecutor.executeProcess(leftStickCommand);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
 					}
-				}
-			};
-			Thread t = new Thread(r);
-			t.start();
+				};
+				Thread t = new Thread(r);
+				t.start();
+			}
 		}
 	}
 

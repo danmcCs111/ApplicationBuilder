@@ -163,7 +163,14 @@ PostWidgetBuildProcessing, ButtonArray, ButtonArrayLoadingNotifier
 	{
 		
 	}
-	
+	public static void setLeftStickCommand(CommandBuild cb)
+	{
+		HttpJoystickFuctionRequest.setLeftStickCommand(cb);
+	}
+	public static void setRightStickCommand(CommandBuild cb)
+	{
+		HttpJoystickFuctionRequest.setRightStickCommand(cb);
+	}
 	public static void setLeftTriggerCommand(CommandBuild cb)
 	{
 		HttpJoystickFuctionRequest.setLeftTriggerCommand(cb);
