@@ -106,6 +106,7 @@ public class HttpJoystickFuctionRequest implements ArrayActionListener
 		HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs = HttpJoystickFuctionRequest.getYoutubeVideos();
 		vcp.setVideos(new ImageIcon(ks.getImg()), ks.getJButtonLengthLimited(), ycvs);
 		
+		
 		if(!vcp.isVisible())
 		{
 			ks.getJButtonLengthLimited().doClick();
@@ -340,7 +341,7 @@ public class HttpJoystickFuctionRequest implements ArrayActionListener
 		}
 		else if(responseXml.equals("A"))
 		{
-			if(!ba.isVideoBookmarksOpen() && kss.isSelected())
+			if(!ba.isVideoBookmarksOpen() && kss.isSelected() && (vcp == null || !vcp.isVisible()))
 			{
 				buildVideoChannelPlayer();
 			}
