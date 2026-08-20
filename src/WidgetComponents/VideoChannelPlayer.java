@@ -14,6 +14,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -47,6 +48,7 @@ import MouseListenersImpl.VideoUpdateTimespanDialog;
 import MouseListenersImpl.YoutubeChannelVideo;
 import MouseListenersImpl.YoutubeVideosContainer;
 import ObjectTypeConversion.FileSelection;
+import Properties.StringUtility;
 import WidgetComponentInterfaces.DefaultAndScaledImage;
 import WidgetComponentInterfaces.DurationLimitSubscriber;
 import WidgetComponentInterfaces.ImageReader;
@@ -65,8 +67,9 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 		SHOW_ALL_BUTTON_TEXT = "Show All",
 		SHOW_ALL_BUTTON_TOOLTIP_TEXT = "Toggle on/off channel fetch limit.",
 		UPDATE_BUTTON_TEXT = "Update",
-		HOME_PAGE_TOOLTIP_TEXT = "[ <arg0> ] - Homepage",
-		TITLE_PREFIX = "Channel | ";
+		REPLACE_ARG = "<arg>",
+		HOME_PAGE_TOOLTIP_TEXT = "[ <arg> ] - Homepage",
+		TITLE_PREFIX = "<arg> [ <arg> - <arg> ]";
 	private static Dimension 
 		MIN_SIZE = new Dimension(825, 435);
 	private static int 	
@@ -84,6 +87,8 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 	private static Dimension
 		DIM_DEFAULT_PIC = new Dimension(279,150),
 		SCALED_DEFAULT_PIC = new Dimension(279, 150);
+	private static final SimpleDateFormat 
+		SDF_UPLOAD_SHORT = new SimpleDateFormat("MM/dd/yyyy");
 	
 	private Container
 		parentContainer = null;
@@ -130,7 +135,9 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 		this.videoImage = videoImage;
 		this.fmdl = fmdl;
 		this.location = location;
-		this.setTitle(TITLE_PREFIX + parentButton.getText());
+		
+		
+		this.setTitle(getTitle(parentButton));
 		if(location.x != 0 && location.y != 0)
 		{
 			this.setLocation(location.x, location.y);
@@ -145,10 +152,29 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 		this.videoImage = videoImage;
 		this.fmdl = fmdl;
 		this.parentContainer = parent;
-		this.setTitle(TITLE_PREFIX + parentButton.getText());
+		this.setTitle(getTitle(parentButton));
 		this.setMinimumSize(MIN_SIZE);
 		
 		buildWidgets(fmdl.getYoutubeVideos());
+	}
+	
+	private static String getTitle(AbstractButton parentButton)
+	{
+		Date 
+			first = LookupOrCreateYoutube.lookupFirstDate(parentButton.getText(), parentButton.getName()).values().iterator().next(),
+			latest = LookupOrCreateYoutube.lookupLatestDate(parentButton.getText(), parentButton.getName()).values().iterator().next();
+		String 
+			firstStr = SDF_UPLOAD_SHORT.format(first),
+			latestStr = SDF_UPLOAD_SHORT.format(latest),	
+			retStr = StringUtility.replaceArg(
+				TITLE_PREFIX, 
+				REPLACE_ARG, 
+				new String [] {
+					parentButton.getText(), latestStr, firstStr
+				}
+		);
+		
+		return retStr;
 	}
 	
 	public static void setMinSize(Dimension minSize)
@@ -167,7 +193,7 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 		VideoChannelPlayer.this.videoImage = ii;
 		VideoChannelPlayer.this.parentButton = jbll;
 		VideoChannelPlayer.this.fmdl =VideoChannelPlayer. this;
-		VideoChannelPlayer.this.setTitle(TITLE_PREFIX + parentButton.getFullLengthText());
+		VideoChannelPlayer.this.setTitle(getTitle(parentButton));
 		VideoChannelPlayer.this.setLocation(loc);
 		
 		buildWidgets(fmdl.getYoutubeVideos());
@@ -272,7 +298,8 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 		});
 		
 		imageLabel.setIcon(videoImage);
-		imageLabel.setToolTipText(HOME_PAGE_TOOLTIP_TEXT.replaceAll("<arg0>", parentButton.getText()));
+		String toolTip = StringUtility.replaceArg(HOME_PAGE_TOOLTIP_TEXT, REPLACE_ARG, new String [] {parentButton.getText()});
+		imageLabel.setToolTipText(toolTip);
 		imageLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
