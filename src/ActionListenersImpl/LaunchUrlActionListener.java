@@ -44,6 +44,7 @@ public class LaunchUrlActionListener implements ActionListener
 	private static AbstractButton
 		lastButtonOrigin;
 	private static boolean 
+		isAutoCommandEnabled = true,
 		executing = false,
 		isKiosk = false;
 	private static int
@@ -57,6 +58,10 @@ public class LaunchUrlActionListener implements ActionListener
 	public static void setAutoCommand(CommandBuild cb)
 	{
 		autoCommandRun = cb;
+	}
+	public static void setAutoCommandEnabled(boolean isAutoCommandEnabled)
+	{
+		LaunchUrlActionListener.isAutoCommandEnabled = isAutoCommandEnabled;
 	}
 	public static void setPostExecuteCommandWait(int waitMillis)
 	{
@@ -264,7 +269,7 @@ public class LaunchUrlActionListener implements ActionListener
 	
 	private static void executePostCommand()
 	{
-		if(autoCommandRun == null)
+		if(autoCommandRun == null || !LaunchUrlActionListener.isAutoCommandEnabled)
 			return;
 		
 		Runnable r = new Runnable() 

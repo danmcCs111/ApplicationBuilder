@@ -197,7 +197,10 @@ PostWidgetBuildProcessing, ButtonArray, ButtonArrayLoadingNotifier
 	{
 		if(isCheckRunningProcess) LaunchUrlActionListener.bootCheckRunningProcess();
 	}
-	
+	public static void setAutoCommandEnabled(boolean isAutoCommandEnabled)
+	{
+		LaunchUrlActionListener.setAutoCommandEnabled(isAutoCommandEnabled);
+	}
 	public static void setAutoLaunchCommand(CommandBuild cb)
 	{
 		LaunchUrlActionListener.setAutoCommand(cb);
