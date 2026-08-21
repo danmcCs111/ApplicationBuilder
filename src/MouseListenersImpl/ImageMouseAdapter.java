@@ -12,6 +12,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -474,6 +475,7 @@ public class ImageMouseAdapter extends MouseAdapter implements ComboListDialogSe
 	
 	private String [] [] getProperties()
 	{
+		Collections.sort(keeps, new KeepSelection());
 		if(saveChosenSelection == null || saveChosenSelection.isEmpty())
 		{
 			saveChosenSelection = new ArrayList<String>();

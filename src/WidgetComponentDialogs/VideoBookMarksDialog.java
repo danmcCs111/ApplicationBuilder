@@ -16,7 +16,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -340,7 +339,7 @@ public class VideoBookMarksDialog extends JDialog
 		ArrayList<String> files = PathUtility.getOSFileList(chosenFileDirectory.getFullPath(), PROPERTIES_FILE_FILTER);
 		for(String file : files)
 		{
-			HashMap <String, String> props = PathUtility.readProperties(
+			LinkedHashMap <String, String> props = PathUtility.readProperties(
 					chosenFileDirectory.getFullPath().strip() + file, PROPERTIES_FILE_DELIMITER);
 			String [] titles = new String [props.keySet().size()];
 			int i = 0;

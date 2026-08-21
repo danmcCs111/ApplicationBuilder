@@ -14,7 +14,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Scanner;
 
 import javax.imageio.ImageIO;
@@ -203,9 +203,9 @@ public interface PathUtility
         }
 	}
 	
-	public static HashMap<String, String> readProperties(String location, String delimter)
+	public static LinkedHashMap<String, String> readProperties(String location, String delimter)
 	{
-		HashMap<String,String> props = new HashMap<String,String>();
+		LinkedHashMap<String,String> props = new LinkedHashMap<String,String>();
 		LoggingMessages.printOut(location);
 		File file = new File(location);
 		Scanner sc;
