@@ -274,7 +274,12 @@ public class LaunchUrlActionListener implements ActionListener
 			{
 				try {
 					Thread.sleep(postExecuteAutoCommandWait);
-					CommandExecutor.executeProcess(autoCommandRun, false);
+					ProcessHandle runningProcess = runningProcesses.get(defaultId);
+					if((runningProcess != null && runningProcess.isAlive() && 
+							getLastButtonOrigin() != null))
+					{
+						CommandExecutor.executeProcess(autoCommandRun, false);
+					}
 				} catch (IOException | InterruptedException e) {
 					e.printStackTrace();
 				}
