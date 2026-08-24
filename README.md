@@ -45,6 +45,7 @@ Launch video selector with:
 **FYI When copying/adding youtube Urls through  **drag and drop** or through the **Edit collection** utility
 
 if it isn't copying, highlight the url in browser and hit enter again. the actual url may be different.
+**remove the hidden folder .git if no plans to update / save space. was replacing images which created a large repo history.
 
 
 
