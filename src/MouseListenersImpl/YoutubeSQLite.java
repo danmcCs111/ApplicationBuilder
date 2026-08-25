@@ -21,7 +21,7 @@ public class YoutubeSQLite implements YoutubeQuery
 			"SELECT * FROM videoYoutube WHERE ParentID_VideoYoutube_VideoYoutubeDatabase = <arg> "+
 			" ORDER BY UploadDate_VideoYoutube_VideoYoutubeDatabase DESC;",
 		YOUTUBE_VIDEO_QUERY_LIMIT = 
-			"SELECT * FROM videodatabase.videoYoutube WHERE ParentID_VideoYoutube_VideoYoutubeDatabase = <arg> " +
+			"SELECT * FROM videoYoutube WHERE ParentID_VideoYoutube_VideoYoutubeDatabase = <arg> " +
 			" ORDER BY UploadDate_VideoYoutube_VideoYoutubeDatabase DESC LIMIT <arg>;",
 		YOUTUBE_VIDEO_LATEST_QUERY = 
 			"SELECT * FROM videoYoutube WHERE ParentID_VideoYoutube_VideoYoutubeDatabase = <arg> "+
@@ -35,7 +35,7 @@ public class YoutubeSQLite implements YoutubeQuery
 		YOUTUBE_INSERT_PREFIX = 
 			"INSERT INTO video (VideoName_Video_VideoDatabase, VideoUrl_Video_VideoDatabase, InsertDate_Video_VideoDatabase) values( ",
 		YOUTUBE_INSERT_W_HANDLE_PREFIX = 
-			"INSERT INTO videodatabase.video (VideoName_Video_VideoDatabase, VideoUrl_Video_VideoDatabase, Handle_Video_VideoDatabase, InsertDate_Video_VideoDatabase) values( ",
+			"INSERT INTO video (VideoName_Video_VideoDatabase, VideoUrl_Video_VideoDatabase, Handle_Video_VideoDatabase, InsertDate_Video_VideoDatabase) values( ",
 		YOUTUBE_INSERT_SUFFIX = 
 			" CURRENT_TIMESTAMP);";
 
