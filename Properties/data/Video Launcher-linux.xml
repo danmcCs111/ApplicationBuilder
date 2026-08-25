@@ -81,9 +81,9 @@
 				<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-cp|%Fn./Application Builder.jar|%TnApplicationBuilder.ApplicationBuilder|%Fn./Properties/data/Video Tile-mini.xml" extendedLayoutApplyParent="" setBackground="51, 51, 51" setForeground="255, 255, 255" setText="List Creator" setToolTipText="Select available content and store under a bookmark file" >
 				</JMenuItem>
 				<JMenu extendedLayoutApplyParent="" setBackground="51, 51, 51" setForeground="255, 255, 255" setOpaque="True" setText="Channels" >
-					<JMenuItem extendedLayoutApplyParent="" extendedOpenVideoChannelsUpdater="channels" setBackground="51, 51, 51" setForeground="255, 255, 255" setText="Update Open Channels" >
-					</JMenuItem>
 					<JMenuItem addActionListener="ActionListenersImpl.CommandBuildListener" extendedCommandExecution="java@-jar|%Fn./Application Builder.jar|%Fn./Properties/data/VideoChannelsPlayer.xml" extendedLayoutApplyParent="" setBackground="51, 51, 51" setForeground="255, 255, 255" setText="Video Channels Player" >
+					</JMenuItem>
+					<JMenuItem extendedLayoutApplyParent="" extendedOpenVideoChannelsUpdater="channels" setBackground="51, 51, 51" setForeground="255, 255, 255" setText="Update Open Channels" >
 					</JMenuItem>
 				</JMenu>
 				<JMenu extendedLayoutApplyParent="" setBackground="51, 51, 51" setForeground="255, 255, 255" setOpaque="True" setText="Remote" >
