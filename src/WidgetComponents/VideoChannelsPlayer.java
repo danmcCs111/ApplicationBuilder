@@ -120,8 +120,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	private JButton 
 		updateButton = new JButton(UPDATE_BUTTON_TEXT),
 		updateViewer = new JButton(UPDATE_VIEWER_BUTTON_TEXT),
-		imageLabel = new JButton();
-	private JButton
+		imageLabel = new JButton(),
 		selectedButton = null;
 	private JButtonLengthLimited
 		selectedButtonParent = null;

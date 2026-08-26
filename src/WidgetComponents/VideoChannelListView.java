@@ -32,6 +32,7 @@ import HttpDatabaseRequest.HttpRequestHandler.ProcessType;
 import MouseListenersImpl.MouseDragScrollListener;
 import MouseListenersImpl.VideoSubSelectionLauncher;
 import MouseListenersImpl.YoutubeChannelVideo;
+import MouseListenersImpl.YoutubeChannelVideoDateComparator;
 import Properties.LoggingMessages;
 import Properties.StringUtility;
 import WidgetComponentInterfaces.RegisterArrayActionListener;
@@ -244,16 +245,45 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 		gbcT.weightx = titleCon;
 		gbcT.weighty = 1;
 		
-		for(int key : ycvs.keySet())
+		if(parentButtons == null)//single channel
 		{
-			for(YoutubeChannelVideo ycv : ycvs.get(key))
+			for(int key : ycvs.keySet())
 			{
-				if(parentButtons != null)
+				for(YoutubeChannelVideo ycv : ycvs.get(key))
 				{
-					AbstractButton parentButton = parentButtons.get(key);
-					JLabel lbl = buildChannelLabel(parentButton);
-					channelListPanel.add(lbl);
+					JButtonLengthLimited jbll = buildVideoButton(key, ycv);
+					jbll.setCharacterLimit(VIDEO_TITLE_CHARACTER_LIMIT);
+					jbll.setHorizontalAlignment(AbstractButton.LEFT);
+					videoListPanel.add(jbll);
+					
+					JLabel labDuration = buildDurationLabel(ycv, jbll);
+					labDuration.addMouseListener(mdsl);
+					labDuration.addMouseMotionListener(mdsl);
+					durationPanel.add(labDuration);
+					
+					JLabel labDate = buildUploadLabel(ycv, jbll);
+					labDate.addMouseListener(mdsl);
+					labDate.addMouseMotionListener(mdsl);
+					uploadDatePanel.add(labDate);
 				}
+			}
+		}
+		else//multi channel list
+		{
+			ArrayList<YoutubeChannelVideo> allChannelVideos = new ArrayList<YoutubeChannelVideo>();
+			for(int key : ycvs.keySet())
+			{
+				allChannelVideos.addAll(ycvs.get(key));
+			}
+			Collections.sort(allChannelVideos, new YoutubeChannelVideoDateComparator());
+			
+			for(YoutubeChannelVideo ycv : allChannelVideos)
+			{
+				int key = ycv.getParentId();
+				AbstractButton parentButton = parentButtons.get(key);
+				JLabel lbl = buildChannelLabel(parentButton);
+				channelListPanel.add(lbl);
+				
 				JButtonLengthLimited jbll = buildVideoButton(key, ycv);
 				jbll.setCharacterLimit(VIDEO_TITLE_CHARACTER_LIMIT);
 				jbll.setHorizontalAlignment(AbstractButton.LEFT);
@@ -274,6 +304,7 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 		if(parentButtons != null)
 		{
 			listPanel.add(channelListPanel, gbcT2);
+			
 		}
 		listPanel.add(uploadDatePanel, gbc1);
 		listPanel.add(durationPanel, gbc2);
