@@ -282,6 +282,8 @@ public class VideoChannelListView extends JPanel implements ArrayActionListener
 				int key = ycv.getParentId();
 				AbstractButton parentButton = parentButtons.get(key);
 				JLabel lbl = buildChannelLabel(parentButton);
+				lbl.addMouseListener(mdsl);
+				lbl.addMouseMotionListener(mdsl);
 				channelListPanel.add(lbl);
 				
 				JButtonLengthLimited jbll = buildVideoButton(key, ycv);
