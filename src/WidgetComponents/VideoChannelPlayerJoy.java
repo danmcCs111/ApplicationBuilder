@@ -50,7 +50,7 @@ public class VideoChannelPlayerJoy extends VideoChannelPlayer implements Duratio
 		DATE_RANGE_FORMAT = "[ <arg> - <arg> ]",
 		REPLACE_ARG = "<arg>",
 		HOME_PAGE_TOOLTIP_TEXT = "[ <arg> ] - Homepage",
-		TITLE_PREFIX = "<arg> (Press right/left trigger to gain focus.)";
+		TITLE_PREFIX = "<arg>";
 	private static Dimension 
 		MIN_SIZE = new Dimension(1350, 600);
 	private static int 
