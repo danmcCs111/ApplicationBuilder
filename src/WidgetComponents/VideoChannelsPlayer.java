@@ -117,10 +117,12 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	private static Color
 		FOREGROUND_MENUBAR = null,
 		BACKGROUND_MENUBAR = null;
-	private static Calendar 
-		AFTER_DATE_DEFAULT = Calendar.getInstance();
+	private static Timestamp 
+		AFTER_DATE_DEFAULT;
 	static {
-		AFTER_DATE_DEFAULT.add(Calendar.WEEK_OF_MONTH, -1);
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.WEEK_OF_MONTH, -1);
+		AFTER_DATE_DEFAULT = new Timestamp(cal.getTimeInMillis());
 	}
 	private static TimestampEditor
 		afterDateEditor;
@@ -187,6 +189,13 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	public VideoChannelsPlayer()
 	{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
+	public static void setAllChannelsDefaultDaysBefore(int daysBefore)
+	{
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DAY_OF_YEAR, -daysBefore);
+		AFTER_DATE_DEFAULT = new Timestamp(cal.getTimeInMillis());
 	}
 	
 	public static void setChannelLimit(int limit)
@@ -506,10 +515,8 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		DurationLimiter dl = new DurationLimiter(dls);
 		dl.setMinuteDefault(DEFAULT_MINUTE_SETTING);
 		
-		Date afterDate = AFTER_DATE_DEFAULT.getTime();
 		afterDateEditor = new TimestampEditor();
-		Timestamp afterTime = new Timestamp(afterDate.getTime());
-		afterDateEditor.setComponentValue(afterTime);
+		afterDateEditor.setComponentValue(AFTER_DATE_DEFAULT);
 		afterDateEditor.setVisible(false);
 		
 		applyButton = new JButton(TIMESTAMP_APPLY);
