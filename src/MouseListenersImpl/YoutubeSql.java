@@ -23,6 +23,9 @@ public class YoutubeSql implements YoutubeQuery
 		YOUTUBE_VIDEO_QUERY_LIMIT = 
 			"SELECT * FROM videodatabase.videoYoutube WHERE ParentID_VideoYoutube_VideoYoutubeDatabase = <arg> " +
 			" ORDER BY UploadDate_VideoYoutube_VideoYoutubeDatabase DESC LIMIT <arg>;",
+		YOUTUBE_VIDEO_QUERY_DATE_AFTER = 
+			"SELECT * FROM videoYoutube WHERE ParentID_VideoYoutube_VideoYoutubeDatabase = <arg> " +
+					" AND UploadDate_VideoYoutube_VideoYoutubeDatabase > '<arg>';",
 		YOUTUBE_VIDEO_LATEST_QUERY = 
 			"SELECT * FROM videodatabase.videoYoutube WHERE ParentID_VideoYoutube_VideoYoutubeDatabase = <arg> " +
 			" ORDER BY UploadDate_VideoYoutube_VideoYoutubeDatabase DESC;",
@@ -63,6 +66,12 @@ public class YoutubeSql implements YoutubeQuery
 	public String getYoutubeVideoQueryLimit(int parentId, int limit) 
 	{
 		return StringUtility.replaceArg(YOUTUBE_VIDEO_QUERY, REPLACE, parentId +"", limit+"");
+	}
+	
+	@Override
+	public String getYoutubeVideoQueryAfterDate(int parentId, Date afterDate) 
+	{
+		return StringUtility.replaceArg(YOUTUBE_VIDEO_QUERY_DATE_AFTER, REPLACE, parentId +"", SDF.format(afterDate));
 	}
 	
 	@Override

@@ -231,6 +231,35 @@ public class LookupOrCreateYoutube
 	}
 	
 	public static HashMap<Integer, ArrayList<YoutubeChannelVideo>> lookup(
+			String videoChannelName, String videoChannelLink, int limit, Date dateAfter)
+	{
+		ArrayList <ArrayList <DatabaseResponseNode>> 
+			drns = lookupVideoChannel(videoChannelLink);
+		HashMap<Integer, ArrayList<YoutubeChannelVideo>> 
+			parentIdAndYoutubeChannelVideos = null;
+		
+		if(drns.isEmpty())
+		{
+			createIfEmpty(videoChannelName, videoChannelLink);
+		}
+		else
+		{
+			for(DatabaseResponseNode drn : drns.get(1))
+			{
+				if(drn.getNodeName().equals("VideoId_Video_VideoDatabase"))
+				{
+					int parentId = Integer.parseInt(drn.getNodeAttributes().get("content"));
+					LoggingMessages.printOut("parentID is: " + parentId);
+					LoggingMessages.printOut("channelLink is: " + videoChannelLink);
+					parentIdAndYoutubeChannelVideos = getYoutubeVideos(parentId, videoChannelLink, limit);
+					break;
+				}
+			}
+		}
+		return parentIdAndYoutubeChannelVideos;
+	}
+	
+	public static HashMap<Integer, ArrayList<YoutubeChannelVideo>> lookup(
 			String videoChannelName, String videoChannelLink, int limit)
 	{
 		ArrayList <ArrayList <DatabaseResponseNode>> 
@@ -251,7 +280,35 @@ public class LookupOrCreateYoutube
 					int parentId = Integer.parseInt(drn.getNodeAttributes().get("content"));
 					LoggingMessages.printOut("parentID is: " + parentId);
 					LoggingMessages.printOut("channelLink is: " + videoChannelLink);
-					parentIdAndYoutubeChannelVideos = lookupYoutubeVideo(parentId, videoChannelLink, limit);
+					parentIdAndYoutubeChannelVideos = getYoutubeVideos(parentId, videoChannelLink, limit);
+					break;
+				}
+			}
+		}
+		return parentIdAndYoutubeChannelVideos;
+	}
+	public static HashMap<Integer, ArrayList<YoutubeChannelVideo>> lookup(
+			String videoChannelName, String videoChannelLink, Date afterDate)
+	{
+		ArrayList <ArrayList <DatabaseResponseNode>> 
+			drns = lookupVideoChannel(videoChannelLink);
+		HashMap<Integer, ArrayList<YoutubeChannelVideo>> 
+			parentIdAndYoutubeChannelVideos = null;
+		
+		if(drns.isEmpty())
+		{
+			createIfEmpty(videoChannelName, videoChannelLink);
+		}
+		else
+		{
+			for(DatabaseResponseNode drn : drns.get(1))
+			{
+				if(drn.getNodeName().equals("VideoId_Video_VideoDatabase"))
+				{
+					int parentId = Integer.parseInt(drn.getNodeAttributes().get("content"));
+					LoggingMessages.printOut("parentID is: " + parentId);
+					LoggingMessages.printOut("channelLink is: " + videoChannelLink);
+					parentIdAndYoutubeChannelVideos = getYoutubeVideos(parentId, videoChannelLink, afterDate);
 					break;
 				}
 			}
@@ -300,12 +357,6 @@ public class LookupOrCreateYoutube
 				youtubeSql.getYoutubeInsertSuffix();
 		
 		QueryUpdateTool.executeInsert(insert);
-	}
-	
-	public static HashMap<Integer, ArrayList<YoutubeChannelVideo>> lookupYoutubeVideo(int parentId, String videoChannelLink, int limit)
-	{
-		Date lastDate = getLastDate(parentId, videoChannelLink);
-		return getYoutubeVideos(parentId, videoChannelLink, limit, (lastDate == null) ? -1 : lastDate.getTime());
 	}
 	
 	private static Date getLastDate(int parentId, String videoChannelLink)
@@ -388,16 +439,53 @@ public class LookupOrCreateYoutube
 		}
 		return count;
 	}
-	
+
 	private static HashMap<Integer, ArrayList<YoutubeChannelVideo>> getYoutubeVideos(
-			int parentId, String videoChannelLink, int limit, long lastDate)
+			int parentId, String videoChannelLink, Date afterDate)
 	{
 		HashMap<Integer, ArrayList<YoutubeChannelVideo>> parentIdAndYoutubeChannelVideos = 
 				new HashMap<Integer, ArrayList<YoutubeChannelVideo>>();
 		
 		LoggingMessages.printOut("Parent ID: " + parentId);
 		LoggingMessages.printOut("Channel Link: " + videoChannelLink);
-		LoggingMessages.printOut("Epoch Time: " + lastDate);
+		
+		String query = (afterDate == null) 
+				? youtubeSql.getYoutubeVideoQuery(parentId)
+				: youtubeSql.getYoutubeVideoQueryAfterDate(parentId, afterDate);
+		LoggingMessages.printOut(query);
+		String response = QueryUpdateTool.executeQuery(query);
+		HttpDatabaseResponse hdr = new HttpDatabaseResponse();
+		ArrayList <ArrayList <DatabaseResponseNode>> drns = hdr.parseResponse(response);
+		
+		if(drns.isEmpty())
+		{
+			LoggingMessages.printOut("Empty");
+		}
+		else
+		{
+			parentIdAndYoutubeChannelVideos.put(parentId, new ArrayList<YoutubeChannelVideo>());
+			for(int i = 1; i < drns.size(); i++)
+			{
+				YoutubeChannelVideo ycv = new YoutubeChannelVideo(drns.get(i));
+				//TODO. don't not storing png yet.
+				//Image imgPng = getPng(ycv);
+				//ycv.setImagePng(imgPng);
+				
+				parentIdAndYoutubeChannelVideos.get(parentId).add(ycv);
+			}
+		}
+		
+		return parentIdAndYoutubeChannelVideos;
+	}
+	
+	private static HashMap<Integer, ArrayList<YoutubeChannelVideo>> getYoutubeVideos(
+			int parentId, String videoChannelLink, int limit)
+	{
+		HashMap<Integer, ArrayList<YoutubeChannelVideo>> parentIdAndYoutubeChannelVideos = 
+				new HashMap<Integer, ArrayList<YoutubeChannelVideo>>();
+		
+		LoggingMessages.printOut("Parent ID: " + parentId);
+		LoggingMessages.printOut("Channel Link: " + videoChannelLink);
 		
 		String query = (limit > 0) 
 				? youtubeSql.getYoutubeVideoQueryLimit(parentId, limit)

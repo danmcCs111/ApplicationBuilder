@@ -16,6 +16,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
@@ -57,6 +58,7 @@ import MouseListenersImpl.YoutubeChannelVideo;
 import ObjectTypeConversion.CommandBuild;
 import ObjectTypeConversion.DirectorySelection;
 import ObjectTypeConversion.FileSelection;
+import ObjectTypeConversionEditors.TimestampEditor;
 import Properties.LoggingMessages;
 import WidgetComponentDialogs.VideoBookMarksDialog;
 import WidgetComponentInterfaces.DefaultAndScaledImage;
@@ -83,6 +85,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		ERROR_DIALOG_LOCATION = LAUNCH_LOCATION;
 	private static String
 		HOME_PAGE_TOOLTIP_TEXT = "[ <arg0> ] - Homepage",
+		TIMESTAMP_APPLY = "Apply",
 		COUNT_PREFIX = "Video Count: ",
 		SHOW_ALL_BUTTON_TEXT = "Show All",
 		SHOW_ALL_BUTTON_TOOLTIP_TEXT = "Toggle on/off channel fetch limit.",
@@ -114,14 +117,23 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	private static Color
 		FOREGROUND_MENUBAR = null,
 		BACKGROUND_MENUBAR = null;
+	private static Calendar 
+		AFTER_DATE_DEFAULT = Calendar.getInstance();
+	static {
+		AFTER_DATE_DEFAULT.add(Calendar.WEEK_OF_MONTH, -1);
+	}
+	private static TimestampEditor
+		afterDateEditor;
+	private static JButton
+		applyButton;
+	
 	
 	private JToggleButton
 		showAllButton = new JToggleButton(SHOW_ALL_BUTTON_TEXT);
 	private JButton 
 		updateButton = new JButton(UPDATE_BUTTON_TEXT),
 		updateViewer = new JButton(UPDATE_VIEWER_BUTTON_TEXT),
-		imageLabel = new JButton(),
-		selectedButton = null;
+		imageLabel = new JButton();
 	private JButtonLengthLimited
 		selectedButtonParent = null;
 	private Container 
@@ -132,10 +144,12 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		channelScroll,
 		contentScrollPane;
 	private AbstractButton
+		selectedButton = null,
 		highlightButton;
 	private Border
 		defaultBorder = new JButton().getBorder();
 	private AbstractButton 
+		allChannelsButton,
 		allSelectBtn;
 	
 	private Date
@@ -363,6 +377,9 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 			this.setLocation(LAUNCH_LOCATION);
 		}
 		this.setVisible(true);
+		
+		allChannelsButton.setSelected(true);
+		refreshListViewAllSelection();	
 	}
 	
 	public JMenuBar buildMenuBar()
@@ -489,12 +506,29 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		DurationLimiter dl = new DurationLimiter(dls);
 		dl.setMinuteDefault(DEFAULT_MINUTE_SETTING);
 		
+		Date afterDate = AFTER_DATE_DEFAULT.getTime();
+		afterDateEditor = new TimestampEditor();
+		Timestamp afterTime = new Timestamp(afterDate.getTime());
+		afterDateEditor.setComponentValue(afterTime);
+		afterDateEditor.setVisible(false);
+		
+		applyButton = new JButton(TIMESTAMP_APPLY);
+		applyButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				refreshListViewAllSelection();
+			}
+		});
+		applyButton.setVisible(false);
+		
 		searchPanel.add(imageLabel);
 		searchPanel.add(updateButton);
 		searchPanel.add(updateViewer);
 		searchPanel.add(sb);
 		searchPanel.add(dl);
 		searchPanel.add(showAllButton);
+		searchPanel.add(afterDateEditor);
+		searchPanel.add(applyButton);
 		
 		setImageButton(null);
 		
@@ -604,37 +638,44 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	
 	public AbstractButton buildAllSelectionButton()
 	{
-		JButton btn = new JButton();
-		btn.setText(ALL_SELECT_TEXT);
+		allChannelsButton = new JButton();
+		allChannelsButton.setText(ALL_SELECT_TEXT);
 		
-		btn.addActionListener(new ActionListener() {
+		allChannelsButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int count = 0;
-				for(JButtonLengthLimited jbll : parentButtons.values())
-				{
-					count += LookupOrCreateYoutube.lookupCount(
-							jbll.getText(), jbll.getName());
-				}
-				TOTAL_COUNT = count;
-				VideoChannelListView.setChannelLimitGlobal(-1);
-				showAllButton.setVisible(false);
-				listView.removeAll();
-				
-				selectedButtonParent = null;
-				selectedButton = btn;
-				
-				HashMap <Integer, ArrayList <YoutubeChannelVideo>> chnls = getAllChannels(parentButtons);
-				createListViewAll(parentButtons, chnls);
-				addListView();
-				setImageButton(null);
-				refreshListView(selectedButton);
-				
-				updateCount();
+				refreshListViewAllSelection();
 			}
 		});
 		
-		return btn;
+		return allChannelsButton;
+	}
+	private void refreshListViewAllSelection()
+	{
+		int count = 0;
+		for(JButtonLengthLimited jbll : parentButtons.values())
+		{
+			count += LookupOrCreateYoutube.lookupCount(
+					jbll.getText(), jbll.getName());
+		}
+		TOTAL_COUNT = count;
+		VideoChannelListView.setChannelLimitGlobal(-1);
+		showAllButton.setVisible(false);
+		afterDateEditor.setVisible(true);
+		applyButton.setVisible(true);
+		listView.removeAll();
+		
+		selectedButtonParent = null;
+		selectedButton = allChannelsButton;
+		
+		Timestamp afterDate = (Timestamp) afterDateEditor.getComponentValueObj();
+		HashMap <Integer, ArrayList <YoutubeChannelVideo>> chnls = getAllChannels(parentButtons, afterDate);//TODO add date
+		createListViewAll(parentButtons, chnls);
+		addListView();
+		setImageButton(null);
+		refreshListView(selectedButton);
+		
+		updateCount();
 	}
 	
 	public AbstractButton buildSelectionButton(JButtonLengthLimited parentButton)
@@ -650,6 +691,8 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 				int count = LookupOrCreateYoutube.lookupCount(parentButton.getText(), parentButton.getName());
 				TOTAL_COUNT = count;
 				resetChannelLimitGlobal();
+				afterDateEditor.setVisible(false);
+				applyButton.setVisible(false);
 				if(!showAllButton.isVisible()) showAllButton.setVisible(true);
 				updateCount();
 				
@@ -794,18 +837,18 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	}
 	
 	private HashMap <Integer, ArrayList <YoutubeChannelVideo>> getAllChannels(
-			LinkedHashMap<Integer, JButtonLengthLimited> selectedButtonParents)
+			LinkedHashMap<Integer, JButtonLengthLimited> selectedButtonParents, Date afterDate)
 	{
 		HashMap <Integer, ArrayList <YoutubeChannelVideo>> ycvs = new HashMap<Integer, ArrayList<YoutubeChannelVideo>>();
 		for(Integer key : selectedButtonParents.keySet())
 		{
 			JButtonLengthLimited sbp = selectedButtonParents.get(key);
-			ycvs.putAll(LookupOrCreateYoutube.lookup(
-				sbp.getText(), 
-				sbp.getName(), 
-				(getVideoChannelListView()==null)
-				? VideoChannelListView.getChannelLimitGlobal() 
-				: getVideoChannelListView().getChannelLimit())
+			ycvs.putAll(
+				LookupOrCreateYoutube.lookup(
+					sbp.getText(), 
+					sbp.getName(), 
+					afterDate
+				)
 			);
 		}
 		return ycvs;
