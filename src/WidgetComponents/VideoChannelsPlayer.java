@@ -129,7 +129,6 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	private static JButton
 		applyButton;
 	
-	
 	private JToggleButton
 		showAllButton = new JToggleButton(SHOW_ALL_BUTTON_TEXT);
 	private JButton 

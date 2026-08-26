@@ -50,7 +50,7 @@ public class VideoChannelPlayerJoy extends VideoChannelPlayer implements Duratio
 		DATE_RANGE_FORMAT = "[ <arg> - <arg> ]",
 		REPLACE_ARG = "<arg>",
 		HOME_PAGE_TOOLTIP_TEXT = "[ <arg> ] - Homepage",
-		TITLE_PREFIX = "Channel | ";
+		TITLE_PREFIX = "<arg> (Press right/left trigger to gain focus.)";
 	private static Dimension 
 		MIN_SIZE = new Dimension(1350, 600);
 	private static int 
@@ -113,7 +113,7 @@ public class VideoChannelPlayerJoy extends VideoChannelPlayer implements Duratio
 		if(ycvs == null || ycvs.isEmpty())
 			return;
 		
-		this.setTitle(TITLE_PREFIX + parentButton.getText());
+		this.setTitle(StringUtility.replaceArg(TITLE_PREFIX, REPLACE_ARG, parentButton.getText()));
 		this.setIconImage(videoImage.getImage());
 		this.parentButton = parentButton;
 		setListVideos(ycvs, parentButton);
