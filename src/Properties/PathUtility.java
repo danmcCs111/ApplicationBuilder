@@ -43,6 +43,11 @@ public interface PathUtility
 		return path.replaceAll(PATH_STRIP_FILTER[0], PATH_STRIP_FILTER[1]);
 	}
 	
+	public static String removeProjectPath(String path)
+	{
+		return replaceBackslash(path).replace(getCurrentDirectory(), "");
+	}
+	
 	public static String removeCurrentWorkingDirectoryFromPath(String path)
 	{
 		return path.replaceAll(PATH_REMOVE_CURRENT_DIRECTORY[0], PATH_REMOVE_CURRENT_DIRECTORY[1]);

@@ -111,8 +111,6 @@ public class DurationLimiter extends JPanel
 		});
 	}
 	
-	
-	
 	public static void main(String [] args)
 	{
 		JFrame f = new JFrame();

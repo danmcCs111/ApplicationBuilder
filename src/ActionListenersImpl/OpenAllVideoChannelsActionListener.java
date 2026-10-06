@@ -8,9 +8,10 @@ import java.util.LinkedHashMap;
 import javax.swing.ImageIcon;
 
 import Params.KeepSelection;
-import WidgetComponents.VideoChannelsPlayer;
+import WidgetComponents.VideoChannelsPlayerTab;
 import WidgetComponents.JButtonArray;
 import WidgetComponents.JButtonLengthLimited;
+import WidgetComponents.VideoChannelsPlayer;
 
 public class OpenAllVideoChannelsActionListener implements ActionListener
 {

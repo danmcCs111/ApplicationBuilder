@@ -31,7 +31,6 @@ import ShapeWidgetComponents.LoadingSpin;
 import ShapeWidgetComponents.ShapeCreator;
 import ShapeWidgetComponents.ShapeCreatorEditPanel;
 import ShapeWidgetComponents.ShapeCreatorToolBarPanel;
-import WidgetComponents.VideoChannelsPlayer;
 import WidgetComponents.ApplicationLayoutEditor;
 import WidgetComponents.DatabaseEditor;
 import WidgetComponents.DatabaseResponseNodeTextArea;
@@ -48,6 +47,7 @@ import WidgetComponents.SendHttpRequestPanel;
 import WidgetComponents.SwappableCollection;
 import WidgetComponents.TitleScroller;
 import WidgetComponents.VideoChannelPlayer;
+import WidgetComponents.VideoChannelsPlayer;
 import WidgetComponents.WeatherGraphViewer;
 import WidgetComponents.XmlToEditor;
 import WidgetExtensionDefs.ExtendedAttributeParam;
@@ -349,6 +349,7 @@ public class WidgetAttributes
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetLookAndFeel.class, ExtendedMethodArgDef.LookAndFeelClassNameSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetQueryEndpointAddress.class, ExtendedMethodArgDef.ExtendedAttributeStringParam.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetQueryPortNumber.class, ExtendedMethodArgDef.ExtendedInteger.getMethodArgDef()),
+				ExtendedAttributeParam.getMethodDefinition(ExtendedOpenActionListener.class, ExtendedMethodArgDef.NameIdSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetBackgroundPanelColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetButtonBackgroundColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef()),
 				ExtendedAttributeParam.getMethodDefinition(ExtendedSetButtonForegroundColorTemplate.class, ExtendedMethodArgDef.ColorSelection.getMethodArgDef())
