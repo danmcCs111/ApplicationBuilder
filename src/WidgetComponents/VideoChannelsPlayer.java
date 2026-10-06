@@ -22,10 +22,12 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.JTabbedPane;
 
 import ActionListeners.ArrayActionListener;
 import ActionListenersImpl.LaunchUrlActionListener;
+import ActionListenersImpl.RemoveEditorTabActionListener;
 import ApplicationBuilder.QueryUpdateTool;
 import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
@@ -58,6 +60,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	private static DirectorySelection
 		videoBookmarksDirectory = new DirectorySelection("./Properties/VideoLaunchBookmarks/");
 	private static String
+		MENU_ITEM_CLOSE_TEXT = "Close",
 		FILE_MENU_TEXT = "File",
 		OPEN_BUTTON_TEXT = "Open",
 		ACTION_MENU_TEXT = "Action",
@@ -328,6 +331,19 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 				{
 					jtPane = new JTabbedPane();
 					jtPane.addTab(vcpt.getTitle(), vcpt);
+					JPopupMenu pm = new JPopupMenu();
+					JMenuItem mi = new JMenuItem(MENU_ITEM_CLOSE_TEXT);
+					mi.addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							VideoChannelsPlayerTab vt = (VideoChannelsPlayerTab) jtPane.getSelectedComponent();
+							jtPane.remove(vt);
+						}
+					});
+					pm.setEnabled(true);
+					pm.add(mi);
+					jtPane.setComponentPopupMenu(pm);
+					
 					VideoChannelsPlayer.this.add(jtPane, BorderLayout.CENTER);
 				}
 				else

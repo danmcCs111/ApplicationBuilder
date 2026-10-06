@@ -98,9 +98,9 @@ public class VideoChannelsPlayerTab extends JPanel implements DefaultAndScaledIm
 		cal.add(Calendar.WEEK_OF_MONTH, -1);
 		AFTER_DATE_DEFAULT = new Timestamp(cal.getTimeInMillis());
 	}
-	private static TimestampEditor
+	private TimestampEditor
 		afterDateEditor;
-	private static JButton
+	private JButton
 		applyButton;
 	
 	private JToggleButton
