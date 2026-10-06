@@ -27,6 +27,7 @@ import javax.swing.JTabbedPane;
 import ActionListeners.ArrayActionListener;
 import ActionListenersImpl.LaunchUrlActionListener;
 import ApplicationBuilder.QueryUpdateTool;
+import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
 import HttpDatabaseRequest.HttpDatabaseRequest;
 import HttpDatabaseRequest.HttpRequestHandler;
@@ -320,7 +321,9 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 				}
 				buildFrame();
 				vcpt.build(jbllAndIcon, null);
-				vcpt.setTitle(PathUtility.removeProjectPath(vbmd.getFileSelection().get(bookMarksCounter++).getAbsolutePath()));
+				String path = vbmd.getFileSelection().get(bookMarksCounter++).getAbsolutePath();
+				vcpt.setTitle(PathUtility.removeProjectPath(path));
+				vcpt.setBookmarksPath(path);
 				if(jtPane == null)
 				{
 					jtPane = new JTabbedPane();
@@ -401,6 +404,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	{
 		setupListener();
 		open();
+		ColorTemplate.setBackgroundColorPanel(VideoChannelsPlayer.this, ColorTemplate.getPanelBackgroundColor());
 		setVisible(true);
 	}
 

@@ -160,6 +160,7 @@ public class VideoChannelsPlayerTab extends JPanel implements DefaultAndScaledIm
 	private MouseDragScrollListener 
 		mdsl = new MouseDragScrollListener();
 	private String
+		bookmarksPath,
 		title;
 	
 	public VideoChannelsPlayerTab()
@@ -730,6 +731,11 @@ public class VideoChannelsPlayerTab extends JPanel implements DefaultAndScaledIm
 		};
 	}
 	
+	public void setBookmarksPath(String path)
+	{
+		bookmarksPath = path;
+	}
+	
 	private ActionListener getUpdateChannelsActionListener()
 	{
 		return new ActionListener() {
@@ -739,7 +745,7 @@ public class VideoChannelsPlayerTab extends JPanel implements DefaultAndScaledIm
 				Point 
 					scrnPoint = updateViewer.getLocationOnScreen();
 				String 
-					absPath = vbmd.getFileSelection().get(0).getAbsolutePath();
+					absPath = bookmarksPath;
 				FileSelection 
 					fs = new FileSelection("./Application Builder.jar");
 				String 
