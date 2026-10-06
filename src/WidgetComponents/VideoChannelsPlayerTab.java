@@ -314,9 +314,12 @@ public class VideoChannelsPlayerTab extends JPanel implements DefaultAndScaledIm
 	
 	public void buildWestPanel()
 	{
+		JPanel outerPanel = new JPanel();
+		outerPanel.setLayout(new BorderLayout());
+		
 		JPanel listPanel = new JPanel();
 		listPanel.setLayout(new GridLayout(0,1));
-		channelScroll = new JScrollPane(listPanel);
+		channelScroll = new JScrollPane(outerPanel);
 		channelScroll.getVerticalScrollBar().setUnitIncrement(SCROLL_UNIT_INC);
 		
 		allSelectBtn = buildAllSelectionButton();
@@ -349,6 +352,7 @@ public class VideoChannelsPlayerTab extends JPanel implements DefaultAndScaledIm
 		{
 			listPanel.add(ab);
 		}
+		outerPanel.add(listPanel, BorderLayout.NORTH);
 	}
 	
 	public JPanel buildNorthPanel()
