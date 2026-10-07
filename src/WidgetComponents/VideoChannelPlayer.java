@@ -495,6 +495,7 @@ public class VideoChannelPlayer extends JFrame implements DefaultAndScaledImage,
 		buildVideoChannelPlayer(true);
 		paintButtons();
 		listView.urlSelect(LaunchUrlActionListener.getLastButtonOrigin());
+		this.setTitle(getTitle(parentButton));
 	}
 
 	@Override

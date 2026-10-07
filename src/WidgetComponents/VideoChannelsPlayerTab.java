@@ -52,7 +52,6 @@ import ObjectTypeConversion.CommandBuild;
 import ObjectTypeConversion.FileSelection;
 import ObjectTypeConversionEditors.TimestampEditor;
 import Properties.LoggingMessages;
-import WidgetComponentDialogs.VideoBookMarksDialog;
 import WidgetComponentInterfaces.DefaultAndScaledImage;
 import WidgetComponentInterfaces.DurationLimitSubscriber;
 import WidgetComponentInterfaces.RegisterArrayActionListener;
@@ -155,8 +154,6 @@ public class VideoChannelsPlayerTab extends JPanel implements DefaultAndScaledIm
 		stripFilter = new ArrayList<String>(); 
 	private boolean
 		loadingOpen = false;
-	private VideoBookMarksDialog 
-		vbmd;
 	private MouseDragScrollListener 
 		mdsl = new MouseDragScrollListener();
 	private String
@@ -209,7 +206,7 @@ public class VideoChannelsPlayerTab extends JPanel implements DefaultAndScaledIm
 	}
 	
 	public void build(LinkedHashMap<JButtonLengthLimited, ImageIcon> buttonAndIcon, 
-			Container parentContainer)
+			Container parentContainer, VideoChannelsPlayer vcp)
 	{
 		Runnable r = new Runnable()
 		{
@@ -219,14 +216,14 @@ public class VideoChannelsPlayerTab extends JPanel implements DefaultAndScaledIm
 				VideoChannelsPlayerTab.this.parentContainer = parentContainer;
 				VideoChannelsPlayerTab.this.ycvs = new HashMap<Integer, ArrayList<YoutubeChannelVideo>>();
 				VideoChannelsPlayerTab.this.buttonAndIcon = buttonAndIcon;
-				buildLoadingFrame(buttonAndIcon);
+				buildLoadingFrame(buttonAndIcon, vcp);
 			}
 		};
 		Thread t = new Thread(r);
 		t.start();
 	}
 	
-	public void buildLoadingFrame(LinkedHashMap<JButtonLengthLimited, ImageIcon> buttonAndIcon) 
+	public void buildLoadingFrame(LinkedHashMap<JButtonLengthLimited, ImageIcon> buttonAndIcon, VideoChannelsPlayer vcp) 
 	{
 		JFrame loadingFrame = new JFrame();
 		loadingFrame.setResizable(false);
@@ -249,7 +246,8 @@ public class VideoChannelsPlayerTab extends JPanel implements DefaultAndScaledIm
 			public void windowClosing(WindowEvent e) {
 				if(!loadingOpen)
 				{
-					System.exit(0);
+					vcp.removeVideoChannelsPlayerTab(VideoChannelsPlayerTab.this);
+					return;
 				}
 			}
 		});

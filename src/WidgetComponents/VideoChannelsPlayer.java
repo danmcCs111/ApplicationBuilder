@@ -27,7 +27,6 @@ import javax.swing.JTabbedPane;
 
 import ActionListeners.ArrayActionListener;
 import ActionListenersImpl.LaunchUrlActionListener;
-import ActionListenersImpl.RemoveEditorTabActionListener;
 import ApplicationBuilder.QueryUpdateTool;
 import Graphics2D.ColorTemplate;
 import Graphics2D.GraphicsUtil;
@@ -275,7 +274,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 			Container parentContainer)
 	{
 		VideoChannelsPlayerTab vcpt = new VideoChannelsPlayerTab();
-		vcpt.build(buttonAndIcon, null);
+		vcpt.build(buttonAndIcon, null, this);
 		VideoChannelsPlayer.this.add(vcpt, BorderLayout.CENTER);
 	}
 	
@@ -297,7 +296,6 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 				if(props == null)
 					return;
 				
-				//TODO. multiple tabs.
 				LinkedHashMap<JButtonLengthLimited, ImageIcon> jbllAndIcon = new LinkedHashMap<JButtonLengthLimited, ImageIcon>();
 				VideoChannelsPlayerTab vcpt = new VideoChannelsPlayerTab();
 				for(String s : stripFilter)
@@ -323,7 +321,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 					jbllAndIcon.put(jbll, ir.getImageIcon(new File(fs.getFullPath())));
 				}
 				buildFrame();
-				vcpt.build(jbllAndIcon, null);
+				vcpt.build(jbllAndIcon, null, VideoChannelsPlayer.this);
 				String path = vbmd.getFileSelection().get(bookMarksCounter++).getAbsolutePath();
 				vcpt.setTitle(PathUtility.removeProjectPath(path));
 				vcpt.setBookmarksPath(path);
@@ -337,7 +335,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 						@Override
 						public void actionPerformed(ActionEvent e) {
 							VideoChannelsPlayerTab vt = (VideoChannelsPlayerTab) jtPane.getSelectedComponent();
-							jtPane.remove(vt);
+							removeVideoChannelsPlayerTab(vt);
 						}
 					});
 					pm.setEnabled(true);
@@ -369,6 +367,11 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 				}
 			}
 		});
+	}
+	
+	public void removeVideoChannelsPlayerTab(VideoChannelsPlayerTab vt)
+	{
+		jtPane.remove(vt);
 	}
 	
 	private void setupListener()
