@@ -48,6 +48,13 @@ if it isn't copying, highlight the url in browser and hit enter again. the actua
 **remove the hidden folder .git if no plans to update / save space. was replacing images which created a large repo history.
 
 
+*system styling
 
 <img width="3139" height="1389" alt="Screenshot 2026-07-22 180128" src="https://github.com/user-attachments/assets/fcb7d5e1-bef8-492f-849d-bdb57967e4fb" />
+
+
+*default styling
+
+<img width="66%" width="1683" height="1389" alt="image" src="https://github.com/user-attachments/assets/8e26d627-1764-4e64-a2e8-6824a16d6a44" />
+
 
