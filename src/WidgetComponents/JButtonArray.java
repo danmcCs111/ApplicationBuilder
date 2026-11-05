@@ -163,7 +163,7 @@ PostWidgetBuildProcessing, ButtonArray, ButtonArrayLoadingNotifier
 	{
 		
 	}
-	public static void setRootPort(int rootPort)
+	public static void setLauncherRootPort(int rootPort)
 	{
 		HttpRequestProcessor.setPortNumber(rootPort);
 	}
