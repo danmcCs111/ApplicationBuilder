@@ -348,7 +348,6 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 				{
 					jtPane.addTab(vcpt.getTitle(), vcpt);
 				}
-				provision(ROOT_PORT, LISTEN_PORT);
 			}
 		};
 		
@@ -424,6 +423,7 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 		setupListener();
 		open();
 		ColorTemplate.setBackgroundColorPanel(VideoChannelsPlayer.this, ColorTemplate.getPanelBackgroundColor());
+		provision(ROOT_PORT, LISTEN_PORT);
 		setVisible(true);
 	}
 
