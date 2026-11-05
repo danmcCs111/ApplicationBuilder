@@ -7,7 +7,7 @@ public class QueryUpdateTool
 	public static String
 		ENDPOINT = "http://localhost:";
 	public static int
-		PORT_NUMBER = 8000;
+		PORT_NUMBER = 49352;//TODO
 	
 	public static final String
 		REQUEST_TYPE_HEADER_KEY = "Get-request-type",
