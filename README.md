@@ -58,3 +58,17 @@ if it isn't copying, highlight the url in browser and hit enter again. the actua
 <img width="66%" width="1683" height="1389" alt="image" src="https://github.com/user-attachments/assets/8e26d627-1764-4e64-a2e8-6824a16d6a44" />
 
 
+
+(
+To fix Google Chrome when it freezes or becomes unresponsive, follow these steps:
+
+1. Disable Hardware Acceleration
+
+• Go to Settings > System.
+
+• Toggle off "Use graphics acceleration when available" (or "Use hardware acceleration when available").
+
+• Click Relaunch.
+)
+
+
