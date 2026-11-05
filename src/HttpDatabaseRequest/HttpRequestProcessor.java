@@ -17,7 +17,7 @@ import WidgetComponents.JButtonArray;
 public class HttpRequestProcessor 
 {
 	private static int 
-		portNumber = 9090;//static, 1 per process.
+		portNumber = 49168;//static, 1 per process.
 	
 	private JButtonArray
 		ba;
