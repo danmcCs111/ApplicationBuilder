@@ -163,6 +163,10 @@ PostWidgetBuildProcessing, ButtonArray, ButtonArrayLoadingNotifier
 	{
 		
 	}
+	public static void setRootPort(int rootPort)
+	{
+		HttpRequestProcessor.setPortNumber(rootPort);
+	}
 	public static void setLeftStickCommand(CommandBuild cb)
 	{
 		HttpJoystickFuctionRequest.setLeftStickCommand(cb);

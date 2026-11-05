@@ -153,9 +153,10 @@ public class VideoChannelsPlayer extends JFrame implements ArrayActionListener, 
 	{
 		MouseDragScrollListener.setMouseWheelSpin(spin);
 	}
-	public static void setParentRootPort(int rootPort)
+	public static void setRootPort(int rootPort)
 	{
 		ROOT_PORT = rootPort;
+		HttpRequestProcessor.setPortNumber(rootPort);
 	}
 	public static void setPortNumberMask(int portNumberMask)
 	{
