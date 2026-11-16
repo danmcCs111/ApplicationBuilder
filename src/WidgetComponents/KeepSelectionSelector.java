@@ -64,7 +64,7 @@ public class KeepSelectionSelector
 	public KeepSelection getSelectedKeep()
 	{
 		ArrayList<KeepSelection> keeps = getKeeps();
-		if(keeps.size() < keepIndex)
+		if(keeps.size() <= keepIndex)
 			keepIndex = 0;
 		
 		return getKeeps().get(keepIndex);
